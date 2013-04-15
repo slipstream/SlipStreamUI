@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>SlipStream | Public/Tutorial/Fedora/14.0</title>
+    <link rel="stylesheet" type="text/css" href="external/jit/css/base.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="external/jit/css/Spacetree.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script src="external/jit/js/jit.js" type="text/javascript"></script>
+    <script src="external/jit/js/excanvas.js" type="text/javascript"></script>
+	<script src="js/common.js"></script>
+    <script src="js/deployment-dashboard.js" type="text/javascript"></script>
+	<script>
+		$(function() {
+			$('.accordion').accordion({heightStyle: "content"});
+			$('.tab_block').tabs();
+			$('input[type=submit], a, button','.interaction')
+				.button()
+				.click(function( event ) {
+					event.preventDefault();
+			});
+			$('.add_item','.nodes')
+				.button()
+				.click(function( event ) {
+					event.preventDefault();
+			});
+			$('.ui-widget-overlay, .please_wait').hide();
+		});
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div class="top">
+				<a href="#" class="logo"></a>
+				<div class="menu_bar">
+					<ul>
+						<li class="first"><a href="#">Dashboard</a></li>
+						<li><a href="#">Documentation</a></li>
+						<li><a href="#">Users</a></li>
+						<li><a href="#">Configurations</a></li>
+						<li><a href="#">Super (logout)</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="bottom bottom_d">
+				<h2>Public/Baseimages/Fedora/14.0</h2>
+				<h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
+				<p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
+				Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
+			</div> 
+		</div>
+		<div id="content">
+			<div class="navigation">
+				<ul class="breadcrumb">
+					<li class="first home"><a href="#">Home</a></li>
+					<li><a href="#">modules</a></li>
+					<li><a href="#">Public</a></li>
+					<li><a href="#">Tutorials</a></li>
+					<li><a href="#">HelloWorld</a></li>
+					<li><a href="#">client_server</a></li>
+				</ul>
+				<ul class="interaction">
+					<li class="attention"><button onclick="$('.ui-widget-overlay, .please_wait').show();">Run</button></li>
+					<li class="attention"><button>Run...</button></li>
+					<li class="attention"><button>Edit</button></li>
+					<li class="attention"><button>Copy...</button></li>
+					<li class="attention"><button>Publish</button></li>
+				</ul>
+			</div>
+			<div class="data_sheet">
+				<div class="summary accordion">
+					<h3>Overview</h3>
+					<div>
+                    	<div id="infovis"></div>
+					</div>
+					<h3>Summary</h3>
+					<div>
+						<table>
+							<tbody>
+								<tr class="odd">
+									<td>Module</td>
+									<td>Public/Tutorials/HelloWorld/client_server</td>
+								</tr>
+								<tr>
+									<td>Version</td>
+									<td>1<span id="versions"> (<a href="Deployment-view/">history</a>)</td>
+								</tr>
+								<tr class="odd">
+									<td>Description</td>
+									<td>Description...</td>
+								</tr>
+								<tr>
+									<td>Comment</td>
+									<td>Latest comment...</td>
+								</tr>
+								<tr class="odd">
+									<td>Category</td>
+									<td>Deployment</td>
+								</tr>
+								<tr>
+									<td>Created</td>
+									<td>2013-03-08 22:37:25.341 CET</td>
+								</tr>
+								<tr class="odd">
+									<td>Last modified</td>
+									<td>2013-03-08 22:37:25.341 CET</td>
+								</tr>
+								<tr>
+									<td>Owner</td>
+									<td>sixsq</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3>Nodes</h3>
+					<div class="nodes">
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Image link</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="node_name"><input disabled="true" type="text" name="fillout1" value="apache1" /></td>
+									<td>
+										<table class="image_link">
+											<tr>
+												<td>
+													<b>Reference image:</b> <a href="module/Public/Tutorials/HelloWorld/apache">
+													module/Public/Tutorials/HelloWorld/apache
+													</a>
+												</td>
+											</tr>
+											<tr>
+												<td class="multiplicity"><b>Default multiplicity: </b><input disabled="true" type="text" name="multiplicity" value="1" />
+												</td>
+											</tr>
+											<tr>
+												<td><b>Default cloud service: <select disabled="true">
+												    <option>CloudSigma</option>
+												    <option>StratusLab</option>
+												    <option>Interoute VDC</option>
+												    <option>Atos</option>
+												</select>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td class="node_name"><input disabled="true" type="text" name="fillout3" value="apache2" /></td>
+									<td>
+										<table class="image_link">
+											<tr>
+												<td>
+													<b>Reference image:</b> <a href="module/Public/Tutorials/HelloWorld/apache">
+													module/Public/Tutorials/HelloWorld/apache
+													</a>
+												</td>
+											</tr>
+											<tr>
+												<td class="multiplicity"><b>Default multiplicity: </b><input disabled="true" type="text" name="multiplicity" value="1" />
+												</td>
+											</tr>
+											<tr>
+												<td><b>Default cloud service: <select disabled="true">
+												    <option>CloudSigma</option>
+												    <option>StratusLab</option>
+												    <option>Interoute VDC</option>
+												    <option>Atos</option>
+												</select>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<hr />
+													<b>Parameter mappings</b>
+													<table class="parameter_mapping">
+														<tr>
+															<th>Input parameter</th>
+															<th>Linked to</th>
+														</tr>
+														<tr>
+															<td><input disabled="true" type="text" name="fillout" value="webserver.port" /></td>
+															<td><input disabled="true" type="text" name="fillout" value="apache1:port" /></td>
+														</tr>
+														<tr>
+															<td><input disabled="true" type="text" name="fillout" value="webserver.port" /></td>
+															<td><input disabled="true" type="text" name="fillout" value="apache1:port" /></td>
+														</tr>
+														<tr>
+															<td><input disabled="true" type="text" name="fillout" value="webserver.port" /></td>
+															<td><input disabled="true" type="text" name="fillout" value="apache1:port" /></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3>Authorization</h3>
+					<div>
+					<table class="autorization_table">
+						<thead>
+							<tr>
+								<th>Access Right</th>
+								<th>Owner</th>
+								<th>Group</th>
+								<th>Public</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>View</td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+								<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
+							</tr>
+							<tr>
+								<td>Edit</td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+							</tr>
+							<tr>
+								<td>Delete</td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+							</tr>
+							<tr>
+								<td>Execute (e.g. Run, Build)</td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+							</tr>
+							<tr>
+								<td>Create Children</td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+							</tr>
+							
+						</tbody>
+					</table>
+					<hr />
+					<table>
+						<thead>
+							<tr>
+								<th>Group members</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+							</tr>
+							<tr>
+								<td>meb, konstan</td>
+							</tr>
+							
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<div class="navigation bottom_nav">
+				<ul class="interaction">
+					<li class="attention"><button>Run</button></li>
+					<li class="attention"><button>Run...</button></li>
+					<li class="attention"><button>Edit</button></li>
+					<li class="attention"><button>Copy...</button></li>
+					<li class="attention"><button>Publish</button></li>
+				</ul>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="footer_inner">
+				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+				<div class="swiss_made"><a href="https://bit.ly/cwCMxW"></a></div>
+			</div>
+		</div>
+	</div>
+	<div class="ui-widget-overlay"></div>
+	<div class="please_wait">
+		<h2>Starting VMs</h2>
+		<p>Please wait</p>
+	</div>
+</body>
+
+</html>

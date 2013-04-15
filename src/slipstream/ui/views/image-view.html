@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>SlipStream&trade; | Public/Tutorials/HelloWorld/apache</title>
+	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="external/jit/css/base.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="external/jit/css/Spacetree.css" media="screen" />
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <script src="external/jit/js/jit.js" type="text/javascript"></script>
+    <script src="external/jit/js/excanvas.js" type="text/javascript"></script>
+	<script src="js/common.js"></script>
+    <script src="js/image-dashboard.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div class="top">
+				<a href="#" class="logo"></a>
+				<div class="menu_bar">
+					<ul>
+						<li class="first"><a href="#">Documentation</a></li>
+						<li><a href="#">Joe (logout)</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="bottom bottom_i">
+				<h2>Public/Baseimages/Fedora/14.0</h2>
+				<h3>Description...</h3>
+				<p>Latest comment...</p>
+			</div> 
+		</div>
+		<div id="content">
+			<div class="navigation">
+				<ul class="breadcrumb">
+					<li class="first home"><a href="#">Home</a></li>
+					<li><a href="#">module</a></li>
+					<li><a href="#">Public</a></li>
+					<li><a href="#">BaseImage</a></li>
+					<li><a href="#">Fedora</a></li>
+					<li><a href="#">14.0</a></li>
+					<li><a href="#">123</a></li>
+				</ul>
+				<ul class="interaction">
+					<li class="attention"><button>Build</button></li>
+					<li class="attention"><button>Edit</button></li>
+					<li class="attention"><button>Publish</button></li>
+				</ul>
+			</div>
+			<div class="data_sheet">
+				<div class="summary accordion">
+					<h3>Overview</h3>
+					<div>
+                    	<div id="infovis"></div>
+					</div>
+					<h3>Summary</h3>
+					<div>
+						<table>
+							<tbody>
+								<tr class="odd">
+									<td>Module</td>
+									<td>Public/BaseImages/Ubuntu/12.04</td>
+								</tr>
+								<tr>
+									<td>Version</td>
+									<td>123<span id="versions"> (<a href="versions.html">history</a>)</td>
+								</tr>
+								<tr class="odd">
+									<td>Description</td>
+									<td>Description...</td>
+								</tr>
+								<tr>
+									<td>Comment</td>
+									<td>Latest comment...</td>
+								</tr>
+								<tr class="odd">
+									<td>Category</td>
+									<td>Image</td>
+								</tr>
+								<tr>
+									<td>Created</td>
+									<td>2013-03-08 22:37:25.341 CET</td>
+								</tr>
+								<tr class="odd">
+									<td>Last modified</td>
+									<td>2013-03-08 22:37:25.341 CET</td>
+								</tr>
+								<tr>
+									<td>Owner</td>
+									<td>sixsq</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3>Reference</h3>
+					<div>
+						<table>
+							<tr>
+								<th>Machine Image IDs</th>
+								<td>
+									<div>stratuslab: ArCnG4gBogiprglBUdG6V8YX20y</div>
+									<div>cloudsigma: 1234</div>
+									<div>stratuslab: ArCnG4gBogiprglBUdG6V8YX20y</div>
+									<div>cloudsigma: 1234</div>
+								</td>
+							</tr>
+							<th>Is a base image (i.e. not created by SlipStream)</th>
+							<td>
+								<input type="checkbox" name="isbase" disabled="true" checked="on">
+							</td>
+							<tr>
+								<th>Platform</th>
+								<td>Cent OS</td>
+							</tr>
+							<tr>
+								<th class="row">Login username</th>
+								<td class="values">root</td>
+							</tr>
+						</table>
+					</div>
+					<h3>Parameters</h3>
+					<div>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Value</th>
+									<th> </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="odd"> <!--odd class is not necessary, only for old browsers (ie8)-->
+									<td>SLIPSTREAM MAIL DEBUG</td>
+									<td>Debug mail sending</td>
+									<td> </td>
+									<td class="help"> </td>
+								</tr>
+								<tr>
+									<td>SLIPSTREAM MAIL DEBUG</td>
+									<td>Debug mail sending</td>
+									<td>smtp.gmail.com</td>
+									<td class="help"><span>Help</span></td>
+								</tr>
+								<tr class="odd">
+									<td>SLIPSTREAM MAIL DEBUG</td>
+									<td>Debug mail sending</td>
+									<td> </td>
+									<td class="help"><span>Help</span></td>
+								</tr>
+								<tr>
+									<td>SLIPSTREAMREGISTRATION EMAIL</td>
+									<td>Debug mail sending</td>
+									<td> </td>
+									<td class="help"> </td>
+								</tr>
+								<tr class="odd">
+									<td>SLIPSTREAM MAIL DEBUG</td>
+									<td>Port on SMTP server (defaults to standard ports).</td>
+									<td>slipstream-support@sixsq.com</td>
+									<td class="help"><span>Help</span></td>
+								</tr>
+								<tr>
+									<td>SLIPSTREAM MAIL DEBUG</td>
+									<td>Debug mail sending</td>
+									<td>smtp.gmail.com</td>
+									<td class="help"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3>Creation Recipes</h3>
+					<div class="tab_block">
+						<ul class="tabs inner_tabs">
+							<li><a href="#fragment-recipe">Create</a><span></span></li>
+							<li><a href="#fragment-packages">Packages</a><span></span></li>
+							<li><a href="#fragment-prerecipe">Pre Create</a><span></span></li>
+						</ul>
+						<div id="fragment-recipe">
+							<table>
+								<thead>
+									<tr>
+										<th>Standard recipe (fires after packages are installed)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true">
+#!/bin/sh -xe
+apt-get update -y
+apt-get install -y apache2
+
+echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
+
+service apache2 stop
+port=$(ss-get port)
+sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^<VirtualHost.*$/<VirtualHost *:'$port'>/' /etc/apache2/sites-available/default
+service apache2 start
+ss-set ready true
+											</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="fragment-prerecipe">
+							<table>
+								<thead>
+									<tr>
+										<th>Pre-recipe (fires before SlipStream client install and packages are installed)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true"></textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="fragment-packages">
+							<table>
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Repository</th>
+										<th>Key</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>apcahe2</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<h3>Deployment Scripts</h3>
+					<div class="tab_block">
+						<ul class="tabs inner_tabs">
+							<li><a href="#fragment-execute">Execute</a><span></span></li>
+							<li><a href="#fragment-report">Report</a><span></span></li>
+							<li><a href="#fragment-autoscale">Autoscale</a><span></span></li>
+							<li><a href="#fragment-autoscale_wn__up">Autoscale:WN:Up</a><span></span></li>
+							<li><a href="#fragment-autoscale_wn__down">Autoscale:WN:Down</a><span></span></li>
+						</ul>
+						<div id="fragment-execute">
+							<table>
+								<thead>
+									<tr>
+										<th>Standard recipe (fires during Provisioning phase)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true">
+#!/bin/sh -xe
+apt-get update -y
+apt-get install -y apache2
+
+echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
+
+service apache2 stop
+port=$(ss-get port)
+sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^<VirtualHost.*$/<VirtualHost *:'$port'>/' /etc/apache2/sites-available/default
+service apache2 start
+ss-set ready true
+											</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="fragment-report">
+							<table>
+								<thead>
+									<tr>
+										<th>Gather logs and things for posterity (fires during the Sending Report phase)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true">
+#!/bin/sh -xe
+apt-get update -y
+apt-get install -y apache2
+
+echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
+
+service apache2 stop
+port=$(ss-get port)
+sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^<VirtualHost.*$/<VirtualHost *:'$port'>/' /etc/apache2/sites-available/default
+service apache2 start
+ss-set ready true
+											</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="fragment-autoscale">
+							<table>
+								<thead>
+									<tr>
+										<th>Autocale recipe (fires during Autoscal phase, after Standard Recipe)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true">
+#!/bin/sh -xe
+apt-get update -y
+apt-get install -y apache2
+
+echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
+
+service apache2 stop
+port=$(ss-get port)
+sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^<VirtualHost.*$/<VirtualHost *:'$port'>/' /etc/apache2/sites-available/default
+service apache2 start
+ss-set ready true
+											</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="fragment-autoscale_wn__up">
+							<table>
+								<thead>
+									<tr>
+										<th>On WN autocale up recipe (fires after new VMs are provisioned)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true">
+#!/bin/sh -xe
+apt-get update -y
+apt-get install -y apache2
+
+echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
+
+service apache2 stop
+port=$(ss-get port)
+sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^<VirtualHost.*$/<VirtualHost *:'$port'>/' /etc/apache2/sites-available/default
+service apache2 start
+ss-set ready true
+											</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="fragment-autoscale_wn__down">
+							<table>
+								<thead>
+									<tr>
+										<th>On WN autocale down recipe (fires before VMs are terminated)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<textarea disabled="true">
+#!/bin/sh -xe
+apt-get update -y
+apt-get install -y apache2
+
+echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
+
+service apache2 stop
+port=$(ss-get port)
+sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
+sed -i -e 's/^<VirtualHost.*$/<VirtualHost *:'$port'>/' /etc/apache2/sites-available/default
+service apache2 start
+ss-set ready true
+											</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<h3>Runs</h3>
+					<div>
+						<table>
+							<thead>
+								<tr>
+									<th>UUID</th>
+									<th>Deployment</th>
+									<th>Note</th>
+									<th>Status</th>
+									<th>Start Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<a href="run/d133c626-b6fc-41d8-871c-ffb6182ea956">d133c626-b6fc-41d8-871c-ffb6182ea956</a>
+									</td>
+									<td>
+										<a href="module/Public/Tutorials/HelloWorld/client_server/11">module/Public/Tutorials/HelloWorld/client_server/11</a>
+									</td>
+									<td>Good deployment, don't remove</td>
+									<td>Inactive</td>
+									<td>2013-03-26 18:46:04.694 CET</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="run/d133c626-b6fc-41d8-871c-ffb6182ea956">d133c626-b6fc-41d8-871c-ffb6182ea956</a>
+									</td>
+									<td>
+										<a href="module/Public/Tutorials/HelloWorld/client_server/11">module/Public/Tutorials/HelloWorld/client_server/11</a>
+									</td>
+									<td>Good deployment, don't remove</td>
+									<td>Inactive</td>
+									<td>2013-03-26 18:46:04.694 CET</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3>Authorization</h3>
+					<div>
+    					<table class="autorization_table">
+    						<thead>
+    							<tr>
+    								<th>Access Right</th>
+    								<th>Owner</th>
+    								<th>Group</th>
+    								<th>Public</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    							<tr>
+    								<td>View</td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+    								<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Edit</td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Delete</td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Execute (e.g. Run, Build)</td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Create Children</td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+    								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+    							</tr>
+							
+    						</tbody>
+    					</table>
+    					<hr />
+    					<table>
+    						<thead>
+    							<tr>
+    								<th>Group members</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    							<tr>
+    								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+    							</tr>
+    							<tr>
+    								<td>meb, konstan</td>
+    							</tr>
+							
+    						</tbody>
+    					</table>
+					</div>
+				</div>
+			</div>
+			<div class="navigation bottom_nav">
+				<ul class="interaction">
+					<li class="attention"><button>Build</button></li>
+					<li class="attention"><button>Edit</button></li>
+					<li class="attention"><button>Publish</button></li>
+				</ul>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="footer_inner">
+				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+				<div class="swiss_made"><a href="https://bit.ly/cwCMxW"></a></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
