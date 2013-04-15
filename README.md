@@ -3,8 +3,8 @@
 Here is the list of the static pages currently available, including the static
 features they support:
 
-To evaluate them, clone the repository and point your favourite browser to this file.
-The links here should just work.
+To evaluate them, clone the repository and point your favourite browser to the links
+here.  Or even better, generate a markdown rendering of this page and click away :-). 
 
 A few observations:
 
