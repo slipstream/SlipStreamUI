@@ -3,6 +3,9 @@
 Here is the list of the static pages currently available, including the static
 features they support:
 
+To evaluate them, clone the repository and point your favourite browser to this file.
+The links here should just work.
+
 A few observations:
 
 * I've managed to only use accordions for the top level organisation of pages.
