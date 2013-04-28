@@ -101,9 +101,9 @@ I really don't find the brushed aluminum icons with letters very
 appealing.  Finding appropriate graphical icons would be much more
 effective for these icons and also for the various menu items.
 
-[Entypo][http://www.entypo.com] provides a rich set of icons that can
+[Entypo](http://www.entypo.com) provides a rich set of icons that can
 be used as characters in a font.  [Font
-Awesome][http://fortawesome.github.io/Font-Awesome/] is also another
+Awesome](http://fortawesome.github.io/Font-Awesome/) is also another
 possibility; this one also allows the font to be subsetted to minimize
 the download size for the user.
 
