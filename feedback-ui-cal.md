@@ -81,6 +81,14 @@ further improved with:
   the next section header.  More vertical space should be added to
   ensure this doesn't happen.
 
+### Summary Sections for Views
+
+The summary section for views of resources is not very useful.  It
+would be better if this were simply merged into the banner.  (Most of
+the information is already there.)  The owner is better in the
+authorization section and the create/modified times could be added to
+the banner, ideally in "... hours/days ago" format.  
+
 ### Top Red Menu Line
 
 This would be improved by using icons for the links rather than text.
@@ -91,7 +99,13 @@ explain each icon.  (Add the 'home' icon here as discussed before.)
 
 I really don't find the brushed aluminum icons with letters very
 appealing.  Finding appropriate graphical icons would be much more
-effective.  
+effective for these icons and also for the various menu items.
+
+[Entypo][http://www.entypo.com] provides a rich set of icons that can
+be used as characters in a font.  [Font
+Awesome][http://fortawesome.github.io/Font-Awesome/] is also another
+possibility; this one also allows the font to be subsetted to minimize
+the download size for the user.
 
 
 Login Page
@@ -153,6 +167,8 @@ probably real data to see!).  My biggest problem with the current
 layout is that it stacks things that have different units making the
 total height of the bars/plots meaningless.
 
+Also the units are not correct.  CPU will need to be measured in
+SpecInts (or similar), RAM in GB-hours, and Storage in GB-hours.
 
 Project View Page
 -----------------
@@ -231,7 +247,11 @@ No additional comments.
 Versions/History
 ----------------
 
-No comments.
+Title should be resource id (or 'Versions'?).
+
+Eventually when we have a textual format for the resource, allowing
+users to display the differences between versions, rather than relying
+on the comment, would be helpful.
 
 
 Run
@@ -243,9 +263,14 @@ box was last hovered over.
 See previous comments about the graphic in previous sections.
 
 From the example, I'm not sure what information would be in each node
-section.
+section.  Why is there a summary tab?  What information is in 'General
+Runtime Parameters'? 
 
-Title should be the run UUID. 
+Title and banner should be consistent.  If the deployment rather than
+the run UUID will be used, then that should also be the part in blue
+in the banner; the UUID can then be the subtitle in the banner.
+
+Why is terminate button not duplicated at the bottom of the page? 
 
 
 Logout Page
@@ -254,8 +279,8 @@ Logout Page
 Not in the repository.
 
 Is a page actually needed?  Should it just clear the session and
-redirect to the login page?  Presumably the logout link will bring up
-a confirmation dialog. 
+redirect to the login page?  Presumably the logout link (icon) will
+bring up a confirmation dialog.
 
 
 Configuration Page
@@ -264,7 +289,7 @@ Configuration Page
 Presumably this is a super user only page that would be accessed
 through a link in the Top Red Menu Line?  
 
-Should't the title and resource name be "Configuration"? 
+Shouldn't the title and resource name be "Configuration"? 
 
 Is there more than one "Configuration"?  If not, it should be
 "Configuration" in the Top Red Menu Line.  (Even better, just an
@@ -281,7 +306,12 @@ formatted as a simple table or list.
 Why are there "Save" and "Reload Configuration File" buttons on this
 page? 
 
-Title should be "Documentation". 
+Title should be "Documentation".
+
+Why is the icon labeled with 'C'?
+
+We should also add an 'Acknowledgements' section that identifies other
+open source software that we use.
 
 
 Error Page
@@ -289,18 +319,50 @@ Error Page
 
 I would add the warning icon as part of the banner and provide the
 text of the error message in the banner subtitle.  There is no need
-for a separate section here. 
+for a separate error section on the page.
 
-The title should be "Error". 
+The title should be "Error", not "Login". 
+
+Will the standard layout also provide a slot for an error message when
+editing resources?  Or will the user always need to click the 'back'
+button to get back to the editing form? 
 
 
 Users Page
 ----------
 
-I think that this page is more likely to be used to manage users than
-to look at their usage.  A active, paged summary table with user
-information would be more useful.  This should also provide the
-ability to suspect and delete users as well as create new ones. 
+I think that the primary focus of this page--user resource
+consumption--is wrong.  The superuser is much more likely to be
+interested in managing the users of the service.  As such this page
+should concentrate on giving the registration details of the users and
+to provide the ability to search for a given user, suspend a user,
+delete a user, and create new users.
 
+I don't think that the accordian layout is particularly adapted to
+listing users and providing this information concisely.  Although, you
+can mimic the accordian layout to provide a "Users" header as you've
+done with this page for visual consistency. 
+
+An active table that allows paging of users, sorting of results by
+column, search on column values, and selecting individual users for
+suspension/removal would be more intuitive and more useful.
+
+That said, the table could also include some information about
+resource consumption (numbers of active deployments, VMs, etc.) for
+the individual users.
+
+The superuser is also likely to ask questions about resource use but
+concentrating on **relative** use between users.  This need is
+sufficiently different from user management concerns that it should be
+on a separate page.
+
+The questions that are likely to be asked by the superuser are:  Who's
+has the largest number of deployments over the last day/week/month?,
+Who's started the largest number of VMs?, etc.  Answering these
+questions require comparision between the users for which the current
+graphics are poorly adapted.  I suspect that a better model for this
+would be a heat map, allowing the superuser to make high-level
+comparisions for a number of resources and to then drill down to get
+more information. 
 
 
