@@ -5,11 +5,6 @@
 
 (def footer-sel [:#footer])
 
-(html/defsnippet footer "slipstream/ui/views/footer.html" footer-sel
-  [root edit? rel-version]
-  [:#version] (html/content rel-version)
-  common/interaction-sel (if (nil? root)
-                           nil
-                           (html/substitute
-                             (common/header-buttons
-                               {:buttons (common/buttons root edit?)}))))
+(html/defsnippet footer-snip "slipstream/ui/views/footer.html" footer-sel
+  [rel-version]
+  [:#version] (html/content rel-version))

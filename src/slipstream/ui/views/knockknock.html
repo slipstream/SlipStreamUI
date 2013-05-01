@@ -1,173 +1,202 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+            SlipStream | Login
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="css/welcome.css" media="screen" /><!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>SlipStream | Login</title>
-	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="css/welcome.css" media="screen" />
-	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui.js"></script>
-    <script src="js/cufon-yui.js" type="text/javascript"></script>
-    <script src="js/jquery.bxSlider.min.js" type="text/javascript"></script>
-	<script src="js/common.js"></script>
-	<script>
-		$(document).ready(function(){
-			$('#slider1').bxSlider({
-				auto: true,
-				speed: 500,
-				mode: 'fade',
-				pause: 5000,
-				prevImage: 'images/prev.png',
-				nextImage: 'images/next.png',
-			});
-			
-			Cufon.replace('#slider1 h1, .products h2, .customers h3', {fontFamily: 'bebas'});
-			Cufon.replace('#slider1 h3', {fontFamily: 'helveticaneue'});
-		});
-		$(function() {
-			$('.accordion').accordion(
-				{ heightStyle: "content",
-				  collapsible: true});
-			$('.tab_block').tabs();
-			$('input[type=submit], a, button','.interaction')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-			$('.add_item','.nodes')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-		});
-	</script>
-</head>
-<body>
-</div>
-	<div id="wrapper">
-		<div id="header">
-			<div class="top">
-				<a href="#" class="logo"></a>
-				<div class="menu_bar">
-					<ul>
-						<li class="first"><a href="#">Documentation</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="bx-wrapper">
-				<div class="bx-window">
-  		   			<div id="slider1">
-						<div class="bottom bottom_with_slider">
-							<h2>Welcome to SlipStream</h2>
-							<h3>Your gateway to multi-cloud automation</h3>
-							<p>Here you will be able to provision simple and complex applications on the cloud of your choice, as well as build new virtual machine images. All this from single click.</p>
-						</div> 
-				</div>
-			</div>
-		</div>
-		<div id="content">
-			<div class="navigation">
-				<ul class="breadcrumb">
-					<li class="first home"><a href="#">Home</a></li>
-					<li><a href="/knockknock">Login</a></li>
-				</ul>
-			</div>
-			<div class="data_sheet">
-				<div class="summary accordion">
-					<h3>Login</h3>
-                    <div id="login">
-                    	<table>
-                    		<tr>
-	                    		<th width="10px">Username</th>
-	                    		<td><input size="50" id="username" name="username" type="text" /></td>
-	                    	</tr>
-	                    	<tr>
-	                    		<th>Password</th>
-	                    		<td><input size="50" id="password" name="password" type="password" /></td>
-	                    	</tr>
-                    	</table>
-						<button 
-							class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-							href="#" 
-							role="button" 
-							aria-disabled="false"
-							onclick="#">Login</button>
+        <script src="js/jquery.js" type="text/javascript">
+</script>
+        <script src="js/jquery-ui.js" type="text/javascript">
+</script>
+        <script src="js/cufon-yui.js" type="text/javascript">
+</script>
+        <script src="js/jquery.bxSlider.min.js" type="text/javascript">
+</script>
+        <script src="js/common.js" type="text/javascript">
+</script>
+        <script type="text/javascript">
+//<![CDATA[
+        $(document).ready(function(){
+            $('#slider1').bxSlider({
+                auto: true,
+                speed: 500,
+                mode: 'fade',
+                pause: 5000,
+                prevImage: 'images/prev.png',
+                nextImage: 'images/next.png',
+            });
+            
+            Cufon.replace('#slider1 h1, .products h2, .customers h3', {fontFamily: 'bebas'});
+            Cufon.replace('#slider1 h3', {fontFamily: 'helveticaneue'});
+        });
+        $(function() {
+            $('.accordion').accordion(
+                { heightStyle: "content",
+                  collapsible: true});
+            $('.tab_block').tabs();
+            $('input[type=submit], a, button','.interaction')
+                .button()
+                .click(function( event ) {
+                    event.preventDefault();
+            });
+            $('.add_item','.nodes')
+                .button()
+                .click(function( event ) {
+                    event.preventDefault();
+            });
+        });
+        //]]>
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <div class="top">
+                    <a href="#" class="logo"></a>
+                    <div class="menu_bar">
+                        <ul>
+                            <li class="first">
+                                <a href="#">Documentation</a>
+                            </li>
+                        </ul>
                     </div>
-					<h3>Register</h3>
-					<div id="register">
-
-                        <div>
-                        <p>Please provide the following information to register for a
-                        				SlipStream&trade; account.  After submitting the form, you will be 
-                        				sent an email.  Visit the link in the email to confirm your 
-                        				registration request.</p>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Username</td>
-                        			<td>
-                        			    <input name="username" type="text">*
-                        			</td>
-                                </tr>
-                                <tr>
-                                    <th>First name</td>
-                                    <td>
-                                        <input name="firstname" type="text">*
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Last name</td>
-                        			<td>
-                        			    <input name="lastname" type="text">*
-                        			</td>
-                                </tr>
-                                <tr>
-                                    <th>Organization</td>
-                                    <td>
-                                        <input name="organization" type="text">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>email</td>
-                        			<td>
-                        			    <input name="email" type="text">*
-                        			</td>
-                                </tr>
-                                <tr>
-                                    <th>Comments</td>
-                        			<td>
-                						<input name="comments" type="hidden">
-                						<textarea style="height:200px" name="comments"></textarea>
-                					</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p/>
-                        <input name="agreement" type="checkbox">
-                            I have read and agree to the SlipStream&trade; 
-                        	<a href="html/terms-of-service.html">Terms of Service</a>.
-                            <p/>
+                </div>
+                <div class="bx-wrapper">
+                    <div class="bx-window">
+                        <div id="slider1">
+                            <div class="bottom bottom_with_slider">
+                                <h2>
+                                    Welcome to SlipStream
+                                </h2>
+                                <h3>
+                                    Your gateway to multi-cloud automation
+                                </h3>
+                                <p>
+                                    Here you will be able to provision simple and complex applications on the cloud of your choice, as well as build new virtual machine images. All this from single click.
+                                </p>
+                            </div>
                         </div>
-						<button 
-							class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-							href="#" 
-							role="button" 
-							aria-disabled="false"
-							onclick="#">Register</button>
-					</div>
-				</div>
-		</div>
-		<div id="footer">
-			<div class="footer_inner">
-                          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-				<div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-			</div>
-		</div>
-	</div>
-</body>
+                    </div>
+                </div>
+            </div>
+            <div id="content">
+                <div class="navigation">
+                    <ul class="breadcrumb">
+                        <li class="first home">
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="/knockknock">Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="data_sheet">
+                    <div class="summary accordion">
+                        <h3>
+                            Login
+                        </h3>
+                        <div id="login">
+                            <table>
+                                <tr>
+                                    <th width="10px">
+                                        Username
+                                    </th>
+                                    <td>
+                                        <input size="50" id="username" name="username" type="text" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Password
+                                    </th>
+                                    <td>
+                                        <input size="50" id="password" name="password" type="password" />
+                                    </td>
+                                </tr>
+                            </table><button class="bottom_section_button add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false" onclick="#">Login</button>
+                        </div>
 
+                        <h3>
+                            Register
+                        </h3>
+                        <div id="register">
+                            <div>
+                                <p>
+                                    Please provide the following information to register for a SlipStream™ account. After submitting the form, you will be sent an email. Visit the link in the email to confirm your registration request.
+                                </p>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                Username
+                                            </th>
+                                            <td>
+                                                <input name="username" type="text" />*
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                First name
+                                            </th>
+                                            <td>
+                                                <input name="firstname" type="text" />*
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Last name
+                                            </th>
+                                            <td>
+                                                <input name="lastname" type="text" />*
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Organization
+                                            </th>
+                                            <td>
+                                                <input name="organization" type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                email
+                                            </th>
+                                            <td>
+                                                <input name="email" type="text" />*
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Comments
+                                            </th>
+                                            <td>
+                                                <input name="comments" type="hidden" />
+                                                <textarea style="height:200px" name="comments">
+</textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table><input name="agreement" type="checkbox" />I have read and agree to the SlipStream&trad; <a href="html/terms-of-service.html">Terms of Service</a>.
+                            </div><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false" onclick="#">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div id="footer">
+  <div class="footer_inner">
+    <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+    <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+    <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+  </div>
+</div>
+
+        </div>
+    </body>
+>>>>>>> e6f2c079d8edd5ae88dadaf14e618e1a46b6e57d
 </html>
-					

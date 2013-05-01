@@ -4,14 +4,14 @@
 (def sel-user 
   #{[:tag "user"]})
 
-(defn user [root]
-  "Extract user from root map (e.g. module, run)"
-  (html/select root [:user]))
+(defn user [metadata]
+  "Extract user from metadata map (e.g. module, run)"
+  (first (html/select metadata [:user])))
 
-(defn attrs [root]
+(defn attrs [metadata]
   "Extract user attrs from root map (e.g. module, run)"
-  (-> root user first :attrs))
+  (-> metadata user :attrs))
 
-(defn super? [root]
-  (= "true" (:issuper (attrs root))))
+(defn super? [metadata]
+  (= "true" (:issuper (attrs metadata))))
   
