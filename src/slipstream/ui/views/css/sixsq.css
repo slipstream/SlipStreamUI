@@ -229,6 +229,10 @@ img {
 	padding: 25px 0px 25px 170px;
 }
 
+.bottom i {
+	margin-right: 10px;
+}
+
 .bottom_no_icon {
 	width: 955px;
 	height: 106px;
