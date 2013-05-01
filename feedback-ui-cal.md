@@ -15,18 +15,25 @@ The current layout/stylesheet is not responsive at all.
 
 > Meb: in general or only on smart devices?
 
-It generally
-works fine in a computer's browser, but doesn't scale/flow reasonably
-when viewed on tablet/smartphone screen sizes.  This is something that
-we should try to do as the application is likely to be used (at least
-minimally) from such devices.  Firefox has a nice "Responsive Design
-View" feature to see what the layout looks like on the various
-devices.
+It generally works fine in a computer's browser, but doesn't
+scale/flow reasonably when viewed on tablet/smartphone screen sizes.
+This is something that we should try to do as the application is
+likely to be used (at least minimally) from such devices.  Firefox has
+a nice "Responsive Design View" feature to see what the layout looks
+like on the various devices.
 
 > Meb: I didn't consider smart devices in this design. For this, I would 
 use JQuery UI Mobile (a different incarnation of JQuery UI, and incompatible) 
 which has similar widgets. We would reuse the same JS dynamic behaviour, with 
 a specific mobile randering.
+
+> Cal: I don't think that we necessarily need to use different
+  widgets.  The only things were using are the accordian and buttons,
+  both of which have a high chance of working on smaller devices.  The
+  real issue is the fixed width of the layout.  This doesn't adapt at
+  all to various sizes (even on a computer).  Making the layout width
+  variable would go a long way toward making the application
+  accessible from smaller devices.
 
 ### Banner
 
@@ -47,6 +54,13 @@ individual pages.)
 > Meb: the icons are rough placeholders, as I ran out of steam and ideas. 
 I also didn't want to stall the work for this. And yes we need to pick a 
 consistent theme for icons, which includes more than the banner*
+
+> Cal: I've selected a set of icons from the Font Awesome collection.
+  A list of the icons and their meanings are in the icon-list.html
+  file.  Generally the mapping between the icons and functions are
+  good, although there are a few that are a stretch.  There are plenty
+  of others in the collection if someone else wants to try an
+  alternate mapping. 
 
 ### Breadcrumbs
 
@@ -86,6 +100,14 @@ software" site.  If this is kept, the full link should be used.
 the logo is natively is only available via http. We could have a
 local copy of the logo to avoid it, but the link remains a problem.
 
+> Cal: The page elements need to be served from secure links.  The
+logo should definitely be linked from a local copy within the
+application.  This looks to be the case already.  I don't think that
+there isn't any need for external links to all be secure.  The bit.ly
+link only serves to obscure the final destination.  I've changed the
+templates to use the direct address; this can be changed back if it
+really turns out to be a problem.
+
 I think that the footer would look better having the SixSq logo
 separate the copyright from the version number.  Making it slightly
 larger and putting it in red would emphasize it.  It should also be an
@@ -93,6 +115,10 @@ active link to the SixSq website.
 
 > Meb: we can play with this indeed. But I like the subtle grey SixSq
 logo.
+
+> Cal: I've separated the logo from the copyright block and added a
+link to the SixSq website.  I've moved the logo to the left for now,
+but this can be changed to any order we like.
 
 ### Accordian
 
@@ -113,6 +139,12 @@ further improved with:
 that only one can be open at a time. If two
 things should be opened at the same time, then we might want to
 move them in the same section and separate them by inner tabs.
+
+> Cal: Moving it to tabs doesn't solve the issue.  I'd like to have
+  all of the sections visible at the same time.  (E.g. wanting to
+  print the page of the configuration.)  If this can't be done, it's
+  not critical, but I suspect I won't be the only one to ask for
+  this. 
 
   * Internal tabs are not visually distinct from the accordian
   headers.  It would help if they were a different color.  Maybe a
@@ -166,6 +198,9 @@ replace them with real ones. But I think they look good enough
 such that we can go live with them if we haven't found a suitable
 replacement by then.
 
+> Cal: I've removed them and replaced them with smaller icons from
+  Font Awesome.  The same icons are used consistently in the menu,
+  banners, and in buttons. 
 
 Login Page
 ----------
@@ -180,6 +215,8 @@ Login Page
 with the SixSq logo... good idea. However, for the Login page
 which has an animated banner, I don't think a mandatory icon is
 required, as per the SixSq website.
+
+> Cal: I've updated the capitalization for email.
 
 Welcome Page
 ------------
@@ -233,12 +270,14 @@ the banner useful, a summary of the current activity could be added
 
 > Meb: I'll see if I can somehow merge the columns with the banner.
 
+> Cal: I've added the home icon to the banner, inlined with the
+  header.
+
 Is the "New Project" button as a top-level button appropriate?  It
 really is only linked to the "Modules" section.
 
 > Meb: yes, but it's a common action that should not be buried too
 deep.
-
 
 Consumption and Metering
 ------------------------
@@ -258,6 +297,9 @@ SpecInts (or similar), RAM in GB-hours, and Storage in GB-hours.
 > Meb: this part is only a initial thought and will not be part of
 the first release. And yes we should talk about it. It will also
 require server-side development.
+
+> Cal: I've moved this information to a separate page:
+  utilization.html. 
 
 Project View Page
 -----------------
@@ -534,5 +576,3 @@ enough interesting ideas for me to have another go at the page. We
 can then discuss. This page is also related to the way we present
 metering and how we can create summaries (and cross users with something
 like a head map).
-
-
