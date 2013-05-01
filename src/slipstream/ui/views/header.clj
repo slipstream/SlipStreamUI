@@ -10,9 +10,13 @@
 
 (def header-sel [:#header])
 
+(def header-summary-sel [:.bottom])
+
+(def header-template-html "slipstream/ui/views/header.html")
+
 (def header-menu [:.menu_bar])
 
-(html/defsnippet header-top-bar-snip common/header-template-html header-menu
+(html/defsnippet header-top-bar-snip header-template-html header-menu
   [{username :username issuper :issuper}]
   [:#header-username :> :a] (html/do-> 
                                 (html/content username)
@@ -25,13 +29,13 @@
                                             nil)
   [:#header-loginout :a] (if (= nil username)
                           (html/do-> 
-                                (html/content "login")
-                                (html/set-attr :href "/login"))
+                                (html/content "Login/Register")
+                                (html/set-attr :href "/knockknock"))
                           identity))
 
 (def titles-sel [:#titles])
 
-(html/defsnippet header-titles common/header-template-html titles-sel
+(html/defsnippet header-titles-snip header-template-html titles-sel
   [{title :title title-sub :title-sub title-desc :title-desc}]
   [:#header-title] (html/content title)
   [:#header-title-sub] (html/content title-sub)
@@ -53,7 +57,7 @@
         "" 
         (subvec names 0 (inc index))))))
                                  
-(html/defsnippet header-breadcrumb common/header-template-html breadcrumb-sel
+(html/defsnippet header-breadcrumb header-template-html breadcrumb-sel
   [{name :name root-uri :root-uri}]
   [[:li (html/nth-of-type 2)] :> :a] (html/do->
                                        (html/content root-uri)
@@ -78,37 +82,34 @@
     (str "Version: " (:version (:attrs module)))
     (:description (:attrs module))))
 
-(defn- titles [root]
+(defn titles [root]
   (case (:tag root)
     :list (gen-titles "Projects" "All projects" "This root project is shared with all SlipStream users")
     (gen-module-titles root)))
 
-(defn- root-uri [root]
+(defn root-uri [root]
   (if (= :list (:tag root))
     "module"
     (first (string/split 
              (-> root :attrs :resourceuri)
              #"/"))))
 
-(html/defsnippet header common/header-template-html header-sel
-  [root edit?]
+(html/defsnippet header-snip header-template-html header-sel
+  [metadata]
   header-menu (html/substitute
                 (header-top-bar-snip
-                  (user/attrs root)))
+                  (user/attrs metadata)))
   titles-sel (html/substitute
-               (header-titles
-                 (titles root)))
+               (header-titles-snip
+                 (titles metadata)))
   breadcrumb-sel (html/substitute
                    (header-breadcrumb
-                     {:name (if (= :list (:tag root))
+                     {:name (if (= :list (:tag metadata))
                               "" 
-                              (-> root :attrs :name))
-                      :root-uri (root-uri root)}))
-  common/interaction-sel (html/substitute
-                           (common/header-buttons
-                             {:buttons (common/buttons root edit?)})))
+                              (-> metadata :attrs :name))
+                      :root-uri (root-uri metadata)})))
 
-(html/defsnippet header-top-only common/header-template-html header-sel
+(html/defsnippet header-top-only header-template-html header-sel
   []
   header-menu (html/substitute
                 (header-top-bar-snip
@@ -116,3 +117,12 @@
   titles-sel nil
   breadcrumb-sel nil
   common/interaction-sel nil)
+
+;(html/defsnippet header-buttons header-template-html common/interaction-sel
+;  [{buttons :buttons}]
+;  [[:li (html/nth-of-type 1)]] (html/clone-for 
+;                                 [button buttons] 
+;                                 [:button] 
+;                                 (html/content button))
+;  [[:li html/last-of-type]] nil)
+
