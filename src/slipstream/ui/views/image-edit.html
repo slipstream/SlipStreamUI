@@ -1,15 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>SlipStream&trade; | Public/Tutorials/HelloWorld/apache</title>
-	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui.js"></script>
-	<script src="js/common.js"></script>
-	<script>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SlipStream | Image: Fedora 14.0</title>
+    <link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
+    <link rel="stylesheet" type="text/css" href="external/icon-font/css/font-awesome.min.css" media="screen" />
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/common.js"></script>
+    <script>
 	var setModuleType = function(category) {
 		var buttons = $('button span:contains("Select Exact Version"), button span:contains("Select")').parent();
 		if(category === 'Image') {
@@ -40,24 +42,29 @@
             //onclick__="showChooser('moduleReferenceInput','Image',updateParameterDefaults);"
           });
     });
-	</script>
-</head>
-<body>
+    </script>
+  </head>
+  <body>
 	<div id="wrapper">
 		<div id="header">
 			<div class="top">
 				<a href="#" class="logo"></a>
-				<div class="menu_bar">
-					<ul>
-						<li class="first"><a href="#">Documentation</a></li>
-						<li><a href="#">Users</a></li>
-						<li><a href="#">Configurations</a></li>
-						<li><a href="#">Super (logout)</a></li>
-					</ul>
-				</div>
+
+          <div class="menu_bar">
+            <ul>
+              <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
+              <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
+              <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
+
+              <li><a id="user" href="#">Joe <i class="icon-user icon-2x"></i></a></li>
+              <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
 			</div>
-			<div class="bottom bottom_i">
-				<h2>Public/Baseimages/Fedora/14.0</h2>
+			<div class="bottom bottom_no_icon">
+				<h2><i class="icon-desktop"></i> Public/Baseimages/Fedora/14.0</h2>
 				<h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
 				<p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
 				Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
@@ -75,9 +82,9 @@
 					<li><a href="#">123</a></li>
 				</ul>
 				<ul class="interaction">
-					<li class="attention"><button>Save</button></li>
-					<li class="attention"><button>Delete</button></li>
-					<li class="attention"><button>Cancel</button></li>
+	                          <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+	                          <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+	                          <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
 				</ul>
 			</div>
 			<div class="data_sheet">
@@ -155,7 +162,7 @@
 									</div>
 								</td>
 							</tr>
-							<th>Is a base image (i.e. not created by SlipStream)</th>
+							<th>Base image?</th>
 							<td>
 								<input id="isbase" name="isbase" type="checkbox" checked="on">
 							</td>
@@ -251,7 +258,7 @@
 								href="#" 
 								role="button" 
 								aria-disabled="false"
-								onclick="$$.addParameter(this);">Add Parameter</button>
+								onclick="$$.addParameter(this);"><i class="icon-plus"></i> Add Parameter</button>
 						</div>
 						<div id="fragment-input">
 							<table>
@@ -491,9 +498,9 @@
 			</div>
 			<div class="navigation bottom_nav">
 				<ul class="interaction">
-					<li class="attention"><button>Save</button></li>
-					<li class="attention"><button>Delete</button></li>
-					<li class="attention"><button>Cancel</button></li>
+	                          <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+	                          <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+	                          <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
 				</ul>
 			</div>
 		</div>

@@ -1,14 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>SlipStream Login</title>
-	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui.js"></script>
-	<script>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SlipStream | Project: Public</title>
+    <link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="external/icon-font/css/font-awesome.min.css" media="screen" />
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script>
 		$(function() {
 			$('.accordion').accordion({heightStyle: "content"});
 			$('.tab_block').tabs();
@@ -23,197 +26,202 @@
 					event.preventDefault();
 			});
 		});
-	</script>
-</head>
-<body>
-	<div id="wrapper">
-		<div id="header">
-			<div class="top">
-				<a href="#" class="logo"></a>
-				<div class="menu_bar">
-					<ul>
-						<li class="first"><a href="#">Documentation</a></li>
-						<li><a href="#">Users</a></li>
-						<li><a href="#">Configurations</a></li>
-						<li><a href="#">Super (logout)</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="bottom bottom_p">
-				<h2>Public</h2>
-				<h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
-				<p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
-				Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
-			</div> 
-		</div>
-		<div id="content">
-			<div class="navigation">
-				<ul class="breadcrumb">
-					<li class="first home"><a href="#">Home</a></li>
-					<li><a href="#">module</a></li>
-					<li><a href="#">Public</a></li>
-				</ul>
-				<ul class="interaction">
-					<li class="attention"><button>Save</button></li>
-					<li class="attention"><button>Cancel</button></li>
-					<li class="attention"><button>Delete</button></li>
-				</ul>
-			</div>
-			<div class="data_sheet">
-				<div class="summary accordion">
-					<h3>Summary</h3>
-					<div>
-						<table>
-							<tbody>
-								<tr class="odd">
-									<td>Module</td>
-									<td>Public</td>
-								</tr>
-								<tr>
-									<td>Version</td>
-									<td>1</td>
-								</tr>
-								<tr class="odd">
-									<td>Description</td>
-									<td>
-										<input name="description" type="text" value="Description...">
-									</td>
-								</tr>
-								<tr>
-									<td>Comment</td>
-									<td>Latest comment...</td>
-								</tr>
-								<tr class="odd">
-									<td>Category</td>
-									<td>Project</td>
-								</tr>
-								<tr>
-									<td>Created</td>
-									<td>2013-03-08 22:37:25.341 CET</td>
-								</tr>
-								<tr class="odd">
-									<td>Last modified</td>
-									<td>2013-03-08 22:37:25.341 CET</td>
-								</tr>
-								<tr>
-									<td>Owner</td>
-									<td>sixsq</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<h3>Authorization</h3>
-					<div>
-						<table class="autorization_table">
-							<thead>
-								<tr>
-									<th>Access Right</th>
-									<th>Owner</th>
-									<th>Group</th>
-									<th>Public</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>View</td>
-									<td>
-										<input type="checkbox" name="ownerGet" id="ownerGet" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupGet" id="groupGet" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="publicGet" id="publicGet" checked="on">
-									</td>
-								</tr>
-								<tr>
-									<td>Edit</td>
-									<td>
-										<input type="checkbox" name="ownerPut" id="ownerPut" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupPut" id="groupPut">
-									</td>
-									<td>
-										<input type="checkbox" name="publicPut" id="publicPut">
-									</td>
-								</tr>
-								<tr>
-									<td>Delete</td>
-									<td>
-										<input type="checkbox" name="ownerDelete" id="ownerDelete" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupDelete" id="groupDelete">
-									</td>
-									<td>
-										<input type="checkbox" name="publicDelete" id="publicDelete">
-									</td>
-								</tr>
-								<tr>
-									<td>Execute (e.g. Run, Build)</td>
-									<td>
-										<input type="checkbox" name="ownerPost" id="ownerPost" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupPost" id="groupPost">
-									</td>
-									<td>
-										<input type="checkbox" name="publicPost" id="publicPost">
-									</td>
-								</tr>
-								<tr>
-									<td>Create Children</td>
-									<td>
-										<input type="checkbox" name="ownerCreateChildren" id="ownerCreateChildren" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupCreateChildren" id="groupCreateChildren" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="publicCreateChildren" id="publicCreateChildren" checked="on">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<hr />
-						<table>
-							<thead>
-								<tr>
-									<th>Group members</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Inherited from parent:  .<input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers"></td>
-								</tr>
-								<tr>
-									<td>
-										<input type="input" name="groupmembers" id="groupmembers" value="meb, konstan" />
-									</td>
-								</tr>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="navigation bottom_nav">
-				<ul class="interaction">
-					<li class="attention"><button>Save</button></li>
-					<li class="attention"><button>Cancel</button></li>
-					<li class="attention"><button>Delete</button></li>
-				</ul>
-			</div>
-		</div>
-		<div id="footer">
-			<div class="footer_inner">
-                          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-				<div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-			</div>
-		</div>
-	</div>
-</body>
+    </script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+	<div class="top">
+	  <a href="#" class="logo"></a>
 
+          <div class="menu_bar">
+            <ul>
+              <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
+              <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
+              <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
+
+              <li><a id="user" href="#">Joe <i class="icon-user icon-2x"></i></a></li>
+              <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+	</div>
+	<div class="bottom bottom_no_icon">
+	  <h2><i class="icon-folder-open"></i> Public</h2>
+	  <h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
+	  <p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
+	    Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
+	</div> 
+      </div>
+      <div id="content">
+	<div class="navigation">
+	  <ul class="breadcrumb">
+	    <li class="first home"><a href="#">Home</a></li>
+	    <li><a href="#">module</a></li>
+	    <li><a href="#">Public</a></li>
+	  </ul>
+	  <ul class="interaction">
+	    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+	    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+	    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
+	  </ul>
+	</div>
+	<div class="data_sheet">
+	  <div class="summary accordion">
+	    <h3>Summary</h3>
+	    <div>
+	      <table>
+		<tbody>
+		  <tr class="odd">
+		    <td>Module</td>
+		    <td>Public</td>
+		  </tr>
+		  <tr>
+		    <td>Version</td>
+		    <td>1</td>
+		  </tr>
+		  <tr class="odd">
+		    <td>Description</td>
+		    <td>
+		      <input name="description" type="text" value="Description..." />
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>Comment</td>
+		    <td>Latest comment...</td>
+		  </tr>
+		  <tr class="odd">
+		    <td>Category</td>
+		    <td>Project</td>
+		  </tr>
+		  <tr>
+		    <td>Created</td>
+		    <td>2013-03-08 22:37:25.341 CET</td>
+		  </tr>
+		  <tr class="odd">
+		    <td>Last modified</td>
+		    <td>2013-03-08 22:37:25.341 CET</td>
+		  </tr>
+		  <tr>
+		    <td>Owner</td>
+		    <td>sixsq</td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	    <h3>Authorization</h3>
+	    <div>
+	      <table class="autorization_table">
+		<thead>
+		  <tr>
+		    <th>Access Right</th>
+		    <th>Owner</th>
+		    <th>Group</th>
+		    <th>Public</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>View</td>
+		    <td>
+		      <input type="checkbox" name="ownerGet" id="ownerGet" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="groupGet" id="groupGet" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="publicGet" id="publicGet" checked="on" />
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>Edit</td>
+		    <td>
+		      <input type="checkbox" name="ownerPut" id="ownerPut" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="groupPut" id="groupPut" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="publicPut" id="publicPut" />
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>Delete</td>
+		    <td>
+		      <input type="checkbox" name="ownerDelete" id="ownerDelete" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="groupDelete" id="groupDelete" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="publicDelete" id="publicDelete"/>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>Execute (e.g. Run, Build)</td>
+		    <td>
+		      <input type="checkbox" name="ownerPost" id="ownerPost" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="groupPost" id="groupPost" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="publicPost" id="publicPost" />
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>Create Children</td>
+		    <td>
+		      <input type="checkbox" name="ownerCreateChildren" id="ownerCreateChildren" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="groupCreateChildren" id="groupCreateChildren" checked="on" />
+		    </td>
+		    <td>
+		      <input type="checkbox" name="publicCreateChildren" id="publicCreateChildren" checked="on" />
+		    </td>
+		  </tr>
+		</tbody>
+	      </table>
+	      <hr />
+	      <table>
+		<thead>
+		  <tr>
+		    <th>Group members</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>Inherited from parent:  .<input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers" /></td>
+		  </tr>
+		  <tr>
+		    <td>
+		      <input type="input" name="groupmembers" id="groupmembers" value="meb, konstan" />
+		    </td>
+		  </tr>
+		  
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+	</div>
+	<div class="navigation bottom_nav">
+	  <ul class="interaction">
+	    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+	    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+	    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
+	  </ul>
+	</div>
+      </div>
+      <div id="footer">
+	<div class="footer_inner">
+          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+	  <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+	  <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+	</div>
+      </div>
+    </div>
+  </body>
+  
 </html>

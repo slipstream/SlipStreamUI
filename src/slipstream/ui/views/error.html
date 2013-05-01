@@ -1,57 +1,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
-
-<head>
+  
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SlipStream Login</title>
+    <title>SlipStream | Error</title>
     <link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
     <!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
+    <link rel="stylesheet" type="text/css" href="external/icon-font/css/font-awesome.min.css" media="screen" />
+    
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/common.js"></script>
-</head>
-<body>
-	<div id="wrapper">
-		<div id="header">
-			<div class="top">
-				<a href="#" class="logo"></a>
-				<div class="menu_bar">
-					<ul>
-						<li class="first"><a href="#">Documentation</a></li>
-						<li><a href="#">Joe (logout)</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="bottom bottom_no_icon">
-				<h2>Error</h2>
-				<h3>Oops... an error occurred!</h3>
-				<p>Find below the reason for this error...</p>
-			</div> 
-		</div>
-		<div id="content">
-			<div class="navigation">
-				<ul class="breadcrumb">
-					<li class="first home"><a href="#">Home</a></li>
-					<li><a href="#">Error</a></li>
-				</ul>
-			</div>
-        	<div id="wrapper">
-        		<div id="content">
-        			<div id="messages" class="message">
-        				<div id="error" class="conflict">
-        					<p>Error: StratusLab username cannot be empty, please edit your <a href="#">user account</a></p>
-        				</div>
-        			</div>
-        		</div>
-        	</div>
-    		<div id="footer">
-    			<div class="footer_inner">
-                          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-    				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-    				<div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-    			</div>
-    		</div>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+	<div class="top">
+	  <a href="#" class="logo"></a>
+
+          <div class="menu_bar">
+            <ul>
+              <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
+              <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
+              <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
+
+              <li><a id="user" href="#">Joe <i class="icon-user icon-2x"></i></a></li>
+              <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+	</div>
+	<div class="bottom bottom_no_icon">
+	  <h2><i style="color:red" class="icon-warning-sign"></i> Error</h2>
+	  <h3>StratusLab username cannot be empty, please edit your <a href="#">user account</a>.</h3>
+	  <p>Further detailed information for the error...</p>
+	</div> 
+      </div>
+      <div id="content">
+	<div class="navigation">
+	  <ul class="breadcrumb">
+	    <li class="first home"><a href="#">Home</a></li>
+	    <li><a href="#">Error</a></li>
+	  </ul>
+	</div>
+        <div id="wrapper">
+          <div id="content">
+            <div id="messages" class="message">
+            </div>
+          </div>
+        </div>
+    	<div id="footer">
+    	  <div class="footer_inner">
+            <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+    	    <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+    	    <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+    	  </div>
     	</div>
+      </div>
     </body>
 
     </html>

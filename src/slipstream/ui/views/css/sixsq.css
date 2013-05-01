@@ -134,27 +134,87 @@ img {
 }
 
 .project_category {
-	background: url('../images/slipstream_P.png') no-repeat scroll 3px 2px;
+        position: relative;
+}
+
+.project_category:before {
+        position: absolute;
+        font-family: FontAwesome;
+        font-size: 1.5em;
+        color: #50a7de;
+        top: 5px;
+        left: 7px;
+        content: "\f07c"; # icon-folder-open
 }
 
 .image_category {
-	background: url('../images/slipstream_I.png') no-repeat scroll 3px 2px;
+        position: relative;
+}
+
+.image_category:before {
+        position: absolute;
+        font-family: FontAwesome;
+        font-size: 1.5em;
+        color: #50a7de;
+        top: 5px;
+        left: 7px;
+        content: "\f108"; # icon-desktop
 }
 
 .deployment_category {
-	background: url('../images/slipstream_D.png') no-repeat scroll 3px 2px;
+        position: relative;
+}
+
+.deployment_category:before {
+        position: absolute;
+        font-family: FontAwesome;
+        font-size: 1.5em;
+        color: #50a7de;
+        top: 5px;
+        left: 7px;
+        content: "\f0ee"; # icon-cloud-upload
 }
 
 .run_category {
-	background: url('../images/slipstream_R.png') no-repeat scroll 3px 2px;
+        position: relative;
+}
+
+.run_category:before {
+        position: absolute;
+        font-family: FontAwesome;
+        font-size: 1.5em;
+        color: #50a7de;
+        top: 5px;
+        left: 7px;
+        content: "\f013"; # icon-cog
 }
 
 .user_category {
-	background: url('../images/slipstream_U.png') no-repeat scroll 3px 2px;
+        position:relative;
+}
+
+.user_category:before {
+        position: absolute;
+        font-family: FontAwesome;
+        font-size: 1.5em;
+        color: #50a7de;
+        top: 5px;
+        left: 7px;
+        content: "\f007"; # icon-user
 }
 
 .config_category {
-	background: url('../images/slipstream_C.png') no-repeat scroll 3px 2px;
+        position:relative;
+}
+
+.user_category:before {
+        position: absolute;
+        font-family: FontAwesome;
+        font-size: 1.5em;
+        color: #50a7de;
+        top: 5px;
+        left: 7px;
+        content: "\f0ad"; # icon-wrench
 }
 
 /* Bottom of the Header!! */
@@ -235,6 +295,10 @@ img {
 	color: #50a7de;
 	font-family: 'helveticaneueltstdmdcn', 'Arial Narrow', 'Arial', sans-serif;
 	line-height: 40px;
+}
+
+.bottom h2 i {
+	color: #50a7de;
 }
 
 .bottom h3 {
