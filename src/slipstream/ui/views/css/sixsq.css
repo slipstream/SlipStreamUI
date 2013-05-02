@@ -105,7 +105,7 @@ img {
 
 .menu_bar ul li {
 	float: left;
-	padding-top: 14px;
+	padding-top: 9px;
 }
 
 .menu_bar ul li a {
@@ -134,87 +134,87 @@ img {
 }
 
 .project_category {
-        position: relative;
+    position: relative;
 }
 
 .project_category:before {
-        position: absolute;
-        font-family: FontAwesome;
-        font-size: 1.5em;
-        color: #50a7de;
-        top: 5px;
-        left: 7px;
-        content: "\f07c"; # icon-folder-open
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    color: #50a7de;
+    top: 5px;
+    left: 7px;
+    content: "\f07c"; # icon-folder-open;
 }
 
 .image_category {
-        position: relative;
+    position: relative;
 }
 
 .image_category:before {
-        position: absolute;
-        font-family: FontAwesome;
-        font-size: 1.5em;
-        color: #50a7de;
-        top: 5px;
-        left: 7px;
-        content: "\f108"; # icon-desktop
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    color: #50a7de;
+    top: 5px;
+    left: 7px;
+    content: "\f108"; # icon-desktop
 }
 
 .deployment_category {
-        position: relative;
+    position: relative;
 }
 
 .deployment_category:before {
-        position: absolute;
-        font-family: FontAwesome;
-        font-size: 1.5em;
-        color: #50a7de;
-        top: 5px;
-        left: 7px;
-        content: "\f0ee"; # icon-cloud-upload
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    color: #50a7de;
+    top: 5px;
+    left: 7px;
+    content: "\f0ee"; # icon-cloud-upload
 }
 
 .run_category {
-        position: relative;
+    position: relative;
 }
 
 .run_category:before {
-        position: absolute;
-        font-family: FontAwesome;
-        font-size: 1.5em;
-        color: #50a7de;
-        top: 5px;
-        left: 7px;
-        content: "\f013"; # icon-cog
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    color: #50a7de;
+    top: 5px;
+    left: 7px;
+    content: "\f013"; # icon-cog
 }
 
 .user_category {
-        position:relative;
+    position: relative;
 }
 
 .user_category:before {
-        position: absolute;
-        font-family: FontAwesome;
-        font-size: 1.5em;
-        color: #50a7de;
-        top: 5px;
-        left: 7px;
-        content: "\f007"; # icon-user
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    color: #50a7de;
+    top: 5px;
+    left: 7px;
+    content: "\f007"; # icon-user
 }
 
 .config_category {
-        position:relative;
+    position:relative;
 }
 
 .user_category:before {
-        position: absolute;
-        font-family: FontAwesome;
-        font-size: 1.5em;
-        color: #50a7de;
-        top: 5px;
-        left: 7px;
-        content: "\f0ad"; # icon-wrench
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    color: #50a7de;
+    top: 5px;
+    left: 7px;
+    content: "\f0ad"; # icon-wrench
 }
 
 /* Bottom of the Header!! */
@@ -227,6 +227,10 @@ img {
 	-moz-border-radius: 0px 0px 3px 3px;
 	-webkit-border-radius: 0px 0px 3px 3px;
 	padding: 25px 0px 25px 170px;
+}
+
+.bottom i {
+	margin-right: 10px;
 }
 
 .bottom_no_icon {
