@@ -603,6 +603,8 @@ ul.interaction {
 	color: #ffffff;
 }
 
+/* Styling for the section header of the accordian.  Adds icons from the 
+   FontAwesome font for the open/close icons in each header. */
 .summary h3 span {
 
   /* These two blocks setup style for using icon font instead of images. */
@@ -612,43 +614,21 @@ ul.interaction {
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
 
-  /* Uncomment this block for accordion font icon. */
-  /*
   display: inline;
   width: auto;
   height: auto;
   line-height: normal;
   vertical-align: bottom;
   background-image: none;
-  background-position: 0% 0%;
-  background-repeat: repeat;
   margin-top: 0;
-  */
+
 	position: absolute;
-        right: 9px;
+	right: 24px;
 	top: 9px;
 
-	display: block;
-	width: 21px;
-	height: 21px;
-
-        /* Comment this block for accordion font icon. */
-	background-image: url('../images/open_close_icon.png');
-	background-position: right 0;
-
-        /* Uncomment this block for font icon. */
-        /*
-	right: 24px;
         color: white;
-        */
 }
 
-.summary h3.ui-state-active span {
-	background-position: left 0;
-}
-
-/* Uncomment these two rules for accordion font icon. */
-/*
 .summary h3 span:before {
         content: "\f078"; /* chevron down */
 }
@@ -656,7 +636,6 @@ ul.interaction {
 .summary h3.ui-state-active span:before {
         content: "\f077"; /* chevron up */
 }
-*/
 
 /* Tabs */
 
