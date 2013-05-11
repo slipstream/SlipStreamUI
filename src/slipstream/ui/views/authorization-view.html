@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>SlipStream Login</title>
-
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width">
+    
+    <title>SlipStream Login</title>
+    
     <link rel="stylesheet" type="text/css" href="css/application.css" />
-
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui.js"></script>
-	<script>
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script>
 		$(function() {
 			$('.accordion').accordion({heightStyle: "content"});
 			$('.tab_block').tabs();
@@ -24,127 +26,128 @@
 					event.preventDefault();
 			});
 		});
-	</script>
-</head>
-<body>
-	<div id="wrapper">
-		<div id="header">
-			<div class="top">
-				<a href="#" class="logo"></a>
-				<div class="menu_bar">
-					<ul>
-						<li class="first"><a href="#">Dashboard</a></li>
-						<li><a href="#">Documentation</a></li>
-						<li><a href="#">Users</a></li>
-						<li><a href="#">Configurations</a></li>
-						<li><a href="#">Super (logout)</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="bottom">
-				<h2>Public</h2>
-				<h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
-				<p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
-				Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
-			</div> 
-		</div>
-		<div id="content">
-			<div class="navigation">
-				<ul class="breadcrumb">
-					<li class="first home"><a href="#">Home</a></li>
-					<li><a href="#">module</a></li>
-					<li><a href="#">Public</a></li>
-				</ul>
-				<ul class="interaction">
-					<li class="attention"><button>Edit</button></li>
-					<li class="attention"><button>New Project</button></li>
-					<li class="attention"><button type="button">New Machine Image</button></li>
-					<li class="attention"><button type="button">New Deployment</button></li>
-				</ul>
-			</div>
-			<div class="data_sheet">
-				<div class="summary accordion">
-					<h3>Authorization</h3>
-					<div>
-						<table class="autorization_table">
-							<thead>
-								<tr>
-									<th>Access Right</th>
-									<th>Owner</th>
-									<th>Group</th>
-									<th>Public</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>View</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
-									<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
-								</tr>
-								<tr>
-									<td>Edit</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
-								</tr>
-								<tr>
-									<td>Delete</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
-								</tr>
-								<tr>
-									<td>Execute (e.g. Run, Build)</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
-								</tr>
-								<tr>
-									<td>Create Children</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
-								</tr>
-							</tbody>
-						</table>
-						<hr />
-						<table>
-							<thead>
-								<tr>
-									<th>Group members</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Inherited from parent: <input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
-								</tr>
-								<tr>
-									<td>meb, konstan</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="navigation bottom_nav">
-				<ul class="interaction">
-					<li class="attention"><button>Edit</button></li>
-					<li class="attention"><button>New Project</button></li>
-					<li class="attention"><button type="button">New Machine Image</button></li>
-					<li class="attention"><button type="button">New Deployment</button></li>
-				</ul>
-			</div>
-		</div>
-		<div id="footer">
-			<div class="footer_inner">
-                          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-				<div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-			</div>
-		</div>
+    </script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div id="header">
+	<div class="top">
+	  <a href="#" class="logo"></a>
+	  <div class="menu_bar">
+	    <ul>
+	      <li class="first"><a href="#">Dashboard</a></li>
+	      <li><a href="#">Documentation</a></li>
+	      <li><a href="#">Users</a></li>
+	      <li><a href="#">Configurations</a></li>
+	      <li><a href="#">Super (logout)</a></li>
+	    </ul>
+	  </div>
 	</div>
-</body>
+	<div class="bottom">
+	  <h2>Public</h2>
+	  <h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
+	  <p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
+	    Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
+	</div> 
+      </div>
+      <div id="content">
+	<div class="navigation">
+	  <ul class="breadcrumb">
+	    <li class="first home"><a href="#">Home</a></li>
+	    <li><a href="#">module</a></li>
+	    <li><a href="#">Public</a></li>
+	  </ul>
+	  <ul class="interaction">
+	    <li class="attention"><button>Edit</button></li>
+	    <li class="attention"><button>New Project</button></li>
+	    <li class="attention"><button type="button">New Machine Image</button></li>
+	    <li class="attention"><button type="button">New Deployment</button></li>
+	  </ul>
+	</div>
+	<div class="data_sheet">
+	  <div class="summary accordion">
+	    <h3>Authorization</h3>
+	    <div>
+	      <table class="autorization_table">
+		<thead>
+		  <tr>
+		    <th>Access Right</th>
+		    <th>Owner</th>
+		    <th>Group</th>
+		    <th>Public</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>View</td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+		    <td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
+		  </tr>
+		  <tr>
+		    <td>Edit</td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+		  </tr>
+		  <tr>
+		    <td>Delete</td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+		  </tr>
+		  <tr>
+		    <td>Execute (e.g. Run, Build)</td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+		  </tr>
+		  <tr>
+		    <td>Create Children</td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+		    <td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+		  </tr>
+		</tbody>
+	      </table>
+	      <hr />
+	      <table>
+		<thead>
+		  <tr>
+		    <th>Group members</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>Inherited from parent: <input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+		  </tr>
+		  <tr>
+		    <td>meb, konstan</td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+	</div>
+	<div class="navigation bottom_nav">
+	  <ul class="interaction">
+	    <li class="attention"><button>Edit</button></li>
+	    <li class="attention"><button>New Project</button></li>
+	    <li class="attention"><button type="button">New Machine Image</button></li>
+	    <li class="attention"><button type="button">New Deployment</button></li>
+	  </ul>
+	</div>
+      </div>
+      <div id="footer">
+	<div class="footer_inner">
+          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+	  <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+	  <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+	</div>
+      </div>
+    </div>
+  </body>
 
 </html>
-					
+				

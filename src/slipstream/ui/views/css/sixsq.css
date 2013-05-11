@@ -660,6 +660,14 @@ ul.interaction {
         content: "\f077"; /* chevron up */
 }
 
+/* 
+   Ensure that the accordion sections, if they are too large 
+   will be scrolled rather than force the page size to expand.
+*/
+.summary div {
+  overflow-x: auto;
+}
+
 /* Tabs */
 
 .tabs {
