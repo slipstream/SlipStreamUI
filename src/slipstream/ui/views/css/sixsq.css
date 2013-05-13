@@ -280,30 +280,6 @@ img {
 	background: #262626;
 }
 
-.bottom_c {
-	background: #262626 url('../images/slipstream_large_C.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_r {
-	background: #262626 url('../images/slipstream_large_R.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_i {
-	background: #262626 url('../images/slipstream_large_I.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_d {
-	background: #262626 url('../images/slipstream_large_D.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_p {
-	background: #262626 url('../images/slipstream_large_P.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_u {
-	background: #262626 url('../images/slipstream_large_U.png') no-repeat scroll 22px 23px;
-}
-
 .bottom h3,
 .bottom p {
 	line-height: 1;
