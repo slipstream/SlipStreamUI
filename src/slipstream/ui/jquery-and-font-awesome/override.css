@@ -1,0 +1,9 @@
+
+/* to override jqueryui icons for font icons */
+[class^="icon-"],
+[class*=" icon-"] {
+  background: none !important;
+  background-image: none !important;
+  text-indent: 0 !important;
+  padding: .2em 0 0 .2em !important;
+}

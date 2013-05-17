@@ -1,13 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<!DOCTYPE html>
+<html>
   
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SlipStream | Deployment: client_server</title>
-    <link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
-    <link rel="stylesheet" type="text/css" href="external/icon-font/css/font-awesome.min.css" media="screen" />
+    <meta name="viewport" content="width=device-width">
 
+    <title>SlipStream | Deployment: client_server</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/application.css" />
+    
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/common.js"></script>
@@ -45,40 +46,37 @@
     });
     </script>
   </head>
-  <body>
-	<div id="wrapper">
-		<div id="header">
-			<div class="top">
-				<a href="/" class="logo"></a>
 
-          <div class="menu_bar">
-            <ul>
-              <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-dashboard icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-group icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-wrench icon-2x"></i></a><li>
+<body>
+    <div id="wrapper">
+	    <div id="header">
+		    <div class="top">
+			    <a href="/" class="logo"></a>
+                <div class="menu_bar">
+                    <ul>
+                        <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-dashboard icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-group icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-wrench icon-2x"></i></a><li>
 
-              <li><a id="user" href="#">Super <i class="icon-user icon-2x"></i></a></li>
-              <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
-            </ul>
-          </div>
+                        <li><a id="user" href="#">Super <i class="icon-user icon-2x"></i></a></li>
+                        <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom bottom_no_icon">
+	            <h2><i class="icon-cloud-upload"></i> Public/Tutorials/HelloWorld/client_server</h2>
+	            <h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
+	            <p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
+	    Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
+            </div> 
         </div>
-
-
-			</div>
-			<div class="bottom bottom_no_icon">
-				<h2><i class="icon-cloud-upload"></i> Public/Tutorials/HelloWorld/client_server</h2>
-				<h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
-				<p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
-				Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
-			</div> 
-		</div>
 		<div id="content">
 			<div class="navigation">
 				<ul class="breadcrumb">
-					<li class="first home"><a href="/">Home</a></li>
+            	    <li><a href="#"><i class="icon-home"></i></a></li>
 					<li><a href="#">modules</a></li>
 					<li><a href="#">Public</a></li>
 					<li><a href="#">Tutorials</a></li>
@@ -86,9 +84,9 @@
 					<li><a href="#">client_server</a></li>
 				</ul>
 				<ul class="interaction">
-	    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-	    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
-	    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
+                    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+                    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+                    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
 				</ul>
 			</div>
 			<div class="data_sheet">
@@ -103,7 +101,7 @@
 								</tr>
 								<tr>
 									<td>Version</td>
-									<td>1<span id="versions"> (<a href="Deployment-view/">history</a>)</td>
+									<td>1<span id="versions"> (<a href="Deployment-view/">history</a>)</span></td>
 								</tr>
 								<tr class="odd">
 									<td>Description</td>
@@ -117,8 +115,9 @@
 								</tr>
 								<tr class="odd">
 									<td>Category</td>
-									<td>Deployment</td>
-                      		        <input name="category" type="hidden" value="Deployment" />
+									<td>Deployment
+									    <input name="category" type="hidden" value="Deployment" />
+                          		    </td>
 								</tr>
 								<tr>
 									<td>Created</td>
@@ -162,7 +161,7 @@
 												</td>
 											</tr>
 											<tr>
-												<td><b>Default cloud service: <select>
+												<td><b>Default cloud service:</b><select>
 												    <option>default</option>
 												    <option>CloudSigma</option>
 												    <option>StratusLab</option>
@@ -183,7 +182,6 @@
 													</table>
                         							<button 
                         								class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                        								href="#" 
                         								role="button" 
                         								aria-disabled="false"
                         								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
@@ -196,7 +194,7 @@
 											class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
 											role="button" 
 											aria-disabled="false"
-											onclick="$$.removeTrFromButton(this);" />
+											onclick="$$.removeTrFromButton(this);"></button>
 									</td>
 								</tr>
 								<tr>
@@ -215,7 +213,7 @@
 												</td>
 											</tr>
 											<tr>
-												<td><b>Default cloud service: <select>
+												<td><b>Default cloud service:</b><select>
 												    <option>default</option>
 												    <option>CloudSigma</option>
 												    <option>StratusLab</option>
@@ -241,7 +239,7 @@
                     												class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                     												role="button" 
                     												aria-disabled="false"
-                    												onclick="$$.removeTrFromButton(this);" />
+                    												onclick="$$.removeTrFromButton(this);"></button>
                     										</td>
 														</tr>
 														<tr>
@@ -252,7 +250,7 @@
                     												class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                     												role="button" 
                     												aria-disabled="false"
-                    												onclick="$$.removeTrFromButton(this);" />
+                    												onclick="$$.removeTrFromButton(this);"></button>
                     										</td>
 														</tr>
 														<tr>
@@ -362,24 +360,23 @@
 			</div>
 			<div class="navigation bottom_nav">
 				<ul class="interaction">
-	    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-	    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
-	    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
-				</ul>
-			</div>
-		</div>
-		<div id="footer">
-			<div class="footer_inner">
-                          <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-				<div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-				<div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-			</div>
-		</div>
-	</div>
-	<div id="chooser" class="overlay_sheet">
-		<iframe id="chooseriframe" src="image-view-chooser.html">
-		</iframe>
-	</div>
+                    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+                    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+                    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
+	            </ul>
+	        </div>
+        </div>
+        <div id="footer">
+	        <div class="footer_inner">
+                <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+                <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+                <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+	        </div>
+        </div>
+    </div>
+    <div id="chooser" class="overlay_sheet">
+        <iframe id="chooseriframe" src="image-view-chooser.html"></iframe>
+    </div>
 </body>
-
+  
 </html>

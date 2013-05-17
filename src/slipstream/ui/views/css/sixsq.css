@@ -9,6 +9,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'helveticaneueltstdltcn';
 	src: url('../font/helveticaneueltstdltcn.eot');
@@ -33,7 +34,7 @@ body {
 	font-size: 0.75em;/*12px*/
 	color: #4f4f4f;
 	width: 100%;
-	min-width: 990px;
+	/* min-width: 990px; */ /* liquid layout */
 	background: #ffffff url('../images/body.jpg') repeat-x scroll left top;
 }
 
@@ -52,14 +53,16 @@ img {
 
 #wrapper {
 	position: relative;
-	width: 990px;
+	/* width: 990px; */
+	max-width: 990px; /* liquid layout */
 	margin: 0 auto;
 	zoom: 1;
 }
 
 #content {
 	float: none;
-	width: 980px;
+	/* width: 980px; */
+	width: 98%; /* liquid layout */
 	border-bottom: 1px solid #e9e9e9;
 	margin: 0px auto 0px auto;
 }
@@ -83,13 +86,24 @@ img {
 }
 
 .menu_bar {
-	width: 990px;
+	/* width: 990px; */
+	width: 100%; /* liquid layout */
+        max-width: 990px; /* liquid layout */
 	height: 43px;
 	margin: 0px auto;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
-	background: #a10000 url('../images/menu.jpg') repeat-x scroll left top;
+
+	/* background: #a10000 url('../images/menu.jpg') repeat-x scroll left top; */
+	
+	background: #b50000; /* Old browsers */
+	background: -moz-linear-gradient(top,  #b50000 0%, #bf0000 47%, #630000 50%, #740000 72%, #b50000 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b50000), color-stop(47%,#bf0000), color-stop(50%,#630000), color-stop(72%,#740000), color-stop(100%,#b50000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* W3C */
 }
 
 .menu_bar ul,
@@ -127,82 +141,89 @@ img {
 }
 
 /* Categories */
-.category {
-	padding: 0px 0px 0px 35px !important;
-}
-
 .project_category {
+    padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
 .project_category:before {
-    position: absolute;
+    position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
     color: #50a7de;
-    top: 5px;
-    left: 7px;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
     content: "\f07c"; # icon-folder-open;
 }
 
 .image_category {
+    padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
 .image_category:before {
-    position: absolute;
+    position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
     color: #50a7de;
-    top: 5px;
-    left: 7px;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
     content: "\f108"; # icon-desktop
 }
 
 .deployment_category {
+    padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
 .deployment_category:before {
-    position: absolute;
+    position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
     color: #50a7de;
-    top: 5px;
-    left: 7px;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
     content: "\f0ee"; # icon-cloud-upload
 }
 
 .run_category {
+    padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
 .run_category:before {
-    position: absolute;
+    position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
     color: #50a7de;
-    top: 5px;
-    left: 7px;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
     content: "\f013"; # icon-cog
 }
 
 .user_category {
+    padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
 .user_category:before {
-    position: absolute;
+    position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
     color: #50a7de;
-    top: 5px;
-    left: 7px;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
     content: "\f007"; # icon-user
 }
 
 .config_category {
-    position:relative;
+    padding: 0px 0px 0px 5px !important;
+    position: relative;
 }
 
 .config_category:before {
@@ -210,15 +231,17 @@ img {
     font-family: FontAwesome;
     font-size: 1.5em;
     color: #50a7de;
-    top: 5px;
-    left: 7px;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
     content: "\f0ad"; # icon-wrench
 }
 
 /* Bottom of the Header!! */
 
 .bottom {
-	width: 810px;
+	/* width: 810px; */
+	width: 82%; /* liquid layout */
 	height: 106px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
@@ -232,7 +255,8 @@ img {
 }
 
 .bottom_no_icon {
-	width: 955px;
+	/* width: 955px; */
+	width: 96%; /* liquid layout */
 	height: 106px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
@@ -243,7 +267,8 @@ img {
 }
 
 .bottom_with_slider {
-	width: 920px;
+	/* width: 920px; */
+	width: 92%; /* liquid layout */
 	height: 106px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
@@ -251,30 +276,6 @@ img {
 	-webkit-border-radius: 0px 0px 3px 3px;
 	padding: 25px 0px 25px 60px;
 	background: #262626;
-}
-
-.bottom_c {
-	background: #262626 url('../images/slipstream_large_C.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_r {
-	background: #262626 url('../images/slipstream_large_R.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_i {
-	background: #262626 url('../images/slipstream_large_I.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_d {
-	background: #262626 url('../images/slipstream_large_D.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_p {
-	background: #262626 url('../images/slipstream_large_P.png') no-repeat scroll 22px 23px;
-}
-
-.bottom_u {
-	background: #262626 url('../images/slipstream_large_U.png') no-repeat scroll 22px 23px;
 }
 
 .bottom h3,
@@ -394,16 +395,24 @@ img {
 
 #footer {
 	clear: both;
-	width: 990px;
+	/* width: 990px; */
+	width: 100%; /* liquid layout */
+        max-width: 990px; /* liquid layout */
 	margin: 10px auto 20px auto;
 }
 
 .footer_inner {
 	border: 1px solid #e9e9e9;
-	padding: 15px 15px 15px 270px;
+	/* padding: 15px 15px 15px 270px; */
+	padding: 15px 15px 15px 15px;
 	background-color: #ffffff;
-	margin-left: 5px;
-	margin-right: 5px;
+
+        /* liquid layout; old static values 5px */        
+	margin-left: auto;
+	margin-right: auto;
+
+        text-align: center;
+
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -419,13 +428,13 @@ img {
 	margin-left: 10px;
 	margin-right: 10px;
 	padding-top: 7px;
-	text-align: right;
+	text-align: center;
 }
 
 .sixsq_logo {
 	margin-left: 10px;
 	margin-right: 10px;
-	text-align: right;
+	text-align: center;
         vertical-align: bottom;
 }
 
@@ -439,7 +448,7 @@ img {
 .swiss_made {
         margin-left: 10px;
         margin-right: 10px;
-        text-align: right;
+        text-align: center;
         vertical-align: bottom;
 }
 
@@ -466,9 +475,19 @@ img {
 
 ul.breadcrumb,
 ul.interaction {
+	display: block;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	height: 39px;
+}
+
+ul.breadcrumb {
+	float: left;
+
+	padding: 0;
+	left: 0;
+	top: 0;
 	height: 39px;
 }
 
@@ -476,55 +495,50 @@ ul.interaction {
 .interaction li {
 	margin: 0;
 	padding: 0;
-	float: left;
+	display: inline-block;
 }
 
-.breadcrumb {
-	padding-left: 10px;
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 39px;
-}
 
 .breadcrumb li {
 	height: 39px;
 	line-height: 39px;
 	color: #000000;
-	padding: 0 11px 0 11px;
-	background: url('../images/breadcrumb_arrow.png') left center no-repeat;
+}
+
+/* Make the text (icon) of the first link slightly larger. */
+.breadcrumb li:first-child i {
+	font-size: 1.5em;
+}
+
+/* For the others add a small separator icon. */
+.breadcrumb li:not(:first-child):before {
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: inherit;
+	-webkit-font-smoothing: antialiased;
+
+	font-size: 0.5em;
+	
+	content: "\f054"; /* chevron right */  
+
+	padding: 0 0.5em 0 0.5em;
 }
 
 .breadcrumb li a {
 	color: #000000;
 }
 
-.breadcrumb li a:hover {
+.breadcrumb li:not(:first-child) a:hover {
 	text-decoration: underline;
 }
 
-.breadcrumb li.home {
-	padding: 0;
-	width: 40px;
-	
-	overflow: hidden;
-	text-indent: -3000px;
-	background: url('../images/home_icon.png') center center no-repeat;
+
+ul.interaction {
+	float: right;
 }
 
-.breadcrumb li.home a {
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-
-.interaction {
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
-.interaction li {
+ul.interaction li {
 	margin: 8px 0 0 5px;
 }
 
@@ -532,8 +546,7 @@ ul.interaction {
 .interaction li button,
 .interaction li input,
 .ui-button {
-/*  display: block;
-*/	border: none;
+	border: none;
 	height: 23px;
 	line-height: 23px;
 	padding: 0 11px;
@@ -545,6 +558,7 @@ ul.interaction {
 	
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
+
 	-webkit-box-shadow: 0px 1px 3px 0px #b2b2b2;
 	box-shadow: 0px 1px 3px 0px #b2b2b2;
 }
@@ -567,6 +581,7 @@ ul.interaction {
 /* Content */
 
 .data_sheet {
+	clear: both;
 	margin: 0px 4px 0 4px;
 	padding: 11px 11px 20px 9px; 
 	position: relative;
@@ -587,31 +602,69 @@ ul.interaction {
 	margin: 0 0 2px 0;
 	height: 38px;
 	line-height: 38px;
-	background: #262626  url('../images/datasheet_title_bg.png') 0 0 repeat-x;
 	color: #ffffff;
 	text-indent: 11px;
 	cursor: pointer;
 	
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
+	
+	/* background: #262626  url('../images/datasheet_title_bg.png') 0 0 repeat-x; */
+
+	/* background gradient to replace image */
+	background: #262626; /* Old browsers */
+	background: -moz-linear-gradient(top,  #404040 0%, #262626 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#404040), color-stop(100%,#262626)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #404040 0%,#262626 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #404040 0%,#262626 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #404040 0%,#262626 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #404040 0%,#262626 100%); /* W3C */
 }
 
 .summary h3 a {
 	color: #ffffff;
 }
 
+/* Styling for the section header of the accordian.  Adds icons from the 
+   FontAwesome font for the open/close icons in each header. */
 .summary h3 span {
+
+  /* These two blocks setup style for using icon font instead of images. */
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  vertical-align: bottom;
+  background-image: none;
+  margin-top: 0;
+
 	position: absolute;
-	right: 9px;
+	right: 24px;
 	top: 9px;
-	display: block;
-	width: 21px;
-	height: 21px;
-	background-image: url('../images/open_close_icon.png');
-	background-position: right 0;
+
+        color: white;
 }
-.summary h3.ui-state-active span {
-	background-position: left 0;
+
+.summary h3 span:before {
+        content: "\f078"; /* chevron down */
+}
+
+.summary h3.ui-state-active span:before {
+        content: "\f077"; /* chevron up */
+}
+
+/* 
+   Ensure that the accordion sections, if they are too large 
+   will be scrolled rather than force the page size to expand.
+*/
+.summary div {
+  overflow-x: auto;
 }
 
 /* Tabs */
@@ -767,9 +820,7 @@ ul.interaction {
 }
 
 .data_sheet tr:nth-child(odd) td,
-.data_sheet tr.odd,
-.overlay_sheet tr:nth-child(odd) td,
-.overlay_sheet tr.odd {
+.overlay_sheet tr:nth-child(odd) td {
 	background-color: #e4e4e4;
 	/*background-color: red;*/
 }
@@ -836,8 +887,7 @@ table.image_link tr td {
 	height: 52px;
 }
 
-table.image_link tr:nth-child(odd) td,
-table.image_link tr.odd td {
+table.image_link tr:nth-child(odd) td {
 	background-color: transparent;
 }
 
@@ -896,8 +946,7 @@ table.parameter_mapping tr td {
 	border-radius: 0;
 }
 
-table.parameter_mapping tr:nth-child(odd) td,
-table.parameter_mapping tr.odd td {
+table.parameter_mapping tr:nth-child(odd) td {
 	background-color: transparent;
 }
 

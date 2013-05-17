@@ -881,6 +881,8 @@ $(document).ready(function() {
 		instructiondTr.addClass(classTr);
 		instructiondTr.toggle();
 	});
+	
+	$('.ui-widget-overlay, .please_wait').hide();
 })
 
 

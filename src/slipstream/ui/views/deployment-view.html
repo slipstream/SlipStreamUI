@@ -1,38 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<!DOCTYPE html>
+<html>
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SlipStream | Deployment: client_server</title>
-    <link rel="stylesheet" type="text/css" href="external/jit/css/base.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="external/jit/css/Spacetree.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
-    <link rel="stylesheet" type="text/css" href="external/icon-font/css/font-awesome.min.css" media="screen" />
+    <meta name="viewport" content="width=device-width">
 
+    <title>SlipStream | Deployment: client_server</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/application.css" />
+    
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="external/jit/js/jit.js" type="text/javascript"></script>
     <script src="external/jit/js/excanvas.js" type="text/javascript"></script>
     <script src="js/common.js"></script>
+    <script src="js/deployment.js" type="text/javascript"></script>
     <script src="js/deployment-dashboard.js" type="text/javascript"></script>
-    <script>
-		$(function() {
-			$('.accordion').accordion({heightStyle: "content"});
-			$('.tab_block').tabs();
-			$('input[type=submit], a, button','.interaction')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-			$('.add_item','.nodes')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-			$('.ui-widget-overlay, .please_wait').hide();
-		});
-    </script>
   </head>
   <body>
 	<div id="wrapper">
@@ -40,23 +23,21 @@
 			<div class="top">
 				<a href="/" class="logo"></a>
 
-          <div class="menu_bar">
-            <ul>
-              <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-dashboard icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-group icon-2x"></i></a><li>
-              <li class="first"><a href="#"><i class="icon-wrench icon-2x"></i></a><li>
+                <div class="menu_bar">
+                    <ul>
+                        <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-dashboard icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-group icon-2x"></i></a><li>
+                        <li class="first"><a href="#"><i class="icon-wrench icon-2x"></i></a><li>
 
-              <li><a id="user" href="#">Super <i class="icon-user icon-2x"></i></a></li>
-              <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
-            </ul>
-          </div>
-        </div>
-
-
+                        <li><a id="user" href="#">Super <i class="icon-user icon-2x"></i></a></li>
+                        <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
+                    </ul>
+                </div>
 			</div>
+
 			<div class="bottom bottom_no_icon">
 				<h2><i class="icon-cloud-upload"></i> Public/Tutorials/HelloWorld/client_server</h2>
 				<h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
@@ -67,7 +48,7 @@
 		<div id="content">
 			<div class="navigation">
 				<ul class="breadcrumb">
-					<li class="first home"><a href="/">Home</a></li>
+            	    <li><a href="#"><i class="icon-home"></i></a></li>
 					<li><a href="#">modules</a></li>
 					<li><a href="#">Public</a></li>
 					<li><a href="#">Tutorials</a></li>
@@ -301,11 +282,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="ui-widget-overlay"></div>
-	<div class="please_wait">
-		<h2>Starting VMs</h2>
-		<p>Please wait</p>
-	</div>
+    <div class="ui-widget-overlay"></div>
+        <div class="please_wait">
+            <h2>Starting VMs</h2>
+            <p>Please wait</p>
+        </div>
+    </div>
 </body>
-
+  
 </html>

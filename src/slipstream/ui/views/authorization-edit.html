@@ -1,30 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<!DOCTYPE html>
+<html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>SlipStream Login</title>
-	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui.js"></script>
-	<script>
-		$(function() {
-			$('.accordion').accordion({heightStyle: "content"});
-			$('.tab_block').tabs();
-			$('input[type=submit], a, button','.interaction')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-			$('.add_item','.nodes')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-		});
-	</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>SlipStream Login</title>
+
+    <link rel="stylesheet" type="text/css" href="css/application.css" />
+    
+    <script src="/external/jquery/js/jquery.js"></script>
+    <script src="/external/jquery/js/jquery-ui.js"></script>
+	<script src="/js/common.js"></script>
 </head>
+
 <body>
 	<div id="wrapper">
 		<div id="header">
@@ -116,11 +105,11 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>Inherited from parent: <input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers" checked="true" /></td>
+									<td>Inherited from parent: <input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers" checked="checked" /></td>
 								</tr>
 								<tr>
 									<td>
-										<input type="input" name="groupmembers" id="groupmembers" value="meb, konstan, other" />
+										<input type="text" name="groupmembers" id="groupmembers" value="meb, konstan, other" />
 									</td>
 								</tr>
 								
@@ -145,8 +134,8 @@
 				<div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
 			</div>
 		</div>
-	</div>
+    </div>
 </body>
-
+  
 </html>
-					
+				
