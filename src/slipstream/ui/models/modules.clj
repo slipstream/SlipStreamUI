@@ -4,6 +4,6 @@
 (def sel-modules
   #{[:item]})
 
-(defn modules [root]
-  "Extract modules from root map (e.g. root module list)"
-  (html/select root sel-modules))
+(defn modules [project-or-root]
+  "Extract modules from root map (e.g. root module list or project)"
+  (html/select project-or-root sel-modules))

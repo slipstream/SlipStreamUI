@@ -20,19 +20,36 @@
 
 $(document).ready(function() {
 
-	$('#formregister').submit(function(event){
+    // Save button
+	$('#save-button-top, #save-button-bottom').click(function(event){
 		event.preventDefault();
-	
-		var callback = function(data, status, xhr) {
-			$('body').html(data);
-		}
-
-		return $$.send($(this), event, $.post, callback);
-	});
-
-	$('input[value="Register"]').click(function(event){
 		$$.hideError();
-		$$.showSubmitMessage();
+		background.fadeOutTopWindow();
+		$('#save-module-dialog').dialog('open');
+		return false;
 	});
 
-});
+	$('#save-module-dialog').dialog({
+		autoOpen: false,
+		title: 'Save Module?',
+		buttons: {
+			"Save": function() {
+				$(this).dialog("close");
+				background.fadeInTopWindow();
+				$("#module-comment").val($("#save-comment").val());
+				$("#form-save").submit();
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+				background.fadeInTopWindow();
+			},
+		}
+	});
+
+    // Cancel button
+    $('#cancel-button-top, #cancel-button-bottom').click(function(event){
+		event.preventDefault();
+		window.location = window.location.href.split("/new")[0];
+    });	
+
+})

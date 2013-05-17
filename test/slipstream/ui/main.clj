@@ -3,7 +3,9 @@
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
+            [slipstream.ui.views.error :as error]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.module :as module]
@@ -28,21 +30,23 @@
 (defn knockknock-page []
   (knockknock/page projects/xml-projects))
 
+(defn byebye-page []
+  (byebye/page projects/xml-projects))
+
 (defn welcome-page []
   (welcome/page projects/xml-projects))
 
-(defn error-page [message code & user]
-  (base/base 
-    {:title "Error"
-     :header (header/header-top-only) 
-     :content (common/error-snip message code)
-     :footer (footer/footer-snip nil nil @version/slipstream-release-version)}))
+(defn error-page [message]
+  (error/page (or message "Oops!!") 123 (user/user projects/xml-projects)))
 
 (defn module-view [module]
-  (module-page module false))
+  (module-page module "view"))
 
 (defn module-edit [module]
-  (module-page module true))
+  (module-page module "edit"))
+
+(defn module-new [module]
+  (module-page module "new"))
 
 (defn module-projects-view []
   (module-view projects/xml-projects))
@@ -55,6 +59,9 @@
 
 (defn module-project-edit []
   (module-edit project/xml-project))
+
+(defn module-project-new []
+  (module-new project/xml-project))
 
 (defn module-image-view []
   (module-view image/xml-image))
@@ -74,19 +81,19 @@
 
 (def routes
   (app
-;    [""] (utils/render-request index)
-    ["knockknock"] (-> (knockknock-page) ring.util.response/response constantly)
+    ["logout"] (-> (byebye-page) ring.util.response/response constantly)
+    ["login"] (-> (knockknock-page) ring.util.response/response constantly)
     ["welcome"] (-> (welcome-page) ring.util.response/response constantly)
     ["project-view"] (-> (module-project-view) ring.util.response/response constantly)
     ["project-edit"] (-> (module-project-edit) ring.util.response/response constantly)
+    ["project-new"] (-> (module-project-new) ring.util.response/response constantly)
     ["image-view"] (-> (module-image-view) ring.util.response/response constantly)
     ["image-edit"] (-> (module-image-edit) ring.util.response/response constantly)
     ["deployment-view"] (-> (module-deployment-view) ring.util.response/response constantly)
     ["deployment-edit"] (-> (module-deployment-edit) ring.util.response/response constantly)
-    [&] (-> (error-page 
-          "The server has not found anything matching the request URI"
-          "404"
-          (user/user image/xml-image)) ring.util.response/response constantly)))
+    ["error"] (-> (error-page) ring.util.response/response constantly)
+    [&] (-> (error-page "Unknown page")
+          ring.util.response/response constantly)))
 
 ;; =============================================================================
 ;; The App

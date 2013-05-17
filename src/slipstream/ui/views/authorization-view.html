@@ -5,25 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>SlipStream Login</title>
 	<link rel="stylesheet" type="text/css" href="css/sixsq.css" media="screen" />
-	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="ie7.css" media="screen" /><![endif]-->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<script>
-		$(function() {
-			$('.accordion').accordion({heightStyle: "content"});
-			$('.tab_block').tabs();
-			$('input[type=submit], a, button','.interaction')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-			$('.add_item','.nodes')
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-			});
-		});
-	</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -64,8 +47,8 @@
 			<div class="data_sheet">
 				<div class="summary accordion">
 					<h3>Authorization</h3>
-					<div>
-						<table class="autorization_table">
+					<div id="authorization">
+						<table id="authorization-acl-table">
 							<thead>
 								<tr>
 									<th>Access Right</th>
@@ -75,50 +58,50 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr id="authz-view">
 									<td>View</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
-									<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox"/></td>
 								</tr>
-								<tr>
+								<tr id="authz-edit">
 									<td>Edit</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-delete">
 									<td>Delete</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-execute">
 									<td>Execute (e.g. Run, Build)</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-children">
 									<td>Create Children</td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
-									<td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
+									<td><input disabled="true" class="checkbox" type="checkbox" /></td>
 								</tr>
 							</tbody>
 						</table>
 						<hr />
-						<table>
+						<table id="authorization-inheritance-table">
 							<thead>
 								<tr>
 									<th>Group members</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr id="authz-inherited">
 									<td>Inherited from parent: <input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-group">
 									<td>meb, konstan</td>
 								</tr>
 							</tbody>

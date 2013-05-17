@@ -637,7 +637,7 @@ var $$ = {
 	showLogger: showLogger,
 	hideLogger: hideLogger,
 	send: function($this, event, action, callback){
-	    $('input[type=submit]', this).attr('disabled', 'disabled');
+	    $(':button[type=submit]').attr('disabled', 'disabled');
 		event.preventDefault();
 
 		var url = $this.attr('action');
@@ -648,11 +648,11 @@ var $$ = {
 			callback = function(data, status, xhr) {
 				var location = xhr.getResponseHeader('Location');
 				window.location = location;
-			}
-		}
+		    }
+        }
 
 		action(url, dataToSend, callback, 'text');
-	    $('input[type=submit]', this).removeAttr('disabled');
+	    $(':button[type=submit]').removeAttr('disabled');
 	
 		return false;
 	},
@@ -791,7 +791,21 @@ var $$ = {
         newPackage.appendTo(table);
 
         setHash();
-    }
+    },
+    
+	newModuleRedirect: function($this) {
+		var category = $this.attr('name');
+		window.location = '/module/' + $('#module-name').text() + "/new?category=" + category;
+	},
+
+    decodeHtmlInInstructions: function() {
+     $('.instructions > td').each(function(i, node) {
+         var value = $(node).text();
+             value = value.replace('&lt;', '<').replace('&gt;', '>');
+         $(node).html(value);
+     });
+    },
+
 }
 
 function updateParameterDefaults() {
@@ -805,7 +819,7 @@ var showSubmitMessage = $$.showSubmitMessage;
 
 $(document).ready(function() {
 
-	$('#error').ajaxError(function(e, xhr, settings, exception) {
+	$(document).ajaxError(function(e, xhr, settings, exception) {
 		if(xhr.status === 401) {
 			if($('#loggeriframe').length) {
 				if($('#loggeriframe').is(':hidden')) {
@@ -819,24 +833,54 @@ $(document).ready(function() {
 			error = $$.extractError(xhr.responseText, settings);
 		}
 		$$.hideSubmitMessage();
-		$$.show($(this), error);
+		$$.show($("#error"), error);
 	});
 
 	$('.accordion').accordion(
 		{ heightStyle: "content",
 		  collapsible: true });
 	$('.tab_block').tabs();
-	$('input[type=submit], a, button','.interaction')
-		.button()
-		.click(function( event ) {
-			event.preventDefault();
-	});
+    // $('input[type=submit], a, button','.interaction')
+    //  .button()
+    //  .click(function( event ) {
+    //      event.preventDefault();
+    // });
 	$('.add_item','.nodes')
 		.button()
 		.click(function( event ) {
-			event.preventDefault();
+//			event.preventDefault();
 	});
-	$('.hidden').hide();
+	
+	// Logout dialog
+	$('#logoutdialog').dialog(
+		{ autoOpen: false,
+		  modal: true,
+		  title: "Logout",
+		  buttons: [ { text: "Logout", 
+		               click: function() { $( this ).dialog( "close" ); 
+		                                   $.delete_("/logout", $.delete_("/logout", success=function() {
+                           					   window.location = "/login";
+                           				       }));} },
+		             { text: "Cancel", 
+		               click: function() { $( this ).dialog( "close" ); } }
+		           ]
+	});
+    $( "#logoutlink" ).click(function(event) {
+	    event.preventDefault();
+        $( "#logoutdialog" ).dialog( "open" );
+    });
+    
+    // Convert instruction strings into HTML in the page 
+	$$.decodeHtmlInInstructions();
+
+	$('.instructions').click(function(event){
+		event.preventDefault();
+		var parentTr = $(this).closest('tr');
+		var classTr = parentTr.attr('class');
+		var instructiondTr = parentTr.next('.instructions');
+		instructiondTr.addClass(classTr);
+		instructiondTr.toggle();
+	});
 })
 
 

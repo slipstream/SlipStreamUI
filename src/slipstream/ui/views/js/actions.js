@@ -197,4 +197,5 @@ $(document).ready(function() {
 	$('a.instructions').parent().css('width', 24);
 	
     $('input').watermark();
+    
 })

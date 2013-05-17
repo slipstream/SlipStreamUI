@@ -224,9 +224,6 @@ $(document).ready(function() {
 		showSubmitMessage();
 	});
 
-//	$('form[name="runwithoptions"]').css('color','blue');
-
-
 	$('form[name="runwithoptions"]').submit(function(event){
 		event.preventDefault();
 		background.fadeInTopWindow();
@@ -240,5 +237,5 @@ $(document).ready(function() {
 		$('#runOptions').hide();
 		hideSubmitMessage();
 	});	
-	
+
 })

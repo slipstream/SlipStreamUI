@@ -14,5 +14,5 @@
 <groupMembers class='java.util.ArrayList'></groupMembers>
 </authz>
 </item>
-<user issuper='true' resourceUri='user/super' username='super'></user>
+<user issuper='true' resourceUri='user/super' username='SuperDooper'></user>
 </list>")))

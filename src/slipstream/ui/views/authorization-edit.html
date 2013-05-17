@@ -64,8 +64,8 @@
 			<div class="data_sheet">
 				<div class="summary accordion">
 					<h3>Authorization</h3>
-					<div>
-						<table class="autorization_table">
+					<div id="authorization">
+						<table id="authorization-acl-table">
 							<thead>
 								<tr>
 									<th>Access Right</th>
@@ -75,65 +75,35 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr id="authz-view">
 									<td>View</td>
-									<td>
-										<input type="checkbox" name="ownerGet" id="ownerGet" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupGet" id="groupGet" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="publicGet" id="publicGet" checked="on">
-									</td>
+									<td><input name="ownerGet" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input name="groupGet" class="checkbox" type="checkbox" /></td>
+									<td><input name="publicGet" class="checkbox" type="checkbox"/></td>
 								</tr>
-								<tr>
+								<tr id="authz-edit">
 									<td>Edit</td>
-									<td>
-										<input type="checkbox" name="ownerPut" id="ownerPut" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupPut" id="groupPut">
-									</td>
-									<td>
-										<input type="checkbox" name="publicPut" id="publicPut">
-									</td>
+									<td><input name="ownerPut" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input name="groupPut" class="checkbox" type="checkbox" /></td>
+									<td><input name="publicPut" class="checkbox" type="checkbox" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-delete">
 									<td>Delete</td>
-									<td>
-										<input type="checkbox" name="ownerDelete" id="ownerDelete" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupDelete" id="groupDelete">
-									</td>
-									<td>
-										<input type="checkbox" name="publicDelete" id="publicDelete">
-									</td>
+									<td><input name="ownerDelete" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input name="groupDelete" class="checkbox" type="checkbox" /></td>
+									<td><input name="publicDelete" class="checkbox" type="checkbox" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-execute">
 									<td>Execute (e.g. Run, Build)</td>
-									<td>
-										<input type="checkbox" name="ownerPost" id="ownerPost" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupPost" id="groupPost">
-									</td>
-									<td>
-										<input type="checkbox" name="publicPost" id="publicPost">
-									</td>
+									<td><input name="ownerPost" class="checkbox" type="checkbox" checked="checked" /></td>
+									<td><input name="groupPost" class="checkbox" type="checkbox" /></td>
+									<td><input name="publicPost" class="checkbox" type="checkbox" /></td>
 								</tr>
-								<tr>
+								<tr id="authz-children">
 									<td>Create Children</td>
-									<td>
-										<input type="checkbox" name="ownerCreateChildren" id="ownerCreateChildren" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="groupCreateChildren" id="groupCreateChildren" checked="on">
-									</td>
-									<td>
-										<input type="checkbox" name="publicCreateChildren" id="publicCreateChildren" checked="on">
-									</td>
+									<td><input name="ownerCreateChildren" class="checkbox" type="checkbox" /></td>
+									<td><input name="groupCreateChildren" class="checkbox" type="checkbox" /></td>
+									<td><input name="publicCreateChildren" class="checkbox" type="checkbox" /></td>
 								</tr>
 							</tbody>
 						</table>
@@ -146,11 +116,11 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>Inherited from parent:  .<input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers"></td>
+									<td>Inherited from parent: <input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers" checked="true" /></td>
 								</tr>
 								<tr>
 									<td>
-										<input type="input" name="groupmembers" id="groupmembers" value="meb, konstan" />
+										<input type="input" name="groupmembers" id="groupmembers" value="meb, konstan, other" />
 									</td>
 								</tr>
 								

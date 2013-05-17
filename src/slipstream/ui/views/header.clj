@@ -10,36 +10,49 @@
 
 (def header-sel [:#header])
 
+; titles
 (def header-summary-sel [:.bottom])
 
 (def header-template-html "slipstream/ui/views/header.html")
 
-(def header-menu [:.menu_bar])
+(def header-top-bar-sel [:.menu_bar])
 
-(html/defsnippet header-top-bar-snip header-template-html header-menu
+(html/defsnippet header-top-bar-snip header-template-html header-top-bar-sel
   [{username :username issuper :issuper}]
-  [:#header-username :> :a] (html/do-> 
-                                (html/content username)
-                                (html/set-attr :href (str "/user/" username)))
-  [:#header-username] (if (= nil username)
-                          nil
-                          identity)
+  [:#header-user :> :a] (html/do-> 
+                          (html/html-content
+                            (str username "<i class='icon-user icon-2x'>"))
+                          (html/set-attr :href (str "/user/" username)))
+  [:#header-user] (if (= nil username)
+                    nil
+                    identity)
   [#{:#header-users :#header-config}] (if (= "true" issuper)
-                                            identity
-                                            nil)
+                                        identity
+                                        nil)
   [:#header-loginout :a] (if (= nil username)
-                          (html/do-> 
-                                (html/content "Login/Register")
-                                (html/set-attr :href "/knockknock"))
-                          identity))
+                           (html/do-> 
+                             (html/html-content "<i class='icon-signin icon-2x'>")
+                             (html/set-attr :href "/login"))
+                           identity))
 
 (def titles-sel [:#titles])
 
+(def category-map
+  {"Image" "icon-desktop"
+   "Project" "icon-folder-open"
+   "Deployment" "icon-cloud-upload"})
+
 (html/defsnippet header-titles-snip header-template-html titles-sel
-  [{title :title title-sub :title-sub title-desc :title-desc}]
-  [:#header-title] (html/content title)
+  [title title-sub title-desc category]
+  [:#header-title] (html/html-content
+                     (str "<i class='" (category-map category) "'></i>" title))
   [:#header-title-sub] (html/content title-sub)
   [:#header-title-desc] (html/content title-desc))
+
+(defn header-titles
+  [title title-sub title-desc category]
+  (header-titles-snip 
+    {title :title title-sub :title-sub title-desc :title-desc category :category}))
 
 (def breadcrumb-sel [:#breadcrumb])
 
@@ -56,8 +69,8 @@
         #(str %1 (if (= "" %1) "" "/") %2) 
         "" 
         (subvec names 0 (inc index))))))
-                                 
-(html/defsnippet header-breadcrumb header-template-html breadcrumb-sel
+
+(html/defsnippet header-breadcrumb-snip header-template-html breadcrumb-sel
   [{name :name root-uri :root-uri}]
   [[:li (html/nth-of-type 2)] :> :a] (html/do->
                                        (html/content root-uri)
@@ -73,22 +86,30 @@
                                                            root-uri short-name))
                                            (html/set-attr :href href)))))
 
-(defn- gen-titles [title sub desc]
-  {:title title :title-sub sub :title-desc desc})
+(defn- gen-titles [title sub desc category]
+  {:title title 
+   :title-sub sub 
+   :title-desc desc 
+   :category category})
 
 (defn- gen-module-titles [module]
   (gen-titles 
     (:name (:attrs module))
     (str "Version: " (:version (:attrs module)))
-    (:description (:attrs module))))
+    (:description (:attrs module))
+    (:category  (:attrs module))))
 
 (defn titles [root]
   (case (:tag root)
-    :list (gen-titles "Projects" "All projects" "This root project is shared with all SlipStream users")
+    :list (gen-titles 
+            "Projects" 
+            "All projects" 
+            "This root project is shared with all SlipStream users"
+            "Project")
     (gen-module-titles root)))
 
 (defn root-uri [root]
-  (if (= :list (:tag root))
+  (if (or (= :list (:tag root)) (nil? root))
     "module"
     (first (string/split 
              (-> root :attrs :resourceuri)
@@ -96,24 +117,24 @@
 
 (html/defsnippet header-snip header-template-html header-sel
   [metadata]
-  header-menu (html/substitute
-                (header-top-bar-snip
-                  (user/attrs metadata)))
+  header-top-bar-sel (html/substitute
+                       (header-top-bar-snip
+                         (user/attrs metadata)))
   titles-sel (html/substitute
-               (header-titles-snip
+               (apply header-titles-snip
                  (titles metadata)))
   breadcrumb-sel (html/substitute
-                   (header-breadcrumb
+                   (header-breadcrumb-snip
                      {:name (if (= :list (:tag metadata))
                               "" 
                               (-> metadata :attrs :name))
                       :root-uri (root-uri metadata)})))
 
-(html/defsnippet header-top-only header-template-html header-sel
-  []
-  header-menu (html/substitute
-                (header-top-bar-snip
-                  (user/attrs nil)))
+(html/defsnippet header-top-only-snip header-template-html header-sel
+  [metadata]
+  header-top-bar-sel (html/substitute
+                       (header-top-bar-snip
+                         (user/attrs metadata)))
   titles-sel nil
   breadcrumb-sel nil
   common/interaction-sel nil)

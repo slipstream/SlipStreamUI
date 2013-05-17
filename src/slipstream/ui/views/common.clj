@@ -6,13 +6,6 @@
 
 (def interaction-sel [:.interaction])
 
-(def error-template-html "slipstream/ui/views/error.html")
-
-(html/defsnippet error-snip error-template-html [:#messages]
-  [message code]
-  [:#error] (html/content (str "Error (" code "): " message)))
-
-
 (def interations-template-html "slipstream/ui/views/interations.html")
 
 (def slipstream-with-trade "SlipStream™")

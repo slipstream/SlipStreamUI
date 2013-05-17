@@ -42,6 +42,7 @@ body *, body :focus, a {
 }
 
 a {
+    color:#23A4FF;
 	text-decoration: none;
 }
 
@@ -93,8 +94,8 @@ img {
 
 .menu_bar ul,
 .menu_bar ul li {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0 10px 0 0;
 	list-style: none;
 	list-style-image: none;
 }
@@ -108,24 +109,21 @@ img {
 	padding-top: 9px;
 }
 
-.menu_bar ul li a {
+.menu_bar ul li.separation a {
 	display: block;
 	border-left: 1px solid #ffffff;
-	padding: 0px 10px;
+	padding: 0px 0 0 10px;
+	margin: 0px;
 	line-height: 14px;
 	color: #ffffff;
 }
 
-.menu_bar ul li a.action {
-	display: block;
-	border-left: none;
-	padding: 0px 10px 0 0;
-	line-height: 14px;
-	color: #ffffff;
-}
-
-.menu_bar ul li.first a {
+.menu_bar ul li a {
 	border: none;
+}
+
+.menu_bar a {
+	color: white;
 }
 
 /* Categories */
@@ -207,7 +205,7 @@ img {
     position:relative;
 }
 
-.user_category:before {
+.config_category:before {
     position: absolute;
     font-family: FontAwesome;
     font-size: 1.5em;
@@ -395,7 +393,6 @@ img {
 /* Footer */
 
 #footer {
-	float: left;
 	clear: both;
 	width: 990px;
 	margin: 10px auto 20px auto;
@@ -965,7 +962,7 @@ table.parameter_mapping input {
 	background-image: linear-gradient(to bottom, #4e4e4e, #262626);
 }
 
-.please_wait {
+.overlay_message {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -973,7 +970,7 @@ table.parameter_mapping input {
 	padding: 0;
 	width: 330px;
 	height: 134px;
-	background: #ffffff url('../images/please_wait_bg.png') center center no-repeat;
+	background: #ffffff url('../images/overlay_message_bg.png') center center no-repeat;
 	text-align: center;
 	color: #ffffff;
 	z-index: 10000;
@@ -984,15 +981,11 @@ table.parameter_mapping input {
 	box-shadow: 0px 1px 3px 0px #3a3a3a;
 }
 
-.please_wait h2 {
+.overlay_message h2 {
 	margin: 30px 0 0 0;
 	padding-bottom: 35px;
 	background: url('../images/loading.gif') center bottom no-repeat;
 	font-size: 14px;
-}
-
-.please_wait p {
-	font-size: 10px;
 }
 
 body a.add_item,
@@ -1063,6 +1056,16 @@ html body .small_delete {
 
 .ui-dialog {
     display: inline-block;
+    background: white;
+	border-radius: 2px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-webkit-box-shadow: 0px 1px 3px 0px #3a3a3a;
+	box-shadow: 0px 1px 3px 0px #3a3a3a;
+}
+
+.ui-dialog p {
+	margin: 10px;
 }
 
 .image_close,
@@ -1085,8 +1088,8 @@ html body .small_delete {
 .ui-dialog-title {
 	position: absolute;
     float: left;
-	right: 106px;
-	top: 2px;
+/*  right: 106px;
+*/	top: 2px;
     width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1106,11 +1109,9 @@ html body .small_delete {
 
 .message {
 	padding: 0 15px;
-	height: 66px;
 	line-height: 66px;
 	color: black;
 	font-weight: bold;
-	font-size: 16px;
 }
 
 .message a {
@@ -1192,15 +1193,26 @@ body.overlay {
     top: 0;
     left: 0;
  }
- 
+
 .overlay {
-	background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    width: 100%;
+    height: 100%;
 }
 
 textarea {
     width: 99%;
     height: 500px;
 }
+
+#save-module-dialog textarea {
+    width: 98%;
+    height: 100px;
+}
+
 
 dashboard-focus {
     border-width: 3px;
@@ -1215,3 +1227,6 @@ li {
     list-style-type: none;    
 }
 
+.hidden {
+  display: none;
+}
