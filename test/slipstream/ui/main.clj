@@ -36,8 +36,8 @@
 (defn welcome-page []
   (welcome/page projects/xml-projects))
 
-(defn error-page [message]
-  (error/page (or message "Oops!!") 123 (user/user projects/xml-projects)))
+(defn error-page [message code]
+  (error/page (or message "Oops!!") code (user/user projects/xml-projects)))
 
 (defn module-view [module]
   (module-page module "view"))
@@ -91,8 +91,8 @@
     ["image-edit"] (-> (module-image-edit) ring.util.response/response constantly)
     ["deployment-view"] (-> (module-deployment-view) ring.util.response/response constantly)
     ["deployment-edit"] (-> (module-deployment-edit) ring.util.response/response constantly)
-    ["error"] (-> (error-page) ring.util.response/response constantly)
-    [&] (-> (error-page "Unknown page")
+    ["error"] (-> (error-page "Oops!! Kaboom!!" 500) ring.util.response/response constantly)
+    [&] (-> (error-page "Unknown page" 404)
           ring.util.response/response constantly)))
 
 ;; =============================================================================

@@ -40,7 +40,8 @@
 (def category-map
   {"Image" "icon-desktop"
    "Project" "icon-folder-open"
-   "Deployment" "icon-cloud-upload"})
+   "Deployment" "icon-cloud-upload"
+   "Error" "icon-cloud-error"})
 
 (html/defsnippet header-titles-snip header-template-html titles-sel
   [title title-sub title-desc category]
@@ -138,12 +139,3 @@
   titles-sel nil
   breadcrumb-sel nil
   common/interaction-sel nil)
-
-;(html/defsnippet header-buttons header-template-html common/interaction-sel
-;  [{buttons :buttons}]
-;  [[:li (html/nth-of-type 1)]] (html/clone-for 
-;                                 [button buttons] 
-;                                 [:button] 
-;                                 (html/content button))
-;  [[:li html/last-of-type]] nil)
-
