@@ -1157,6 +1157,7 @@ html body .small_delete {
 /*ERROR*/
 
 .message {
+    margin: 10px 20px 5px 20px;
 	padding: 0 15px;
 	line-height: 66px;
 	color: black;
