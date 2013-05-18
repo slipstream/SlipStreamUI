@@ -18,7 +18,7 @@
 (def header-top-bar-sel [:.menu_bar])
 
 (html/defsnippet header-top-bar-snip header-template-html header-top-bar-sel
-  [{username :username issuper :issuper}]
+  [{username :name issuper :issuper}]
   [:#header-user :> :a] (html/do-> 
                           (html/html-content
                             (str username "<i class='icon-user icon-2x'>"))
