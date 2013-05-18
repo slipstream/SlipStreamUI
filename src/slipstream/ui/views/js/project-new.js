@@ -37,7 +37,7 @@ $(document).ready(function() {
 				$(this).dialog("close");
 				background.fadeInTopWindow();
 				$("#module-comment").val($("#save-comment").val());
-				$("#form-save").submit();
+        		$$.send($("#form-save"), event, $.put);
 			},
 			"Cancel": function() {
 				$(this).dialog("close");
