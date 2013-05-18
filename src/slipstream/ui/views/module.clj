@@ -48,9 +48,8 @@
                                  
 (html/defsnippet breadcrumb-snip breadcrumb-template-html breadcrumb-sel
   [name root-uri]
-  [[:li (html/nth-of-type 3)]] nil
-  [[:li (html/nth-of-type 3)]] nil
-  [[:li (html/nth-of-type 2)]] (html/clone-for 
+  [[:li html/last-of-type]] nil
+  [[:li (html/nth-of-type 3)]] (html/clone-for 
                                  [i (range (count (string/split name #"/")))] 
                                  [:a]
                                  (let 
