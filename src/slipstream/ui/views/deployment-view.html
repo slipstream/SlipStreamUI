@@ -56,37 +56,83 @@
 					<li><a href="#">client_server</a></li>
 				</ul>
 				<ul class="interaction">
-					<li class="attention"><button onclick="$('.ui-widget-overlay, .please_wait').show();"><i class="icon-cog"></i> Run</button></li>
-					<li class="attention"><button><i class="icon-cog"></i> Run...</button></li>
-					<li class="attention"><button><i class="icon-edit"></i> Edit</button></li>
+					<li class="attention"><button id="run-button-top"><i class="icon-cog"></i> Run</button></li>
+					<li class="attention"><button id="run-with-options-button-top"><i class="icon-cog"></i> Run...</button></li>
+					<li class="attention"><button id="edit-button-top"><i class="icon-edit"></i> Edit</button></li>
 					<li class="attention"><button><i class="icon-copy"></i> Copy...</button></li>
-					<li class="attention"><button><i class="icon-globe"></i> Publish</button></li>
+					<li class="attention"><button id="publish-button-top"><i class="icon-globe"></i> Publish</button></li>
 				</ul>
 			</div>
-            <div id="run-with-options-dialog" title="Execute Deployment">
-                <p>
-                    All changes made since loading the configuration file from disk will be lost.
-                </p>
+            <div class="data_sheet in-dialog" id="run-with-options-dialog" title="Execute Deployment">
+				<div class="summary accordion">
+                    <h3>wp</h3>
+					<div>
+						<table>
+							<tbody>
+								<tr>
+                                    <td>Multiplicity</td>
+                                    <td>
+                                        <input type="text" name="parameter--node--wp--multiplicity" value="1">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cloud service</td>
+                                    <td>
+                                        <select name="parameter--node--wp--cloudservice">
+                                            <option>atos</option>
+                                            <option>interoute</option>
+                                            <option>cloudsigma</option>
+                                            <option selected="selected">default</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>mysql_password</td>
+                                    <td>
+                                        <input type="text" name="parameter--node--wp--mysql_password" value="'ChangeMe'" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>admin_password</td>
+                                    <td>
+                                        <input type="text" name="parameter--node--wp--admin_password" value="'ChangeMe'" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>wordpress_title</td>
+                                    <td>
+                                        <input type="text" name="parameter--node--wp--wordpress_title" value="'ChangeMe'">
+                                    </td>
+                                </tr>
+        					</tbody>
+        				</table>
+                    </div>
+                </div>
             </div>
+			<form
+			    action="?method=put"
+			    method="post"
+				accept-charset="utf-8"
+				id="form-run">
 			<div class="data_sheet">
 				<div class="summary accordion">
-					<h3>Overview</h3>
-					<div>
-                    	<div id="infovis"></div>
-					</div>
+                    <!-- <h3>Overview</h3>
+                    <div>
+                        <div id="infovis"></div>
+                    </div> -->
 					<h3>Summary</h3>
 					<div>
 						<table>
 							<tbody>
-								<tr class="odd">
+								<tr>
 									<td>Module</td>
 									<td>Public/Tutorials/HelloWorld/client_server</td>
 								</tr>
 								<tr>
 									<td>Version</td>
-									<td>1<span id="versions"> (<a href="Deployment-view/">history</a>)</td>
+									<td>1<span id="versions"> (<a href="Deployment-view/">history</a>)</span></td>
 								</tr>
-								<tr class="odd">
+								<tr>
 									<td>Description</td>
 									<td>Description...</td>
 								</tr>
@@ -94,7 +140,7 @@
 									<td>Comment</td>
 									<td>Latest comment...</td>
 								</tr>
-								<tr class="odd">
+								<tr>
 									<td>Category</td>
 									<td>Deployment</td>
 								</tr>
@@ -102,7 +148,7 @@
 									<td>Created</td>
 									<td>2013-03-08 22:37:25.341 CET</td>
 								</tr>
-								<tr class="odd">
+								<tr>
 									<td>Last modified</td>
 									<td>2013-03-08 22:37:25.341 CET</td>
 								</tr>
@@ -124,7 +170,7 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="node_name"><input disabled="true" type="text" name="fillout1" value="apache1" /></td>
+									<td class="node_name"><input disabled="disabled" type="text" name="fillout1" value="apache1" /></td>
 									<td>
 										<table class="image_link">
 											<tr>
@@ -135,23 +181,23 @@
 												</td>
 											</tr>
 											<tr>
-												<td class="multiplicity"><b>Default multiplicity: </b><input disabled="true" type="text" name="multiplicity" value="1" />
+												<td class="multiplicity"><b>Default multiplicity: </b><input disabled="disabled" type="text" name="multiplicity" value="1" />
 												</td>
 											</tr>
 											<tr>
-												<td><b>Default cloud service: <select disabled="true">
+												<td><b>Default cloud service: <select disabled="disabled">
 												    <option>CloudSigma</option>
 												    <option>StratusLab</option>
 												    <option>Interoute VDC</option>
 												    <option>Atos</option>
-												</select>
+												</select></b>
 												</td>
 											</tr>
 										</table>
 									</td>
 								</tr>
 								<tr>
-									<td class="node_name"><input disabled="true" type="text" name="fillout3" value="apache2" /></td>
+									<td class="node_name"><input disabled="disabled" type="text" name="fillout3" value="apache2" /></td>
 									<td>
 										<table class="image_link">
 											<tr>
@@ -162,20 +208,21 @@
 												</td>
 											</tr>
 											<tr>
-												<td class="multiplicity"><b>Default multiplicity: </b><input disabled="true" type="text" name="multiplicity" value="1" />
+												<td class="multiplicity"><b>Default multiplicity: </b><input disabled="disabled" type="text" name="multiplicity" value="1" />
 												</td>
 											</tr>
 											<tr>
-												<td><b>Default cloud service: <select disabled="true">
-												    <option>CloudSigma</option>
-												    <option>StratusLab</option>
-												    <option>Interoute VDC</option>
-												    <option>Atos</option>
-												</select>
+												<td>
+												    <b>Default cloud service: <select disabled="disabled">
+												        <option>CloudSigma</option>
+												        <option>StratusLab</option>
+												        <option>Interoute VDC</option>
+												        <option>Atos</option>
+												    </select></b>
 												</td>
 											</tr>
 											<tr>
-												<td colspan="2">
+												<td>
 													<hr />
 													<b>Parameter mappings</b>
 													<table class="parameter_mapping">
@@ -184,16 +231,16 @@
 															<th>Linked to</th>
 														</tr>
 														<tr>
-															<td><input disabled="true" type="text" name="fillout" value="webserver.port" /></td>
-															<td><input disabled="true" type="text" name="fillout" value="apache1:port" /></td>
+															<td><input disabled="disabled" type="text" name="fillout" value="webserver.port" /></td>
+															<td><input disabled="disabled" type="text" name="fillout" value="apache1:port" /></td>
 														</tr>
 														<tr>
-															<td><input disabled="true" type="text" name="fillout" value="webserver.port" /></td>
-															<td><input disabled="true" type="text" name="fillout" value="apache1:port" /></td>
+															<td><input disabled="disabled" type="text" name="fillout" value="webserver.port" /></td>
+															<td><input disabled="disabled" type="text" name="fillout" value="apache1:port" /></td>
 														</tr>
 														<tr>
-															<td><input disabled="true" type="text" name="fillout" value="webserver.port" /></td>
-															<td><input disabled="true" type="text" name="fillout" value="apache1:port" /></td>
+															<td><input disabled="disabled" type="text" name="fillout" value="webserver.port" /></td>
+															<td><input disabled="disabled" type="text" name="fillout" value="apache1:port" /></td>
 														</tr>
 													</table>
 												</td>
@@ -218,33 +265,33 @@
 						<tbody>
 							<tr>
 								<td>View</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
 								<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Edit</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Delete</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Execute (e.g. Run, Build)</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Create Children</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
 							</tr>
 							
 						</tbody>
@@ -258,7 +305,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="disabled" class="checkbox" type="checkbox" checked="checked" /></td>
 							</tr>
 							<tr>
 								<td>meb, konstan</td>
@@ -271,13 +318,17 @@
 			</div>
 			<div class="navigation bottom_nav">
 				<ul class="interaction">
-					<li class="attention"><button onclick="$('.ui-widget-overlay, .please_wait').show();"><i class="icon-cog"></i> Run</button></li>
-					<li class="attention"><button><i class="icon-cog"></i> Run...</button></li>
-					<li class="attention"><button><i class="icon-edit"></i> Edit</button></li>
+					<li class="attention"><button  id="run-button-bottom"><i class="icon-cog"></i> Run</button></li>
+					<li class="attention"><button id="run-with-options-button-bottom"><i class="icon-cog"></i> Run...</button></li>
+					<li class="attention"><button id="edit-button-bottom"><i class="icon-edit"></i> Edit</button></li>
 					<li class="attention"><button><i class="icon-copy"></i> Copy...</button></li>
-					<li class="attention"><button><i class="icon-globe"></i> Publish</button></li>
+					<li class="attention"><button id="publish-button-bottom"><i class="icon-globe"></i> Publish</button></li>
 				</ul>
 			</div>
+		    </form>
+            <form id="publish-form" action="?method=put" method="post">
+                <input type="submit" value="Publish">
+            </form>
 		</div>
 		<div id="footer">
 			<div class="footer_inner">
@@ -287,7 +338,7 @@
 			</div>
 		</div>
 	</div>
-    <div class="ui-widget-overlay"></div>
+    <div class="ui-widget-overlay">
         <div class="please_wait">
             <h2>Starting VMs</h2>
             <p>Please wait</p>

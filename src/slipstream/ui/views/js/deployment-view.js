@@ -26,28 +26,46 @@ $(document).ready(function() {
     });	
 	
     // Run
-    $('#run-with-options-button-top, #run-with-options-button-bottom').click(function(event){
+    $('#run-button-top, #run-button-bottom').click(function(event){
     	$$.hideError();
-		$$.showSubmitMessage("Deploying...");
-		$("#build-form").submit();
+		$$.showSubmitMessage("Executing Deployment");
+		$("#form-run").submit();
+		return false;
     });	
 
     // Run...
-    $('#run-button-top, #run-button-bottom').click(function(event){
+    $('#run-with-options-button-top, #run-with-options-button-bottom').click(function(event){
     	$$.hideError();
-		$("#build-form").submit();
+		$("#run-with-options-dialog").dialog('open');
+		return false;
     });	
 
-    $('#build-form').submit(function(event){
-        $$.send($(this), event, $.post);
-        return false;
-    });
-	
+	$('#run-with-options-dialog').dialog({
+		autoOpen: false,
+		modal: true,
+		width: 1000,
+		title: "Execute Deployment",
+		buttons: {
+			"Run": function() {
+				$(this).dialog("close");
+        		$$.showSubmitMessage("Executing Deployment");
+				var callback = function(data, status, xhr) {
+					window.location = location;
+				}
+				$.post(window.location.href, '', callback, 'text')
+				return false;
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			},
+		}
+	});
+
     // Publish button
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
-		$$.showSubmitMessage("Requesting Build Image");
-		$("#build-form").submit();
+		$('#publish-form').submit();
+		return false;
     });	
 
     $('#publish-form').submit(function(event){
