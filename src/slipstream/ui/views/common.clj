@@ -33,9 +33,10 @@
    in the case of users"
   [names index root-uri]
   (if (= "" (names index))
-    (str "/" root-uri "/")
+    (str "/" root-uri)
     (str "/"
-      root-uri 
+      root-uri
+      "/"
       (reduce 
         #(str %1 (if (= "" %1) "" "/") %2) 
         "" 
