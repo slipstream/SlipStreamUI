@@ -51,7 +51,7 @@
       (html/html-snippet (str "\n    <h3>" (key grouped) "</h3>"))
       (common/parameters-edit-snip (val grouped)))))
 
-(html/defsnippet breadcrumb-snip common/breadcrumb-template-html common/breadcrumb-sel
+(html/defsnippet breadcrumb-snip user-view-template-html common/breadcrumb-sel
   [name issuper]
   [[:li (html/nth-of-type 2)]] (if (not= "true" issuper)
                                  (html/content "users")
