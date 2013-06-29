@@ -10,28 +10,30 @@
 
 (def interations-template-html "slipstream/ui/views/interations.html")
 
-(def slipstream-with-trade "SlipStream™")
+(def slipstream-with-trademark "SlipStream™")
 
 (defn title [value]
-  (str slipstream-with-trade " | " value))
+  (str slipstream-with-trademark " | " value))
 
 (defn hidden-input-elem [value id]
   "Returns a value + hidden input element"
   (html/html-content
     (str value "<input name='name' id='" id "' type='hidden' value='" value "'>")))
 
+;
 ; Breadcrumbs
+;
 
 (def breadcrumb-template-html "slipstream/ui/views/breadcrumb.html")
 
 (def breadcrumb-sel [:#breadcrumb])
 
 (defn- breadcrumb-href
-  "root-uri, e.g. 'module/' in the case of modules, or 'user/'
+  "root-uri, e.g. 'module' in the case of modules, or 'user'
    in the case of users"
   [names index root-uri]
   (if (= "" (names index))
-    (str "/" root-uri)
+    (str "/" root-uri "/")
     (str "/"
       root-uri 
       (reduce 
@@ -61,6 +63,9 @@
                                         (str root-uri "s"))) ; add an s at the end
   [[:li (html/nth-of-type 3)]] (clone-breadcrumbs name root-uri))
 
+;
+; Utility
+;
 
 (defn to-stars
   [clear-string]
@@ -70,31 +75,12 @@
       (count clear-string)
       (repeat "●"))))
 
-;; Runtime Parameter
-
-(defmulti runtime-param-val
-  (fn [parameter]
-    (:type (common-model/attrs parameter))))
-
-(defn- runtime-param-val-default
-  [parameter]
-  (-> parameter :content first))
-
-(defmethod runtime-param-val :default
-  [parameter]
-  (runtime-param-val-default parameter))
-
-(defmethod runtime-param-val "Password"
-  [parameter]
-  (to-stars (runtime-param-val-default parameter)))
-
-(defn runtime-parameter-value
-  [parameter]
-  (runtime-param-val parameter))
-
-;; Parameter
+;
+; Parameter
+;
 
 (defmulti param-val
+  "Extract simple value from parameter"
   (fn [parameter]
     (:type (common-model/attrs parameter))))
 
@@ -121,61 +107,34 @@
 (defmethod param-val "Boolean"
   [parameter]
   (= "true" (param-val-default parameter)))
-  
-(defn parameter-value [parameter]
-  (param-val parameter))
 
+;
+; Runtime Parameter
+;
 
-;; Parameters
+(defmulti runtime-param-val
+  (fn [parameter]
+    (:type (common-model/attrs parameter))))
 
-(def parameters-view-template-html "slipstream/ui/views/parameters-view.html")
-(def parameters-edit-template-html "slipstream/ui/views/parameters-edit.html")
-(def parameter-edit-template-html "slipstream/ui/views/parameter-edit.html")
+(defn- runtime-param-val-default
+  [parameter]
+  (-> parameter :content first))
 
-(def parameters-sel [:#parameters])
+(defmethod runtime-param-val :default
+  [parameter]
+  (runtime-param-val-default parameter))
 
-(defn- clone-parameters-view
-  [parameters]
-  (html/clone-for
-    [parameter parameters
-     :let 
-     [attrs (module-model/attrs parameter)
-      description (:description attrs)
-      value (parameter-value parameter)]]
-    [[:td (html/nth-of-type 1)]] (html/content description)
-    [[:td (html/nth-of-type 2)]] (html/html-content (str value))
-    [[:td (html/nth-of-type 3)]] (html/content "")
-    [[:td html/last-of-type]] nil
-    [[:td html/last-of-type]] nil))
+(defmethod runtime-param-val "Password"
+  [parameter]
+  (to-stars (runtime-param-val-default parameter)))
 
-(defn- clone-parameters-view-with-category
-  [parameters]
-  (html/clone-for
-    [parameter parameters
-     :let 
-     [attrs (module-model/attrs parameter)
-      description (:description attrs)
-      category (:category attrs)
-      value (parameter-value parameter)]]
-    [[:td (html/nth-of-type 1)]] (html/content description)
-    [[:td (html/nth-of-type 2)]] (html/content category)
-    [[:td (html/nth-of-type 3)]] (html/content value)
-    [[:td html/last-of-type]] nil))
+(defn runtime-parameter-value
+  [parameter]
+  (runtime-param-val parameter))
 
-(defn- clone-parameters-view-with-name-and-category
-  [parameters]
-  (html/clone-for
-    [parameter parameters
-     :let 
-     [attrs (module-model/attrs parameter)
-      name (:name attrs)
-      description (:description attrs)
-      category (:category attrs)
-      value (parameter-value parameter)]]
-    [[:td (html/nth-of-type 1)]] (html/content name)
-    [[:td (html/nth-of-type 2)]] (html/content description)
-    [[:td (html/nth-of-type 3)]] (html/content category)
-    [[:td (html/nth-of-type 4)]] (html/content value)))
+;
+; Input element generation (for edit mode)
+;
 
 (defn- tr-id
   [category index]
@@ -213,12 +172,13 @@
     ""))
 
 (defmulti set-input-value
+  "Used to generate input element (in edit mode)"
   (fn [parameter tr-id]
     (-> parameter :attrs :type)))
 
 (defn- set-input-value-string
   [parameter tr-id]
-  (let [value (parameter-value parameter)
+  (let [value (param-val parameter)
         defaultvalue (-> parameter :attrs :defaultvalue)]
   (html/html-snippet 
     (str 
@@ -232,7 +192,7 @@
 
 (defn- set-input-value-text
   [parameter tr-id]
-  (let [value (parameter-value parameter)
+  (let [value (param-val parameter)
         defaultvalue (-> parameter :attrs :defaultvalue)]
   (html/html-snippet 
     (str 
@@ -259,7 +219,7 @@
 
 (defmethod set-input-value "Password"
   [parameter tr-id]
-  (let [value (parameter-value parameter)]
+  (let [value (param-val parameter)]
   (html/html-snippet 
     (str 
       "<input type='password'" 
@@ -273,7 +233,7 @@
   (let [options (map 
                   #(-> % :content first) 
                   (html/select parameter [:enumValues :string]))
-        selected (parameter-value parameter)]
+        selected (param-val parameter)]
     (html/html-snippet
       (str "<select"
            (insert-name tr-id)
@@ -293,7 +253,7 @@
 
 (defmethod set-input-value "Boolean"
   [parameter tr-id]
-  (let [value (parameter-value parameter)]
+  (let [value (param-val parameter)]
     (html/html-snippet 
       (str 
         "<input type='checkbox'"
@@ -303,11 +263,77 @@
           "")
         " />"))))
 
-(defn set-input-value-view
+(defmulti parameter-value
+  (fn [parameter]
+    (:type (common-model/attrs parameter))))
+
+(defmethod parameter-value :default
   [parameter]
-  (html/do->
-    (set-input-value parameter nil)
-    (html/set-attr :disabled "disabled")))
+  (param-val parameter))
+
+(defmethod parameter-value "Boolean"
+  [parameter]
+  "Generate a checkbox type input element"
+  (set-input-value parameter nil))
+
+;
+; Parameters
+;
+
+(def parameters-view-template-html "slipstream/ui/views/parameters-view.html")
+(def parameters-edit-template-html "slipstream/ui/views/parameters-edit.html")
+(def parameter-edit-template-html "slipstream/ui/views/parameter-edit.html")
+
+(def parameters-sel [:#parameters])
+
+(defn- clone-parameters-view
+  [parameters]
+  (html/clone-for
+    [parameter parameters
+     :let 
+     [attrs (module-model/attrs parameter)
+      description (:description attrs)
+      value (parameter-value parameter)]]
+    [[:td (html/nth-of-type 1)]] (html/content description)
+    [[:td (html/nth-of-type 2)]] (html/content value)
+    ; if the value is an input, disable it in view mode
+    [[:td (html/nth-of-type 2)] :> :input] (html/set-attr :disabled "disabled")
+    [[:td (html/nth-of-type 3)]] (html/content "")
+    [[:td html/last-of-type]] nil
+    [[:td html/last-of-type]] nil))
+
+(defn- clone-parameters-view-with-category
+  [parameters]
+  (html/clone-for
+    [parameter parameters
+     :let 
+     [attrs (module-model/attrs parameter)
+      description (:description attrs)
+      category (:category attrs)
+      value (parameter-value parameter)]]
+    [[:td (html/nth-of-type 1)]] (html/content description)
+    [[:td (html/nth-of-type 2)]] (html/content category)
+    [[:td (html/nth-of-type 3)]] (html/content value)
+    ; if the value is an input, disable it in view mode
+    [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :disabled "disabled")
+    [[:td html/last-of-type]] nil))
+
+(defn- clone-parameters-view-with-name-and-category
+  [parameters]
+  (html/clone-for
+    [parameter parameters
+     :let 
+     [attrs (module-model/attrs parameter)
+      name (:name attrs)
+      description (:description attrs)
+      category (:category attrs)
+      value (parameter-value parameter)]]
+    [[:td (html/nth-of-type 1)]] (html/content name)
+    [[:td (html/nth-of-type 2)]] (html/content description)
+    [[:td (html/nth-of-type 3)]] (html/content category)
+    [[:td (html/nth-of-type 4)]] (html/content value)
+    ; if the value is an input, disable it in view mode
+    [[:td (html/nth-of-type 4)] :> :input] (html/set-attr :disabled "disabled")))
 
 (html/defsnippet clone-parameters-edit-snip parameter-edit-template-html [:#parameter :> :table :> :tbody :> :tr]
   [parameters]
@@ -320,7 +346,8 @@
            description (:description attrs)
            type (:type attrs)
            defaultvalue (:defaultvalue attrs)
-           tr-id (tr-id category i)]]
+           tr-id (tr-id category i)
+           value (set-input-value parameter tr-id)]]
     html/this-node (html/set-attr :id tr-id)
     [:td :> :span] (html/content description)
     [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
@@ -340,7 +367,7 @@
         (html/set-attr :name (input-name-description tr-id))
         (html/set-attr :value description))
     [[:td (html/nth-of-type 2)] :> [:input (html/nth-of-type 1)]] 
-      (html/substitute (set-input-value parameter tr-id))))
+      (html/substitute value)))
 
 (defn- clone-parameters-edit-with-name-and-category
   [parameters]
@@ -351,11 +378,11 @@
       name (:name attrs)
       description (:description attrs)
       category (:category attrs)
-      value (parameter-value parameter)]]
+      value (set-input-value parameter)]]
     [[:td (html/nth-of-type 1)]] (html/content name)
     [[:td (html/nth-of-type 2)]] (html/content description)
     [[:td (html/nth-of-type 3)]] (html/content category)
-    [[:td (html/nth-of-type 4)]] (html/content (set-input-value-view parameter))))
+    [[:td (html/nth-of-type 4)]] (html/content value)))
 
 (html/defsnippet parameters-view-with-category-snip parameters-view-template-html [:#fragment-parameters-something]
   [parameters]
