@@ -1154,12 +1154,15 @@ html body .small_delete {
 }
 
 .conflict {
-	padding: 0 15px 0 88px;
+	padding: 0 15px 0 20px;
 	color: #ffffff;
+    background: #af1921 16px 16px no-repeat;
+    font-size: 1.5em;
+	font-weight: normal;
 }
 
-.conflict a {
-	color: #ffffff;
+.conflict span {
+	padding: 0 0 0 8px;
 }
 
 .moduleReferenceInput {

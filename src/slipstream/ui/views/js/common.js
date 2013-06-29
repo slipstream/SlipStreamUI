@@ -849,6 +849,8 @@ $(document).ready(function() {
 		$$.show($("#error"), error);
 	});
 
+    $$.hideError();
+
 	$(window).unload(function() {
 		$$.hideSubmitMessage();
 	});
