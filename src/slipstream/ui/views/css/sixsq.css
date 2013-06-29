@@ -599,7 +599,7 @@ ul.interaction li {
 
 .summary h3 {
 	position: relative;
-	margin: 0 0 2px 0;
+	margin: 2px 0 2px 0;
 	height: 38px;
 	line-height: 38px;
 	color: #ffffff;
@@ -958,15 +958,16 @@ table.parameter_mapping input {
 
 /* Overlay */
 
-.ui-widget-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-image: url('../images/overlay_bg.png');
+/*.ui-widget-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/overlay_bg.png');
+    z-index: 100;
 }
-
+*/
 .overlay_sheet {
 /*	position: absolute;
 	top: 50%;
@@ -1012,14 +1013,14 @@ table.parameter_mapping input {
 }
 
 .overlay_message {
-	position: absolute;
-	top: 50%;
+	position: fixed;
+	top: 35%;
 	left: 50%;
 	margin: -67px 0 0 -165px;
 	padding: 0;
 	width: 330px;
 	height: 134px;
-	background: #ffffff url('../images/overlay_message_bg.png') center center no-repeat;
+	background: #ffffff url('/images/overlay_message_bg.png') center center no-repeat;
 	text-align: center;
 	color: #ffffff;
 	z-index: 10000;
@@ -1033,32 +1034,15 @@ table.parameter_mapping input {
 .overlay_message h2 {
 	margin: 30px 0 0 0;
 	padding-bottom: 35px;
-	background: url('../images/loading.gif') center bottom no-repeat;
+	background: url('/images/loading.gif') center bottom no-repeat;
 	font-size: 14px;
 }
 
 body a.add_item,
 body input.add_item,
 body button.add_item {
-	display: inline-block;
-	/*margin: 0 0 11px 5px;*/
-	padding: 0 15px;
-	cursor: pointer;
-	width: auto;
-	height: 23px;
-	line-height: 24px;
+	margin: 0 0 2px 2px;
 	background-color: #89b92d;
-	color: #ffffff;
-	text-decoration: none;
-	border: none;
-	font-size: 1em;
-	font-weight: normal;
-	
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-webkit-box-shadow: 0px 1px 3px 0px #3a3a3a;
-	box-shadow: 0px 1px 3px 0px #3a3a3a;
 }
 
 body button.add_item,
@@ -1157,7 +1141,7 @@ html body .small_delete {
 /*ERROR*/
 
 .message {
-    margin: 10px 20px 5px 20px;
+    margin: 15px 20px 10px 20px;
 	padding: 0 15px;
 	line-height: 66px;
 	color: black;
@@ -1171,9 +1155,7 @@ html body .small_delete {
 
 .conflict {
 	padding: 0 15px 0 88px;
-	background: #af1921 url('../images/conflikt.png') 16px 16px no-repeat;
 	color: #ffffff;
-	
 }
 
 .conflict a {
@@ -1220,12 +1202,12 @@ html body .small_delete {
 }
 
 .bottom_section_button {
-    margin: 10px;
+//    margin: 10px;
 }
 
 iframe {
     width: 100%;
-    height: 400px;
+    height: 680px;
     border: none;
 }
 
@@ -1233,7 +1215,7 @@ body.overlay {
 	background: white;
 }
 
-.ui-widget-overlay {
+/*.ui-widget-overlay {
     width: 100%;
     height: 100%;
     background: black;
@@ -1242,15 +1224,19 @@ body.overlay {
     position: absolute;
     top: 0;
     left: 0;
- }
-
-.overlay {
+    width: 100%;
+    height: 100%;
+}
+*/
+.overlay, .ui-widget-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999999;
     width: 100%;
     height: 100%;
+    background: black;
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
 }
 
 textarea {
@@ -1278,5 +1264,10 @@ li {
 }
 
 .hidden {
-  display: none;
+    display: none;
+}
+
+.empty-section {
+	margin: 7px;
+	font-weight: bold;
 }

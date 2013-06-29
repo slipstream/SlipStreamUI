@@ -34,12 +34,17 @@
             </div>
             <div class="bottom bottom_no_icon">
 	            <h2><i class="icon-wrench"></i> System Configuration</h2>
-	            <h3>Ut non lobortis urna. Maecenas vitae tempus elit.</h3>
-	            <p>Pellentesque velit magna, faucibus non vestibulum ac, ultrices id ipsum. Nullam id pretium augue.
-	    Cras orci elit, cursus non sollicitudin sed, eleifend quis nunc.</p>
+	            <h3>Configure the SlipStream service and its cloud connectors</h3>
+	            <p>This page allows you to configure the service and the connectors available
+                       to the users for interfacing with different clouds.</p>
 	        </div> 
         </div>
         <div id="content">
+			<form
+			    action="configuration?method=put"
+			    method="post"
+				accept-charset="utf-8"
+				id="form-save">
 	        <div class="navigation">
 	            <ul class="breadcrumb">
 	                <li><a href="#"><i class="icon-home"></i></a></li>
@@ -47,12 +52,17 @@
 	                <li><a href="#">1349253778242</a></li>
 	            </ul>
 	            <ul class="interaction">
-	                <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-	                <li class="attention"><button><i class="icon-refresh"></i> Reload Configuration File</button></li>
+	                <li class="attention"><button id="save-button-top"><i class="icon-save"></i> Save</button></li>
+	                <li class="attention"><button id="reload-button-top"><i class="icon-refresh"></i> Reload Configuration File</button></li>
 	            </ul>
 	        </div>
+            <div id="reload-configuration-dialog" title="Reload Configuration From Disk?">
+                <p>
+                    All changes made since loading the configuration file from disk will be lost.
+                </p>
+            </div>
 	        <div class="data_sheet">
-	            <div class="summary accordion">
+	            <div id="parameters" class="summary accordion">
 	                <h3>General<span></span></h3>
 	                <div>
 	                    <table>
@@ -194,10 +204,11 @@
 	        </div>
 	        <div class="navigation bottom_nav">
 	            <ul class="interaction">
-	                <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-	                <li class="attention"><button><i class="icon-refresh"></i> Reload Configuration File</button></li>
+	                <li class="attention"><button id="save-button-bottom"><i class="icon-save"></i> Save</button></li>
+	                <li class="attention"><button id="reload-button-bottom"><i class="icon-refresh"></i> Reload Configuration File</button></li>
 	            </ul>
 	        </div>
+			</form>
         </div>
         <div id="footer">
 	        <div class="footer_inner">

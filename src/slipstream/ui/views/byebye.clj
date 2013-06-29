@@ -24,4 +24,4 @@
     {:title (common/title "Login/Register")
      :header (header-snip metadata)
      :content (content-snip metadata)
-     :footer (footer/footer-snip @version/slipstream-release-version)}))
+     :footer (footer/footer-snip)}))

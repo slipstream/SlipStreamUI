@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>
+            SlipStream | Run: Public/Tutorials/HelloWorld/client_server
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/application.css">
+        <script src="js/jquery.js" type="text/javascript">
+</script>
+        <script src="js/jquery-ui.js" type="text/javascript">
+</script>
+        <script src="external/jit/js/jit.js" type="text/javascript">
+</script>
+        <script src="external/jit/js/excanvas.js" type="text/javascript">
+</script>
+        <script src="js/common.js" type="text/javascript">
+</script>
+        <script src="js/run-dashboard.js" type="text/javascript">
+</script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <div class="top">
+                    <a href="#" class="logo"></a>
+                    <div class="menu_bar">
+                        <ul>
+                            <li class="first">
+                                <a href="#"></a>
+                            </li>
+                            <li class="first">
+                                <a href="#"></a>
+                            </li>
+                            <li class="first">
+                                <a href="#"></a>
+                            </li>
+                            <li>
+                                <a id="user" href="#">Joe </a>
+                            </li>
+                            <li class="first">
+                                <a class="action" href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bottom bottom_no_icon">
+                    <h2>
+                        Control Dashboard
+                    </h2>
+                    <h3>
+                        Single view of all your resources: past and present
+                    </h3>
+                    <p>
+                        Note: the first section gives you a SlipStream view, while second
+                        gives you a cloud provider view.
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <div class="navigation">
+                    <ul id="breadcrumb" class="breadcrumb">
+                	    <li><a href="/"><i class="icon-home"></i></a></li>
+                        <li>dashboard</li>
+                    </ul>
+                </div>
+                <div class="data_sheet">
+                    <div class="summary accordion">
+                        <h3>
+                            Deployments / Runs / Builds
+                        </h3>
+                        <div id="runs" class="tab_block">
+    	                    <ul id="runs-header" class="tabs inner_tabs">
+                                <li><a href="#fragment-runs-somecloud">CloudA</a><span></span></li>
+                                <li><a href="#fragment-runs-cloudb">CloudB</a><span></span></li>
+    	                    </ul>
+    	                    <div id="fragment-runs-somecloud">
+    	                        <table>
+    		                        <thead>
+    		                            <tr>
+    		                                <th></th>
+                                            <th>Run Id</th>
+                                            <th>Module</th>
+                                            <th>Status</th>
+                                            <th>Start Time</th>
+                                            <th>User</th>
+                                            <th>Tags</th>
+    		                            </tr>
+    		                        </thead>
+    		                        <tbody>
+    		                            <tr>
+                                            <td style="width:10px"><i class="icon-rocket"></i></td>
+                                            <td>
+                                                <a href="">id-123</a>
+                                            </td>
+                                            <td>
+                                                <a href="">my module</a>
+                                            </td>
+                                            <td>Running</td>
+                                            <td>Today :-)</td>
+                                            <td>Joe</td>
+                                            <td>cool deployment</td>
+    		                            </tr>
+    		                        </tbody>
+    		                    </table>
+                            </div>
+    	                    <div id="fragment-runs-cloudb">
+    	                        <table>
+    		                        <thead>
+    		                            <tr>
+    		                                <th></th>
+                                            <th>Run Id</th>
+                                            <th>Module</th>
+                                            <th>Status</th>
+                                            <th>Start Time</th>
+                                            <th>User</th>
+                                            <th>Tags</th>
+    		                            </tr>
+    		                        </thead>
+    		                        <tbody>
+    		                            <tr>
+                                            <td style="width:10px"><i class="icon-legal"></i></td>
+                                            <td>
+                                                <a href="">id-123</a>
+                                            </td>
+                                            <td>
+                                                <a href="">my module</a>
+                                            </td>
+                                            <td>Running</td>
+                                            <td>Today :-)</td>
+                                            <td>Joe</td>
+                                            <td>another cool deployment</td>
+    		                            </tr>
+    		                        </tbody>
+    		                    </table>
+                            </div>
+                        </div>
+                        <h3>
+                            Running Virtual Machines
+                        </h3>
+                        <div id="vms" class="tab_block">
+    	                    <ul class="tabs inner_tabs">
+                                <li><a href="#fragment-vms-somecloud">CloudA</a><span></span></li>
+                                <li><a href="#fragment-vms-cloudb">CloudB</a><span></span></li>
+    	                    </ul>
+    	                    <div id="fragment-vms-somecloud">
+    	                        <table>
+    		                        <thead>
+    		                            <tr>
+                                            <th>SlipStream Id</th>
+                                            <th>Status</th>
+                                            <th>Cloud Instance Id</th>
+    		                            </tr>
+    		                        </thead>
+    		                        <tbody>
+    		                            <tr>
+                                            <td>
+                                                <a href="">id-123</a>
+                                            </td>
+                                            <td>Running</td>
+                                            <td>ami-123456</td>
+    		                            </tr>
+    		                        </tbody>
+    		                    </table>
+                            </div>
+    	                    <div id="fragment-vms-cloudb">
+    	                        <table>
+    		                        <thead>
+    		                            <tr>
+                                            <th>SlipStream Id</th>
+                                            <th>Status</th>
+                                            <th>Cloud Instance Id</th>
+    		                            </tr>
+    		                        </thead>
+    		                        <tbody>
+    		                            <tr>
+                                            <td>
+                                                <a href="">id-123</a>
+                                            </td>
+                                            <td>Running</td>
+                                            <td>ami-123456</td>
+    		                            </tr>
+    		                        </tbody>
+    		                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="footer_inner">
+                    <div class="sixsq_logo">
+                        <a href="http://sixsq.com"></a>
+                    </div>
+                    <div class="copyright">
+                        Copyright © 2008-2013 SixSq Sàrl | 1.0-772
+                    </div>
+                    <div class="swiss_made">
+                        <a href="http://swissmadesoftware.org"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

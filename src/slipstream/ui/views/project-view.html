@@ -15,8 +15,10 @@
     <script src="external/jit/js/excanvas.js" type="text/javascript"></script>
     <script src="js/common.js" type="text/javascript"></script>
 </head>
+
 <body>
     <div id="wrapper">
+
         <div id="header">
 	        <div class="top">
 	            <a href="/" class="logo"></a>
@@ -36,6 +38,7 @@
 	            <p>Latest comment...</p>
 	        </div> 
         </div>
+
         <div id="content">
 	        <div class="navigation">
 	            <ul id="breadcrumb" class="breadcrumb">
@@ -53,13 +56,13 @@
 	            </ul>
 	        </div>
             <div id="importdialog" class="dialog" title="Import module (as xml)">
-                <form id="importform" action="" enctype="multipart/form-data" method="post">
-                    <input type="file" id="importinputfile" name="file" size="40">
+                <form id="importform" action="./" enctype="multipart/form-data" method="post">
+                    <input type="file" id="importinputfile" name="file" />
                 </form>
             </div>
 	        <div class="data_sheet">
 	            <div class="summary accordion">
-                    <h3>Children</h3>
+                    <h3 id="children-header">Children</h3>
                     <div id="children">
                         <table>
                             <thead>
@@ -77,31 +80,31 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="values category project_category">
+                                    <td class="project_category">
                                         <a href="module/A/555">MyProject</a>
                                     </td>
-                                    <td class="values">
+                                    <td>
                                         Project
                                     </td>
-                                    <td class="values">111</td>
+                                    <td>111</td>
                                 </tr>
                                 <tr>
-                                    <td class="values category image_category">
+                                    <td class="image_category">
                                         <a href="module/CELAR/899">MyImage</a>
                                     </td>
-                                    <td class="values">
+                                    <td>
                                         Image
                                     </td>
                                     <td class="values">222</td>
                                 </tr>
                                 <tr>
-                                    <td class="values category deployment_category">
+                                    <td class="deployment_category">
                                         <a href="module/CELAR/899">MyDeployment</a>
                                     </td>
-                                    <td class="values">
+                                    <td>
                                         Deployment
                                     </td>
-                                    <td class="values">333</td>
+                                    <td>333</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -116,7 +119,7 @@
         		                </tr>
         		                <tr>
         		                    <td>Version</td>
-        		                    <td id="module-version">1<span id="versions"> (<a href="Public-view/">history</a>)</td>
+        		                    <td id="module-version">1<span id="versions"> (<a href="Public-view/">history</a>)</span></td>
         	                    </tr>
         	                    <tr>
         	                        <td>Description</td>
@@ -159,33 +162,34 @@
 	                        <tbody>
 	                            <tr>
 	                                <td>View</td>
-	                                <td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
-	                                <td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+	                                <td>
+	                                    <input disabled="disabled" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+	                                <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
 	                                <td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
 	                            </tr>
 	                            <tr>
 	                                <td>Edit</td>
-	                                <td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
-	                                <td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
-	                                <td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+	                                <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+	                                <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+	                                <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
 	                            </tr>
 	                            <tr>
 	                                <td>Delete</td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
         	                    </tr>
         	                    <tr>
         	                        <td>Execute (e.g. Run, Build)</td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
         	                    </tr>
         	                    <tr>
         	                        <td>Create Children</td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
-        	                        <td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+        	                        <td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
         	                    </tr>
 	                        </tbody>
 	                    </table>
@@ -198,7 +202,7 @@
 	                        </thead>
 	                        <tbody>
 	                            <tr>
-	                                <td>Inherited from parent: <input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+	                                <td>Inherited from parent: <input disabled="disabled" class="checkbox" type="checkbox" checked="checked" /></td>
 	                            </tr>
 	                            <tr>
 	                                <td>meb, konstan</td>
@@ -218,13 +222,15 @@
                 </ul>
             </div>
         </div>
+
 	    <div id="footer">
-	    <div class="footer_inner">
-            <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-	        <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-	        <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-	    </div>
-	</div>
+    	    <div class="footer_inner">
+                <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+    	        <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+    	        <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+    	    </div>
+        </div>
     </div>
 </body>
+
 </html>

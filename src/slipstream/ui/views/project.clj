@@ -1,52 +1,66 @@
-;(ns slipstream.ui.views.project
-;  (:require [net.cgrand.enlive-html :as html]
-;            [slipstream.ui.models.authz :as authz]
-;            [slipstream.ui.models.modules :as modules]
-;            [slipstream.ui.models.module :as module]
-;            [slipstream.ui.views.module :as views-module]
-;            [slipstream.ui.views.header :as header]
-;            [slipstream.ui.views.footer :as footer]
-;            [slipstream.ui.views.base :as base]
-;            [slipstream.ui.models.version :as version]
-;            [slipstream.ui.views.common :as common]))
-;
-;(def project-view-template-html "slipstream/ui/views/project-view.html")
-;(def project-edit-template-html "slipstream/ui/views/project-edit.html")
-;
-;(html/defsnippet project-view project-view-template-html common/content-sel
-;  [project]
-;  [:tbody :> :tr]
-;  (html/clone-for [module (modules/modules project)]
-;                  [[:a]] (html/do->
-;                           (html/set-attr :href (:resourceuri (module/attrs module)))
-;                           (html/content (:name (module/attrs module))))
-;                  [[:td (html/nth-of-type 2)]] (html/content (:description (module/attrs module)))
-;                  [[:td (html/nth-of-type 3)]] (html/content (:owner (authz/attrs module)))
-;                  [[:td (html/nth-of-type 4)]] (html/content (:version (module/attrs module)))))
-;
-;(html/defsnippet project-edit project-edit-template-html common/content-sel
-;  [project]
-;  [:tbody :> :tr]
-;  (html/clone-for [module (modules/modules project)]
-;                  [[:a]] (html/do->
-;                           (html/set-attr :href (:resourceuri (module/attrs module)))
-;                           (html/content (:name (module/attrs module))))
-;                  [[:td (html/nth-of-type 2)]] (html/content (:description (module/attrs module)))
-;                  [[:td (html/nth-of-type 3)]] (html/content (:owner (authz/attrs module)))
-;                  [[:td (html/nth-of-type 4)]] (html/content (:version (module/attrs module)))))
-;
-;(defn page [module edit?]
-;  (let [title (str "SlipStream™ | " (module/module-name module))
-;        header (header/header-snip module)
-;        footer (footer/footer-snip @version/slipstream-release-version)]
-;    (if (true? edit?)
-;      (base/base 
-;        {:title title
-;         :header header
-;         :content (project-view module)
-;         :footer footer})
-;      (base/base 
-;        {:title title
-;         :header header
-;         :content (project-edit module)
-;         :footer footer}))))
+(ns slipstream.ui.views.project
+  (:require [net.cgrand.enlive-html :as html]
+            [clojure.string :as string]
+            [slipstream.ui.models.authz :as authz-model]
+            [slipstream.ui.models.modules :as modules-model]
+            [slipstream.ui.models.module :as module-model]
+            [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.authz :as authz]
+            [slipstream.ui.views.authz-view :as authz-view]
+            [slipstream.ui.views.authz-edit :as authz-edit]
+            [slipstream.ui.views.module-base :as module-base]))
+
+(def children-header-sel [:#children-header])
+(def children-sel [:#children])
+
+(html/defsnippet children-snip module-base/project-view-template-html [children-sel :> :table]
+  [parent]
+  [:tbody :> [:tr html/last-of-type]] nil
+  [:tbody :> [:tr html/last-of-type]] nil
+  [:tbody :> [:tr (html/nth-of-type 1)]] 
+                  (html/clone-for 
+                    [child (modules-model/children parent)
+                     :let [attrs (module-model/attrs child)]]
+                    [[:td (html/nth-of-type 1)]] (html/do->
+                                                   (html/remove-class "project_category")
+                                                   (html/add-class (module-base/to-css-class (:category attrs))))
+                    [[:a]] (html/do->
+                             (html/set-attr :href (str "/" (:resourceuri attrs)))
+                             (html/content (:name attrs)))
+                    [[:td (html/nth-of-type 2)]] (html/content (:description attrs))
+                    [[:td (html/nth-of-type 3)]] (html/content (:version attrs))))
+
+(html/defsnippet view-snip module-base/project-view-template-html common/content-sel
+  [module]
+  common/breadcrumb-sel (module-base/breadcrumb module)
+
+  children-sel (html/content (children-snip module))
+  #{[children-header-sel] [children-sel]} (if (empty? (modules-model/children module))
+                                            nil
+                                            identity)
+
+  module-base/module-summary-sel (html/substitute 
+                                   (module-base/module-summary-view-snip module))
+
+  authz/authorization-sel (html/substitute (authz-view/authz-snip module)))
+
+(html/defsnippet edit-snip module-base/project-edit-template-html common/content-sel
+  [module]
+  common/breadcrumb-sel (module-base/breadcrumb module)
+
+  children-sel (html/content (children-snip module))
+  module-base/module-summary-sel (html/substitute 
+                                   (module-base/module-summary-edit-snip module))
+
+  authz/authorization-sel (html/substitute (authz-edit/authz-snip module)))
+
+(html/defsnippet new-snip module-base/project-new-template-html common/content-sel
+  [module]
+  common/breadcrumb-sel (module-base/breadcrumb module)
+
+  children-sel (html/content (children-snip module))
+  module-base/module-summary-sel (html/substitute 
+                                   (module-base/module-summary-new-snip module))
+
+  authz/authorization-sel (html/substitute (authz-edit/authz-snip module)))
+

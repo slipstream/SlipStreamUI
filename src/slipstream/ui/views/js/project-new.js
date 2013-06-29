@@ -20,36 +20,4 @@
 
 $(document).ready(function() {
 
-    // Save button
-	$('#save-button-top, #save-button-bottom').click(function(event){
-		event.preventDefault();
-		$$.hideError();
-		background.fadeOutTopWindow();
-		$('#save-module-dialog').dialog('open');
-		return false;
-	});
-
-	$('#save-module-dialog').dialog({
-		autoOpen: false,
-		title: 'Save Module?',
-		buttons: {
-			"Save": function() {
-				$(this).dialog("close");
-				background.fadeInTopWindow();
-				$("#module-comment").val($("#save-comment").val());
-        		$$.send($("#form-save"), event, $.put);
-			},
-			"Cancel": function() {
-				$(this).dialog("close");
-				background.fadeInTopWindow();
-			},
-		}
-	});
-
-    // Cancel button
-    $('#cancel-button-top, #cancel-button-bottom').click(function(event){
-		event.preventDefault();
-		window.location = window.location.href.split("/new")[0];
-    });	
-
 })

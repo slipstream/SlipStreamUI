@@ -393,16 +393,16 @@ var slipstreamns = {
 	}
 }
 
-var background = {
-
-	fadeOutTopWindow: function() {
-		$('#topdiv').fadeTo(0, 0.5);
-	},
-
-	fadeInTopWindow: function() {
-		$('#topdiv', window.top.document).fadeTo(0, 1);
-	}
-}
+// var background = {
+// 
+//  fadeOutTopWindow: function() {
+//      $('#topdiv').fadeTo(0, 0.5);
+//  },
+// 
+//  fadeInTopWindow: function() {
+//      $('#topdiv', window.top.document).fadeTo(0, 1);
+//  }
+// }
 
 var chooser = function() {
 	
@@ -594,10 +594,15 @@ function htmlEncode(value){
 // SlipStream namespace (let's start putting things in here)
 var $$ = {
 	hideSubmitMessage: function() {
-		$('#submitMessage').hide();
+		$('#submit-message').hide();
+		$('#overlay').hide();
 	},
-	showSubmitMessage: function() {
-		$('#submitMessage').show();
+	showSubmitMessage: function(message) {
+	    if (message) {
+	        $("#submit-message h2").text(message);
+	    }
+	    $("#overlay").show();
+		$('#submit-message').show();
 	},
 	extractUrlPath: function() {
 		return window.location.pathname;
@@ -637,8 +642,8 @@ var $$ = {
 	showLogger: showLogger,
 	hideLogger: hideLogger,
 	send: function($this, event, action, callback){
-	    $(':button[type=submit]').attr('disabled', 'disabled');
-		event.preventDefault();
+        //      $(':button[type=submit]').attr('disabled', 'disabled');
+        // event.preventDefault();
 
 		var url = $this.attr('action');
 
@@ -652,7 +657,7 @@ var $$ = {
         }
 
 		action(url, dataToSend, callback, 'text');
-	    $(':button[type=submit]').removeAttr('disabled');
+//	    $(':button[type=submit]').removeAttr('disabled');
 	
 		return false;
 	},
@@ -806,6 +811,14 @@ var $$ = {
      });
     },
 
+	fadeOutTopWindow: function() {
+		$('#wrapper').fadeTo(0, 0.5);
+	},
+
+	fadeInTopWindow: function() {
+		$('#wrapper', window.top.document).fadeTo(0, 1);
+	}
+
 }
 
 function updateParameterDefaults() {
@@ -814,8 +827,8 @@ function updateParameterDefaults() {
 
 var SS = $$;
 
-var hideSubmitMessage = $$.hideSubmitMessage;
-var showSubmitMessage = $$.showSubmitMessage;
+// var hideSubmitMessage = $$.hideSubmitMessage;
+// var showSubmitMessage = $$.showSubmitMessage;
 
 $(document).ready(function() {
 
@@ -836,15 +849,14 @@ $(document).ready(function() {
 		$$.show($("#error"), error);
 	});
 
+	$(window).unload(function() {
+		$$.hideSubmitMessage();
+	});
+	
 	$('.accordion').accordion(
 		{ heightStyle: "content",
 		  collapsible: true });
 	$('.tab_block').tabs();
-    // $('input[type=submit], a, button','.interaction')
-    //  .button()
-    //  .click(function( event ) {
-    //      event.preventDefault();
-    // });
 	$('.add_item','.nodes')
 		.button()
 		.click(function( event ) {

@@ -20,8 +20,8 @@
 
 $(document).ready(function() {
 
-	var errorElement = $('#errorMessage');
-	var text = $(errorMessage).text();
-	errorElement.html(text);
+    // var errorElement = $('#header-title-sub');
+    // var text = $(errorMessage).text();
+    // errorElement.html(text);
 
 });

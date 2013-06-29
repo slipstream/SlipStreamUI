@@ -22,5 +22,5 @@
            </authz>
         </item>
      </children>
-     <user issuper='true' resourceUri='user/super' username='SuperDooper'></user>
+     <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
   </projectModule>")))

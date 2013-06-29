@@ -9,14 +9,26 @@
             [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.module :as module]
-            [slipstream.ui.models.user :as user]
+            [slipstream.ui.views.versions :as versions]
+            [slipstream.ui.views.users :as users]
+            [slipstream.ui.views.user :as user]
+            [slipstream.ui.views.run :as run]
+            [slipstream.ui.views.dashboard :as dashboard]
+            [slipstream.ui.views.configuration :as configuration]
+            [slipstream.ui.models.user :as user-model]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.models.version :as version]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
+            [slipstream.ui.data.configuration :as configuration-data]
+            [slipstream.ui.data.run :as run-data]
+            [slipstream.ui.data.users :as users-data]
+            [slipstream.ui.data.user :as user-data]
             [slipstream.ui.data.projects :as projects]
             [slipstream.ui.data.project :as project]
             [slipstream.ui.data.image :as image]
+            [slipstream.ui.data.versions :as versions-data]
+            [slipstream.ui.data.dashboard :as dashboard-data]
             [slipstream.ui.data.deployment :as deployment])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -27,17 +39,38 @@
 (defn module-page [module edit?]
   (module/page module edit?))
 
+(defn configuration-page []
+  (configuration/page configuration-data/xml-configuration))
+
 (defn knockknock-page []
   (knockknock/page projects/xml-projects))
+
+(defn run-page []
+  (run/page run-data/xml-run))
 
 (defn byebye-page []
   (byebye/page projects/xml-projects))
 
 (defn welcome-page []
-  (welcome/page projects/xml-projects))
+  (welcome/page projects/xml-projects "view"))
+
+(defn welcome-page-chooser []
+  (welcome/page projects/xml-projects "chooser"))
+
+(defn dashboard-page []
+  (dashboard/page dashboard-data/xml-dashboard))
+
+(defn users-page []
+  (users/page users-data/xml-users))
+
+(defn user-view-page []
+  (user/page user-data/xml-user "view"))
+
+(defn user-edit-page []
+  (user/page user-data/xml-user "edit"))
 
 (defn error-page [message code]
-  (error/page (or message "Oops!!") code (user/user projects/xml-projects)))
+  (error/page (or message "Oops!!") code (user-model/user projects/xml-projects)))
 
 (defn module-view [module]
   (module-page module "view"))
@@ -47,6 +80,9 @@
 
 (defn module-new [module]
   (module-page module "new"))
+
+(defn module-chooser [module]
+  (module-page module "chooser"))
 
 (defn module-projects-view []
   (module-view projects/xml-projects))
@@ -69,11 +105,23 @@
 (defn module-image-edit []
   (module-edit image/xml-image))
 
+(defn module-image-new []
+  (module-new image/xml-image))
+
+(defn module-image-chooser []
+  (module-chooser image/xml-image))
+
 (defn module-deployment-view []
   (module-view deployment/xml-deployment))
 
 (defn module-deployment-edit []
   (module-edit deployment/xml-deployment))
+
+(defn module-versions-view []
+  (versions/page versions-data/xml-versions "view"))
+
+(defn module-versions-chooser []
+  (versions/page versions-data/xml-versions "chooser"))
 
 ;; =============================================================================
 ;; Routes
@@ -84,14 +132,25 @@
     ["logout"] (-> (byebye-page) ring.util.response/response constantly)
     ["login"] (-> (knockknock-page) ring.util.response/response constantly)
     ["welcome"] (-> (welcome-page) ring.util.response/response constantly)
+    ["welcome-chooser"] (-> (welcome-page-chooser) ring.util.response/response constantly)
     ["project-view"] (-> (module-project-view) ring.util.response/response constantly)
     ["project-edit"] (-> (module-project-edit) ring.util.response/response constantly)
     ["project-new"] (-> (module-project-new) ring.util.response/response constantly)
     ["image-view"] (-> (module-image-view) ring.util.response/response constantly)
     ["image-edit"] (-> (module-image-edit) ring.util.response/response constantly)
+    ["image-new"] (-> (module-image-new) ring.util.response/response constantly)
+    ["image-chooser"] (-> (module-image-chooser) ring.util.response/response constantly)
     ["deployment-view"] (-> (module-deployment-view) ring.util.response/response constantly)
     ["deployment-edit"] (-> (module-deployment-edit) ring.util.response/response constantly)
-    ["error"] (-> (error-page "Oops!! Kaboom!!" 500) ring.util.response/response constantly)
+    ["versions-view"] (-> (module-versions-view) ring.util.response/response constantly)
+    ["versions-chooser"] (-> (module-versions-chooser) ring.util.response/response constantly)
+    ["dashboard"] (-> (dashboard-page) ring.util.response/response constantly)
+    ["users"] (-> (users-page) ring.util.response/response constantly)
+    ["user-view"] (-> (user-view-page) ring.util.response/response constantly)
+    ["user-edit"] (-> (user-edit-page) ring.util.response/response constantly)
+    ["run"] (-> (run-page) ring.util.response/response constantly)
+    ["configuration"] (-> (configuration-page) ring.util.response/response constantly)
+    ["error"] (-> (error-page "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>" 500) ring.util.response/response constantly)
     [&] (-> (error-page "Unknown page" 404)
           ring.util.response/response constantly)))
 

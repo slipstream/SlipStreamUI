@@ -66,6 +66,22 @@
   authz/authorization-create-children-sel (html/substitute (authz-children-snip authz))
   authz/authorization-execute-sel nil)
 
+(html/defsnippet authz-image-snip authz/authorization-view-template-html authz/authorization-acl-sel
+  [authz]
+  authz/authorization-view-sel (html/substitute (authz-view-snip authz))
+  authz/authorization-edit-sel (html/substitute (authz-edit-snip authz))
+  authz/authorization-delete-sel (html/substitute (authz-delete-snip authz))
+  authz/authorization-execute-sel (html/substitute (authz-post-snip authz))
+  [authz/authorization-execute-sel :> [:td html/first-of-type]] (html/content "Build or Run Single Image")
+  authz/authorization-create-children-sel nil)
+
+(html/defsnippet authz-deployment-snip authz/authorization-view-template-html authz/authorization-acl-sel
+  [authz]
+  authz/authorization-view-sel (html/substitute (authz-view-snip authz))
+  authz/authorization-edit-sel (html/substitute (authz-edit-snip authz))
+  authz/authorization-delete-sel (html/substitute (authz-delete-snip authz))
+  [authz/authorization-execute-sel :> [:td html/first-of-type]] (html/content "Run Deployment"))
+
 (html/defsnippet authz-inhertance-snip authz/authorization-view-template-html authz/authorization-inheritance-sel
   [authz]
   [:#authz-inherited :td :input]
@@ -80,6 +96,14 @@
 (defmethod authz-by-category "Project"
   [authz category]
     (authz-project-snip authz))
+
+(defmethod authz-by-category "Image"
+  [authz category]
+    (authz-image-snip authz))
+
+(defmethod authz-by-category "Deployment"
+  [authz category]
+    (authz-deployment-snip authz))
 
 (html/defsnippet authz-snip authz/authorization-view-template-html authz/authorization-sel
   [module]

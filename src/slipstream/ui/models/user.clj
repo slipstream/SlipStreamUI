@@ -15,3 +15,5 @@
 (defn super? [metadata]
   (= "true" (:issuper (attrs metadata))))
   
+(defn username [metadata]
+  (:name (attrs metadata)))

@@ -30,6 +30,11 @@ $(document).ready(function() {
 		$$.newModuleRedirect($(this));
     });	
 
+    // New image button
+    $('#new-image-button-top, #new-image-button-bottom').click(function(event){
+		$$.newModuleRedirect($(this));
+    });	
+
     //
     // Import
     //
@@ -78,13 +83,12 @@ $(document).ready(function() {
 		stack: false,
 		buttons: {
 			"Import": function(event) {
-				event.preventDefault();
 				$(this).dialog("close");
 				$("#importform").submit();
+				return false;
 			},
 			"Cancel": function() {
 				$(this).dialog("close");
-				background.fadeInTopWindow();
 			},
 		}
 	});    

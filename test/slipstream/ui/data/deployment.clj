@@ -510,5 +510,5 @@ cp /var/log/apache2/error.log $SLIPSTREAM_REPORT_DIR</target>
    
 </nodes>
 
-<user issuper='true' resourceUri='user/super' username='super'></user>
+<user issuper='true' resourceUri='user/super' name='super'></user>
 </deploymentModule>")))

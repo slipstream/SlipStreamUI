@@ -20,38 +20,31 @@
 
 $(document).ready(function() {
 
-	alternateTableRows();
+    $('#save-button-top, #save-button-bottom').click(function(event){
+    	$$.hideError();
+		$("#save-form").submit();
+    });	
 
-	$.ajaxSetup ({
-	    // Disable caching of AJAX responses
-	    cache: false
-	});
-
-	$('input[id="reloadconfigurationfilebutton"]').click(function(event){
-		event.preventDefault();
+	$('#reload-button-top, #reload-button-bottom').click(function(event){
 		SS.hideError();
-		background.fadeOutTopWindow();
-		$('#reloadconfigurationfile').dialog('open');
+		$('#reload-configuration-dialog').dialog('open');
 		return false;
 	});
 
-	$('#reloadconfigurationfile').dialog({
+	$('#reload-configuration-dialog').dialog({
 		autoOpen: false,
-		title: 'Reload Configuration File',
+		modal: true,
 		buttons: {
 			"Re-Load": function() {
 				$(this).dialog("close");
-				background.fadeInTopWindow();
-				showSubmitMessage();
 				var callback = function(data, status, xhr) {
-					var location = xhr.getResponseHeader('Location');
 					window.location = location;
 				}
 				$.post(window.location.href, '', callback, 'text')
+				return false;
 			},
 			"Cancel": function() {
 				$(this).dialog("close");
-				background.fadeInTopWindow();
 			},
 		}
 	});

@@ -1,11 +1,13 @@
 (ns slipstream.ui.data.image
   (:require [net.cgrand.enlive-html :as html]))
   
-(def xml-image (first (html/html-snippet "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='true' lastModified='2013-03-07 21:03:09.337 CET' loginUser='root' name='Public/BaseImages/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4' shortName='12.04' version='4'>
+(def xml-image (first (html/html-snippet "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='true' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4' shortName='12.04' version='4' description='Nice Ubuntu distro'>
 <parameters class='org.hibernate.collection.PersistentMap'>
 <entry>
 <string>extra.disk.volatile</string>
-<parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Volatile extra disk in GB' isSet='false' mandatory='true' name='extra.disk.volatile' readonly='false' type='String'></parameter>
+<parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Volatile extra disk in GB' isSet='false' mandatory='true' name='extra.disk.volatile' readonly='false' type='String'>
+   <value>12345</value>
+</parameter>
 </entry>
 <entry>
 <string>stratuslab.disks.bus.type</string>
@@ -36,7 +38,9 @@
 </entry>
 <entry>
 <string>hostname</string>
-<parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='hostname/ip of the image' isSet='false' mandatory='true' name='hostname' readonly='false' type='String'></parameter>
+<parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='hostname/ip of the image' isSet='false' mandatory='true' name='hostname' readonly='false' type='String'>
+<value>123.234.345</value>
+</parameter>
 </entry>
 <entry>
 <string>dummy</string>
@@ -73,13 +77,19 @@
 <string>stratuslab</string>
 <string>default</string>
 </cloudNames>
-<targets class='org.hibernate.collection.PersistentBag'></targets>
-<packages class='org.hibernate.collection.PersistentBag'></packages>
-<prerecipe></prerecipe>
-<recipe></recipe>
+<targets class='org.hibernate.collection.PersistentBag'>
+<target name='execute' runInBackground='false'>execute target</target>
+<target name='report' runInBackground='false'>report target</target>
+</targets>
+<packages class='org.hibernate.collection.PersistentBag'>
+<package key='key' name='apache2' repository='repo'/>
+</packages>
+<prerecipe>some pre-recipe</prerecipe>
+<recipe>some recipe</recipe>
 <cloudImageIdentifiers class='org.hibernate.collection.PersistentBag'>
 <cloudImageIdentifier cloudImageIdentifier='HZTKYZgX7XzSokCHMB60lS0wsiv' cloudServiceName='stratuslab' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'></cloudImageIdentifier>
+<cloudImageIdentifier cloudImageIdentifier='abc' cloudServiceName='my-cloud' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'></cloudImageIdentifier>
 </cloudImageIdentifiers>
 <extraDisks class='org.hibernate.collection.PersistentBag'></extraDisks>
-<user issuper='true' resourceUri='user/super' username='super'></user>
+<user issuper='true' resourceUri='user/super' name='super'></user>
 </imageModule>")))

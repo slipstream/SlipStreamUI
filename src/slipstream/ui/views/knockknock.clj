@@ -11,30 +11,17 @@
 
 (def knockknock-template-html "slipstream/ui/views/knockknock.html")
 
-(html/defsnippet header-title-snip knockknock-template-html header/titles-sel
-  [metadata]
-  header/titles-sel identity)
-
 (html/defsnippet header-snip knockknock-template-html header/header-sel
   [metadata]
   header/header-top-bar-sel (html/substitute
-                              (header/header-top-only-snip metadata)))
-
-(html/defsnippet content-snip knockknock-template-html common/content-sel
-  [metadata]
-  common/content-sel identity)
+                       (header/header-top-only-snip metadata)))
 
 (html/deftemplate base knockknock-template-html
-  [{:keys [title header content footer]}]
-  [:#title]  (html/content title)
-  header/header-sel (html/content header)
-  common/content-sel (html/content content)
-  footer/footer-sel (html/content footer)
-)
+  [{:keys [header content footer]}]
+  header/header-sel (html/substitute header)
+  footer/footer-sel (html/substitute footer))
 
 (defn page [metadata]
   (base 
-    {:title (common/title "Login/Register")
-     :header (header-snip metadata)
-     :content (content-snip metadata)
-     :footer (footer/footer-snip @version/slipstream-release-version)}))
+    {:header (header-snip metadata)
+     :footer (footer/footer-snip)}))

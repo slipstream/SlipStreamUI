@@ -32,4 +32,4 @@
                code
                user)
      :content nil
-     :footer (footer/footer-snip @version/slipstream-release-version)}))
+     :footer (footer/footer-snip)}))

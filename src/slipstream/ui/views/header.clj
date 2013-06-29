@@ -21,7 +21,7 @@
   [{username :name issuper :issuper}]
   [:#header-user :> :a] (html/do-> 
                           (html/html-content
-                            (str username "<i class='icon-user icon-2x'>"))
+                            (str username " <i class='icon-user icon-2x'>"))
                           (html/set-attr :href (str "/user/" username)))
   [:#header-user] (if (= nil username)
                     nil
@@ -41,13 +41,17 @@
   {"Image" "icon-desktop"
    "Project" "icon-folder-open"
    "Deployment" "icon-cloud-upload"
-   "Error" "icon-cloud-error"})
+   "Error" "icon-cloud-error"
+   "Users" "icon-users"
+   "User" "icon-user"
+   "Configuration" "icon-wrench"
+   "Dashboard" "icon-dashboard"})
 
 (html/defsnippet header-titles-snip header-template-html titles-sel
   [title title-sub title-desc category]
   [:#header-title] (html/html-content
                      (str "<i class='" (category-map category) "'></i>" title))
-  [:#header-title-sub] (html/content title-sub)
+  [:#header-title-sub] (html/html-content title-sub)
   [:#header-title-desc] (html/content title-desc))
 
 (defn header-titles
@@ -116,22 +120,7 @@
              (-> root :attrs :resourceuri)
              #"/"))))
 
-(html/defsnippet header-snip header-template-html header-sel
-  [metadata]
-  header-top-bar-sel (html/substitute
-                       (header-top-bar-snip
-                         (user/attrs metadata)))
-  titles-sel (html/substitute
-               (apply header-titles-snip
-                 (titles metadata)))
-  breadcrumb-sel (html/substitute
-                   (header-breadcrumb-snip
-                     {:name (if (= :list (:tag metadata))
-                              "" 
-                              (-> metadata :attrs :name))
-                      :root-uri (root-uri metadata)})))
-
-(html/defsnippet header-top-only-snip header-template-html header-sel
+(html/defsnippet header-top-only-snip header-template-html header-top-bar-sel
   [metadata]
   header-top-bar-sel (html/substitute
                        (header-top-bar-snip

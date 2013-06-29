@@ -1,6 +1,5 @@
 (ns slipstream.ui.views.module
-  (:require [clojure.string :as string]
-            [net.cgrand.enlive-html :as html]
+  (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -8,148 +7,34 @@
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
+            [slipstream.ui.views.image :as image]
+            [slipstream.ui.views.deployment :as deployment]
+            [slipstream.ui.views.project :as project]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.authz :as authz]
             [slipstream.ui.views.authz-view :as authz-view]
-            [slipstream.ui.views.authz-edit :as authz-edit]
-            [slipstream.ui.views.header :as header]))
-
-(def project-view-template-html "slipstream/ui/views/project-view.html")
-(def project-edit-template-html "slipstream/ui/views/project-edit.html")
-(def project-new-template-html "slipstream/ui/views/project-new.html")
-
-(def image-view-template-html "slipstream/ui/views/image-view.html")
-(def image-edit-template-html "slipstream/ui/views/image-edit.html")
-(def image-new-template-html "slipstream/ui/views/image-new.html")
+            [slipstream.ui.views.authz-edit :as authz-edit]))
 
 (def deployment-view-template-html "slipstream/ui/views/deployment-view.html")
 (def deployment-edit-template-html "slipstream/ui/views/deployment-edit.html")
 (def deployment-new-template-html "slipstream/ui/views/deployment-new.html")
 
-(def breadcrumb-template-html "slipstream/ui/views/breadcrumb.html")
+(defn header
+  [module type]
+  (if (module-base/ischooser? type)
+    nil
+    (module-base/header-snip module)))
 
-; Breadcrumbs
-
-(def breadcrumb-sel [:#breadcrumb])
-
-(defn- breadcrumb-href
-  "root-uri, e.g. 'module/' in the case of modules, or 'user/'
-   in the case of users"
-  [names index root-uri]
-  (if (= "" (names index))
-    (str "/" root-uri)
-    (str "/"
-      root-uri 
-      (reduce 
-        #(str %1 (if (= "" %1) "" "/") %2) 
-        "" 
-        (subvec names 0 (inc index))))))
-                                 
-(html/defsnippet breadcrumb-snip breadcrumb-template-html breadcrumb-sel
-  [name root-uri]
-  [[:li html/last-of-type]] nil
-  [[:li (html/nth-of-type 3)]] (html/clone-for 
-                                 [i (range (count (string/split name #"/")))] 
-                                 [:a]
-                                 (let 
-                                   [names (string/split name #"/")
-                                    href (breadcrumb-href names i root-uri)
-                                    short-name (names i)]
-                                   (html/do-> 
-                                     (html/content (if (= "" short-name)
-                                                     root-uri short-name))
-                                     (html/set-attr :href href)))))
-
-(html/defsnippet header-snip header/header-template-html header/header-sel
-  [module]
-  header/header-summary-sel 
-  (html/substitute 
-    (apply 
-      header/header-titles-snip 
-      (module-model/titles-with-version module)))
-  header/header-top-bar-sel (html/substitute
-                              (header/header-top-bar-snip
-                                (user/attrs module))))
-
-(def module-summary-sel [:#module-summary])
-
-(html/defsnippet module-summary-view-snip project-view-template-html module-summary-sel
-  [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-version] (html/html-content
-                         (str (:version (module-model/attrs module))
-                              "<span> (<a href='"
-                              (:parenturi (module-model/attrs module))
-                              "/"
-                              (:shortname (module-model/attrs module))
-                              "/'>history</a>)</span>"))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
-  [:#module-comment] (html/content (module-model/module-comment module))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-created] (html/content (:creation (module-model/attrs module)))
-  [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module))
-  )
-
-(defn hidden-input-elem [value id]
-  "Returns a value + hidden input element"
-  (html/html-content
-    (str value "<input name='name' id='" id "' type='hidden' value='" value "'>")))
-
-(html/defsnippet module-summary-edit-snip project-edit-template-html module-summary-sel
-  [module]
-  [:#module-name] (hidden-input-elem (:name (module-model/attrs module)) "module-name")
-  [:#module-version] (html/html-content
-                       (str (:version (module-model/attrs module))
-                            "<span> (<a href='"
-                            (:parenturi (module-model/attrs module))
-                            "/"
-                            (:shortname (module-model/attrs module))
-                            "/'>history</a>)</span>"))
-  [:#module-description] (html/set-attr :value (:description (module-model/attrs module)))
-  [:#module-comment] (html/set-attr :value (module-model/module-comment module))
-  [:#module-created] (html/content (:creation (module-model/attrs module)))
-  [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
-
-(html/defsnippet module-summary-new-snip project-new-template-html module-summary-sel
-  [module]
-  identity)
-
-(def children-sel [:#children])
-
-(html/defsnippet children-snip project-view-template-html [children-sel :> :table]
-  [parent]
-  [:tbody :> [:tr html/last-of-type]] nil
-  [:tbody :> [:tr html/last-of-type]] nil
-  [:tbody :> [:tr (html/nth-of-type 1)]] 
-                  (html/clone-for 
-                    [child (modules-model/modules parent)]
-                    [[:a]] (html/do->
-                             (html/set-attr :href (str "/" (:resourceuri (module-model/attrs child))))
-                             (html/content (:name (module-model/attrs child))))
-                    [[:td (html/nth-of-type 2)]] (html/content (:description (module-model/attrs child)))
-                    [[:td (html/nth-of-type 3)]] (html/content (:owner (authz-model/attrs child)))
-                    [[:td (html/nth-of-type 4)]] (html/content (:version (module-model/attrs child)))))
+(defn footer
+  [type]
+  (if (module-base/ischooser? type)
+    nil
+    (footer/footer-snip)))
 
 
 ;; View
-
-(html/defsnippet project-view-snip project-view-template-html common/content-sel
-  [module]
-  breadcrumb-sel (html/substitute
-                   (breadcrumb-snip
-                     (:name (module-model/attrs module))
-                     "module/"))
-  children-sel (html/content (children-snip module))
-  module-summary-sel (html/substitute 
-                       (module-summary-view-snip module))
-  authz/authorization-sel (html/substitute (authz-view/authz-snip module)))
-
-(html/defsnippet image-view-snip image-view-template-html common/content-sel
-  [module]
-  identity)
 
 (html/defsnippet deployment-view-snip deployment-view-template-html common/content-sel
   [module]
@@ -161,33 +46,21 @@
 
 (defmethod content-by-category-view "Image"
   [module category]
-  common/content-sel (image-view-snip module))
+  common/content-sel (image/view-snip module))
 
 (defmethod content-by-category-view "Deployment"
   [module category]
-  common/content-sel (deployment-view-snip module))
+  common/content-sel (deployment/view-snip module))
 
 (defmethod content-by-category-view "Project"
   [module category]
-  common/content-sel (project-view-snip module))
-
+  common/content-sel (project/view-snip module))
 
 ;; Edit
 
-(html/defsnippet project-edit-snip project-edit-template-html common/content-sel
-  [module]
-  breadcrumb-sel (html/substitute
-                   (breadcrumb-snip
-                     (:name (module-model/attrs module))
-                     "module/"))
-  children-sel (html/content (children-snip module))
-  module-summary-sel (html/substitute 
-                       (module-summary-edit-snip module))
-  authz/authorization-sel (html/substitute (authz-edit/authz-snip module)))
-
-(html/defsnippet image-edit-snip image-edit-template-html common/content-sel
-  [module]
-  identity)
+;(html/defsnippet image-edit-snip image/image-edit-template-html common/content-sel
+;  [module]
+;  identity)
 
 (html/defsnippet deployment-edit-snip deployment-edit-template-html common/content-sel
   [module]
@@ -199,32 +72,17 @@
 
 (defmethod content-by-category-edit "Image"
   [module category]
-  common/content-sel (image-edit-snip module))
+  common/content-sel (image/edit-snip module))
 
 (defmethod content-by-category-edit "Deployment"
   [module category]
-  common/content-sel (deployment-edit-snip module))
+  common/content-sel (deployment/edit-snip module))
 
 (defmethod content-by-category-edit "Project"
   [module category]
-  common/content-sel (project-edit-snip module))
+  common/content-sel (project/edit-snip module))
 
 ;; New
-
-(html/defsnippet project-new-snip project-new-template-html common/content-sel
-  [module]
-  breadcrumb-sel (html/substitute
-                   (breadcrumb-snip
-                     (:name (module-model/attrs module))
-                     "module/"))
-  children-sel (html/content (children-snip module))
-  module-summary-sel (html/substitute 
-                       (module-summary-new-snip module))
-  authz/authorization-sel (html/substitute (authz-edit/authz-snip module)))
-
-(html/defsnippet image-new-snip image-new-template-html common/content-sel
-  [module]
-  identity)
 
 (html/defsnippet deployment-new-snip deployment-new-template-html common/content-sel
   [module]
@@ -236,15 +94,15 @@
 
 (defmethod content-by-category-new "Image"
   [module category]
-  common/content-sel (image-new-snip module))
+  common/content-sel (image/new-snip module))
 
 (defmethod content-by-category-new "Deployment"
   [module category]
-  common/content-sel (deployment-new-snip module))
+  common/content-sel (deployment/new-snip module))
 
 (defmethod content-by-category-new "Project"
   [module category]
-  common/content-sel (project-new-snip module))
+  common/content-sel (project/new-snip module))
 
 
 ;; Dispatch function
@@ -266,6 +124,10 @@
   [module type category]
   (content-by-category-new module category))
 
+(defmethod content "chooser" 
+  [module type category]
+    (content-by-category-view module category))
+
 
 ;; javascript inclusion
 
@@ -277,17 +139,70 @@
   (fn [type category]
     [type category]))
 
+(defn js-scripts-chooser
+  []
+  (concat js-scripts-default ["/js/module-chooser.js"]))
+
+(defn js-scripts-project-view
+  []
+  (concat js-scripts-default ["/js/project-view.js"]))
+
+(defn js-scripts-image-view
+  []
+  (concat js-scripts-default ["/js/image-view.js"]))
+
+(defn js-scripts-deployment-view
+  []
+  (concat js-scripts-default ["/js/deployment-view.js"]))
+
 (defmethod js-scripts ["view" "Project"]
   [type category]
-  (concat js-scripts-default ["/js/project-view.js"]))
+  (js-scripts-project-view))
 
 (defmethod js-scripts ["edit" "Project"]
   [type category]
-  (concat js-scripts-default ["/js/project-edit.js"]))
+  (concat js-scripts-default ["/js/module-edit.js" "/js/project-edit.js"]))
 
 (defmethod js-scripts ["new" "Project"]
   [type category]
-  (concat js-scripts-default ["/js/project-new.js"]))
+  (concat js-scripts-default ["/js/module-edit.js" "/js/project-edit.js"]))
+
+(defmethod js-scripts ["chooser" "Project"]
+  [type category]
+  (js-scripts-chooser))
+
+(defmethod js-scripts ["view" "Image"]
+  [type category]
+  (js-scripts-image-view))
+
+(defmethod js-scripts ["edit" "Image"]
+  [type category]
+  (concat js-scripts-default ["/js/module-edit.js" "/js/image-edit.js"]))
+
+(defmethod js-scripts ["new" "Image"]
+  [type category]
+  (concat js-scripts-default ["/js/module-edit.js" "/js/image-new.js"]))
+
+(defmethod js-scripts ["chooser" "Image"]
+  [type category]
+  (js-scripts-chooser))
+
+(defmethod js-scripts ["view" "Deployment"]
+  [type category]
+  (js-scripts-deployment-view))
+
+(defmethod js-scripts ["edit" "Deployment"]
+  [type category]
+  (concat js-scripts-default ["/js/module-edit.js" "/js/deployment-edit.js"]))
+
+(defmethod js-scripts ["new" "Deployment"]
+  [type category]
+  (concat js-scripts-default ["/js/module-edit.js" "/js/deployment-new.js"]))
+
+(defmethod js-scripts ["chooser" "Deployment"]
+  [type category]
+  (js-scripts-chooser))
+
 
 ;; Main function
 
@@ -296,7 +211,7 @@
     [category (module-model/module-category module)]
     (base/base 
       {:js-scripts (js-scripts type category)
-       :title (str "SlipStream™ | " (module-model/module-name module))
-       :header (header-snip module)
+       :title (common/title (module-model/module-name module))
+       :header (header module type)
        :content (content module type category)
-       :footer (footer/footer-snip @version/slipstream-release-version)})))
+       :footer (footer type)})))
