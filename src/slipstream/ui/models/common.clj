@@ -18,7 +18,7 @@
 
 (defn group-by-key
   [_key parameters]
-  (sort-by key (group-by #(_key (:attrs %)) parameters)))
+  (into (sorted-map) (group-by #(_key (:attrs %)) parameters)))
 
 (defn group-by-category
   [parameters]
