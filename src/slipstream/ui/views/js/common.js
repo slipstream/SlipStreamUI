@@ -827,9 +827,6 @@ function updateParameterDefaults() {
 
 var SS = $$;
 
-// var hideSubmitMessage = $$.hideSubmitMessage;
-// var showSubmitMessage = $$.showSubmitMessage;
-
 $(document).ready(function() {
 
 	$(document).ajaxError(function(e, xhr, settings, exception) {
