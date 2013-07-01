@@ -6,6 +6,7 @@
             [slipstream.ui.views.error :as error]
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.users :as users]
+            [slipstream.ui.views.run :as run]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.dashboard :as dashboard]
@@ -64,6 +65,10 @@
 (defmethod gen-page "users"
   [metadata pagename type]
     (render (users/page (xml-string-to-map metadata))))
+
+(defmethod gen-page "run"
+  [metadata pagename type]
+    (render (run/page (xml-string-to-map metadata))))
 
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
