@@ -13,8 +13,22 @@
 (def deployment-new-template-html "slipstream/ui/views/deployment-new.html")
 
 (def module-login-sel [:#module-login])
+(def run-with-options-dialog-sel [:#run-with-options-dialog])
+(def nodes-sel [:#nodes])
+(def parameters-mapping-sel [:#parameters-mapping])
 
 ;; View
+
+(html/defsnippet run-with-options-dialog-snip deployment-view-template-html [run-with-options-dialog-sel]
+  [deployment]
+  [:> :div] (html/content
+              (for [node (module-model/nodes deployment)]
+                (list
+                  (html/html-snippet (str "\n    <h3>" (common-model/elem-name node) "</h3>"))
+                  (common/parameters-edit-snip 
+                    (common-model/filter-by-categories
+                      (common-model/parameters node)
+                      ["Input"]))))))
 
 (html/defsnippet summary-view-snip deployment-view-template-html module-base/module-summary-sel
   [module]
@@ -49,16 +63,96 @@
   [:#module-category] (html/content (:category (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module)))
 
+(html/defsnippet parameters-mapping-snip deployment-edit-template-html parameters-mapping-sel
+  [parameters node-index]
+  ; make the header visible if there are parameters
+  [parameters-mapping-sel :> :td :> :table :> :thead :> :tr]
+  (if (pos? (count parameters))
+    (html/remove-class "hidden")
+    (html/add-class "hidden"))
+  [parameters-mapping-sel :> :td :> :table :> :tbody :> :tr]
+  (html/clone-for
+    [i (range (count parameters))
+     :let [parameter (nth parameters i)
+           id-prefix (str "node--" node-index "--mappingtable--" i "--")]]
+    [[:td (html/nth-of-type 1)] :> :input]
+    (html/do->
+      (html/set-attr :name (str id-prefix "input"))
+      (html/set-attr :value (common-model/elem-name parameter)))
+    [[:td (html/nth-of-type 2)] :> :input]
+    (html/do->
+      (html/set-attr :name (str id-prefix "output"))
+      (html/set-attr :value (common-model/value parameter)))))
+
+(html/defsnippet nodes-snip deployment-edit-template-html nodes-sel
+  [nodes available-clouds]
+  [nodes-sel :> :table :> :tbody :> :tr] 
+  (html/clone-for
+    [i (range (count nodes))
+     :let [node (nth nodes i)
+           attrs (common-model/attrs node)
+           id-prefix (str "node--" i "--")
+           image-uri (:imageuri attrs)]]
+    [html/this-node] (html/set-attr :id (str "node--" i))
+    ; node name
+    [[:td.node_name] :> :input]
+    (html/do->
+      (html/set-attr :value (common-model/elem-name node))
+      (html/set-attr :name (str id-prefix "shortname")))
+
+    ; reference
+    [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
+    (html/do->
+      (html/set-attr :href (str "/" image-uri))
+      (html/content (map str (drop 7 image-uri))))
+    [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :input]
+    (html/do->
+      (html/set-attr :name (str id-prefix "imagelink"))
+      (html/set-attr :value (str "/" image-uri)))
+
+    ; multiplicity
+    [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 2)] :> :td :> :input]
+    (html/do->
+      (html/set-attr :value (:multiplicity attrs))
+      (html/set-attr :name (str id-prefix "multiplicity--value")))
+
+    ; default cloud
+    [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 3)] :> :td :> :select]
+    (html/substitute
+      (html/html-snippet
+        (str "<select name='" id-prefix "cloudservice--value'>\n")
+             (apply str
+                    (for [cloud available-clouds]
+                      (str 
+                        "<option value='" cloud "'"
+                        (if (= cloud (:cloudservice attrs))
+                          " selected"
+                          "")
+                        ">"
+                        cloud
+                        "</option>\n"
+                        )))
+             "</select>\n"))
+    
+    ; parameter mapping
+    parameters-mapping-sel
+    (html/substitute
+      (parameters-mapping-snip (common-model/parameter-mappings node) i))))
+    
 (html/defsnippet view-snip deployment-view-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb module)
   module-base/module-summary-sel (html/substitute 
                                    (summary-view-snip module))
-   
-  [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
+
+  [:.refqname] (html/set-attr :value (common-model/resourceuri module))
+
+  run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip module))
+
+  [:#build-form] (html/set-attr :value (common-model/resourceuri module))
   
   [:#publish-form] (html/set-attr :value (str 
-                                           (:resourceuri (module-model/attrs module))
+                                           (common-model/resourceuri module)
                                            "/publish"))
   
   authz/authorization-sel (html/substitute (authz-view/authz-snip module)))
@@ -70,7 +164,11 @@
                                    (summary-new-snip module)))
 
 (html/defsnippet edit-snip deployment-edit-template-html common/content-sel
-  [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  [deployment]
+  common/breadcrumb-sel (module-base/breadcrumb deployment)
   module-base/module-summary-sel (html/substitute 
-                                   (module-base/module-summary-edit-snip module)))
+                                   (module-base/module-summary-edit-snip deployment))
+  nodes-sel (html/substitute
+              (nodes-snip
+                (module-model/nodes deployment)
+                (module-model/available-clouds deployment))))

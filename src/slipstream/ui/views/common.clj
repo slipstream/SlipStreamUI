@@ -202,6 +202,10 @@
       " placeholder='" defaultvalue
       "'>" value "</textarea>"))))
 
+(defmethod set-input-value "Dummy"
+  [parameter tr-id]
+  (set-input-value-string parameter tr-id))
+
 (defmethod set-input-value "String"
   [parameter tr-id]
   (set-input-value-string parameter tr-id))
@@ -340,7 +344,7 @@
   [parameters]
   (html/clone-for
     [i (range (count parameters))
-     :let [parameter (parameters i)
+     :let [parameter (nth parameters i)
            attrs (common-model/attrs parameter)
            name (:name attrs)
            category (:category attrs)

@@ -65,7 +65,7 @@ var mapper = {
 			    <input type="text" name="' + id + '--input" value="' + iparamValue + '"></input> \
 			</td> \
 			<td> \
-			    <input type="text" name="' + id + '--output" value="' + oparamValue + '"></input> \
+			    <input type="text" class="parameter-mapping-output" name="' + id + '--output" value="' + oparamValue + '"></input> \
 			</td> \
 			<td> \
 				<button \
@@ -298,8 +298,8 @@ var nodeAdder = {
 }
 
 function addAutocompleteToNodeOutputFields() {
-	$('#nodes').children('tr').find('#nodename').change(cleanNodeAutocompleteOnNodeNameChange);
-	$('#nodes').children('tr').find('#nodeparametermappingoutput').autocomplete({source: function(term, tags) {nodeParametersAutoComplete(term, tags);}});	
+	$('.nodename > input').change(cleanNodeAutocompleteOnNodeNameChange);
+	$('.parameter-mapping-output').autocomplete({source: function(term, tags) {nodeParametersAutoComplete(term, tags);}});	
 }
 
 function addNode() {
@@ -348,7 +348,7 @@ var nodeParametersAutoCompleter = {
 	findImageRefs: function() {
 		var that = this;
 		var images = [];
-		$('#nodes').children('tr').each(function(_, node) {
+		$('#nodes > table > tbody > tr').each(function(_, node) {
 			var imageRef = that.extractImageRef(node);
 			var imageRefNoVersion = that.extractImageRefNoVersion(imageRef);
 			var nodeName = that.extractNodeName(node);
@@ -374,7 +374,7 @@ var nodeParametersAutoCompleter = {
     },
 
 	extractImageRef: function(node) {
-		return $('input[name=' + $(node).attr('id') + '--imagelink]').attr('value');
+		return $('input[name=node--' + $(node).index() + '--imagelink]').attr('value');
 	},
 
 	extractNodeName: function(node) {
@@ -382,7 +382,9 @@ var nodeParametersAutoCompleter = {
 	},
 
 	extractOutputParameters: function(data, status, xhr) {
-		var imageName = $(data.firstChild).attr('resourceUri');
+		var parentUri = $(data.firstChild).attr('parentUri');
+		var shortName = $(data.firstChild).attr('shortName');
+		var imageName = parentUri + "/" + shortName;
 		var imageNameNoVersion = nodeParametersAutoCompleter.extractImageRefNoVersion(imageName);
 		var inputs = [];
 		$(data).find('parameter[category=Output][type!=Dummy]').each(function(index, input) {
@@ -437,6 +439,6 @@ $(document).ready(function() {
 
 	addAutocompleteToNodeOutputFields();
 	
-	$('#nodes').children('tr').find('#nodename').change(cleanNodeAutocompleteOnNodeNameChange);
+	$('td.nodename > input').change(cleanNodeAutocompleteOnNodeNameChange);
 
 });

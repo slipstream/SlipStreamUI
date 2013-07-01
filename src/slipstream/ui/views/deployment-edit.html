@@ -12,39 +12,8 @@
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/deployment.js"></script>
-    <script>
-	var setModuleType = function(category) {
-		var buttons = $('button span:contains("Select Exact Version"), button span:contains("Select")').parent();
-		if(category === 'Image') {
-			$(buttons).removeAttr( "disabled" );
-		} else {
-			$(buttons).attr( "disabled", true );
-		}
-	};
-
-    $(document).ready(function() {
-		$('#chooser').dialog(
-			{ autoOpen: false,
-			  modal: true,
-			  width: 1050,
-			  height: 460,
-			  title: "Choose an image",
-			  buttons: [ { text: "Select", 
-			               click: function() { $( this ).dialog( "close" ); } },
-			     		 { text: "Select Exact Version", 
-			               click: function() { $( this ).dialog( "close" ); } },
-			             { text: "Cancel", 
-			               click: function() { $( this ).dialog( "close" ); } }
-			           ]
-		});
-		
-		$( "#moduleReferenceChooser" ).button().click(function() {
-            $( "#chooser" ).dialog( "open" );
-            //onclick__="showChooser('moduleReferenceInput','Image',updateParameterDefaults);"
-          });
-    });
-    </script>
+    <script src="js/module-edit.js"></script>
+    <script src="js/deployment-edit.js"></script>
   </head>
 
 <body>
@@ -84,11 +53,23 @@
 					<li><a href="#">client_server</a></li>
 				</ul>
 				<ul class="interaction">
-                    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-                    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
-                    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
+        	        <li class="attention">
+        	            <button id="save-button-top">
+        	                <i class="icon-save"></i> Save</button>
+        	        </li>
+        	        <li class="attention">
+        	            <button id="cancel-button-top">
+        	                <i class="icon-stop"></i> Cancel</button>
+        	        </li>
+        	        <li class="attention">
+        	            <button id="delete-button-top">
+        	                <i class="icon-trash"></i> Delete</button>
+        	        </li>
 				</ul>
 			</div>
+            <div id="chooser" class="overlay_sheet">
+                <iframe id="chooseriframe" src="?chooser=true"></iframe>
+            </div>
 			<div class="data_sheet">
 				<div class="summary accordion">
 					<h3>Summary</h3>
@@ -135,7 +116,7 @@
 						</table>
 					</div>
 					<h3>Nodes</h3>
-					<div class="nodes">
+					<div id="nodes">
 						<table>
 							<thead>
 								<tr>
@@ -146,47 +127,73 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="node_name"><input type="text" name="fillout1" value="apache1" /></td>
+									<td class="node_name">
+									    <input type="text" name="fillout1" value="apache1" />
+									</td>
 									<td>
 										<table class="image_link">
-											<tr>
-												<td>
-													<b>Reference image:</b> <a href="module/Public/Tutorials/HelloWorld/apache">
-													module/Public/Tutorials/HelloWorld/apache
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td class="multiplicity"><b>Default multiplicity: </b><input type="text" name="multiplicity" value="1" />
-												</td>
-											</tr>
-											<tr>
-												<td><b>Default cloud service:</b><select>
-												    <option>default</option>
-												    <option>CloudSigma</option>
-												    <option>StratusLab</option>
-												    <option>Interoute VDC</option>
-												    <option>Atos</option>
-												</select>
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2">
-													<hr />
-													<b>Parameter mappings</b>
-													<table class="parameter_mapping" id="node--2--mappingtable">
-    													<tr class="hidden">
-    														<th>Input parameter</th>
-    														<th>Linked to</th>
-    													</tr>
-													</table>
-                        							<button 
-                        								class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                        								role="button" 
-                        								aria-disabled="false"
-                        								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
-												</td>
-											</tr>
+								            <tbody>
+    											<tr>
+    												<td>
+    													<b>Reference image:</b>
+    													<a href="module/Public/Tutorials/HelloWorld/apache">
+    													module/Public/Tutorials/HelloWorld/apache
+    													</a>
+                                                        <input name="node--1--imagelink" type="hidden" value="module/Public/Tutorials/HelloWorld/apache">
+                                                    </td>
+    											</tr>
+    											<tr>
+    												<td class="multiplicity">
+    												    <b>Default multiplicity: </b>
+    												    <input type="text" name="multiplicity" value="99" />
+    												</td>
+    											</tr>
+    											<tr>
+    												<td>
+    												    <b>Default cloud service:</b>
+    												    <select name="node--99--cloudservice--value">
+    												        <option>default</option>
+    												        <option>CloudSigma</option>
+    												        <option>StratusLab</option>
+    												        <option>Interoute VDC</option>
+    												        <option>Atos</option>
+    												    </select>
+    												</td>
+    											</tr>
+    											<tr id="parameters-mapping">
+    												<td>
+    													<hr />
+    													<b>Parameter mappings</b>
+    													<table class="parameter_mapping" id="node--1--mappingtable">
+    													    <thead>
+            													<tr>
+            														<th>Input parameter</th>
+            														<th>Linked to</th>
+            														<th></th>
+            													</tr>
+            												</thead>
+            												<tbody>
+                    											<tr id="parameter-mapping">
+        															<td>
+        															    <input type="text" name="fillout" value="webserver.port" />
+        															</td>
+        															<td>
+        															    <input class="parameter-mapping-output" type="text" name="fillout" value="apache1:port" />
+        															</td>
+                            										<td>
+                            											<button 
+                            												class="close small_close" 
+                            												onclick="$$.removeTrFromButton(this);"></button>
+                            										</td>
+        														</tr>
+        													</tbody>
+    													</table>
+                            							<button 
+                        								    class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                            								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
+    												</td>
+    											</tr>
+    								        </tbody>
 										</table>
 									</td>
 									<td>
@@ -195,92 +202,6 @@
 											role="button" 
 											aria-disabled="false"
 											onclick="$$.removeTrFromButton(this);"></button>
-									</td>
-								</tr>
-								<tr>
-									<td class="node_name"><input type="text" name="fillout3" value="apache2" /></td>
-									<td>
-										<table class="image_link">
-											<tr>
-												<td>
-													<b>Reference image:</b> <a href="module/Public/Tutorials/HelloWorld/apache">
-													    module/Public/Tutorials/HelloWorld/apache
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td class="multiplicity"><b>Default multiplicity: </b><input type="text" name="multiplicity" value="1" />
-												</td>
-											</tr>
-											<tr>
-												<td><b>Default cloud service:</b><select>
-												    <option>default</option>
-												    <option>CloudSigma</option>
-												    <option>StratusLab</option>
-												    <option>Interoute VDC</option>
-												    <option>Atos</option>
-												</select>
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2">
-													<hr />
-													<b>Parameter mappings</b>
-													<table class="parameter_mapping" id="node--2--mappingtable">
-														<tr>
-															<th>Input parameter</th>
-															<th>Linked to</th>
-														</tr>
-														<tr>
-															<td><input type="text" name="fillout" value="webserver.port" /></td>
-															<td><input type="text" name="fillout" value="apache1:port" /></td>
-                    										<td>
-                    											<button 
-                    												class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    												role="button" 
-                    												aria-disabled="false"
-                    												onclick="$$.removeTrFromButton(this);"></button>
-                    										</td>
-														</tr>
-														<tr>
-															<td><input type="text" name="fillout" value="webserver.port" /></td>
-															<td><input type="text" name="fillout" value="apache1:port" /></td>
-                    										<td>
-                    											<button 
-                    												class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    												role="button" 
-                    												aria-disabled="false"
-                    												onclick="$$.removeTrFromButton(this);"></button>
-                    										</td>
-														</tr>
-														<tr>
-															<td><input type="text" name="fillout" value="webserver.port" /></td>
-															<td><input type="text" name="fillout" value="apache1:port" /></td>
-                    										<td>
-                    											<button 
-                    												class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    												role="button" 
-                    												aria-disabled="false"
-                    												onclick="$$.removeTrFromButton(this);" />
-                    										</td>
-														</tr>
-													</table>
-                        							<button 
-                        								class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                        								href="#" 
-                        								role="button" 
-                        								aria-disabled="false"
-                        								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
-												</td>
-											</tr>
-										</table>
-									</td>
-									<td>
-										<button 
-											class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-											role="button" 
-											aria-disabled="false"
-											onclick="$$.removeTrFromButton(this);" />
 									</td>
 								</tr>
 							</tbody>
@@ -307,33 +228,33 @@
 						<tbody>
 							<tr>
 								<td>View</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
 								<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Edit</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Delete</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Execute (e.g. Run, Build)</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
 							</tr>
 							<tr>
 								<td>Create Children</td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
-								<td><input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
 							</tr>
 							
 						</tbody>
@@ -347,7 +268,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="true" class="checkbox" type="checkbox" checked="checked" /></td>
+								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="disabled" class="checkbox" type="checkbox" checked="checked" /></td>
 							</tr>
 							<tr>
 								<td>meb, konstan</td>
@@ -360,9 +281,18 @@
 			</div>
 			<div class="navigation bottom_nav">
 				<ul class="interaction">
-                    <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-                    <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
-                    <li class="attention"><button><i class="icon-trash"></i> Delete</button></li>
+        	        <li class="attention">
+        	            <button id="save-button-bottom">
+        	                <i class="icon-save"></i> Save</button>
+        	        </li>
+        	        <li class="attention">
+        	            <button id="cancel-button-bottom">
+                            <i class="icon-stop"></i> Cancel</button>
+                    </li>
+        	        <li class="attention">
+        	            <button id="delete-button-bottom">
+        	                <i class="icon-trash"></i> Delete</button>
+        	        </li>
 	            </ul>
 	        </div>
         </div>
@@ -373,9 +303,6 @@
                 <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
 	        </div>
         </div>
-    </div>
-    <div id="chooser" class="overlay_sheet">
-        <iframe id="chooseriframe" src="image-view-chooser.html"></iframe>
     </div>
 </body>
   

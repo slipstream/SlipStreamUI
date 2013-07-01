@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -7,14 +7,11 @@
             SlipStream | Image: Fedora 14.0
         </title>
         <link rel="stylesheet" type="text/css" href="css/application.css">
-        <script src="js/jquery.js" type="text/javascript">
-</script>
-        <script src="js/jquery-ui.js" type="text/javascript">
-</script>
-        <script src="js/common.js" type="text/javascript">
-</script>
-        <script type="text/javascript">
-</script>
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/common.js"></script>
+        <script src="js/module-edit.js"></script>
+        <script src="js/image-edit.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -33,7 +30,7 @@
                                 <a href="#"></a>
                             </li>
                             <li>
-                                <a id="user" href="#" name="user">Joe </a>
+                                <a id="user" href="#">Joe </a>
                             </li>
                             <li class="first">
                                 <a class="action" href="#"></a>
@@ -80,15 +77,18 @@
                             </li>
                         </ul>
                         <ul class="interaction">
-                            <li class="attention">
-                                <button id="save-button-top">Save</button>
-                            </li>
-                            <li class="attention">
-                                <button id="cancel-button-top">Cancel</button>
-                            </li>
-                            <li class="attention">
-                                <button id="delete-button-top">Delete</button>
-                            </li>
+                	        <li class="attention">
+                	            <button id="save-button-top">
+                	                <i class="icon-save"></i> Save</button>
+                	        </li>
+                	        <li class="attention">
+                	            <button id="cancel-button-top">
+                	                <i class="icon-stop"></i> Cancel</button>
+                	        </li>
+                	        <li class="attention">
+                	            <button id="delete-button-top">
+                	                <i class="icon-trash"></i> Delete</button>
+                	        </li>
                         </ul>
                     </div>
                     <div id="save-module-dialog" title="Save Image?">
@@ -135,7 +135,7 @@
                                                 Description
                                             </td>
                                             <td>
-                                                <input name="moduleReference" id="moduleReferenceInput" type="text" value="Description...">
+                                                <input name="moduleDescription" id="module-description" type="text" value="Description...">
                                             </td>
                                         </tr>
                                         <tr>
@@ -191,7 +191,7 @@
                                             Machine Image Reference
                                         </th>
                                         <td>
-                                            <input name="moduleReference" id="moduleReferenceInput" type="text" value="" readonly="true">
+                                            <input name="moduleReference" id="moduleReferenceInput" type="text" value="" readonly="readonly">
                                             <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">Choose Reference</button>
                                         </td>
                                     </tr>
@@ -201,13 +201,13 @@
                                         </th>
                                         <td>
                                             <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="input" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
                                             </div>
                                             <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="input" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
                                             </div>
                                             <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="input" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
                                             </div>
                                         </td>
                                     </tr>
@@ -216,7 +216,7 @@
                                             Base image?
                                         </th>
                                         <td>
-                                            <input id="isbase" name="isbase" type="checkbox" checked="on">
+                                            <input id="isbase" name="isbase" type="checkbox" checked="checked">
                                         </td>
                                     </tr>
                                     <tr>
@@ -322,7 +322,7 @@
                                                 <td></td>
                                             </tr>
                                         </tbody>
-                                    </table><button class="bottom_section_button add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false" onclick="$$.addParameter(this);"> Add Parameter</button>
+                                    </table><button class="bottom_section_button add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addParameter(this);"> Add Parameter</button>
                                 </div>
                                 <div id="fragment-input">
                                     <table>
@@ -366,13 +366,13 @@
                                                 <td>
                                             </tr>
                                         </tbody>
-                                    </table><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false">Add Parameter</button>
+                                    </table><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Add Parameter</button>
                                 </div>
                                 <div id="fragment-output">
-                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false">Add Parameter</button>
+                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Add Parameter</button>
                                 </div>
                                 <div id="fragment-stratuslab">
-                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false">Add Parameter</button>
+                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Add Parameter</button>
                                 </div>
                             </div>
                             <h3>
@@ -456,7 +456,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#" role="button" aria-disabled="false" onclick="$$.addPackage(this);">Add Package</button>
+                                    </table><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addPackage(this);">Add Package</button>
                                 </div>
                             </div>
                             <h3>
@@ -537,10 +537,10 @@
                                                 View
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout">
                                             </td>
                                             <td>
                                                 <input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout">
@@ -551,13 +551,13 @@
                                                 Edit
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout">
                                             </td>
                                         </tr>
                                         <tr>
@@ -565,13 +565,13 @@
                                                 Delete
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout">
                                             </td>
                                         </tr>
                                         <tr>
@@ -579,13 +579,13 @@
                                                 Execute (e.g. Run, Build)
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout">
                                             </td>
                                         </tr>
                                         <tr>
@@ -593,13 +593,13 @@
                                                 Create Children
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout">
                                             </td>
                                             <td>
-                                                <input disabled="true" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout">
+                                                <input disabled="disabled" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -616,7 +616,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                Inherited from parent: &nbsp;&nbsp;<input disabled="true" class="checkbox" type="checkbox" checked="checked">
+                                                Inherited from parent: &nbsp;&nbsp;<input disabled="disabled" class="checkbox" type="checkbox" checked="checked">
                                             </td>
                                         </tr>
                                         <tr>
@@ -631,15 +631,18 @@
                     </div>
                     <div class="navigation bottom_nav">
                         <ul class="interaction">
-                            <li class="attention">
-                                <button>Save</button>
+                	        <li class="attention">
+                	            <button id="save-button-bottom">
+                	                <i class="icon-save"></i> Save</button>
+                	        </li>
+                	        <li class="attention">
+                	            <button id="cancel-button-bottom">
+                                    <i class="icon-stop"></i> Cancel</button>
                             </li>
-                            <li class="attention">
-                                <button>Cancel</button>
-                            </li>
-                            <li class="attention">
-                                <button>Delete</button>
-                            </li>
+                	        <li class="attention">
+                	            <button id="delete-button-bottom">
+                	                <i class="icon-trash"></i> Delete</button>
+                	        </li>
                         </ul>
                     </div>
                 </form>

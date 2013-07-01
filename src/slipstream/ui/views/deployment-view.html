@@ -63,57 +63,66 @@
 					<li class="attention"><button id="publish-button-top"><i class="icon-globe"></i> Publish</button></li>
 				</ul>
 			</div>
-            <div class="data_sheet in-dialog" id="run-with-options-dialog" title="Execute Deployment">
-				<div class="summary accordion">
-                    <h3>wp</h3>
-					<div>
-						<table>
-							<tbody>
-								<tr>
-                                    <td>Multiplicity</td>
-                                    <td>
-                                        <input type="text" name="parameter--node--wp--multiplicity" value="1">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Cloud service</td>
-                                    <td>
-                                        <select name="parameter--node--wp--cloudservice">
-                                            <option>atos</option>
-                                            <option>interoute</option>
-                                            <option>cloudsigma</option>
-                                            <option selected="selected">default</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>mysql_password</td>
-                                    <td>
-                                        <input type="text" name="parameter--node--wp--mysql_password" value="'ChangeMe'" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>admin_password</td>
-                                    <td>
-                                        <input type="text" name="parameter--node--wp--admin_password" value="'ChangeMe'" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>wordpress_title</td>
-                                    <td>
-                                        <input type="text" name="parameter--node--wp--wordpress_title" value="'ChangeMe'">
-                                    </td>
-                                </tr>
-        					</tbody>
-        				</table>
+			<form
+			    action="/run"
+			    method="post"
+				accept-charset="utf-8"
+				id="form-run-with-options">
+                    <input type="hidden" name="refqname" class="refqname" value="#">
+                <div class="data_sheet accordion summary in-dialog" id="run-with-options-dialog" title="Execute Deployment">
+    				<div>
+                        <h3>wp</h3>
+    					<div>
+    						<table>
+    							<tbody>
+    								<tr>
+                                        <td>Multiplicity</td>
+                                        <td>
+                                            <input type="text" name="parameter--node--wp--multiplicity" value="666">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cloud service</td>
+                                        <td>
+                                            <select name="parameter--node--wp--cloudservice">
+                                                <option>atos</option>
+                                                <option>interoute</option>
+                                                <option>cloudsigma</option>
+                                                <option selected="selected">default</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>mysql_password</td>
+                                        <td>
+                                            <input type="text" name="parameter--node--wp--mysql_password" value="'ChangeMe'" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>admin_password</td>
+                                        <td>
+                                            <input type="text" name="parameter--node--wp--admin_password" value="'ChangeMe'" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>wordpress_title</td>
+                                        <td>
+                                            <input type="text" name="parameter--node--wp--wordpress_title" value="'ChangeMe'">
+                                        </td>
+                                    </tr>
+            					</tbody>
+            				</table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
 			<form
-			    action="?method=put"
+			    action="/run"
 			    method="post"
 				accept-charset="utf-8"
 				id="form-run">
+                <input type="hidden" name="refqname" class="refqname" value="#">
+            </form>
 			<div class="data_sheet">
 				<div class="summary accordion">
                     <!-- <h3>Overview</h3>
@@ -325,9 +334,7 @@
 					<li class="attention"><button id="publish-button-bottom"><i class="icon-globe"></i> Publish</button></li>
 				</ul>
 			</div>
-		    </form>
             <form id="publish-form" action="?method=put" method="post">
-                <input type="submit" value="Publish">
             </form>
 		</div>
 		<div id="footer">

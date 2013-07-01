@@ -35,7 +35,7 @@
                   
 <parameter category='General' class='com.sixsq.slipstream.persistence.NodeParameter' description='' isMappedValue='true' mandatory='false' name='webserver.port' readonly='false' type='String'>
                      
-<value>apache1:port</value>
+<value>apache1:port_of_something</value>
                   
 </parameter>
                
@@ -306,7 +306,7 @@ cp /tmp/data.txt $SLIPSTREAM_REPORT_DIR</target>
          
 <string>apache1</string>
          
-<node cloudService='default' creation='2013-03-08 22:37:40.773 CET' deleted='false' imageUri='module/Public/Tutorials/HelloWorld/apache' multiplicity='1' name='apache1' network='Public'>
+<node cloudService='stratuslab' creation='2013-03-08 22:37:40.773 CET' deleted='false' imageUri='module/Public/Tutorials/HelloWorld/apache' multiplicity='1' name='apache1' network='Public'>
             
 <parameters class='org.hibernate.collection.PersistentMap'></parameters>
             

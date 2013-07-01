@@ -36,6 +36,10 @@
   (fn [type]
     type))
 
+(defmethod type-to-icon :default
+  [type]
+  (type-to-icon "Deployment"))
+
 (defmethod type-to-icon "Build"
   [type]
   "icon-legal")

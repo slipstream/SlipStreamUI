@@ -7,11 +7,20 @@
 (defn elem-name [elem]
   (:name (attrs elem)))
 
+(defn resourceuri [elem]
+  (:resourceuri (attrs elem)))
+
 (defn parameters [elem]
   (html/select elem [:parameter]))
 
+(defn parameter-mappings [elem]
+  (html/select elem [:parameterMappings :nodeParameter]))
+
 (defn content [elem]
   (html/select elem [:content]))
+
+(defn value [elem]
+  (first (:content (first (html/select elem [:value])))))
 
 
 ;; Grouping and category
@@ -29,6 +38,7 @@
   (group-by-key :group parameters))
 
 (defn filter-by-categories
+  "Generate a list of filtered parameters"
   [parameters categories]
   (let [grouped (group-by-category parameters)]
     (flatten

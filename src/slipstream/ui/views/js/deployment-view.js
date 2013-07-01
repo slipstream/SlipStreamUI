@@ -49,10 +49,7 @@ $(document).ready(function() {
 			"Run": function() {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Executing Deployment");
-				var callback = function(data, status, xhr) {
-					window.location = location;
-				}
-				$.post(window.location.href, '', callback, 'text')
+        		$$.send($("#form-run-with-options"), event, $.put);
 				return false;
 			},
 			"Cancel": function() {

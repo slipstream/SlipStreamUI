@@ -57,6 +57,10 @@
   [project]
   (modules/children project))
 
+(defn nodes
+  [deployment]
+  (html/select deployment [:node]))
+
 (defn content
   [elem]
   (common/content elem))
@@ -64,3 +68,8 @@
 (defn item-comment
   [item]
   (first (:content (first (html/select item [:comment])))))
+
+(defn available-clouds
+  [deployment]
+  (flatten 
+    (map :content (html/select deployment [:cloudNames :string]))))

@@ -98,7 +98,6 @@ $(document).ready(function() {
 	
     // Publish button
 	$('#publish-button-top, #publish-button-bottom').click(function(event){
-//		event.preventDefault();
 		$$.hideError();
 		$('#publish-module-dialog').dialog('open');
 		return false;
@@ -147,5 +146,7 @@ $(document).ready(function() {
 	
 	$( "#moduleReferenceChooser" ).button().click(function() {
         $( "#chooser" ).dialog( "open" );
+        return false;
     });
+    
 })
