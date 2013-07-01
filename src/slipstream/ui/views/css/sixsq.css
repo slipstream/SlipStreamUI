@@ -140,6 +140,45 @@ img {
 	color: white;
 }
 
+.dashboard-icon i {
+    padding: 6px 10px 10px 2px;
+    position: absolute;
+}
+
+.dashboard-icon ul {
+    padding: 0px 0px 0px 50px;
+    margin: 0px;
+    position: absolute;
+}
+
+.dashboard-orchestrator:before, .dashboard-image:before {
+    padding: 6px 10px 10px 2px;
+    position: absolute;
+    font-family: FontAwesome;
+    content: "\f108"; # icon-desktop;
+    font-size: 3em;
+}
+
+.dashboard-node:before {
+    padding: 6px 10px 10px 2px;
+    position: absolute;
+    font-family: FontAwesome;
+    content: "\f00a"; # icon-th;
+    font-size: 3em;
+}
+
+.dashboard-ok:before {
+    color: green;
+}
+
+.dashboard-error:before {
+    color: red;
+}
+
+.dashboard-warning:before {
+    color: yellow;
+}
+
 /* Categories */
 .project_category {
     padding: 0px 0px 0px 5px !important;
@@ -629,34 +668,34 @@ ul.interaction li {
    FontAwesome font for the open/close icons in each header. */
 .summary h3 span {
 
-  /* These two blocks setup style for using icon font instead of images. */
-  font-family: FontAwesome;
-  font-weight: normal;
-  font-style: normal;
-  text-decoration: inherit;
-  -webkit-font-smoothing: antialiased;
+    /* These two blocks setup style for using icon font instead of images. */
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
 
-  display: inline;
-  width: auto;
-  height: auto;
-  line-height: normal;
-  vertical-align: bottom;
-  background-image: none;
-  margin-top: 0;
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: bottom;
+    background-image: none;
+    margin-top: 0;
 
 	position: absolute;
 	right: 24px;
 	top: 9px;
 
-        color: white;
+    color: white;
 }
 
 .summary h3 span:before {
-        content: "\f078"; /* chevron down */
+    content: "\f078"; /* chevron down */
 }
 
 .summary h3.ui-state-active span:before {
-        content: "\f077"; /* chevron up */
+    content: "\f077"; /* chevron up */
 }
 
 /* 
@@ -664,7 +703,7 @@ ul.interaction li {
    will be scrolled rather than force the page size to expand.
 */
 .summary div {
-  overflow-x: auto;
+    overflow-x: auto;
 }
 
 /* Tabs */
@@ -1277,5 +1316,9 @@ li {
 
 .in-dialog {
     margin: 10px;
+}
+
+#infovis {
+    width: 940px;
 }
 

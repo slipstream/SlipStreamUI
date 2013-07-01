@@ -4,6 +4,7 @@
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.run :as run-model]))
@@ -48,7 +49,9 @@
       value (common/runtime-parameter-value parameter)]]
     [[:td (html/nth-of-type 1)]] (html/content name)
     [[:td (html/nth-of-type 2)]] (html/content description)
-    [[:td (html/nth-of-type 3)]] (html/content value)))
+    [[:td (html/nth-of-type 3)]] (html/do->
+                                   (html/content value)
+                                   (html/set-attr :id (clojure.string/replace name #":" "\\:")))))
 
 
 (html/defsnippet runtime-parameters-snip runtime-parameters-template-html [:#fragment-parameters-something]
@@ -66,8 +69,15 @@
 
 (html/defsnippet summary-snip run-template-html summary-sel
   [run]
-  [:#module] (html/content (:name (run-model/module run)))
-  [:#category] (html/content (:category (common-model/attrs run))))
+  [:#module :> :a] (module-base/set-a (:moduleresourceuri (common-model/attrs run)))
+  [:#category] (html/content (:category (common-model/attrs run)))
+  [:#description] (html/content (:description (common-model/attrs run)))
+  [:#user] (html/content (:user (common-model/attrs run)))
+  [:#start] (html/content (:starttime (common-model/attrs run)))
+  [:#end] (html/content (:endtime (common-model/attrs run)))
+  [:#status] (html/content (:status (common-model/attrs run)))
+  [:#runtype] (html/content (:type (common-model/attrs run)))
+  [:#uuid] (html/content (:uuid (common-model/attrs run))))
 
 (html/defsnippet content-snip run-template-html common/content-sel
   [run]
@@ -87,17 +97,24 @@
   runtime-parameters-header-sel nil
   runtime-parameters-sel nil)
 
+;; CSS inclusion
+
+(defn css-stylesheets
+  []
+  ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css" "/css/dashboard.css"])
+
 ;; javascript inclusion
 
 (defn js-scripts
   []
-  ["/js/run.js"])
+  ["/js/run-parameters-update.js" "/external/jit/js/jit.js" "/js/run-dashboard.js" "/external/ui.watermark/js/ui.watermark.js"])
 
 ;; Main function
 
 (defn page [run]
   (base/base 
-    {:js-scripts (js-scripts)
+    {:css-stylesheets (css-stylesheets)
+     :js-scripts (js-scripts)
      :title (common/title (run-model/module-name run))
      :header (header-snip run)
      :content (content-snip run)
