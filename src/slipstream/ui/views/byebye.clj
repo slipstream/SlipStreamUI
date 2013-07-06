@@ -9,11 +9,16 @@
 
 (def byebye-template-html "slipstream/ui/views/byebye.html")
 
-(html/defsnippet header-snip byebye-template-html header/header-sel
+(html/defsnippet header-titles-snip byebye-template-html header/header-titles-sel
+  [metadata]
+  header/header-titles-sel identity)
+
+(html/defsnippet header-snip header/header-template-html header/header-sel
   [metadata]
   header/header-top-bar-sel (html/substitute
-                           (header/header-top-bar-snip
-                             (user/attrs metadata))))
+                              (header/header-top-bar-snip
+                                (user/attrs metadata)))
+  header/header-titles-sel header-titles-snip metadata)
 
 (html/defsnippet content-snip byebye-template-html common/content-sel
   [metadata]
