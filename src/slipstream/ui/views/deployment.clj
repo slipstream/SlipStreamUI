@@ -4,7 +4,6 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
-            [slipstream.ui.views.authz-view :as authz-view]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]))
 
@@ -49,11 +48,13 @@
 
 (html/defsnippet summary-edit-snip deployment-edit-template-html module-base/module-summary-sel
   [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
+  [:#module-name :> :span] (html/content (:name (module-model/attrs module)))
+  [:#module-name :> :input] (html/set-attr :value (:name (module-model/attrs module)))
+  [:#module-description :> :input] (html/set-attr :value (:description (module-model/attrs module)))
   [:#module-comment] (html/content (module-model/module-comment module))
   [:#module-category] (html/content (:category (module-model/attrs module)))
   [:#module-created] (html/content (:creation (module-model/attrs module)))
+  [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module)))
 
 (html/defsnippet summary-new-snip deployment-new-template-html module-base/module-summary-sel
@@ -84,7 +85,7 @@
       (html/set-attr :name (str id-prefix "output"))
       (html/set-attr :value (common-model/value parameter)))))
 
-(html/defsnippet nodes-snip deployment-edit-template-html nodes-sel
+(html/defsnippet nodes-edit-snip deployment-edit-template-html nodes-sel
   [nodes available-clouds]
   [nodes-sel :> :table :> :tbody :> :tr] 
   (html/clone-for
@@ -102,9 +103,7 @@
 
     ; reference
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
-    (html/do->
-      (html/set-attr :href (str "/" image-uri))
-      (html/content (map str (drop 7 image-uri))))
+    (module-base/set-a image-uri)
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "imagelink"))
@@ -138,24 +137,33 @@
     parameters-mapping-sel
     (html/substitute
       (parameters-mapping-snip (common-model/parameter-mappings node) i))))
-    
+
+(html/defsnippet nodes-view-snip deployment-view-template-html nodes-sel
+  [nodes available-clouds]
+  nodes-sel (html/substitute (nodes-edit-snip nodes available-clouds))
+  [:input] (html/set-attr :disabled "disabled"))
+
 (html/defsnippet view-snip deployment-view-template-html common/content-sel
-  [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  [deployment]
+  common/breadcrumb-sel (module-base/breadcrumb deployment)
   module-base/module-summary-sel (html/substitute 
-                                   (summary-view-snip module))
+                                   (summary-view-snip deployment))
+  nodes-sel (html/substitute
+              (nodes-view-snip
+                (module-model/nodes deployment)
+                (module-model/available-clouds deployment)))
 
-  [:.refqname] (html/set-attr :value (common-model/resourceuri module))
+  [:.refqname] (html/set-attr :value (common-model/resourceuri deployment))
 
-  run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip module))
+  run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip deployment))
 
-  [:#build-form] (html/set-attr :value (common-model/resourceuri module))
+  [:#build-form] (html/set-attr :value (common-model/resourceuri deployment))
   
   [:#publish-form] (html/set-attr :value (str 
-                                           (common-model/resourceuri module)
+                                           (common-model/resourceuri deployment)
                                            "/publish"))
   
-  authz/authorization-sel (html/substitute (authz-view/authz-snip module)))
+  authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 
 (html/defsnippet new-snip deployment-new-template-html common/content-sel
   [module]
@@ -169,6 +177,8 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip deployment))
   nodes-sel (html/substitute
-              (nodes-snip
+              (nodes-edit-snip
                 (module-model/nodes deployment)
-                (module-model/available-clouds deployment))))
+                (module-model/available-clouds deployment)))
+  
+  authz/authorization-sel (html/substitute (authz/authz-edit-snip deployment)))
