@@ -73,44 +73,51 @@
 			<div class="data_sheet">
 				<div class="summary accordion">
 					<h3>Summary</h3>
-					<div>
+					<div id="module-summary">
 						<table>
 							<tbody>
-								<tr class="odd">
+								<tr>
 									<td>Module</td>
-									<td>Public/Tutorials/HelloWorld/client_server</td>
+									<td id="module-name">
+									    <span>Public/Tutorials/HelloWorld/client_serverX</span>
+										<input name="name" type="hidden" value="Public/Tutorials/HelloWorld/client_serverX" />
+									</td>
 								</tr>
 								<tr>
 									<td>Version</td>
-									<td>1<span id="versions"> (<a href="Deployment-view/">history</a>)</span></td>
+									<td>99<span id="module-versions"> (<a href="something">history</a>)</span></td>
 								</tr>
-								<tr class="odd">
+								<tr>
 									<td>Description</td>
 									<td>
-										<input name="description" id="descriptionInput" type="text" value="Description...">
+										<input name="module-description" id="description" type="text" value="Description...X">
 									</td>
 								</tr>
 								<tr>
 									<td>Comment</td>
-									<td>Latest comment...</td>
+									<td id="module-comment">
+									    <span>Latest comment...X</span>
+    									<input name="comment" type="hidden"  value="">
+									</td>
 								</tr>
-								<tr class="odd">
+								<tr>
 									<td>Category</td>
-									<td>Deployment
-									    <input name="category" type="hidden" value="Deployment" />
+									<td id="module-category">
+									    <span>Deployment</span>
+									    <input name="category" type="hidden" value="DeploymentX" />
                           		    </td>
 								</tr>
 								<tr>
 									<td>Created</td>
-									<td>2013-03-08 22:37:25.341 CET</td>
+									<td  id="module-created">2013-03-08 22:37:25.341 CETX</td>
 								</tr>
-								<tr class="odd">
+								<tr>
 									<td>Last modified</td>
-									<td>2013-03-08 22:37:25.341 CET</td>
+									<td id="module-last-modified">2013-03-08 22:37:25.341 CETX</td>
 								</tr>
 								<tr>
 									<td>Owner</td>
-									<td>sixsq</td>
+									<td id="module-owner">sixsqX</td>
 								</tr>
 							</tbody>
 						</table>
@@ -128,7 +135,7 @@
 							<tbody>
 								<tr>
 									<td class="node_name">
-									    <input type="text" name="fillout1" value="apache1" />
+									    <input type="text" name="fillout1" value="apache6" />
 									</td>
 									<td>
 										<table class="image_link">
@@ -136,10 +143,10 @@
     											<tr>
     												<td>
     													<b>Reference image:</b>
-    													<a href="module/Public/Tutorials/HelloWorld/apache">
-    													module/Public/Tutorials/HelloWorld/apache
+    													<a href="module/Public/Tutorials/HelloWorld/apache6">
+    													module/Public/Tutorials/HelloWorld/apache6
     													</a>
-                                                        <input name="node--1--imagelink" type="hidden" value="module/Public/Tutorials/HelloWorld/apache">
+                                                        <input name="node--1--imagelink" type="hidden" value="module/Public/Tutorials/HelloWorld/apache6">
                                                     </td>
     											</tr>
     											<tr>
@@ -215,7 +222,7 @@
 						</button>
 					</div>
 					<h3>Authorization</h3>
-					<div>
+					<div id="authorization">
 					<table class="autorization_table">
 						<thead>
 							<tr>
