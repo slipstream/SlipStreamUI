@@ -179,6 +179,22 @@ img {
     color: yellow;
 }
 
+.vm:before {
+    margin: 10px 10px 10px -36px;
+    position: absolute;
+    font-family: FontAwesome;
+    content: "\f011"; # icon-off;
+    font-size: 1.5em;
+}
+
+.vm-active:before {
+    color: green;
+}
+
+.vm-inactive:before {
+    color: gray;
+}
+
 /* Categories */
 .project_category {
     padding: 0px 0px 0px 5px !important;

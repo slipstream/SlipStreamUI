@@ -80,6 +80,14 @@ var dashboardUpdater = {
 		return !(this.getRuntimeValue(nodeName, 'abort') === "");
 	},
 
+    // VM active
+	isActive: function(nodeName) {
+	    var activeStates = ["running", "on"];
+	    var vmState = this.getRuntimeValue(nodeName, 'vmstate');
+	    var lowerVmState = vmState.toLowerCase();
+		return $.inArray(lowerVmState, activeStates) > -1;
+	},
+
 	nodeNodeCssClass: function(nodeName) {
 		var globalAbort = !(this.getGlobalRuntimeValue('state') === "");
 		var abort = false;

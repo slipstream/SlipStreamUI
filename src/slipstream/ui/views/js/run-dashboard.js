@@ -213,6 +213,15 @@ function init(){
 	      }
         },
         
+		isActive: function(nodeName) {
+			return dashboardUpdater.isActive(nodeName);
+		},
+		
+		vmCssClass: function(nodeName) {
+			var active = this.isActive(nodeName);
+			return (active) ? 'vm-active' : 'vm-inactive';
+		},
+
 		isAbort: function(nodeName) {
 			return dashboardUpdater.isAbort(nodeName);
 		},
@@ -245,7 +254,7 @@ function init(){
 
 			if(node.data.type === "orchestrator") {
 				label.innerHTML = "<div class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'><div class='" +  + "' id='" + idprefix + "-icon'/> \
-					<ul style='list-style-type:none'> \
+					<ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
 						<li id='" + idprefix + "'><b>" + node.name + "</b></li> \
 					 	<li id='" + idprefix + "-state'>State: " + this.getTruncatedState(node.name) + "</li> \
 					</ul></div>";
@@ -260,8 +269,9 @@ function init(){
 			}
 
 			if(node.data.type === "vm") {
-				label.innerHTML = "<div class='dashboard-icon dashboard-image  " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'> \
-					<ul style='list-style-type:none'> \
+			    // We attache the vm state to the ul since we use :before, which would clash with node css on div
+				label.innerHTML = "<div class='dashboard-icon dashboard-image " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'> \
+					<ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
 				 		<li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
 				 		<li id='" + idprefix + "-state'>State: " + this.getTruncatedState(node.name) + "</li> \
 					 	<li id='" + idprefix + "-statecustom'>" + dashboardUpdater.truncate(getRuntimeValue(node.name, 'statecustom')) + "</li> \
