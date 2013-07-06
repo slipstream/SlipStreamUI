@@ -48,7 +48,7 @@ $(document).ready(function() {
     	buttons: {
     		"Delete": function() {
     			$(this).dialog("close");
-    			$.delete();
+    			$.delete_();
     		},
     		"Cancel": function() {
     			$(this).dialog("close");
