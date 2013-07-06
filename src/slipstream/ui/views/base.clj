@@ -14,9 +14,6 @@
   [head-sel [:script html/last-of-type]] (html/clone-for
                                            [js js-scripts]
                                            (html/set-attr :src js)))
-;  [head-sel [:link html/last-of-type]] (html/clone-for
-;                                         [css css-stylesheets]
-;                                         (html/set-attr :href css)))
 
 (html/deftemplate base layout-template-html
   [{:keys [title header content footer js-scripts css-stylesheets]}]
