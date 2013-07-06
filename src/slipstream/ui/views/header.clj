@@ -9,6 +9,7 @@
   (:import (java.util.regex Pattern)))
 
 (def header-sel [:#header])
+(def header-titles-sel [:#titles])
 
 ; titles
 (def header-summary-sel [:.bottom])
