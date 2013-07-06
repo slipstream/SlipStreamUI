@@ -4,7 +4,6 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
-            [slipstream.ui.views.authz-view :as authz-view]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.image :as image-model]))
@@ -209,7 +208,7 @@
       identity
       nil)
 
-  authz/authorization-sel (html/substitute (authz-view/authz-snip module)))
+  authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 
 (html/defsnippet new-snip image-new-template-html common/content-sel
   [module]

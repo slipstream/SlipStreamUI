@@ -6,8 +6,6 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.authz :as authz]
-            [slipstream.ui.views.authz-view :as authz-view]
-            [slipstream.ui.views.authz-edit :as authz-edit]
             [slipstream.ui.views.module-base :as module-base]))
 
 (def children-header-sel [:#children-header])
@@ -42,7 +40,7 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-view-snip module))
 
-  authz/authorization-sel (html/substitute (authz-view/authz-snip module)))
+  authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 
 (html/defsnippet edit-snip module-base/project-edit-template-html common/content-sel
   [module]
@@ -52,7 +50,7 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip module))
 
-  authz/authorization-sel (html/substitute (authz-edit/authz-snip module)))
+  authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 
 (html/defsnippet new-snip module-base/project-new-template-html common/content-sel
   [module]
@@ -62,5 +60,5 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-new-snip module))
 
-  authz/authorization-sel (html/substitute (authz-edit/authz-snip module)))
+  authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 

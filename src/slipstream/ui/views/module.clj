@@ -13,9 +13,7 @@
             [slipstream.ui.views.deployment :as deployment]
             [slipstream.ui.views.project :as project]
             [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.authz :as authz]
-            [slipstream.ui.views.authz-view :as authz-view]
-            [slipstream.ui.views.authz-edit :as authz-edit]))
+            [slipstream.ui.views.authz :as authz]))
 
 (def deployment-view-template-html "slipstream/ui/views/deployment-view.html")
 (def deployment-edit-template-html "slipstream/ui/views/deployment-edit.html")
