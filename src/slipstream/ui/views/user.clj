@@ -20,22 +20,23 @@
 ;; View
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
-  [logged-in-user]
+  [user]
   header/header-summary-sel 
   (html/substitute 
-    (let [attrs (common-model/attrs logged-in-user)
+    (let [attrs (common-model/attrs user)
             firstname (:firstname attrs)
             lastname (:lastname attrs)]
       (header/header-titles-snip
         (str firstname " " lastname)
-        (if (:issuper attrs)
+        (if (= "true" (:issuper attrs))
         "Privileged User"
         "Regular User")
         (str "Status: " (string/lower-case (:state attrs)))
         "User")))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
-                                (common-model/attrs logged-in-user))))
+                                (common-model/attrs 
+                                  (user-model/user user)))))
 
 (defn parameters-view-snip
   [parameters-by-category]
@@ -80,7 +81,7 @@
   [:#lastname] (html/set-attr :value (:lastname (common-model/attrs user)))
   [:#email] (html/set-attr :value (:email (common-model/attrs user)))
   [:#organization] (html/set-attr :value (:organization (common-model/attrs user)))
-  [:#issuper] (if (= "true" (:issuper (common-model/attrs user)))
+  [:#issuper] (if (= "true" (:issuper (user-model/user (common-model/attrs user))))
                 (html/set-attr :checked "checked")
                 (do 
                   (html/remove-attr :checked)
@@ -171,14 +172,13 @@
 
 (defmethod js-scripts ["new"]
   [type]
-  (concat js-scripts-default ["/js/user-edit.js"]))
+  (concat js-scripts-default ["/js/user-new.js"]))
 
 
 (defn page [user type]
   (base/base 
     {:js-scripts (js-scripts type)
      :title (common/title (common-model/elem-name user))
-     ; extract the user inside the user, since that's the logged-in user
-     :header (header-snip (user-model/user user))
+     :header (header-snip user)
      :content (content user type)
      :footer (footer/footer-snip)}))

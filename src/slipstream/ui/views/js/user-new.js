@@ -23,37 +23,16 @@ $(document).ready(function() {
     // Save button
     $('#save-button-top, #save-button-bottom').click(function(event){
     	$$.hideError();
+    	var username = $("#name > input").val();
+    	$("#form-save").attr("action", "/user/" + username + "?method=put")
 		$$.send($("#form-save"), event, $.put);
     	return false;
     });
 
     // Cancel button
     $('#cancel-button-top, #cancel-button-bottom').click(function(event){
-    	window.location = location.pathname;
+	    window.location.assign(location.pathname);
     	return false;
     });	
-
-    // Delete button
-    $('#delete-button-top, #delete-button-bottom').click(function(event){
-    	event.preventDefault();
-    	$$.hideError();
-    	$('#delete-user-dialog').dialog('open');
-    	return false;
-    });	
-
-    $('#delete-user-dialog').dialog({
-    	autoOpen: false,
-    	title: 'Delete User?',
-    	modal: true,
-    	buttons: {
-    		"Delete": function() {
-    			$(this).dialog("close");
-    			$.delete();
-    		},
-    		"Cancel": function() {
-    			$(this).dialog("close");
-    		},
-    	}
-    });
 
 })
