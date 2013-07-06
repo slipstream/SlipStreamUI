@@ -18,9 +18,8 @@
                         (str "Code: " code)
                         "Error")))
 
-(html/defsnippet error-header-snip error-template-html header/header-sel
+(html/defsnippet error-header-snip header/header-template-html header/header-sel
   [message code user]
-  header/header-sel identity
   header/header-top-bar-sel (html/substitute (header/header-top-bar-snip (user-models/attrs user)))
   header/titles-sel (html/substitute (error-titles-snip message code)))
 
