@@ -72,7 +72,7 @@
   [:#module :> :a] (module-base/set-a (:moduleresourceuri (common-model/attrs run)))
   [:#category] (html/content (:category (common-model/attrs run)))
   [:#description] (html/content (:description (common-model/attrs run)))
-  [:#user] (html/content (:user (common-model/attrs run)))
+  [:#username] (html/content (:user (common-model/attrs run)))
   [:#start] (html/content (:starttime (common-model/attrs run)))
   [:#end] (html/content (:endtime (common-model/attrs run)))
   [:#status] (html/content (:status (common-model/attrs run)))
@@ -107,7 +107,12 @@
 
 (defn js-scripts
   []
-  ["/js/run-parameters-update.js" "/external/jit/js/jit.js" "/js/run-dashboard.js" "/external/ui.watermark/js/ui.watermark.js"])
+  ["/js/common.js"
+   "/js/run-parameters-update.js"
+   "/external/jit/js/jit.js"
+   "/js/run-dashboard.js"
+   "/external/ui.watermark/js/ui.watermark.js"
+   "/js/run.js"])
 
 ;; Main function
 

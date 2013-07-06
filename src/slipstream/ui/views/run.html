@@ -72,9 +72,14 @@
                     </ul>
                     <ul class="interaction">
                         <li class="attention">
-                            <button><i class="icon-ban-circle"></i> Terminate</button>
+                            <button id="terminate-button-top"><i class="icon-ban-circle"></i> Terminate</button>
                         </li>
                     </ul>
+                </div>
+                <div id="terminate-dialog">
+                    <p>
+                        Are you sure you want to terminate all virtual machines running in this deployment?
+                    </p>
                 </div>
                 <div class="data_sheet">
                     <div class="summary accordion">
@@ -110,7 +115,7 @@
                                         <th>
                                             User
                                         </th>
-                                        <td id="user">
+                                        <td id="username">
                                             rssteam
                                         </td>
                                     </tr>
@@ -251,10 +256,12 @@
                         </div>
                     </div>
                 </div>
+                <form id="terminate-form" action="?method=delete">
+                </form>
                 <div class="navigation bottom_nav">
                     <ul class="interaction">
                         <li class="attention">
-                            <button><i class="icon-ban-circle"></i> Terminate</button>
+                            <button id="terminate-button-bottom"><i class="icon-ban-circle"></i> Terminate</button>
                         </li>
                     </ul>
                 </div>

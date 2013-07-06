@@ -253,7 +253,7 @@ function init(){
 			}
 
 			if(node.data.type === "orchestrator") {
-				label.innerHTML = "<div class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'><div class='" +  + "' id='" + idprefix + "-icon'/> \
+				label.innerHTML = "<div class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "-icon'/> \
 					<ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
 						<li id='" + idprefix + "'><b>" + node.name + "</b></li> \
 					 	<li id='" + idprefix + "-state'>State: " + this.getTruncatedState(node.name) + "</li> \
@@ -261,7 +261,7 @@ function init(){
 			}
 
 			if(node.data.type === "node") {
-				label.innerHTML = "<div class='dashboard-icon dashboard-node " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'><div class='" + this.nodeNodeCssClass(node.name) + "' id='" + idprefix + "-icon'/> \
+				label.innerHTML = "<div class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "-icon'/> \
 					<ul style='list-style-type:none'> \
 						<li id='" + idprefix + "'><b>" + node.name + "</b></li> \
 			            <li id='" + idprefix + "-ratio'>State: " + dashboardUpdater.truncate(getRuntimeValueFullName(node.name + "\\.1\\:state")) + " (?/" + getRuntimeValueFullName(node.name + "\\.1\\:multiplicity") + ")</div> \

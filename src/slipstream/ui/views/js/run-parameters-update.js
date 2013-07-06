@@ -101,7 +101,7 @@ var dashboardUpdater = {
 				}
 			}
 		}
-		return (abort) ? 'dashboard-vm-error' : 'dashboard-vm-ok';
+		return (abort) ? 'dashboard-error' : 'dashboard-ok';
 	},
 
     updateProperty: function(propertyName, value) {
@@ -132,7 +132,7 @@ var dashboardUpdater = {
 	},
 	
 	getCssClass: function(abort) {
-		return (abort) ? 'dashboard-vm-error' : 'dashboard-vm-ok';
+		return (abort) ? 'dashboard-error' : 'dashboard-ok';
 	},
 
     updateVm: function(params) {
