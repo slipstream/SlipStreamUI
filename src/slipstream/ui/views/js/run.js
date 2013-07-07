@@ -43,4 +43,8 @@ $(document).ready(function() {
 		}
 	});
 	
+	$("#tags").change(function () {
+		$$.send($("#tags-form"), event, $.put);	    
+	})
+	
 })
