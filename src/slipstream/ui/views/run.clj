@@ -73,6 +73,7 @@
   [:#category] (html/content (:category (common-model/attrs run)))
   [:#description] (html/content (:description (common-model/attrs run)))
   [:#username] (html/content (:user (common-model/attrs run)))
+  [:#account] (html/content (:user (common-model/attrs run)))
   [:#start] (html/content (:starttime (common-model/attrs run)))
   [:#end] (html/content (:endtime (common-model/attrs run)))
   [:#status] (html/content (:status (common-model/attrs run)))
