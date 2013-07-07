@@ -13,6 +13,7 @@
             [slipstream.ui.views.users :as users]
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.run :as run]
+            [slipstream.ui.views.reports :as reports]
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.models.user :as user-model]
@@ -22,6 +23,7 @@
             [clojure.zip :as zip]
             [slipstream.ui.data.configuration :as configuration-data]
             [slipstream.ui.data.run :as run-data]
+            [slipstream.ui.data.reports :as reports-data]
             [slipstream.ui.data.users :as users-data]
             [slipstream.ui.data.user :as user-data]
             [slipstream.ui.data.projects :as projects]
@@ -41,6 +43,9 @@
 
 (defn configuration-page []
   (configuration/page configuration-data/xml-configuration))
+
+(defn reports-page []
+  (reports/page reports-data/xml-reports))
 
 (defn knockknock-page []
   (knockknock/page projects/xml-projects))
@@ -149,6 +154,7 @@
     ["user-view"] (-> (user-view-page) ring.util.response/response constantly)
     ["user-edit"] (-> (user-edit-page) ring.util.response/response constantly)
     ["run"] (-> (run-page) ring.util.response/response constantly)
+    ["reports"] (-> (reports-page) ring.util.response/response constantly)
     ["configuration"] (-> (configuration-page) ring.util.response/response constantly)
     ["error"] (-> (error-page "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>" 500) ring.util.response/response constantly)
     [&] (-> (error-page "Unknown page" 404)

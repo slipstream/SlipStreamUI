@@ -1338,3 +1338,6 @@ li {
     width: 940px;
 }
 
+#reports > ul {
+    padding-left: 0;
+}
