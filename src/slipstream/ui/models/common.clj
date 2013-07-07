@@ -17,7 +17,7 @@
   (html/select elem [:parameterMappings :nodeParameter]))
 
 (defn content [elem]
-  (html/select elem [:content]))
+  (first (:content elem)))
 
 (defn value [elem]
   (first (:content (first (html/select elem [:value])))))
