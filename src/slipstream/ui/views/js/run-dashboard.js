@@ -170,7 +170,7 @@ function init(){
           enable:true,
           panning:true
         },
-		offsetX: 100,
+		offsetX: 250,
 		offsetY: 0,
         //set node and edge styles
         //set overridable=true for styling individual
