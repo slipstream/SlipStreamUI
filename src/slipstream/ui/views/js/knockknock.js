@@ -30,12 +30,14 @@ $(document).ready(function() {
     
 	$('#formlogin').submit(function(event){
 		var callback = function(data, status, xhr) {
+		    var location;
 			if(window.location.search) {
 				var query = window.location.search;
-				window.location = query.substring(query.lastIndexOf("=") + 1, query.length);
+				location = query.substring(query.lastIndexOf("=") + 1, query.length);
 			} else {
-			    window.location = window.location;
+			    location = "/";
 			}
+			window.location.assign(location);
 			hideLogger();
 		}
 		return $$.send($(this), event, $.post, callback);
