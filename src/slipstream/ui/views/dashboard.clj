@@ -67,7 +67,7 @@
                                                          (html/content (apply str (drop 7 (:moduleresourceuri attrs)))))
                     [[:td (html/nth-of-type 4)]] (html/content (:status attrs))
                     [[:td (html/nth-of-type 5)]] (html/content (:starttime attrs))
-                    [[:td (html/nth-of-type 6)]] (html/content (:user attrs))
+                    [[:td (html/nth-of-type 6)]] (html/content (:username attrs))
                     [[:td (html/nth-of-type 7)]] (html/content (:tags attrs))))
 
 (html/defsnippet vms-for-cloud-snip dashboard-template-html [vms-fragment-sel :> :table]
