@@ -30,7 +30,7 @@
 
 (html/defsnippet view-snip module-base/project-view-template-html common/content-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
 
   children-sel (html/content (children-snip module))
   #{[children-header-sel] [children-sel]} (if (empty? (modules-model/children module))
@@ -44,7 +44,7 @@
 
 (html/defsnippet edit-snip module-base/project-edit-template-html common/content-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
 
   children-sel (html/content (children-snip module))
   module-base/module-summary-sel (html/substitute 
@@ -54,7 +54,7 @@
 
 (html/defsnippet new-snip module-base/project-new-template-html common/content-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
 
   children-sel (html/content (children-snip module))
   module-base/module-summary-sel (html/substitute 

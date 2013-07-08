@@ -100,10 +100,10 @@
   [:#module-owner] (html/content (module-model/owner module)))
 
 (defn breadcrumb
-  [module]
+  [module-name]
   (html/substitute
     (common/breadcrumb-snip
-      (:name (module-model/attrs module))
+      module-name
       "module")))
 
 (defn header

@@ -145,7 +145,7 @@
 
 (html/defsnippet view-snip deployment-view-template-html common/content-sel
   [deployment]
-  common/breadcrumb-sel (module-base/breadcrumb deployment)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
   module-base/module-summary-sel (html/substitute 
                                    (summary-view-snip deployment))
   nodes-sel (html/substitute
@@ -166,14 +166,14 @@
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 
 (html/defsnippet new-snip deployment-new-template-html common/content-sel
-  [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  [deployment]
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
   module-base/module-summary-sel (html/substitute 
-                                   (summary-new-snip module)))
+                                   (summary-new-snip deployment)))
 
 (html/defsnippet edit-snip deployment-edit-template-html common/content-sel
   [deployment]
-  common/breadcrumb-sel (module-base/breadcrumb deployment)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip deployment))
   nodes-sel (html/substitute

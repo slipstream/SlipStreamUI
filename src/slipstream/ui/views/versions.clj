@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.versions
   (:require [net.cgrand.enlive-html :as html]
+            [clojure.string :as string]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.models.modules :as modules]
@@ -43,21 +44,23 @@
       [[:td (html/nth-of-type 3)]] (html/content (user/username versions))
       [[:td (html/nth-of-type 4)]] (html/content (:lastmodified (common-model/attrs child)))))
 
+(defn sanitize-module-name
+  "Drop the leading 'module/' and the version number at the end"
+  [module-name]
+  (apply str 
+         (drop 7 
+               (string/join "/" 
+                            (drop-last (string/split module-name #"/"))))))
+
 (html/defsnippet content-snip versions-template-html common/content-sel
   [versions]
-  common/breadcrumb-sel (html/substitute
-                          (let
-                            [resourceuri (:resourceuri
-                                           (common-model/attrs
-                                             (first-item versions)))
-                             name (str 
-                                    (apply str 
-                                           (drop 7 resourceuri))
-                                    "/versions")
-                             root-uri (apply str 
-                                             (take 7 resourceuri))]
-                          (common/breadcrumb-snip name root-uri)))
-                                 
+  common/breadcrumb-sel
+  (module-base/breadcrumb
+    (sanitize-module-name 
+      (:resourceuri
+        (common-model/attrs
+          (first-item versions)))))
+
   versions-sel (html/substitute (items-snip versions)))
 
 (defn title

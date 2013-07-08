@@ -167,7 +167,7 @@
 
 (html/defsnippet view-snip image-view-template-html common/content-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
   module-base/module-summary-sel (html/substitute 
                                    (summary-view-snip module))
    
@@ -212,12 +212,12 @@
 
 (html/defsnippet new-snip image-new-template-html common/content-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
   module-base/module-summary-sel (html/substitute 
                                    (summary-new-snip module)))
 
 (html/defsnippet edit-snip image-edit-template-html common/content-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb module)
+  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip module)))
