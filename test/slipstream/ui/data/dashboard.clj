@@ -4,6 +4,8 @@
 (def xml-dashboard
   (first (html/html-snippet "<dashboard>
 	<runs>
+     <item cloudServiceName='stratuslab' resourceUri='run/638f04c3-44a1-41c7-90db-c81167fc6f19' uuid='638f04c3-44a1-41c7-90db-c81167fc6f19' moduleResourceUri='module/Public/Tutorials/HelloWorld/client_server/11' status='Aborting' startTime='2013-07-05 17:27:12.471 CEST'/>
+     <item cloudServiceName='interoute' resourceUri='run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e' uuid='e8d0b957-14a8-4e96-8677-85c7bd9eb64e' moduleResourceUri='module/Mebster/word_press/simple_deployment/410' status='Aborting' startTime='2013-07-04 17:11:56.340 CEST'/>
 	</runs>
 	<vms>
 	   <item runUuid='aaaaaaaa-8a39-4870-8940-0031f2cffd40' status='Running' instanceId='aaaa' cloud='StratusLab' />
