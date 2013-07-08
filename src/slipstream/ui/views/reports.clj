@@ -13,16 +13,25 @@
   [file-name]
   (first (clojure.string/split (str file-name) #"_report")))
 
+(defn insert-reports
+  [reports]
+  (let 
+    [as (filter #(not= ".." (common-model/content %)) (html/select reports [:a]))]
+    (if (empty? as)
+      (html/content "No reports available yet")
+      (html/clone-for
+        [a as]
+        [:a] (html/do->
+               (html/set-attr :href (:href (common-model/attrs a)))
+               (html/content (extract-vm-name (common-model/content a))))))))
+
+
 (html/defsnippet content-snip reports-template-html common/content-sel
   [reports]
   [reports-sel :> :ul :> [:li html/last-of-type]] nil
   [reports-sel :> :ul :> :li]
-  (html/clone-for
-    [report-entry (html/select reports [:a]) :when (not= ".." (common-model/content report-entry))]
-    [:a] (html/do->
-           (html/set-attr :href (:href (common-model/attrs report-entry)))
-           (html/content (extract-vm-name (common-model/content report-entry))))))
-
+  (insert-reports reports))
+  
 (defn page [reports]
   (base/base 
     {:title (common/title "Reports")

@@ -97,7 +97,9 @@
                     (run-model/runtime-parameters run))))
 
   runtime-parameters-header-sel nil
-  runtime-parameters-sel nil)
+  runtime-parameters-sel nil
+
+  [:#reports :> :iframe] (html/set-attr :src (str "/reports/" (:uuid (common-model/attrs run)))))
 
 ;; CSS inclusion
 
