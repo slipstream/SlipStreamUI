@@ -116,7 +116,7 @@
   runs-sel
   (html/substitute 
     (runs-snip 
-      (common-model/group-by-key :cloud (dashboard-model/runs dashboard))))
+      (common-model/group-by-key :cloudservicename (dashboard-model/runs dashboard))))
 
   vms-sel
   (html/substitute 
