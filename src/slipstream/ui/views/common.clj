@@ -424,26 +424,25 @@
 ;; Generic tabs layout generation
 
 (defn tab-headers
-  "Generate the tabs headers section for categories in grouped-by-category using
+  "Generate the tabs headers section for elements in grouped-by using
    the fragment-name name for the ids."
-  [grouped-by-category fragment-name]
+  [grouped-by fragment-name]
   (html/clone-for
-    [category (keys grouped-by-category)]
+    [group (keys grouped-by)]
     [:a] (html/do->
-           (html/set-attr :href (str "#fragment-" fragment-name "-" category))
-           (html/content category))))
-
+           (html/set-attr :href (str "#fragment-" fragment-name "-" group))
+           (html/content group))))
 
 (defn tab-sections
-  "Generate the tab sections for grouped-by-category items, in the
+  "Generate the tab sections for grouped-by items, in the
    fragment-name fragment section and apply the snip function for each
    item"
-  [grouped-by-category fragment-name snip]
+  [grouped-by fragment-name snip]
   (html/clone-for
-    [grouped grouped-by-category]
+    [group grouped-by]
     (html/do->
-      (html/set-attr :id (str "fragment-" fragment-name "-" (key grouped)))
-      (html/content (snip (val grouped))))))
+      (html/set-attr :id (str "fragment-" fragment-name "-" (key group)))
+      (html/content (snip (val group))))))
 
 ;; Parameter tabs section
 
