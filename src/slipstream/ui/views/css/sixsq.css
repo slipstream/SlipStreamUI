@@ -1132,8 +1132,8 @@ body button.delete {
 }
 
 button:disabled {
-	background-color: gray;
-	cursor: auto;
+	background-color: gray !important;
+	cursor: auto !important;
 }
 
 html body .small_close,
