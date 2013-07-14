@@ -1,14 +1,25 @@
 (ns slipstream.ui.models.modules
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.common :as common]))
+            [slipstream.ui.models.common :as common]
+            [slipstream.ui.models.module :as module]))
 
 (def sel-modules
   #{[:item]})
 
+(defn children-with-filter
+  "Extract items from root map and apply filter function"
+  [with-items filter-fn]
+  (filter filter-fn (html/select with-items sel-modules)))
+
 (defn children 
   "Extract items from root map (e.g. root module list or versions)"
   [with-items]
-  (html/select with-items sel-modules))
+  (children-with-filter with-items identity))
+
+(defn children-published
+  "Extract items from root map and apply filter function"
+  [with-items]
+  (children-with-filter with-items #(= "true" (:published (common/attrs %)))))
 
 (defn first-child
   [with-items]

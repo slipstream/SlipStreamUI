@@ -91,5 +91,5 @@
 <cloudImageIdentifier cloudImageIdentifier='abc' cloudServiceName='my-cloud' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'></cloudImageIdentifier>
 </cloudImageIdentifiers>
 <extraDisks class='org.hibernate.collection.PersistentBag'></extraDisks>
-<user issuper='true' resourceUri='user/super' name='super'></user>
+<user issuper='false' resourceUri='user/super' name='toto'></user>
 </imageModule>")))

@@ -11,6 +11,8 @@
    
 </authz>
    
+<!--<published publicationDate='2013-07-14 14:16:54.559 CEST'/>-->
+
 <cloudNames length='2'>
       
 <string>stratuslab</string>

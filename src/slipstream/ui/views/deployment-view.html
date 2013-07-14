@@ -47,7 +47,7 @@
 		</div>
 		<div id="content">
 			<div class="navigation">
-				<ul class="breadcrumb">
+	            <ul id="breadcrumb" class="breadcrumb">
             	    <li><a href="#"><i class="icon-home"></i></a></li>
 					<li><a href="#">modules</a></li>
 					<li><a href="#">Public</a></li>
@@ -55,12 +55,14 @@
 					<li><a href="#">HelloWorld</a></li>
 					<li><a href="#">client_server</a></li>
 				</ul>
-				<ul class="interaction">
+				<ul id="interaction-top" class="interaction">
 					<li class="attention"><button id="run-button-top"><i class="icon-cog"></i> Run</button></li>
 					<li class="attention"><button id="run-with-options-button-top"><i class="icon-cog"></i> Run...</button></li>
 					<li class="attention"><button id="edit-button-top"><i class="icon-edit"></i> Edit</button></li>
+					<li class="attention"></li>
 					<li class="attention"><button><i class="icon-copy"></i> Copy...</button></li>
 					<li class="attention"><button id="publish-button-top"><i class="icon-globe"></i> Publish</button></li>
+					<li class="attention"><button id="unpublish-button-bottom"><i class="icon-globe"></i> Un-Publish</button></li>
 				</ul>
 			</div>
 			<form
@@ -329,15 +331,16 @@
 				</div>
 			</div>
 			<div class="navigation bottom_nav">
-				<ul class="interaction">
+				<ul id="interaction-bottom" class="interaction">
 					<li class="attention"><button  id="run-button-bottom"><i class="icon-cog"></i> Run</button></li>
 					<li class="attention"><button id="run-with-options-button-bottom"><i class="icon-cog"></i> Run...</button></li>
 					<li class="attention"><button id="edit-button-bottom"><i class="icon-edit"></i> Edit</button></li>
 					<li class="attention"><button><i class="icon-copy"></i> Copy...</button></li>
 					<li class="attention"><button id="publish-button-bottom"><i class="icon-globe"></i> Publish</button></li>
+					<li class="attention"><button id="unpublish-button-bottom"><i class="icon-globe"></i> Un-Publish</button></li>
 				</ul>
 			</div>
-            <form id="publish-form" action="?method=put" method="post">
+            <form id="publish-form" action="" method="post">
             </form>
 		</div>
 		<div id="footer">

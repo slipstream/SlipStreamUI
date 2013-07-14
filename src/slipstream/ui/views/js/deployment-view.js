@@ -61,13 +61,16 @@ $(document).ready(function() {
     // Publish button
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
-		$('#publish-form').submit();
+		return $$.send($('#publish-form'), null, $.put);
+    });	
+
+    // Un-Publish button
+    $('#unpublish-button-top, #unpublish-button-bottom').click(function(event){
+    	$$.hideError();
+		$$.send($('#publish-form'), null, $.delete_, function() {
+			location.reload();
+	    });
 		return false;
     });	
 
-    $('#publish-form').submit(function(event){
-        $$.send($(this), event, $.post);
-        return false;
-    });
-	
 })

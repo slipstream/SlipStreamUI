@@ -6,7 +6,7 @@
 
 (defn user [metadata]
   "Extract user from metadata map (e.g. module, run)"
-  (first (html/select metadata [html/root :> :user])))
+  (first (html/select metadata #{[html/root :> :user] [:user]})))
 
 (defn attrs [metadata]
   "Extract user attrs from root map (e.g. module, run)"

@@ -139,7 +139,7 @@ $(document).ready(function() {
 				}
 				$(this).dialog("close");
 				var target = $("#target_project_uri").val();
-				var action = $("#copyform").attr("action");
+				//var action = $("#copyform").attr("action");
 				$("#copyform").attr("action", "module/" + target);
 				$("#copyform").submit();
 			},

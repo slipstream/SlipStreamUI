@@ -52,16 +52,17 @@
                     <li><a href="#">14.0</a></li>
                     <li><a href="#">123</a></li>
 	            </ul>
-	            <ul class="interaction">
+	            <ul id="interaction-top" class="interaction">
                     <li class="attention"><button id="build-button-top"><i class="icon-legal"></i> Build</button></li>
                     <li class="attention"><button id="edit-button-top"><i class="icon-edit"></i> Edit</button></li>
                     <li class="attention"><button id="publish-button-top"><i class="icon-globe"></i> Publish</button></li>
+					<li class="attention"><button id="unpublish-button-bottom"><i class="icon-globe"></i> Un-Publish</button></li>
 	            </ul>
 	        </div>
             <form id="build-form" method="post" action="run" name="formexec">
                 <input id="build-input" type="hidden" name="refqname" value="replace-me">
             </form>
-            <form id="publish-form" method="post" action="change-me" name="formexec">
+            <form id="publish-form" method="post" action="">
             </form>
             <div class="data_sheet">
 	            <div class="summary accordion">
@@ -476,7 +477,7 @@ ss-set ready true
                 </div>
 	        </div>
     	    <div class="navigation bottom_nav">
-                <ul class="interaction">
+                <ul id="interaction-bottom" class="interaction">
                     <li class="attention"><button id="build-button-bottom"><i class="icon-legal"></i> Build</button></li>
                     <li class="attention"><button id="edit-button-bottom"><i class="icon-edit"></i> Edit</button></li>
                     <li class="attention"><button id="publish-button-bottom"><i class="icon-globe"></i> Publish</button></li>

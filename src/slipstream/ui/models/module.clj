@@ -1,7 +1,6 @@
 (ns slipstream.ui.models.module
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.common :as common]
-            [slipstream.ui.models.modules :as modules]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.authz :as authz]))
 
@@ -53,10 +52,6 @@
      comment (module-comment module)]
     [name (str "Version: " version " - " description) comment category]))
 
-(defn children
-  [project]
-  (modules/children project))
-
 (defn nodes
   [deployment]
   (html/select deployment [:node]))
@@ -70,6 +65,10 @@
   (first (:content (first (html/select item [:comment])))))
 
 (defn available-clouds
-  [deployment]
+  [module]
   (flatten 
-    (map :content (html/select deployment [:cloudNames :string]))))
+    (map :content (html/select module [:cloudNames :string]))))
+
+(defn published?
+  [module]
+  (not (empty? (html/select module [:published]))))

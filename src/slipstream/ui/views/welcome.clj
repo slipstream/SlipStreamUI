@@ -1,8 +1,8 @@
 (ns slipstream.ui.views.welcome
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.authz :as authz]
-            [slipstream.ui.models.modules :as modules]
-            [slipstream.ui.models.module :as module]
+            [slipstream.ui.models.modules :as modules-model]
+            [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.views.base :as base]
@@ -26,9 +26,30 @@
                                     (header-views/header-top-bar-snip
                                       (user/attrs metadata))))
 
+(html/defsnippet modules-snip welcome-template-html common/content-sel
+  [root-projects published-modules]
+  [:#published-modules]
+  (html/content (project/children-snip published-modules))
+
+  #{[:#published-modules] [:#published-modules-header]}
+  (if (empty? published-modules)
+    nil
+    identity)
+
+  [:#published-modules :> :table :> :thead :> :tr :> [:th (html/nth-of-type 3)]]
+  (html/content "Publisher")
+  
+  ; Root projects cannot be empty
+  [:#root-projects] 
+  (html/content (project/children-snip root-projects)))
+
 (html/defsnippet content-snip welcome-template-html common/content-sel
-  [projects]
-  [:#root-projects] (html/content (project/children-snip projects)))
+  [modules]
+  common/content-sel
+  (html/substitute
+    (modules-snip
+      (modules-model/children-with-filter modules #(not= "true" (:published (module-model/attrs %))))
+      (modules-model/children-with-filter modules #(= "true" (:published (module-model/attrs %)))))))
 
 (defn page [root-projects type]
   (base/base 

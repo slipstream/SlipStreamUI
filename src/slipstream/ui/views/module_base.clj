@@ -11,6 +11,9 @@
 
 (def module-summary-sel [:#module-summary])
 (def module-login-sel [:#module-login])
+(def module-interaction-sel [:.interaction])
+(def module-interaction-top-sel [:#interaction-top])
+(def module-interaction-bottom-sel [:#interaction-bottom])
 
 ;; Templates
 

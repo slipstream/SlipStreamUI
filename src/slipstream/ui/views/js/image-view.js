@@ -33,20 +33,27 @@ $(document).ready(function() {
     });	
 
     $('#build-form').submit(function(event){
-        event.preventDefault();
         return $$.send($(this), event, $.post);
     });
 	
     // Publish button
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
-		$$.showSubmitMessage("Requesting Build Image");
-		$("#build-form").submit();
+		$("#publish-form").submit();
     });	
 
     $('#publish-form').submit(function(event){
-        event.preventDefault();
-        return $$.send($(this), event, $.post);
+        return $$.send($(this), event, $.put);
+    });
+	
+    // Unpublish button
+    $('#unpublish-button-top, #unpublish-button-bottom').click(function(event){
+    	$$.hideError();
+		$("#publish-form").submit();
+    });	
+
+    $('#publish-form').submit(function(event){
+        return $$.send($(this), event, $.put);
     });
 	
 })

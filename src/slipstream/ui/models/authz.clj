@@ -1,5 +1,7 @@
 (ns slipstream.ui.models.authz
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [clojure.string :as string]
+            [slipstream.ui.models.user :as user-model]))
 
 (defn authz [module]
   "Extract authz map from module"
@@ -8,12 +10,28 @@
 (defn attrs [authz]
   (:attrs authz))
 
+(defn owner [authz]
+  (-> authz attrs :owner))
+
 (defn inherited? [authz]
   (= "true" (:inheritedgroupmembers (attrs authz))))
 
 (defn group [authz]
   "Extract group members"
   (first (:content (first (html/select authz [html/root :> :groupMembers])))))
+
+(defn group-seq [authz]
+  "Extract group members as seq"
+  (if-let
+    [group (group authz)]
+    (map string/trim (string/split group #","))
+    nil))
+
+(defn in-group? [authz user]
+  (let
+    [username (user-model/username user)]
+    (not-empty 
+      (filter #(= % (user-model/username user)) (group-seq authz)))))
 
 (defn ownerget? [authz]
   (= "true" (:ownerget (attrs authz))))
@@ -60,3 +78,68 @@
 (defn publiccreatechildren? [authz]
   (= "true" (:publiccreatechildren (attrs authz))))
 
+(defn is-owner?
+  [authz user]
+  (= 
+    (user-model/username user)
+    (owner authz)))
+
+(defn can-get?
+  [authz user]
+  (or
+    (user-model/super? user)
+    (and 
+      (is-owner? authz user)
+      (ownerget? authz))
+    (and
+      (in-group? authz user)
+      (groupget? authz))
+    (publicget? authz)))
+
+(defn can-put?
+  [authz user]
+  (or
+    (user-model/super? user)
+    (and 
+      (is-owner? authz user)
+      (ownerput? authz))
+    (and
+      (in-group? authz user)
+      (groupput? authz))
+    (publicput? authz)))
+
+(defn can-post?
+  [authz user]
+  (or
+    (user-model/super? user)
+    (and 
+      (is-owner? authz user)
+      (ownerpost? authz))
+    (and
+      (in-group? authz user)
+      (grouppost? authz))
+    (publicpost? authz)))
+
+(defn can-delete?
+  [authz user]
+  (or
+    (user-model/super? user)
+    (and 
+      (is-owner? authz user)
+      (ownerdelete? authz))
+    (and
+      (in-group? authz user)
+      (groupdelete? authz))
+    (publicdelete? authz)))
+
+(defn can-createchildren?
+  [authz user]
+  (or
+    (user-model/super? user)
+    (and 
+      (is-owner? authz user)
+      (ownercreatechildren? authz))
+    (and
+      (in-group? authz user)
+      (groupcreatechildren? authz))
+    (publiccreatechildren? authz)))

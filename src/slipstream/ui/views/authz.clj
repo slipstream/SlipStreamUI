@@ -129,6 +129,7 @@
       (authz-by-category
         (authz-model/authz module)
         category)))
+  
   authorization-inheritance-sel 
   (html/substitute
     (authz-inhertance-snip

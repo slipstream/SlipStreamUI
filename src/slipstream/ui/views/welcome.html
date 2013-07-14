@@ -44,7 +44,7 @@
                         Multi-cloud automated provisioning and image creation
                     </h3>
                     <p>
-                        This page gives you an overview of your current consumption, as well as published modules, your own modules and the root modules shared with all users.
+                        The welcome page provides you with all currently published modules and root modules, including yours and the ones shared with you.
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     </ul>
                 </div>
                 <div class="data_sheet">
-                    <div class="summary">
+                    <div class="summary accordion">
                         <!-- <h3>
                                  Current Consumption
                                  </h3>
@@ -234,54 +234,58 @@
                                              <td class="values"></td>
                                          </tr>
                                      </table>
-                                 </div>
-                                 <h3>
-                                     Published Modules
-                                 </h3>
-                                 <div id="published">
-                                     <table>
-                                         <thead>
-                                             <tr>
-                                                 <th>
-                                                     Name
-                                                 </th>
-                                                 <th>
-                                                     Category
-                                                 </th>
-                                                 <th>
-                                                     Version
-                                                 </th>
-                                             </tr>
-                                         </thead>
-                                         <tr>
-                                             <td class="values category image_category">
-                                                 <a href="module/A/555">CentOS-6.3</a>
-                                             </td>
-                                             <td class="values">
-                                                 Image
-                                             </td>
-                                             <td class="values"></td>
-                                         </tr>
-                                         <tr>
-                                             <td class="values category deployment_category">
-                                                 <a href="module/CELAR/899">Ubuntu-12.04</a>
-                                             </td>
-                                             <td class="values">
-                                                 Deployment
-                                             </td>
-                                             <td class="values"></td>
-                                         </tr>
-                                         <tr>
-                                             <td class="values category project_category">
-                                                 <a href="module/CELAR_CI/917">Windows-8</a>
-                                             </td>
-                                             <td class="values">
-                                                 Project
-                                             </td>
-                                             <td class="values"></td>
-                                         </tr>
-                                     </table>
-                                 </div> -->
+                                 </div>-->
+                        <h3 id="published-modules-header">
+                         Published Images and Deployments
+                        </h3>
+                        <div id="published-modules">
+                            <table>
+                                <thead>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Publisher
+                                    </th>
+                                    <th>
+                                        Version
+                                    </th>
+                                </thead>
+                                <tr>
+                                    <td class="category image_category">
+                                        <a href="module/A/555">CentOS-6.3</a>
+                                    </td>
+                                    <td>
+                                        Description...
+                                    </td>
+                                    <td>sixsq</td>
+                                    <td>123</td>
+                                </tr>
+                                <tr>
+                                    <td class="category deployment_category">
+                                        <a href="module/CELAR/899">Ubuntu-12.04</a>
+                                    </td>
+                                    <td>
+                                        Description...
+                                    </td>
+                                    <td>sixsq</td>
+                                    <td>123</td>
+                                </tr>
+                                <tr>
+                                    <td class="category project_category">
+                                        <a href="module/CELAR_CI/917">Windows-8</a>
+                                    </td>
+                                    <td>
+                                        Description...
+                                    </td>
+                                    <td>sixsq</td>
+                                    <td>123</td>
+                                </tr>
+                            </table>
+                        </div>
                         <h3>
                             Shared Projects
                         </h3>

@@ -3,6 +3,7 @@
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
+            [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
@@ -31,7 +32,7 @@
   [:tbody :> [:tr html/last-of-type]] nil
   [:tbody :> [:tr (html/nth-of-type 1)]]
                   (html/clone-for
-                    [user (module-model/children users)
+                    [user (modules-model/children users)
                      :let [attrs (module-model/attrs user)]]
                     [[:a]] (html/do->
                              (html/set-attr :href (:resourceuri attrs))

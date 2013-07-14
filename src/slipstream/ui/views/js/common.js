@@ -642,11 +642,7 @@ var $$ = {
 	showLogger: showLogger,
 	hideLogger: hideLogger,
 	send: function($this, event, action, callback){
-        //      $(':button[type=submit]').attr('disabled', 'disabled');
-        // event.preventDefault();
-
 		var url = $this.attr('action');
-
 		var dataToSend = $this.serialize();
 
 		if(!callback) {
@@ -657,8 +653,6 @@ var $$ = {
         }
 
 		action(url, dataToSend, callback, 'text');
-//	    $(':button[type=submit]').removeAttr('disabled');
-	
 		return false;
 	},
 	
@@ -859,7 +853,6 @@ $(document).ready(function() {
 	$('.add_item','.nodes')
 		.button()
 		.click(function( event ) {
-//			event.preventDefault();
 	});
 	
 	// Logout dialog

@@ -56,10 +56,6 @@
 
 ;; Edit
 
-;(html/defsnippet image-edit-snip image/image-edit-template-html common/content-sel
-;  [module]
-;  identity)
-
 (html/defsnippet deployment-edit-snip deployment-edit-template-html common/content-sel
   [module]
   identity)

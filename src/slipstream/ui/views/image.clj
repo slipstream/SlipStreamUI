@@ -6,6 +6,8 @@
             [slipstream.ui.views.authz :as authz]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
+            [slipstream.ui.models.authz :as authz-model]
+            [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.image :as image-model]))
 
 (def image-view-template-html "slipstream/ui/views/image-view.html")
@@ -165,6 +167,39 @@
                        (html/set-attr :checked "checked")
                        (html/remove-attr :checked)))
 
+(defn authz-buttons
+  [module]
+  (let
+    [authz (authz-model/authz module)
+     user (user-model/user module)
+     can-get? (authz-model/can-get? authz user)
+     can-put? (authz-model/can-put? authz user)
+     can-delete? (authz-model/can-delete? authz user)
+     can-post? (authz-model/can-post? authz user)
+     can-createchildren? (authz-model/can-createchildren? authz user)
+     super? (user-model/super? user)]
+    (html/transformation
+      #{[:#build-button-top] [:#build-button-bottom]} 
+      (if can-post?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled"))
+      #{[:#edit-button-top] [:#edit-button-bottom]} 
+      (if can-put?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled"))
+      #{[:#publish-button-top] [:#publish-button-bottom]} 
+      (if super?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled"))
+      #{[:#unpublish-button-top] [:#unpublish-button-bottom]} 
+      (if super?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled")))))
+ 
+(html/defsnippet view-interaction-snip image-view-template-html module-base/module-interaction-top-sel
+  [module]
+  (authz-buttons module))
+
 (html/defsnippet view-snip image-view-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
@@ -173,9 +208,15 @@
    
   [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
   
-  [:#publish-form] (html/set-attr :value (str 
-                                           (:resourceuri (module-model/attrs module))
-                                           "/publish"))
+  #{[:#publish-button-top] [:#publish-button-bottom]} 
+  (if (module-model/published? module)
+    nil
+    identity)
+  
+  #{[:#unpublish-button-top] [:#unpublish-button-bottom]} 
+  (if (module-model/published? module)
+    identity
+    nil)
   
   image-reference-sel (html/substitute (image-reference-snip module))
   
@@ -207,6 +248,14 @@
     (if (image-model/deploys? module)
       identity
       nil)
+    
+  module-base/module-interaction-top-sel
+    (html/substitute
+      (view-interaction-snip module))
+
+  module-base/module-interaction-bottom-sel
+    (html/substitute
+      (view-interaction-snip module))
 
   authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 
@@ -216,8 +265,18 @@
   module-base/module-summary-sel (html/substitute 
                                    (summary-new-snip module)))
 
+(html/defsnippet edit-interaction-snip image-edit-template-html module-base/module-interaction-top-sel
+  [module]
+  (authz-buttons module))
+
 (html/defsnippet edit-snip image-edit-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
+
+  module-base/module-interaction-top-sel (edit-interaction-snip module)  
+  module-base/module-interaction-bottom-sel (edit-interaction-snip module)  
+  
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip module)))
+
+

@@ -159,9 +159,19 @@
 
   [:#build-form] (html/set-attr :value (common-model/resourceuri deployment))
   
-  [:#publish-form] (html/set-attr :value (str 
+  [:#publish-form] (html/set-attr :action (str "/"
                                            (common-model/resourceuri deployment)
                                            "/publish"))
+  
+  #{[:#publish-button-top] [:#publish-button-bottom]} 
+  (if (module-model/published? deployment)
+    nil
+    identity)
+  
+  #{[:#unpublish-button-top] [:#unpublish-button-bottom]} 
+  (if (module-model/published? deployment)
+    identity
+    nil)
   
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 
