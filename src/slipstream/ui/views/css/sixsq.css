@@ -1198,7 +1198,6 @@ html body .small_delete {
 .message {
     margin: 15px 20px 10px 20px;
 	padding: 0 15px;
-	line-height: 66px;
 	color: black;
 	font-weight: bold;
 }
@@ -1209,7 +1208,7 @@ html body .small_delete {
 }
 
 .conflict {
-	padding: 0 15px 0 20px;
+	padding: 20px 15px 20px 20px;
 	color: #ffffff;
     background: #af1921 16px 16px no-repeat;
     font-size: 1.5em;
