@@ -16,16 +16,13 @@
 (defn inherited? [authz]
   (= "true" (:inheritedgroupmembers (attrs authz))))
 
-(defn group [authz]
-  "Extract group members"
-  (first (:content (first (html/select authz [html/root :> :groupMembers])))))
-
 (defn group-seq [authz]
   "Extract group members as seq"
-  (if-let
-    [group (group authz)]
-    (map string/trim (string/split group #","))
-    nil))
+  (flatten (map :content (html/select authz [:groupMembers :> :string]))))
+
+(defn group [authz]
+  "Extract group members"
+  (string/join ", " (group-seq authz)))
 
 (defn in-group? [authz user]
   (let
