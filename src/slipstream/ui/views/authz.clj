@@ -100,10 +100,10 @@
 
 (html/defsnippet authz-inhertance-snip authorization-edit-template-html authorization-inheritance-sel
   [authz]
-  [:#authz-inherited :td :input]
+  [:#authz-inherited]
   (assign-checked authz-model/inherited? authz)
-  [:#authz-group :td]
-  (html/content (authz-model/group authz)))
+  [:#authz-group]
+  (html/set-attr :value (authz-model/group authz)))
 
 (defmulti authz-by-category
   (fn [authz category]

@@ -5,6 +5,8 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
             [slipstream.ui.models.common :as common-model]
+            [slipstream.ui.models.authz :as authz-model]
+            [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]))
 
 (def deployment-view-template-html "slipstream/ui/views/deployment-view.html")
