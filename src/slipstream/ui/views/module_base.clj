@@ -68,12 +68,10 @@
   [module]
   [:#module-name] (html/content (:name (module-model/attrs module)))
   [:#module-version] (html/html-content
-                       (str (:version (module-model/attrs module))
-                            "<span> (<a href='/"
-                            (:parenturi (module-model/attrs module))
-                            "/"
-                            (:shortname (module-model/attrs module))
-                            "/'>history</a>)</span>"))
+                         (str (:version (module-model/attrs module))
+                              "<span> (<a href='/module/"
+                              (:name (module-model/attrs module))
+                              "/'>history</a>)</span>"))
   [:#module-description] (html/content (:description (module-model/attrs module)))
   [:#module-comment] (html/content (module-model/module-comment module))
   [:#module-category] (html/content (:category (module-model/attrs module)))
