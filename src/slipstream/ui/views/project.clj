@@ -62,10 +62,7 @@
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
 
-;  module-base/module-interaction-top-sel (view-interaction-snip module)  
-;  module-base/module-interaction-bottom-sel (view-interaction-snip module)  
-  
-  children-sel (html/content (children-snip module))
+  children-sel (html/content (children-snip (modules-model/children module)))
   #{[children-header-sel] [children-sel]} (if (empty? (modules-model/children module))
                                             nil
                                             identity)
