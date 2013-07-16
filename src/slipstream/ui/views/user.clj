@@ -28,7 +28,7 @@
             lastname (:lastname attrs)]
       (header/header-titles-snip
         (str firstname " " lastname)
-        (if (= "true" (:issuper attrs))
+        (if (true? (user-model/super? user))
         "Privileged User"
         "Regular User")
         (str "Status: " (string/lower-case (:state attrs)))
@@ -53,10 +53,10 @@
       (common/parameters-edit-snip (val grouped)))))
 
 (html/defsnippet breadcrumb-snip user-view-template-html common/breadcrumb-sel
-  [name issuper]
-  [[:li (html/nth-of-type 2)]] (if (not= "true" issuper)
-                                 (html/content "users")
-                                 identity)
+  [name super?]
+  [[:li (html/nth-of-type 2)]] (if super?
+                                 identity
+                                 (html/content "users"))
   [[:li (html/nth-of-type 3)]] (common/clone-breadcrumbs name "user/"))
 
 (html/defsnippet summary-view-snip user-view-template-html summary-sel
@@ -66,9 +66,9 @@
   [:#lastname] (html/content (:lastname (common-model/attrs user)))
   [:#email] (html/content (:email (common-model/attrs user)))
   [:#organization] (html/content (:organization (common-model/attrs user)))
-  [:#issuper :> :td :> :input] (if true;(= "true" (:issuper (common-model/attrs user)))
-                (html/set-attr :checked "checked")
-                (html/remove-attr :checked))
+  [:#issuper :> :td :> :input] (if (user-model/super? user)
+                                 (html/set-attr :checked "checked")
+                                 (html/remove-attr :checked))
   [:#created] (html/content (:creation (common-model/attrs user)))
   [:#state] (html/content (:state (common-model/attrs user))))
 
@@ -81,7 +81,7 @@
   [:#lastname] (html/set-attr :value (:lastname (common-model/attrs user)))
   [:#email] (html/set-attr :value (:email (common-model/attrs user)))
   [:#organization] (html/set-attr :value (:organization (common-model/attrs user)))
-  [:#issuper] (if (= "true" (:issuper (user-model/user (common-model/attrs user))))
+  [:#issuper] (if (user-model/super? user)
                 (html/set-attr :checked "checked")
                 (do 
                   (html/remove-attr :checked)
@@ -92,7 +92,7 @@
   common/breadcrumb-sel (html/substitute
                           (breadcrumb-snip
                             (:name (common-model/attrs user))
-                            (:issuper (common-model/attrs user))))
+                            (user-model/super? user)))
 
   summary-sel (html/substitute
                 (summary-view-snip user))
@@ -108,7 +108,7 @@
   common/breadcrumb-sel (html/substitute
                           (breadcrumb-snip
                             (:name (common-model/attrs user))
-                            (:issuper (common-model/attrs user))))
+                            (user-model/super? user)))
 
   summary-sel (html/substitute
                 (summary-edit-snip user))
@@ -124,7 +124,7 @@
   common/breadcrumb-sel (html/substitute
                           (breadcrumb-snip
                             (:name (common-model/attrs user))
-                            (:issuper (common-model/attrs user))))
+                            (user-model/super? user)))
 
   summary-sel (html/after
                 (parameters-edit-snip (common-model/group-by-category (common-model/parameters user))))

@@ -177,7 +177,8 @@
      can-delete? (authz-model/can-delete? authz user)
      can-post? (authz-model/can-post? authz user)
      can-createchildren? (authz-model/can-createchildren? authz user)
-     super? (user-model/super? user)]
+     super? (user-model/super? user)
+     published? (module-model/published? module)]
     (html/transformation
       #{[:#build-button-top] [:#build-button-bottom]} 
       (if can-post?
