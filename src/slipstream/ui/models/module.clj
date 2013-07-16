@@ -34,7 +34,7 @@
 
 (defn module-comment
   [module]
-  (first (common/content (first (html/select module [:comment])))))
+  (common/content (first (html/select module [:comment]))))
 
 (defn titles
   [module]
