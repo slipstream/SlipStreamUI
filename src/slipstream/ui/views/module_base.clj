@@ -14,6 +14,10 @@
 (def module-interaction-sel [:.interaction])
 (def module-interaction-top-sel [:#interaction-top])
 (def module-interaction-bottom-sel [:#interaction-bottom])
+(def module-publish-button-top [:#publish-button-top])
+(def module-publish-button-bottom [:#publish-button-bottom])
+(def module-unpublish-button-top [:#unpublish-button-top])
+(def module-unpublish-button-bottom [:#unpublish-button-bottom])
 
 ;; Templates
 

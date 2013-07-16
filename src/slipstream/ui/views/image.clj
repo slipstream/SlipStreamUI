@@ -188,15 +188,21 @@
       (if can-put?
         (html/remove-attr :disabled) 
         (html/set-attr :disabled "disabled"))
-      #{[:#publish-button-top] [:#publish-button-bottom]} 
+      #{module-base/module-publish-button-top module-base/module-publish-button-bottom
+        module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
       (if super?
         (html/remove-attr :disabled) 
         (html/set-attr :disabled "disabled"))
-      #{[:#unpublish-button-top] [:#unpublish-button-bottom]} 
-      (if super?
-        (html/remove-attr :disabled) 
-        (html/set-attr :disabled "disabled")))))
- 
+      #{module-base/module-publish-button-top module-base/module-publish-button-bottom} 
+      (if published?
+        nil
+        identity)
+      #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
+      (if published?
+        identity
+        nil)
+      )))
+
 (html/defsnippet view-interaction-snip image-view-template-html module-base/module-interaction-top-sel
   [module]
   (authz-buttons module))
@@ -208,16 +214,6 @@
                                    (summary-view-snip module))
    
   [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
-  
-  #{[:#publish-button-top] [:#publish-button-bottom]} 
-  (if (module-model/published? module)
-    nil
-    identity)
-  
-  #{[:#unpublish-button-top] [:#unpublish-button-bottom]} 
-  (if (module-model/published? module)
-    identity
-    nil)
   
   image-reference-sel (html/substitute (image-reference-snip module))
   
@@ -250,6 +246,10 @@
       identity
       nil)
     
+  [:#publish-form] (html/set-attr :action (str "/"
+                                           (common-model/resourceuri module)
+                                           "/publish"))
+
   module-base/module-interaction-top-sel
     (html/substitute
       (view-interaction-snip module))

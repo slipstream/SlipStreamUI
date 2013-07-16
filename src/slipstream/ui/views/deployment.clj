@@ -163,15 +163,13 @@
                                            (common-model/resourceuri deployment)
                                            "/publish"))
   
-  #{[:#publish-button-top] [:#publish-button-bottom]} 
-  (if (module-model/published? deployment)
-    nil
-    identity)
+  module-base/module-interaction-top-sel
+  (html/substitute
+    (view-interaction-snip deployment))
   
-  #{[:#unpublish-button-top] [:#unpublish-button-bottom]} 
-  (if (module-model/published? deployment)
-    identity
-    nil)
+  module-base/module-interaction-bottom-sel
+  (html/substitute
+    (view-interaction-snip deployment))
   
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 

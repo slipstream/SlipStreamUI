@@ -39,21 +39,16 @@ $(document).ready(function() {
     // Publish button
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
-		$("#publish-form").submit();
+		return $$.send($('#publish-form'), null, $.put);
     });	
 
-    $('#publish-form').submit(function(event){
-        return $$.send($(this), event, $.put);
-    });
-	
-    // Unpublish button
+    // Un-Publish button
     $('#unpublish-button-top, #unpublish-button-bottom').click(function(event){
     	$$.hideError();
-		$("#publish-form").submit();
+		$$.send($('#publish-form'), null, $.delete_, function() {
+			location.reload();
+	    });
+		return false;
     });	
-
-    $('#publish-form').submit(function(event){
-        return $$.send($(this), event, $.put);
-    });
 	
 })
