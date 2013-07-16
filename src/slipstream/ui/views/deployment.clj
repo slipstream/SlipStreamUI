@@ -145,6 +145,46 @@
   nodes-sel (html/substitute (nodes-edit-snip nodes available-clouds))
   [:input] (html/set-attr :disabled "disabled"))
 
+(defn authz-buttons
+  [module]
+  (let
+    [authz (authz-model/authz module)
+     user (user-model/user module)
+     can-get? (authz-model/can-get? authz user)
+     can-put? (authz-model/can-put? authz user)
+     can-delete? (authz-model/can-delete? authz user)
+     can-post? (authz-model/can-post? authz user)
+     can-createchildren? (authz-model/can-createchildren? authz user)
+     super? (user-model/super? user)
+     published? (module-model/published? module)]
+    (html/transformation
+      #{[:#build-button-top] [:#build-button-bottom]} 
+      (if can-post?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled"))
+      #{[:#edit-button-top] [:#edit-button-bottom]} 
+      (if can-put?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled"))
+      #{module-base/module-publish-button-top module-base/module-publish-button-bottom
+        module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
+      (if super?
+        (html/remove-attr :disabled) 
+        (html/set-attr :disabled "disabled"))
+      #{module-base/module-publish-button-top module-base/module-publish-button-bottom} 
+      (if published?
+        nil
+        identity)
+      #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
+      (if published?
+        identity
+        nil)
+      )))
+
+(html/defsnippet view-interaction-snip deployment-view-template-html module-base/module-interaction-top-sel
+  [module]
+  (authz-buttons module))
+
 (html/defsnippet view-snip deployment-view-template-html common/content-sel
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
