@@ -73,4 +73,7 @@ $(document).ready(function() {
 		return false;
     });	
 
+    // Select nodes section
+	$('.accordion').accordion("option", "active", 1);
+
 })
