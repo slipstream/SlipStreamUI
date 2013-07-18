@@ -141,6 +141,8 @@
 (html/defsnippet nodes-view-snip deployment-view-template-html nodes-sel
   [nodes available-clouds]
   nodes-sel (html/substitute (nodes-edit-snip nodes available-clouds))
+  [nodes-sel :button] (html/substitute nil)
+  [nodes-sel [#{[:td] [:th]} (html/nth-of-type 3)]] (html/substitute nil)
   [:input] (html/set-attr :disabled "disabled"))
 
 (defn authz-buttons
