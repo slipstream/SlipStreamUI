@@ -35,6 +35,11 @@ $(document).ready(function() {
 		$$.newModuleRedirect($(this));
     });	
 
+    // New deployment button
+    $('#new-deployment-button-top, #new-deployment-button-bottom').click(function(event){
+		$$.newModuleRedirect($(this));
+    });	
+
     //
     // Import
     //
