@@ -51,6 +51,10 @@ img {
 	border: none;
 }
 
+th {
+    width: 25%;
+}
+
 #wrapper {
 	position: relative;
 	/* width: 990px; */
