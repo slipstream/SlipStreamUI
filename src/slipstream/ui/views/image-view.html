@@ -92,7 +92,11 @@
         	                    </tr>
         	                    <tr>
         	                        <td>Category</td>
-        	                        <td id="module-category">Project</td>
+        	                        <td id="module-category">Image</td>
+        	                    </tr>
+        	                    <tr>
+        	                        <td>Type</td>
+        	                        <td>Base Image|Deployment Image|Constructed Image</td>
         	                    </tr>
         	                    <tr>
         	                        <td>Created</td>
@@ -106,21 +110,15 @@
         	                        <td>Owner</td>
         	                        <td id="module-owner">sixsq</td>
         	                    </tr>
-        	                    <tr>
-        	                        <td>Is a base image</td>
-        	                        <td>
-        	                            <input id="module-is-base" disabled="disabled" class="checkbox" type="checkbox" checked="checked" />
-									</td>
-        	                    </tr>
 		                    </tbody>
 	                    </table>
 	                </div>
-	                <h3>Base Image Details</h3>
+	                <h3>Operating System Details</h3>
 	                <div id="module-base-image">
 	                    <table>
                             <tr id="module-platform">
                                 <th>Platform</th>
-                                <td>Cent OS</td>
+                                <td>CentOS</td>
                             </tr>
                             <tr id="module-login">
                                 <th class="row">Login username</th>
@@ -128,11 +126,24 @@
                             </tr>
                         </table>
 	                </div>
-	                <h3>Parent Image</h3>
-	                <div id="module-image-reference">
+	                <h3>Cloud Image Identifiers and Image Hierarchy</h3>
+	                <div id="cloud-image-ids">
 	                    <table>
+                            <tr>
+                                <th>This is a base image</th>
+                                <td>
+                                    <input id="module-is-base" disabled="disabled" class="checkbox" type="checkbox" checked="checked" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Cloud Image IDs</th>
+                                <td>
+                                    <div>StratusLab: e9b531cd-a782-49dd-84c2-fa6387ea5d47<div/>
+                                    <div>Interoute: 11223344<div/>
+                                </td>
+                            </tr>
 		                    <tr id="module-image-ids">
-		                        <th>Parent Machine Image</th>
+		                        <th>This image is based on</th>
                                 <td>
                                     <a href="#">Parent-module</a>
                                 </td>
