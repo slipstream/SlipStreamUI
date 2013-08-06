@@ -28,7 +28,11 @@
             [slipstream.ui.data.user :as user-data]
             [slipstream.ui.data.projects :as projects]
             [slipstream.ui.data.project :as project]
+            [slipstream.ui.data.project-new :as project-new]
+            [slipstream.ui.data.project-root :as project-root]
+            [slipstream.ui.data.project-root-new :as project-root-new]
             [slipstream.ui.data.image :as image]
+            [slipstream.ui.data.image-new :as image-new]
             [slipstream.ui.data.versions :as versions-data]
             [slipstream.ui.data.dashboard :as dashboard-data]
             [slipstream.ui.data.deployment :as deployment])
@@ -38,8 +42,8 @@
 ;; Pages
 ;; =============================================================================
 
-(defn module-page [module edit?]
-  (module/page module edit?))
+(defn module-page [module type]
+  (module/page module type))
 
 (defn configuration-page []
   (configuration/page configuration-data/xml-configuration))
@@ -102,7 +106,16 @@
   (module-edit project/xml-project))
 
 (defn module-project-new []
-  (module-new project/xml-project))
+  (module-new project-new/xml-project))
+
+(defn module-project-root-view []
+  (module-view project-root/xml-project))
+
+(defn module-project-root-edit []
+  (module-edit project-root/xml-project))
+
+(defn module-project-root-new []
+  (module-new project-root-new/xml-project))
 
 (defn module-image-view []
   (module-view image/xml-image))
@@ -111,7 +124,7 @@
   (module-edit image/xml-image))
 
 (defn module-image-new []
-  (module-new image/xml-image))
+  (module-new image-new/xml-image))
 
 (defn module-image-chooser []
   (module-chooser image/xml-image))
@@ -141,6 +154,9 @@
     ["project-view"] (-> (module-project-view) ring.util.response/response constantly)
     ["project-edit"] (-> (module-project-edit) ring.util.response/response constantly)
     ["project-new"] (-> (module-project-new) ring.util.response/response constantly)
+    ["project-root-view"] (-> (module-project-root-view) ring.util.response/response constantly)
+    ["project-root-edit"] (-> (module-project-root-edit) ring.util.response/response constantly)
+    ["project-root-new"] (-> (module-project-root-new) ring.util.response/response constantly)
     ["image-view"] (-> (module-image-view) ring.util.response/response constantly)
     ["image-edit"] (-> (module-image-edit) ring.util.response/response constantly)
     ["image-new"] (-> (module-image-new) ring.util.response/response constantly)

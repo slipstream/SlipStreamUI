@@ -157,13 +157,7 @@
 
 (html/defsnippet summary-new-snip image-new-template-html module-base/module-summary-sel
   [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module))
-  [:#module-is-base] (if (true? (:isbase (module-model/attrs module)))
-                       (html/set-attr :checked "checked")
-                       (html/remove-attr :checked)))
+  (module-base/module-summary-new-trans module))
 
 (defn authz-buttons
   [module]
@@ -261,8 +255,11 @@
 (html/defsnippet new-snip image-new-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
+  
   module-base/module-summary-sel (html/substitute 
-                                   (summary-new-snip module)))
+                                   (summary-new-snip module))
+
+  authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 
 (html/defsnippet edit-interaction-snip image-edit-template-html module-base/module-interaction-top-sel
   [module]

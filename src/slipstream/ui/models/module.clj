@@ -4,6 +4,9 @@
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.authz :as authz]))
 
+(def module-root-uri "module/")
+(def module-root-uri-length (count module-root-uri))
+
 (defn attrs
   [module]
   (common/attrs module))
@@ -72,3 +75,16 @@
 (defn published?
   [module]
   (not (empty? (html/select module [:published]))))
+
+(defn parent-name
+  [module]
+  (str
+    (apply str
+           (drop 
+             module-root-uri-length
+             (:parenturi (attrs module))))
+    "/"))
+
+(defn new?
+  [module]
+  (= "new" (:shortname (attrs module))))

@@ -20,8 +20,6 @@
 
 $(document).ready(function() {
 
-	alternateTableRows();
-
 	$('input[id="savemodulebutton"]').click(function(event){
 		event.preventDefault();
 		$$.hideError();

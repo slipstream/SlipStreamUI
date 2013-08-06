@@ -9,8 +9,14 @@
             [slipstream.ui.views.authz :as authz]
             [slipstream.ui.views.module-base :as module-base]))
 
+;; Selectors
+
 (def children-header-sel [:#children-header])
 (def children-sel [:#children])
+
+;; Templates
+
+(def project-new-template-html "slipstream/ui/views/project-new.html")
 
 (defn authz-buttons
   [module]
@@ -80,22 +86,22 @@
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
 
-;  module-base/module-interaction-top-sel (view-interaction-snip module)  
-;  module-base/module-interaction-bottom-sel (view-interaction-snip module)  
-
   children-sel (html/content (children-snip module))
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip module))
 
   authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 
-(html/defsnippet new-snip module-base/project-new-template-html common/content-sel
+(html/defsnippet summary-new-snip project-new-template-html module-base/module-summary-sel
+  [module]
+  (module-base/module-summary-new-trans module))
+
+(html/defsnippet new-snip project-new-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
-
-  children-sel (html/content (children-snip module))
+  
   module-base/module-summary-sel (html/substitute 
-                                   (module-base/module-summary-new-snip module))
+                                   (summary-new-snip module))
 
   authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 

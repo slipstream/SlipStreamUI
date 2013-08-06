@@ -23,17 +23,13 @@
 
 (def project-view-template-html "slipstream/ui/views/project-view.html")
 (def project-edit-template-html "slipstream/ui/views/project-edit.html")
-(def project-new-template-html "slipstream/ui/views/project-new.html")
 
 ;; Utility
-
-(def module-root-uri "module/")
-(def module-root-uri-length (count module-root-uri))
 
 (defn set-a
   [moduleresourceuri]
   (html/do->
-    (html/content (map str (drop module-root-uri-length moduleresourceuri)))
+    (html/content (map str (drop module-model/module-root-uri-length moduleresourceuri)))
     (html/set-attr :href (str "/" moduleresourceuri))))
 
 (defn to-css-class
@@ -43,6 +39,15 @@
 (defn ischooser?
   [type]
   (= "chooser" type))
+
+(defn titles-with-version
+  [module]
+  (if (true? (module-model/new? module))
+    [(str "New " (module-model/module-category module) "...") 
+     "" 
+     "" 
+     (module-model/module-category module)]
+    (module-model/titles-with-version module)))
 
 (def js-scripts-default
   ["/external/jit/js/jit.js" 
@@ -56,10 +61,10 @@
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [module]
-  header/header-summary-sel (html/substitute 
+  header/header-summary-sel (html/substitute
                               (apply
                                 header/header-titles-snip 
-                                (module-model/titles-with-version module)))
+                                (titles-with-version module)))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
                                 (user/attrs module))))
@@ -79,12 +84,13 @@
   [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module)))
 
-(html/defsnippet module-summary-new-snip project-new-template-html module-summary-sel
+(defn module-summary-new-trans
   [module]
-  [:#module-description] (html/set-attr :value (:description (module-model/attrs module)))
-  [:#module-category :> :span] (html/content (:category (module-model/attrs module)))
-  [:#module-category :> :input] (html/set-attr :value (:category (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
+  (html/transformation
+    [:#parent-module-name] (html/content (module-model/parent-name module))
+    [:#module-category :> :span] (html/content (:category (module-model/attrs module)))
+    [:#module-category :> :input] (html/set-attr :value (:category (module-model/attrs module)))
+    [:#module-owner] (html/content (module-model/owner module))))
 
 (html/defsnippet module-summary-edit-snip project-edit-template-html module-summary-sel
   [module]

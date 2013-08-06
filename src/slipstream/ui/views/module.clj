@@ -98,7 +98,6 @@
   [module category]
   common/content-sel (project/new-snip module))
 
-
 ;; Dispatch function
 
 (defmulti content
@@ -159,7 +158,7 @@
 
 (defmethod js-scripts ["new" "Project"]
   [type category]
-  (concat js-scripts-default ["/js/module-edit.js" "/js/project-edit.js"]))
+  (concat js-scripts-default ["/js/module-new.js" "/js/project-new.js"]))
 
 (defmethod js-scripts ["chooser" "Project"]
   [type category]
@@ -175,7 +174,7 @@
 
 (defmethod js-scripts ["new" "Image"]
   [type category]
-  (concat js-scripts-default ["/js/module-edit.js" "/js/image-new.js"]))
+  (concat js-scripts-default ["/js/module-new.js" "/js/image-new.js"]))
 
 (defmethod js-scripts ["chooser" "Image"]
   [type category]
@@ -191,7 +190,7 @@
 
 (defmethod js-scripts ["new" "Deployment"]
   [type category]
-  (concat js-scripts-default ["/js/module-edit.js" "/js/deployment-new.js"]))
+  (concat js-scripts-default ["/js/module-new.js" "/js/deployment-new.js"]))
 
 (defmethod js-scripts ["chooser" "Deployment"]
   [type category]
