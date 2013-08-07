@@ -281,6 +281,10 @@
   "Generate a checkbox type input element"
   (set-input-value parameter nil))
 
+(defn parameter-help
+  [parameter]
+  (-> parameter (html/select [:instructions]) first :content first))
+
 ;
 ; Parameters
 ;
@@ -298,14 +302,18 @@
      :let 
      [attrs (module-model/attrs parameter)
       description (:description attrs)
-      value (parameter-value parameter)]]
-    [[:td (html/nth-of-type 1)]] (html/content description)
-    [[:td (html/nth-of-type 2)]] (html/content value)
+      value (parameter-value parameter)
+      help (parameter-help parameter)]]
+    [[:td (html/nth-of-type 2)]] (html/content description)
+    [[:td (html/nth-of-type 4)]] (html/content value)
     ; if the value is an input, disable it in view mode
-    [[:td (html/nth-of-type 2)] :> :input] (html/set-attr :disabled "disabled")
-    [[:td (html/nth-of-type 3)]] (html/content "")
-    [[:td html/last-of-type]] nil
-    [[:td html/last-of-type]] nil))
+    [[:td (html/nth-of-type 4)] :> :input] (html/set-attr :disabled "disabled")
+    [[:td (html/nth-of-type 5)] :> :span] (html/content help)
+    [[:td (html/nth-of-type 5)]] (if (empty? help)
+                                    (html/html-content "<td/>")
+                                    identity)
+    [[:td (html/nth-of-type 1)]] nil
+    [[:td (html/nth-of-type 2)]] nil))
 
 (defn- clone-parameters-view-with-category
   [parameters]
@@ -464,7 +472,6 @@
 
 (html/defsnippet parameters-view-tabs-by-category-snip parameters-view-template-html parameters-sel
   [parameters-grouped-by-category]
-  ;image-cloud-configuration-sel (html/remove-attr :id)
   [:ul :> :li] (define-tabs-for-parameters parameters-grouped-by-category) 
   [:#fragment-parameters-something]
     (define-tab-sections-for-parameters-view parameters-grouped-by-category))
