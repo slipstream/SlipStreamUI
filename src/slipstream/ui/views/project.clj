@@ -76,6 +76,14 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-view-snip module))
 
+  module-base/module-interaction-top-sel
+    (html/substitute
+      (view-interaction-snip module))
+
+  module-base/module-interaction-bottom-sel
+    (html/substitute
+      (view-interaction-snip module))
+
   authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 
 (html/defsnippet edit-interaction-snip module-base/project-edit-template-html module-base/module-interaction-top-sel
