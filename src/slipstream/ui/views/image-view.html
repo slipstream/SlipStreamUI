@@ -134,6 +134,10 @@
                                 <td>
                                     <input id="module-is-base" disabled="disabled" class="checkbox" type="checkbox" checked="checked" />
                                 </td>
+                                <td class="help">
+                                    <i class="icon-question-sign icon-2x"></i>
+                                    <span>This image maps to an already created image (possibly manually), which SlipStream didn't create</span>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Cloud Image IDs</th>
@@ -141,11 +145,16 @@
                                     <div>StratusLab: e9b531cd-a782-49dd-84c2-fa6387ea5d47<div/>
                                     <div>Interoute: 11223344<div/>
                                 </td>
+                                <td/>
                             </tr>
 		                    <tr id="module-image-ids">
 		                        <th>This image is based on</th>
                                 <td>
                                     <a href="#">Parent-module</a>
+                                </td>
+                                <td class="help">
+                                    <i class="icon-question-sign icon-2x"></i>
+                                    <span>The image module this image inherits from.</span>
                                 </td>
                             </tr>
                         </table>

@@ -908,26 +908,26 @@ ul.interaction li {
 	border: none;
 }
 
-.data_sheet .help {
-	padding: 0;
-	width: 55px;
+/*.data_sheet .help {
+    padding: 0;
+    width: 55px;
 }
 
 .data_sheet .help span {
-	display: block;
-	margin: 0 auto;
-	width: 20px;
-	height: 20px;
-	background: url('../images/help_icon.png') 0 0 no-repeat;
-	text-indent: -3000px;
-	overflow: hidden;
-	cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    background: url('../images/help_icon.png') 0 0 no-repeat;
+    text-indent: -3000px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .data_sheet .help span:hover {
-	opacity: .85;
+    opacity: .85;
 }
-
+*/
 /* Image Link table */
 
 .resourceuri {
@@ -1111,10 +1111,22 @@ body input.add_item {
 	top: 1px;
 }
 
+.data_sheet .help {
+	width: 20px;
+    cursor: pointer;
+}
+
+.data_sheet .help span {
+    display: none;
+}
+
+.data_sheet .help i:hover {
+    opacity: .85;
+}
+
 .close,
 .delete,
 .ui-dialog-titlebar-close {
-/*	display: block;*/
 	margin: 0 8px;
 	width: 20px;
 	height: 20px;

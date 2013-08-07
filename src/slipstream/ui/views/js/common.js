@@ -797,8 +797,8 @@ var $$ = {
 		window.location = '/module/' + $('#module-name').text() + "/new?category=" + category;
 	},
 
-    decodeHtmlInInstructions: function() {
-     $('.instructions > td').each(function(i, node) {
+    decodeHtmlInHelp: function() {
+     $('.help > span').each(function(i, node) {
          var value = $(node).text();
              value = value.replace('&lt;', '<').replace('&gt;', '>');
          $(node).html(value);
@@ -874,19 +874,31 @@ $(document).ready(function() {
         $( "#logoutdialog" ).dialog( "open" );
     });
     
-    // Convert instruction strings into HTML in the page 
-	$$.decodeHtmlInInstructions();
-
-	$('.instructions').click(function(event){
-		event.preventDefault();
-		var parentTr = $(this).closest('tr');
-		var classTr = parentTr.attr('class');
-		var instructiondTr = parentTr.next('.instructions');
-		instructiondTr.addClass(classTr);
-		instructiondTr.toggle();
-	});
-	
 	$('.ui-widget-overlay, .please_wait').hide();
+
+    //
+	// Help
+	//
+	$('#help-dialog').dialog({
+		autoOpen: false,
+		title: 'Help',
+		modal: true,
+		buttons: {
+			"Thanks": function() {
+				$(this).dialog("close");
+			},
+		}
+	});
+
+    // Convert instruction strings into HTML in the page 
+	$$.decodeHtmlInHelp();
+
+    // When clicking on the question mark, show message dialog with the help info
+	$(".help > i").click(function(event) {
+	    var help = $(event.target).next("span").text();
+	    $("#help-dialog > p").text(help);
+	    $("#help-dialog").dialog('open');
+	});
 })
 
 
