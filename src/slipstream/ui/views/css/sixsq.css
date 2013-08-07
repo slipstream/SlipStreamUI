@@ -51,8 +51,9 @@ img {
 	border: none;
 }
 
-th {
-    width: 25%;
+/* Selects lines that have a header followed by a td*/
+th+td {
+    width: 75%;
 }
 
 #wrapper {
@@ -1113,6 +1114,9 @@ body input.add_item {
 
 .data_sheet .help {
 	width: 20px;
+}
+
+.data_sheet td.help {
     cursor: pointer;
 }
 
