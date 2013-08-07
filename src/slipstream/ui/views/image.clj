@@ -27,26 +27,6 @@
 
 ;; View
 
-(html/defsnippet image-reference-snip image-view-template-html image-reference-sel
-  [module]
-  [image-image-ids-sel :> :td :> [:div html/first-of-type]] nil
-  [image-image-ids-sel :> :td :> [:div html/first-of-type]] nil
-  [image-image-ids-sel :> :td :> [:div html/first-of-type]] nil
-  [image-image-ids-sel :> :td :> [:div html/first-of-type]]
-    (html/clone-for 
-      [id-pair (image-model/cloud-image-ids module)
-      :let
-        [attrs (module-model/attrs id-pair)
-         cloud-service-name (:cloudservicename attrs)
-         cloud-image-identifier (:cloudimageidentifier attrs)]]
-        (html/content (str cloud-service-name ": " cloud-image-identifier)))
-  [image-is-base-sel :> :td :> :input] 
-    (if (= "true" (:isbase (module-model/attrs module)))
-      (html/set-attr :checked "checked")
-      (html/remove-attr :checked))
-  [image-platform-sel :> :td] (html/content (:platform (module-model/attrs module)))
-  [module-base/module-login-sel :> :td] (html/content (:loginuser (module-model/attrs module))))
-
 (html/defsnippet creation-snip image-view-template-html image-creation-sel
   [recipe prerecipe packages]
 
@@ -138,10 +118,7 @@
   [:#module-category] (html/content (:category (module-model/attrs module)))
   [:#module-created] (html/content (:creation (module-model/attrs module)))
   [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module))
-  [:#module-is-base] (if (true? (:isbase (module-model/attrs module)))
-                       (html/set-attr :checked "checked")
-                       (html/remove-attr :checked)))
+  [:#module-owner] (html/content (module-model/owner module)))
 
 (html/defsnippet summary-edit-snip image-edit-template-html module-base/module-summary-sel
   [module]
@@ -192,8 +169,7 @@
       #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
       (if published?
         identity
-        nil)
-      )))
+        nil))))
 
 (html/defsnippet view-interaction-snip image-view-template-html module-base/module-interaction-top-sel
   [module]
@@ -207,7 +183,28 @@
    
   [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
   
-  image-reference-sel (html/substitute (image-reference-snip module))
+  [image-image-ids-sel :> [:div html/first-of-type]]
+    (html/clone-for 
+      [id-pair (image-model/cloud-image-ids module)
+      :let
+        [attrs (module-model/attrs id-pair)
+         cloud-service-name (:cloudservicename attrs)
+         cloud-image-identifier (:cloudimageidentifier attrs)]]
+        (html/content (str cloud-service-name ": " cloud-image-identifier)))
+
+  [image-is-base-sel]
+    (if (module-model/base? module)
+      (html/set-attr :checked "checked")
+      (html/remove-attr :checked))
+  
+  [image-platform-sel :> :td] (html/content (:platform (module-model/attrs module)))
+  
+  [module-base/module-login-sel :> :td] (html/content (:loginuser (module-model/attrs module)))
+
+  [image-reference-sel :> :td :> :a] (module-base/set-a (module-model/parent-uri module))
+  [image-reference-sel] (if (module-model/base? module)
+                          nil
+                          identity)
   
   image-cloud-configuration-sel
     (html/substitute 
