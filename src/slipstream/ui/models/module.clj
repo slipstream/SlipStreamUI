@@ -76,15 +76,23 @@
   [module]
   (not (empty? (html/select module [:published]))))
 
+(defn parent-uri
+  [module]
+  (:parenturi (attrs module)))
+  
 (defn parent-name
   [module]
   (str
     (apply str
            (drop 
              module-root-uri-length
-             (:parenturi (attrs module))))
+             (parent-uri module)))
     "/"))
 
 (defn new?
   [module]
   (= "new" (:shortname (attrs module))))
+
+(defn base?
+  [image]
+  (= "true" (:isbase (attrs image))))
