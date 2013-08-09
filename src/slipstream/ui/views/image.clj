@@ -147,6 +147,18 @@
   [module]
   (module-base/module-summary-new-trans module))
 
+(defn authz-button
+ [can?]
+ (if can?
+   (html/remove-attr :disabled) 
+   (html/set-attr :disabled "disabled")))
+
+(defn remove-elem-if
+  [remove?]
+  (if remove?
+    nil
+    identity))
+
 (defn authz-buttons
   [module]
   (let
@@ -161,26 +173,18 @@
      published? (module-model/published? module)]
     (html/transformation
       #{[:#build-button-top] [:#build-button-bottom]} 
-      (if can-post?
-        (html/remove-attr :disabled) 
-        (html/set-attr :disabled "disabled"))
-      #{[:#edit-button-top] [:#edit-button-bottom]} 
-      (if can-put?
-        (html/remove-attr :disabled) 
-        (html/set-attr :disabled "disabled"))
+      (authz-button can-post?)
+      #{[:#edit-button-top] [:#edit-button-bottom] [:#save-button-top] [:#save-button-bottom]} 
+      (authz-button can-put?)
+      #{[:#delete-button-top] [:#delete-button-bottom]} 
+      (authz-button can-delete?)
       #{module-base/module-publish-button-top module-base/module-publish-button-bottom
         module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
-      (if super?
-        (html/remove-attr :disabled) 
-        (html/set-attr :disabled "disabled"))
+      (authz-button super?)
       #{module-base/module-publish-button-top module-base/module-publish-button-bottom} 
-      (if published?
-        nil
-        identity)
+      (remove-elem-if published?)
       #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
-      (if published?
-        identity
-        nil))))
+      (remove-elem-if (not published?)))))
 
 (html/defsnippet view-interaction-snip image-view-template-html module-base/module-interaction-top-sel
   [module]
