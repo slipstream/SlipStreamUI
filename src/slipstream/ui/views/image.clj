@@ -134,8 +134,8 @@
 (html/defsnippet summary-edit-snip image-edit-template-html module-base/module-summary-sel
   [module]
   [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
-  [:#module-comment] (html/content (module-model/module-comment module))
+  [:#module-description] (html/set-attr :value (:description (module-model/attrs module)))
+  [:#module-comment] (html/set-attr :value (module-model/module-comment module))
   [:#module-category] (html/content (:category (module-model/attrs module)))
   [:#module-created] (html/content (:creation (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module))
@@ -276,11 +276,81 @@
 (html/defsnippet edit-snip image-edit-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
-
-  module-base/module-interaction-top-sel (edit-interaction-snip module)  
-  module-base/module-interaction-bottom-sel (edit-interaction-snip module)  
-  
   module-base/module-summary-sel (html/substitute 
-                                   (module-base/module-summary-edit-snip module)))
+                                   (summary-edit-snip module))
+
+  [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
+  
+  [image-image-ids-sel :> [:div html/first-of-type]]
+    (html/clone-for 
+      [id-pair (image-model/cloud-image-ids module)
+      :let
+        [attrs (module-model/attrs id-pair)
+         cloud-service-name (:cloudservicename attrs)
+         cloud-image-identifier (:cloudimageidentifier attrs)]]
+        (html/content (str cloud-service-name ": " cloud-image-identifier)))
+
+  [image-is-base-sel]
+    (if (module-model/base? module)
+      (html/set-attr :checked "checked")
+      (html/remove-attr :checked))
+  
+  [image-platform-sel :> :td] (html/content 
+                                (common/gen-select
+                                  "platform"
+                                  platforms
+                                  (:platform (module-model/attrs module))))
+
+  [module-base/module-login-sel :> :td] (html/content (:loginuser (module-model/attrs module)))
+
+  [image-reference-sel :> :td :> :a] (module-base/set-a (module-model/parent-uri module))
+  
+  image-cloud-configuration-sel
+    (html/substitute 
+      (common/parameters-edit-tabs-by-category-snip 
+        (common-model/filter-not-in-categories
+          (common-model/parameters module)
+          deployment-parameter-categories)))
+
+  image-creation-sel (html/substitute 
+                       (creation-snip
+                         (image-model/creation-recipe module)
+                         (image-model/creation-prerecipe module)
+                         (image-model/creation-packages module)))
+  [#{image-creation-sel image-creation-header-sel}] 
+    (if (image-model/creates? module)
+      identity
+      nil)
+
+  image-deployment-sel (html/substitute
+                         (deployment-snip 
+                           (image-model/deployment-execute module)
+                           (image-model/deployment-report module)
+                           (common-model/filter-by-categories 
+                             (common-model/parameters module)
+                             deployment-parameter-categories)))
+  [#{image-deployment-sel image-deployment-header-sel}] 
+    (if (image-model/deploys? module)
+      identity
+      nil)
+    
+  [:#publish-form] (html/set-attr :action (str "/"
+                                           (common-model/resourceuri module)
+                                           "/publish"))
+
+  module-base/module-interaction-top-sel
+    (html/substitute
+      (edit-interaction-snip module))
+
+  module-base/module-interaction-bottom-sel
+    (html/substitute
+      (edit-interaction-snip module))
+
+  authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
+
+
+
+
+
 
 
