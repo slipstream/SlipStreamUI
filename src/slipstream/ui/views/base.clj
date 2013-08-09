@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.header :as header]))
 
@@ -21,4 +22,5 @@
   [:#title] (html/content title)
   header/header-sel (html/substitute header)
   common/content-sel (html/substitute content)
+  [:span html/text-node] (html/replace-vars messages/help)
   footer/footer-sel (html/substitute footer))

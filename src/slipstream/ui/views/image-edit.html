@@ -135,7 +135,7 @@
                                                 Description
                                             </td>
                                             <td>
-                                                <input name="moduleDescription" id="module-description" type="text" value="Description...">
+                                                <input name="moduleDescription" id="module-description" type="text" value="Description..." />
                                             </td>
                                         </tr>
                                         <tr>
@@ -143,7 +143,7 @@
                                                 Comment
                                             </td>
                                             <td>
-                                                Latest comment...
+                                                <input disabled="disabled" name="moduleComment" id="module-comment" type="text" value="Comment..." />
                                             </td>
                                         </tr>
                                         <tr>
@@ -181,50 +181,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <h3>
-                                Reference
-                            </h3>
-                            <div>
+        	                <h3>Operating System Details</h3>
+        	                <div id="module-os-details">
                                 <table>
-                                    <tr>
-                                        <th>
-                                            Machine Image Reference
-                                        </th>
-                                        <td>
-                                            <input name="moduleReference" id="moduleReferenceInput" type="text" value="" readonly="readonly">
-                                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">Choose Reference</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Machine Image IDs
-                                        </th>
-                                        <td>
-                                            <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
-                                            </div>
-                                            <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
-                                            </div>
-                                            <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Base image?
-                                        </th>
-                                        <td>
-                                            <input id="isbase" name="isbase" type="checkbox" checked="checked">
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                    <tr id="module-platform">
                                         <th>
                                             Platform
                                         </th>
                                         <td>
-                                            <select name="platform" id="platform">
+                                            <select name="platform">
                                                 <option value="centos">
                                                     Cent OS
                                                 </option>
@@ -262,40 +227,74 @@
                                     </tr>
                                 </table>
                             </div>
-                            <h3>
-                                Parameters
-                            </h3>
-                            <div class="tab_block">
-                                <ul class="tabs inner_tabs">
-                                    <li>
-                                        <a href="#fragment-general">General</a>
-                                    </li>
-                                    <li>
-                                        <a href="#fragment-input">Input</a>
-                                    </li>
-                                    <li>
-                                        <a href="#fragment-output">Output</a>
-                                    </li>
-                                    <li>
-                                        <a href="#fragment-stratuslab">Cloud: stratuslab</a>
-                                    </li>
-                                </ul>
-                                <div id="fragment-general">
-                                    <table id="parameter-General" class="parameters">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Name
-                                                </th>
-                                                <th>
-                                                    Description
-                                                </th>
-                                                <th>
-                                                    Value
-                                                </th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
+        	                <h3>Cloud Image Identifiers and Image Hierarchy</h3>
+        	                <div id="cloud-image-ids">
+        	                    <table>
+                                    <tr>
+                                        <th>
+                                            Base image?
+                                        </th>
+                                        <td>
+                                            <input id="isbase" name="isbase" type="checkbox" checked="checked">
+                                        </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>${help-module-is-base}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Machine Image IDs
+                                        </th>
+                                        <td>
+                                            <div>
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                            </div>
+                                            <div>
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                            </div>
+                                            <div>
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                            </div>
+                                        </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>${help-cloud-image-ids}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Machine Image Reference
+                                        </th>
+                                        <td>
+                                            <input name="moduleReference" id="moduleReferenceInput" type="text" value="" readonly="readonly">
+                                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">
+                                                <i class="icon-eye-open"/> Choose Reference
+                                            </button>
+                                            <td class="help">
+                                                <i class="icon-question-sign icon-2x"></i>
+                                                <span>${help-reference-module}</span>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+        	                <h3>Cloud Configuration</h3>
+        	                <div id="cloud-configuration" class="tab_block">
+        	                    <ul class="tabs inner_tabs">
+                                    <li><a href="#fragment-parameters-Cloud">Cloud</a><span></span></li>
+                                    <li><a href="#fragment-parameters-stratuslab">stratuslab</a><span></span></li>
+        	                    </ul>
+        	                    <div id="fragment-parameters-Cloud">
+        	                        <table>
+        		                        <thead>
+        		                            <tr>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Value</th>
+                                                <th> </th>
+        		                            </tr>
+        		                        </thead>
                                         <tbody>
                                             <tr id="parameter-General--entry--1">
                                                 <td>
@@ -322,23 +321,20 @@
                                                 <td></td>
                                             </tr>
                                         </tbody>
-                                    </table><button class="bottom_section_button add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addParameter(this);"> Add Parameter</button>
+                                    </table>
+                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                        <i class="icon-plus"></i> Add Parameter
+                                    </button>
                                 </div>
-                                <div id="fragment-input">
+                                <div id="fragment-parameters-stratuslab">
                                     <table>
                                         <thead>
-                                            <tr>
-                                                <th>
-                                                    Name
-                                                </th>
-                                                <th>
-                                                    Description
-                                                </th>
-                                                <th>
-                                                    Value
-                                                </th>
-                                                <th></th>
-                                            </tr>
+        		                            <tr>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Value</th>
+                                                <th> </th>
+        		                            </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -366,13 +362,10 @@
                                                 <td>
                                             </tr>
                                         </tbody>
-                                    </table><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Add Parameter</button>
-                                </div>
-                                <div id="fragment-output">
-                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Add Parameter</button>
-                                </div>
-                                <div id="fragment-stratuslab">
-                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Add Parameter</button>
+                                    </table>
+                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                        <i class="icon-plus"></i> Add Parameter
+                                    </button>
                                 </div>
                             </div>
                             <h3>
