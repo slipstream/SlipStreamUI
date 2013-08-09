@@ -118,20 +118,8 @@
     ; default cloud
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 3)] :> :td :> :select]
     (html/substitute
-      (html/html-snippet
-        (str "<select name='" id-prefix "cloudservice--value'>\n")
-             (apply str
-                    (for [cloud available-clouds]
-                      (str 
-                        "<option value='" cloud "'"
-                        (if (= cloud (:cloudservice attrs))
-                          " selected"
-                          "")
-                        ">"
-                        cloud
-                        "</option>\n"
-                        )))
-             "</select>\n"))
+      (html/html-snippet  
+        (common/gen-select (str id-prefix "cloudservice--value") available-clouds (:cloudservice attrs))))
     
     ; parameter mapping
     parameters-mapping-sel

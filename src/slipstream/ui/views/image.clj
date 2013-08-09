@@ -25,6 +25,17 @@
 (def image-deployment-header-sel [:#deployment-header])
 (def deployment-parameter-categories ["Input" "Output"])
 
+(def platforms
+  ["centos"
+   "debian"
+   "fedora"
+   "opensuse"
+   "redhat"
+   "sles"
+   "ubuntu"
+   "windows"
+   "other"])
+
 ;; View
 
 (html/defsnippet creation-snip image-view-template-html image-creation-sel

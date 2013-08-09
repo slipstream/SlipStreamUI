@@ -76,6 +76,24 @@
       (count clear-string)
       (repeat "●"))))
 
+(defn gen-select
+  [name options selected]
+  (html/html-snippet
+    (str "<select " 
+         name ">\n" 
+         (apply str
+                (for [option options]
+                  (str 
+                    "<option value='" option "'"
+                    (if (= option selected)
+                      " selected"
+                      "")
+                    "'>"
+                    option
+                    "</option>\n"
+                    )))
+         "</select>\n")))
+
 ;
 ; Parameter
 ;
@@ -240,21 +258,7 @@
                   (html/select parameter [:enumValues :string]))
         selected (param-val parameter)]
     (html/html-snippet
-      (str "<select"
-           (insert-name tr-id)
-           ">\n" 
-           (apply str
-                  (for [option options]
-                    (str 
-                      "<option value='" option "'"
-                      (if (= option selected)
-                        " selected"
-                        "")
-                      "'>"
-                      option
-                      "</option>\n"
-                      )))
-           "</select>\n"))))
+      (gen-select (insert-name tr-id) options selected))))
 
 (defmethod set-input-value "Boolean"
   [parameter tr-id]
@@ -310,7 +314,7 @@
     [[:td (html/nth-of-type 4)] :> :input] (html/set-attr :disabled "disabled")
     [[:td (html/nth-of-type 5)] :> :span] (html/content help)
     [[:td (html/nth-of-type 5)]] (if (empty? help)
-                                    (html/html-content "<td/>")
+                                    (html/content "")
                                     identity)
     [[:td (html/nth-of-type 1)]] nil
     [[:td (html/nth-of-type 2)]] nil))
@@ -323,13 +327,18 @@
      [attrs (module-model/attrs parameter)
       description (:description attrs)
       category (:category attrs)
-      value (parameter-value parameter)]]
-    [[:td (html/nth-of-type 1)]] (html/content description)
-    [[:td (html/nth-of-type 2)]] (html/content category)
-    [[:td (html/nth-of-type 3)]] (html/content value)
+      value (parameter-value parameter)
+      help (parameter-help parameter)]]
+    [[:td (html/nth-of-type 2)]] (html/content description)
+    [[:td (html/nth-of-type 3)]] (html/content category)
+    [[:td (html/nth-of-type 4)]] (html/content value)
     ; if the value is an input, disable it in view mode
-    [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :disabled "disabled")
-    [[:td html/last-of-type]] nil))
+    [[:td (html/nth-of-type 4)] :> :input] (html/set-attr :disabled "disabled")
+    [[:td (html/nth-of-type 5)] :> :span] (html/content help)
+    [[:td (html/nth-of-type 5)]] (if (empty? help)
+                                   (html/content "")
+                                   identity)
+    [[:td (html/nth-of-type 1)]] nil))
 
 (defn- clone-parameters-view-with-name-and-category
   [parameters]
@@ -340,13 +349,18 @@
       name (:name attrs)
       description (:description attrs)
       category (:category attrs)
-      value (parameter-value parameter)]]
+      value (parameter-value parameter)
+      help (parameter-help parameter)]]
     [[:td (html/nth-of-type 1)]] (html/content name)
     [[:td (html/nth-of-type 2)]] (html/content description)
     [[:td (html/nth-of-type 3)]] (html/content category)
     [[:td (html/nth-of-type 4)]] (html/content value)
     ; if the value is an input, disable it in view mode
-    [[:td (html/nth-of-type 4)] :> :input] (html/set-attr :disabled "disabled")))
+    [[:td (html/nth-of-type 4)] :> :input] (html/set-attr :disabled "disabled")
+    [[:td (html/nth-of-type 5)] :> :span] (html/content help)
+    [[:td (html/nth-of-type 5)]] (if (empty? help)
+                                   (html/content "")
+                                   identity)))
 
 (html/defsnippet clone-parameters-edit-snip parameter-edit-template-html [:#parameter :> :table :> :tbody :> :tr]
   [parameters]

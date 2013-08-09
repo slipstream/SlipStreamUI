@@ -40,7 +40,8 @@
 <entry>
 <string>hostname</string>
 <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='hostname/ip of the image' isSet='false' mandatory='true' name='hostname' readonly='false' type='String'>
-<value>123.234.345</value>
+   <value>123.234.345</value>
+   <instructions><![CDATA[Some help :-)]]></instructions>
 </parameter>
 </entry>
 <entry>
@@ -83,7 +84,7 @@
 <target name='report' runInBackground='false'>report target</target>
 </targets>
 <packages class='org.hibernate.collection.PersistentBag'>
-<package key='key' name='apache2' repository='repo'/>
+<package key='key' name='httpd' repository='repo'/>
 </packages>
 <prerecipe>some pre-recipe</prerecipe>
 <recipe>some recipe</recipe>
@@ -92,5 +93,5 @@
 <cloudImageIdentifier cloudImageIdentifier='abc' cloudServiceName='my-cloud' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'></cloudImageIdentifier>
 </cloudImageIdentifiers>
 <extraDisks class='org.hibernate.collection.PersistentBag'></extraDisks>
-<user issuper='false' resourceUri='user/super' name='toto'></user>
+<user issuper='false' resourceUri='user/super' name='super'></user>
 </imageModule>")))
