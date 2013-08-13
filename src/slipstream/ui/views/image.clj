@@ -311,7 +311,7 @@
          cloud-image-identifier (:cloudimageidentifier attrs)]]
       (html/content
         (html/html-snippet
-          (str "<span>" cloud-service-name ": </span><input name='cloudimageid_imageid_" cloud-service-name " type='text' value='" cloud-image-identifier "'>"))))
+          (str "<span>" cloud-service-name ": </span><input name='cloudimageid_imageid_" cloud-service-name "' type='text' value='" cloud-image-identifier "' />"))))
 
   [image-is-base-sel]
     (if (module-model/base? module)
