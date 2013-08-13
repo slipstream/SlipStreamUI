@@ -340,10 +340,6 @@
                          (image-model/creation-recipe module)
                          (image-model/creation-prerecipe module)
                          (image-model/creation-packages module)))
-  [#{image-creation-sel image-creation-header-sel}] 
-    (if (image-model/creates? module)
-      identity
-      nil)
 
   image-deployment-sel (html/substitute
                          (deployment-edit-snip 
