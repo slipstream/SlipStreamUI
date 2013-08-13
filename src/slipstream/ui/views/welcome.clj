@@ -7,6 +7,7 @@
             [slipstream.ui.models.version :as version]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
+            [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header-views]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.project :as project]
@@ -16,11 +17,10 @@
 
 (html/defsnippet header-titles-snip welcome-template-html header-views/titles-sel
   []
-  header-views/titles-sel identity)
+  identity)
 
 (html/defsnippet header-snip header-views/header-template-html header-views/header-sel
   [metadata]
-  header-views/header-sel identity
   header-views/titles-sel (html/substitute (header-titles-snip))
   header-views/header-top-bar-sel (html/substitute
                                     (header-views/header-top-bar-snip
@@ -51,9 +51,19 @@
       (modules-model/children-with-filter modules #(not= "true" (:published (module-model/attrs %))))
       (modules-model/children-with-filter modules #(= "true" (:published (module-model/attrs %)))))))
 
+
+(def js-scripts-default
+  ["/js/welcome.js"])
+
+(defn js-scripts
+  [type]
+  (if (= "chooser" type)
+    (concat js-scripts-default (module/js-scripts-chooser))
+    js-scripts-default))
+
 (defn page [root-projects type]
   (base/base 
-    {:js-scripts ["/js/welcome.js"]
+    {:js-scripts (js-scripts type)
      :title (common/title "Welcome")
      :header (module-base/header root-projects type header-snip)
      :content (content-snip root-projects)
