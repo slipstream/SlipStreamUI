@@ -20,6 +20,17 @@
 
 $(document).ready(function() {
 
+    // is base checkbox
+	$('#module-is-base').click(function(event) { 
+		if($(event.target).is(':checked')) {
+			$('#moduleReferenceChooser').attr('disabled', 'disabled');
+			$('#module-image-ids input').removeAttr('disabled');
+		} else {
+			$('#moduleReferenceChooser').removeAttr('disabled');
+			$('#module-image-ids input').attr('disabled', 'disabled');
+		};
+	});
+
     // Save button
 	$('#save-button-top, #save-button-bottom').click(function(event){
 		$$.hideError();
