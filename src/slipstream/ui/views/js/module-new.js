@@ -36,6 +36,9 @@ $(document).ready(function() {
 				$(this).dialog("close");
 				$("#module-comment").val($("#save-comment").val());
 				var parentname = $("#parent-module-name").text();
+				if (parentname === "/") {
+				    parentname = "";
+				}
             	var modulename =  $("#module-name").val();
             	var fullname = parentname + modulename;
             	$("#module-name").val(fullname);
