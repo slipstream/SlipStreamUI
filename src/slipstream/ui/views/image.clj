@@ -290,14 +290,24 @@
 
   authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 
-(html/defsnippet new-snip image-new-template-html common/content-sel
+(html/defsnippet new-interaction-snip image-new-template-html module-base/module-interaction-top-sel
   [module]
-  common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
-  
+  identity)
+
+(html/defsnippet new-snip image-edit-template-html common/content-sel
+  [module]
+  html/this-node (html/substitute (edit-snip module))
+
   module-base/module-summary-sel (html/substitute 
                                    (summary-new-snip module))
-
-  authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
+  
+  module-base/module-interaction-top-sel
+    (html/substitute
+      (new-interaction-snip module))
+  
+  module-base/module-interaction-bottom-sel
+    (html/substitute
+      (new-interaction-snip module)))
 
 (html/defsnippet edit-interaction-snip image-edit-template-html module-base/module-interaction-top-sel
   [module]
@@ -379,10 +389,3 @@
       (edit-interaction-snip module))
 
   authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
-
-
-
-
-
-
-

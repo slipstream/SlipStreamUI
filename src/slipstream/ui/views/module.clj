@@ -174,7 +174,7 @@
 
 (defmethod js-scripts ["new" "Image"]
   [type category]
-  (concat js-scripts-default ["/js/module-new.js" "/js/image-new.js"]))
+  (concat js-scripts-default ["/js/module-new.js" "/js/module-edit.js" "/js/image-new.js"]))
 
 (defmethod js-scripts ["chooser" "Image"]
   [type category]
