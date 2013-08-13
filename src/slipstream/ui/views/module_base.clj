@@ -112,10 +112,10 @@
       "module")))
 
 (defn header
-  [metadata type snip]
+  [metadata type snip-fn]
   (if (ischooser? type)
     nil
-    (snip metadata)))
+    (snip-fn metadata)))
   
 (defn footer
   [type]
