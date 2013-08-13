@@ -743,12 +743,7 @@ var $$ = {
             <input name="parameter-' + entryPart + '--value" value="" placeholder=""> \
         </td> \
         <td> \
-            <button class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" \
-                    role="button" \
-                    aria-disabled="false" \
-                    onClick="$$.removeTrFromButton(this)"> \
-        	    <span class="ui-button-text">Close</span> \
-        	</button> \
+	        <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
         </td> \
     </tr>');
 
@@ -778,10 +773,7 @@ var $$ = {
 			<input name="parameter-' + entryPart + '--key" value=""> \
 		</td> \
 		<td> \
-        <button class="close small_close" \
-                onClick="$$.removeTrFromButton(this)"> \
-    	    <span class="ui-button-text">Close</span> \
-    	</button> \
+    	    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
         </td> \
         </tr>');
 
@@ -790,6 +782,7 @@ var $$ = {
         newPackage.appendTo(table);
 
         setHash();
+        return false;
     },
     
 	newModuleRedirect: function($this) {

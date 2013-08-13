@@ -38,83 +38,107 @@
 
 ;; View
 
-(html/defsnippet creation-snip image-view-template-html image-creation-sel
+(defn- creation-trans
   [recipe prerecipe packages]
 
-  [:ul :> :#fragment-creation-recipe-header]
-  (if (string/blank? recipe)
-    nil
-    identity)
-  [:ul :> :#fragment-creation-packages-header]
-  (if (empty? packages)
-    nil
-    identity)
-  [:ul :> :#fragment-creation-prerecipe-header]
-  (if (string/blank? prerecipe)
-    nil
-    identity)
-
-  [:#fragment-creation-recipe :> :table :tbody :tr :td :textarea]
-  (html/content recipe)
-  [:#fragment-creation-recipe]
-  (if (string/blank? recipe)
-    nil
-    identity)
-
-  [:#fragment-creation-packages :> :table :tbody :tr]
-  (html/clone-for
-    [package packages
-     :let [attrs (module-model/attrs package)]]
-    [[:td (html/nth-of-type 1)]] (html/content (:name attrs))
-    [[:td (html/nth-of-type 2)]] (html/content (:repository attrs))
-    [[:td (html/nth-of-type 3)]] (html/content (:key attrs)))
-  [:#fragment-creation-packages]
-  (if (empty? packages)
-    nil
-    identity)
-
-  [:#fragment-creation-prerecipe :> :table :tbody :tr :td :textarea]
-  (html/content prerecipe)
-  [:#fragment-creation-prerecipe]
-  (if (string/blank? prerecipe)
-    nil
-    identity))
+  (html/transformation    
+    [:ul :> :#fragment-creation-recipe-header]
+    (if (string/blank? recipe)
+      nil
+      identity)
+    [:ul :> :#fragment-creation-packages-header]
+    (if (empty? packages)
+      nil
+      identity)
+    [:ul :> :#fragment-creation-prerecipe-header]
+    (if (string/blank? prerecipe)
+      nil
+      identity)
+    
+    [:#recipe]
+    (html/content recipe)
+    [:#fragment-creation-recipe]
+    (if (string/blank? recipe)
+      nil
+      identity)
+    
+    [:#packages]
+    (html/clone-for
+      [package packages
+       :let [attrs (module-model/attrs package)
+             name (:name attrs)
+             repository (:repository attrs)
+             key (:key attrs)]]
+      [[:td (html/nth-of-type 1)] :> :span] (html/content name)
+      [[:td (html/nth-of-type 1)] :> :input] (html/set-attr :value name)
+      [[:td (html/nth-of-type 2)] :> :span] (html/content repository)
+      [[:td (html/nth-of-type 2)] :> :input] (html/set-attr :value repository)
+      [[:td (html/nth-of-type 3)] :> :span] (html/content key)
+      [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :value key))
+    [:#fragment-creation-packages]
+    (if (empty? packages)
+      nil
+      identity)
+    
+    [:#fragment-creation-prerecipe :> :table :tbody :tr :td :textarea]
+    (html/content prerecipe)
+    [:#fragment-creation-prerecipe]
+    (if (string/blank? prerecipe)
+      nil
+      identity)))
   
-(html/defsnippet deployment-snip image-view-template-html image-deployment-sel
-  [execute report parameters]
-  [:ul :> :#fragment-deployment-execute-header]
+(html/defsnippet creation-view-snip image-view-template-html image-creation-sel
+  [recipe prerecipe packages]
+  (creation-trans recipe prerecipe packages))
+
+(html/defsnippet creation-edit-snip image-edit-template-html image-creation-sel
+  [recipe prerecipe packages]
+  (creation-trans recipe prerecipe packages))
+
+(defn- deployment-trans
+  [execute report parameters parameters-gen]
+  (html/transformation
+    [:ul :> :#fragment-deployment-execute-header]
     (if (string/blank? execute)
       nil
       identity)
-  [:ul :> :#fragment-deployment-report-header]
+    [:ul :> :#fragment-deployment-report-header]
     (if (string/blank? report)
       nil
       identity)
-  [:ul :> :#fragment-deployment-parameters-header]
+    [:ul :> :#fragment-deployment-parameters-header]
     (if (empty? parameters)
       nil
       identity)
-
-  [:#fragment-deployment-execute :> :table :tbody :tr :td :textarea]
+    
+    [:#execute]
     (html/content execute)
-  [:#fragment-deployment-execute]
+    [:#fragment-deployment-execute]
     (if (string/blank? execute)
       nil
       identity)
-
-  [:#fragment-deployment-report :> :table :tbody :tr :td :textarea]
+    
+    [:#report]
     (html/content report)
-  [:#fragment-deployment-report]
+    [:#fragment-deployment-report]
     (if (string/blank? report)
       nil
       identity)
 
-  [:#fragment-deployment-parameters]
-    (html/content (common/parameters-view-with-name-and-category-snip parameters))
-  [:#fragment-deployment-parameters]
+    [:#fragment-deployment-parameters]
+    (html/content (parameters-gen parameters))
+    [:#fragment-deployment-parameters]
     (if (empty? parameters)
       nil
-      identity))
+      identity)))
+
+(html/defsnippet deployment-view-snip image-view-template-html image-deployment-sel
+  [execute report parameters]
+  (deployment-trans execute report parameters common/parameters-view-with-name-and-category-snip))
+
+(html/defsnippet deployment-edit-snip image-edit-template-html image-deployment-sel
+  [execute report parameters]
+  (deployment-trans execute report parameters common/parameters-edit-all-snip))
 
 (html/defsnippet summary-view-snip image-view-template-html module-base/module-summary-sel
   [module]
@@ -130,6 +154,8 @@
   [:#module-created] (html/content (:creation (module-model/attrs module)))
   [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module)))
+
+;; Edit
 
 (html/defsnippet summary-edit-snip image-edit-template-html module-base/module-summary-sel
   [module]
@@ -216,7 +242,7 @@
   
   [module-base/module-login-sel :> :td] (html/content (:loginuser (module-model/attrs module)))
 
-  [image-reference-sel :> :td :> :a] (module-base/set-a (module-model/parent-uri module))
+  [image-reference-sel :> :td :> :a] (common/set-a (module-model/parent-uri module))
   [image-reference-sel] (if (module-model/base? module)
                           nil
                           identity)
@@ -229,7 +255,7 @@
           deployment-parameter-categories)))
 
   image-creation-sel (html/substitute 
-                       (creation-snip
+                       (creation-view-snip
                          (image-model/creation-recipe module)
                          (image-model/creation-prerecipe module)
                          (image-model/creation-packages module)))
@@ -239,7 +265,7 @@
       nil)
 
   image-deployment-sel (html/substitute
-                         (deployment-snip 
+                         (deployment-view-snip 
                            (image-model/deployment-execute module)
                            (image-model/deployment-report module)
                            (common-model/filter-by-categories 
@@ -292,7 +318,9 @@
         [attrs (module-model/attrs id-pair)
          cloud-service-name (:cloudservicename attrs)
          cloud-image-identifier (:cloudimageidentifier attrs)]]
-        (html/content (str cloud-service-name ": " cloud-image-identifier)))
+      (html/content
+        (html/html-snippet
+          (str "<span>" cloud-service-name ": </span><input name='cloudimageid_imageid_" cloud-service-name " type='text' value='" cloud-image-identifier "'>"))))
 
   [image-is-base-sel]
     (if (module-model/base? module)
@@ -305,9 +333,9 @@
                                   platforms
                                   (:platform (module-model/attrs module))))
 
-  [module-base/module-login-sel :> :td] (html/content (:loginuser (module-model/attrs module)))
+  [module-base/module-login-sel] (html/set-attr :value (:loginuser (module-model/attrs module)))
 
-  [image-reference-sel :> :td :> :a] (module-base/set-a (module-model/parent-uri module))
+  [image-reference-sel] (html/set-attr :value (module-model/parent-uri module))
   
   image-cloud-configuration-sel
     (html/substitute 
@@ -317,7 +345,7 @@
           deployment-parameter-categories)))
 
   image-creation-sel (html/substitute 
-                       (creation-snip
+                       (creation-edit-snip
                          (image-model/creation-recipe module)
                          (image-model/creation-prerecipe module)
                          (image-model/creation-packages module)))
@@ -327,7 +355,7 @@
       nil)
 
   image-deployment-sel (html/substitute
-                         (deployment-snip 
+                         (deployment-edit-snip 
                            (image-model/deployment-execute module)
                            (image-model/deployment-report module)
                            (common-model/filter-by-categories 

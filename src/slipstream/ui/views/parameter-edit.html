@@ -8,7 +8,7 @@
 <body>
 
 <div>
-                        <div id="parameter">
+                        <div id="parameter-description-edit-value">
                             <table>
                                 <thead>
                                     <tr>
@@ -29,7 +29,42 @@
                                         <td>
                                             <input name="parameter-Cloud--1--value" />
                                         </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>Some Help</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="parameter-edit-all">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Value</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="parameter-Cloud--1">
                                         <td>
+                                            <input name="parameter-Cloud--1--name" value="extra.disk.volatile" />
+                                            <input hidden="hidden" name="parameter-Cloud--1--type" value="String" />
+                                        </td>
+                                        <td>
+                                            <input name="parameter-Cloud--1--description" value="Volatile extra disk" />
+                                        </td>
+                                        <td>
+                                            <input name="parameter-Cloud--1--category" value="Cloud" />
+                                        </td>
+                                        <td>
+                                            <input name="parameter-Cloud--1--value" />
+                                        </td>
+                                        <td style="width: 5%">
+                                            <i class="icon-remove-sign" onclick="$$.removeTrFromButton(this);"></i>
                                         </td>
                                     </tr>
                                 </tbody>

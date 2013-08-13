@@ -222,7 +222,7 @@
                                             Login username
                                         </th>
                                         <td>
-                                            <input id="loginUser" name="loginUser" type="text" value="root">
+                                            <input id="module-login" name="loginUser" type="text" value="root">
                                         </td>
                                     </tr>
                                 </table>
@@ -235,7 +235,7 @@
                                             Base image?
                                         </th>
                                         <td>
-                                            <input id="isbase" name="isbase" type="checkbox" checked="checked">
+                                            <input id="module-is-base" name="isbase" type="checkbox" checked="checked">
                                         </td>
                                         <td class="help">
                                             <i class="icon-question-sign icon-2x"></i>
@@ -246,13 +246,7 @@
                                         <th>
                                             Machine Image IDs
                                         </th>
-                                        <td>
-                                            <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
-                                            </div>
-                                            <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
-                                            </div>
+                                        <td id="module-image-ids">
                                             <div>
                                                 <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
                                             </div>
@@ -267,7 +261,7 @@
                                             Machine Image Reference
                                         </th>
                                         <td>
-                                            <input name="moduleReference" id="moduleReferenceInput" type="text" value="" readonly="readonly">
+                                            <input name="moduleReference" id="module-reference" type="text" value="" readonly="readonly">
                                             <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">
                                                 <i class="icon-eye-open"/> Choose Reference
                                             </button>
@@ -371,16 +365,22 @@
                             <h3>
                                 Creation Recipes
                             </h3>
-                            <div class="tab_block">
+                            <div id="creation" class="tab_block">
                                 <ul class="tabs inner_tabs">
-                                    <li>
-                                        <a href="#fragment-recipes">Recipes</a>
+                                    <li id="fragment-creation-recipe-header">
+                                        <a href="#fragment-creation-recipe">Recipe</a>
+                                        <span></span>
                                     </li>
-                                    <li>
-                                        <a href="#fragment-packages">Packages</a>
+                                    <li id="fragment-creation-packages-header">
+                                        <a href="#fragment-creation-packages">Packages</a>
+                                        <span></span>
+                                    </li>
+                                    <li id="fragment-creation-prerecipe-header">
+                                        <a href="#fragment-creation-prerecipe">Pre Recipe</a>
+                                        <span></span>
                                     </li>
                                 </ul>
-                                <div id="fragment-recipes">
+                                <div id="fragment-creation-recipe">
                                     <table>
                                         <thead>
                                             <tr>
@@ -392,33 +392,15 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <textarea name="recipe--script" rows="20" cols="128">
-</textarea>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <hr>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Prerecipe (before client installation)
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <textarea name="prerecipe--script" rows="20" cols="128">
+                                                    <textarea  id="recipe" name="recipe--script" rows="20" cols="128">
 </textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div id="fragment-packages">
-                                    <table class="packages">
+                                <div id="fragment-creation-packages">
+                                    <table id="packages" class="packages">
                                         <thead>
                                             <tr>
                                                 <th>
@@ -445,23 +427,50 @@
                                                     <input type="text" name="package--2--key">
                                                 </td>
                                                 <td style="width: 5%">
-                                                    <button class="close small_close" onclick="$$.removeTrFromButton(this)"><span>Remove</span></button>
+	                                                <i class="icon-remove-sign" onclick="$$.removeTrFromButton(this);"></i>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table><button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addPackage(this);">Add Package</button>
+                                    </table>
+                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addPackage(this); return false;">
+                                        <i class="icon-plus"></i> Add Package</button>
+                                </div>
+                                <div id="fragment-creation-prerecipe">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Prerecipe (before client installation)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <textarea  id="prerecipe" name="prerecipe--script" rows="20" cols="128">
+    </textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <h3>
                                 Deployment Scripts
                             </h3>
-                            <div class="tab_block">
+                            <div id="deployment" class="tab_block">
                                 <ul class="tabs inner_tabs">
                                     <li>
                                         <a href="#fragment-execute">Execute</a>
+                                        <span></span>
                                     </li>
                                     <li>
                                         <a href="#fragment-reports">Reports</a>
+                                        <span></span>
+                                    </li>
+                                    <li>
+                                        <a href="#fragment-deployment-parameters">Parameters</a>
+                                        <span></span>
                                     </li>
                                 </ul>
                                 <div id="fragment-execute">
@@ -476,7 +485,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <textarea name="execute--script" rows="20" cols="128">
+                                                    <textarea id="execute" name="execute--script" rows="20" cols="128">
 </textarea>
                                                 </td>
                                             </tr>
@@ -495,13 +504,35 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <textarea name="report--script" rows="20" cols="128">
+                                                    <textarea id="report" name="report--script" rows="20" cols="128">
 </textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+        	                    <div id="fragment-deployment-parameters">
+        	                        <table>
+        		                        <thead>
+        		                            <tr>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Category</th>
+                                                <th>Value</th>
+                                                <th> </th>
+        		                            </tr>
+        		                        </thead>
+        		                        <tbody>
+        		                            <tr>
+                                                <td>hostname</td>
+                                                <td>Hostname</td>
+                                                <td>Output</td>
+                                                <td>123.234.123.123</td>
+                                                <td class="help"> </td>
+        		                            </tr>
+        		                        </tbody>
+        	                        </table>
+            	                </div>
                             </div>
                             <h3>
                                 Authorization

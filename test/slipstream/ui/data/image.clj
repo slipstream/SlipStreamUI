@@ -1,7 +1,7 @@
 (ns slipstream.ui.data.image
   (:require [net.cgrand.enlive-html :as html]))
   
-(def xml-image (first (html/html-snippet "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
+(def xml-image (first (html/html-snippet "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='true' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
 <parameters class='org.hibernate.collection.PersistentMap'>
 <entry>
 <string>extra.disk.volatile</string>
@@ -46,7 +46,7 @@
 </entry>
 <entry>
 <string>dummy</string>
-<parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Placeholder for display' isSet='false' mandatory='true' name='dummy' readonly='false' type='Dummy'></parameter>
+<parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Placeholder for display' isSet='false' mandatory='false' name='dummy' readonly='false' type='Dummy'></parameter>
 </entry>
 <entry>
 <string>stratuslab.cpu</string>

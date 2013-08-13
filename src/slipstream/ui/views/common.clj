@@ -68,6 +68,18 @@
 ; Utility
 ;
 
+(defn set-a
+  [moduleresourceuri]
+  (html/do->
+    (html/content (map str (drop module-model/module-root-uri-length moduleresourceuri)))
+    (html/set-attr :href (str "/" moduleresourceuri))))
+
+(defn set-input
+  [name value]
+  (html/do->
+    (html/set-attr :name name)
+    (html/set-attr :value value)))
+
 (defn to-stars
   [clear-string]
   (apply 
@@ -257,8 +269,7 @@
                   #(-> % :content first) 
                   (html/select parameter [:enumValues :string]))
         selected (param-val parameter)]
-    (html/html-snippet
-      (gen-select (insert-name tr-id) options selected))))
+    (gen-select (insert-name tr-id) options selected)))
 
 (defmethod set-input-value "Boolean"
   [parameter tr-id]
@@ -362,7 +373,7 @@
                                    (html/content "")
                                    identity)))
 
-(html/defsnippet clone-parameters-edit-snip parameter-edit-template-html [:#parameter :> :table :> :tbody :> :tr]
+(html/defsnippet clone-parameters-edit-value-snip parameter-edit-template-html [:#parameter-description-edit-value :> :table :> :tbody :> :tr]
   [parameters]
   (html/clone-for
     [i (range (count parameters))
@@ -374,42 +385,70 @@
            type (:type attrs)
            defaultvalue (:defaultvalue attrs)
            tr-id (tr-id category i)
-           value (set-input-value parameter tr-id)]]
+           value (set-input-value parameter tr-id)
+           help (parameter-help parameter)]]
     html/this-node (html/set-attr :id tr-id)
-    [:td :> :span] (html/content description)
+    [[:td (html/nth-of-type 1)] :> :span] (html/content description)
     [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
-      (html/do->
-        (html/set-attr :name (input-name-name tr-id))
-        (html/set-attr :value name))
+      (set-input 
+        (input-name-name tr-id)
+        name)
     [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]] 
-      (html/do->
-        (html/set-attr :name (input-name-category tr-id))
-        (html/set-attr :value category))
+      (set-input 
+        (input-name-category tr-id)
+        category)
     [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 3)]] 
-      (html/do->
-        (html/set-attr :name (input-name-type tr-id))
-        (html/set-attr :value type))
+      (set-input 
+        (input-name-type tr-id)
+        type)
     [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 4)]] 
-      (html/do->
-        (html/set-attr :name (input-name-description tr-id))
-        (html/set-attr :value description))
-    [[:td (html/nth-of-type 2)] :> [:input (html/nth-of-type 1)]] 
-      (html/substitute value)))
+      (set-input 
+        (input-name-description tr-id)
+        description)
+    [[:td (html/nth-of-type 2)] :> :input] 
+      (html/substitute value)
+    [[:td (html/nth-of-type 3)] :> :span] (html/content help)
+    [[:td (html/nth-of-type 3)]] (if (empty? help)
+                                   (html/content "")
+                                   identity)))
 
-(defn- clone-parameters-edit-with-name-and-category
+(html/defsnippet clone-parameters-edit-all-snip parameter-edit-template-html [:#parameter-edit-all :> :table :> :tbody :> :tr]
   [parameters]
   (html/clone-for
-    [parameter parameters
-     :let 
-     [attrs (module-model/attrs parameter)
-      name (:name attrs)
-      description (:description attrs)
-      category (:category attrs)
-      value (set-input-value parameter)]]
-    [[:td (html/nth-of-type 1)]] (html/content name)
-    [[:td (html/nth-of-type 2)]] (html/content description)
-    [[:td (html/nth-of-type 3)]] (html/content category)
-    [[:td (html/nth-of-type 4)]] (html/content value)))
+    [i (range (count parameters))
+     :let [parameter (nth parameters i)
+           attrs (common-model/attrs parameter)
+           name (:name attrs)
+           category (gen-select
+                      (insert-name tr-id)
+                      ["Input" "Output"]
+                      (:category attrs))
+           description (:description attrs)
+           type (:type attrs)
+           defaultvalue (:defaultvalue attrs)
+           tr-id (tr-id category i)
+           value (set-input-value parameter tr-id)
+           mandatory? (= "true" (:mandatory attrs))]]
+    html/this-node (html/set-attr :id tr-id)
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
+      (set-input 
+        (input-name-name tr-id)
+        name)
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]] 
+      (set-input 
+        (input-name-type tr-id)
+        type)
+    [[:td (html/nth-of-type 2)] :> :input] 
+      (set-input 
+        (input-name-description tr-id)
+        description)
+    [[:td (html/nth-of-type 3)]] 
+      (html/content category)
+    [[:td (html/nth-of-type 4)]] 
+      (html/content value)
+    [:td :> #{[:input] [:select]}] (if mandatory?
+                      (html/set-attr :disabled "disabled")
+                      identity)))
 
 (html/defsnippet parameters-view-with-category-snip parameters-view-template-html [:#fragment-parameters-something]
   [parameters]
@@ -424,7 +463,6 @@
 
 (html/defsnippet parameters-view-with-name-and-category-snip parameters-view-template-html [:#fragment-parameters-something]
   [parameters]
-  [:table :> :thead] identity
   [:table :> :tbody :> :tr] (clone-parameters-view-with-name-and-category parameters))
 
 (html/defsnippet parameters-edit-with-category-snip parameters-edit-template-html [:#fragment-parameters-something]
@@ -436,12 +474,11 @@
   [parameters]
   [:table :> :thead :> :tr :> [:th (html/nth-of-type 1)]] nil
   [:table :> :thead :> :tr :> [:th (html/nth-of-type 2)]] nil
-  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-snip parameters)))
+  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-value-snip parameters)))
 
-(html/defsnippet parameters-edit-with-name-and-category-snip parameters-edit-template-html [:#fragment-parameters-something]
+(html/defsnippet parameters-edit-all-snip parameters-edit-template-html [:#fragment-parameters-something]
   [parameters]
-  [:table :> :thead] identity
-  [:table :> :tbody :> :tr] (clone-parameters-edit-with-name-and-category parameters))
+  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-all-snip parameters)))
 
 ;; Generic tabs layout generation
 
@@ -492,7 +529,6 @@
 
 (html/defsnippet parameters-edit-tabs-by-category-snip parameters-view-template-html parameters-sel
   [parameters-grouped-by-category]
-  ;image-cloud-configuration-sel (html/remove-attr :id)
   [:ul :> :li] (define-tabs-for-parameters parameters-grouped-by-category) 
   [:#fragment-parameters-something]
     (define-tab-sections-for-parameters-edit parameters-grouped-by-category))
