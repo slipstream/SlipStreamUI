@@ -890,9 +890,8 @@ ul.interaction li {
 }
 
 .data_sheet td input {
-/*	margin: 0 -28px 0 -5px; */
 	padding: 0 3px;
-    width: 470px;
+    width: 100%;
 	height: 20px;
 	line-height: 20px;
 	border: 1px solid #d3d3d3;
@@ -900,6 +899,10 @@ ul.interaction li {
 	
 	-webkit-border-radius: 1px;
 	border-radius: 1px;
+}
+
+.data_sheet td input.mandatory {
+    width: 470px;
 }
 
 .data_sheet td input[type="checkbox"],
