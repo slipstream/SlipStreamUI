@@ -69,7 +69,7 @@
 
 (html/defsnippet summary-snip run-template-html summary-sel
   [run]
-  [:#module :> :a] (module-base/set-a (:moduleresourceuri (common-model/attrs run)))
+  [:#module :> :a] (common/set-a (:moduleresourceuri (common-model/attrs run)))
   [:#category] (html/content (:category (common-model/attrs run)))
   [:#description] (html/content (:description (common-model/attrs run)))
   [:#username] (html/content (:user (common-model/attrs run)))
