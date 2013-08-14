@@ -157,18 +157,6 @@
 
 ;; Edit
 
-(html/defsnippet summary-edit-snip image-edit-template-html module-base/module-summary-sel
-  [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-description] (html/set-attr :value (:description (module-model/attrs module)))
-  [:#module-comment] (html/set-attr :value (module-model/module-comment module))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-created] (html/content (:creation (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module))
-  [:#module-is-base] (if (true? (:isbase (module-model/attrs module)))
-                       (html/set-attr :checked "checked")
-                       (html/remove-attr :checked)))
-
 (html/defsnippet summary-new-snip image-new-template-html module-base/module-summary-sel
   [module]
   (module-base/module-summary-new-trans module))
@@ -298,7 +286,7 @@
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
   module-base/module-summary-sel (html/substitute 
-                                   (summary-edit-snip module))
+                                   (module-base/module-summary-edit-snip module))
 
   [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
   
