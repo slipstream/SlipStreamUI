@@ -46,6 +46,14 @@ $(document).ready(function() {
 			"Save": function() {
 				$(this).dialog("close");
 				$("#module-comment").val($("#save-comment").val());
+				var parentname = $("#parent-module-name").text();
+				if (parentname === "/") {
+				    parentname = "";
+				}
+            	var modulename =  $("#module-name").val();
+            	var fullname = parentname + modulename;
+            	$("#module-name").val(fullname);
+            	$("#form-save").attr("action", "/module/" + fullname + "?method=put")
         		$$.send($("#form-save"), event, $.put);
 				return false;
 			},
