@@ -15,11 +15,6 @@
 (defn title [value]
   (str slipstream-with-trademark " | " value))
 
-(defn hidden-input-elem [value id]
-  "Returns a value + hidden input element"
-  (html/html-content
-    (str value "<input name='name' id='" id "' type='hidden' value='" value "'>")))
-
 ;
 ; Breadcrumbs
 ;
@@ -88,19 +83,22 @@
       (count clear-string)
       (repeat "●"))))
 
+(declare insert-name)
+  
 (defn gen-select
   [name options selected]
   (html/html-snippet
-    (str "<select " 
-         name ">\n" 
+    (str "<select"
+         (insert-name name)
+         ">\n" 
          (apply str
                 (for [option options]
                   (str 
                     "<option value='" option "'"
                     (if (= option selected)
-                      " selected"
+                      " selected='selected'"
                       "")
-                    "'>"
+                    ">"
                     option
                     "</option>\n"
                     )))
@@ -119,9 +117,9 @@
   [parameter]
   (-> parameter (html/select [:value]) first :content first))
 
-(defmethod param-val "Enum"
-  [parameter]
-  (first (:content (first (html/select parameter [:value])))))
+;(defmethod param-val "Enum"
+;  [parameter]
+;  (first (:content (first (html/select parameter [:value])))))
 
 (defmethod param-val :default
   [parameter]
@@ -269,7 +267,7 @@
                   #(-> % :content first) 
                   (html/select parameter [:enumValues :string]))
         selected (param-val parameter)]
-    (gen-select (insert-name tr-id) options selected)))
+    (gen-select tr-id options selected)))
 
 (defmethod set-input-value "Boolean"
   [parameter tr-id]
@@ -420,7 +418,7 @@
            attrs (common-model/attrs parameter)
            name (:name attrs)
            category (gen-select
-                      (insert-name tr-id)
+                      tr-id
                       ["Input" "Output"]
                       (:category attrs))
            description (:description attrs)
