@@ -11,7 +11,8 @@
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.dashboard :as dashboard]
-            [slipstream.ui.views.versions :as versions])
+            [slipstream.ui.views.versions :as versions]
+            [slipstream.ui.views.documentation :as documentation])
   (:gen-class
     :name slipstream.ui.views.Representation
     :methods [#^{:static true 
@@ -45,7 +46,7 @@
 
 (defmethod gen-page "login"
   [metadata pagename type]
-    (render (knockknock/page (xml-string-to-map metadata))))
+    (render (knockknock/page (xml-string-to-map metadata) type)))
 
 (defmethod gen-page "logout"
   [metadata pagename type]
@@ -74,6 +75,10 @@
 (defmethod gen-page "reports"
   [metadata pagename type]
     (render (reports/page (xml-string-to-map metadata))))
+
+(defmethod gen-page "documentation"
+  [user pagename type]
+    (render (documentation/page (xml-string-to-map user))))
 
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"

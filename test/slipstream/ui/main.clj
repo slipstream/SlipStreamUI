@@ -16,6 +16,7 @@
             [slipstream.ui.views.reports :as reports]
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.configuration :as configuration]
+            [slipstream.ui.views.documentation :as documentation]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.models.version :as version]
@@ -47,6 +48,9 @@
 
 (defn configuration-page []
   (configuration/page configuration-data/xml-configuration))
+
+(defn documentation-page []
+  (documentation/page user-data/xml-user))
 
 (defn reports-page []
   (reports/page reports-data/xml-reports))
