@@ -43,14 +43,14 @@
   (for [grouped parameters-by-category]
     (list
       (html/html-snippet (str "\n    <h3>" (key grouped) "</h3>"))
-      (common/parameters-view-snip (val grouped)))))
+      (common/parameters-view-snip (val grouped) nil))))
 
 (defn parameters-edit-snip
   [parameters-by-category]
   (for [grouped parameters-by-category]
     (list 
       (html/html-snippet (str "\n    <h3>" (key grouped) "</h3>"))
-      (common/parameters-edit-snip (val grouped)))))
+      (common/parameters-edit-snip (val grouped) false))))
 
 (html/defsnippet breadcrumb-snip user-view-template-html common/breadcrumb-sel
   [name super?]
@@ -98,7 +98,8 @@
                 (summary-view-snip user))
 
   summary-sel (html/after
-                (parameters-view-snip (common-model/group-by-category (common-model/parameters user))))
+                (parameters-view-snip
+                  (common-model/group-by-category (common-model/parameters user))))
   
   [:#parameters-header] nil
   [:#parameters] nil)

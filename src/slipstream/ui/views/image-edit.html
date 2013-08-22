@@ -95,8 +95,7 @@
                         <p>
                             Save comment:
                         </p>
-                        <textarea id="save-comment" rows="3" cols="20">
-</textarea>
+                        <textarea id="save-comment" rows="3" cols="20"></textarea>
                     </div>
                     <div id="delete-module-dialog" title="Delete Image?">
                         <p>
@@ -216,13 +215,21 @@
                                                 </option>
                                             </select>
                                         </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>${help-module-platform}</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>
                                             Login username
                                         </th>
                                         <td>
-                                            <input id="module-login" name="loginUser" type="text" value="root">
+                                            <input id="module-login" name="loginUser" type="text" value="root" placeholder="root by default" />
+                                        </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>${help-module-login}</span>
                                         </td>
                                     </tr>
                                 </table>
@@ -262,7 +269,7 @@
                                         </th>
                                         <td>
                                             <input name="moduleReference" id="module-reference" type="text" value="" readonly="readonly">
-                                            <button disabled="disabled" class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">
+                                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">
                                                 <i class="icon-eye-open"/> Choose Reference
                                             </button>
                                             <td class="help">
@@ -295,7 +302,7 @@
                                                     <span>extra disk volatile</span> <input type="hidden" name="parameter-General--1--name" value="extra.disk.volatile"> <input type="hidden" name="parameter-General--1--category" value="General"> <input type="hidden" name="parameter-General--1--type" value="String">
                                                 </td>
                                                 <td>
-                                                    <span>Volatile extra disk in GBVolatile extra disk in GBVolatile extra disk in GB</span> <input type="hidden" name="parameter-General--1--description" value="Volatile extra disk in GBVolatile extra disk in GBVolatile extra disk in GB">
+                                                    <span>Volatile extra disk in GB</span> <input type="hidden" name="parameter-General--1--description" value="Volatile extra disk in GBVolatile extra disk in GBVolatile extra disk in GB">
                                                 </td>
                                                 <td>
                                                     <input name="parameter-General--1--value" value="" placeholder="">
@@ -316,9 +323,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-                                        <i class="icon-plus"></i> Add Parameter
-                                    </button>
                                 </div>
                                 <div id="fragment-parameters-stratuslab">
                                     <table>
@@ -357,13 +361,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-                                        <i class="icon-plus"></i> Add Parameter
-                                    </button>
                                 </div>
                             </div>
                             <h3>
-                                Creation Recipes
+                                Image Creation Recipes
                             </h3>
                             <div id="creation" class="tab_block">
                                 <ul class="tabs inner_tabs">
@@ -456,7 +457,7 @@
                                 </div>
                             </div>
                             <h3>
-                                Deployment Scripts
+                                Deployment Recipes and Coordination Parameters
                             </h3>
                             <div id="deployment" class="tab_block">
                                 <ul class="tabs inner_tabs">
@@ -532,6 +533,8 @@
         		                            </tr>
         		                        </tbody>
         	                        </table>
+                                    <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addParameter(this); return false;">
+                                        <i class="icon-plus"></i> Add Parameter</button>
             	                </div>
                             </div>
                             <h3>

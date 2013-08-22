@@ -68,7 +68,6 @@ th+td {
 	float: none;
 	/* width: 980px; */
 	width: 98%; /* liquid layout */
-	border-bottom: 1px solid #e9e9e9;
 	margin: 0px auto 0px auto;
 }
 
@@ -91,24 +90,25 @@ th+td {
 }
 
 .menu_bar {
-	/* width: 990px; */
 	width: 100%; /* liquid layout */
-        max-width: 990px; /* liquid layout */
+    max-width: 990px; /* liquid layout */
 	height: 43px;
 	margin: 0px auto;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 
-	/* background: #a10000 url('../images/menu.jpg') repeat-x scroll left top; */
-	
-	background: #b50000; /* Old browsers */
-	background: -moz-linear-gradient(top,  #b50000 0%, #bf0000 47%, #630000 50%, #740000 72%, #b50000 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b50000), color-stop(47%,#bf0000), color-stop(50%,#630000), color-stop(72%,#740000), color-stop(100%,#b50000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #b50000 0%,#bf0000 47%,#630000 50%,#740000 72%,#b50000 100%); /* W3C */
+    /*-webkit-box-shadow: 0px 0px 2px 0px black;
+    box-shadow: 0px 0px 2px 0px black;*/
+    
+    background: #bc0318; /* Old browsers */
+    background: -moz-linear-gradient(top,  #bc0318 0%, #660000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bc0318), color-stop(100%,#660000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #bc0318 0%,#660000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #bc0318 0%,#660000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #bc0318 0%,#660000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #bc0318 0%,#660000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc0318', endColorstr='#660000',GradientType=0 ); /* IE6-9 */
 }
 
 .menu_bar ul,
@@ -455,23 +455,18 @@ th+td {
 
 #footer {
 	clear: both;
-	/* width: 990px; */
 	width: 100%; /* liquid layout */
-        max-width: 990px; /* liquid layout */
+    max-width: 990px; /* liquid layout */
 	margin: 10px auto 20px auto;
 }
 
 .footer_inner {
-	border: 1px solid #e9e9e9;
-	/* padding: 15px 15px 15px 270px; */
 	padding: 15px 15px 15px 15px;
-	background-color: #ffffff;
-
-        /* liquid layout; old static values 5px */        
+    /* liquid layout; old static values 5px */        
 	margin-left: auto;
 	margin-right: auto;
 
-        text-align: center;
+    text-align: center;
 
 	border-radius: 2px;
 	-moz-border-radius: 2px;
@@ -967,12 +962,12 @@ table.image_link .ui-button {
 	margin-bottom: 10px;
 }
 
-td.node_name {
+td.nodename {
 	vertical-align: top;
 	padding: 0 6px;
 }
 
-td.node_name input {
+td.nodename input {
 	width: 148px;
 	margin: 7px 0 0 0;
 	font-weight: bold;
@@ -1029,27 +1024,8 @@ table.parameter_mapping input {
 
 /* Overlay */
 
-/*.ui-widget-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/images/overlay_bg.png');
-    z-index: 100;
-}
-*/
 .overlay_sheet {
-/*	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -250px 0 0 -486px;
-	padding: 0 10px 45px 10px;
-	width: 952px;*/
 	background-color: #ffffff;
-	
-/*	-webkit-box-shadow: 0px 1px 3px 0px #3a3a3a;
-	box-shadow: 0px 1px 3px 0px #3a3a3a;*/
 }
 
 .overlay_sheet .breadcrumb {
@@ -1066,8 +1042,7 @@ table.parameter_mapping input {
 
 .overlay_sheet h2,
 .ui-dialog-titlebar {
-/*  position: relative;
-*/	height: 28px;
+	height: 28px;
 	line-height: 28px;
 	text-indent: 11px;
 	font-size: 14px;
@@ -1303,19 +1278,6 @@ body.overlay {
 	background: white;
 }
 
-/*.ui-widget-overlay {
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 0.5;
-    filter: alpha(opacity = 50);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-*/
 .overlay, .ui-widget-overlay {
     position: fixed;
     top: 0;
@@ -1371,3 +1333,25 @@ li {
 #reports > ul {
     padding-left: 0;
 }
+
+/* autocomplete */
+.ui-helper-hidden-accessible { 
+    display:none;
+}
+
+.ui-menu {
+    padding: 3px;
+    width: 200px;
+}
+
+.ui-widget-content {
+	background: #ffffff;
+	color: #222222;
+}
+
+.ui-autocomplete .ui-menu-item .ui-state-focus,
+.ui-autocomplete .ui-menu-item .ui-state-active {
+    background: #e4e4e4;
+    display: block;
+}
+

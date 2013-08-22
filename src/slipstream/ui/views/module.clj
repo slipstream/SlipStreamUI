@@ -154,11 +154,11 @@
 
 (defmethod js-scripts ["edit" "Project"]
   [type category]
-  (concat js-scripts-default ["/js/module-edit.js" "/js/project-edit.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-edit.js" "/js/project-edit.js"]))
 
 (defmethod js-scripts ["new" "Project"]
   [type category]
-  (concat js-scripts-default ["/js/module-new.js" "/js/project-new.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-new.js" "/js/project-new.js"]))
 
 (defmethod js-scripts ["chooser" "Project"]
   [type category]
@@ -170,11 +170,11 @@
 
 (defmethod js-scripts ["edit" "Image"]
   [type category]
-  (concat js-scripts-default ["/js/module-edit.js" "/js/image-edit.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-edit.js" "/js/image-edit.js"]))
 
 (defmethod js-scripts ["new" "Image"]
   [type category]
-  (concat js-scripts-default ["/js/module-new.js" "/js/module-edit.js" "/js/image-new.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-new.js" "/js/image-new.js"]))
 
 (defmethod js-scripts ["chooser" "Image"]
   [type category]
@@ -186,11 +186,11 @@
 
 (defmethod js-scripts ["edit" "Deployment"]
   [type category]
-  (concat js-scripts-default ["/js/module-edit.js" "/js/deployment-edit.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-edit.js" "/js/deployment-edit.js"]))
 
 (defmethod js-scripts ["new" "Deployment"]
   [type category]
-  (concat js-scripts-default ["/js/module-new.js" "/js/deployment-new.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-new.js" "/js/deployment-new.js"]))
 
 (defmethod js-scripts ["chooser" "Deployment"]
   [type category]

@@ -62,7 +62,7 @@
       nil
       identity)
     
-    [:#packages]
+    [:#packages :> :tbody :> :tr]
     (html/clone-for
       [package packages
        :let [attrs (module-model/attrs package)
@@ -80,7 +80,7 @@
       nil
       identity)
     
-    [:#fragment-creation-prerecipe :> :table :tbody :tr :td :textarea]
+    [:#prerecipe]
     (html/content prerecipe)
     [:#fragment-creation-prerecipe]
     (if (string/blank? prerecipe)
@@ -96,7 +96,7 @@
   (creation-trans recipe prerecipe packages))
 
 (defn- deployment-trans
-  [execute report parameters parameters-gen]
+  [execute report parameters parameters-gen-fn]
   (html/transformation
     [:ul :> :#fragment-deployment-execute-header]
     (if (string/blank? execute)
@@ -126,7 +126,7 @@
       identity)
 
     [:#fragment-deployment-parameters]
-    (html/content (parameters-gen parameters))
+    (html/content (parameters-gen-fn parameters true))
     [:#fragment-deployment-parameters]
     (if (empty? parameters)
       nil
@@ -156,10 +156,6 @@
   [:#module-owner] (html/content (module-model/owner module)))
 
 ;; Edit
-
-(html/defsnippet summary-new-snip image-new-template-html module-base/module-summary-sel
-  [module]
-  (module-base/module-summary-new-trans module))
 
 (defn authz-button
  [can?]
@@ -215,22 +211,26 @@
   [image-image-ids-sel :> [:div html/first-of-type]]
     (html/clone-for 
       [id-pair (image-model/cloud-image-ids module)
-      :let
-        [attrs (module-model/attrs id-pair)
-         cloud-service-name (:cloudservicename attrs)
-         cloud-image-identifier (:cloudimageidentifier attrs)]]
-        (html/content (str cloud-service-name ": " cloud-image-identifier)))
+      :let [attrs (module-model/attrs id-pair)
+            cloud-service-name (:cloudservicename attrs)
+            cloud-image-identifier (:cloudimageidentifier attrs)]]
+      (html/content (str cloud-service-name ": " cloud-image-identifier)))
 
+  [image-image-ids-sel] (if
+                          (image-model/cloud-image-ids module)
+                          identity
+                          nil)
+    
   [image-is-base-sel]
     (if (module-model/base? module)
       (html/set-attr :checked "checked")
       (html/remove-attr :checked))
   
-  [image-platform-sel :> :td] (html/content (:platform (module-model/attrs module)))
+  [image-platform-sel :> [:td html/first-of-type]] (html/content (:platform (module-model/attrs module)))
   
-  [module-base/module-login-sel :> :td] (html/content (:loginuser (module-model/attrs module)))
+  [module-base/module-login-sel :> [:td html/first-of-type]] (html/content (:loginuser (module-model/attrs module)))
 
-  [image-reference-sel :> :td :> :a] (common/set-a (module-model/parent-uri module))
+  [image-reference-sel :> [:td html/first-of-type] :> :a] (common/set-a (:modulereferenceuri (module-model/attrs module)))
   [image-reference-sel] (if (module-model/base? module)
                           nil
                           identity)
@@ -292,36 +292,39 @@
   
   [image-image-ids-sel :> [:div html/first-of-type]]
     (html/clone-for 
-      [id-pair (image-model/cloud-image-ids module)
-      :let
-        [attrs (module-model/attrs id-pair)
-         cloud-service-name (:cloudservicename attrs)
-         cloud-image-identifier (:cloudimageidentifier attrs)]]
+      [cloud-service-name (image-model/cloud-names module)
+       :let [cloud-image-identifier (image-model/cloud-image-id module cloud-service-name)]]
       (html/content
         (html/html-snippet
           (str "<span>" cloud-service-name ": </span><input name='cloudimageid_imageid_" cloud-service-name "' type='text' value='" cloud-image-identifier "' />"))))
+  [image-image-ids-sel :> :div :> :input]
+    (common/set-disabled (not (module-model/base? module)))
 
   [image-is-base-sel]
-    (if (module-model/base? module)
-      (html/set-attr :checked "checked")
-      (html/remove-attr :checked))
+    (common/set-checked (module-model/base? module))
   
-  [image-platform-sel :> :td] (html/content 
-                                (common/gen-select
-                                  "platform"
-                                  platforms
-                                  (:platform (module-model/attrs module))))
+  [image-platform-sel :> [:td html/first-of-type]]
+    (html/content 
+      (common/gen-select
+        "platform"
+        platforms
+        (:platform (module-model/attrs module))
+        (not (module-model/base? module))))
 
-  [module-base/module-login-sel] (html/set-attr :value (:loginuser (module-model/attrs module)))
+  [module-base/module-login-sel]
+    (html/do->
+      (html/set-attr :value (:loginuser (module-model/attrs module)))
+      (common/set-disabled (not (module-model/base? module))))
 
-  [image-reference-sel] (html/set-attr :value (module-model/parent-uri module))
+  [image-reference-sel] (html/set-attr :value (:modulereferenceuri (module-model/attrs module)))
+  [:#moduleReferenceChooser] (common/set-disabled (module-model/base? module))
   
   image-cloud-configuration-sel
-    (html/substitute 
-      (common/parameters-edit-tabs-by-category-snip 
-        (common-model/filter-not-in-categories
-          (common-model/parameters module)
-          deployment-parameter-categories)))
+  (html/substitute 
+    (common/parameters-edit-tabs-by-category-snip 
+      (common-model/filter-not-in-categories
+        (common-model/parameters module)
+        deployment-parameter-categories)))
 
   image-creation-sel (html/substitute 
                        (creation-edit-snip
@@ -364,7 +367,7 @@
   html/this-node (html/substitute (edit-snip module))
 
   module-base/module-summary-sel (html/substitute 
-                                   (summary-new-snip module))
+                                   (module-base/module-summary-new-snip module))
   
   module-base/module-interaction-top-sel
     (html/substitute

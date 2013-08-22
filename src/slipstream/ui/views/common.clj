@@ -63,6 +63,22 @@
 ; Utility
 ;
 
+(defn set-same-name-attr
+  [attr set?]
+  (let [key (keyword attr)
+        value (name attr)]
+    (if set?
+      (html/set-attr key value)
+      (html/remove-attr key))))
+
+(defn set-disabled
+  [disable?]
+  (set-same-name-attr :disabled disable?))
+
+(defn set-checked
+  [checked?]
+  (set-same-name-attr :checked checked?))
+
 (defn set-a
   [moduleresourceuri]
   (html/do->
@@ -86,23 +102,26 @@
 (declare insert-name)
   
 (defn gen-select
-  [name options selected]
-  (html/html-snippet
-    (str "<select"
-         (insert-name name)
-         ">\n" 
-         (apply str
-                (for [option options]
-                  (str 
-                    "<option value='" option "'"
-                    (if (= option selected)
-                      " selected='selected'"
-                      "")
-                    ">"
-                    option
-                    "</option>\n"
-                    )))
-         "</select>\n")))
+  "Generate a select/option element, optionaly disabled"
+  ([name options selected] (gen-select name options selected false))
+  ([name options selected disabled?]
+    (html/html-snippet
+      (str "<select"
+           (insert-name name)
+           (when disabled? " disabled='disabled'")
+           ">\n" 
+           (apply str
+                  (for [option options]
+                    (str 
+                      "<option value='" option "'"
+                      (if (= option selected)
+                        " selected='selected'"
+                        "")
+                      ">"
+                      option
+                      "</option>\n"
+                      )))
+           "</select>\n"))))
 
 ;
 ; Parameter
@@ -190,16 +209,23 @@
   (str tr-id "--value"))
 
 (defn- insert-name
-  "Only insert the name attribute if tr-id is set.
+  "Only insert the name attribute if name is set.
    Useful when input (e.g. checkbox) are used in view mode,
    where we're only using it for display and will never be
    sent as part of a form"
-  [tr-id]
-  (if tr-id
-    (str " name='" 
-    (input-name-value tr-id) "'")
+  [name]
+  (if name
+    (str " name='" name "'")
     ""))
 
+(defn- set-input-name-value
+  [tr-id]
+  (str tr-id "--value"))
+  
+(defn- set-input-name-category
+  [tr-id]
+  (str tr-id "--category"))
+  
 (defmulti set-input-value
   "Used to generate input element (in edit mode)"
   (fn [parameter tr-id]
@@ -212,7 +238,7 @@
   (html/html-snippet 
     (str 
       "<input type='text'"
-      (insert-name tr-id)
+      (insert-name (set-input-name-value tr-id))
       " placeholder='" 
       defaultvalue 
       "' value='" 
@@ -226,7 +252,7 @@
   (html/html-snippet 
     (str 
       "<textarea"
-      (insert-name tr-id)
+      (insert-name (set-input-name-value tr-id))
       " placeholder='" defaultvalue
       "'>" value "</textarea>"))))
 
@@ -256,7 +282,7 @@
   (html/html-snippet 
     (str 
       "<input type='password'" 
-      (insert-name tr-id)
+      (insert-name (set-input-name-value tr-id))
       " value='" 
       value 
       "' />"))))
@@ -267,7 +293,7 @@
                   #(-> % :content first) 
                   (html/select parameter [:enumValues :string]))
         selected (param-val parameter)]
-    (gen-select tr-id options selected)))
+    (gen-select (set-input-name-value tr-id) options selected)))
 
 (defmethod set-input-value "Boolean"
   [parameter tr-id]
@@ -275,7 +301,7 @@
     (html/html-snippet 
       (str 
         "<input type='checkbox'"
-        (insert-name tr-id)
+        (insert-name (set-input-name-value tr-id))
         (if (true? value)
           " checked='checked'"
           "")
@@ -417,14 +443,15 @@
      :let [parameter (nth parameters i)
            attrs (common-model/attrs parameter)
            name (:name attrs)
-           category (gen-select
-                      tr-id
-                      ["Input" "Output"]
-                      (:category attrs))
+           category (:category attrs)
+           tr-id (tr-id category i)
+           category-select (gen-select
+                             (set-input-name-category tr-id) 
+                             ["Input" "Output"]
+                             category)
            description (:description attrs)
            type (:type attrs)
            defaultvalue (:defaultvalue attrs)
-           tr-id (tr-id category i)
            value (set-input-value parameter tr-id)
            mandatory? (= "true" (:mandatory attrs))]]
     html/this-node (html/set-attr :id tr-id)
@@ -441,7 +468,7 @@
         (input-name-description tr-id)
         description)
     [[:td (html/nth-of-type 3)]] 
-      (html/content category)
+      (html/content category-select)
     [[:td (html/nth-of-type 4)]] 
       (html/content value)
     [:td :> #{[:input] [:select]}] (if mandatory?
@@ -449,34 +476,37 @@
                       identity)))
 
 (html/defsnippet parameters-view-with-category-snip parameters-view-template-html [:#fragment-parameters-something]
-  [parameters]
+  [parameters with-add-parameter-button?]
   [:table :> :thead :> [:th (html/nth-of-type 1)]] nil
   [:table :> :tbody :> :tr] (clone-parameters-view-with-category parameters))
 
 (html/defsnippet parameters-view-snip parameters-view-template-html [:#fragment-parameters-something :> :table]
-  [parameters]
+  [parameters with-add-parameter-button?]
   [:thead :> :tr :> [:th (html/nth-of-type 1)]] nil
   [:thead :> :tr :> [:th (html/nth-of-type 2)]] nil
   [:tbody :> :tr] (clone-parameters-view parameters))
 
 (html/defsnippet parameters-view-with-name-and-category-snip parameters-view-template-html [:#fragment-parameters-something]
-  [parameters]
+  [parameters with-add-parameter-button?]
   [:table :> :tbody :> :tr] (clone-parameters-view-with-name-and-category parameters))
 
 (html/defsnippet parameters-edit-with-category-snip parameters-edit-template-html [:#fragment-parameters-something]
-  [parameters]
+  [parameters with-add-parameter-button?]
   [:table :> :thead :> [:th (html/nth-of-type 1)]] nil
-  [:table :> :tbody :> :tr] (clone-parameters-view-with-category parameters))
+  [:table :> :tbody :> :tr] (clone-parameters-view-with-category parameters)
+  [:button] (if with-add-parameter-button? identity nil))
 
 (html/defsnippet parameters-edit-snip parameters-edit-template-html [:#fragment-parameters-something]
-  [parameters]
+  [parameters with-add-parameter-button?]
   [:table :> :thead :> :tr :> [:th (html/nth-of-type 1)]] nil
   [:table :> :thead :> :tr :> [:th (html/nth-of-type 2)]] nil
-  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-value-snip parameters)))
+  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-value-snip parameters))
+  [:button] (if with-add-parameter-button? identity nil))
 
 (html/defsnippet parameters-edit-all-snip parameters-edit-template-html [:#fragment-parameters-something]
-  [parameters]
-  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-all-snip parameters)))
+  [parameters with-add-parameter-button?]
+  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-all-snip parameters))
+  [:button] (if with-add-parameter-button? identity nil))
 
 ;; Generic tabs layout generation
 
@@ -494,12 +524,12 @@
   "Generate the tab sections for grouped-by items, in the
    fragment-name fragment section and apply the snip function for each
    item"
-  [grouped-by fragment-name snip]
+  [grouped-by fragment-name snip-fn]
   (html/clone-for
     [group grouped-by]
     (html/do->
       (html/set-attr :id (str "fragment-" fragment-name "-" (key group)))
-      (html/content (snip (val group))))))
+      (html/content (snip-fn (val group) nil)))))
 
 ;; Parameter tabs section
 
@@ -517,7 +547,7 @@
     [grouped parameters-grouped-by-category]
     (html/do->
       (html/set-attr :id (str "fragment-parameters-" (key grouped)))
-      (html/content (parameters-edit-snip (val grouped))))))
+      (html/content (parameters-edit-snip (val grouped) false)))))
 
 (html/defsnippet parameters-view-tabs-by-category-snip parameters-view-template-html parameters-sel
   [parameters-grouped-by-category]

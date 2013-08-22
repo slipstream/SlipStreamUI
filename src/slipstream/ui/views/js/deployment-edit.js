@@ -18,17 +18,6 @@
  * -=================================================================-
  */
 
-function toggleMultiplicity(index) {
-    // Set the status of the multiplicity areas
-    var multiplicityCheckbox = document.getElementById(index + "--multiplicity--checkbox");
-    var multiplicityText = document.getElementById(index + "--multiplicity--text");
-    if (multiplicityCheckbox.checked) {
-        multiplicityText.removeAttribute("disabled");
-    } else {
-        multiplicityText.disabled = "true";
-    }
-}
-
 var mapper = {
 	
 	elementCounter: 1000, // a big number!
@@ -48,6 +37,7 @@ var mapper = {
 	addEmptyParameterMapping: function(button) {
 	    var table = $(button).prev();
 	    this.addParameterMapping(table);
+	    addAutocompleteToNodeOutputFields();
     },
     
 	addParameterMapping: function(mappingtable, iparam, oparam) {
@@ -68,12 +58,7 @@ var mapper = {
 			    <input type="text" class="parameter-mapping-output" name="' + id + '--output" value="' + oparamValue + '"></input> \
 			</td> \
 			<td> \
-				<button \
-				    class="close small_close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" \
-				    role="button" \
-				    aria-disabled="false" \
-				    onclick="$$.removeTrFromButton(this);"> \
-			    </button> \
+				<i class="icon-remove-sign" onclick="$$.removeTrFromButton(this);"></i> \
 			</td> \
 		</tr>');
 
@@ -111,8 +96,6 @@ var mapper = {
 
         var input = $('<button value="Add Parameter Mapping" onclick="addParameterMapping(\'' + $('#mappingtable').attr('id') + '\'">');
         $('#mappingtable').appendTo($('nodes'));
-
-        alternateTableRows($('nodes'));
 	}
 }
 
@@ -171,7 +154,7 @@ var nodeAdder = {
 					type="text" /> \
 			</td> \
 			<td> \
-				<input id="nodeparametermappingoutput" name="' + nodePrefix + '--mappingtable--' + index + '--output" value="' + value + '" \
+				<input class="parameter-mapping-output" name="' + nodePrefix + '--mappingtable--' + index + '--output" value="' + value + '" \
 					type="text" /> \
 			</td> \
 			<td> \
@@ -214,7 +197,6 @@ var nodeAdder = {
 		cloudServiceSelect.attr('name', nodePrefix + '--cloudservice--value')
 		cloudServiceSelect.attr('id', '')
 		
-
 		return '<tr id="' + nodePrefix + '" class="even"> \
 			<td> \
 				<input id="nodename" name="' + nodePrefix + '--shortname" type="text" value="' + nodeName + '" /> \
@@ -282,7 +264,6 @@ var nodeAdder = {
         node.appendTo(nodes);
 
 		addAutocompleteToNodeOutputFields();
-        alternateTableRows(nodes.id);
     },
     
 	add: function() {
@@ -382,7 +363,7 @@ var nodeParametersAutoCompleter = {
 	},
 
 	extractOutputParameters: function(data, status, xhr) {
-		var parentUri = $(data.firstChild).attr('parentUri');
+		var parentUri = "/" + $(data.firstChild).attr('parentUri');
 		var shortName = $(data.firstChild).attr('shortName');
 		var imageName = parentUri + "/" + shortName;
 		var imageNameNoVersion = nodeParametersAutoCompleter.extractImageRefNoVersion(imageName);
@@ -401,9 +382,9 @@ var nodeParametersAutoCompleter = {
 					function(_, tag) {
 						nodeParametersAutoCompleter.tagsByNode[node].push(tag);						
 					}
-					)
+				)
 			}
-			);
+		);
 	},
 
  	clear: function() {

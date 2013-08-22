@@ -393,107 +393,28 @@ var slipstreamns = {
 	}
 }
 
-// var background = {
-// 
-//  fadeOutTopWindow: function() {
-//      $('#topdiv').fadeTo(0, 0.5);
-//  },
-// 
-//  fadeInTopWindow: function() {
-//      $('#topdiv', window.top.document).fadeTo(0, 1);
-//  }
-// }
+var chooser = {
 
-var chooser = function() {
-	
-	function fadeOutTopWindow() {
-		background.fadeOutTopWindow();
-	};
+    selectChooserWithVersion: function() {
+        var modulename = $('#chooseriframe').find('#module-name').text();
+        var version = $('#chooseriframe').find('#module-version').text();
+        var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
+    },
+     
+    selectChooser: function() {
+        var modulename = $('#chooseriframe').contents().find('#module-name').text();
+        var targetInput = $('#module-reference').attr('value', modulename);
+    },
 
-	function fadeInTopWindow() {
-		background.fadeInTopWindow();
-	};
-
-	function showChooserFrame() {
-		$('#chooseriframe').show();
-	};
-
-	function hideChooserFrame() {
-		$('#chooseriframe', window.top.document).hide();
-	};
-
-	function getGlobal(key) {
-		return slipstreamns.get(key);
-	};
-
-	function setGlobal(key, value) {
-		slipstreamns.set(key, value);
-	};
-
-	return {
-		// the handler is a function, if defined, to be called when a selection is made by the chooser
-		showChooser: function(inputid, targetType, handler) {
-			$("#chooser").dialog("open");
-			return;
-			setGlobal('inputid', inputid);
-			setGlobal('handler', handler);
-			var inputtarget = $('#' + inputid);
-			var src = '/' + inputtarget.attr('value');
-			if (src === '/') {
-			    src = '';
-			}
-			src = 'module' + urlEncode(src);
-			var postfix = '?chooser=' + targetType;
-//			$('#chooseriframe').attr('src', src + postfix);
-			$('#chooseriframe').load(function() {
-				$("#chooser").dialog("open");
-//				fadeOutTopWindow();
-				$(this).unbind('load');
-			});
-		},
-
-		selectChooserWithVersion: function() {
-		    var modulename = $('#modulename').text();
-			var version = $('#moduleversion').text();
-		    var targetInput = $('#' + slipstreamns.get('inputid'), window.top.document);
-			targetInput.attr('value', modulename + "/" + version);
-		    if (getGlobal('handler')) {
-		        getGlobal('handler')();
-		    }
-		    cancelChooser();
-			fadeInTopWindow();
-		},
-		
-		selectChooser: function() {
-		    var modulename = $('#modulename').text();
-		    var targetInput = $('#' + slipstreamns.get('inputid'), window.top.document);
-			targetInput.attr('value', modulename);
-		    if (getGlobal('handler')) {
-		        getGlobal('handler')();
-		    }
-		    cancelChooser();
-			fadeInTopWindow();
-		},
-		
-		cancelChooser: function() {
-			hideChooserFrame();
-		    fadeInTopWindow();
-		}
-	    
-	};
-}();
-
-function showChooser(inputid, targetType, handler) {
-	chooser.showChooser(inputid, targetType, handler);
-}
+};
 
 function selectChooser() {
 	chooser.selectChooser();
-}
+};
 
 function selectChooserWithVersion() {
 	chooser.selectChooserWithVersion();
-}
+};
 
 var logger = function() {
 	
@@ -541,28 +462,6 @@ function hideLogger() {
 };
 
 
-// Specific method for setting content in the image reference input field
-function hideModuleReferenceChooser() {
-    cancelChooser();
-    var newselection = document.getElementById("moduleReferenceSelection").value;
-    newselection = urlEncode(newselection);
-    document.getElementById("moduleReferenceInput").value = newselection;
-};
-
-// Specific method for setting content in the block store reference input field
-// FIXME: refactor to remove code duplication with hideModuleReferenceChooser
-function hideBlockStoreReferenceChooser() {
-    cancelChooser("blockStoreReferenceChooserTable");
-    var newselection = document.getElementById("blockStoreReferenceSelection").value;
-    newselection = urlEncode(newselection);
-    document.getElementById("blockStoreReferenceInput").value = urlEncode(newselection);
-};
-
-function cancelChooser() {
-	chooser.cancelChooser();
-};
-
-
 // Cross browser function to retrieve text node
 function innerText(element) {
     var text;
@@ -593,6 +492,14 @@ function htmlEncode(value){
 
 // SlipStream namespace (let's start putting things in here)
 var $$ = {
+    selectChooser: function() {
+        selectChooser();
+    },
+    
+    selectChooserWithVersion: function() {
+        selectChooserWithVersion();
+    },
+    
 	hideSubmitMessage: function() {
 		$('#submit-message').hide();
 		$('#overlay').hide();
@@ -723,24 +630,28 @@ var $$ = {
     
     addParameter: function(element) {
         var table = $(element).prev();
-    	var count = $(table).find('tr').size;
-        var index = count + 1;
+    	var count = $(table).find('tr').length;
+        var index = count + 1000; // a big number so that there are no clashed with other parameters
 
-        var id = $(table).attr('id');
-        var category = id.split('-')[1];
+        var id = "parameter";
     	var entryPart = id + "--entry--" + index;
 
         var newParameter = $('<tr id="' + entryPart + '"> \
         <td> \
-        	<input name="parameter-' + entryPart + '--name" value=""> \
-        	<input type="hidden" name="parameter-' + entryPart + '--category" value="' + category + '"> \
+        	<input type="text" name="parameter-' + entryPart + '--name" value=""> \
         	<input type="hidden" name="parameter-' + entryPart + '--type" value="String"> \
         </td> \
         <td> \
-        	<input name="parameter-' + entryPart + '--description" value=""> \
+        	<input type="text" name="parameter-' + entryPart + '--description" value=""> \
         </td> \
         <td> \
-            <input name="parameter-' + entryPart + '--value" value="" placeholder=""> \
+    	    <select name="parameter-' + entryPart + '--category"> \
+                <option value="Input">Input</option> \
+                <option value="Output">Output</option> \
+            </select> \
+        </td> \
+        <td> \
+            <input type="text" name="parameter-' + entryPart + '--value" value="" placeholder=""> \
         </td> \
         <td> \
 	        <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
@@ -756,7 +667,7 @@ var $$ = {
 
     addPackage: function(element) {
         var table = $(element).prev();
-    	var count = $(table).find('tr').size;
+    	var count = $(table).find('tr').length;
         var index = count + 1;
 
         var id = $(table).attr('id');
@@ -804,8 +715,11 @@ var $$ = {
 
 	fadeInTopWindow: function() {
 		$('#wrapper', window.top.document).fadeTo(0, 1);
-	}
+	},
 
+    resizeIframe: function(obj) {
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+      },
 }
 
 function updateParameterDefaults() {

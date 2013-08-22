@@ -119,10 +119,18 @@
                             <tr id="module-platform">
                                 <th>Platform</th>
                                 <td>CentOS</td>
+                                <td class="help">
+                                    <i class="icon-question-sign icon-2x"></i>
+                                    <span>${help-module-platform}</span>
+                                </td>
                             </tr>
                             <tr id="module-login">
-                                <th class="row">Login username</th>
-                                <td class="values">root</td>
+                                <th>Login username</th>
+                                <td>root</td>
+                                <td class="help">
+                                    <i class="icon-question-sign icon-2x"></i>
+                                    <span>${help-module-login}</span>
+                                </td>
                             </tr>
                         </table>
 	                </div>
@@ -239,7 +247,7 @@
 	                        </table>
     	                </div>
 	                </div>
-	                <h3 id="creation-header">Image Creation</h3>
+	                <h3 id="creation-header">Image Creation Recipes</h3>
 	                <div id="creation" class="tab_block">
 	                    <ul class="tabs inner_tabs">
                             <li id="fragment-creation-recipe-header">
@@ -312,15 +320,17 @@ ss-set ready true
 		                        </thead>
 		                        <tbody>
 		                            <tr>
-		                                <td>apache2</td>
-		                                <td></td>
-		                                <td></td>
+		                                <td>
+		                                    <span>apache2</span>
+		                                </td>
+		                                <td><span/></td>
+		                                <td><span/></td>
 		                            </tr>
 		                        </tbody>
 		                    </table>
 	                    </div>
 	                </div>
-	                <h3  id="deployment-header">Image Deployment</h3>
+	                <h3  id="deployment-header">Deployment Recipes and Coordination Parameters</h3>
 	                <div id="deployment" class="tab_block">
 	                    <ul class="tabs inner_tabs">
                             <li id="fragment-deployment-execute-header"><a href="#fragment-deployment-execute">Execute</a><span></span></li>
@@ -337,7 +347,7 @@ ss-set ready true
 		                        <tbody>
 		                            <tr>
 		                                <td>
-			                                <textarea disabled="disabled">
+			                                <textarea id="execute" disabled="disabled">
 #!/bin/sh -xe
 apt-get update -y
 apt-get install -y apache2
@@ -367,7 +377,7 @@ ss-set ready true
 		                        <tbody>
 		                            <tr>
 		                                <td>
-			                                <textarea disabled="disabled">
+			                                <textarea id="report" disabled="disabled">
 #!/bin/sh -xe
 apt-get update -y
 apt-get install -y apache2

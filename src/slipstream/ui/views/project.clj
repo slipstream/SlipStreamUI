@@ -100,16 +100,12 @@
 
   authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 
-(html/defsnippet summary-new-snip project-new-template-html module-base/module-summary-sel
-  [module]
-  (module-base/module-summary-new-trans module))
-
 (html/defsnippet new-snip project-new-template-html common/content-sel
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
   
   module-base/module-summary-sel (html/substitute 
-                                   (summary-new-snip module))
+                                   (module-base/module-summary-new-snip module))
 
   authz/authorization-sel (html/substitute (authz/authz-edit-snip module)))
 

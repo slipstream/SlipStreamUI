@@ -6,6 +6,21 @@
   [image]
   (html/select image [:cloudImageIdentifier]))
 
+(defn cloud-names
+  "Generate a list of cloud names, without default"
+  [image]
+  (filter 
+    #(not= "default" %) 
+    (flatten (map :content (html/select image [:cloudNames :> :string])))))
+
+(defn cloud-image-id
+  [image cloud-name]
+  (:cloudimageidentifier
+    (first
+      (filter
+        #(= (:cloudservicename %1) cloud-name)
+        (map :attrs (cloud-image-ids image))))))
+  
 ; Creation
 
 (defn creation-recipe 

@@ -13,7 +13,7 @@
   [message code]
   header/titles-sel (html/substitute
                       (header/header-titles-snip
-                        "<i style='color:red' class='icon-warning-sign'></i>Error"
+                        "<i style='color:red' class='icon-warning-sign'></i> Error"
                         message 
                         (str "Code: " code)
                         "Error")))

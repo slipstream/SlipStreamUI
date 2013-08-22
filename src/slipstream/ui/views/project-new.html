@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<!DOCTYPE html>
+<html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,7 +41,6 @@
 			<form
 			    action="?method=put"
 			    method="post"
-				enctype="x-www-form-urlencoded"
 				accept-charset="utf-8"
 				id="form-save">
 	        <div class="navigation">
@@ -68,21 +67,22 @@
             	            <tbody>
             	                <tr>
             	                    <td>Name</td>
-            	                    <td>
+            	                    <td id="module-name">
                           		        <span id="parent-module-name">XXParent/</span>
-                          		        <input class="mandatory" id="module-name" name="name" type="text" value="" placeholder="New project name..." /> *
+                          		        <input class="mandatory" id="module-short-name" type="text" value="" placeholder="New project name..." /> *
+                          		        <input id="module-name-input" name="name" type="hidden" value="" />
             	                    </td>
             	                </tr>
                                 <tr>
                                     <td>Description</td>
                                     <td>
                           		        <input id="module-description" name="description" type="text" value="" placeholder="New project description..."/>
-                          		        <input hidden="hidden" id="module-comment" name="comment" type="text" value="" />
+                          		        <input type="hidden" id="module-comment" name="comment" value="" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Category</td>
-                                    <td id="module-category">Project<input name="category" type="hidden" value="Project"></input></td>
+                                    <td id="module-category">Project<input name="category" type="hidden" value="Project" /></td>
                                 </tr>
                             </tbody>
                         </table>

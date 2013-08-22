@@ -43,259 +43,272 @@
             </div> 
         </div>
 		<div id="content">
-			<div class="navigation">
-				<ul class="breadcrumb">
-            	    <li><a href="#"><i class="icon-home"></i></a></li>
-					<li><a href="#">modules</a></li>
-					<li><a href="#">Public</a></li>
-					<li><a href="#">Tutorials</a></li>
-					<li><a href="#">HelloWorld</a></li>
-					<li><a href="#">client_server</a></li>
-				</ul>
-				<ul id="interaction-top" class="interaction">
-        	        <li class="attention">
-        	            <button id="save-button-top">
-        	                <i class="icon-save"></i> Save</button>
-        	        </li>
-        	        <li class="attention">
-        	            <button id="cancel-button-top">
-        	                <i class="icon-stop"></i> Cancel</button>
-        	        </li>
-        	        <li class="attention">
-        	            <button id="delete-button-top">
-        	                <i class="icon-trash"></i> Delete</button>
-        	        </li>
-				</ul>
-			</div>
-            <div id="chooser" class="overlay_sheet">
-                <iframe id="chooseriframe" src="?chooser=true"></iframe>
-            </div>
-			<div class="data_sheet">
-				<div class="summary accordion">
-					<h3>Summary</h3>
-					<div id="module-summary">
-						<table>
-							<tbody>
-								<tr>
-									<td>Module</td>
-									<td id="module-name">
-									    <span>Public/Tutorials/HelloWorld/client_serverX</span>
-										<input name="name" type="hidden" value="Public/Tutorials/HelloWorld/client_serverX" />
-									</td>
-								</tr>
-								<tr>
-									<td>Version</td>
-									<td>99<span id="module-versions"> (<a href="something">history</a>)</span></td>
-								</tr>
-								<tr>
-									<td>Description</td>
-									<td>
-										<input name="module-description" id="description" type="text" value="Description...X">
-									</td>
-								</tr>
-								<tr>
-									<td>Comment</td>
-									<td id="module-comment">
-									    <span>Latest comment...X</span>
-    									<input name="comment" type="hidden"  value="">
-									</td>
-								</tr>
-								<tr>
-									<td>Category</td>
-									<td id="module-category">
-									    <span>Deployment</span>
-									    <input name="category" type="hidden" value="DeploymentX" />
-                          		    </td>
-								</tr>
-								<tr>
-									<td>Created</td>
-									<td  id="module-created">2013-03-08 22:37:25.341 CETX</td>
-								</tr>
-								<tr>
-									<td>Last modified</td>
-									<td id="module-last-modified">2013-03-08 22:37:25.341 CETX</td>
-								</tr>
-								<tr>
-									<td>Owner</td>
-									<td id="module-owner">sixsqX</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<h3>Nodes</h3>
-					<div id="nodes">
-						<table>
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th>Image link</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="node_name">
-									    <input type="text" name="fillout1" value="apache6" />
-									</td>
-									<td>
-										<table class="image_link">
-								            <tbody>
-    											<tr>
-    												<td>
-    													<b>Reference image:</b>
-    													<a href="module/Public/Tutorials/HelloWorld/apache6">
-    													module/Public/Tutorials/HelloWorld/apache6
-    													</a>
-                                                        <input name="node--1--imagelink" type="hidden" value="module/Public/Tutorials/HelloWorld/apache6">
-                                                    </td>
-    											</tr>
-    											<tr>
-    												<td class="multiplicity">
-    												    <b>Default multiplicity: </b>
-    												    <input type="text" name="multiplicity" value="99" />
-    												</td>
-    											</tr>
-    											<tr>
-    												<td>
-    												    <b>Default cloud service:</b>
-    												    <select name="node--99--cloudservice--value">
-    												        <option>default</option>
-    												        <option>CloudSigma</option>
-    												        <option>StratusLab</option>
-    												        <option>Interoute VDC</option>
-    												        <option>Atos</option>
-    												    </select>
-    												</td>
-    											</tr>
-    											<tr id="parameters-mapping">
-    												<td>
-    													<hr />
-    													<b>Parameter mappings</b>
-    													<table class="parameter_mapping" id="node--1--mappingtable">
-    													    <thead>
-            													<tr>
-            														<th>Input parameter</th>
-            														<th>Linked to</th>
-            														<th></th>
-            													</tr>
-            												</thead>
-            												<tbody>
-                    											<tr id="parameter-mapping">
-        															<td>
-        															    <input type="text" name="fillout" value="webserver.port" />
-        															</td>
-        															<td>
-        															    <input class="parameter-mapping-output" type="text" name="fillout" value="apache1:port" />
-        															</td>
-                            										<td>
-                            											<i class="icon-remove-sign" onclick="$$.removeTrFromButton(this);"></i>
-                            										</td>
-        														</tr>
-        													</tbody>
-    													</table>
-                            							<button 
-                        								    class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-                            								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
-    												</td>
-    											</tr>
-    								        </tbody>
-										</table>
-									</td>
-									<td>
-										<i class="icon-remove-sign icon-2x" onclick="$$.removeTrFromButton(this);"></i>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<button 
-							class="bottom_section_button add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-							name="addNode" 
-							id="addNodeChooser" 
-							onclick="showChooser('moduleReferenceInput','Deployment',updateParameterDefaults);">
-							<i class="icon-plus"></i> Add Node
-						</button>
-					</div>
-					<h3>Authorization</h3>
-					<div id="authorization">
-					<table class="autorization_table">
-						<thead>
-							<tr>
-								<th>Access Right</th>
-								<th>Owner</th>
-								<th>Group</th>
-								<th>Public</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>View</td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
-								<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
-							</tr>
-							<tr>
-								<td>Edit</td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
-							</tr>
-							<tr>
-								<td>Delete</td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
-							</tr>
-							<tr>
-								<td>Execute (e.g. Run, Build)</td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
-							</tr>
-							<tr>
-								<td>Create Children</td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
-								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
-							</tr>
+            <form action="?method=put" method="post" accept-charset="utf-8" id="form-save" name="form-save">
+    			<div class="navigation">
+    				<ul class="breadcrumb">
+                	    <li><a href="#"><i class="icon-home"></i></a></li>
+    					<li><a href="#">modules</a></li>
+    					<li><a href="#">Public</a></li>
+    					<li><a href="#">Tutorials</a></li>
+    					<li><a href="#">HelloWorld</a></li>
+    					<li><a href="#">client_server</a></li>
+    				</ul>
+    				<ul id="interaction-top" class="interaction">
+            	        <li class="attention">
+            	            <button id="save-button-top">
+            	                <i class="icon-save"></i> Save</button>
+            	        </li>
+            	        <li class="attention">
+            	            <button id="cancel-button-top">
+            	                <i class="icon-stop"></i> Cancel</button>
+            	        </li>
+            	        <li class="attention">
+            	            <button id="delete-button-top">
+            	                <i class="icon-trash"></i> Delete</button>
+            	        </li>
+    				</ul>
+    			</div>
+                <div id="save-module-dialog" title="Save Image?">
+                    <p>
+                        Save comment:
+                    </p>
+                    <textarea id="save-comment" rows="3" cols="20"></textarea>
+                </div>
+                <div id="delete-module-dialog" title="Delete Image?">
+                    <p>
+                        Are you sure you want to delete this version of the image?
+                    </p>
+                </div>
+                <div id="chooser" class="overlay_sheet">
+                    <iframe id="chooseriframe" src="/?chooser=true"></iframe>
+                </div>
+    			<div class="data_sheet">
+    				<div class="summary accordion">
+    					<h3>Summary</h3>
+    					<div id="module-summary">
+    						<table>
+    							<tbody>
+    								<tr>
+    									<td>Module</td>
+    									<td id="module-name">
+    									    <span>Public/Tutorials/HelloWorld/client_serverX</span>
+    										<input name="name" type="hidden" value="Public/Tutorials/HelloWorld/client_serverX" />
+    									</td>
+    								</tr>
+    								<tr>
+    									<td>Version</td>
+    									<td>99<span id="module-versions"> (<a href="something">history</a>)</span></td>
+    								</tr>
+    								<tr>
+    									<td>Description</td>
+    									<td>
+    										<input name="module-description" id="description" type="text" value="Description...X">
+    									</td>
+    								</tr>
+    								<tr>
+    									<td>Comment</td>
+    									<td id="module-comment">
+    									    <span>Latest comment...X</span>
+        									<input name="comment" type="hidden"  value="">
+    									</td>
+    								</tr>
+    								<tr>
+    									<td>Category</td>
+    									<td id="module-category">
+    									    <span>Deployment</span>
+    									    <input name="category" type="hidden" value="DeploymentX" />
+                              		    </td>
+    								</tr>
+    								<tr>
+    									<td>Created</td>
+    									<td  id="module-created">2013-03-08 22:37:25.341 CETX</td>
+    								</tr>
+    								<tr>
+    									<td>Last modified</td>
+    									<td id="module-last-modified">2013-03-08 22:37:25.341 CETX</td>
+    								</tr>
+    								<tr>
+    									<td>Owner</td>
+    									<td id="module-owner">sixsqX</td>
+    								</tr>
+    							</tbody>
+    						</table>
+    					</div>
+    					<h3>Nodes</h3>
+    					<div id="nodes">
+    						<table>
+    							<thead>
+    								<tr>
+    									<th>Name</th>
+    									<th>Image link</th>
+    									<th></th>
+    								</tr>
+    							</thead>
+    							<tbody>
+    								<tr>
+    									<td class="nodename">
+    									    <input type="text" name="fillout1" value="apache6" />
+    									</td>
+    									<td>
+    										<table class="image_link">
+    								            <tbody>
+        											<tr>
+        												<td>
+        													<b>Reference image:</b>
+        													<a href="module/Public/Tutorials/HelloWorld/apache6">
+        													module/Public/Tutorials/HelloWorld/apache6
+        													</a>
+                                                            <input name="node--1--imagelink" type="hidden" value="module/Public/Tutorials/HelloWorld/apache6">
+                                                        </td>
+        											</tr>
+        											<tr>
+        												<td class="multiplicity">
+        												    <b>Default multiplicity: </b>
+        												    <input type="text" name="multiplicity" value="99" />
+        												</td>
+        											</tr>
+        											<tr>
+        												<td>
+        												    <b>Default cloud service:</b>
+        												    <select name="node--99--cloudservice--value">
+        												        <option>default</option>
+        												        <option>CloudSigma</option>
+        												        <option>StratusLab</option>
+        												        <option>Interoute VDC</option>
+        												        <option>Atos</option>
+        												    </select>
+        												</td>
+        											</tr>
+        											<tr id="parameters-mapping">
+        												<td>
+        													<hr />
+        													<b>Parameter mappings</b>
+        													<table class="parameter_mapping">
+        													    <thead>
+                													<tr>
+                														<th>Input parameter</th>
+                														<th>Linked to</th>
+                														<th></th>
+                													</tr>
+                												</thead>
+                												<tbody>
+                        											<tr id="parameter-mapping">
+            															<td>
+            															    <input type="text" name="fillout" value="webserver.port" />
+            															</td>
+            															<td>
+            															    <input class="parameter-mapping-output" type="text" name="fillout" value="apache1:port" />
+            															</td>
+                                										<td>
+                                											<i class="icon-remove-sign" onclick="$$.removeTrFromButton(this);"></i>
+                                										</td>
+            														</tr>
+            													</tbody>
+        													</table>
+                                							<button 
+                            								    class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                                								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
+        												</td>
+        											</tr>
+        								        </tbody>
+    										</table>
+    									</td>
+    									<td>
+    										<i class="icon-remove-sign icon-2x" onclick="$$.removeTrFromButton(this);"></i>
+    									</td>
+    								</tr>
+    							</tbody>
+    						</table>
+    						<button 
+    							class="bottom_section_button add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+    							name="addNode" 
+    							id="addNodeChooser">
+                                <!-- onclick="showChooser('moduleReferenceInput','Deployment',updateParameterDefaults);"> -->
+    							<i class="icon-plus"></i> Add Node
+    						</button>
+    					</div>
+    					<h3>Authorization</h3>
+    					<div id="authorization">
+    					<table class="autorization_table">
+    						<thead>
+    							<tr>
+    								<th>Access Right</th>
+    								<th>Owner</th>
+    								<th>Group</th>
+    								<th>Public</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    							<tr>
+    								<td>View</td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout1" id="fillout1" value="fillout" checked="checked" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout2" id="fillout2" value="fillout" /></td>
+    								<td><input class="checkbox" type="checkbox" name="fillout3" id="fillout3" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Edit</td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout4" id="fillout4" value="fillout" checked="checked" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout5" id="fillout5" value="fillout" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout6" id="fillout6" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Delete</td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout7" id="fillout7" value="fillout" checked="checked" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout8" id="fillout8" value="fillout" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout9" id="fillout9" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Execute (e.g. Run, Build)</td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout10" id="fillout10" value="fillout" checked="checked" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout11" id="fillout11" value="fillout" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout12" id="fillout12" value="fillout" /></td>
+    							</tr>
+    							<tr>
+    								<td>Create Children</td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout13" id="fillout13" value="fillout" checked="checked" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout14" id="fillout14" value="fillout" /></td>
+    								<td><input disabled="disabled" class="checkbox" type="checkbox" name="fillout15" id="fillout15" value="fillout" /></td>
+    							</tr>
 							
-						</tbody>
-					</table>
-					<hr />
-					<table>
-						<thead>
-							<tr>
-								<th>Group members</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="disabled" class="checkbox" type="checkbox" checked="checked" /></td>
-							</tr>
-							<tr>
-								<td>meb, konstan</td>
-							</tr>
+    						</tbody>
+    					</table>
+    					<hr />
+    					<table>
+    						<thead>
+    							<tr>
+    								<th>Group members</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    							<tr>
+    								<td>Inherited from parent: &nbsp;&nbsp;<input disabled="disabled" class="checkbox" type="checkbox" checked="checked" /></td>
+    							</tr>
+    							<tr>
+    								<td>meb, konstan</td>
+    							</tr>
 							
-						</tbody>
-					</table>
-					</div>
-				</div>
-			</div>
-			<div class="navigation bottom_nav">
-				<ul id="interaction-bottom" class="interaction">
-        	        <li class="attention">
-        	            <button id="save-button-bottom">
-        	                <i class="icon-save"></i> Save</button>
-        	        </li>
-        	        <li class="attention">
-        	            <button id="cancel-button-bottom">
-                            <i class="icon-stop"></i> Cancel</button>
-                    </li>
-        	        <li class="attention">
-        	            <button id="delete-button-bottom">
-        	                <i class="icon-trash"></i> Delete</button>
-        	        </li>
-	            </ul>
-	        </div>
+    						</tbody>
+    					</table>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="navigation bottom_nav">
+    				<ul id="interaction-bottom" class="interaction">
+            	        <li class="attention">
+            	            <button id="save-button-bottom">
+            	                <i class="icon-save"></i> Save</button>
+            	        </li>
+            	        <li class="attention">
+            	            <button id="cancel-button-bottom">
+                                <i class="icon-stop"></i> Cancel</button>
+                        </li>
+            	        <li class="attention">
+            	            <button id="delete-button-bottom">
+            	                <i class="icon-trash"></i> Delete</button>
+            	        </li>
+    	            </ul>
+    	        </div>
+    	    </form>
         </div>
         <div id="footer">
 	        <div class="footer_inner">

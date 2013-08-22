@@ -20,8 +20,6 @@
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.models.version :as version]
-            [clojure.xml :as xml]
-            [clojure.zip :as zip]
             [slipstream.ui.data.configuration :as configuration-data]
             [slipstream.ui.data.run :as run-data]
             [slipstream.ui.data.reports :as reports-data]
@@ -56,7 +54,10 @@
   (reports/page reports-data/xml-reports))
 
 (defn knockknock-page []
-  (knockknock/page projects/xml-projects))
+  (knockknock/page projects/xml-projects nil))
+
+(defn knockknock-chooser-page []
+  (knockknock/page projects/xml-projects "chooser"))
 
 (defn run-page []
   (run/page run-data/xml-run))
@@ -153,6 +154,7 @@
   (app
     ["logout"] (-> (byebye-page) ring.util.response/response constantly)
     ["login"] (-> (knockknock-page) ring.util.response/response constantly)
+    ["login-chooser"] (-> (knockknock-chooser-page) ring.util.response/response constantly)
     ["welcome"] (-> (welcome-page) ring.util.response/response constantly)
     ["welcome-chooser"] (-> (welcome-page-chooser) ring.util.response/response constantly)
     ["project-view"] (-> (module-project-view) ring.util.response/response constantly)
@@ -176,6 +178,7 @@
     ["run"] (-> (run-page) ring.util.response/response constantly)
     ["reports"] (-> (reports-page) ring.util.response/response constantly)
     ["configuration"] (-> (configuration-page) ring.util.response/response constantly)
+    ["documentation"] (-> (documentation-page) ring.util.response/response constantly)
     ["error"] (-> (error-page "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>" 500) ring.util.response/response constantly)
     [&] (-> (error-page "Unknown page" 404)
           ring.util.response/response constantly)))

@@ -20,220 +20,352 @@
 
 $(document).ready(function() {
 
-	$('input[id="savemodulebutton"]').click(function(event){
-		event.preventDefault();
-		$$.hideError();
-		background.fadeOutTopWindow();
-		$('#savemoduledialog').dialog('open');
-		return false;
-	});
-
-	$('#savemoduledialog').dialog({
-		autoOpen: false,
-		title: 'Save Module',
-		buttons: {
-			"Save": function() {
-				$(this).dialog("close");
-				background.fadeInTopWindow();
-				$("#commentinput").val($("#savecomment").val());
-				$("#formsave").submit();
-			},
-			"Cancel": function() {
-				$(this).dialog("close");
-				background.fadeInTopWindow();
-			},
-		}
-	});
-
-	var enableDisableImportButton = function() {
-		var fileSet = false;
-		var fileValue = $('#importinputfile').val();
-		if (fileValue) {
-			fileSet = true;
-		}
-		$(".ui-dialog-buttonpane button:contains('Import')").button(fileSet ? "enable" : "disable");		
-	}
-
-	$('input[id="importbutton"]').click(function(event){
-		$$.hideError();
-		background.fadeOutTopWindow();
-		enableDisableImportButton();
-		$('#importdialog').dialog('open');
-		return false;
-	});
-
-	$('#importinputfile').change(function() {
-		var files = $('#importinputfile').prop("files");
-        var fr = new FileReader();
-	
-		fr.onload = function(event) {
-			var content = event.target.result;
-			var parentUri = $(content).filter(":first").attr('parentUri');
-			var shortName = $(content).filter(":first").attr('shortName');
-			var moduleUri = parentUri + '/' + shortName;
-			$("#importform").attr('action', moduleUri + '?method=put');
-			enableDisableImportButton();
+    // is base checkbox
+	$('#module-is-base').click(function(event) { 
+		if($(event.target).is(':checked')) {
+			$('#moduleReferenceChooser').attr('disabled', 'disabled');
+			$('#module-image-ids input').removeAttr('disabled');
+		} else {
+			$('#moduleReferenceChooser').removeAttr('disabled');
+			$('#module-image-ids input').attr('disabled', 'disabled');
 		};
-
-        fr.readAsText(files[0]);
 	});
 
-	// clear import input value, since the file is only loaded on
-	// change event
-	if($('#importinputfile').val()) {
-		$('#importinputfile').val("");
-	};
-
-	$('#importdialog').dialog({
-		autoOpen: false,
-		width: 500,
-		stack: false,
-		buttons: {
-			"Import": function(event) {
-				event.preventDefault();
-				$(this).dialog("close");
-				$("#importform").submit();
-			},
-			"Cancel": function() {
-				$(this).dialog("close");
-				background.fadeInTopWindow();
-			},
-		}
-	});
-
-	$('input[id="copybutton"]').click(function(event){
-		event.preventDefault();
+    // Save button
+	$('#save-button-top, #save-button-bottom').click(function(event){
 		$$.hideError();
-		background.fadeOutTopWindow();
-		$('#copydialog').dialog('open');
+		$('#save-module-dialog').dialog('open');
 		return false;
 	});
 
-	$('#copydialog').dialog({
+    // 	$('#save-module-dialog').dialog({ ...
+    // expected to be provided by the edit/new specific script
+
+    // Cancel button
+    $('#cancel-button-top, #cancel-button-bottom').click(function(event){
+        if (location.pathname.endsWith("/module/new")) {
+            // We are on the root project, so we redirect to the welcome page
+            window.location.assign("/");
+            return false;
+        }
+        if (location.pathname.endsWith("/new")) {
+            // This is a new project, so we redirect to the parent
+            window.location.assign(location.pathname.replace(/\/new$/, ""));
+            return false;
+        }
+        // Standard cancel, so we redirect to the view mode (without query params)
+	    window.location.assign(location.pathname);
+		return false;
+    });	
+
+    // Delete button
+    $('#delete-button-top, #delete-button-bottom').click(function(event){
+		$$.hideError();
+		$('#delete-module-dialog').dialog('open');
+		return false;
+    });	
+
+	$('#delete-module-dialog').dialog({
 		autoOpen: false,
-		title: 'Copy Module',
-		width: 500,
-		stack: false,
+		title: 'Delete Module?',
 		buttons: {
-			"Copy": function() {
-				background.fadeInTopWindow();
-				errors = 0;
-				var showError = function(message) {
-					$$.show($("#copydialogerror"), message);
-				}
-				var validate = function() {
-					if($("#target_project_uri").val() === "") {
-						showError("Missing project where to create the copy");
-						errors += 1;
-					}
-					if($("#target_name").val() === "") {
-						showError("Missing new name");
-						errors += 1;
-					}
-				};
-				validate();
-				if(errors) {
-					return;
-				}
+			"Delete": function() {
 				$(this).dialog("close");
-				var target = $("#target_project_uri").val();
-				//var action = $("#copyform").attr("action");
-				$("#copyform").attr("action", "module/" + target);
-				$("#copyform").submit();
+				$.delete();
+				return false;
 			},
 			"Cancel": function() {
 				$(this).dialog("close");
-				background.fadeInTopWindow();
 			},
 		}
 	});
 
+    // Authz inherited group...
 	$('#inheritedGroupMembers').click(function(event) { 
 		if($('#inheritedGroupMembers').is(':checked')) {
-			$('#groupmembers').hide();
+			$('#groupmembers').attr("disabled", true);
 		} else {
-			$('#groupmembers').show();
+			$('#groupmembers').removeAttr("disabled");
 		};
 	});
 	
 	if($('#inheritedGroupMembers').is(':checked')) {
-		$('#groupmembers').hide();
+		$('#groupmembers').attr("disabled", true);
 	}
 	
-	var initProjectPage = function() {
-		$('#childrensection').each(function(i, node) {
-			tabActivator.defaultSectionName = 'childrensection';
-			tabActivator.defaultSectionTabName = 'childrensectionTab';
-		});
-	}
-
-	initProjectPage();
-
-	$('#isbase').click(function(event) { 
-		if($('#isbase').is(':checked')) {
-			$('#moduleReferenceChooser').attr('disabled', true);
-			$('#cloudimages input').removeAttr('disabled');
-
-			$('#platform').removeAttr('disabled');
-			$('#loginUser').removeAttr('disabled');
-		} else {
-			$('#moduleReferenceChooser').removeAttr('disabled');
-			$('#cloudimages input').attr('disabled', true);
-
-			$('#platform').attr('disabled', true);
-			$('#loginUser').attr('disabled', true);
-		};
-	});
-
-	$('#runOptions').dialog({
-		autoOpen: false,
-		width: 600,
-		buttons: {
-			"Run": function() {				
-				$(this).dialog("close");
-				background.fadeInTopWindow();
-				showSubmitMessage();
-				$('form[name="runwithoptions"]').submit();
-			},
-			"Cancel": function() {
-				$(this).dialog("close");
-			}
-		},
-		close: function() {
-			background.fadeInTopWindow();
-		},
-	});
-
-	$('input[value="Run..."]').click(function(event){
-		event.preventDefault();
+    // Publish button
+	$('#publish-button-top, #publish-button-bottom').click(function(event){
 		$$.hideError();
-		background.fadeOutTopWindow();
-		$('#runOptions').dialog('open');
+		$('#publish-module-dialog').dialog('open');
 		return false;
 	});
 
-	$('input[value="Run"]').click(function(event){
-		$$.hideError();
-		showSubmitMessage();
+	$('#publish-module-dialog').dialog({
+		autoOpen: false,
+		title: 'Publish Module?',
+		modal: true,
+		buttons: {
+			"Publish": function() {
+				$(this).dialog("close");
+				$("#form-publish").submit();
+				return false;
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			},
+		}
 	});
+	
+	// Chooser
+	var setModuleType = function(category) {
+		var buttons = $('button span:contains("Select Exact Version"), button span:contains("Select")').parent();
+		if(category === 'Image') {
+			$(buttons).removeAttr( "disabled" );
+		} else {
+			$(buttons).attr( "disabled", true );
+		}
+	};
 
-	$('input[value="Build"]').click(function(event){
-		$$.hideError();
-		showSubmitMessage();
+	$('#chooser').dialog({
+        autoOpen: false,
+		modal: true,
+	    width: 1000,
+	    title: "Choose a reference image",
+	    buttons: {
+	        "Select": function() { 
+                $$.selectChooser();
+		        $(this).dialog("close");
+		    },
+            "Select Exact Version": function() {
+                $$.selectChooserWithVersion();
+                $(this).dialog("close");
+            },
+            "Cancel": function() {
+                $(this).dialog("close");
+            },
+	    }
 	});
+	
+	$( "#moduleReferenceChooser, #addNodeChooser" ).click(function() {
+        $( "#chooser" ).dialog( "open" );
+        return false;
+    });
 
-	$('form[name="runwithoptions"]').submit(function(event){
-		event.preventDefault();
-		background.fadeInTopWindow();
-		showSubmitMessage();
-		return $$.send($(this), event, $.post);
-	});	
 
-	$('button[name="cancelrunwithoptions"]').click(function(event){
-		event.preventDefault();
-		background.fadeInTopWindow();
-		$('#runOptions').hide();
-		hideSubmitMessage();
-	});	
+    // $('input[id="savemodulebutton"]').click(function(event){
+    //  event.preventDefault();
+    //  $$.hideError();
+    //  background.fadeOutTopWindow();
+    //  $('#savemoduledialog').dialog('open');
+    //  return false;
+    // });
+    // 
+    // $('#savemoduledialog').dialog({
+    //  autoOpen: false,
+    //  title: 'Save Module',
+    //  buttons: {
+    //      "Save": function() {
+    //          $(this).dialog("close");
+    //          background.fadeInTopWindow();
+    //          $("#commentinput").val($("#savecomment").val());
+    //          $("#formsave").submit();
+    //      },
+    //      "Cancel": function() {
+    //          $(this).dialog("close");
+    //          background.fadeInTopWindow();
+    //      },
+    //  }
+    // });
+    // 
+    // var enableDisableImportButton = function() {
+    //  var fileSet = false;
+    //  var fileValue = $('#importinputfile').val();
+    //  if (fileValue) {
+    //      fileSet = true;
+    //  }
+    //  $(".ui-dialog-buttonpane button:contains('Import')").button(fileSet ? "enable" : "disable");        
+    // }
+    // 
+    // $('input[id="importbutton"]').click(function(event){
+    //  $$.hideError();
+    //  background.fadeOutTopWindow();
+    //  enableDisableImportButton();
+    //  $('#importdialog').dialog('open');
+    //  return false;
+    // });
+    // 
+    // $('#importinputfile').change(function() {
+    //  var files = $('#importinputfile').prop("files");
+    //         var fr = new FileReader();
+    // 
+    //  fr.onload = function(event) {
+    //      var content = event.target.result;
+    //      var parentUri = $(content).filter(":first").attr('parentUri');
+    //      var shortName = $(content).filter(":first").attr('shortName');
+    //      var moduleUri = parentUri + '/' + shortName;
+    //      $("#importform").attr('action', moduleUri + '?method=put');
+    //      enableDisableImportButton();
+    //  };
+    // 
+    //         fr.readAsText(files[0]);
+    // });
+    // 
+    // // clear import input value, since the file is only loaded on
+    // // change event
+    // if($('#importinputfile').val()) {
+    //  $('#importinputfile').val("");
+    // };
+    // 
+    // $('#importdialog').dialog({
+    //  autoOpen: false,
+    //  width: 500,
+    //  stack: false,
+    //  buttons: {
+    //      "Import": function(event) {
+    //          event.preventDefault();
+    //          $(this).dialog("close");
+    //          $("#importform").submit();
+    //      },
+    //      "Cancel": function() {
+    //          $(this).dialog("close");
+    //          background.fadeInTopWindow();
+    //      },
+    //  }
+    // });
+    // 
+    // $('input[id="copybutton"]').click(function(event){
+    //  event.preventDefault();
+    //  $$.hideError();
+    //  background.fadeOutTopWindow();
+    //  $('#copydialog').dialog('open');
+    //  return false;
+    // });
+    // 
+    // $('#copydialog').dialog({
+    //  autoOpen: false,
+    //  title: 'Copy Module',
+    //  width: 500,
+    //  stack: false,
+    //  buttons: {
+    //      "Copy": function() {
+    //          background.fadeInTopWindow();
+    //          errors = 0;
+    //          var showError = function(message) {
+    //              $$.show($("#copydialogerror"), message);
+    //          }
+    //          var validate = function() {
+    //              if($("#target_project_uri").val() === "") {
+    //                  showError("Missing project where to create the copy");
+    //                  errors += 1;
+    //              }
+    //              if($("#target_name").val() === "") {
+    //                  showError("Missing new name");
+    //                  errors += 1;
+    //              }
+    //          };
+    //          validate();
+    //          if(errors) {
+    //              return;
+    //          }
+    //          $(this).dialog("close");
+    //          var target = $("#target_project_uri").val();
+    //          //var action = $("#copyform").attr("action");
+    //          $("#copyform").attr("action", "module/" + target);
+    //          $("#copyform").submit();
+    //      },
+    //      "Cancel": function() {
+    //          $(this).dialog("close");
+    //          background.fadeInTopWindow();
+    //      },
+    //  }
+    // });
+    // 
+    // $('#inheritedGroupMembers').click(function(event) { 
+    //  if($('#inheritedGroupMembers').is(':checked')) {
+    //      $('#groupmembers').hide();
+    //  } else {
+    //      $('#groupmembers').show();
+    //  };
+    // });
+    // 
+    // if($('#inheritedGroupMembers').is(':checked')) {
+    //  $('#groupmembers').hide();
+    // }
+    // 
+    // var initProjectPage = function() {
+    //  $('#childrensection').each(function(i, node) {
+    //      tabActivator.defaultSectionName = 'childrensection';
+    //      tabActivator.defaultSectionTabName = 'childrensectionTab';
+    //  });
+    // }
+    // 
+    // initProjectPage();
+    // 
+    // $('#isbase').click(function(event) { 
+    //  if($('#isbase').is(':checked')) {
+    //      $('#moduleReferenceChooser').attr('disabled', true);
+    //      $('#cloudimages input').removeAttr('disabled');
+    // 
+    //      $('#platform').removeAttr('disabled');
+    //      $('#loginUser').removeAttr('disabled');
+    //  } else {
+    //      $('#moduleReferenceChooser').removeAttr('disabled');
+    //      $('#cloudimages input').attr('disabled', true);
+    // 
+    //      $('#platform').attr('disabled', true);
+    //      $('#loginUser').attr('disabled', true);
+    //  };
+    // });
+    // 
+    // $('#runOptions').dialog({
+    //  autoOpen: false,
+    //  width: 600,
+    //  buttons: {
+    //      "Run": function() {             
+    //          $(this).dialog("close");
+    //          background.fadeInTopWindow();
+    //          showSubmitMessage();
+    //          $('form[name="runwithoptions"]').submit();
+    //      },
+    //      "Cancel": function() {
+    //          $(this).dialog("close");
+    //      }
+    //  },
+    //  close: function() {
+    //      background.fadeInTopWindow();
+    //  },
+    // });
+    // 
+    // $('input[value="Run..."]').click(function(event){
+    //  event.preventDefault();
+    //  $$.hideError();
+    //  background.fadeOutTopWindow();
+    //  $('#runOptions').dialog('open');
+    //  return false;
+    // });
+    // 
+    // $('input[value="Run"]').click(function(event){
+    //  $$.hideError();
+    //  showSubmitMessage();
+    // });
+    // 
+    // $('input[value="Build"]').click(function(event){
+    //  $$.hideError();
+    //  showSubmitMessage();
+    // });
+    // 
+    // $('form[name="runwithoptions"]').submit(function(event){
+    //  event.preventDefault();
+    //  background.fadeInTopWindow();
+    //  showSubmitMessage();
+    //  return $$.send($(this), event, $.post);
+    // });  
+    // 
+    // $('button[name="cancelrunwithoptions"]').click(function(event){
+    //  event.preventDefault();
+    //  background.fadeInTopWindow();
+    //  $('#runOptions').hide();
+    //  hideSubmitMessage();
+    // });  
 
 })

@@ -20,4 +20,30 @@
 
 $(document).ready(function() {
 
+	$('#save-module-dialog').dialog({
+		autoOpen: false,
+		title: 'Save Module?',
+		modal: true,
+		buttons: {
+			"Save": function() {
+			    // the presence of parentname indicate a new module
+				$(this).dialog("close");
+				$("#module-comment").val($("#save-comment").val());
+				var parentname = $("#parent-module-name").text();
+				if (parentname === "/") {
+				    parentname = "";
+				}
+				var moduleShortName = $("#module-short-name").val();
+            	var fullname = parentname + moduleShortName;
+            	$("#form-save").attr("action", "/module/" + fullname + "?new=true")
+                $("#module-name-input").val(fullname);
+        		$$.send($("#form-save"), event, $.put);
+				return false;
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			},
+		}
+	});
+
 })

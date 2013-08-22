@@ -23,6 +23,7 @@
 
 (def project-view-template-html "slipstream/ui/views/project-view.html")
 (def project-edit-template-html "slipstream/ui/views/project-edit.html")
+(def project-new-template-html "slipstream/ui/views/project-new.html")
 
 ;; Utility
 
@@ -78,19 +79,20 @@
   [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module)))
 
-(defn module-summary-new-trans
+(html/defsnippet module-summary-new-snip project-new-template-html module-summary-sel
   [module]
-  (html/transformation
-    [:#parent-module-name] (html/content (module-model/parent-name module))
-    [:#module-category :> :span] (html/content (:category (module-model/attrs module)))
-    [:#module-category :> :input] (html/set-attr :value (:category (module-model/attrs module)))
-    [:#module-owner] (html/content (module-model/owner module))))
+  [:#parent-module-name] (html/content (module-model/parent-name module))
+  [:#module-category :> :span] (html/content (:category (module-model/attrs module)))
+  [:#module-category :> :input] (html/set-attr :value (:category (module-model/attrs module)))
+  [:#module-owner] (html/content (module-model/owner module)))
 
 (html/defsnippet module-summary-edit-snip project-edit-template-html module-summary-sel
   [module]
-  [:#module-name] (common/hidden-input-elem (:name (module-model/attrs module)) "module-name")
+  [:#parent-module-name] (html/content (module-model/parent-name module))
+  [:#module-name :> :span] (html/content (:name (module-model/attrs module)))
+  [:#module-name :> :input] (html/set-attr :value (:name (module-model/attrs module)))
   [:#module-version] (html/html-content
-                       (str (:version (module-model/attrs module))
+                       (str "<span id='version'>" (:version (module-model/attrs module)) "</span>"
                             "<span> (<a href='/"
                             (:parenturi (module-model/attrs module))
                             "/"

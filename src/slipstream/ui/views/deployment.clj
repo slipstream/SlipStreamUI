@@ -29,7 +29,8 @@
                   (common/parameters-edit-snip 
                     (common-model/filter-by-categories
                       (common-model/parameters node)
-                      ["Input"]))))))
+                      ["Input"])
+                    false)))))
 
 (html/defsnippet summary-view-snip deployment-view-template-html module-base/module-summary-sel
   [module]
@@ -65,7 +66,7 @@
   [:#module-owner] (html/content (module-model/owner module)))
 
 (html/defsnippet parameters-mapping-snip deployment-edit-template-html parameters-mapping-sel
-  [parameters node-index]
+  [parameters node-index view?]
   ; make the header visible if there are parameters
   [parameters-mapping-sel :> :td :> :table :> :thead :> :tr]
   (if (pos? (count parameters))
@@ -76,6 +77,7 @@
     [i (range (count parameters))
      :let [parameter (nth parameters i)
            id-prefix (str "node--" node-index "--mappingtable--" i "--")]]
+    html/this-node (html/remove-attr :id)
     [[:td (html/nth-of-type 1)] :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "input"))
@@ -83,56 +85,68 @@
     [[:td (html/nth-of-type 2)] :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "output"))
-      (html/set-attr :value (common-model/value parameter)))))
+      (html/set-attr :value (common-model/value parameter))))
+  parameters-mapping-sel
+  (if (and view? (zero? (count parameters)))
+    nil
+    identity)
+  [parameters-mapping-sel :> :td :> :table] (html/set-attr :id (str "node--" node-index "--mappingtable")))
 
-(html/defsnippet nodes-edit-snip deployment-edit-template-html nodes-sel
-  [nodes available-clouds]
-  [nodes-sel :> :table :> :tbody :> :tr] 
-  (html/clone-for
-    [i (range (count nodes))
-     :let [node (nth nodes i)
-           attrs (common-model/attrs node)
-           id-prefix (str "node--" i "--")
-           image-uri (:imageuri attrs)]]
-    [html/this-node] (html/set-attr :id (str "node--" i))
+(defn node-trans
+  [node i available-clouds attrs id-prefix image-uri view?]
+  (html/transformation
+    html/this-node (html/set-attr :id (str "node--" i))
     ; node name
-    [[:td.node_name] :> :input]
+    [[:td.nodename] :> :input]
     (html/do->
       (html/set-attr :value (common-model/elem-name node))
       (html/set-attr :name (str id-prefix "shortname")))
-
+    
     ; reference
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
     (common/set-a image-uri)
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "imagelink"))
-      (html/set-attr :value (str "/" image-uri)))
-
+      (html/set-attr :value image-uri))
+    
     ; multiplicity
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 2)] :> :td :> :input]
     (html/do->
       (html/set-attr :value (:multiplicity attrs))
       (html/set-attr :name (str id-prefix "multiplicity--value")))
-
+    
     ; default cloud
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 3)] :> :td :> :select]
     (html/substitute
-      (html/html-snippet  
-        (common/gen-select (str id-prefix "cloudservice--value") available-clouds (:cloudservice attrs))))
+      (common/gen-select (str id-prefix "cloudservice--value") available-clouds (:cloudservice attrs)))
     
     ; parameter mapping
     parameters-mapping-sel
     (html/substitute
-      (parameters-mapping-snip (common-model/parameter-mappings node) i))))
+      (parameters-mapping-snip (common-model/parameter-mappings node) i view?))))
 
+(html/defsnippet nodes-snip deployment-edit-template-html nodes-sel
+  [nodes available-clouds view?]
+  [nodes-sel :> :table :> :tbody :> :tr]
+  (html/clone-for
+    [i (range (count nodes))
+     :let [node (nth nodes i)
+           attrs (common-model/attrs node)
+           id-prefix (str "node--" i "--")
+           image-uri (:imageuri attrs)]]
+    (node-trans node i available-clouds attrs id-prefix image-uri view?)))
+  
 (html/defsnippet nodes-view-snip deployment-view-template-html nodes-sel
   [nodes available-clouds]
-  nodes-sel (html/substitute (nodes-edit-snip nodes available-clouds))
+  nodes-sel (html/substitute (nodes-snip nodes available-clouds true))
   [nodes-sel :button] (html/substitute nil)
   [nodes-sel [#{[:td] [:th]} (html/nth-of-type 3)]] (html/substitute nil)
-  [nodes-sel [:.image_link ]] 
   [:input] (html/set-attr :disabled "disabled"))
+
+(html/defsnippet nodes-edit-snip deployment-view-template-html nodes-sel
+  [nodes available-clouds]
+  nodes-sel (html/substitute (nodes-snip nodes available-clouds false)))
 
 (defn authz-buttons
   [module]
