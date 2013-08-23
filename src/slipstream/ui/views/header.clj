@@ -1,6 +1,5 @@
 (ns slipstream.ui.views.header
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.utils :as utils]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.views.common :as common]
             [clojure.xml :as xml]
