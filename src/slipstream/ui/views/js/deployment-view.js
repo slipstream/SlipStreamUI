@@ -29,7 +29,7 @@ $(document).ready(function() {
     $('#run-button-top, #run-button-bottom').click(function(event){
     	$$.hideError();
 		$$.showSubmitMessage("Executing Deployment");
-		$("#form-run").submit();
+		$$.send($("#form-run"), event, $.post);
 		return false;
     });	
 
@@ -49,7 +49,7 @@ $(document).ready(function() {
 			"Run": function() {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Executing Deployment");
-        		$$.send($("#form-run-with-options"), event, $.put);
+        		$$.send($("#form-run-with-options"), event, $.post);
 				return false;
 			},
 			"Cancel": function() {
