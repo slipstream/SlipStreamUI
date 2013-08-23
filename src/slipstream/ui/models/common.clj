@@ -7,6 +7,9 @@
 (defn elem-name [elem]
   (:name (attrs elem)))
 
+(defn elem-value [elem]
+  (:value (attrs elem)))
+
 (defn resourceuri [elem]
   (:resourceuri (attrs elem)))
 

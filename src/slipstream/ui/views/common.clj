@@ -150,10 +150,6 @@
   [parameter]
   (to-stars (param-val-default parameter)))
   
-(defmethod param-val "Dummy"
-  [parameter]
-  nil)
-
 (defmethod param-val "Boolean"
   [parameter]
   (= "true" (param-val-default parameter)))
@@ -264,11 +260,11 @@
       " placeholder='" defaultvalue
       "'>" value "</textarea>"))))
 
-(defmethod set-input-value "Dummy"
+(defmethod set-input-value "String"
   [parameter tr-id]
   (set-input-value-string parameter tr-id))
 
-(defmethod set-input-value "String"
+(defmethod set-input-value :default
   [parameter tr-id]
   (set-input-value-string parameter tr-id))
 

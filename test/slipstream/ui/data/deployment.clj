@@ -201,14 +201,6 @@
                   
 <entry>
                      
-<string>dummy</string>
-                     
-<parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Placeholder for display' isSet='false' mandatory='true' name='dummy' readonly='false' type='Dummy'></parameter>
-                  
-</entry>
-                  
-<entry>
-                     
 <string>stratuslab.cpu</string>
                      
 <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested CPUs' isSet='false' mandatory='true' name='stratuslab.cpu' readonly='false' type='String'></parameter>

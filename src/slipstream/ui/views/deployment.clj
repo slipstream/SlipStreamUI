@@ -20,17 +20,44 @@
 
 ;; View
 
-(html/defsnippet run-with-options-dialog-snip deployment-view-template-html [run-with-options-dialog-sel]
+(html/defsnippet run-parameters-edit-snip common/parameter-edit-template-html [:#run-parameters-edit]
+  [node available-clouds]
+  [:#run-parameters-edit [:input html/any-node]] (html/replace-vars (common-model/attrs node))
+  [:#run-parameters-edit :>  :table :> :tbody :> [:tr (html/nth-of-type 2)] :> :td :> :select]
+  (html/substitute
+    (common/gen-select
+      (str "parameter--node--" (common-model/elem-name node) "--cloudservice")
+      available-clouds
+      (:cloudService (common-model/attrs node))))
+  [:#run-parameters-edit :> :table :> :tbody :> [:tr html/last-of-type]]
+  (html/clone-for
+    [p (filter 
+         #(and
+            (not 
+              (empty? (common-model/elem-value %)))
+            (not 
+              (nil? (re-find #"^[\"'].*[\"']$" (common-model/elem-value %)))))
+         (common-model/filter-by-categories
+           (common-model/parameters node)
+           ["Input"]))
+     :let [node-name (common-model/elem-name node)
+           name (common-model/elem-name p)
+           value (common-model/elem-value p)]]
+    [[:td html/first-of-type]] (html/content name)
+    [[:td (html/nth-of-type 2)] :> :input] (html/do->
+                                 (html/set-attr :name (str "parameter--node--" node-name "--" name))
+                                 (html/set-attr :value value))))
+
+(html/defsnippet run-with-options-dialog-snip deployment-view-template-html run-with-options-dialog-sel
   [deployment]
-  [:> :div] (html/content
-              (for [node (module-model/nodes deployment)]
-                (list
-                  (html/html-snippet (str "\n    <h3>" (common-model/elem-name node) "</h3>"))
-                  (common/parameters-edit-snip 
-                    (common-model/filter-by-categories
-                      (common-model/parameters node)
-                      ["Input"])
-                    false)))))
+  run-with-options-dialog-sel
+  (html/content
+    (for [node (module-model/nodes deployment)]
+      (list
+        (html/html-snippet (str "\n    <h3>" (common-model/elem-name node) "</h3>"))
+        (run-parameters-edit-snip
+          node
+          (module-model/available-clouds deployment))))))
 
 (html/defsnippet parameters-mapping-snip deployment-edit-template-html parameters-mapping-sel
   [parameters node-index view?]
