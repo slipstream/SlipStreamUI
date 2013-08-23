@@ -8,16 +8,15 @@
   <name>SlipStreamUI</name>
   <description>SlipStream UI</description>
   <url>http://sixsq.com</url>
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
+  <parent>
+    <groupId>com.sixsq.slipstream</groupId>
+    <artifactId>SlipStream</artifactId>
+    <version>1.8-SNAPSHOT</version>
+  </parent>
   <scm>
     <connection>scm:git:git://github.com/slipstream/SlipStreamUI.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/slipstream/SlipStreamUI.git</developerConnection>
-    <tag>be25129ff1a447fa522fb76eed815bbf68b9f6f6</tag>
+    <tag>f8a8e86e7d2fb14b3d43afb7e4fd51bae2ad09df</tag>
     <url>https://github.com/slipstream/SlipStreamUI</url>
   </scm>
   <build>
