@@ -4,7 +4,7 @@
   <groupId>com.sixsq.slipstream</groupId>
   <artifactId>SlipStreamUI</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <name>SlipStreamUI</name>
   <description>SlipStream UI</description>
   <url>http://sixsq.com</url>
@@ -17,7 +17,7 @@
   <scm>
     <connection>scm:git:git://github.com/slipstream/SlipStreamUI.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/slipstream/SlipStreamUI.git</developerConnection>
-    <tag>366bf5489ea53d0d6fae818073a79b082e44d00b</tag>
+    <tag>be25129ff1a447fa522fb76eed815bbf68b9f6f6</tag>
     <url>https://github.com/slipstream/SlipStreamUI</url>
   </scm>
   <build>
