@@ -68,7 +68,7 @@
   [module]
   [:#module-name] (html/content (:name (module-model/attrs module)))
   [:#module-version] (html/html-content
-                         (str (:version (module-model/attrs module))
+                         (str "<span>" (:version (module-model/attrs module)) "</span>"
                               "<span> (<a href='/module/"
                               (:name (module-model/attrs module))
                               "/'>history</a>)</span>"))

@@ -100,6 +100,7 @@
       (repeat "●"))))
 
 (declare insert-name)
+(declare insert-id)
   
 (defn gen-select
   "Generate a select/option element, optionaly disabled"
@@ -108,6 +109,7 @@
     (html/html-snippet
       (str "<select"
            (insert-name name)
+           (insert-id name)
            (when disabled? " disabled='disabled'")
            ">\n" 
            (apply str
@@ -216,6 +218,12 @@
   [name]
   (if name
     (str " name='" name "'")
+    ""))
+
+(defn- insert-id
+  [id]
+  (if id
+    (str " id='" id "'")
     ""))
 
 (defn- set-input-name-value

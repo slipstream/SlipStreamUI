@@ -112,6 +112,8 @@ var nodeAdder = {
 		nodePrefix: null,
 		nodeName: '',
 		imageShortName: null,
+		qname: null,
+		imageUri: null,
 		imageUrl: null,
 		index: -1,
 		
@@ -148,7 +150,7 @@ var nodeAdder = {
 	getSingleMappingPart: function(index, name, value) {
 	    var nodePrefix = that.nodeInfo.nodePrefix;
 		
-		return '<tr id="' + nodePrefix + '--mappingtable--' + index + '"> \
+		return '<tr> \
 			<td> \
 				<input name="' + nodePrefix + '--mappingtable--' + index + '--input" value="' + name + '" \
 					type="text" /> \
@@ -158,9 +160,7 @@ var nodeAdder = {
 					type="text" /> \
 			</td> \
 			<td> \
-				<input class=button" type="button" \
-					onclick="removeElement(\'' + nodePrefix + '--mappingtable--' + index + '\');" \
-					value="Remove" /> \
+			    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
 			</td> \
 		</tr>'
 		
@@ -188,6 +188,8 @@ var nodeAdder = {
 	    var nodePrefix = that.nodeInfo.nodePrefix;
 		var nodeName = that.nodeInfo.nodeName;
 		var imageShortName = that.nodeInfo.imageShortName;
+		var qname = that.nodeInfo.qname;
+		var imageUri = that.nodeInfo.imageUri;
 		var imageUrl = that.nodeInfo.imageUrl;
 		var index = that.nodeInfo.index;
 		
@@ -197,45 +199,47 @@ var nodeAdder = {
 		cloudServiceSelect.attr('name', nodePrefix + '--cloudservice--value')
 		cloudServiceSelect.attr('id', '')
 		
-		return '<tr id="' + nodePrefix + '" class="even"> \
-			<td> \
-				<input id="nodename" name="' + nodePrefix + '--shortname" type="text" value="' + nodeName + '" /> \
+		return '<tr id="' + nodePrefix + '"> \
+			<td class="nodename"> \
+				<input name="' + nodePrefix + '--shortname" type="text" value="' + nodeName + '" /> \
 			</td> \
 			<td> \
-				<table> \
-					<tr> \
-						<td> \
-							Reference image: \
-							<a href="' + imageUrl + '">' + imageUrl + '</a> \
-							<input name="' + nodePrefix + '--imagelink" type="hidden" value="' + imageUrl + '" /> \
-						</td> \
-						<td style="align:right"> \
-							<span> \
-								Multiplicity: \
-								<input type="text" name="' + nodePrefix + '--multiplicity--value" id="' + nodePrefix + '--multiplicity--value" \
-									   size="3" value="1" /> \
-							</span> \
-						</td> \
-						<td style="align:right"> \
-							<span> \
-								Cloud service: ' + cloudServiceSelect[0].outerHTML + ' \
-							</span> \
-						</td> \
-					</tr> \
+				<table class="image_link"> \
+	                <tbody> \
+    					<tr> \
+    						<td> \
+    						    <b>Reference image:</b> \
+    							<a href="' + imageUrl + '">' + qname + '</a> \
+    							<input name="' + nodePrefix + '--imagelink" type="hidden" value="' + imageUri + '" /> \
+    						</td> \
+    					</tr> \
+    					<tr> \
+    						<td class="multiplicity"> \
+    						    <b>Default multiplicity: </b> \
+    						    <input value="1" name="' + nodePrefix + '--multiplicity--value" type="text"> \
+    						</td> \
+    					</tr> \
+    					<tr> \
+    					    <td> \
+    					        <b>Default cloud service:</b> \
+    						    ' + cloudServiceSelect[0].outerHTML + ' \
+    						</td> \
+    					</tr> \
+    					<tr id="parameters-mapping"> \
+    						<td> \
+    							<hr> \
+    							<b>Parameter mappings</b> \
+    							<table id="node--' + index + '--mappingtable" class="parameter_mapping"> \
+    							' + mappingsPart + '\
+    							</table> \
+    							<button onclick="$$.addEmptyParameterMapping(this); return false;" class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><i class="icon-plus"></i> Add Parameter Mapping</button> \
+    						</td> \
+        				</tr> \
+        			</tbody> \
 				</table> \
-				<div> \
-					<div class="section_head"> \
-						<span>Parameter mappings </span> \
-						<input type="hidden" value="' + index + '" id="' + nodePrefix + '--mappingtablecounter" /> \
-						<input class="button" type="button" onclick="addParameterMapping(\'' + nodePrefix + '--mappingtable\');" \
-							   value="Add Parameter Mapping" /> \
-					</div> \
-					<table id="' + nodePrefix + '--mappingtable" class="full">' + mappingsPart + '</table> \
-				</div> \
 			</td> \
 			<td> \
-				<input class="button" type="button" onclick="removeElement(\'' + nodePrefix + '\'); nodeParametersAutoCompleter.clear();" \
-					value="Remove" /> \
+			    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign icon-2x"></i> \
 			</td> \
 		</tr>'
 		
@@ -247,7 +251,7 @@ var nodeAdder = {
         var category = module.attr('category');
         if (category != 'Image') {
             $('#errorText').text("Wrong type!! Expecting 'Image', got: " + category);
-            return;
+    		return;
         }
 
 		that = nodeAdder;
@@ -255,26 +259,29 @@ var nodeAdder = {
 		var t = image.attr('class');
 		that.nodeInfo.populate(image);
 
-	    var index = $('#nodes > tr').size() + 1;
+	    var index = $('#nodes > table > tbody > tr').size();
 		that.nodeInfo.setNodePrefix(index);
 		
 		var parameters = image.find('parameters > entry > parameter[category="Input"][type!="Dummy"]');
 		
 		node = $(that.getNodePart(parameters));
-        node.appendTo(nodes);
+        node.appendTo($("#nodes > table > tbody"));
 
 		addAutocompleteToNodeOutputFields();
     },
     
-	add: function() {
+	add: function(qname) {
 		
 		$.cookie("Cookie", document.cookie);
 		
-	    var qname = $('#' + slipstreamns.get('inputid')).attr('value');
-		var uri = "module/" + urlEncode(qname);
+		this.nodeInfo.qname = qname;
+        var uri = "module/" + urlEncode(qname);
+		this.nodeInfo.imageUri = uri;
 		var url = "/" + uri;
-		this.nodeInfo.imageUrl = uri;
+		this.nodeInfo.imageUrl = url;
 	    $.get(url, nodeAdder.callback, "xml");
+		
+		return false;
 	},
 }
 
@@ -283,8 +290,8 @@ function addAutocompleteToNodeOutputFields() {
 	$('.parameter-mapping-output').autocomplete({source: function(term, tags) {nodeParametersAutoComplete(term, tags);}});	
 }
 
-function addNode() {
-	nodeAdder.add();
+$$.addNode = function addNode(qname) {
+	return nodeAdder.add(qname);
 }
 
 var nodeParametersAutoCompleter = {
@@ -301,7 +308,7 @@ var nodeParametersAutoCompleter = {
 
 		var that= this;
 		$(images).each(function(index, image) {
-			$.ajax({ url: image, success: that.extractOutputParameters, dataType: "xml", async: false });
+			$.ajax({ url: "/" + image, success: that.extractOutputParameters, dataType: "xml", async: false });
 		});
 		$.each(
 			that.tagsByNode,
@@ -355,15 +362,16 @@ var nodeParametersAutoCompleter = {
     },
 
 	extractImageRef: function(node) {
-		return $('input[name=node--' + $(node).index() + '--imagelink]').attr('value');
+	    var index = $(node).index();
+		return $('input[name=node--' + index + '--imagelink]').val();
 	},
 
 	extractNodeName: function(node) {
-		return $(node).find('input[type=text]').attr('value');
+		return $(node).find('input[type=text]').val();
 	},
 
 	extractOutputParameters: function(data, status, xhr) {
-		var parentUri = "/" + $(data.firstChild).attr('parentUri');
+		var parentUri = $(data.firstChild).attr('parentUri');
 		var shortName = $(data.firstChild).attr('shortName');
 		var imageName = parentUri + "/" + shortName;
 		var imageNameNoVersion = nodeParametersAutoCompleter.extractImageRefNoVersion(imageName);
@@ -419,7 +427,31 @@ function cleanNodeAutocompleteOnNodeNameChange() {
 $(document).ready(function() {
 
 	addAutocompleteToNodeOutputFields();
-	
 	$('td.nodename > input').change(cleanNodeAutocompleteOnNodeNameChange);
+
+    $$.onImageChooserSelect = function() {
+        var modulename = $('#chooseriframe').contents().find('#module-name').text();
+        $$.addNode(modulename);
+    },
+    
+    $$.onImageChooserSelectWithVersion = function() {
+        var modulename = $('#chooseriframe').contents().find('#module-name').text();
+        var version = $('#chooseriframe').contents().find('#module-version > span:first-of-type').text();
+        $$.addNode("module/" + modulename + "/" + version);
+    },
+
+    $$.createImageChooserDialog();
+
+	$( "#addNodeChooser" ).click(function() {
+        $$.chooserMatchCategory = "Image";
+
+        $$.chooserOnSelectHandler = function() {
+            alert("addNodeChooser");
+        };
+
+        $( "#chooser" ).dialog( "open" );
+        return false;
+    });
+
 
 });

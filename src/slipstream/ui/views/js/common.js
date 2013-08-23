@@ -393,28 +393,28 @@ var slipstreamns = {
 	}
 }
 
-var chooser = {
-
-    selectChooserWithVersion: function() {
-        var modulename = $('#chooseriframe').find('#module-name').text();
-        var version = $('#chooseriframe').find('#module-version').text();
-        var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
-    },
-     
-    selectChooser: function() {
-        var modulename = $('#chooseriframe').contents().find('#module-name').text();
-        var targetInput = $('#module-reference').attr('value', modulename);
-    },
-
-};
-
-function selectChooser() {
-	chooser.selectChooser();
-};
-
-function selectChooserWithVersion() {
-	chooser.selectChooserWithVersion();
-};
+// var chooser = {
+// 
+//     selectChooserWithVersion: function() {
+//         var modulename = $('#chooseriframe').find('#module-name').text();
+//         var version = $('#chooseriframe').find('#module-version').text();
+//         var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
+//     },
+//      
+//     selectChooser: function() {
+//         var modulename = $('#chooseriframe').contents().find('#module-name').text();
+//         var targetInput = $('#module-reference').attr('value', modulename);
+//     },
+// 
+// };
+// 
+// function selectChooser() {
+//  chooser.selectChooser();
+// };
+// 
+// function selectChooserWithVersion() {
+//  chooser.selectChooserWithVersion();
+// };
 
 var logger = function() {
 	
@@ -492,13 +492,57 @@ function htmlEncode(value){
 
 // SlipStream namespace (let's start putting things in here)
 var $$ = {
-    selectChooser: function() {
-        selectChooser();
+    
+    // Default behaviour (can be overriden)
+    onImageChooserSelect: function() {
+        var modulename = $('#chooseriframe').contents().find('#module-name').text();
+        var targetInput = $('#module-reference').attr('value', modulename);
     },
     
-    selectChooserWithVersion: function() {
-        selectChooserWithVersion();
+    onImageChooserSelectWithVersion: function() {
+        var modulename = $('#chooseriframe').contents().find('#module-name').text();
+        var version = $('#chooseriframe').contents().find('#module-version > span:first-of-type').text();
+        var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
     },
+    
+    createImageChooserDialog: function() {
+        $('#chooser').dialog({
+            autoOpen: false,
+    		modal: true,
+    	    width: 1000,
+    	    title: "Choose an image",
+    	    buttons: {
+    	        "Select": function() { 
+                    $$.onImageChooserSelect();
+    		        $(this).dialog("close");
+    		    },
+                "Select Exact Version": function() {
+                    $$.onImageChooserSelectWithVersion();
+                    $(this).dialog("close");
+                },
+                "Cancel": function() {
+                    $(this).dialog("close");
+                },
+    	    }
+	    });
+	},
+    
+    createProjectChooserDialog: function() {
+    $('#chooser').dialog({
+        autoOpen: false,
+		modal: true,
+	    width: 1000,
+	    title: "Choose a project",
+	    buttons: {
+	        "Select": function() { 
+                $$.selectChooser();
+		        $(this).dialog("close");
+		    },
+            "Cancel": function() {
+                $(this).dialog("close");
+            },
+	    }
+	});},
     
 	hideSubmitMessage: function() {
 		$('#submit-message').hide();
@@ -717,9 +761,21 @@ var $$ = {
 		$('#wrapper', window.top.document).fadeTo(0, 1);
 	},
 
-    resizeIframe: function(obj) {
-        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-      },
+    resizeIframe: function(iframe) {
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+    },
+
+    iframeLoaded: function(iframe) {
+//        resizeIFrame(iframe);
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+
+        var targetCategory = $$.chooserMatchCategory;
+        if (targetCategory === $(iframe).contents().find("#module-category").text()) {
+            $("span:contains('Select')").parent().removeAttr("disabled");
+        } else {
+            $("span:contains('Select')").parent().attr("disabled", "disabled");
+        }
+    },
 }
 
 function updateParameterDefaults() {

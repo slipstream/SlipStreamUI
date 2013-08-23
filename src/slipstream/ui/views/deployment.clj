@@ -32,39 +32,6 @@
                       ["Input"])
                     false)))))
 
-(html/defsnippet summary-view-snip deployment-view-template-html module-base/module-summary-sel
-  [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-version] (html/html-content
-                         (str (:version (module-model/attrs module))
-                              "<span> (<a href='/module/"
-                              (:name (module-model/attrs module))
-                              "/'>history</a>)</span>"))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
-  [:#module-comment] (html/content (module-model/module-comment module))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-created] (html/content (:creation (module-model/attrs module)))
-  [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
-
-(html/defsnippet summary-edit-snip deployment-edit-template-html module-base/module-summary-sel
-  [module]
-  [:#module-name :> :span] (html/content (:name (module-model/attrs module)))
-  [:#module-name :> :input] (html/set-attr :value (:name (module-model/attrs module)))
-  [:#module-description :> :input] (html/set-attr :value (:description (module-model/attrs module)))
-  [:#module-comment] (html/content (module-model/module-comment module))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-created] (html/content (:creation (module-model/attrs module)))
-  [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
-
-(html/defsnippet summary-new-snip deployment-new-template-html module-base/module-summary-sel
-  [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
-
 (html/defsnippet parameters-mapping-snip deployment-edit-template-html parameters-mapping-sel
   [parameters node-index view?]
   ; make the header visible if there are parameters
@@ -128,6 +95,11 @@
 
 (html/defsnippet nodes-snip deployment-edit-template-html nodes-sel
   [nodes available-clouds view?]
+  [:#cloudServiceNamesList] (html/substitute
+                              (common/gen-select 
+                                "cloudServiceNamesList"
+                                available-clouds
+                                nil))
   [nodes-sel :> :table :> :tbody :> :tr]
   (html/clone-for
     [i (range (count nodes))
@@ -192,7 +164,7 @@
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
   module-base/module-summary-sel (html/substitute 
-                                   (summary-view-snip deployment))
+                                   (module-base/module-summary-view-snip deployment))
   nodes-sel (html/substitute
               (nodes-view-snip
                 (module-model/nodes deployment)
@@ -222,7 +194,7 @@
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
   module-base/module-summary-sel (html/substitute 
-                                   (summary-new-snip deployment)))
+                                   (module-base/module-summary-new-snip deployment)))
 
 (html/defsnippet edit-snip deployment-edit-template-html common/content-sel
   [deployment]

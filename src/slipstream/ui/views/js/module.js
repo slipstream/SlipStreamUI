@@ -126,32 +126,6 @@ $(document).ready(function() {
 		}
 	};
 
-	$('#chooser').dialog({
-        autoOpen: false,
-		modal: true,
-	    width: 1000,
-	    title: "Choose a reference image",
-	    buttons: {
-	        "Select": function() { 
-                $$.selectChooser();
-		        $(this).dialog("close");
-		    },
-            "Select Exact Version": function() {
-                $$.selectChooserWithVersion();
-                $(this).dialog("close");
-            },
-            "Cancel": function() {
-                $(this).dialog("close");
-            },
-	    }
-	});
-	
-	$( "#moduleReferenceChooser, #addNodeChooser" ).click(function() {
-        $( "#chooser" ).dialog( "open" );
-        return false;
-    });
-
-
     // $('input[id="savemodulebutton"]').click(function(event){
     //  event.preventDefault();
     //  $$.hideError();

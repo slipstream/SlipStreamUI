@@ -1355,3 +1355,7 @@ li {
     display: block;
 }
 
+.ui-autocomplete {
+	border: 1px solid #aeaeae;
+}
+

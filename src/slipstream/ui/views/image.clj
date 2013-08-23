@@ -140,21 +140,6 @@
   [execute report parameters]
   (deployment-trans execute report parameters common/parameters-edit-all-snip))
 
-(html/defsnippet summary-view-snip image-view-template-html module-base/module-summary-sel
-  [module]
-  [:#module-name] (html/content (:name (module-model/attrs module)))
-  [:#module-version] (html/html-content
-                         (str (:version (module-model/attrs module))
-                              "<span> (<a href='/module/"
-                              (:name (module-model/attrs module))
-                              "/'>history</a>)</span>"))
-  [:#module-description] (html/content (:description (module-model/attrs module)))
-  [:#module-comment] (html/content (module-model/module-comment module))
-  [:#module-category] (html/content (:category (module-model/attrs module)))
-  [:#module-created] (html/content (:creation (module-model/attrs module)))
-  [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
-
 ;; Edit
 
 (defn authz-button
@@ -204,7 +189,7 @@
   [module]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name module))
   module-base/module-summary-sel (html/substitute 
-                                   (summary-view-snip module))
+                                   (module-base/module-summary-view-snip module))
    
   [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
   

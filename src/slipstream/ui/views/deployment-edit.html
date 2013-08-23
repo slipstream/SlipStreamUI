@@ -80,7 +80,7 @@
                     </p>
                 </div>
                 <div id="chooser" class="overlay_sheet">
-                    <iframe id="chooseriframe" src="/?chooser=true"></iframe>
+                    <iframe id="chooseriframe" src="/?chooser=true" onload="javascript:$$.iframeLoaded(this);"></iframe>
                 </div>
     			<div class="data_sheet">
     				<div class="summary accordion">
@@ -136,6 +136,12 @@
     					</div>
     					<h3>Nodes</h3>
     					<div id="nodes">
+    					    <div class="hidden">
+                    		    <select id="cloudServiceNamesList">
+                    		        <option>default</option>
+                    		        <option>CloudSigma</option>
+                    		    </select>
+                    		</div>
     						<table>
     							<thead>
     								<tr>
@@ -207,7 +213,7 @@
         													</table>
                                 							<button 
                             								    class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-                                								onclick="$$.addEmptyParameterMapping(this);"><i class="icon-plus"></i> Add Parameter Mapping</button>
+                                								onclick="$$.addEmptyParameterMapping(this); return false;"><i class="icon-plus"></i> Add Parameter Mapping</button>
         												</td>
         											</tr>
         								        </tbody>
