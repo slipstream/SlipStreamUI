@@ -105,7 +105,7 @@
 
 (defn css-stylesheets
   []
-  ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css" "/css/dashboard.css"])
+  ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css" "/css/run-dashboard.css"])
 
 ;; javascript inclusion
 
