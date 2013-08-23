@@ -1292,6 +1292,7 @@ body.overlay {
 textarea {
     width: 99%;
     height: 500px;
+	border: 1px solid #aeaeae;
 }
 
 #save-module-dialog textarea {
