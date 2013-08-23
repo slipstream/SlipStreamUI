@@ -49,9 +49,6 @@
 				  <sourceDirectories>
 				    <sourceDirectory>src</sourceDirectory>
 				  </sourceDirectories>
-				  <testSourceDirectories>
-				    <testSourceDirectory>test</testSourceDirectory>
-				  </testSourceDirectories>
 				</configuration>
 			</plugin>
 		</plugins>
