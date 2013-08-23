@@ -53,7 +53,7 @@
   "icon-rocket")
 
 (html/defsnippet runs-for-cloud-snip dashboard-template-html [runs-fragment-sel :> :table]
-  [runs]
+  [runs _]
   [:tbody :> :tr] (html/clone-for
                     [run runs
                      :let 
@@ -71,7 +71,7 @@
                     [[:td (html/nth-of-type 7)]] (html/content (:tags attrs))))
 
 (html/defsnippet vms-for-cloud-snip dashboard-template-html [vms-fragment-sel :> :table]
-  [vms]
+  [vms _]
   [:tbody :> :tr] (html/clone-for
                     [vm vms
                      :let 
