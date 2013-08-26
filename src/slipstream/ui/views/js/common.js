@@ -592,9 +592,11 @@ var $$ = {
 	},
 	showLogger: showLogger,
 	hideLogger: hideLogger,
-	send: function($this, event, action, callback){
+	send: function($this, event, action, callback, data){
 		var url = $this.attr('action');
-		var dataToSend = $this.serialize();
+        if(data === null) {
+            data = $this.serialize();
+        }
 
 		if(!callback) {
 			callback = function(data, status, xhr) {
@@ -603,7 +605,7 @@ var $$ = {
 		    }
         }
 
-		action(url, dataToSend, callback, 'text');
+		action(url, data, callback, 'text');
 		return false;
 	},
 	

@@ -34,8 +34,8 @@
          <runtimeParameter description='Custom state' deleted='false' key='testclient1.1:statecustom' isSet='true' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.575 CEST'><![CDATA[OK: Hello from Apache deployed by SlipStream!]]></runtimeParameter>
       </entry>
       <entry>
-         <string><![CDATA[orchestrator-interoute:tag]]></string>
-         <runtimeParameter description='Comma separated tag values' deleted='false' key='orchestrator-interoute:tag' isSet='false' group='orchestrator-interoute' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.575 CEST'><![CDATA[]]></runtimeParameter>
+         <string><![CDATA[orchestrator-interoute:tags]]></string>
+         <runtimeParameter description='Comma separated tag values' deleted='false' key='orchestrator-interoute:tags' isSet='false' group='orchestrator-interoute' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.575 CEST'><![CDATA[]]></runtimeParameter>
       </entry>
       <entry>
          <string><![CDATA[apache1.1:interoute.cpu]]></string>
@@ -74,8 +74,8 @@
          <runtimeParameter description='RAM in GB' deleted='false' key='apache1.1:cloudsigma.ram' isSet='true' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.598 CEST'><![CDATA[1]]></runtimeParameter>
       </entry>
       <entry>
-         <string><![CDATA[ss:tag]]></string>
-         <runtimeParameter description='Comma separated tag values' deleted='false' key='ss:tag' isSet='false' group='Global' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.575 CEST'><![CDATA[]]></runtimeParameter>
+         <string><![CDATA[ss:tags]]></string>
+         <runtimeParameter description='Comma separated tag values' deleted='false' key='ss:tags' isSet='false' group='Global' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.575 CEST'><![CDATA[These are my tags]]></runtimeParameter>
       </entry>
       <entry>
          <string><![CDATA[apache1.1:interoute.login.password]]></string>
@@ -134,8 +134,8 @@
          <runtimeParameter description='SSH login password for the image' deleted='false' key='testclient1.1:interoute.login.password' isSet='true' group='testclient1.1' mapsOthers='false' type='Password' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.586 CEST'><![CDATA[rootpass]]></runtimeParameter>
       </entry>
       <entry>
-         <string><![CDATA[apache1.1:tag]]></string>
-         <runtimeParameter description='Comma separated tag values' deleted='false' key='apache1.1:tag' isSet='false' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.587 CEST'><![CDATA[]]></runtimeParameter>
+         <string><![CDATA[apache1.1:tags]]></string>
+         <runtimeParameter description='Comma separated tag values' deleted='false' key='apache1.1:tags' isSet='false' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.587 CEST'><![CDATA[]]></runtimeParameter>
       </entry>
       <entry>
          <string><![CDATA[apache1.1:atos.instance.type]]></string>
@@ -282,8 +282,8 @@
          <runtimeParameter description='Global execution state message' deleted='false' key='ss:statemessage' isSet='true' group='Global' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.575 CEST'><![CDATA[Inactive]]></runtimeParameter>
       </entry>
       <entry>
-         <string><![CDATA[testclient1.1:tag]]></string>
-         <runtimeParameter description='Comma separated tag values' deleted='false' key='testclient1.1:tag' isSet='false' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.576 CEST'><![CDATA[]]></runtimeParameter>
+         <string><![CDATA[testclient1.1:tags]]></string>
+         <runtimeParameter description='Comma separated tag values' deleted='false' key='testclient1.1:tags' isSet='false' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.576 CEST'><![CDATA[]]></runtimeParameter>
       </entry>
       <entry>
          <string><![CDATA[orchestrator-interoute:instanceid]]></string>

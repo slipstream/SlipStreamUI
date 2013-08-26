@@ -43,8 +43,10 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#tags").change(function () {
-		$$.send($("#tags-form"), event, $.put);	    
+	$("#tags").change(function (event) {
+	    $("#tags-form").attr("action", "/run/" + $("#uuid").text() + "/ss:tags?ignoreabort=true");
+		$$.send($("#tags-form"), event, $.put, function(){}, $(this).val());
+		return false;
 	})
 	
 })
