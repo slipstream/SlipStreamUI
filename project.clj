@@ -1,4 +1,4 @@
-(defproject com.sixsq.slipstream/SlipStreamUI "0.1.0-SNAPSHOT"
+(defproject com.sixsq.slipstream/SlipStreamUI "1.0-SNAPSHOT"
   :description "SlipStream UI"
   :url "http://sixsq.com"
   :license {:name "Apache License, Version 2.0"
