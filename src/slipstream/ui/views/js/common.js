@@ -594,7 +594,7 @@ var $$ = {
 	hideLogger: hideLogger,
 	send: function($this, event, action, callback, data){
 		var url = $this.attr('action');
-        if(data === null) {
+        if(data === null || data === undefined) {
             data = $this.serialize();
         }
 
