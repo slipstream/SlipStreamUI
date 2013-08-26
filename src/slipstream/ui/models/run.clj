@@ -28,6 +28,17 @@
   [run]
   (html/select run [:runtimeParameter]))
 
+(defn runtime-parameter [run param-name]
+  (first (filter #(= param-name (:key (:attrs %))) (runtime-parameters run))))
+
+(defn runtime-parameter-value [run param-name]
+  (first
+    (:content
+      (first
+        (filter
+          #(= param-name (:key (:attrs %)))
+          (runtime-parameters run))))))
+
 (defn parameters
   [run]
   (common/parameters run))

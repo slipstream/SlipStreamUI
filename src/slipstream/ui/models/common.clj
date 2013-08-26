@@ -16,6 +16,9 @@
 (defn parameters [elem]
   (html/select elem [:parameter]))
 
+(defn parameter [elem parameter-name]
+  (filter #(= parameter-name (:name (:attrs %))) (parameters elem)))
+
 (defn parameter-mappings [elem]
   (html/select elem [:parameterMappings :nodeParameter]))
 

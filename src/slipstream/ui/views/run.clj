@@ -79,7 +79,7 @@
   [:#status] (html/content (:status (common-model/attrs run)))
   [:#runtype] (html/content (:type (common-model/attrs run)))
   [:#uuid] (html/content (:uuid (common-model/attrs run)))
-  [:#tags :> :input] (html/set-attr (:tags (common-model/attrs run))))
+  [:#tags] (html/set-attr :value (run-model/runtime-parameter-value run "ss:tags")))
 
 (html/defsnippet content-snip run-template-html common/content-sel
   [run]
