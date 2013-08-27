@@ -65,13 +65,13 @@
 					<li class="attention"><button id="unpublish-button-top"><i class="icon-globe"></i> Un-Publish</button></li>
 				</ul>
 			</div>
-			<form
-			    action="/run"
-			    method="post"
-				accept-charset="utf-8"
-				id="form-run-with-options">
-                <input type="hidden" name="refqname" class="refqname" />
-                <div class="data_sheet accordion summary in-dialog" id="run-with-options-dialog" title="Launch Deployment">
+            <div class="data_sheet accordion summary in-dialog" id="run-with-options-dialog" title="Launch Deployment">
+    			<form
+    			    action="/run"
+    			    method="post"
+    				accept-charset="utf-8"
+    				id="form-run-with-options">
+                    <input type="hidden" name="refqname" class="refqname" />
     				<div>
                         <h3>wp</h3>
     					<div>
@@ -116,8 +116,8 @@
             				</table>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
 			<form
 			    action="/run"
 			    method="post"
