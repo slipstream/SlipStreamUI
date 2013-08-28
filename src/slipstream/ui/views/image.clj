@@ -215,7 +215,7 @@
   
   [module-base/module-login-sel :> [:td html/first-of-type]] (html/content (:loginuser (module-model/attrs module)))
 
-  [image-reference-sel :> [:td html/first-of-type] :> :a] (common/set-a (:modulereferenceuri (module-model/attrs module)))
+  [image-reference-sel :> [:td html/first-of-type] :> :a] (module-base/set-a (:modulereferenceuri (module-model/attrs module)))
   [image-reference-sel] (if (module-model/base? module)
                           nil
                           identity)

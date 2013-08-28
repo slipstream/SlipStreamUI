@@ -79,12 +79,6 @@
   [checked?]
   (set-same-name-attr :checked checked?))
 
-(defn set-a
-  [moduleresourceuri]
-  (html/do->
-    (html/content (map str (drop module-model/module-root-uri-length moduleresourceuri)))
-    (html/set-attr :href (str "/" moduleresourceuri))))
-
 (defn set-input
   [name value]
   (html/do->

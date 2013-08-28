@@ -27,6 +27,12 @@
 
 ;; Utility
 
+(defn set-a
+  [moduleresourceuri]
+  (html/do->
+    (html/content (map str (drop module-model/module-root-uri-length moduleresourceuri)))
+    (html/set-attr :href (str "/" moduleresourceuri))))
+
 (defn to-css-class
   [category]
   (str (string/lower-case category) "_category"))  

@@ -98,7 +98,7 @@
     
     ; reference
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
-    (common/set-a image-uri)
+    (module-base/set-a image-uri)
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "imagelink"))
