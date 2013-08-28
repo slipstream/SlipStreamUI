@@ -27,10 +27,14 @@
 
 ;; Utility
 
+(defn module-resource-uri-to-name
+  [moduleresourceuri]
+  (apply str (drop module-model/module-root-uri-length moduleresourceuri)))
+  
 (defn set-a
   [moduleresourceuri]
   (html/do->
-    (html/content (map str (drop module-model/module-root-uri-length moduleresourceuri)))
+    (html/content (module-resource-uri-to-name moduleresourceuri))
     (html/set-attr :href (str "/" moduleresourceuri))))
 
 (defn to-css-class

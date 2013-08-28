@@ -301,7 +301,7 @@
       (html/set-attr :value (:loginuser (module-model/attrs module)))
       (common/set-disabled (not (module-model/base? module))))
 
-  [image-reference-sel] (html/set-attr :value (common-model/elem-name module))
+  [image-reference-sel] (html/set-attr :value (module-base/module-resource-uri-to-name (module-model/parent-uri module)))
   [:#moduleReferenceChooser] (common/set-disabled (module-model/base? module))
   
   image-cloud-configuration-sel
