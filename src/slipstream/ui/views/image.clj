@@ -39,26 +39,34 @@
 ;; View
 
 (defn- creation-trans
-  [recipe prerecipe packages]
+  [recipe prerecipe packages view?]
 
-  (html/transformation    
+  (html/transformation
     [:ul :> :#fragment-creation-recipe-header]
-    (if (string/blank? recipe)
+    (if (and
+          view?
+          (string/blank? recipe))
       nil
       identity)
     [:ul :> :#fragment-creation-packages-header]
-    (if (empty? packages)
+    (if (and
+          view?
+          (empty? packages))
       nil
       identity)
     [:ul :> :#fragment-creation-prerecipe-header]
-    (if (string/blank? prerecipe)
+    (if (and
+          view?
+          (string/blank? prerecipe))
       nil
       identity)
     
     [:#recipe]
     (html/content recipe)
     [:#fragment-creation-recipe]
-    (if (string/blank? recipe)
+    (if (and
+          view?
+          (string/blank? recipe))
       nil
       identity)
     
@@ -76,24 +84,28 @@
       [[:td (html/nth-of-type 3)] :> :span] (html/content key)
       [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :value key))
     [:#fragment-creation-packages]
-    (if (empty? packages)
+    (if (and
+          view?
+          (empty? packages))
       nil
       identity)
     
     [:#prerecipe]
     (html/content prerecipe)
     [:#fragment-creation-prerecipe]
-    (if (string/blank? prerecipe)
+    (if (and
+          view?
+          (string/blank? prerecipe))
       nil
       identity)))
   
 (html/defsnippet creation-view-snip image-view-template-html image-creation-sel
   [recipe prerecipe packages]
-  (creation-trans recipe prerecipe packages))
+  (creation-trans recipe prerecipe packages true))
 
 (html/defsnippet creation-edit-snip image-edit-template-html image-creation-sel
   [recipe prerecipe packages]
-  (creation-trans recipe prerecipe packages))
+  (creation-trans recipe prerecipe packages false))
 
 (defn- deployment-trans
   [execute report parameters parameters-gen-fn]
