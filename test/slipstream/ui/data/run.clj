@@ -218,10 +218,6 @@
          <runtimeParameter description='CPU in GHz' deleted='false' key='testclient1.1:cloudsigma.cpu' isSet='true' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.587 CEST'><![CDATA[1]]></runtimeParameter>
       </entry>
       <entry>
-         <string><![CDATA[testclient1.1:dummy]]></string>
-         <runtimeParameter description='Placeholder for display' deleted='false' key='testclient1.1:dummy' isSet='false' group='testclient1.1' mapsOthers='false' type='Dummy' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.587 CEST'/>
-      </entry>
-      <entry>
          <string><![CDATA[testclient1.1:webserver.ready]]></string>
          <runtimeParameter description='Server ready to recieve connections' deleted='false' key='testclient1.1:webserver.ready' isSet='true' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.586 CEST'><![CDATA[true]]></runtimeParameter>
       </entry>
@@ -248,10 +244,6 @@
       <entry>
          <string><![CDATA[testclient1.1:instanceid]]></string>
          <runtimeParameter description='Cloud instance id' deleted='false' key='testclient1.1:instanceid' isSet='true' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.587 CEST'><![CDATA[22dc1bdf-a764-4b92-83d0-cb2d746a7ed7]]></runtimeParameter>
-      </entry>
-      <entry>
-         <string><![CDATA[apache1.1:dummy]]></string>
-         <runtimeParameter description='Placeholder for display' deleted='false' key='apache1.1:dummy' isSet='false' group='apache1.1' mapsOthers='false' type='Dummy' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.598 CEST'/>
       </entry>
       <entry>
          <string><![CDATA[apache1.1:interoute.ram]]></string>
@@ -488,10 +480,6 @@
                         </parameter>
                      </entry>
                      <entry>
-                        <string><![CDATA[dummy]]></string>
-                        <parameter class='com.sixsq.slipstream.persistence.ModuleParameter' name='dummy' description='Placeholder for display' category='Input' mandatory='true' type='Dummy' readonly='false' isSet='false'/>
-                     </entry>
-                     <entry>
                         <string><![CDATA[atos.instance.type]]></string>
                         <parameter class='com.sixsq.slipstream.persistence.ModuleParameter' name='atos.instance.type' description='Cloud instance type' category='atos' mandatory='true' type='Enum' readonly='false' isSet='true'>
                            <enumValues length='7'>
@@ -677,10 +665,6 @@ sfdisk -s
                            <value><![CDATA[1]]></value>
                            <defaultValue><![CDATA[1]]></defaultValue>
                         </parameter>
-                     </entry>
-                     <entry>
-                        <string><![CDATA[dummy]]></string>
-                        <parameter class='com.sixsq.slipstream.persistence.ModuleParameter' name='dummy' description='Placeholder for display' category='Input' mandatory='true' type='Dummy' readonly='false' isSet='false'/>
                      </entry>
                      <entry>
                         <string><![CDATA[interoute.network]]></string>

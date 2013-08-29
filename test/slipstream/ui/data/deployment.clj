@@ -396,12 +396,6 @@ cp /tmp/data.txt $SLIPSTREAM_REPORT_DIR</target>
                   
 <entry>
                      
-<string>dummy</string>
-                     
-<parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Placeholder for display' isSet='false' mandatory='true' name='dummy' readonly='false' type='Dummy'></parameter>
-                  
-</entry>
-                  
 <entry>
                      
 <string>stratuslab.cpu</string>
