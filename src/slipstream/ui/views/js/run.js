@@ -34,7 +34,7 @@ $(document).ready(function() {
 		buttons: {
 			"Terminate": function() {
 				$(this).dialog("close");
-        		$$.send($("#terminate-form"), event, $.delete_);
+        		$$.send($("#terminate-form"), event, $.delete_, function(){});
 				return false;
 			},
 			"Cancel": function() {
