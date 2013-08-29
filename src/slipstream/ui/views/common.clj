@@ -471,7 +471,10 @@
       (html/content value)
     [:td :> #{[:input] [:select]}] (if mandatory?
                       (html/set-attr :disabled "disabled")
-                      identity)))
+                      identity)
+    [[:td html/last-of-type]] (if mandatory?
+                                (html/content "")
+                                identity)))
 
 (html/defsnippet parameters-view-with-category-snip parameters-view-template-html [:#fragment-parameters-something]
   [parameters with-add-parameter-button?]
