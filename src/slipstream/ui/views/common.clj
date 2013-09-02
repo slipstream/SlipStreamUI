@@ -276,7 +276,8 @@
 
 (defmethod set-input-value "Password"
   [parameter tr-id]
-  (let [value (param-val parameter)]
+  ; call default to avoid getting the value instead of stars (*)
+  (let [value (param-val-default parameter)]
   (html/html-snippet 
     (str 
       "<input type='password'" 
