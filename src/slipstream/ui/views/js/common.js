@@ -552,8 +552,8 @@ var $$ = {
 	    if (message) {
 	        $("#submit-message h2").text(message);
 	    }
-	    $("#overlay").show();
-		$('#submit-message').show();
+	    $("#overlay").css("z-index", 1000).show();
+		$('#submit-message').css("z-index", 1001).show();
 	},
 	extractUrlPath: function() {
 		return window.location.pathname;
