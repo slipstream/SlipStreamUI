@@ -50,7 +50,7 @@
 
 (html/defsnippet run-with-options-dialog-snip deployment-view-template-html run-with-options-dialog-sel
   [deployment]
-  [run-with-options-dialog-sel :> :div]
+  [run-with-options-dialog-sel :> :form :> :div]
   (html/content
     (for [node (module-model/nodes deployment)]
       (list
