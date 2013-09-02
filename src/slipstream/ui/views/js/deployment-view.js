@@ -49,6 +49,7 @@ $(document).ready(function() {
 			"Run": function() {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Executing Deployment");
+        		$("#refqname").val($("#module-name").text());
         		$$.send($("#form-run-with-options"), event, $.post);
 				return false;
 			},
