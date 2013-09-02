@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.users
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.common :as common-model]
+            [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.views.common :as common]
@@ -25,7 +25,7 @@
       "Users"))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
-                                (common-model/attrs users))))
+                                (user-model/attrs users))))
 
 (html/defsnippet users-snip users-template-html [:#users]
   [users]
@@ -48,10 +48,6 @@
 
 (html/defsnippet content-snip users-template-html common/content-sel
   [users]
-  common/breadcrumb-sel (html/substitute
-                          (breadcrumb-snip
-                            (:name (common-model/attrs users))))
-  
   [:#users] (html/substitute (users-snip users)))
 
 ;; javascript inclusion
