@@ -25,7 +25,7 @@ $(document).ready(function() {
 		title: 'Save Module?',
 		modal: true,
 		buttons: {
-			"Save": function() {
+			"Save": function(event) {
 			    // the presence of parentname indicate a new module
 				$(this).dialog("close");
 				$("#module-comment").val($("#save-comment").val());

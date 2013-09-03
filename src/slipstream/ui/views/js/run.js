@@ -32,7 +32,7 @@ $(document).ready(function() {
 		modal: true,
 		title: "Terminate Deployment?",
 		buttons: {
-			"Terminate": function() {
+			"Terminate": function(event) {
 				$(this).dialog("close");
         		$$.send($("#terminate-form"), event, $.delete_, function(){});
 				return false;
