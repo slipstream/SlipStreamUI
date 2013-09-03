@@ -36,10 +36,6 @@
   [metadata pagename type]
     (render (welcome/page (xml-string-to-map metadata) type)))
 
-(defmethod gen-page "run"
-  [metadata pagename type]
-    (render (welcome/page (xml-string-to-map metadata))))
-
 (defmethod gen-page "configuration"
   [metadata pagename type]
     (render (configuration/page (xml-string-to-map metadata))))
