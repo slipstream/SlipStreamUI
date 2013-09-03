@@ -359,4 +359,5 @@
          </parameter>
       </entry>
    </parameters>
+   <user issuper='true' resourceUri='user/super' name='super'></user>
 </serviceConfiguration>")))

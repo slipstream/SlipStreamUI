@@ -14,11 +14,16 @@
 
 (def parameters-sel [:#parameters])
 
-(html/defsnippet header-snip configuration-template-html header/header-sel
-  [user]
+(html/defsnippet header-titles-snip configuration-template-html header/titles-sel
+  []
+  identity)
+
+(html/defsnippet header-snip header/header-template-html header/header-sel
+  [metadata]
+  header/titles-sel (html/substitute (header-titles-snip))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
-                                (user-model/attrs user))))
+                                (user-model/attrs metadata))))
 
 (defn parameters-snip
   [parameters-by-category]

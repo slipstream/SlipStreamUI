@@ -3,28 +3,28 @@
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.module :as module-model]
-            [slipstream.ui.models.user :as user]
+            [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
-            [slipstream.ui.views.header :as header-views]
+            [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.project :as project]
             [slipstream.ui.views.common :as common]))
 
 (def welcome-template-html "slipstream/ui/views/welcome.html")
 
-(html/defsnippet header-titles-snip welcome-template-html header-views/titles-sel
+(html/defsnippet header-titles-snip welcome-template-html header/titles-sel
   []
   identity)
 
-(html/defsnippet header-snip header-views/header-template-html header-views/header-sel
+(html/defsnippet header-snip header/header-template-html header/header-sel
   [metadata]
-  header-views/titles-sel (html/substitute (header-titles-snip))
-  header-views/header-top-bar-sel (html/substitute
-                                    (header-views/header-top-bar-snip
-                                      (user/attrs metadata))))
+  header/titles-sel (html/substitute (header-titles-snip))
+  header/header-top-bar-sel (html/substitute
+                                    (header/header-top-bar-snip
+                                      (user-model/attrs metadata))))
 
 (html/defsnippet modules-snip welcome-template-html common/content-sel
   [root-projects published-modules]
