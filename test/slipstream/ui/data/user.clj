@@ -129,5 +129,11 @@
             <value><![CDATA[]]></value>
          </parameter>
       </entry>
+      <entry>
+         <string><![CDATA[General.ssh.public.key]]></string>
+         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='General.ssh.public.key' description='SSH Public Key(s) (keys must be separated by new line)' category='General' mandatory='true' type='RestrictedText' readonly='false'>
+            <value><![CDATA[asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd]]></value>
+         </parameter>
+      </entry>
    </parameters>
 </user>")))

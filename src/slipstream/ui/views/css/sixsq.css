@@ -51,6 +51,10 @@ img {
 	border: none;
 }
 
+td {
+    word-break: break-all;
+}
+
 /* Selects lines that have a header followed by a td*/
 th+td {
     width: 75%;
