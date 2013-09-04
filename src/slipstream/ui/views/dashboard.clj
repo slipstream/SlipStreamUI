@@ -130,7 +130,7 @@
 
 (defn js-scripts
   []
-  (concat js-scripts-default ["/js/dashboard.js"]))
+  (concat js-scripts-default []))
 
 (defn page [dashboard]
   (base/base 
