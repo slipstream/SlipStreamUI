@@ -523,7 +523,10 @@ var $$ = {
                 "Cancel": function() {
                     $(this).dialog("close");
                 },
-    	    }
+    	    },
+    	    open: function() {
+                $$.resizeIframe($("#chooseriframe")[0]);
+            }
 	    });
 	},
     
@@ -768,8 +771,7 @@ var $$ = {
     },
 
     iframeLoaded: function(iframe) {
-//        resizeIFrame(iframe);
-        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        $$.resizeIframe(iframe);
 
         var targetCategory = $$.chooserMatchCategory;
         if (targetCategory === $(iframe).contents().find("#module-category").text()) {
