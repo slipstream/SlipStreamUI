@@ -46,4 +46,7 @@ $(document).ready(function() {
 		}
 	});
 
+    // disable the new on the breadcrumb
+    $("#breadcrumb a:contains('new')").css("pointer-events", "none");
+
 })
