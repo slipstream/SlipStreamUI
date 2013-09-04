@@ -197,7 +197,7 @@
                 (module-model/nodes deployment)
                 (module-model/available-clouds deployment)))
 
-  [[:input (html/attr-has :name "refqname")]] (html/set-attr :value (common-model/resourceuri module))
+  [[:input (html/attr-has :name "refqname")]] (html/set-attr :value (common-model/resourceuri deployment))
 
   run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip deployment))
 
