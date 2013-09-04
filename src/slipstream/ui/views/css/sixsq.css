@@ -901,7 +901,7 @@ ul.interaction li {
 }
 
 .data_sheet td input.mandatory {
-    width: 90%;
+    width: 80%;
 }
 
 #module-image-ids input {
