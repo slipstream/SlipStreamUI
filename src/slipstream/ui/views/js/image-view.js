@@ -36,6 +36,14 @@ $(document).ready(function() {
         return $$.send($(this), event, $.post);
     });
 	
+	// Run
+    $('#run-button-top, #run-button-bottom').click(function(event){
+    	$$.hideError();
+		$$.showSubmitMessage("Starting Image");
+		$$.send($("#run-form"), event, $.post);
+		return false;
+    });	
+	
     // Publish button
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
