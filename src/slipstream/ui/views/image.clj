@@ -203,7 +203,7 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-view-snip module))
    
-  [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
+  [[:input (html/attr-has :name "refqname")]] (html/set-attr :value (common-model/resourceuri module))
   
   [image-image-ids-sel :> [:div html/first-of-type]]
     (html/clone-for 
@@ -285,8 +285,6 @@
   module-base/module-summary-sel (html/substitute 
                                    (module-base/module-summary-edit-snip module))
 
-  [:#build-form] (html/set-attr :value (:resourceuri (module-model/attrs module)))
-  
   [image-image-ids-sel :> [:div html/first-of-type]]
     (html/clone-for 
       [cloud-service-name (image-model/cloud-names module)

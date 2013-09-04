@@ -60,7 +60,11 @@
 					<li class="attention"><button id="unpublish-button-top"><i class="icon-globe"></i> Un-Publish</button></li>
 	            </ul>
 	        </div>
-            <form id="build-form" method="post" action="run" name="formexec">
+            <form id="run-form" method="post" action="run">
+                <input type="hidden" name="type" value="Machine" />
+                <input id="build-input" type="hidden" name="refqname" value="replace-me">
+            </form>
+            <form id="build-form" method="post" action="run">
                 <input id="build-input" type="hidden" name="refqname" value="replace-me">
             </form>
             <form id="publish-form" method="post" action="">

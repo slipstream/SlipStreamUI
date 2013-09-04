@@ -197,12 +197,10 @@
                 (module-model/nodes deployment)
                 (module-model/available-clouds deployment)))
 
-  [:.refqname] (html/set-attr :value (common-model/resourceuri deployment))
+  [[:input (html/attr-has :name "refqname")]] (html/set-attr :value (common-model/resourceuri module))
 
   run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip deployment))
 
-  [:#build-form] (html/set-attr :value (common-model/resourceuri deployment))
-  
   [:#publish-form] (html/set-attr :action (str "/"
                                            (common-model/resourceuri deployment)
                                            "/publish"))
