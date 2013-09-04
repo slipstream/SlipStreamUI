@@ -720,17 +720,17 @@ var $$ = {
         var index = count + 1;
 
         var id = $(table).attr('id');
-    	var entryPart = id + "--entry--" + index;
+    	var prefix = "package--" + index + "--";
 
-        var newPackage = $('<tr id="' + entryPart + '"> \
+        var newPackage = $('<tr> \
 		<td> \
-			<input name="parameter-' + entryPart + '--name" value=""> \
+			<input name="' + prefix + 'name" value=""> \
 		</td> \
 		<td> \
-			<input name="parameter-' + entryPart + '--repository" value=""> \
+			<input name="' + prefix + 'repository" value=""> \
 		</td> \
 		<td> \
-			<input name="parameter-' + entryPart + '--key" value=""> \
+			<input name="' + prefix + 'key" value=""> \
 		</td> \
 		<td> \
     	    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
