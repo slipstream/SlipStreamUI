@@ -140,6 +140,9 @@
 (defn module-deployment-edit []
   (module-edit deployment/xml-deployment))
 
+(defn module-deployment-new []
+  (module-new deployment/xml-deployment))
+
 (defn module-versions-view []
   (versions/page versions-data/xml-versions "view"))
 
@@ -169,6 +172,7 @@
     ["image-chooser"] (-> (module-image-chooser) ring.util.response/response constantly)
     ["deployment-view"] (-> (module-deployment-view) ring.util.response/response constantly)
     ["deployment-edit"] (-> (module-deployment-edit) ring.util.response/response constantly)
+    ["deployment-new"] (-> (module-deployment-new) ring.util.response/response constantly)
     ["versions-view"] (-> (module-versions-view) ring.util.response/response constantly)
     ["versions-chooser"] (-> (module-versions-chooser) ring.util.response/response constantly)
     ["dashboard"] (-> (dashboard-page) ring.util.response/response constantly)

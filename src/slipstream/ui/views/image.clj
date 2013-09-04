@@ -362,12 +362,15 @@
   [module]
   identity)
 
+(html/defsnippet new-summary image-new-template-html module-base/module-summary-sel
+  [module]
+  (module-base/module-summary-trans module))
+                 
 (html/defsnippet new-snip image-edit-template-html common/content-sel
   [module]
   html/this-node (html/substitute (edit-snip module))
 
-  module-base/module-summary-sel (html/substitute 
-                                   (module-base/module-summary-new-snip module))
+  module-base/module-summary-sel (html/substitute (new-summary module))
   
   module-base/module-interaction-top-sel
     (html/substitute

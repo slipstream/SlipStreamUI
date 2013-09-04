@@ -190,7 +190,7 @@
 
 (defmethod js-scripts ["new" "Deployment"]
   [type category]
-  (concat js-scripts-default ["/js/module.js" "/js/module-new.js" "/js/deployment-new.js"]))
+  (concat js-scripts-default ["/js/module.js" "/js/module-new.js" "/js/deployment-edit.js"]))
 
 (defmethod js-scripts ["chooser" "Deployment"]
   [type category]

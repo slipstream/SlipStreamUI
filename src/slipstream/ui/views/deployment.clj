@@ -217,11 +217,23 @@
   
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 
-(html/defsnippet new-snip deployment-new-template-html common/content-sel
+(html/defsnippet new-summary-snip deployment-new-template-html module-base/module-summary-sel
+  [module]
+  (module-base/module-summary-trans module))
+                 
+(html/defsnippet new-snip deployment-edit-template-html common/content-sel
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
   module-base/module-summary-sel (html/substitute 
-                                   (module-base/module-summary-new-snip deployment)))
+                                   (new-summary-snip deployment))
+  
+  nodes-sel (html/substitute
+              (nodes-edit-snip
+                (module-model/nodes deployment)
+                (module-model/available-clouds deployment)))
+  
+  authz/authorization-sel (html/substitute (authz/authz-edit-snip deployment)))
+
 
 (html/defsnippet edit-snip deployment-edit-template-html common/content-sel
   [deployment]

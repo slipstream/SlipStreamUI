@@ -89,12 +89,17 @@
   [:#module-last-modified] (html/content (:lastmodified (module-model/attrs module)))
   [:#module-owner] (html/content (module-model/owner module)))
 
+(defn module-summary-trans
+  [module]
+  (html/transformation
+    [:#parent-module-name] (html/content (module-model/parent-name module))
+    [:#module-category :> :span] (html/content (:category (module-model/attrs module)))
+    [:#module-category :> :input] (html/set-attr :value (:category (module-model/attrs module)))
+    [:#module-owner] (html/content (module-model/owner module))))
+
 (html/defsnippet module-summary-new-snip project-new-template-html module-summary-sel
   [module]
-  [:#parent-module-name] (html/content (module-model/parent-name module))
-  [:#module-category :> :span] (html/content (:category (module-model/attrs module)))
-  [:#module-category :> :input] (html/set-attr :value (:category (module-model/attrs module)))
-  [:#module-owner] (html/content (module-model/owner module)))
+  (module-summary-trans module))
 
 (html/defsnippet module-summary-edit-snip project-edit-template-html module-summary-sel
   [module]

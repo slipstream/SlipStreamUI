@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<!DOCTYPE html>
+<html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,7 +19,7 @@
     </head>
     <body>
       <div id="wrapper">
-          <div id="header">
+         <div id="header">
 	          <div class="top">
 	              <a href="/" class="logo"></a>
 
@@ -41,167 +41,152 @@
 			<form
 			    action="?method=put"
 			    method="post"
-				enctype="x-www-form-urlencoded"
 				accept-charset="utf-8"
 				id="form-save">
-	        <div class="navigation">
-                <ul id="breadcrumb" class="breadcrumb">
-                    <li class="first home"><a href="#">Home</a></li>
-                    <li><a href="#">module</a></li>
-                    <li><a href="#">Public</a></li>
-                    <li><a href="#">CoolProject</a></li>
-	            </ul>
-	            <ul class="interaction">
-        	        <li class="attention"><button id="save-button-top"><i class="icon-save"></i> Save</button></li>
-        	        <li class="attention"><button id="cancel-button-top"><i class="icon-stop"></i> Cancel</button></li>
-	            </ul>
-	        </div>
-    		<div id="save-module-dialog" title="Save Module?">
-    			<p>Save comment: </p>
-    			<textarea id="save-comment" rows="3"></textarea>
-    		</div>
-	        <div class="data_sheet">
-	            <div class="summary accordion">
-	                <h3>Summary</h3>
-                    <div id="module-summary">
-                        <table>
-            	            <tbody>
-            	                <tr>
-            	                    <td>Name</td>
-            	                    <td id="module-name">MyProjects/CoolProject</td>
-            	                </tr>
-                                <tr>
-                                    <td>Description</td>
-                                    <td>
-                          		        <input id="module-description" name="description" type="text" value="Description..." />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Comment</td>
-                                    <td>
-                          		        <input disabled="true" id="module-comment" name="comment" type="text" value="Latest comment..." />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Category</td>
-                                    <td id="module-category">Project<input name="category" type="hidden" value="Project"></input></td>
-                                </tr>
-                                <tr>
-                                    <td>Created</td>
-                                    <td id="module-created">2013-03-08 22:37:25.341 CET</td>
-                                </tr>
-                    		    <tr>
-                    		        <td>Last modified</td>
-                    		        <td id="module-last-modified">2013-03-08 22:37:25.341 CET</td>
-                    		    </tr>
-                                <tr>
-                                    <td>Owner</td>
-                                    <td id="module-owner">sixsq</td>
-                                </tr>
-                            </tbody>
-                        </table>
-            	    </div>
-	                <h3>Authorization</h3>
-		            <div id="authorization">
-			            <table id="authorization-acl-table">
-		                    <thead>
-		                        <tr>
-                        		    <th>Access Right</th>
-                        		    <th>Owner</th>
-                        		    <th>Group</th>
-                        		    <th>Public</th>
-		                        </tr>
-		                    </thead>
-		                    <tbody>
-		                        <tr>
-                        		    <td>View</td>
-                        		    <td>
-                        		        <input type="checkbox" name="ownerGet" id="ownerGet" checked="checked" />
-                        		    </td>
-                        		    <td>
-                        		        <input type="checkbox" name="groupGet" id="groupGet" checked="checked" />
-                        		    </td>
-                        		    <td>
-                        		        <input type="checkbox" name="publicGet" id="publicGet" checked="checked" />
-                        		    </td>
-                    		    </tr>
-                        	    <tr>
-                        	        <td>Edit</td>
-                        		    <td>
-                        		        <input type="checkbox" name="ownerPut" id="ownerPut" checked="checked" />
-                        		    </td>
-                        		    <td>
-                        		        <input type="checkbox" name="groupPut" id="groupPut" />
-                        		    </td>
-                        		    <td>
-                        		        <input type="checkbox" name="publicPut" id="publicPut" />
-                        		    </td>
-                        		</tr>
-                        	    <tr>
-                        	        <td>Delete</td>
-                        		    <td>
-                        		        <input type="checkbox" name="ownerDelete" id="ownerDelete" checked="checked" />
-                        		    </td>
-                        		    <td>
-                        		        <input type="checkbox" name="groupDelete" id="groupDelete" />
-                        		    </td>
-                        		    <td>
-                        		        <input type="checkbox" name="publicDelete" id="publicDelete"/>
-                        		    </td>
-                                </tr>
-                                <tr>
-                        	        <td>Execute (e.g. Run, Build)</td>
-                        		    <td>
-                        		        <input type="checkbox" name="ownerPost" id="ownerPost" checked="checked" />
-                                    </td>
-                                    <td>
-                        	            <input type="checkbox" name="groupPost" id="groupPost" />
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="publicPost" id="publicPost" />
-                        	        </td>
-                                </tr>
-                                <tr>
-                                    <td>Create Children</td>
-                        	        <td>
-                        		        <input type="checkbox" name="ownerCreateChildren" id="ownerCreateChildren" checked="checked" />
-                        		    </td>
-                                    <td>
-                                        <input type="checkbox" name="groupCreateChildren" id="groupCreateChildren" checked="checked" />
-                        		    </td>
-                                    <td>
-                        	            <input type="checkbox" name="publicCreateChildren" id="publicCreateChildren" checked="checked" />
-                        		    </td>
-                        	    </tr>
-		                    </tbody>
-	                    </table>
-	                    <hr />
-  	                    <table id="authorization-inheritance-table">
-		                    <thead>
-		                        <tr>
-		                            <th>Group members</th>
-		                        </tr>
-		                    </thead>
-		                    <tbody>
-		                        <tr>
-		                            <td>Inherited from parent: <input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers" checked="checked" /></td>
-		                        </tr>
-		                        <tr>
-		                            <td>
-		                                <input type="text" name="groupmembers" id="groupmembers" value="meb, konstan, something" />
-		                            </td>
-		                        </tr>
-		                    </tbody>
-	                    </table>
-	                </div>
-	            </div>
-	        </div>
-            <div class="navigation bottom_nav">
-	            <ul class="interaction">
-	                <li class="attention"><button><i class="icon-save"></i> Save</button></li>
-	                <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
-	            </ul>
-	        </div>
+    	        <div class="navigation">
+                    <ul id="breadcrumb" class="breadcrumb">
+                        <li class="first home"><a href="#">Home</a></li>
+                        <li><a href="#">module</a></li>
+                        <li><a href="#">Public</a></li>
+                        <li><a href="#">CoolProject</a></li>
+    	            </ul>
+    	            <ul class="interaction">
+            	        <li class="attention"><button id="save-button-top"><i class="icon-save"></i> Save</button></li>
+            	        <li class="attention"><button id="cancel-button-top"><i class="icon-stop"></i> Cancel</button></li>
+    	            </ul>
+    	        </div>
+        		<div id="save-module-dialog" title="Save Module?">
+        			<p>Save comment: </p>
+        			<textarea id="save-comment" rows="3" ></textarea>
+        		</div>
+    	        <div class="data_sheet">
+    	            <div class="summary accordion">
+    	                <h3>Summary</h3>
+                        <div id="module-summary">
+                            <table>
+                	            <tbody>
+                	                <tr>
+                	                    <td>Name</td>
+                	                    <td>
+                              		        <span id="parent-module-name">XXParent/</span>
+                              		        <input class="mandatory" id="module-name" name="name" type="text" value="" placeholder="New deployment name..." /> *
+                	                    </td>
+                	                </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>
+                              		        <input id="module-description" name="description" type="text" value="" placeholder="New deployment description..." />
+                              		        <input hidden="hidden" id="module-comment" name="comment" type="text" value="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td id="module-category">Deployment<input name="category" type="hidden" value="Image" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                	    </div>
+    	                <h3>Authorization</h3>
+    		            <div id="authorization">
+    			            <table id="authorization-acl-table">
+    		                    <thead>
+    		                        <tr>
+                            		    <th>Access Right</th>
+                            		    <th>Owner</th>
+                            		    <th>Group</th>
+                            		    <th>Public</th>
+    		                        </tr>
+    		                    </thead>
+    		                    <tbody>
+    		                        <tr>
+                            		    <td>View</td>
+                            		    <td>
+                            		        <input type="checkbox" name="ownerGet" id="ownerGet" checked="checked" />
+                            		    </td>
+                            		    <td>
+                            		        <input type="checkbox" name="groupGet" id="groupGet" checked="checked" />
+                            		    </td>
+                            		    <td>
+                            		        <input type="checkbox" name="publicGet" id="publicGet" checked="checked" />
+                            		    </td>
+                        		    </tr>
+                            	    <tr>
+                            	        <td>Edit</td>
+                            		    <td>
+                            		        <input type="checkbox" name="ownerPut" id="ownerPut" checked="checked" />
+                            		    </td>
+                            		    <td>
+                            		        <input type="checkbox" name="groupPut" id="groupPut" />
+                            		    </td>
+                            		    <td>
+                            		        <input type="checkbox" name="publicPut" id="publicPut" />
+                            		    </td>
+                            		</tr>
+                            	    <tr>
+                            	        <td>Delete</td>
+                            		    <td>
+                            		        <input type="checkbox" name="ownerDelete" id="ownerDelete" checked="checked" />
+                            		    </td>
+                            		    <td>
+                            		        <input type="checkbox" name="groupDelete" id="groupDelete" />
+                            		    </td>
+                            		    <td>
+                            		        <input type="checkbox" name="publicDelete" id="publicDelete"/>
+                            		    </td>
+                                    </tr>
+                                    <tr>
+                            	        <td>Execute (e.g. Run, Build)</td>
+                            		    <td>
+                            		        <input type="checkbox" name="ownerPost" id="ownerPost" checked="checked" />
+                                        </td>
+                                        <td>
+                            	            <input type="checkbox" name="groupPost" id="groupPost" />
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="publicPost" id="publicPost" />
+                            	        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Create Children</td>
+                            	        <td>
+                            		        <input type="checkbox" name="ownerCreateChildren" id="ownerCreateChildren" checked="checked" />
+                            		    </td>
+                                        <td>
+                                            <input type="checkbox" name="groupCreateChildren" id="groupCreateChildren" checked="checked" />
+                            		    </td>
+                                        <td>
+                            	            <input type="checkbox" name="publicCreateChildren" id="publicCreateChildren" checked="checked" />
+                            		    </td>
+                            	    </tr>
+    		                    </tbody>
+    	                    </table>
+    	                    <hr />
+      	                    <table id="authorization-inheritance-table">
+    		                    <thead>
+    		                        <tr>
+    		                            <th>Group members</th>
+    		                        </tr>
+    		                    </thead>
+    		                    <tbody>
+    		                        <tr>
+    		                            <td>Inherited from parent: <input type="checkbox" name="inheritedGroupMembers" id="inheritedGroupMembers" checked="checked" /></td>
+    		                        </tr>
+    		                        <tr>
+    		                            <td>
+    		                                <input type="text" name="groupmembers" id="groupmembers" value="meb, konstan, something" />
+    		                            </td>
+    		                        </tr>
+    		                    </tbody>
+    	                    </table>
+    	                </div>
+    	            </div>
+    	        </div>
+                <div class="navigation bottom_nav">
+    	            <ul class="interaction">
+    	                <li class="attention"><button><i class="icon-save"></i> Save</button></li>
+    	                <li class="attention"><button><i class="icon-stop"></i> Cancel</button></li>
+    	            </ul>
+    	        </div>
 	        </form> 
 	    </div>  
 	    <div id="footer">
@@ -211,7 +196,7 @@
 	            <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
 	        </div>
         </div>
-    </div>
-</body>
+      </div>
+    </body>
   
 </html>
