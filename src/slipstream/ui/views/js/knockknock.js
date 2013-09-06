@@ -44,13 +44,7 @@ $(document).ready(function() {
 	});
 
 	$('#formregister').submit(function(event){
-		event.preventDefault();
-	
-		var callback = function(data, status, xhr) {
-			$('body').html(data);
-		}
-
-		return $$.send($(this), event, $.post, callback);
+		return $$.send($(this), event, $.post);
 	});
 
 	$('#button_register').click(function(event){
