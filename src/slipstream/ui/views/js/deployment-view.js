@@ -46,7 +46,7 @@ $(document).ready(function() {
 		width: 1000,
 		title: "Execute Deployment",
 		buttons: {
-			"Run": function() {
+			"Run": function(event) {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Executing Deployment");
         		$("#refqname").val($("#module-name").text());

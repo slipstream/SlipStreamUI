@@ -71,7 +71,10 @@ $(document).ready(function() {
 		buttons: {
 			"Delete": function() {
 				$(this).dialog("close");
-				$.delete();
+				$.delete_(undefined, undefined, function(){
+				    window.location.assign(location.pathname.replace(/\/[^\/]+\/[^\/]+$/, ""));
+				} );
+				
 				return false;
 			},
 			"Cancel": function() {
