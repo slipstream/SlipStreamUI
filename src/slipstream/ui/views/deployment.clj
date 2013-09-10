@@ -28,7 +28,7 @@
     (common/gen-select
       (str "parameter--node--" (common-model/elem-name node) "--cloudservice")
       available-clouds
-      (:cloudService (common-model/attrs node))))
+      (:cloudservice (common-model/attrs node))))
   [:#run-parameters-edit :> :table :> :tbody :> [:tr html/last-of-type]]
   (html/clone-for
     [p (filter 
@@ -113,7 +113,11 @@
     ; default cloud
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 3)] :> :td :> :select]
     (html/substitute
-      (common/gen-select (str id-prefix "cloudservice--value") available-clouds (:cloudservice attrs)))
+      (common/gen-select
+        (str id-prefix "cloudservice--value")
+        available-clouds
+        (:cloudservice attrs)
+        view?))
     
     ; parameter mapping
     parameters-mapping-sel
@@ -126,7 +130,7 @@
                               (common/gen-select 
                                 "cloudServiceNamesList"
                                 available-clouds
-                                nil))
+                                false))
   [nodes-sel :> :table :> :tbody :> :tr]
   (html/clone-for
     [i (range (count nodes))
