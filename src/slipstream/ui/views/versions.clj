@@ -36,7 +36,10 @@
   [:tbody :> [:tr html/last-of-type]] nil
   [:tbody :> [:tr html/first-of-type]] 
     (html/clone-for 
-      [child (modules/children versions)]
+      [child (sort-by
+               #(read-string
+                  (:version (common-model/attrs %)))
+               (modules/children versions))]
       [[:a]] (html/do->
                (html/set-attr :href (str "/" (:resourceuri (common-model/attrs child))))
                (html/content (:version (common-model/attrs child))))
