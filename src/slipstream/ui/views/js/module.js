@@ -21,13 +21,15 @@
 $(document).ready(function() {
 
     // is base checkbox
-	$('#module-is-base').click(function(event) { 
-		if($(event.target).is(':checked')) {
-			$('#moduleReferenceChooser').attr('disabled', 'disabled');
-			$('#module-image-ids input').removeAttr('disabled');
+	$('#module-is-base').click(function() { 
+	    var ifCheckedDisable = "#moduleReferenceChooser";
+	    var ifNotCheckedDisable = "#module-image-ids input, #platform, #module-login";
+		if($(this).is(':checked')) {
+			$(ifCheckedDisable).attr('disabled', 'disabled');
+			$(ifNotCheckedDisable).removeAttr('disabled');
 		} else {
-			$('#moduleReferenceChooser').removeAttr('disabled');
-			$('#module-image-ids input').attr('disabled', 'disabled');
+			$(ifCheckedDisable).removeAttr('disabled');
+			$(ifNotCheckedDisable).attr('disabled', 'disabled');
 		};
 	});
 
