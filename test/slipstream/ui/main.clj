@@ -173,7 +173,7 @@
     ["deployment-view"] (-> (module-deployment-view) ring.util.response/response constantly)
     ["deployment-edit"] (-> (module-deployment-edit) ring.util.response/response constantly)
     ["deployment-new"] (-> (module-deployment-new) ring.util.response/response constantly)
-    ["versions-view"] (-> (module-versions-view) ring.util.response/response constantly)
+    ["versions"] (-> (module-versions-view) ring.util.response/response constantly)
     ["versions-chooser"] (-> (module-versions-chooser) ring.util.response/response constantly)
     ["dashboard"] (-> (dashboard-page) ring.util.response/response constantly)
     ["users"] (-> (users-page) ring.util.response/response constantly)
