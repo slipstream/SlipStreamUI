@@ -265,6 +265,10 @@
                                            (common-model/resourceuri module)
                                            "/publish"))
 
+  ; Copy to
+  [:#source_uri] (html/set-attr :value (common-model/resourceuri module))
+  [:#target_name] (html/set-attr :value (:shortname (common-model/attrs module)))
+
   module-base/module-interaction-top-sel
     (html/substitute
       (view-interaction-snip module))

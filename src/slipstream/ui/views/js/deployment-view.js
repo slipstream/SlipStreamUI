@@ -77,4 +77,5 @@ $(document).ready(function() {
     // Select nodes section
 	$('.accordion').accordion("option", "active", 1);
 
+    $$.activateCopyTo();
 })

@@ -59,4 +59,6 @@ $(document).ready(function() {
 		return false;
     });	
 	
+	$$.activateCopyTo();
+    
 })

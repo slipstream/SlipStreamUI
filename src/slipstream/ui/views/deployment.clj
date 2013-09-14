@@ -208,6 +208,10 @@
   [:#publish-form] (html/set-attr :action (str "/"
                                            (common-model/resourceuri deployment)
                                            "/publish"))
+
+  ; Copy to
+  [:#source_uri] (html/set-attr :value (common-model/resourceuri deployment))
+  [:#target_name] (html/set-attr :value (:shortname (common-model/attrs deployment)))
   
   module-base/module-interaction-top-sel
   (html/substitute

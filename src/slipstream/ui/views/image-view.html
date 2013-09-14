@@ -56,6 +56,7 @@
                     <li class="attention"><button id="build-button-top"><i class="icon-legal"></i> Build</button></li>
                     <li class="attention"><button id="run-button-top"><i class="icon-rocket"></i> Run</button></li>
                     <li class="attention"><button id="edit-button-top"><i class="icon-edit"></i> Edit</button></li>
+					<li class="attention"><button id="copy-button-top"><i class="icon-copy"></i> Copy...</button></li>
                     <li class="attention"><button id="publish-button-top"><i class="icon-globe"></i> Publish</button></li>
 					<li class="attention"><button id="unpublish-button-top"><i class="icon-globe"></i> Un-Publish</button></li>
 	            </ul>
@@ -69,7 +70,35 @@
             </form>
             <form id="publish-form" method="post" action="">
             </form>
-            <div class="data_sheet">
+            <div id="copydialog" title="Copy Deployment?">
+                <div id="copydialogerror" class="conflict hidden">
+                    <span></span>
+                </div>
+                <form method="post" id="copyform" name="copyform">
+                    <input type="hidden" name="source_uri" id="source_uri" />
+                    <p>
+                		Select the project to copy to:
+                	</p>
+                    <p>
+            	        <input disabled="disabled" id="target_project_uri" size="50" />
+                	</p>
+                    <p>
+                        <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="chooser-button"><i class="icon-eye-open"></i>
+                            Choose Project
+                        </button>
+                	</p>
+                	<hr/>
+                    <p>
+                		Name of the new deployment:
+                	</p>
+                    <p>
+            		    <input id="target_name" name="target_name" placeholder="target module name" size="50" />
+                    </p>
+                </form>
+            </div>
+            <div id="chooser" class="overlay_sheet">
+                <iframe id="chooseriframe" src="/?chooser=true" onload="javascript:$$.iframeLoaded(this);"></iframe>
+            </div>            <div class="data_sheet">
 	            <div class="summary accordion">
                     <!-- <h3>Overview</h3>
                     <div>
@@ -533,6 +562,7 @@ ss-set ready true
                     <li class="attention"><button id="build-button-bottom"><i class="icon-legal"></i> Build</button></li>
                     <li class="attention"><button id="run-button-bottom"><i class="icon-rocket"></i> Run</button></li>
                     <li class="attention"><button id="edit-button-bottom"><i class="icon-edit"></i> Edit</button></li>
+					<li class="attention"><button id="copy-button-bottom"><i class="icon-copy"></i> Copy...</button></li>
                     <li class="attention"><button id="publish-button-bottom"><i class="icon-globe"></i> Publish</button></li>
 					<li class="attention"><button id="unpublish-button-bottom"><i class="icon-globe"></i> Un-Publish</button></li>
                 </ul>

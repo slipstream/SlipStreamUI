@@ -494,12 +494,12 @@ function htmlEncode(value){
 var $$ = {
     
     // Default behaviour (can be overriden)
-    onImageChooserSelect: function() {
+    onModuleChooserSelect: function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
-        var targetInput = $('#module-reference').attr('value', modulename);
+        $('#module-reference').attr('value', modulename);
     },
     
-    onImageChooserSelectWithVersion: function() {
+    onModuleChooserSelectWithVersion: function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
         var version = $('#chooseriframe').contents().find('#module-version > span:first-of-type').text();
         var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
@@ -513,11 +513,11 @@ var $$ = {
     	    title: "Choose an image",
     	    buttons: {
     	        "Select": function() { 
-                    $$.onImageChooserSelect();
+                    $$.onModuleChooserSelect();
     		        $(this).dialog("close");
     		    },
                 "Select Exact Version": function() {
-                    $$.onImageChooserSelectWithVersion();
+                    $$.onModuleChooserSelectWithVersion();
                     $(this).dialog("close");
                 },
                 "Cancel": function() {
@@ -538,7 +538,7 @@ var $$ = {
 	    title: "Choose a project",
 	    buttons: {
 	        "Select": function() { 
-                $$.selectChooser();
+                $$.onModuleChooserSelect();
 		        $(this).dialog("close");
 		    },
             "Cancel": function() {
@@ -779,6 +779,69 @@ var $$ = {
         } else {
             $("span:contains('Select')").parent().attr("disabled", "disabled");
         }
+    },
+    
+    activateCopyTo: function() {
+
+        // copy to...
+        $$.createProjectChooserDialog();
+
+        $( '#copy-button-top, #copy-button-bottom' ).click(function() {
+            $( '#copydialog' ).dialog( 'open' );
+            return false;
+        });
+
+        $( '#chooser-button' ).click(function() {
+            $$.chooserMatchCategory = 'Project';
+            $( '#chooser' ).dialog( 'open' );
+            return false;
+        });
+
+    	$('#copydialog').dialog({
+    		autoOpen: false,
+    		modal: true,
+    		title: 'Copy Module',
+    		width: 500,
+    		stack: false,
+    		buttons: {
+    			"Copy": function() {
+    				errors = 0;
+    				var showError = function(message) {
+    					$$.show($("#copydialogerror"), message);
+    				}
+    				var validate = function() {
+    					if($("#target_project_uri").val() === "") {
+    						showError("Missing project where to create the copy");
+    						errors += 1;
+    					}
+    					if($("#target_name").val() === "") {
+    						showError("Missing new name");
+    						errors += 1;
+    					}
+    				};
+    				validate();
+    				if(errors) {
+    					return;
+    				}
+    				$(this).dialog("close");
+    				var target = $("#target_project_uri").val();
+    				$("#copyform").attr("action", "/module/" + target);
+            		$$.send($("#copyform"), event, $.post);
+            		return false;
+    			},
+    			"Cancel": function() {
+    				$(this).dialog("close");
+    			},
+    		}
+    	});
+
+        $$.onModuleChooserSelect = function() {
+            var modulename = $('#chooseriframe').contents().find('#module-name').text();
+            $("#target_project_uri").val(modulename);
+            return false;
+        };
+
+        
     },
 }
 

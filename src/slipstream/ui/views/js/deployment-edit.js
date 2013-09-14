@@ -429,12 +429,12 @@ $(document).ready(function() {
 	addAutocompleteToNodeOutputFields();
 	$('td.nodename > input').change(cleanNodeAutocompleteOnNodeNameChange);
 
-    $$.onImageChooserSelect = function() {
+    $$.onModuleChooserSelect = function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
         $$.addNode(modulename);
     },
     
-    $$.onImageChooserSelectWithVersion = function() {
+    $$.onModuleChooserSelectWithVersion = function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
         var version = $('#chooseriframe').contents().find('#module-version > span:first-of-type').text();
         $$.addNode("module/" + modulename + "/" + version);
@@ -444,10 +444,6 @@ $(document).ready(function() {
 
 	$( "#addNodeChooser" ).click(function() {
         $$.chooserMatchCategory = "Image";
-
-        $$.chooserOnSelectHandler = function() {
-            alert("addNodeChooser");
-        };
 
         $( "#chooser" ).dialog( "open" );
         return false;
