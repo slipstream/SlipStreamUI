@@ -42,7 +42,7 @@
    "Project" "icon-folder-open"
    "Deployment" "icon-cloud-upload"
    "Error" "icon-cloud-error"
-   "Users" "icon-users"
+   "Users" "icon-group"
    "User" "icon-user"
    "Configuration" "icon-wrench"
    "Dashboard" "icon-dashboard"})
