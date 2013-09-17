@@ -306,7 +306,7 @@ cp /tmp/data.txt $SLIPSTREAM_REPORT_DIR</target>
             
 <parameterMappings class='org.hibernate.collection.PersistentMap'></parameterMappings>
             
-<image category='Image' creation='2013-03-08 22:37:40.671 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-08 22:37:40.674 CET' loginUser='root' moduleReferenceUri='module/Public/BaseImages/Ubuntu/12.04' name='Public/Tutorials/HelloWorld/apache' parentUri='module/Public/Tutorials/HelloWorld' platform='debian' resourceUri='module/Public/Tutorials/HelloWorld/apache/9' shortName='apache' version='9'>
+<!--<image category='Image' creation='2013-03-08 22:37:40.671 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-08 22:37:40.674 CET' loginUser='root' moduleReferenceUri='module/Public/BaseImages/Ubuntu/12.04' name='Public/Tutorials/HelloWorld/apache' parentUri='module/Public/Tutorials/HelloWorld' platform='debian' resourceUri='module/Public/Tutorials/HelloWorld/apache/9' shortName='apache' version='9'>
                
 <parameters class='org.hibernate.collection.PersistentMap'>
                   
@@ -490,7 +490,7 @@ cp /var/log/apache2/error.log $SLIPSTREAM_REPORT_DIR</target>
                
 <extraDisks class='org.hibernate.collection.PersistentBag'></extraDisks>
             
-</image>
+</image>-->
          
 </node>
       

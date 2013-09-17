@@ -96,3 +96,7 @@
 (defn base?
   [image]
   (= "true" (:isbase (attrs image))))
+
+(defn image
+  [metadata]
+  (first (html/select metadata [:image])))

@@ -99,6 +99,14 @@
     ; reference
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
     (module-base/set-a image-uri)
+    [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
+    (if
+      (module-model/image node)
+      (html/after
+        (html/html-snippet
+          " <span><a href='#' title='Missing image'><i style='color:red' class='error icon-warning-sign' /></a></span>"))
+    identity)      
+  
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "imagelink"))
