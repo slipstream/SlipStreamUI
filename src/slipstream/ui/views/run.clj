@@ -24,7 +24,7 @@
   header/header-summary-sel 
   (html/substitute 
     (let [attrs (common-model/attrs run)
-          id (:uuid attrs)
+          id (apply str (take common/take-run-no-of-chars (:uuid attrs)))
           module (:moduleresourceuri attrs)
           status (:status attrs)
           category (:category attrs)]

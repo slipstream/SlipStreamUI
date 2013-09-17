@@ -61,10 +61,10 @@
                     [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (type-to-icon (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
-                                                         (html/content (:uuid attrs)))
+                                                         (html/content (apply str (take common/take-run-no-of-chars (:uuid attrs)))))
                     [[:td (html/nth-of-type 3)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:moduleresourceuri attrs)))
-                                                         (html/content (apply str (drop 7 (:moduleresourceuri attrs)))))
+                                                         (html/content (apply str (drop common/drop-module-slash-no-of-chars (:moduleresourceuri attrs)))))
                     [[:td (html/nth-of-type 4)]] (html/content (:status attrs))
                     [[:td (html/nth-of-type 5)]] (html/content (:starttime attrs))
                     [[:td (html/nth-of-type 6)]] (html/content (:username attrs))
