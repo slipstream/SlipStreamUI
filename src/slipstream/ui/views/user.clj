@@ -33,10 +33,10 @@
         "Regular User")
         (str "Status: " (string/lower-case (:state attrs)))
         "User")))
-  header/header-top-bar-sel (html/substitute
-                              (header/header-top-bar-snip
-                                (common-model/attrs 
-                                  (user-model/user user)))))
+  header/header-top-bar-sel
+  (html/substitute
+    (header/header-top-bar-snip
+      (common-model/attrs (user-model/logged-in user)))))
 
 (defn parameters-view-snip
   [parameters-by-category]
@@ -180,6 +180,6 @@
   (base/base 
     {:js-scripts (js-scripts type)
      :title (common/title (common-model/elem-name user))
-     :header (header-snip user)
+     :header (header-snip  user)
      :content (content user type)
      :footer (footer/footer-snip)}))

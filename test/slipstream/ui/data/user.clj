@@ -1,7 +1,7 @@
 (ns slipstream.ui.data.user
   (:require [net.cgrand.enlive-html :as html]))
   
-(def xml-user (first (html/html-snippet "<user deleted='false' resourceUri='user/super' name='super' email='super@sixsq.com' firstName='Super' lastName='User' organization='SixSq' issuper='true' state='ACTIVE' creation='2013-03-06 14:30:59.30 UTC'>
+(def xml-user (first (html/html-snippet "<user deleted='false' resourceUri='user/test' name='test' email='test@example.com' firstName='Test' lastName='Me' organization='Disney' issuper='false' state='ACTIVE' creation='2013-03-06 14:30:59.30 UTC'>
    <parameters class='org.hibernate.collection.PersistentMap'>
       <entry>
          <string><![CDATA[General.Verbosity Level]]></string>
@@ -136,4 +136,5 @@
          </parameter>
       </entry>
    </parameters>
+   <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
 </user>")))
