@@ -8,4 +8,4 @@
 
 (html/defsnippet footer-snip "slipstream/ui/views/footer.html" footer-sel
   []
-  [:#version] (html/content @version/slipstream-release-version))
+  [:#release-version] (html/content @version/slipstream-release-version))
