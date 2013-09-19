@@ -13,6 +13,8 @@
             [slipstream.ui.views.users :as users]
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.run :as run]
+            [slipstream.ui.views.runs :as runs]
+            [slipstream.ui.views.vms :as vms]
             [slipstream.ui.views.reports :as reports]
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.configuration :as configuration]
@@ -20,6 +22,7 @@
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.models.version :as version]
+            [slipstream.ui.models.dashboard :as dashboard-model]
             [slipstream.ui.data.configuration :as configuration-data]
             [slipstream.ui.data.run :as run-data]
             [slipstream.ui.data.reports :as reports-data]
@@ -34,6 +37,7 @@
             [slipstream.ui.data.image-new :as image-new]
             [slipstream.ui.data.versions :as versions-data]
             [slipstream.ui.data.dashboard :as dashboard-data]
+            [slipstream.ui.data.vms :as vms-data]
             [slipstream.ui.data.deployment :as deployment])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -61,6 +65,12 @@
 
 (defn run-page []
   (run/page run-data/xml-run))
+
+(defn runs-page []
+  (runs/page (dashboard-model/runs dashboard-data/xml-dashboard)))
+
+(defn vms-page []
+  (vms/page vms-data/xml-vms))
 
 (defn byebye-page []
   (byebye/page projects/xml-projects))
@@ -180,6 +190,8 @@
     ["user-view"] (-> (user-view-page) ring.util.response/response constantly)
     ["user-edit"] (-> (user-edit-page) ring.util.response/response constantly)
     ["run"] (-> (run-page) ring.util.response/response constantly)
+    ["runs"] (-> (runs-page) ring.util.response/response constantly)
+    ["vms"] (-> (vms-page) ring.util.response/response constantly)
     ["reports"] (-> (reports-page) ring.util.response/response constantly)
     ["configuration"] (-> (configuration-page) ring.util.response/response constantly)
     ["documentation"] (-> (documentation-page) ring.util.response/response constantly)

@@ -130,7 +130,7 @@
 ;; javascript inclusion
 
 (def js-scripts-default
-  [])
+  ["/js/dashboard.js"])
 
 (defn js-scripts
   []

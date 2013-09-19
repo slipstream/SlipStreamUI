@@ -7,6 +7,8 @@
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.users :as users]
             [slipstream.ui.views.run :as run]
+            [slipstream.ui.views.runs :as runs]
+            [slipstream.ui.views.vms :as vms]
             [slipstream.ui.views.reports :as reports]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.configuration :as configuration]
@@ -71,6 +73,14 @@
 (defmethod gen-page "run"
   [metadata pagename type]
     (render (run/page (xml-string-to-map metadata))))
+
+(defmethod gen-page "runs"
+  [metadata pagename type]
+    (render (runs/page (xml-string-to-map metadata))))
+
+(defmethod gen-page "vms"
+  [metadata pagename type]
+    (render (vms/page (xml-string-to-map metadata))))
 
 (defmethod gen-page "reports"
   [metadata pagename type]

@@ -1062,6 +1062,14 @@ table.parameter_mapping input {
 	background-image: linear-gradient(to bottom, #4e4e4e, #262626);
 }
 
+.while-processing {
+	background: url('/images/spinner.gif') 10px no-repeat;
+}
+
+.while-processing p {
+    margin-left: 30px;
+}
+
 .overlay_message {
 	position: fixed;
 	top: 35%;
