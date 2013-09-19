@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.representation
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.version :as version-model]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.byebye :as byebye]
@@ -22,7 +23,10 @@
                 [toHtml [String String String] String]
               #^{:static true
                  :doc "Takes: user message code"}
-                [toHtmlError [String String String] String]]))
+                [toHtmlError [String String String] String]
+              #^{:static true
+                 :doc "Takes: version"}
+                [setReleaseVersion [String] void]]))
 
 (defn- xml-string-to-map [metadata]
   (first (html/html-snippet metadata)))
@@ -103,3 +107,8 @@
   "Generate an HTML error page"
   [user message code]
   (gen-error-page user message code))
+
+(defn -setReleaseVersion
+  "Set the application version"
+  [version]
+  (version-model/set-release-version version))
