@@ -8,8 +8,11 @@
 
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 
-;(def *webdir* (str (pwd) "/src/slipstream/"))
-(def webdir (str "/Users/meb/Documents/workspace/SlipStream/SlipStreamUI" "/src/slipstream/ui/views/"))
+(def webdir "/")
+;(def webdir
+;  (str
+;    "/Users/meb/Documents/workspace/SlipStream/SlipStreamUI"
+;    "/src/slipstream/ui/views/"))
 
 (defn render [t]
   (apply str t))
@@ -39,7 +42,7 @@
                [(-> (:ns (meta app)) str symbol)]
                [])]
     (println "run-server*" nses)
-    (run-jetty
+    #_(run-jetty
       (-> app
         (wrap-file webdir)
         (wrap-reload nses)
