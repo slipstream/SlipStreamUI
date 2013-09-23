@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.common :as module-common]
+            [slipstream.ui.models.run :as module-run]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]))
@@ -49,6 +50,4 @@
 
 (defn page [runs]
   (runs-template
-    (module-common/group-by-key
-      :cloudservicename
-      (module-common/children runs))))
+    (module-run/group-by-cloud runs)))

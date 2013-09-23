@@ -42,3 +42,9 @@
 (defn parameters
   [run]
   (common/parameters run))
+
+(defn group-by-cloud
+  [runs]
+  (common/group-by-key
+      :cloudservicename
+      (common/children runs)))

@@ -2,9 +2,11 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.runs :as runs]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
             [slipstream.ui.models.common :as common-model]
+            [slipstream.ui.models.run :as run-model]
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]))
@@ -229,6 +231,8 @@
   (html/substitute
     (view-interaction-snip deployment))
   
+  runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud deployment)))
+
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 
 (html/defsnippet new-summary-snip deployment-new-template-html module-base/module-summary-sel

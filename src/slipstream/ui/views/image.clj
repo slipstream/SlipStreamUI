@@ -4,10 +4,12 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
+            [slipstream.ui.views.runs :as runs]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.models.user :as user-model]
+            [slipstream.ui.models.run :as run-model]
             [slipstream.ui.models.image :as image-model]))
 
 (def image-view-template-html "slipstream/ui/views/image-view.html")
@@ -276,6 +278,8 @@
   module-base/module-interaction-bottom-sel
     (html/substitute
       (view-interaction-snip module))
+
+  runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud module)))
 
   authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 

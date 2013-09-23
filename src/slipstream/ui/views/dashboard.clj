@@ -8,6 +8,7 @@
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.dashboard :as dashboard-model]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]))
@@ -93,7 +94,7 @@
           identity)
 
   runs-fragment-sel (if (empty? grouped-by-cloud)
-                      (common/emtpy-section "No deployment, run or build currently available")
+                      (common/emtpy-section (:msg-no-run-all messages/msg))
                       (common/tab-sections grouped-by-cloud "runs" runs-for-cloud-snip))
   [:#fragment-runs-cloudb] nil)
 
@@ -107,7 +108,7 @@
           identity)
 
   vms-fragment-sel (if (empty? grouped-by-cloud)
-                     (common/emtpy-section "No virtual machine currently available")
+                     (common/emtpy-section (:msg-no-vm messages/msg))
                      (common/tab-sections grouped-by-cloud "vms" vms-for-cloud-snip))
   [:#fragment-vms-cloudb] nil)
 

@@ -100,3 +100,8 @@
 (defn image
   [metadata]
   (first (html/select metadata [:image])))
+
+(defn runs
+  [module]
+  (first (html/select module [:runs])))
+

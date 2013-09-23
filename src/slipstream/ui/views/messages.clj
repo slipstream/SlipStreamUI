@@ -6,4 +6,10 @@
    :help-cloud-image-ids "Contains the cloud specific image unique identifier (e.g. ami-xxxxxx for Amazon EC2)."
    :help-module-platform "The platform is defined by the base image and inherited by all derived images."
    :help-module-login "The login is defined by the base image and inherited by all derived images."})
+
+(def msg
+  {:msg-no-run-all "No deployment, run or build currently available"
+   :msg-no-run-image "No image run or image build currently available"
+   :msg-no-run-deployment "No deployment currently available"
+   :msg-no-vm "No virtual machine currently available"})
   
