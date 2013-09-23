@@ -38,6 +38,7 @@
             [slipstream.ui.data.versions :as versions-data]
             [slipstream.ui.data.dashboard :as dashboard-data]
             [slipstream.ui.data.vms :as vms-data]
+            [slipstream.ui.data.runs :as runs-data]
             [slipstream.ui.data.deployment :as deployment])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -67,7 +68,7 @@
   (run/page run-data/xml-run))
 
 (defn runs-page []
-  (runs/page (dashboard-model/runs dashboard-data/xml-dashboard)))
+  (runs/page runs-data/xml-runs))
 
 (defn vms-page []
   (vms/page vms-data/xml-vms))
