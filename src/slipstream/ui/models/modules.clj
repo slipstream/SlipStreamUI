@@ -3,18 +3,13 @@
             [slipstream.ui.models.common :as common]
             [slipstream.ui.models.module :as module]))
 
-(def sel-modules
-  #{[:item]})
-
 (defn children-with-filter
-  "Extract items from root map and apply filter function"
   [with-items filter-fn]
-  (filter filter-fn (html/select with-items sel-modules)))
+  (common/children-with-filter with-items filter-fn))
 
 (defn children 
-  "Extract items from root map (e.g. root module list or versions)"
   [with-items]
-  (children-with-filter with-items identity))
+  (common/children with-items))
 
 (defn children-published
   "Extract items from root map and apply filter function"
@@ -23,7 +18,7 @@
 
 (defn first-child
   [with-items]
-  (first (children with-items)))
+  (common/first-child with-items))
 
 (defn titles-from-versions
   [versions]
@@ -31,4 +26,3 @@
     [attrs (common/attrs (first-child versions))
      {:keys [name comment category version]} attrs]
     [name "Versions" comment category]))
-

@@ -28,6 +28,24 @@
 (defn value [elem]
   (first (:content (first (html/select elem [:value])))))
 
+;; Children
+
+(def sel-modules
+  #{[:item]})
+
+(defn children-with-filter
+  "Extract items from root map and apply filter function"
+  [with-items filter-fn]
+  (filter filter-fn (html/select with-items sel-modules)))
+
+(defn children 
+  "Extract items from root map (e.g. root module list or versions)"
+  [with-items]
+  (children-with-filter with-items identity))
+
+(defn first-child
+  [with-items]
+  (first (children with-items)))
 
 ;; Grouping and category
 
