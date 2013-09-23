@@ -187,7 +187,7 @@
       (authz-button can-delete?)
       #{module-base/module-publish-button-top module-base/module-publish-button-bottom
         module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
-      (authz-button super?)
+      (remove-elem-if (not super?))
       #{module-base/module-publish-button-top module-base/module-publish-button-bottom} 
       (remove-elem-if published?)
       #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
