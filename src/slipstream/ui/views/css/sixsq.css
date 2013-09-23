@@ -609,6 +609,7 @@ ul.interaction li {
 	height: 23px;
 	line-height: 23px;
 	padding: 0 11px;
+	margin: 0 2px;
 	background-color: #ffffff;
 	color: #000000;
 	cursor: pointer;
@@ -620,6 +621,10 @@ ul.interaction li {
 
 	-webkit-box-shadow: 0px 1px 3px 0px #b2b2b2;
 	box-shadow: 0px 1px 3px 0px #b2b2b2;
+}
+
+.ui-dialog-buttonset {
+    margin-right: 2px;
 }
 
 .interaction li.attention a,
