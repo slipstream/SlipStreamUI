@@ -128,10 +128,16 @@
         :cloud
         (dashboard-model/vms dashboard)))))
 
+;; CSS inclusion
+
+(defn css-stylesheets
+  []
+  ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css"])
+
 ;; javascript inclusion
 
 (def js-scripts-default
-  ["/js/dashboard.js"])
+  ["/js/dashboard.js" "/external/jit/js/jit.js" "/js/dashboard-summary.js"])
 
 (defn js-scripts
   []
@@ -139,7 +145,8 @@
 
 (defn page [dashboard]
   (base/base 
-    {:js-scripts (js-scripts)
+    {:css-stylesheets (css-stylesheets)
+     :js-scripts (js-scripts)
      :title (common/title "Dashboard")
      :header (header-snip dashboard)
      :content (content-snip dashboard)

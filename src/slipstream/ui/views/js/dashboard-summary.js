@@ -19,21 +19,24 @@ $(document).ready(function() {
     var json = {
         'label': ['VMs', 'CPUs - GHz', 'RAM - GB', 'Storage - GB'],
         'values': [{
+            'label': 'Atos Science Cloud',
+            'values': [200,90,20,2],
+        }, {
             'label': 'CloudSigma',
             'values': [2,80,160,200,],
         }, {
             'label': 'Interoute VDC',
             'values': [100,80,40,10,],
         }, {
-            'label': 'Atos Science Cloud',
-            'values': [200,90,20,2],
+            'label': 'T-Systems Science Cloud',
+            'values': [180,60,30,50,],
         }]
    
     };
    
     //init BarChart
     var barChart = new $jit.BarChart({
-        width: 950,  
+        width: 930,  
         height: 400,        
         //id of the visualization container  
         injectInto: 'infovis',
@@ -77,15 +80,15 @@ $(document).ready(function() {
     //load JSON data.
     barChart.loadJSON(json);
     //end
-    var list = $jit.id('id-list');
+    //    var list = $jit.id('id-list');
     //dynamically add legend to list
-    var legend = barChart.getLegend(),
-        listItems = [];
-    for(var name in legend) {
-      listItems.push('<div class=\'query-color\' style=\'background-color:'
-          + legend[name] +'\'>&nbsp;</div>' + name);
-    }
-    list.innerHTML = '<li>' + listItems.join('</li><li>') + '</li>';
+    // var legend = barChart.getLegend(),
+    //     listItems = [];
+    // for(var name in legend) {
+    //   listItems.push('<div class=\'query-color\' style=\'background-color:'
+    //       + legend[name] +'\'>&nbsp;</div>' + name);
+    // }
+    // list.innerHTML = '<li>' + listItems.join('</li><li>') + '</li>';
     
     //
     // Consumption
