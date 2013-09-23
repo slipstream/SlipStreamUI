@@ -51,4 +51,4 @@
   (runs-template
     (module-common/group-by-key
       :cloudservicename
-      runs)))
+      (module-common/children runs))))
