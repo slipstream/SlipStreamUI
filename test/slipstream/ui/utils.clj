@@ -42,7 +42,7 @@
                [(-> (:ns (meta app)) str symbol)]
                [])]
     (println "run-server*" nses)
-    (run-jetty
+    #_(run-jetty
       (-> app
         (wrap-file webdir)
         (wrap-reload nses)
