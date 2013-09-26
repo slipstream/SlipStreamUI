@@ -17,19 +17,19 @@ $(document).ready(function() {
     })();
 
     var json = {
-        'label': ['VMs', 'CPUs - GHz', 'RAM - GB', 'Storage - GB'],
+        'label': ['Curently running virtual machines (VMs)'],
         'values': [{
             'label': 'Atos Science Cloud',
-            'values': [200,90,20,2],
+            'values': [300],
         }, {
             'label': 'CloudSigma',
-            'values': [2,80,160,200,],
+            'values': [500],
         }, {
             'label': 'Interoute VDC',
-            'values': [100,80,40,10,],
+            'values': [250],
         }, {
             'label': 'T-Systems Science Cloud',
-            'values': [180,60,30,50,],
+            'values': [350],
         }]
    
     };
@@ -72,7 +72,7 @@ $(document).ready(function() {
         Tips: {  
           enable: true,  
           onShow: function(tip, elem) {  
-            tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;  
+            tip.innerHTML = elem.name + ": <b>" + elem.value + "</b>";  
           }  
         }
     });
@@ -80,148 +80,14 @@ $(document).ready(function() {
     //load JSON data.
     barChart.loadJSON(json);
     //end
-    //    var list = $jit.id('id-list');
+    var list = $jit.id('id-list');
     //dynamically add legend to list
-    // var legend = barChart.getLegend(),
-    //     listItems = [];
-    // for(var name in legend) {
-    //   listItems.push('<div class=\'query-color\' style=\'background-color:'
-    //       + legend[name] +'\'>&nbsp;</div>' + name);
-    // }
-    // list.innerHTML = '<li>' + listItems.join('</li><li>') + '</li>';
-    
-    //
-    // Consumption
-    //
-    
-    var consumptionData = {  
-        'label': ['Max VMs in the day', 'Cumulated CPUs hours (GHz)', 'Cumulated RAM hours (GB)', 'Cumulated Storage hours (GB)'],
-        'values': [{
-                'label': '01/04/2013',
-                'values': [2, 5, 170, 200, ],
-            }, {
-                'label': '02/04/2013',
-                'values': [20, 10, 260, 150, ],
-            }, {
-                'label': '03/04/2013',
-                'values': [5, 60, 60, 100, ],
-            }, {
-                'label': '04/04/2013',
-                'values': [2, 80, 80, 90, ],
-            }, {
-                'label': '05/04/2013',
-                'values': [2, 120, 100, 80, ],
-            }, {
-                'label': '06/04/2013',
-                'values': [29, 90, 120, 70, ],
-            }, {
-                'label': '07/04/2013',
-                'values': [45, 80, 60, 100, ],
-            }, {
-                'label': '08/04/2013',
-                'values': [30, 80, 60, 100, ],
-            }, {
-                'label': '09/04/2013',
-                'values': [20, 80, 160, 50, ],
-            }, {
-                'label': '10/04/2013',
-                'values': [12, 100, 190, 100, ],
-            }, {
-                'label': '11/04/2013',
-                'values': [20, 90, 100, 100, ],
-        }]  
-    };  
-    
-    //init AreaChart
-    var consumptionAreaChart = new $jit.AreaChart({
-        width: 930,
-        height: 400,
-      //id of the visualization container
-      injectInto: 'infovis-consumption',
-      //add animations
-      animate: true,
-      //separation offsets
-      Margin: {
-        top: 5,
-        left: 5,
-        right: 5,
-        bottom: 5
-      },
-      labelOffset: 10,
-      //whether to display sums
-      showAggregates: false,
-      //whether to display labels at all
-      showLabels: true,
-      //could also be 'stacked'
-      type: useGradients? 'stacked:gradient' : 'stacked',
-      //label styling
-      Label: {
-          type: labelType, //Native or HTML  
-          size: 13,  
-          family: 'Arial',  
-          color: 'black'  
-      },
-      //enable tips
-      Tips: {
-        enable: true,
-        onShow: function(tip, elem) {
-          tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
-        }
-      },
-    });
-    
-    //load JSON data.
-    consumptionAreaChart.loadJSON(consumptionData);
-    var listConsumption = $jit.id('id-list-consumption');
-    //dynamically add legend to list
-    var legendConsumption = consumptionAreaChart.getLegend(),
-        listItemsConsumption = [];
-    for(var name in legendConsumption) {
-      listItemsConsumption.push('<div class=\'query-color\' style=\'background-color:'
-          + legendConsumption[name] +'\'>&nbsp;</div>' + name);
+    var legend = barChart.getLegend(),
+        listItems = [];
+    for(var name in legend) {
+      listItems.push('<div class=\'query-color\' style=\'background-color:'
+          + legend[name] +'\'>&nbsp;</div>' + name);
     }
-    listConsumption.innerHTML = '<li>' + listItemsConsumption.join('</li><li>') + '</li>';
-    
-    
-    //init AreaChart
-    var consumptionAreaChart2 = new $jit.AreaChart({
-        width: 930,
-        height: 400,
-      //id of the visualization container
-      injectInto: 'infovis-consumption2',
-      //add animations
-      animate: true,
-      //separation offsets
-      Margin: {
-        top: 5,
-        left: 5,
-        right: 5,
-        bottom: 5
-      },
-      labelOffset: 10,
-      //whether to display sums
-      showAggregates: false,
-      //whether to display labels at all
-      showLabels: true,
-      //could also be 'stacked'
-      type: useGradients? 'stacked:gradient' : 'stacked',
-      //label styling
-      Label: {
-          type: labelType, //Native or HTML  
-          size: 13,  
-          family: 'Arial',  
-          color: 'black'  
-      },
-      //enable tips
-      Tips: {
-        enable: true,
-        onShow: function(tip, elem) {
-          tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
-        }
-      },
-    });
-
-    //load JSON data.
-    consumptionAreaChart2.loadJSON(consumptionData);
+    list.innerHTML = '<li>' + listItems.join('</li><li>') + '</li>';
     
 });
