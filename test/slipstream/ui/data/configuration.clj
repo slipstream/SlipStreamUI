@@ -25,7 +25,7 @@
       </entry>
       <entry>
          <string><![CDATA[slipstream.base.url]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.base.url' description='Default URL and port for the SlipStream RESTlet' category='SlipStream_basics' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.base.url' description='Default URL and port for the SlipStream RESTlet' category='SlipStream_Basics' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[https://212.159.217.20]]></value>
          </parameter>
@@ -35,12 +35,6 @@
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.mail.debug' description='Debug mail sending.' category='SlipStream_Support' mandatory='true' type='Boolean' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[on]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string><![CDATA[cloud.connector.stratuslab.update.clienturl]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.stratuslab.update.clienturl' category='cloud' mandatory='true' type='String' readonly='false'>
-            <value><![CDATA[https://212.159.217.20/downloads/stratuslabclient.tgz]]></value>
          </parameter>
       </entry>
       <entry>
@@ -69,7 +63,7 @@
       </entry>
       <entry>
          <string><![CDATA[slipstream.headurl]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.headurl' description='' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.headurl' description='' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[$HeadURL: https://code.sixsq.com/svn/SlipStream/trunk/SlipStreamServer/src/main/resources/com/sixsq/slipstream/main/default.config.properties $]]></value>
          </parameter>
@@ -88,7 +82,7 @@
       </entry>
       <entry>
          <string><![CDATA[slipstream.reports.location]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.reports.location' description='' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.reports.location' description='' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[/var/tmp/slipstream/reports]]></value>
          </parameter>
@@ -144,14 +138,14 @@
       </entry>
       <entry>
          <string><![CDATA[cloud.connector.class]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.class' description='Cloud connector java class name(s) (comma separated for multi-cloud configuration)' category='SlipStream_basics' mandatory='true' type='Text' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.class' description='Cloud connector java class name(s) (comma separated for multi-cloud configuration)' category='SlipStream_Basics' mandatory='true' type='Text' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[atos:com.sixsq.slipstream.connector.stratuslab.StratusLabConnector,interoute:com.sixsq.slipstream.connector.abiquo.AbiquoConnector,com.sixsq.slipstream.connector.cloudsigma.CloudSigmaConnector]]></value>
          </parameter>
       </entry>
       <entry>
          <string><![CDATA[slipstream.version]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.version' description='Installed SlipStream version' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.version' description='Installed SlipStream version' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[1.7]]></value>
          </parameter>
@@ -308,21 +302,21 @@
       </entry>
       <entry>
          <string><![CDATA[slipstream.update.clientbootstrapurl]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.update.clientbootstrapurl' description='Endpoint of the SlipStream client bootstrap script' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.update.clientbootstrapurl' description='Endpoint of the SlipStream client bootstrap script' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[https://212.159.217.20/downloads/slipstream.bootstrap]]></value>
          </parameter>
       </entry>
       <entry>
          <string><![CDATA[cloud.connector.library.libcloud.url]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.library.libcloud.url' description='URL to fetch libcloud library from' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.library.libcloud.url' description='URL to fetch libcloud library from' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[URL should point to a valid gzipped tarball.]]></instructions>
             <value><![CDATA[http://slipstream.sixsq.com/libcloud.tgz]]></value>
          </parameter>
       </entry>
       <entry>
          <string><![CDATA[cloud.connector.security.publicsshkey]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.security.publicsshkey' description='SSH public key used for orchestrator' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.security.publicsshkey' description='SSH public key used for orchestrator' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[/root/.ssh/id_rsa.pub]]></value>
          </parameter>
@@ -340,12 +334,6 @@
          </parameter>
       </entry>
       <entry>
-         <string><![CDATA[cloud.connector.ec2.update.clienturl]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.ec2.update.clienturl' category='cloud' mandatory='true' type='String' readonly='false'>
-            <value><![CDATA[https://212.159.217.20/downloads/awsclient.tgz]]></value>
-         </parameter>
-      </entry>
-      <entry>
          <string><![CDATA[stratuslab.cloud.connector.orchestrator.instance.type]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='stratuslab.cloud.connector.orchestrator.instance.type' category='stratuslab' mandatory='true' type='String' readonly='false'>
             <value><![CDATA[t1.micro]]></value>
@@ -353,7 +341,7 @@
       </entry>
       <entry>
          <string><![CDATA[slipstream.update.clienturl]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.update.clienturl' description='Endpoint of the SlipStream client tarball' category='SlipStream_advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.update.clienturl' description='Endpoint of the SlipStream client tarball' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[https://212.159.217.20/downloads/slipstreamclient.tgz]]></value>
          </parameter>

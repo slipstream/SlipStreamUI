@@ -132,12 +132,14 @@
 
 (defn css-stylesheets
   []
-  ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css"])
+  [])
+;   ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css"])
 
 ;; javascript inclusion
 
 (def js-scripts-default
-  ["/js/dashboard.js" "/external/jit/js/jit.js" "/js/dashboard-summary.js"])
+  ["/js/dashboard.js"])
+; ["/js/dashboard.js" "/external/jit/js/jit.js" "/js/dashboard-summary.js"])
 
 (defn js-scripts
   []

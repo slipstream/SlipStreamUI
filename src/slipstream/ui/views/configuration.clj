@@ -29,7 +29,7 @@
   [parameters-by-category]
   (for [grouped parameters-by-category]
     (list
-      (html/html-snippet (str "\n    <h3>" (key grouped) "</h3>"))
+      (html/html-snippet (str "\n    <h3>" (string/replace (key grouped) #"_" " ") "</h3>"))
       (common/parameters-edit-snip (val grouped) false))))
 
 (html/defsnippet content-snip configuration-template-html common/content-sel
