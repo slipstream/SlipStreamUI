@@ -70,6 +70,7 @@ $(document).ready(function() {
 	$('#delete-module-dialog').dialog({
 		autoOpen: false,
 		title: 'Delete Module?',
+		modal: true,
 		buttons: {
 			"Delete": function() {
 				$(this).dialog("close");
