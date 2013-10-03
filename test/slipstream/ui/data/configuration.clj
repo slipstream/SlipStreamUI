@@ -296,7 +296,7 @@
       <entry>
          <string><![CDATA[slipstream.mail.username]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.mail.username' description='Username for SMTP server.' category='SlipStream_Support' mandatory='true' type='String' readonly='false'>
-            <instructions><![CDATA[Username of the mail server account you wan to use to send registration emails.]]></instructions>
+            <instructions><![CDATA[Username of the mail server account used to send registration emails.]]></instructions>
             <value><![CDATA[mailer@sixsq.com]]></value>
          </parameter>
       </entry>
