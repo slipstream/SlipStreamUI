@@ -35,16 +35,24 @@
   [module]
   (-> (authz/authz module) authz/attrs :owner))
 
-(defn module-comment
+(defn module-commit
   [module]
-  (common/content (first (html/select module [:comment]))))
+  (first (html/select module [:commit])))
+
+(defn module-commit-comment
+  [module]
+  (common/content (first (html/select (module-commit module) [:comment]))))
+
+(defn module-commit-author
+  [module]
+  (:author (common/attrs (module-commit module))))
 
 (defn titles
   [module]
   (let 
     [attrs (attrs module)
      {:keys [name description category]} attrs 
-     comment (module-comment module)]
+     comment (module-commit-comment module)]
     [name description comment category]))
 
 (defn titles-with-version
@@ -52,7 +60,7 @@
   (let 
     [attrs (attrs module)
      {:keys [name description category version]} attrs 
-     comment (module-comment module)]
+     comment (module-commit-comment module)]
     [name (str "Version: " version " - " description) comment category]))
 
 (defn nodes
@@ -62,10 +70,6 @@
 (defn content
   [elem]
   (common/content elem))
-
-(defn item-comment
-  [item]
-  (first (:content (first (html/select item [:comment])))))
 
 (defn available-clouds
   [module]

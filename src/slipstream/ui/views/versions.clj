@@ -43,8 +43,8 @@
       [[:a]] (html/do->
                (html/set-attr :href (str "/" (:resourceuri (common-model/attrs child))))
                (html/content (:version (common-model/attrs child))))
-      [[:td (html/nth-of-type 2)]] (html/content (module/item-comment child))
-      [[:td (html/nth-of-type 3)]] (html/content (module/owner child))
+      [[:td (html/nth-of-type 2)]] (html/content (module/module-commit-comment child))
+      [[:td (html/nth-of-type 3)]] (html/content (module/module-commit-author child))
       [[:td (html/nth-of-type 4)]] (html/content (:lastmodified (common-model/attrs child)))))
 
 (defn sanitize-module-name
