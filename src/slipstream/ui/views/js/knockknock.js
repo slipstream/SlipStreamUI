@@ -43,13 +43,30 @@ $(document).ready(function() {
 		return $$.send($(this), event, $.post, callback);
 	});
 
+	$('#register-dialog').dialog({
+		autoOpen: false,
+		modal: true,
+		title: "Registration Result",
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			},
+		}
+	});
+
 	$('#formregister').submit(function(event){
-		return $$.send($(this), event, $.post);
+		var callback = function(data, status, xhr) {
+    	    $$.hideSubmitMessage();
+		    $("#register-dialog > p").text(data);
+    		$("#register-dialog").dialog('open');
+    		return false;
+		}
+		return $$.send($(this), event, $.post, callback);
 	});
 
 	$('#button_register').click(function(event){
 		$$.hideError();
-		$$.showSubmitMessage();
+	    $$.showSubmitMessage("Registering the new user");
     });
 
 });

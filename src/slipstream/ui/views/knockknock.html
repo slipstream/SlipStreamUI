@@ -84,19 +84,22 @@
                     </div>
                 </div>
                 <div id="messages" class="messages">
-                    <div id="message" class="message hidden">
+                    <div id="message" class="message">
                         <span></span>
                     </div>
-                    <div id="error" class="message conflict hidden">
-                        <span></span>
+                    <div id="error" class="message conflict">
+                        <i class="icon-warning-sign" /><span></span>
                     </div>
                 </div>
-                <div id="submit_message" class="overlay hidden">
-        			<div class="ui-widget-overlay"></div>
+    			<div id="overlay" class="overlay hidden"></div>
+                <div id="submit-message" class="hidden">
                 	<div class="overlay_message">
                 		<h2>Registering your account</h2>
                 		<p>Please wait...</p>
                 	</div>
+                </div>
+                <div id="register-dialog">
+                    <p />
                 </div>
             </div>
             <div id="content">
@@ -141,7 +144,7 @@
                             Register
                         </h3>
                         <div id="register">
-                        	<form id="formregister" action="register" enctype="application/x-www-form-urlencoded" method="post">
+                        	<form id="formregister" action="/register" enctype="application/x-www-form-urlencoded" method="post">
                                 <div>
                                     <p>
                                     Please provide the following information to register for a SlipStream™ account. After submitting the form, you will be sent an email. Visit the link in the email to confirm your registration request.
@@ -206,9 +209,8 @@
                                 <button 
                                     id="button_register"
                                     class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"         
-                                    role="button"
                                     type="submit"
-                                    aria-disabled="false">Register</button>
+                                    aria-disabled="false"><i class="icon-user"></i> Register</button>
                             </form>             			
                         </div>
                     </div>

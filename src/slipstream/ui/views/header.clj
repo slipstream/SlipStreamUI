@@ -45,7 +45,8 @@
    "Users" "icon-group"
    "User" "icon-user"
    "Configuration" "icon-wrench"
-   "Dashboard" "icon-dashboard"})
+   "Dashboard" "icon-dashboard"
+   "Action" "icon-bolt"})
 
 (html/defsnippet header-titles-snip header-template-html titles-sel
   [title title-sub title-desc category]

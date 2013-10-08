@@ -8,6 +8,7 @@
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.welcome :as welcome]
+            [slipstream.ui.views.action :as action]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.versions :as versions]
             [slipstream.ui.views.users :as users]
@@ -23,6 +24,7 @@
             [slipstream.ui.utils :as utils]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.dashboard :as dashboard-model]
+            [slipstream.ui.data.message :as message]
             [slipstream.ui.data.configuration :as configuration-data]
             [slipstream.ui.data.run :as run-data]
             [slipstream.ui.data.reports :as reports-data]
@@ -45,6 +47,9 @@
 ;; =============================================================================
 ;; Pages
 ;; =============================================================================
+
+(defn action-page []
+  (action/page message/message))
 
 (defn module-page [module type]
   (module/page module type))
@@ -196,6 +201,7 @@
     ["reports"] (-> (reports-page) ring.util.response/response constantly)
     ["configuration"] (-> (configuration-page) ring.util.response/response constantly)
     ["documentation"] (-> (documentation-page) ring.util.response/response constantly)
+    ["action"] (-> (action-page) ring.util.response/response constantly)
     ["error"] (-> (error-page "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>" 500) ring.util.response/response constantly)
     [&] (-> (error-page "Unknown page" 404)
           ring.util.response/response constantly)))

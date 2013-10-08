@@ -4,6 +4,7 @@
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.byebye :as byebye]
+            [slipstream.ui.views.action :as action]
             [slipstream.ui.views.error :as error]
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.users :as users]
@@ -57,6 +58,10 @@
 (defmethod gen-page "logout"
   [metadata pagename type]
     (render (byebye/page (xml-string-to-map metadata))))
+
+(defmethod gen-page "action"
+  [message pagename type]
+    (render (action/page message)))
 
 (defmethod gen-page "module"
   [metadata pagename type]
