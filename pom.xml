@@ -5,6 +5,7 @@
 	<artifactId>SlipStreamUI</artifactId>
 	<packaging>jar</packaging>
 	<name>SlipStreamUI</name>
+	<version>2.0.4-SNAPSHOT</version>
 	<description>SlipStream UI</description>
 	<url>http://sixsq.com</url>
 	<licenses>
