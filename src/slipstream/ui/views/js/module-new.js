@@ -25,6 +25,9 @@ $(document).ready(function() {
 		title: 'Save Module?',
 		modal: true,
 		buttons: {
+			"Cancel": function() {
+				$(this).dialog("close");
+			},
 			"Save": function(event) {
 			    // the presence of parentname indicate a new module
 				$(this).dialog("close");
@@ -39,9 +42,6 @@ $(document).ready(function() {
                 $("#module-name-input").val(fullname);
         		$$.send($("#form-save"), event, $.put);
 				return false;
-			},
-			"Cancel": function() {
-				$(this).dialog("close");
 			},
 		}
 	});
