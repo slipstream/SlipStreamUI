@@ -30,5 +30,7 @@ $(document).ready(function() {
         $(this).attr("href", href);
     });
 	
-	$('#importdialog').hide();
+    $('#copydialog').hide();
+    $('#chooser').hide();
+    $("#run-with-options-dialog").hide();
 })
