@@ -40,9 +40,6 @@ $(document).ready(function() {
 		return false;
 	});
 
-    // 	$('#save-module-dialog').dialog({ ...
-    // expected to be provided by the edit/new specific script
-
     // Cancel button
     $('#cancel-button-top, #cancel-button-bottom').click(function(event){
         if (location.pathname.endsWith("/module/new")) {
