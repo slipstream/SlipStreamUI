@@ -7,5 +7,6 @@
 	   <vm runUuid='bbbbbbbb-8a39-4870-8940-0031f2cffd40' status='Unknown' instanceId='bbbb' cloudServiceName='StratusLab' />
 	   <vm runUuid='cccccccc-8a39-4870-8940-0031f2cffd40' status='Running' instanceId='cccc' cloudServiceName='Interoute' />
 	   <vm runUuid='dddddddd-8a39-4870-8940-0031f2cffd40' status='Running' instanceId='dddd' cloudServiceName='EC2' />
+	   <vm runUuid='Unknown' status='Running' instanceId='dddd' cloudServiceName='EC2' />
   <user issuper='true' resourceUri='user/super' name='super'></user>
 </vms>")))
