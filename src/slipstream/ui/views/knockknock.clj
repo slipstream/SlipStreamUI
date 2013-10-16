@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.knockknock
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.base :as base]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.module-base :as module-base]
@@ -35,13 +36,9 @@
   []
   base/head-sel identity)
 
-(html/defsnippet titles knockknock-template-html base/titles-sel
-  []
-  base/titles-sel identity)
-
 (html/defsnippet content knockknock-template-html base/content-sel
   []
-  base/titles-sel identity)
+  base/content-sel identity)
 
 ;; CSS inclusion
 
@@ -63,7 +60,7 @@
   (base/base 
     {:css-stylesheets css-stylesheets-default
      :js-scripts (js-scripts type)
-     :title (titles)
+     :title (common/title "Login/Register")
      :header (header metadata type)
      :content (content)
      :footer (footer type)}))

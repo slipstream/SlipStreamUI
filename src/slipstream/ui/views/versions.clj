@@ -72,8 +72,7 @@
 
 (defn page [versions type]
   (base/base 
-    {;:js-scripts ["/js/welcome.js"]
-     :title (title versions)
+    {:title (common/title "Versions")
      :header (module-base/header versions type header-snip)
      :content (content-snip versions)
      :footer (module-base/footer type)}))

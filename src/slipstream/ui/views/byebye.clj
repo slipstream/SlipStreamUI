@@ -26,7 +26,7 @@
 
 (defn page [metadata]
   (base/base 
-    {:title (common/title "Login/Register")
+    {:title (common/title "Logout")
      :header (header-snip metadata)
      :content (content-snip metadata)
      :footer (footer/footer-snip)}))

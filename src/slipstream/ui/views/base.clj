@@ -8,12 +8,12 @@
 (def layout-template-html "slipstream/ui/views/layout.html")
 
 (def head-sel [:head])
-(def titles-sel [:#title])
+(def title-sel [head-sel :> :title])
 (def content-sel common/content-sel)
 
 (html/defsnippet head-snip layout-template-html head-sel
-  [js-scripts css-stylesheets]
-  head-sel identity
+  [title js-scripts css-stylesheets]
+  title-sel (html/content title)
   [head-sel [:script html/last-of-type]] (html/clone-for
                                            [js js-scripts]
                                            (html/set-attr :src js))
@@ -22,9 +22,8 @@
                                            (html/set-attr :href css)))
 
 (html/deftemplate base layout-template-html
-  [{:keys [titles header content footer js-scripts css-stylesheets]}]
-  head-sel (html/substitute (head-snip js-scripts css-stylesheets))
-  titles-sel (html/content titles)
+  [{:keys [title header content footer js-scripts css-stylesheets]}]
+  head-sel (html/substitute (head-snip title js-scripts css-stylesheets))
   header/header-sel (html/substitute header)
   common/content-sel (html/substitute content)
   [:span html/text-node] (html/replace-vars messages/help)
