@@ -45,4 +45,4 @@
   (vms-template
     (common-model/group-by-key
       :cloudservicename
-      (html/select vms [:item]))))
+      (html/select vms [:vm]))))
