@@ -39,7 +39,8 @@
 
 (html/deftemplate vms-template vms-template-html
   [vms]
-  vms-sel (html/substitute (vms-snip vms)))
+  vms-sel (html/substitute (vms-snip vms))
+  [vms-sel [:a (html/attr= :href "/run/Unknown")]] (html/add-class "inactive"))
 
 (defn page [vms]
   (vms-template

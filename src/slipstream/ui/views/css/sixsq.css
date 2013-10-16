@@ -1377,3 +1377,8 @@ li {
 	border: 1px solid #aeaeae;
 }
 
+.inactive {
+    pointer-events: none;
+    cursor: default;
+}
+
