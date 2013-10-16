@@ -51,7 +51,7 @@
   "Drop the leading 'module/' and the version number at the end"
   [module-name]
   (apply str 
-         (drop 7 
+         (drop common/drop-module-slash-no-of-chars 
                (string/join "/" 
                             (drop-last (string/split module-name #"/"))))))
 
