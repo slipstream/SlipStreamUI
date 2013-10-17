@@ -180,6 +180,52 @@
                                     </tbody>
                                 </table>
                             </div>
+        	                <h3>Cloud Image Identifiers and Image Hierarchy</h3>
+        	                <div id="cloud-image-ids">
+        	                    <table>
+                                    <tr>
+                                        <th>
+                                            Base image?
+                                        </th>
+                                        <td>
+                                            <input id="module-is-base" name="isbase" type="checkbox" checked="checked" />
+                                        </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>${help-module-is-base}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Machine Image IDs
+                                        </th>
+                                        <td id="module-image-ids">
+                                            <div>
+                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
+                                            </div>
+                                        </td>
+                                        <td class="help">
+                                            <i class="icon-question-sign icon-2x"></i>
+                                            <span>${help-cloud-image-ids}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Machine Image Reference
+                                        </th>
+                                        <td>
+                                            <input name="moduleReference" id="module-reference" type="text" value="" readonly="readonly">
+                                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">
+                                                <i class="icon-eye-open"/> Choose Reference
+                                            </button>
+                                            <td class="help">
+                                                <i class="icon-question-sign icon-2x"></i>
+                                                <span>${help-reference-module}</span>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
         	                <h3>Operating System Details</h3>
         	                <div id="module-os-details">
                                 <table>
@@ -230,52 +276,6 @@
                                         <td class="help">
                                             <i class="icon-question-sign icon-2x"></i>
                                             <span>${help-module-login}</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-        	                <h3>Cloud Image Identifiers and Image Hierarchy</h3>
-        	                <div id="cloud-image-ids">
-        	                    <table>
-                                    <tr>
-                                        <th>
-                                            Base image?
-                                        </th>
-                                        <td>
-                                            <input id="module-is-base" name="isbase" type="checkbox" checked="checked" />
-                                        </td>
-                                        <td class="help">
-                                            <i class="icon-question-sign icon-2x"></i>
-                                            <span>${help-module-is-base}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Machine Image IDs
-                                        </th>
-                                        <td id="module-image-ids">
-                                            <div>
-                                                <span>stratuslab:</span> <input name="cloudimageid_imageid_stratuslab" type="text" value="ArCnG4gBogiprglBUdG6V8YX20y">
-                                            </div>
-                                        </td>
-                                        <td class="help">
-                                            <i class="icon-question-sign icon-2x"></i>
-                                            <span>${help-cloud-image-ids}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Machine Image Reference
-                                        </th>
-                                        <td>
-                                            <input name="moduleReference" id="module-reference" type="text" value="" readonly="readonly">
-                                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" name="moduleReferenceChooser" id="moduleReferenceChooser">
-                                                <i class="icon-eye-open"/> Choose Reference
-                                            </button>
-                                            <td class="help">
-                                                <i class="icon-question-sign icon-2x"></i>
-                                                <span>${help-reference-module}</span>
-                                            </td>
                                         </td>
                                     </tr>
                                 </table>
