@@ -85,7 +85,8 @@ var dashboardUpdater = {
 	    var activeStates = ["running", "on"];
 	    var vmState = this.getRuntimeValue(nodeName, 'vmstate');
 	    var lowerVmState = vmState.toLowerCase();
-		return $.inArray(lowerVmState, activeStates) > -1;
+	    var active = $.inArray(lowerVmState, activeStates) > -1;
+		return active;
 	},
 
 	nodeNodeCssClass: function(nodeName) {
@@ -101,7 +102,7 @@ var dashboardUpdater = {
 				}
 			}
 		}
-		return (abort) ? 'dashboard-error' : 'dashboard-ok';
+		return "dashboard-icon dashboard-node " + ((abort) ? 'dashboard-error' : 'dashboard-ok');
 	},
 
     updateProperty: function(propertyName, value) {
@@ -111,7 +112,7 @@ var dashboardUpdater = {
     },
 
 	extractNodeName: function(vmname) {
-		return vmname.split('\\.')[0];
+		return vmname.split('.')[0];
 	},
 	
 	updateCompletedNodesInfo: function(nodename, completed) {
@@ -132,24 +133,31 @@ var dashboardUpdater = {
 	},
 	
 	getCssClass: function(abort) {
-		return (abort) ? 'dashboard-error' : 'dashboard-ok';
+		return "dashboard-icon dashboard-image " + ((abort) ? 'dashboard-error' : 'dashboard-ok');
+	},
+
+    // power icon reflecting if the vm is on/running
+	getActiveCssClass: function(name) {
+		return "vm " + (this.isActive(name) ? 'vm-active' : 'vm-inactive');
 	},
 
     updateVm: function(params) {
 		// Update node info (to display the (x/y) in the node dashboard box)
 		var vmname = params.name;
-		this.updateCompletedNodesInfo(this.extractNodeName(vmname), params.completed);
+		var nodename = this.extractNodeName(vmname);
+		this.updateCompletedNodesInfo(nodename, params.completed);
 		if(params.name.endsWith('.1')) {
-			this.setMultiplicityNodesInfo(this.extractNodeName(vmname), params.multiplicity);
+			this.setMultiplicityNodesInfo(nodename, params.multiplicity);
 		}
 		
-		var idprefix = this.getIdPrefix(params.name);
+		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
 		
         $('#' + idprefix + '-state').text("State: " + params.state);
         $('#' + idprefix + '-statecustom').text(params.statecustom);
 
         // Set the icon
-        $('#' + idprefix + '-icon').attr('class', this.getCssClass(params.abort));
+        $('#' + idprefix).attr('class', this.getCssClass(params.abort));
+        $('#' + idprefix + " > ul").attr('class', this.getActiveCssClass(params.name));
     },
 
 	updateNode: function(nodename) {
@@ -157,7 +165,7 @@ var dashboardUpdater = {
 		var nodeinfo = this.nodesInfo[nodename];
         $('#' + idprefix + '-ratio').text("State: " + this.getRuntimeValue(nodename + '.1', 'state') + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
         // Set the icon
-        $('#' + idprefix + '-icon').attr('class', this.nodeNodeCssClass(nodename));
+        $('#' + idprefix).attr('class', this.nodeNodeCssClass(nodename));
 	},
 
 	updateOchestrator: function(nodename) {
@@ -176,16 +184,21 @@ var dashboardUpdater = {
 		return message;
 	},
 
+    escapeDot: function(value) {
+        return value.replace('.', '\\.');
+    },
+
 	buildParamsFromXmlRun: function(vmname, run) {
 		var params = {};
+		var escapedVmName = this.escapeDot(vmname);
 		params.name = vmname;
-		params.abort = $(run).find("runtimeParameter[key='" + vmname + ":abort']").text();
-		params.state = $(run).find("runtimeParameter[key='" + vmname + ":state']").text();
-		params.statemessage = $(run).find("runtimeParameter[key='" + vmname + ":statemessage']").text();
-		params.statecustom = this.truncate($(run).find("runtimeParameter[key='" + vmname + ":statecustom']").text());
-		params.vmstate = $(run).find("runtimeParameter[key='" + vmname + ":vmstate']").text();
-		params.completed = $(run).find("runtimeParameter[key='" + vmname + ":complete']").text();
-		params.multiplicity = $(run).find("runtimeParameter[key='" + vmname + ":multiplicity']").text();
+		params.abort = $(run).find("runtimeParameter[key='" + escapedVmName + ":abort']").text();
+		params.state = $(run).find("runtimeParameter[key='" + escapedVmName + ":state']").text();
+		params.statemessage = $(run).find("runtimeParameter[key='" + escapedVmName + ":statemessage']").text();
+		params.statecustom = this.truncate($(run).find("runtimeParameter[key='" + escapedVmName + ":statecustom']").text());
+		params.vmstate = $(run).find("runtimeParameter[key='" + escapedVmName + ":vmstate']").text();
+		params.completed = $(run).find("runtimeParameter[key='" + escapedVmName + ":complete']").text();
+		params.multiplicity = $(run).find("runtimeParameter[key='" + escapedVmName + ":multiplicity']").text();
 		return params;
 	},
 
@@ -229,7 +242,7 @@ var dashboardUpdater = {
 			nodeNames = nodeNames.split(', ');
 
 	        for (var i in nodeNames) {
-				var vmname = nodeNames[i].trim().replace('.', '\\.');
+				var vmname = nodeNames[i].trim();
 				if(vmname === "") {
 					continue;
 				}
