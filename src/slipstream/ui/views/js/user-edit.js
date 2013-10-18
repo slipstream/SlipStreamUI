@@ -46,12 +46,12 @@ $(document).ready(function() {
     	title: 'Delete User?',
     	modal: true,
     	buttons: {
+    		"Cancel": function() {
+    			$(this).dialog("close");
+    		},
     		"Delete": function() {
     			$(this).dialog("close");
     			$.delete_();
-    		},
-    		"Cancel": function() {
-    			$(this).dialog("close");
     		},
     	}
     });

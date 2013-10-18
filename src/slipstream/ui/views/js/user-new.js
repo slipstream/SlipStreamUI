@@ -35,4 +35,19 @@ $(document).ready(function() {
     	return false;
     });	
 
+    $('#delete-user-dialog').dialog({
+    	autoOpen: false,
+    	title: 'Delete User?',
+    	modal: true,
+    	buttons: {
+    		"Cancel": function() {
+    			$(this).dialog("close");
+    		},
+    		"Delete": function() {
+    			$(this).dialog("close");
+    			$.delete_();
+    		},
+    	}
+    });
+
 })
