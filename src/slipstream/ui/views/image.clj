@@ -74,17 +74,24 @@
     
     [:#packages :> :tbody :> :tr]
     (html/clone-for
-      [package packages
-       :let [attrs (module-model/attrs package)
-             name (:name attrs)
+      [i (range (count packages))
+       :let [attrs (module-model/attrs
+                     (nth
+                       (common-model/sort-by-name packages) i))
+             package-name (:name attrs)
+             id (str "package--" i)
              repository (:repository attrs)
              key (:key attrs)]]
-      [[:td (html/nth-of-type 1)] :> :span] (html/content name)
-      [[:td (html/nth-of-type 1)] :> :input] (html/set-attr :value name)
+      html/this-node (html/set-attr :id id) 
+      [[:td (html/nth-of-type 1)] :> :span] (html/content package-name)
+      [[:td (html/nth-of-type 1)] :> :input] (html/set-attr :value package-name)
+      [[:td (html/nth-of-type 1)] :> :input] (html/set-attr :name (str id "--name"))
       [[:td (html/nth-of-type 2)] :> :span] (html/content repository)
       [[:td (html/nth-of-type 2)] :> :input] (html/set-attr :value repository)
+      [[:td (html/nth-of-type 2)] :> :input] (html/set-attr :name (str id "--repository"))
       [[:td (html/nth-of-type 3)] :> :span] (html/content key)
-      [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :value key))
+      [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :value key)
+      [[:td (html/nth-of-type 3)] :> :input] (html/set-attr :name (str id "--key")))
     [:#fragment-creation-packages]
     (if (and
           view?
