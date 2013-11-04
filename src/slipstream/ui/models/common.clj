@@ -74,3 +74,13 @@
   [parameters categories]
   (let [grouped (group-by-category parameters)]
     (apply dissoc grouped categories)))
+
+(defn sort-by-name
+  [list]
+  (flatten 
+    (vals 
+      (into 
+        (sorted-map) (group-by #(:name (:attrs %)) list)))))
+  
+  
+  
