@@ -82,7 +82,9 @@
 <target name='report' runInBackground='false'>report target</target>
 </targets>
 <packages class='org.hibernate.collection.PersistentBag'>
-<package key='key' name='httpd' repository='repo'/>
+<package key='httpd_key' name='httpd' repository='httpd_repo'/>
+<package key='vim_key' name='vim' repository='vim_repo'/>
+<package key='mlocate_key' name='mlocate' repository='mlocate_repo'/>
 </packages>
 <prerecipe>some pre-recipe</prerecipe>
 <recipe>some recipe</recipe>
