@@ -544,7 +544,10 @@ var $$ = {
             "Cancel": function() {
                 $(this).dialog("close");
             },
-	    }
+	    },
+	    open: function() {
+            $$.resizeIframe($("#chooseriframe")[0]);
+        },
 	});},
     
 	hideSubmitMessage: function() {
@@ -804,7 +807,7 @@ var $$ = {
     		width: 500,
     		stack: false,
     		buttons: {
-    			"Copy": function() {
+    			"Copy": function(event) {
     				errors = 0;
     				var showError = function(message) {
     					$$.show($("#copydialogerror"), message);
