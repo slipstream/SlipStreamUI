@@ -226,7 +226,7 @@ var dashboardUpdater = {
 
 	        var run = $(data).find("run");
 			that.nodesInfo = {};
-	
+
 	        // Update general status
 	        var newStatus = $(run).attr('status');
 	        $(status).text(newStatus);
@@ -251,7 +251,7 @@ var dashboardUpdater = {
 	        }
 
 			for (var nodename in that.nodesInfo) {
-				if(nodename.startsWith('orchestrator-')) {
+				if(nodename.startsWith('orchestrator-') || nodename == 'orchestrator') {
 					that.updateOchestrator(nodename);
 				} else {
 					that.updateNode(nodename);

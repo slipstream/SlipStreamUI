@@ -101,7 +101,7 @@ function init(){
 	// As in running a single VM, as opposed to a deployment or a build
 	var isBuild = function() {
 		// check for existence of this parameter
-		return $("#machine\\:state").length > 0;
+		return $("#orchestrator\\:state").length > 0;
 	}
 
 	var isDeployment = function() {
