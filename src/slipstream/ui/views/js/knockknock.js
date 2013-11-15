@@ -52,7 +52,7 @@ $(document).ready(function() {
 				$(this).dialog("close");
 			},
 		}
-	});
+            });
 
 	$('#formregister').submit(function(event){
 		var callback = function(data, status, xhr) {
@@ -64,13 +64,35 @@ $(document).ready(function() {
 		return $$.send($(this), event, $.post, callback);
 	});
 
-	$('#button_reset').click(function(event){
-		$$.hideError();
-	    $$.showSubmitMessage("Resetting password");
-
 	$('#button_register').click(function(event){
 		$$.hideError();
 	    $$.showSubmitMessage("Registering the new user");
-    });
+            });
+
+	$('#reset-dialog').dialog({
+		autoOpen: false,
+		modal: true,
+		title: "Reset Password Result",
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			},
+		}
+            });
+
+	$('#formreset').submit(function(event){
+		var callback = function(data, status, xhr) {
+    	    $$.hideSubmitMessage();
+		    $("#reset-dialog > p").text(data);
+    		$("#reset-dialog").dialog('open');
+    		return false;
+		}
+		return $$.send($(this), event, $.post, callback);
+	});
+
+	$('#button_reset').click(function(event){
+		$$.hideError();
+	    $$.showSubmitMessage("Resetting password");
+            });
 
 });
