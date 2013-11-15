@@ -64,6 +64,10 @@ $(document).ready(function() {
 		return $$.send($(this), event, $.post, callback);
 	});
 
+	$('#button_reset').click(function(event){
+		$$.hideError();
+	    $$.showSubmitMessage("Resetting password");
+
 	$('#button_register').click(function(event){
 		$$.hideError();
 	    $$.showSubmitMessage("Registering the new user");
