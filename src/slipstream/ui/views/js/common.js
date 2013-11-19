@@ -680,7 +680,14 @@ var $$ = {
         $(element).parent().parent().remove();
     },
     
-    addParameter: function(element) {
+    addParameter: function(element, categories, prefix) {
+        // categories for select options
+        // prefix for parameter name (e.g. cloud)
+        
+        if(!element) {
+            element = this;
+        }
+        
         var table = $(element).prev();
     	var count = $(table).find('tr').length;
         var index = count + 1000; // a big number so that there are no clashed with other parameters
@@ -688,19 +695,36 @@ var $$ = {
         var id = "parameter";
     	var entryPart = id + "--entry--" + index;
 
+        var nameInputPart = '<input type="text" name="parameter-' + entryPart + '--name" value="">\n';
+        if (prefix) {
+            // if prefix set, decorate the <entryPart>--name composed of the prefix + postfix
+            // such that the form contans the complete name value
+            nameInputPart = '<span id="' + entryPart + '--name-prefix">' + prefix + '.</span>\n';
+            nameInputPart += '<input id="' + entryPart + '--name-postfix" type="text" name="parameter-' + entryPart + '--name-postfix" value="">\n';
+            nameInputPart += '<input id="' + entryPart + '--name" type="hidden" name="parameter-' + entryPart + '--name" value="">\n';
+        }
+
+        var selectCategories = ['Input', 'Output'];
+        if (categories) {
+            selectCategories = categories;
+        }
+
+        var categorySelectPart = '    	    <select name="parameter-' + entryPart + '--category">\n';
+	    for (var i = 0; i < selectCategories.length; i++) {
+            categorySelectPart += '    	        <option value="' + selectCategories[i] + '">' + selectCategories[i] + '</option>\n';
+        }
+        categorySelectPart += '</select>\n';
+
         var newParameter = $('<tr id="' + entryPart + '"> \
         <td> \
-        	<input type="text" name="parameter-' + entryPart + '--name" value=""> \
+            ' + nameInputPart + ' \
         	<input type="hidden" name="parameter-' + entryPart + '--type" value="String"> \
         </td> \
         <td> \
         	<input type="text" name="parameter-' + entryPart + '--description" value=""> \
         </td> \
         <td> \
-    	    <select name="parameter-' + entryPart + '--category"> \
-                <option value="Input">Input</option> \
-                <option value="Output">Output</option> \
-            </select> \
+    	    ' + categorySelectPart + ' \
         </td> \
         <td> \
             <input type="text" name="parameter-' + entryPart + '--value" value="" placeholder=""> \
@@ -715,6 +739,16 @@ var $$ = {
         newParameter.appendTo(table);
 
         setHash();
+        
+        // Add prefix handler to concatenate prefix and postfix and set it to name
+        if (prefix) {
+            var postfixInput = $("#" + entryPart + "--name-postfix");
+            $(postfixInput).change(function() {
+                var preValue = $("#" + entryPart + "--name-prefix").text();
+                var postValue = $(this).val();
+                $("#" + entryPart + "--name").attr("value", preValue + postValue);
+            });
+        }
     },
 
     addPackage: function(element) {
@@ -932,6 +966,12 @@ $(document).ready(function() {
 	    $("#help-dialog > p").text(help);
 	    $("#help-dialog").dialog('open');
 	});
+	
+	$('#add-parameter-button').click(function() {
+	    $$.addParameter(this);
+	    return false;
+	});
+    
 })
 
 

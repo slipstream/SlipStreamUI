@@ -474,6 +474,48 @@
     [[:td (html/nth-of-type 4)]] 
       (html/content value)
     [:td :> #{[:input] [:select]}] (if mandatory?
+                                     (html/set-attr :disabled "disabled")
+                                     identity)
+    [[:td html/last-of-type]] (if mandatory?
+                                (html/content "")
+                                identity)))
+
+(html/defsnippet clone-parameters-show-all-edit-only-value-snip parameter-edit-template-html [:#parameter-edit-all :> :table :> :tbody :> :tr]
+  [parameters]
+  (html/clone-for
+    [i (range (count parameters))
+     :let [parameter (nth parameters i)
+           attrs (common-model/attrs parameter)
+           name (:name attrs)
+           category (:category attrs)
+           tr-id (tr-id category i)
+           description (:description attrs)
+           type (:type attrs)
+           defaultvalue (:defaultvalue attrs)
+           value (set-input-value parameter tr-id)
+           mandatory? (= "true" (:mandatory attrs))]]
+    html/this-node (html/set-attr :id tr-id)
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
+      (html/do-> (set-input 
+                   (input-name-name tr-id)
+                   name)
+                 (html/set-attr :readonly "readonly"))
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]] 
+      (html/do-> (set-input 
+                   (input-name-type tr-id)
+                   type)
+                 (html/set-attr :readonly "readonly"))
+    [[:td (html/nth-of-type 2)] :> :input] 
+      (html/do-> (set-input 
+                   (input-name-description tr-id)
+                   description)
+                 (html/set-attr :readonly "readonly"))
+    [[:td (html/nth-of-type 3)]] 
+      (html/do-> (html/content category)
+                 (html/set-attr :readonly "readonly"))
+    [[:td (html/nth-of-type 4)]] 
+      (html/content value)
+    [:td :> #{[:input] [:select]}] (if mandatory?
                       (html/set-attr :disabled "disabled")
                       identity)
     [[:td html/last-of-type]] (if mandatory?
@@ -513,6 +555,11 @@
   [:table :> :tbody :> :tr] (html/substitute (clone-parameters-edit-all-snip parameters))
   [:button] (if with-add-parameter-button? identity nil))
 
+(html/defsnippet parameters-show-all-edit-only-value-snip parameters-edit-template-html [:#fragment-parameters-something]
+  [parameters with-add-parameter-button?]
+  [:table :> :tbody :> :tr] (html/substitute (clone-parameters-show-all-edit-only-value-snip parameters))
+  [:button] (if with-add-parameter-button? identity nil))
+
 ;; Generic tabs layout generation
 
 (defn tab-headers
@@ -525,16 +572,21 @@
            (html/set-attr :href (str "#fragment-" fragment-name "-" group))
            (html/content group))))
 
+(defn tab-sections-with-add-button-option
+  "Same as tab-sections, but with add button"
+  [grouped-by fragment-name snip-fn add-button?]
+  (html/clone-for
+    [group grouped-by]
+    (html/do->
+      (html/set-attr :id (str "fragment-" fragment-name "-" (key group)))
+      (html/content (snip-fn (val group) add-button?)))))
+
 (defn tab-sections
   "Generate the tab sections for grouped-by items, in the
    fragment-name fragment section and apply the snip function for each
    item"
   [grouped-by fragment-name snip-fn]
-  (html/clone-for
-    [group grouped-by]
-    (html/do->
-      (html/set-attr :id (str "fragment-" fragment-name "-" (key group)))
-      (html/content (snip-fn (val group) nil)))))
+  (tab-sections-with-add-button-option grouped-by fragment-name snip-fn false))
 
 ;; Parameter tabs section
 

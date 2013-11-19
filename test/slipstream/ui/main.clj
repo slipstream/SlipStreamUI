@@ -17,6 +17,7 @@
             [slipstream.ui.views.runs :as runs]
             [slipstream.ui.views.vms :as vms]
             [slipstream.ui.views.reports :as reports]
+            [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.documentation :as documentation]
@@ -35,10 +36,12 @@
             [slipstream.ui.data.project-new :as project-new]
             [slipstream.ui.data.project-root :as project-root]
             [slipstream.ui.data.project-root-new :as project-root-new]
+            [slipstream.ui.data.welcome :as welcome-data]
             [slipstream.ui.data.image :as image]
             [slipstream.ui.data.image-new :as image-new]
             [slipstream.ui.data.versions :as versions-data]
             [slipstream.ui.data.dashboard :as dashboard-data]
+            [slipstream.ui.data.service-catalog :as service-catalog-data]
             [slipstream.ui.data.vms :as vms-data]
             [slipstream.ui.data.runs :as runs-data]
             [slipstream.ui.data.deployment :as deployment])
@@ -56,6 +59,9 @@
 
 (defn configuration-page []
   (configuration/page configuration-data/xml-configuration))
+
+(defn service-catalog-page []
+  (service-catalog/page service-catalog-data/xml-service-catalog "view"))
 
 (defn documentation-page []
   (documentation/page user-data/xml-user))
@@ -82,10 +88,10 @@
   (byebye/page projects/xml-projects))
 
 (defn welcome-page []
-  (welcome/page projects/xml-projects "view"))
+  (welcome/page welcome-data/xml-welcome "view"))
 
 (defn welcome-page-chooser []
-  (welcome/page projects/xml-projects "chooser"))
+  (welcome/page welcome-data/xml-welcome "chooser"))
 
 (defn dashboard-page []
   (dashboard/page dashboard-data/xml-dashboard))
@@ -174,6 +180,7 @@
     ["logout"] (-> (byebye-page) ring.util.response/response constantly)
     ["login"] (-> (knockknock-page) ring.util.response/response constantly)
     ["login-chooser"] (-> (knockknock-chooser-page) ring.util.response/response constantly)
+    ["service_catalog"] (-> (service-catalog-page) ring.util.response/response constantly)
     ["welcome"] (-> (welcome-page) ring.util.response/response constantly)
     ["welcome-chooser"] (-> (welcome-page-chooser) ring.util.response/response constantly)
     ["project-view"] (-> (module-project-view) ring.util.response/response constantly)

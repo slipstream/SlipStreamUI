@@ -1,16 +1,19 @@
 (ns slipstream.ui.views.welcome
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.authz :as authz]
+            [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.version :as version]
+            [slipstream.ui.models.service-catalog :as service-catalog-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.project :as project]
+            [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.common :as common]))
 
 (def welcome-template-html "slipstream/ui/views/welcome.html")
@@ -38,7 +41,7 @@
 
   [:#published-modules :> :table :> :thead :> :tr :> [:th (html/nth-of-type 3)]]
   (html/content "Publisher")
-  
+
   ; Root projects cannot be empty
   [:#root-projects] 
   (html/content (project/children-snip root-projects)))
@@ -49,11 +52,21 @@
   (html/substitute
     (modules-snip
       (modules-model/children-with-filter modules #(not= "true" (:published (module-model/attrs %))))
-      (modules-model/children-with-filter modules #(= "true" (:published (module-model/attrs %)))))))
+      (modules-model/children-with-filter modules #(= "true" (:published (module-model/attrs %))))))
 
+  service-catalog/service-catalog-sel 
+  (html/substitute
+    (service-catalog/service-catalog-snip
+      (service-catalog-model/service-catalog-items modules)
+      false))
+  
+  [#{service-catalog/service-catalog-sel service-catalog/service-catalog-header-sel}] 
+  (if (empty? (service-catalog-model/service-catalog-items modules))
+    nil
+    identity))
 
 (def js-scripts-default
-  ["/js/welcome.js"])
+  ["/js/welcome.js" "/js/service_catalog.js"])
 
 (defn js-scripts
   [type]

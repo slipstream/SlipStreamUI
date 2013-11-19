@@ -272,37 +272,16 @@ var dashboardUpdater = {
     }
 }
 
+function updateReports() {
+	// force reload, since reports might have updated since
+	// last time
+	var iframe = $('#reports > iframe');
+	iframe.src = iframe.src;
+}
+
 function updateDashboard() {
     dashboardUpdater.updateDashboard();
-    alternateTableRows(['keyvaluepairstable']);
+    updateReports();
     setRefresh();
 }
 
-var refresher = {
-
-    enableMessage: 'Enable auto refresh',
-    disableMessage: 'Disable auto refresh',
-
-    enable: function(refreshFunction) {
-        // arg refreshFunction must be a string (e.g. 'afunc()')
-        setTimeout(refreshFunction, 10000);
-        $('#refresh').text(this.disableMessage);
-        this.toggle = this.disable;
-    },
-    disable: function(refreshFunction) {
-        clearTimeout(this.timoutObj);
-        $('#refresh').text(this.enableMessage);
-        this.toggle = this.enable;
-    },
-    toggle: function(refreshFunction) {
-        return this.enable(refreshFunction);
-    },
-    setRefresh: function(refreshFunction) {
-        var status = $('#status').text();
-        if (status === "Finished" || status === "Aborted" || status === "Failed") {
-            // Don't refresh
-            } else {
-            this.enable(refreshFunction);
-        }
-    }
-};

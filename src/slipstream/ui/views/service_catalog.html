@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>SlipStream | Service Catalog</title>
+
+    <link rel="stylesheet" type="text/css" href="css/application.css" />
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/common.js"></script>
+  </head>
+  
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div class="top">
+	            <a href="/" class="logo"></a>
+                <div class="menu_bar">
+                    <ul>
+                        <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a></li>
+                        <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a></li>
+                        <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a></li>
+                        <li class="first"><a href="#"><i class="icon-dashboard icon-2x"></i></a></li>
+                        <li class="first"><a href="#"><i class="icon-group icon-2x"></i></a></li>
+                        <li class="first"><a href="#"><i class="icon-wrench icon-2x"></i></a></li>
+                        <li><a id="user" href="#">Super <i class="icon-user icon-2x"></i></a></li>
+                        <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+                <div id="titles"class="bottom bottom_no_icon">
+	            <h2><i class="icon-wrench"></i> Service Catalog</h2>
+	            <h3>Provides detailed capability information for each available clouds</h3>
+	            <p>This page allows you to find cloud specific information such that you can better find the right cloud for your every need.</p>
+	        </div> 
+        </div>
+        <div id="content">
+			<form
+			    action="service_catalog?method=put"
+			    method="post"
+				accept-charset="utf-8"
+				id="form-save">
+	        <div class="navigation">
+	            <ul class="breadcrumb">
+	                <li><a href="/"><i class="icon-home"></i></a></li>
+	                <li>service catalog</li>
+	            </ul>
+	            <ul class="interaction">
+	                <li class="attention"><button id="save-button-top"><i class="icon-save"></i> Save</button></li>
+	            </ul>
+	        </div>
+            <div id="save-dialog" title="Save service catalog?">
+                <p>
+                    Save service catalog entries?
+                </p>
+            </div>
+	        <div class="data_sheet">
+	            <div class="summary accordion">
+                    <h3 id="service-catalog-header">
+                        Service Catalog
+                    </h3>
+                    <div id="service-catalog">
+	                    <ul class="tabs inner_tabs">
+                            <li><a href="#fragment-parameters-cloudx">CloudX</a><span></span></li>
+	                    </ul>
+	                    <div id="fragment-parameters-cloudx">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Value
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            key
+                                        </td>
+                                        <td>
+                                            Description...
+                                        </td>
+                                        <td>
+                                            123
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+	            </div>
+	        </div>
+	        <div class="navigation bottom_nav">
+	            <ul class="interaction">
+	                <li class="attention"><button id="save-button-bottom"><i class="icon-save"></i> Save</button></li>
+	            </ul>
+	        </div>
+			</form>
+        </div>
+        <div id="footer">
+	        <div class="footer_inner">
+                <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
+	            <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
+	            <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
+    	    </div>
+	    </div>
+    </div>
+</body>
+  
+</html>

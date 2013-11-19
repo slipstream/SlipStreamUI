@@ -75,12 +75,20 @@
   (let [grouped (group-by-category parameters)]
     (apply dissoc grouped categories)))
 
-(defn sort-by-name
-  [list]
+(defn sort-by-key
+  [list _key]
   (flatten 
     (vals 
       (into 
-        (sorted-map) (group-by #(:name (:attrs %)) list)))))
+        (sorted-map) (group-by #(_key (:attrs %)) list)))))
+  
+(defn sort-by-name
+  [list]
+  (sort-by-key list :name))
+  
+(defn sort-by-category
+  [list]
+  (sort-by-key list :category))
   
   
   

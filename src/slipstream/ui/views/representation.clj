@@ -16,6 +16,7 @@
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.versions :as versions]
+            [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.documentation :as documentation])
   (:gen-class
     :name slipstream.ui.views.Representation
@@ -46,6 +47,10 @@
 (defmethod gen-page "configuration"
   [metadata pagename type]
     (render (configuration/page (xml-string-to-map metadata))))
+
+(defmethod gen-page "service_catalog"
+  [metadata pagename type]
+    (render (service-catalog/page (xml-string-to-map metadata) type)))
 
 (defmethod gen-page "dashboard"
   [metadata pagename type]
