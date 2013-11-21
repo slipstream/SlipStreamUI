@@ -88,7 +88,15 @@
                         width: 590,
                         height: 215
                     }).plot(series[1], {
-                        xaxis: { mode: "time" },
+                        xaxis: {
+                            show: true,
+                            mode: "time",
+                            reserveSpace: true
+                        },
+                        yaxis: {
+                            show: true,
+                            reserveSpace: true
+                        },
                         stack: true,
                         lines: {
                             show: true,
