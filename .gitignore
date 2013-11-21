@@ -6,6 +6,9 @@ README.html
 *~
 *.jar
 *.class
+.project
+*.classpath
+*.settings/
 .lein-deps-sum
 .lein-failures
 .lein-plugins
