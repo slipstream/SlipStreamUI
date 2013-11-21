@@ -1,41 +1,4 @@
 ﻿(function($, window, document) {
-    var previousPoint = null;
-
-    function onPlotHover(event, pos, item) {
-        if (item) {
-            if (previousPoint != item.dataIndex) {
-                previousPoint = item.dataIndex;
-
-                $("#tooltip").remove();
-                var x = item.datapoint[0].toFixed(2),
-                    y = Math.round(item.datapoint[1]);
-
-                showTooltip(item.pageX, item.pageY,
-                            item.series.label + ": " + y);
-            }
-        } else {
-            $("#tooltip").remove();
-            previousPoint = null;
-        }
-    }
-
-    function showTooltip(x, y, contents) {
-        $('<div id="tooltip">' + contents + "</div>").css({
-            position: "absolute",
-            display: "none",
-            top: y + 5,
-            left: x + 5,
-            padding: "2px",
-            "background-color": "#000",
-            color: "#fff",
-            opacity: 0.8
-        }).appendTo("body").fadeIn(200);
-    }
-
-    function labelFormatter(label, series) {
-        return '<div style="text-align:center; background-color: rgba(0, 0, 0, 0.8); color:#fff;">' + label + "<br/>" + Math.round(series.percent) + "%</div>";
-    }
-
     $.fn.metrics = function(options) {
         var settings = $.extend({
             url: "/meters/<meter>/statistics",
@@ -133,11 +96,9 @@
                         },
                         colors: settings.colors
                     });
-                    // }).bind("plothover", onPlotHover);
                 },
                 dataType: "json",
             });
         });
     };
-
 }(window.jQuery, window, document));
