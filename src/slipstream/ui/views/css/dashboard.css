@@ -7,27 +7,14 @@
 
 .metrics .row .col1, .metrics .row .col2, .metrics .row .col3
 {
+    display: inline-block;
     overflow: hidden;
 }
 
-.metrics .row .col1
-{
-    height: 215px;
-    width: 200px;
-    display: inline-block;
-}
-
-.metrics .row .col2
-{
-    height: 215px;
-    width: 590px;
-    display: inline-block;
-}
 
 .metrics .row .col3
 {
     height: 215px;
-    display: inline-block;
     font-family: Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
     font-weight: 400;
     font-size: 15px;
