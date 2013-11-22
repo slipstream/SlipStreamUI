@@ -52,9 +52,15 @@
                 data: settings.params,
                 context: this,
                 success: function(samples, status, xhr) {
-                    var series = get_series(samples);
                     var $this = $(this);
                     $this.empty();
+
+                    if (xhr.status == 204) {
+                        $("<div/>").addClass("empty-section").text("No samples currently available").appendTo($this);
+                        return;
+                    }
+
+                    var series = get_series(samples);
 
                     $('<div class="col1"></div><div class="col2"></div><div class="col3"></div>').appendTo($this);
 
