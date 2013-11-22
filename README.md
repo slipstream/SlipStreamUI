@@ -39,7 +39,7 @@ A few observations:
     to see if we only take the latest version of each module I am the owner of
     or only the module for which I am the last owner).
   * *Published Modules* contains modules we (super) flags as such. This is
-    useful for promoting modules, like base images or certified deployments.
+    useful for promoting modules, like native images or certified deployments.
   * *Shared Projects* is the original root projects.
   * The lists, e.g. *My Modules* now includes an icon, which could replace
     the category.
