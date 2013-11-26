@@ -260,7 +260,9 @@ var dashboardUpdater = {
 			// In case we're dealing with a run or a build
 			that.updateOchestrator('orchestrator');
 			that.updateVm(that.buildParamsFromXmlRun('machine', run));
-			
+            
+			// Update the reports iframe
+			document.getElementById("reports-iframe").contentWindow.location.reload(true);
         };
 
 		$.get(location.href, callback, 'xml');
