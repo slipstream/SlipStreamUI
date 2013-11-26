@@ -76,7 +76,7 @@
   [:#account] (html/content (:user (common-model/attrs run)))
   [:#start] (html/content (:starttime (common-model/attrs run)))
   [:#end] (html/content (:endtime (common-model/attrs run)))
-  [:#status] (html/content (:state (common-model/attrs run)))
+  [:#state] (html/content (:state (common-model/attrs run)))
   [:#runtype] (html/content (:type (common-model/attrs run)))
   [:#uuid] (html/content (:uuid (common-model/attrs run)))
   [:#tags] (html/set-attr :value (run-model/runtime-parameter-value run "ss:tags")))
