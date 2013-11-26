@@ -26,12 +26,12 @@
     (let [attrs (common-model/attrs run)
           id (apply str (take common/take-run-no-of-chars (:uuid attrs)))
           module (:moduleresourceuri attrs)
-          status (:status attrs)
+          state (:state attrs)
           category (:category attrs)]
       (header/header-titles-snip
         id
         module
-        (str "Status: " status)
+        (str "State: " state)
         category)))
 
   header/header-top-bar-sel (html/substitute
@@ -76,7 +76,7 @@
   [:#account] (html/content (:user (common-model/attrs run)))
   [:#start] (html/content (:starttime (common-model/attrs run)))
   [:#end] (html/content (:endtime (common-model/attrs run)))
-  [:#status] (html/content (:status (common-model/attrs run)))
+  [:#status] (html/content (:state (common-model/attrs run)))
   [:#runtype] (html/content (:type (common-model/attrs run)))
   [:#uuid] (html/content (:uuid (common-model/attrs run)))
   [:#tags] (html/set-attr :value (run-model/runtime-parameter-value run "ss:tags")))
