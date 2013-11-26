@@ -84,7 +84,7 @@ function init(){
 
 	var addBuildOrchestrator = function() {
 		for(var cloudService in cloudServiceNodesMap) {
-			var orchestrator = {name: "orchestrator", id: "id_orchestrator", data: {type: "orchestrator"}, children: []};
+			var orchestrator = {name: "orchestrator-" + cloudService, id: "id_" + cloudService, data: {type: "orchestrator"}, children: []};
 			orchestrator.children.push(createMachine());
 			root.children.push(orchestrator);
 		}
@@ -98,14 +98,17 @@ function init(){
 	    }
 	    return size;
 	}
-	// As in running a single VM, as opposed to a deployment or a build
+
+    var getRunType = function() {
+        return $("#runtype").text();
+    }
+
 	var isBuild = function() {
-		// check for existence of this parameter
-		return $("#orchestrator\\:state").length > 0;
+		return getRunType() === 'Machine';
 	}
 
 	var isDeployment = function() {
-		return getGlobalRuntimeValue("category") === 'Deployment';
+		return getRunType() === 'Orchestration';
 	}
 
 	var addOrchestrators = function() {
