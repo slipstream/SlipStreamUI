@@ -27,7 +27,7 @@ $(document).ready(function() {
     $.get("/vms", fillVms, "html");
 
     $("#fragment-vm-running").metrics({
-        meter: "instance:Machine"
+        meter: "instance"
     });
     $("#fragment-cpu-requested").metrics({
         meter: "vcpus"
