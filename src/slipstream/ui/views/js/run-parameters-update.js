@@ -220,16 +220,15 @@ var dashboardUpdater = {
 
         var that = this;
 
-		var status = $('#status');
-
         var callback = function(data, textStatus, jqXHR) {
 
 	        var run = $(data).find("run");
 			that.nodesInfo = {};
 
-	        // Update general status
-	        var newStatus = $(run).attr('status');
-	        $(status).text(newStatus);
+	        // Update general status and header
+	        var newStatus = $(run).attr('state');
+	        $('#state').text(newStatus);
+            $("#header-title-desc").text("State: " + newStatus);
 
 	        var runtimeParameters = $(run).find('runtimeParameter');
 			runtimeParameters.each(function (i, parameter) {
@@ -261,7 +260,9 @@ var dashboardUpdater = {
 			// In case we're dealing with a run or a build
 			that.updateOchestrator('orchestrator');
 			that.updateVm(that.buildParamsFromXmlRun('machine', run));
-			
+            
+			// Update the reports iframe
+			document.getElementById("reports-iframe").contentWindow.location.reload(true);
         };
 
 		$.get(location.href, callback, 'xml');
