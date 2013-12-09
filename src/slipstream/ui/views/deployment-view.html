@@ -64,7 +64,7 @@
 					<li class="attention"><button id="unpublish-button-top"><i class="icon-globe"></i> Un-Publish</button></li>
 				</ul>
 			</div>
-            <div class="data_sheet accordion summary in-dialog" id="run-with-options-dialog" title="Launch Deployment">
+            <div class="data_sheet accordion summary in-dialog" id="run-with-options-dialog" title="Launch Deployment" style="display: none;">
     			<form
     			    action="/run"
     			    method="post"
@@ -124,7 +124,7 @@
 				id="form-run">
                 <input type="hidden" name="refqname" />
             </form>
-            <div id="copydialog" title="Copy Deployment?">
+            <div id="copydialog" title="Copy Deployment?" style="display: none;">
                 <div id="copydialogerror" class="conflict hidden">
                     <span></span>
                 </div>
@@ -150,7 +150,7 @@
                     </p>
                 </form>
             </div>
-            <div id="chooser" class="overlay_sheet">
+            <div id="chooser" class="overlay_sheet" style="display: none;">
                 <iframe id="chooseriframe" src="/?chooser=true" onload="javascript:$$.iframeLoaded(this);"></iframe>
             </div>
 			<div class="data_sheet">
