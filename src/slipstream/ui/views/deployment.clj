@@ -36,15 +36,13 @@
     [p (filter 
          #(and
             (not 
-              (empty? (common-model/elem-value %)))
+              (empty? (common-model/value %)))
             (not 
-              (nil? (re-find #"^[\"'].*[\"']$" (common-model/elem-value %)))))
-         (common-model/filter-by-categories
-           (common-model/parameters node)
-           ["Input"]))
+              (nil? (re-find #"^[\"'].*[\"']$" (common-model/value %)))))
+           (common-model/parameter-mappings node))
      :let [node-name (common-model/elem-name node)
            name (common-model/elem-name p)
-           value (common-model/elem-value p)]]
+           value (common-model/value p)]]
     [[:td html/first-of-type]] (html/content name)
     [[:td (html/nth-of-type 2)] :> :input] (html/do->
                                  (html/set-attr :name (str "parameter--node--" node-name "--" name))
