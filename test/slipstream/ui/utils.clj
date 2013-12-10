@@ -8,11 +8,11 @@
 
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 
-;(def webdir "/")
- (def webdir
-   (str
-     "/Users/meb/Documents/workspace/SlipStream/SlipStreamUI"
-     "/src/slipstream/ui/views/"))
+(def webdir "/")
+; (def webdir
+;   (str
+;     "/Users/meb/Documents/workspace/SlipStream/SlipStreamUI"
+;     "/src/slipstream/ui/views/"))
 
 (defn render [t]
   (apply str t))
@@ -42,12 +42,12 @@
                [(-> (:ns (meta app)) str symbol)]
                [])]
     (println "run-server*" nses)
-    (run-jetty
-     (-> app
-       (wrap-file webdir)
-       (wrap-reload nses)
-       (wrap-stacktrace))
-     {:port port :join? false})))
+    #_(run-jetty
+      (-> app
+        (wrap-file webdir)
+        (wrap-reload nses)
+        (wrap-stacktrace))
+      {:port port :join? false})))
 
 (defmacro run-server [app]
   `(run-server* (var ~app)))
