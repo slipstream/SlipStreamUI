@@ -73,7 +73,6 @@ th+td {
 }
 
 #content {
-	display: none;
 	float: none;
 	/* width: 980px; */
 	width: 98%; /* liquid layout */
