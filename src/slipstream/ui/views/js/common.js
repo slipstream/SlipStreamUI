@@ -874,6 +874,9 @@ $(document).ready(function() {
 	});
 
     $$.hideError();
+    
+    $('#titles').show();
+    $('#content').show();
 
 	$(window).unload(function() {
 		$$.hideSubmitMessage();

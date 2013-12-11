@@ -68,7 +68,12 @@ th+td {
 	zoom: 1;
 }
 
+#titles {
+	display: none;
+}
+
 #content {
+	display: none;
 	float: none;
 	/* width: 980px; */
 	width: 98%; /* liquid layout */

@@ -11,7 +11,8 @@
 (def header-titles-sel [:#titles])
 
 ; titles
-(def header-summary-sel [:.bottom])
+; TODO: Refactor this
+(def header-summary-sel [:#titles])
 
 (def header-template-html "slipstream/ui/views/header.html")
 
