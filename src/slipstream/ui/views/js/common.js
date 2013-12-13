@@ -588,10 +588,16 @@ var $$ = {
 	extractXmlError: function(xml) {
 		return $(xml).html();
 	},
-	extractError: function(data, settings) {
-		if(settings.dataType === 'xml') {
-			error = this.extractXmlError(data)
-		} else {
+	extractJsonError: function(data) {
+	    var json = $.parseJSON(data);
+		return "Error: " + json.detail + " (" + json.error + " - " + json.reason + ")";
+	},
+	extractError: function(data, settings, xhr) {
+		if ( settings.dataType === 'xml' ) {
+			error = this.extractXmlError(data);
+		} else if  ( settings.dataType === 'json' ) {
+			error = this.extractJsonError(data);
+	    } else {
 			error = this.extractHtmlOrTextError(data);
 		}
 		return error;
@@ -867,7 +873,7 @@ $(document).ready(function() {
 		}
 		var error = xhr.statusText;
 		if(xhr.responseText) {
-			error = $$.extractError(xhr.responseText, settings);
+			error = $$.extractError(xhr.responseText, settings, xhr);
 		}
 		$$.hideSubmitMessage();
 		$$.show($("#error"), error);
