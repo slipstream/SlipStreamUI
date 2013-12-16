@@ -5,8 +5,8 @@
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
-            [slipstream.ui.models.version :as version]
-            [slipstream.ui.models.service-catalog :as service-catalog]
+            [slipstream.ui.models.service-catalog :as service-catalog-model]
+            [slipstream.ui.models.configuration :as configuration-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
@@ -17,8 +17,10 @@
 
 (def service-catalog-template-html "slipstream/ui/views/service_catalog.html")
 
-(def service-catalog-sel [:#service-catalog])
-(def service-catalog-header-sel [:#service-catalog-header])
+(def service-catalog-id "service-catalog")
+(def service-catalog-sel [(keyword (str "#" service-catalog-id))])
+(def service-catalog-header-id "service-catalog-header")
+(def service-catalog-header-sel [(keyword (str "#" service-catalog-header-id))])
 
 (html/defsnippet header-titles-snip service-catalog-template-html header/titles-sel
   []
@@ -53,12 +55,14 @@
 
 (html/defsnippet service-catalog-view-tabs-snip common/parameters-view-template-html common/parameters-sel
   [service-catalogs]
+  html/this-node (html/set-attr :id service-catalog-id)
   [:ul :> :li] (define-tabs-for-parameters service-catalogs)
   [:#fragment-parameters-something]
-    (define-tab-sections-for-parameters-view service-catalogs))
+  (define-tab-sections-for-parameters-view service-catalogs))
 
 (html/defsnippet service-catalog-edit-tabs-snip common/parameters-edit-template-html common/parameters-sel
   [service-catalogs]
+  html/this-node (html/set-attr :id service-catalog-id)
   [:ul :> :li] (define-tabs-for-parameters service-catalogs)
   [:#fragment-parameters-something]
     (define-tab-sections-for-parameters-edit service-catalogs))
@@ -91,13 +95,13 @@
   service-catalog-sel 
   (html/substitute
     (service-catalog-snip
-      (service-catalog/service-catalog-items modules)
+      (service-catalog-model/service-catalog-items modules)
       (user-model/super? modules)))
-  
-  [#{service-catalog-sel service-catalog-header-sel}] 
-  (if (empty? (service-catalog/service-catalog-items modules))
-    nil
-    identity))
+  )
+;  [#{service-catalog-sel service-catalog-header-sel}] 
+;  (if (configuration-model/metering-enabled? modules)
+;    identity
+;    nil))
 
 
 (def js-scripts-default

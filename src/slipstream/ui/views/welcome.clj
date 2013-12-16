@@ -6,6 +6,7 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.version :as version]
+            [slipstream.ui.models.configuration :as configuration-model]
             [slipstream.ui.models.service-catalog :as service-catalog-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
@@ -59,11 +60,11 @@
     (service-catalog/service-catalog-snip
       (service-catalog-model/service-catalog-items modules)
       false))
-  
+
   [#{service-catalog/service-catalog-sel service-catalog/service-catalog-header-sel}] 
-  (if (empty? (service-catalog-model/service-catalog-items modules))
-    nil
-    identity))
+  (if (configuration-model/service-catalog-enabled? modules)
+    identity
+    nil))
 
 (def js-scripts-default
   ["/js/welcome.js" "/js/service_catalog.js"])

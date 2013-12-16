@@ -109,5 +109,22 @@
          </parameters>
       </serviceCatalog>
    </serviceCatalogues>
+   <serviceConfiguration deleted='false' creation='2013-03-06 14:31:01.390 CET'>
+     <parameters class='org.hibernate.collection.PersistentMap'><entry>
+       <entry>
+	       <string>
+	         <![CDATA[ slipstream.service.catalog.enable ]]>
+	       </string>
+	       <parameter name='slipstream.service.catalog.enable' description='Metering enabled.' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
+	         <instructions>
+	           <![CDATA[ ]]>
+	         </instructions>
+	         <value>
+	           <![CDATA[ true ]]>
+	         </value>
+	       </parameter>
+       </entry>
+     </parameters>
+   </serviceConfiguration'>
    <user issuper='true' resourceUri='user/meb' name='meb'></user>
 </welcome>")))
