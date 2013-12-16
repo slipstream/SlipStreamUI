@@ -8,4 +8,21 @@
      <item username='mickey' cloudServiceName='interoute' resourceUri='run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e' uuid='e8d0b957-14a8-4e96-8677-85c7bd9eb64e' moduleResourceUri='module/Mebster/word_press/simple_deployment/410' status='Aborting' startTime='2013-07-04 17:11:56.340 CEST' tags='this is a tag!' />
 	</runs>
   <user issuper='true' resourceUri='user/super' name='super'></user>
+  <serviceConfiguration deleted='false' creation='2013-03-06 14:31:01.390 CET'>
+    <parameters class='org.hibernate.collection.PersistentMap'><entry>
+      <entry>
+	      <string>
+	        <![CDATA[ slipstream.metering.enable ]]>
+	      </string>
+	      <parameter name='slipstream.metering.enable' description='Metering enabled.' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
+	        <instructions>
+	          <![CDATA[ ]]>
+	        </instructions>
+	        <value>
+	          <![CDATA[ true ]]>
+	        </value>
+	      </parameter>
+      </entry>
+    </parameters>
+  </serviceConfiguration'>
 </dashboard>")))

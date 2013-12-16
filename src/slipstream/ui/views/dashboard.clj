@@ -7,6 +7,7 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.dashboard :as dashboard-model]
+            [slipstream.ui.models.configuration :as configuration-model]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.header :as header]
@@ -14,6 +15,9 @@
             [slipstream.ui.views.base :as base]))
 
 (def dashboard-template-html "slipstream/ui/views/dashboard.html")
+
+(def metering-sel [:#metering])
+(def metering-header-sel [:#metering-header])
 
 (def runs-sel [:#runs])
 (def vms-sel [:#vms])
@@ -126,7 +130,12 @@
     (vms-snip
       (common-model/group-by-key
         :cloud
-        (dashboard-model/vms dashboard)))))
+        (dashboard-model/vms dashboard))))
+
+  [#{metering-sel metering-header-sel}] 
+  (if (configuration-model/metering-enabled? dashboard)
+    identity
+    nil))
 
 ;; CSS inclusion
 
