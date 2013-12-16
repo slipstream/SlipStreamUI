@@ -1,6 +1,8 @@
 (ns slipstream.ui.models.common
   (:require [net.cgrand.enlive-html :as html]))
 
+(def parameter-sel [:parameter])
+
 (defn attrs [elem]
   (:attrs elem))
 
@@ -14,7 +16,7 @@
   (:resourceuri (attrs elem)))
 
 (defn parameters [elem]
-  (html/select elem [:parameter]))
+  (html/select elem parameter-sel))
 
 (defn parameter [elem parameter-name]
   (filter #(= parameter-name (:name (:attrs %))) (parameters elem)))
