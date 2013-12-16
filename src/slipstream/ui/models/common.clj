@@ -92,5 +92,12 @@
   [list]
   (sort-by-key list :category))
   
-  
+(defn true-value?
+  [value]
+  (if (empty? value)
+    false
+    (or
+      (true? value)
+      (= "true" (clojure.string/trim value)))))
+
   
