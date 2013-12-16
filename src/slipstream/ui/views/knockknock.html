@@ -31,6 +31,13 @@
                           <li class="separation"><a class="action" href="/logout" title="Signout/logout"><i class="icon-signout icon-2x"></i></a></li>
                         </ul>
                     </div>
+                    <noscript>
+						<div id="noscript" class="bottom bottom_no_icon">
+			    	        <h2><i style="color: red;" class="icon-warning-sign"></i>Error</h2>
+			    	        <h3>JavaScript needs to be enabled to use SlipStream</h3>
+			    	        <p>Code: noscript</p>
+			    	    </div> 
+			    	</noscript>
                     <div id="titles" class="bx-wrapper">
                         <div class="bx-window">
                             <div id="slider1">
@@ -87,7 +94,7 @@
                     <div id="message" class="message">
                         <span></span>
                     </div>
-                    <div id="error" class="message conflict">
+                    <div id="error" class="message conflict" style="display: none;">
                         <i class="icon-warning-sign" /><span></span>
                     </div>
                 </div>
@@ -98,10 +105,10 @@
                 		<p>Please wait...</p>
                 	</div>
                 </div>
-                <div id="register-dialog">
+                <div id="register-dialog" style="display: none;">
                     <p />
                 </div>
-                <div id="reset-dialog">
+                <div id="reset-dialog" style="display: none;">
                     <p />
                 </div>
             </div>

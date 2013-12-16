@@ -68,6 +68,10 @@ th+td {
 	zoom: 1;
 }
 
+#titles {
+	display: none;
+}
+
 #content {
 	float: none;
 	/* width: 980px; */

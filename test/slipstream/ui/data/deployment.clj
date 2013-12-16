@@ -77,7 +77,7 @@
                   
 <nodeParameter category='General' description='' isMappedValue='true' mandatory='false' name='webserver.port' readonly='false' type='String'>
                      
-<value>apache1:port</value>
+<value>'something'</value>
                   
 </nodeParameter>
                

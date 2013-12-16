@@ -22,8 +22,8 @@
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [dashboard]
-  header/header-summary-sel 
-  (html/substitute 
+  header/header-summary-sel
+  (html/substitute
     (header/header-titles-snip
       "Dashboard"
       "Control and monitor your cloud activity"
@@ -57,7 +57,7 @@
   [runs _]
   [:tbody :> :tr] (html/clone-for
                     [run runs
-                     :let 
+                     :let
                      [attrs (module-model/attrs run)]]
                     [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (type-to-icon (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
@@ -75,7 +75,7 @@
   [vms _]
   [:tbody :> :tr] (html/clone-for
                     [vm vms
-                     :let 
+                     :let
                      [attrs (module-model/attrs vm)]]
                     [[:a]] (html/do->
                              (html/set-attr :href (str "/run/" (:runuuid attrs)))
@@ -86,8 +86,8 @@
 
 (html/defsnippet runs-snip dashboard-template-html runs-sel
   [grouped-by-cloud]
-  [:ul :> [:li html/last-of-type]] nil 
-  [:ul :> :li] 
+  [:ul :> [:li html/last-of-type]] nil
+  [:ul :> :li]
   (common/tab-headers grouped-by-cloud "runs")
   [:ul] (if (empty? grouped-by-cloud)
           nil
@@ -100,8 +100,8 @@
 
 (html/defsnippet vms-snip dashboard-template-html vms-sel
   [grouped-by-cloud]
-  [:ul :> [:li html/last-of-type]] nil 
-  [:ul :> :li] 
+  [:ul :> [:li html/last-of-type]] nil
+  [:ul :> :li]
   (common/tab-headers grouped-by-cloud "vms")
   [:ul] (if (empty? grouped-by-cloud)
           nil
@@ -115,15 +115,15 @@
 (html/defsnippet content-snip dashboard-template-html common/content-sel
   [dashboard]
   runs-sel
-  (html/substitute 
-    (runs-snip 
+  (html/substitute
+    (runs-snip
       (common-model/group-by-key
         :cloudservicename
         (dashboard-model/runs dashboard))))
 
   vms-sel
-  (html/substitute 
-    (vms-snip 
+  (html/substitute
+    (vms-snip
       (common-model/group-by-key
         :cloud
         (dashboard-model/vms dashboard)))))
@@ -132,13 +132,19 @@
 
 (defn css-stylesheets
   []
-  [])
+  ["/css/dashboard.css"])
 ;   ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css"])
 
 ;; javascript inclusion
 
 (def js-scripts-default
-  ["/js/dashboard.js"])
+  ["/external/jquery-flot/js/jquery.flot.min.js"
+   "/external/jquery-flot/js/jquery.flot.pie.min.js"
+   "/external/jquery-flot/js/jquery.flot.time.min.js"
+   "/external/jquery-flot/js/jquery.flot.stack.min.js"
+   "/external/jquery-flot/js/jquery.flot.tooltip.min.js"
+   "/js/metering.js"
+   "/js/dashboard.js"])
 ; ["/js/dashboard.js" "/external/jit/js/jit.js" "/js/dashboard-summary.js"])
 
 (defn js-scripts
@@ -146,7 +152,7 @@
   (concat js-scripts-default []))
 
 (defn page [dashboard]
-  (base/base 
+  (base/base
     {:css-stylesheets (css-stylesheets)
      :js-scripts (js-scripts)
      :title (common/title "Dashboard")
