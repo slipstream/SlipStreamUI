@@ -589,8 +589,14 @@ var $$ = {
 		return $(xml).html();
 	},
 	extractJsonError: function(data) {
-	    var json = $.parseJSON(data);
-		return "Error: " + json.detail + " (" + json.error + " - " + json.reason + ")";
+	    try {
+		    var error = $.parseJSON(data);
+		} catch (Exception) {}
+		if ( error && error.length > 0 ) {
+    		return "Error: " + json.detail + " (" + json.error + " - " + json.reason + ")";
+		} else {
+			return "Error retrieving json error";
+		}
 	},
 	extractError: function(data, settings, xhr) {
 		if ( settings.dataType === 'xml' ) {
