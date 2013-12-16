@@ -2,10 +2,8 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.common :as common-model]
-            [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.views.common :as common]
-            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]))
