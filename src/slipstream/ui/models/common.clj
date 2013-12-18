@@ -1,7 +1,7 @@
 (ns slipstream.ui.models.common
   (:require [net.cgrand.enlive-html :as html]))
 
-(def parameter-sel [:parameter])
+(def parameter-sel [html/root :> :parameters :> :entry :> :parameter])
 
 (defn attrs [elem]
   (:attrs elem))
