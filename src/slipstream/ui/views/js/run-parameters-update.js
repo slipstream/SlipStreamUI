@@ -28,8 +28,6 @@ String.prototype.trim = function() {
 
 $(document).ready(function() {
 
-	setRefresh();
-
 	$('input[value="Terminate"]').click(function(event){
 		event.preventDefault();
 		SS.hideError();
