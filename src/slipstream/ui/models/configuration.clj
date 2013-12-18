@@ -14,12 +14,11 @@
 
 (defn config-params
   [metadata]
-  (first 
-    (html/select metadata [:serviceConfiguration])))
+  (html/select metadata [html/root :> :serviceConfiguration :parameter]))
 
 (defn parameter
   [metadata name]
-  (common/parameter (config-params metadata) name))
+  (filter #(= name (:name (:attrs %))) (config-params metadata)))
 
 (defn metering-enabled?
   [metadata]
