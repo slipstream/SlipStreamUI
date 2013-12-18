@@ -42,6 +42,10 @@ body *, body :focus, a {
 	outline: none;
 }
 
+table {
+    table-layout: fixed;
+}
+
 a {
     color:#23A4FF;
 	text-decoration: none;
@@ -928,26 +932,6 @@ ul.interaction li {
 	border: none;
 }
 
-/*.data_sheet .help {
-    padding: 0;
-    width: 55px;
-}
-
-.data_sheet .help span {
-    display: block;
-    margin: 0 auto;
-    width: 20px;
-    height: 20px;
-    background: url('../images/help_icon.png') 0 0 no-repeat;
-    text-indent: -3000px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.data_sheet .help span:hover {
-    opacity: .85;
-}
-*/
 /* Image Link table */
 
 .resourceuri {
@@ -1120,7 +1104,7 @@ body input.add_item {
 }
 
 .data_sheet .help {
-	width: 20px;
+	width: 15px;
 }
 
 .data_sheet td.help {
@@ -1312,7 +1296,7 @@ body.overlay {
 
 textarea {
     width: 99%;
-    height: 500px;
+    height: 200px;
 	border: 1px solid #aeaeae;
 }
 
