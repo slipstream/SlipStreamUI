@@ -23,7 +23,7 @@
                               (header/header-top-bar-snip
                                 (user-model/attrs metadata))))
 
-(defn parameters-snip
+(defn parameters
   [parameters-by-category]
   (for [grouped parameters-by-category]
     (list
@@ -33,7 +33,8 @@
 (html/defsnippet content-snip configuration-template-html common/content-sel
   [configuration]
   parameters-sel (html/content
-                   (parameters-snip (common-model/group-by-category (common-model/parameters configuration)))))
+                   (parameters (common-model/group-by-category 
+                                 (html/select configuration [html/root :> :parameters :> :entry :> common-model/parameter-sel])))))
 
 
 ;; javascript inclusion
