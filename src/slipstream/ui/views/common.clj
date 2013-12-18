@@ -9,6 +9,7 @@
 (def interaction-sel [:.interaction])
 
 (def interations-template-html "slipstream/ui/views/interations.html")
+(def inputs-template-html "slipstream/ui/views/inputs.html")
 
 (def slipstream-with-trademark "SlipStream™")
 
@@ -227,6 +228,22 @@
   [tr-id]
   (str tr-id "--category"))
   
+
+(html/defsnippet input-snip inputs-template-html [:input]
+  [name placeholder value type]
+  html/this-node (html/do->
+                   (html/set-attr :type type)
+                   (html/set-attr :name name)
+                   (html/set-attr :placeholder placeholder)
+                   (html/set-attr :value value)))
+
+(html/defsnippet textarea-snip inputs-template-html [:textarea]
+  [name placeholder value]
+  html/this-node (html/do->
+                   (if name (html/set-attr :name name)) ; only
+                   (html/set-attr :placeholder placeholder)
+                   (html/content value)))
+
 (defmulti set-input-value
   "Used to generate input element (in edit mode)"
   (fn [parameter tr-id]
@@ -234,28 +251,18 @@
 
 (defn- set-input-value-string
   [parameter tr-id]
-  (let [value (param-val parameter)
-        defaultvalue (-> parameter :attrs :defaultvalue)]
-  (html/html-snippet 
-    (str 
-      "<input type='text'"
-      (insert-name (set-input-name-value tr-id))
-      " placeholder='" 
-      defaultvalue 
-      "' value='" 
-      value 
-      "' />"))))
+  (let [name (set-input-name-value tr-id)
+        defaultvalue (-> parameter :attrs :defaultvalue)
+        value (param-val parameter)
+        type "text"]
+    (input-snip name defaultvalue value type)))
 
 (defn- set-input-value-text
   [parameter tr-id]
-  (let [value (param-val parameter)
+  (let [name (set-input-name-value tr-id)
+        value (param-val parameter)
         defaultvalue (-> parameter :attrs :defaultvalue)]
-  (html/html-snippet 
-    (str 
-      "<textarea"
-      (insert-name (set-input-name-value tr-id))
-      " placeholder='" defaultvalue
-      "'>" value "</textarea>"))))
+  (textarea-snip name defaultvalue value)))
 
 (defmethod set-input-value "String"
   [parameter tr-id]
@@ -280,14 +287,11 @@
 (defmethod set-input-value "Password"
   [parameter tr-id]
   ; call default to avoid getting the value instead of stars (*)
-  (let [value (param-val-default parameter)]
-  (html/html-snippet 
-    (str 
-      "<input type='password'" 
-      (insert-name (set-input-name-value tr-id))
-      " value='" 
-      value 
-      "' />"))))
+  (let [name (set-input-name-value tr-id)
+        defaultvalue ""
+        value (param-val-default parameter)
+        type "password"]
+  (input-snip name defaultvalue value type)))
 
 (defmethod set-input-value "Enum"
   [parameter tr-id]
