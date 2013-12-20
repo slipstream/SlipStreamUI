@@ -4,9 +4,9 @@
             url: "/meters/<meter>/statistics",
             colors: ["rgb(77, 169, 68)", "rgb(56, 128, 170)"],
             params: {
-                period: 60 * 10, // 10 minutes , in seconds
+                period: 60*60*2, // 2 hours , in seconds
                 groupby: "source",
-                start_timestamp: Math.ceil((new Date() - 1000*60*60) / 1000)  // last hour, in seconds
+                start_timestamp: Math.ceil((new Date() - 1000*60*60*24) / 1000)  // last day, in seconds
             }
         }, options );
 
