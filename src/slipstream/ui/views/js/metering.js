@@ -90,10 +90,11 @@
                         colors: settings.colors
                     });
 
-                    $(".col2", $this).css({
+                    var col2 = $(".col2", $this).css({
                         width: 590,
                         height: 215
-                    }).plot(series[1], {
+                    });
+                    var plot = $.plot(col2, series[1], {
                         xaxis: {
                             show: true,
                             mode: "time",
@@ -125,6 +126,8 @@
                         },
                         colors: settings.colors
                     });
+                    // Store the plot object to DOM for later use.
+                    col2.data('plot', plot);
                 },
                 dataType: "json",
             });

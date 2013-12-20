@@ -39,4 +39,30 @@ $(document).ready(function() {
         meter: "disk"
     });
 
+    // The next two event handlers are dedicated to redraw the plot grid
+    // ensuring axis labels are displayed as expected. Indeed, we found that
+    // when a DOM element is hidden (not visible for the user), axis labels
+    // are missing. Because we are using an accordion widget (collapsed by
+    // default) layout with tabs, not all elements from the DOM are not
+    // visible by default. So we trigger the grid redraw when accordion is
+    // activated and each time a metric tab is activated.
+    function refresh(plot) {
+        if (plot) {
+            plot.setupGrid();
+            plot.draw();
+        }
+    }
+
+    $(".accordion").on("accordionactivate", function(event, ui) {
+        if (ui.newPanel[0].id == "metering") {
+            var plot = $("div.col2", ui.newPanel).first().data('plot');
+            refresh(plot);
+        }
+    });
+
+    $("#metering").on("tabsactivate", function(event, ui) {
+        var plot = $(".col2", ui.newPanel).data('plot');
+        refresh(plot);
+    });
+    // --
 });
