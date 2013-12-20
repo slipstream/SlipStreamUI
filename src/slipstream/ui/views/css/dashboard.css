@@ -1,4 +1,8 @@
-﻿.metrics .row
+﻿.metrics table {
+    table-layout: auto;
+}
+
+.metrics .row
 {
     max-height: 230px;
     margin-top: 10px;
