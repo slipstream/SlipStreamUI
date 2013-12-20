@@ -54,7 +54,7 @@ $(document).ready(function() {
     }
 
     $(".accordion").on("accordionactivate", function(event, ui) {
-        if (ui.newPanel[0].id == "metering") {
+        if (ui.newPanel.length && ui.newPanel[0].id == "metering-header") {
             var plot = $("div.col2", ui.newPanel).first().data('plot');
             refresh(plot);
         }
