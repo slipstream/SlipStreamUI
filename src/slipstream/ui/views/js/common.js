@@ -930,8 +930,23 @@ $(document).ready(function() {
 	
 	$('.accordion').accordion(
 		{ heightStyle: "content",
-		  collapsible: true });
+		  collapsible: true,
+		  active: function() {
+		      // find the id corresponding to the hash
+		      // and activate it. If none found, default to 0 (the first)
+		      var headers = $('.accordion').find('div');
+              var header = $(location.hash);
+              var index = headers.index(header);
+              if(index === -1) {
+                  index = 0;
+              }
+              return index;
+          }()
+	    }
+	);
+
 	$('.tab_block').tabs();
+
 	$('.add_item','.nodes')
 		.button()
 		.click(function( event ) {
