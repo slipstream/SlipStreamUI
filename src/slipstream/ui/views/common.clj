@@ -19,6 +19,32 @@
 (def take-run-no-of-chars 8)
 (def drop-module-slash-no-of-chars 7)
 
+; Icon
+
+(defn to-css-class
+  [category]
+  (str (string/lower-case category) "_category"))  
+
+(defmulti type-to-icon-class
+  (fn [type]
+    type))
+
+(defmethod type-to-icon-class :default
+  [type]
+  (type-to-icon-class "Deployment"))
+
+(defmethod type-to-icon-class "Build"
+  [type]
+  "build_type")
+
+(defmethod type-to-icon-class "Deployment"
+  [type]
+  "deployment_type")
+
+(defmethod type-to-icon-class "Run"
+  [type]
+  "simple_run_type")
+
 ;
 ; Breadcrumbs
 ;

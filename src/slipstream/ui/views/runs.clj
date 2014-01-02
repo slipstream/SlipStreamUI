@@ -1,8 +1,10 @@
 (ns slipstream.ui.views.runs
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
-            [slipstream.ui.models.common :as module-common]
-            [slipstream.ui.models.run :as module-run]
+            [slipstream.ui.models.run :as run-model]
+            [slipstream.ui.views.header :as header]
+            [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]))
@@ -12,13 +14,26 @@
 (def runs-sel [:#runs])
 (def runs-fragment-sel [:#fragment-runs-somecloud])
 
+(html/defsnippet header-snip header/header-template-html header/header-sel
+  [runs]
+  header/header-summary-sel
+  (html/substitute
+    (header/header-titles-snip
+      "Runs"
+      "View current runs"
+      "This page provides you with an overview of the runs on each cloud you have access to"
+      "Runs"))
+  header/header-top-bar-sel (html/substitute
+                              (header/header-top-bar-snip
+                                (user-model/attrs runs))))
+
 (html/defsnippet runs-for-cloud-snip runs-template-html [runs-fragment-sel :> :table]
   [runs _]
   [:tbody :> :tr] (html/clone-for
                     [run runs
                      :let 
                      [attrs (module-model/attrs run)]]
-                    [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (module-base/type-to-icon (:type attrs)))
+                    [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
                                                          (html/content (apply str (take common/take-run-no-of-chars (:uuid attrs)))))
@@ -44,10 +59,15 @@
                       (common/tab-sections grouped-by-cloud "runs" runs-for-cloud-snip))
   [:#fragment-runs-cloudb] nil)
 
-(html/deftemplate runs-template runs-template-html
-  [runs]
-  runs-sel (html/substitute (runs-snip runs)))
+(defn js-scripts
+  []
+  )
 
 (defn page [runs]
-  (runs-template
-    (module-run/group-by-cloud runs)))
+  (base/base
+    {:js-scripts (js-scripts)
+     :title (common/title "Runs")
+     :header (header-snip runs)
+     :content (runs-snip
+                (run-model/group-by-cloud runs))
+     :footer (footer/footer-snip)}))

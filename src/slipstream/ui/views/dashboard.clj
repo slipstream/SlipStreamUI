@@ -37,33 +37,13 @@
                               (header/header-top-bar-snip
                                 (user-model/attrs dashboard))))
 
-(defmulti type-to-icon
-  (fn [type]
-    type))
-
-(defmethod type-to-icon :default
-  [type]
-  (type-to-icon "Deployment"))
-
-(defmethod type-to-icon "Build"
-  [type]
-  "icon-legal")
-
-(defmethod type-to-icon "Deployment"
-  [type]
-  "icon-cloud")
-
-(defmethod type-to-icon "Run"
-  [type]
-  "icon-rocket")
-
 (html/defsnippet runs-for-cloud-snip dashboard-template-html [runs-fragment-sel :> :table]
   [runs _]
   [:tbody :> :tr] (html/clone-for
                     [run runs
                      :let
                      [attrs (module-model/attrs run)]]
-                    [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (type-to-icon (:type attrs)))
+                    [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
                                                          (html/content (apply str (take common/take-run-no-of-chars (:uuid attrs)))))

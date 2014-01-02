@@ -51,8 +51,10 @@
 
 (html/defsnippet header-titles-snip header-template-html titles-sel
   [title title-sub title-desc category]
-  [:#header-title] (html/html-content
-                     (str "<i class='" (category-map category) "'></i>" title))
+  [:#header-title] (html/do->
+                     (html/remove-class "project_category")
+                     (html/add-class (common/to-css-class category))
+                     (html/content title))
   [:#header-title-sub] (html/html-content title-sub)
   [:#header-title-desc] (html/content title-desc))
 

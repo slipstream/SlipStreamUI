@@ -27,26 +27,6 @@
 
 ;; Utility
 
-(defmulti type-to-icon
-  (fn [type]
-    type))
-
-(defmethod type-to-icon :default
-  [type]
-  (type-to-icon "Deployment"))
-
-(defmethod type-to-icon "Build"
-  [type]
-  "icon-legal")
-
-(defmethod type-to-icon "Deployment"
-  [type]
-  "icon-cloud")
-
-(defmethod type-to-icon "Run"
-  [type]
-  "icon-rocket")
-
 (defn module-resource-uri-to-name
   [moduleresourceuri]
   (apply str (drop module-model/module-root-uri-length moduleresourceuri)))
@@ -59,7 +39,7 @@
 
 (defn to-css-class
   [category]
-  (str (string/lower-case category) "_category"))  
+  (common/to-css-class category))
 
 (defn ischooser?
   [type]

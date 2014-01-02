@@ -53,12 +53,12 @@
                     [[:td (html/nth-of-type 1)]] (html/do->
                                                    (html/remove-class "project_category")
                                                    (html/add-class (module-base/to-css-class (:category attrs))))
-                    [[:a]] (html/do->
-                             (html/set-attr :href (str "/" (:resourceuri attrs)))
-                             (html/content (:name attrs)))
-                    [[:td (html/nth-of-type 2)]] (html/content (:description attrs))
-                    [[:td (html/nth-of-type 3)]] (html/content (module-model/owner child))
-                    [[:td (html/nth-of-type 4)]] (html/content (:version attrs))))
+                    [[:td (html/nth-of-type 2)] :> :a] (html/do->
+                                                         (html/set-attr :href (str "/" (:resourceuri attrs)))
+                                                         (html/content (:name attrs)))
+                    [[:td (html/nth-of-type 3)]] (html/content (:description attrs))
+                    [[:td (html/nth-of-type 4)]] (html/content (module-model/owner child))
+                    [[:td (html/nth-of-type 5)]] (html/content (:version attrs))))
 
 (html/defsnippet view-interaction-snip module-base/project-view-template-html module-base/module-interaction-top-sel
   [module]

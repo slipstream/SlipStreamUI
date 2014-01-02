@@ -172,7 +172,7 @@ th+td {
     padding: 6px 10px 10px 2px;
     position: absolute;
     font-family: FontAwesome;
-    content: "\f108"; # icon-desktop;
+    content: "\f108"; /*icon-desktop*/
     font-size: 3em;
 }
 
@@ -180,7 +180,7 @@ th+td {
     padding: 6px 10px 10px 2px;
     position: absolute;
     font-family: FontAwesome;
-    content: "\f00a"; # icon-th;
+    content: "\f00a"; /*icon-th*/
     font-size: 3em;
 }
 
@@ -200,7 +200,7 @@ th+td {
     margin: 10px 10px 10px -36px;
     position: absolute;
     font-family: FontAwesome;
-    content: "\f011"; # icon-off;
+    content: "\f011"; /*icon-off*/
     font-size: 1.5em;
 }
 
@@ -213,6 +213,7 @@ th+td {
 }
 
 /* Categories */
+
 .project_category {
     padding: 0px 0px 0px 5px !important;
     position: relative;
@@ -222,11 +223,10 @@ th+td {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
-    color: #50a7de;
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f07c"; # icon-folder-open;
+    content: "\f07c"; /*icon-folder-open*/
 }
 
 .image_category {
@@ -238,11 +238,10 @@ th+td {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
-    color: #50a7de;
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f108"; # icon-desktop
+    content: "\f108"; /*icon-desktop*/
 }
 
 .deployment_category {
@@ -254,11 +253,10 @@ th+td {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
-    color: #50a7de;
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f0ee"; # icon-cloud-upload
+    content: "\f0e8"; /*fa-sitemap*/
 }
 
 .run_category {
@@ -270,11 +268,55 @@ th+td {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
-    color: #50a7de;
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f013"; # icon-cog
+    content: "\f013"; /*icon-cog*/
+}
+
+.build_type {
+    padding: 0px 0px 0px 5px !important;
+    position: relative;
+}
+
+.build_type:before {
+    position: relative;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
+    content: "\f0e3"; /*fa-gavel*/
+}
+
+.simple_run_type {
+    padding: 0px 0px 0px 5px !important;
+    position: relative;
+}
+
+.simple_run_type:before {
+    position: relative;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
+    content: "\f135"; /*icon-rocket*/
+}
+
+.deployment_type {
+    padding: 0px 0px 0px 5px !important;
+    position: relative;
+}
+
+.deployment_type:before {
+    position: relative;
+    font-family: FontAwesome;
+    font-size: 1.5em;
+    top: 5%;
+    left: 0px;
+    padding-right: 0.5em;
+    content: "\f0e8"; /*fa-sitemap*/
 }
 
 .user_category {
@@ -286,11 +328,10 @@ th+td {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
-    color: #50a7de;
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f007"; # icon-user
+    content: "\f007"; /*icon-user*/
 }
 
 .config_category {
