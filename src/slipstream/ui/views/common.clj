@@ -41,7 +41,7 @@
   [type]
   "deployment_type")
 
-(defmethod type-to-icon-class "Run"
+(defmethod type-to-icon-class "Simple Run"
   [type]
   "simple_run_type")
 

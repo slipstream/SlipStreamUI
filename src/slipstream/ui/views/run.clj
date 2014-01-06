@@ -77,7 +77,7 @@
   [:#start] (html/content (:starttime (common-model/attrs run)))
   [:#end] (html/content (:endtime (common-model/attrs run)))
   [:#state] (html/content (:state (common-model/attrs run)))
-  [:#runtype] (html/content (:type (common-model/attrs run)))
+  [:#runtype] (html/content (run-model/get-type run))
   [:#uuid] (html/content (:uuid (common-model/attrs run)))
   [:#tags] (html/set-attr :value (run-model/runtime-parameter-value run "ss:tags")))
 

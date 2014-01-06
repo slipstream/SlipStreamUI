@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [clojure.string :as string]
             [slipstream.ui.models.common :as common-model]
+            [slipstream.ui.models.run :as run-model]
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.module :as module-model]
@@ -43,7 +44,7 @@
                     [run runs
                      :let
                      [attrs (module-model/attrs run)]]
-                    [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
+                    [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (run-model/convert-type (:type attrs))))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
                                                          (html/content (apply str (take common/take-run-no-of-chars (:uuid attrs)))))
