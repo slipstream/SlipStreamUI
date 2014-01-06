@@ -473,17 +473,6 @@ function innerText(element) {
     return text;
 };
 
-//
-// Execution section
-//
-function setRefresh() {
-    refresher.setRefresh('updateDashboard()');
-};
-
-function toggleRefresh() {
-    refresher.toggle();
-};
-
 function htmlEncode(value){
   //create a in-memory div, set it's inner text (which jQuery automatically encodes)
   //then grab the encoded contents back out.  The div never exists on the page.
@@ -492,7 +481,7 @@ function htmlEncode(value){
 
 // SlipStream namespace (let's start putting things in here)
 var $$ = {
-    
+
     // Default behaviour (can be overriden)
     onModuleChooserSelect: function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
