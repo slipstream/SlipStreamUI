@@ -112,7 +112,7 @@
         :cloud
         (dashboard-model/vms dashboard))))
 
-  [#{metering-sel metering-header-sel}] 
+  [#{metering-sel metering-header-sel}]
   (if (configuration-model/metering-enabled? dashboard)
     identity
     nil))
@@ -122,7 +122,6 @@
 (defn css-stylesheets
   []
   ["/css/dashboard.css"])
-;   ["/external/jit/css/base.css" "/external/jit/css/Spacetree.css"])
 
 ;; javascript inclusion
 
@@ -132,9 +131,10 @@
    "/external/jquery-flot/js/jquery.flot.time.min.js"
    "/external/jquery-flot/js/jquery.flot.stack.min.js"
    "/external/jquery-flot/js/jquery.flot.tooltip.min.js"
+   "/external/justgage/js/raphael.2.1.0.min.js"
+   "/external/justgage/js/justgage.1.0.1.min.js"
    "/js/metering.js"
    "/js/dashboard.js"])
-; ["/js/dashboard.js" "/external/jit/js/jit.js" "/js/dashboard-summary.js"])
 
 (defn js-scripts
   []
