@@ -266,7 +266,8 @@ function updateReports() {
 	// force reload, since reports might have updated since
 	// last time
 	var iframe = $('#reports > iframe');
-	iframe.src = iframe.src;
+	var url = iframe.attr('src');
+	iframe.attr('src',url); 
 }
 
 function updateDashboard() {
