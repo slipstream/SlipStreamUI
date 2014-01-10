@@ -696,13 +696,13 @@ var $$ = {
         var id = "parameter";
     	var entryPart = id + "--entry--" + index;
 
-        var nameInputPart = '<input type="text" name="parameter-' + entryPart + '--name" value="">\n';
+        var nameInputPart = '<input type="text" name="' + entryPart + '--name" value="">\n';
         if (prefix) {
             // if prefix set, decorate the <entryPart>--name composed of the prefix + postfix
             // such that the form contans the complete name value
             nameInputPart = '<span id="' + entryPart + '--name-prefix">' + prefix + '.</span>\n';
-            nameInputPart += '<input id="' + entryPart + '--name-postfix" type="text" name="parameter-' + entryPart + '--name-postfix" value="">\n';
-            nameInputPart += '<input id="' + entryPart + '--name" type="hidden" name="parameter-' + entryPart + '--name" value="">\n';
+            nameInputPart += '<input id="' + entryPart + '--name-postfix" type="text" name="' + entryPart + '--name-postfix" value="">\n';
+            nameInputPart += '<input id="' + entryPart + '--name" type="hidden" name="' + entryPart + '--name" value="">\n';
         }
 
         var selectCategories = ['Input', 'Output'];
@@ -710,7 +710,7 @@ var $$ = {
             selectCategories = categories;
         }
 
-        var categorySelectPart = '    	    <select name="parameter-' + entryPart + '--category">\n';
+        var categorySelectPart = '    	    <select name="' + entryPart + '--category">\n';
 	    for (var i = 0; i < selectCategories.length; i++) {
             categorySelectPart += '    	        <option value="' + selectCategories[i] + '">' + selectCategories[i] + '</option>\n';
         }
@@ -719,16 +719,16 @@ var $$ = {
         var newParameter = $('<tr id="' + entryPart + '"> \
         <td> \
             ' + nameInputPart + ' \
-        	<input type="hidden" name="parameter-' + entryPart + '--type" value="String"> \
+        	<input type="hidden" name="' + entryPart + '--type" value="String"> \
         </td> \
         <td> \
-        	<input type="text" name="parameter-' + entryPart + '--description" value=""> \
+        	<input type="text" name="' + entryPart + '--description" value=""> \
         </td> \
         <td> \
     	    ' + categorySelectPart + ' \
         </td> \
         <td> \
-            <input type="text" name="parameter-' + entryPart + '--value" value="" placeholder=""> \
+            <input type="text" name="' + entryPart + '--value" value="" placeholder=""> \
         </td> \
         <td> \
 	        <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
