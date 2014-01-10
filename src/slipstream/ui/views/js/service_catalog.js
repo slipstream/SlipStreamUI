@@ -38,13 +38,14 @@ $(document).ready(function() {
 
     $('#save-button-top, #save-button-bottom').click(function(event){
     	$$.hideError();
-		$("#save-form").submit();
+		$("#save-dialog").dialog("open");
+		return false;
     });	
 
     // reset the default click event
-    $('#add-parameter-button').off('click');
+    $('#service-catalog button').off('click');
 
-    $('#add-parameter-button').click(function() {
+    $('#service-catalog button').click(function() {
         var parentId = $(this).parent().parent().attr('id');
         var parentIdParts = parentId.split('-');
         var cloud = parentIdParts[parentIdParts.length - 1];
