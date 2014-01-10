@@ -60,7 +60,7 @@
             </entry>
             <entry>
                <string><![CDATA[single.vm.max.cpu]]></string>
-               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='toto.single.vm.max.cpu' description='Maximum number of CPUs (cores) for a single VM' mandatory='false' type='String' readonly='false' category='Single_VM'>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='toto.single.vm.max.cpu' description='Maximum number of CPUs (cores) for a single VM' mandatory='true' type='String' readonly='true' category='Single_VM'>
                   <instructions><![CDATA[You won't be able to provision more for a single VM]]></instructions>
                   <value><![CDATA[]]></value>
                </parameter>

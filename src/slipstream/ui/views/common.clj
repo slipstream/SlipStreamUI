@@ -545,7 +545,7 @@
                  (html/set-attr :readonly "readonly"))
     [[:td (html/nth-of-type 4)]] 
       (html/content value)
-    [:td :> #{[:input] [:select]}] (if mandatory?
+    [:td :> #{[:select]}] (if mandatory?
                       (html/set-attr :disabled "disabled")
                       identity)
     [[:td html/last-of-type]] (if mandatory?
