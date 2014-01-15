@@ -1145,7 +1145,7 @@ body input.add_item {
 }
 
 .data_sheet .help {
-	width: 15px;
+	width: 16px;
 }
 
 .data_sheet td.help {
@@ -1411,3 +1411,6 @@ li {
     cursor: default;
 }
 
+th.remove {
+    width: 5px;
+}
