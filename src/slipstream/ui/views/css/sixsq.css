@@ -1060,6 +1060,10 @@ table.parameter_mapping input {
 	font-weight: normal;
 }
 
+.parameter_mapping th:nth-child(3) {
+    width: 16px;
+}
+
 /* Overlay */
 
 .overlay_sheet {
@@ -1275,6 +1279,10 @@ html body .small_delete {
     width: 200px !important;
 }
 
+.packages th:nth-of-type(4) {
+    width: 6px;
+}
+
 .packages td:nth-of-type(1),
 .parameters td:nth-of-type(1) {
     width: 20%;
@@ -1413,4 +1421,8 @@ li {
 
 th.remove {
     width: 5px;
+}
+
+th.remove-big {
+    width: 16px;
 }
