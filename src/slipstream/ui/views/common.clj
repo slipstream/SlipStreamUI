@@ -354,7 +354,7 @@
 
 (defn parameter-help
   [parameter]
-  (common-model/instrutions parameter))
+  (common-model/instructions parameter))
 
 ;
 ; Parameters
