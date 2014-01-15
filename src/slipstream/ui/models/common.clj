@@ -30,6 +30,9 @@
 (defn value [elem]
   (first (:content (first (html/select elem [:value])))))
 
+(defn instructions [elem]
+  (-> elem (html/select [:instructions]) first :content first))
+
 ;; Children
 
 (def sel-modules
