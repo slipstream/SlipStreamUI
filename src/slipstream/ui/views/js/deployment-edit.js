@@ -57,7 +57,7 @@ var mapper = {
 			<td> \
 			    <input type="text" class="parameter-mapping-output" name="' + id + '--output" value="' + oparamValue + '"></input> \
 			</td> \
-			<td> \
+			<td class="remove"> \
 				<i class="icon-remove-sign" onclick="$$.removeTrFromButton(this);"></i> \
 			</td> \
 		</tr>');
@@ -159,7 +159,7 @@ var nodeAdder = {
 				<input class="parameter-mapping-output" name="' + nodePrefix + '--mappingtable--' + index + '--output" value="' + value + '" \
 					type="text" /> \
 			</td> \
-			<td> \
+			<td class="remove"> \
 			    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
 			</td> \
 		</tr>'
@@ -238,7 +238,7 @@ var nodeAdder = {
         			</tbody> \
 				</table> \
 			</td> \
-			<td> \
+			<td class="remove"> \
 			    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign icon-2x"></i> \
 			</td> \
 		</tr>'
