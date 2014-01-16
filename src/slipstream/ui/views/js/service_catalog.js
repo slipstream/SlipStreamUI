@@ -47,8 +47,9 @@ $(document).ready(function() {
 
     $('#service-catalog button').click(function() {
         var parentId = $(this).parent().parent().attr('id');
-        var parentIdParts = parentId.split('-');
-        var cloud = parentIdParts[parentIdParts.length - 1];
+        var parentIdParts = parentId.split('fragment-service-catalog-');
+        // The id starts with this value so we take the second element
+        var cloud = parentIdParts[1];
         var categories = ['General',
                           'Overall Capacity',
                           'Single VM Capacity',

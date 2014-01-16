@@ -699,7 +699,7 @@ var $$ = {
         var nameInputPart = '<input type="text" name="' + entryPart + '--name" value="">\n';
         if (prefix) {
             // if prefix set, decorate the <entryPart>--name composed of the prefix + postfix
-            // such that the form contans the complete name value
+            // such that the form contains the complete name value
             nameInputPart = '<span id="' + entryPart + '--name-prefix">' + prefix + '.</span>\n';
             nameInputPart += '<input id="' + entryPart + '--name-postfix" type="text" name="' + entryPart + '--name-postfix" value="">\n';
             nameInputPart += '<input id="' + entryPart + '--name" type="hidden" name="' + entryPart + '--name" value="">\n';
@@ -730,7 +730,7 @@ var $$ = {
         <td> \
             <input type="text" name="' + entryPart + '--value" value="" placeholder=""> \
         </td> \
-        <td> \
+        <td class="remove"> \
 	        <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
         </td> \
     </tr>');
@@ -770,7 +770,7 @@ var $$ = {
 		<td> \
 			<input name="' + prefix + 'key" value=""> \
 		</td> \
-		<td> \
+		<td class="remove"> \
     	    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
         </td> \
         </tr>');

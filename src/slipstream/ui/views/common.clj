@@ -354,7 +354,7 @@
 
 (defn parameter-help
   [parameter]
-  (-> parameter (html/select [:instructions]) first :content first))
+  (common-model/instructions parameter))
 
 ;
 ; Parameters
