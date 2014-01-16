@@ -912,6 +912,9 @@ $(document).ready(function() {
     
     $('#titles').show();
     $('#content').show();
+    if($('#warning-bar').length == 0)
+        $('#wrapper').css('margin', '0 auto');
+    
 
 	$(window).unload(function() {
 		$$.hideSubmitMessage();
