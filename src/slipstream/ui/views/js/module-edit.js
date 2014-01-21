@@ -35,10 +35,17 @@ $(document).ready(function() {
 				var moduleVersion = $("#version").text();
 				var moduleName = $("#module-name-input").val();
             	$("#form-save").attr("action", "/module/" + moduleName + "/" + moduleVersion + "?method=put")
+            	
+            	sceditor2textarea('#execute');
+                sceditor2textarea('#report');
+                sceditor2textarea('#recipe');
+                sceditor2textarea('#prerecipe');
+            	
         		$$.send($("#form-save"), event, $.put);
 				return false;
 			},
 		}
 	});
+	$('#save-module-dialog').dialog('moveToTop');
     
 })

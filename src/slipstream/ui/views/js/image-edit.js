@@ -28,5 +28,12 @@ $(document).ready(function() {
         $( "#chooser" ).dialog( "open" );
         return false;
     });
-
+    
+    textarea2sceditor('#execute');
+    textarea2sceditor('#report');
+    textarea2sceditor('#recipe');
+    textarea2sceditor('#prerecipe');
+    
 })
+
+

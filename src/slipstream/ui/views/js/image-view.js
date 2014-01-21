@@ -60,5 +60,10 @@ $(document).ready(function() {
     });	
 	
 	$$.activateCopyTo();
+	
+	textarea2sceditor('#execute', true);
+    textarea2sceditor('#report', true);
+    textarea2sceditor('#recipe', true);
+    textarea2sceditor('#prerecipe', true);
     
 })
