@@ -66,7 +66,7 @@
 
 (defmethod gen-page "action"
   [message pagename type]
-    (render (action/page message)))
+    (render (action/page (xml-string-to-map message))))
 
 (defmethod gen-page "module"
   [metadata pagename type]

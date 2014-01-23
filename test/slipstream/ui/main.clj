@@ -44,6 +44,7 @@
             [slipstream.ui.data.service-catalog :as service-catalog-data]
             [slipstream.ui.data.vms :as vms-data]
             [slipstream.ui.data.runs :as runs-data]
+            [slipstream.ui.data.action :as action-data]
             [slipstream.ui.data.deployment :as deployment])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -52,7 +53,7 @@
 ;; =============================================================================
 
 (defn action-page []
-  (action/page message/message))
+  (action/page action-data/xml-action))
 
 (defn module-page [module type]
   (module/page module type))

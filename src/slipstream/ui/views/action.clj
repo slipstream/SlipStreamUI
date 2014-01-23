@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.action
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.action :as action-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
@@ -13,9 +14,9 @@
     (html/substitute
       (header/header-titles-snip "Action Confirmation" message "" "Action")))
 
-(defn page [message]
+(defn page [metadata]
   (base/base 
     {:title (common/title "Action Confirmation")
-     :header (header-snip message)
+     :header (header-snip (action-model/message metadata))
      :content nil
      :footer (footer/footer-snip)}))
