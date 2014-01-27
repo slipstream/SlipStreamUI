@@ -4,9 +4,9 @@
             url: "/meters/<meter>/statistics",
             colors: ["rgb(77, 169, 68)", "rgb(56, 128, 170)"],
             params: {
-                period: 60*60*2, // 2 hours , in seconds
+                period: 600,  // 10 minutes, in seconds
                 groupby: "source",
-                start_timestamp: Math.ceil((new Date() - 1000*60*60*24) / 1000)  // last day, in seconds
+                start_timestamp: Math.ceil((new Date() - 1000*60*60) / 1000)  // last hour, in seconds
             }
         }, options );
 
@@ -19,7 +19,7 @@
             var series = {};
             $.each(samples, function(index, sample) {
                 var key = sample.groupby.source,
-                    serie = [ sample.period_start * 1000.0, sample.sum ];
+                    serie = [ sample.period_start * 1000.0, sample.mean ];
                 if (key in series) {
                     series[key].push(serie);
                 } else {
@@ -47,12 +47,11 @@
         }
 
         return this.each(function(elem) {
+            var $this = $(this);
             $.ajax({
-                url: settings.url.replace("<meter>", settings.meter),
+                url: settings.url.replace("<meter>", $this.data("meter")),
                 data: settings.params,
-                context: this,
                 success: function(samples, status, xhr) {
-                    var $this = $(this);
                     $this.empty();
 
                     if (xhr.status == 204 || 'error' in samples) {
