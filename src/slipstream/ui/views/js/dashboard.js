@@ -83,39 +83,15 @@ $(document).ready(function() {
     });
     // --
 
-    var g1 = new JustGage({
-      id: "gauge-vm",
-      value: getRandomInt(0, 32),
-      min: 0,
-      max: 100,
-      title: "Virtual Machines",
-      levelColorsGradient: false
-    });
-
-    var g2 = new JustGage({
-      id: "gauge-cpu",
-      value: getRandomInt(34, 65),
-      min: 0,
-      max: 100,
-      title: "CPU",
-      levelColorsGradient: false
-    });
-
-    var g3 = new JustGage({
-      id: "gauge-memory",
-      value: getRandomInt(66, 100),
-      min: 0,
-      max: 100,
-      title: "Memory",
-      levelColorsGradient: false
-    });
-
-    var g4 = new JustGage({
-      id: "gauge-disk",
-      value: getRandomInt(66, 100),
-      min: 0,
-      max: 100,
-      title: "Disk",
-      levelColorsGradient: false
+    $(".gauge").each(function(idx, elem) {
+        $elem = $(elem);
+        new JustGage({
+          id: elem.id,
+          value: $elem.data('quota-current'),
+          min: 0,
+          max: $elem.data('quota-max') || 100,
+          title: $elem.data('quota-title'),
+          levelColorsGradient: false
+        });
     });
 });
