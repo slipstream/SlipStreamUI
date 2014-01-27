@@ -26,17 +26,34 @@ $(document).ready(function() {
     };
     $.get("/vms", fillVms, "html");
 
-    $("#fragment-vm-running").metrics({
-        meter: "instance"
-    });
-    $("#fragment-cpu-requested").metrics({
-        meter: "vcpus"
-    });
-    $("#fragment-memory-requested").metrics({
-        meter: "memory"
-    });
-    $("#fragment-disk-requested").metrics({
-        meter: "disk"
+    $("#metering div.metric").metrics();
+
+    var now = Math.ceil(new Date() / 1000);  // datetime in seconds
+    var OPTIONS = {
+        "1h": {
+            period: 600,  // 10 minutes, in seconds
+            groupby: "source",
+            start_timestamp: now - 60*60  // last hour, in seconds
+        },
+        "1d": {
+            period: 3600,  // 1 hours, in seconds
+            groupby: "source",
+            start_timestamp: now - 60*60*24  // last day, in seconds
+        },
+        "7d": {
+            period: 86400,  // 1 day, in seconds
+            groupby: "source",
+            start_timestamp: now - 60*60*24*7  // last 7 days, in seconds
+        },
+        "30d": {
+            period: 86400,  // 1 day, in seconds
+            groupby: "source",
+            start_timestamp: now - 60*60*24*30  // last 30 days, in seconds
+        }
+    };
+    $("#metering-selector").change(function() {
+        var opt = $("option:selected", this).val();
+        $("#metering div.metric").metrics({params: OPTIONS[opt]});
     });
 
     // The next two event handlers are dedicated to redraw the plot grid

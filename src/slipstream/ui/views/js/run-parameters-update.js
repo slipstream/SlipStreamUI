@@ -28,6 +28,8 @@ String.prototype.trim = function() {
 
 $(document).ready(function() {
 
+    updateDashboard();
+
 	$('input[value="Terminate"]').click(function(event){
 		event.preventDefault();
 		SS.hideError();
@@ -79,9 +81,8 @@ var dashboardUpdater = {
 	},
 
     // VM active
-	isActive: function(nodeName) {
+	isActive: function(vmState) {
 	    var activeStates = ["running", "on"];
-	    var vmState = this.getRuntimeValue(nodeName, 'vmstate');
 	    var lowerVmState = vmState.toLowerCase();
 	    var active = $.inArray(lowerVmState, activeStates) > -1;
 		return active;
@@ -135,8 +136,8 @@ var dashboardUpdater = {
 	},
 
     // power icon reflecting if the vm is on/running
-	getActiveCssClass: function(name) {
-		return "vm " + (this.isActive(name) ? 'vm-active' : 'vm-inactive');
+	getActiveCssClass: function(vmState) {
+		return "vm " + (this.isActive(vmState) ? 'vm-active' : 'vm-inactive');
 	},
 
     updateVm: function(params) {
@@ -155,7 +156,7 @@ var dashboardUpdater = {
 
         // Set the icon
         $('#' + idprefix).attr('class', this.getCssClass(params.abort));
-        $('#' + idprefix + " > ul").attr('class', this.getActiveCssClass(params.name));
+        $('#' + idprefix + " ul").attr('class', this.getActiveCssClass(params.vmstate));
     },
 
 	updateNode: function(nodename) {
@@ -169,7 +170,7 @@ var dashboardUpdater = {
 	updateOchestrator: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
         $('#' + idprefix + '-state').text("State: " + this.getRuntimeValue(nodename, 'state'));
-        $('#' + idprefix + '-icon').attr('class', this.getCssClass(this.isAbort(nodename)));
+        $('#' + idprefix).attr('class', this.getCssClass(this.isAbort(nodename)));
 	},
 
 	truncate: function(message) {
@@ -248,26 +249,16 @@ var dashboardUpdater = {
 	        }
 
 			for (var nodename in that.nodesInfo) {
-				if(nodename.startsWith('orchestrator-') || nodename == 'orchestrator') {
+				if(nodename.startsWith('orchestrator-')) {
 					that.updateOchestrator(nodename);
-				} else {
+				} else if(nodename != 'machine'){ // machine doesn't have node
 					that.updateNode(nodename);
 				}
 			}
 			
-			// In case we're dealing with a run or a build
-			that.updateOchestrator('orchestrator');
-			that.updateVm(that.buildParamsFromXmlRun('machine', run));
-            
-			// Update the reports iframe
-			document.getElementById("reports-iframe").contentWindow.location.reload(true);
         };
 
 		$.get(location.href, callback, 'xml');
-    },
-
-    stopRefreshing: function() {
-        return;
     }
 }
 
@@ -275,12 +266,12 @@ function updateReports() {
 	// force reload, since reports might have updated since
 	// last time
 	var iframe = $('#reports > iframe');
-	iframe.src = iframe.src;
+	var url = iframe.attr('src');
+	iframe.attr('src',url); 
 }
 
 function updateDashboard() {
     dashboardUpdater.updateDashboard();
     updateReports();
-    setRefresh();
+    setTimeout("updateDashboard()", 10000);
 }
-

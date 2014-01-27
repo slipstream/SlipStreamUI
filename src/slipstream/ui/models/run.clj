@@ -48,3 +48,19 @@
   (common/group-by-key
       :cloudservicename
       (common/children runs)))
+
+(def run-type-mapping
+  {"Orchestration" "Deployment"
+   "Machine" "Build"
+	 "Run" "Simple Run"})
+
+(defn convert-type
+  [type]
+  (run-type-mapping type))
+
+(defn get-type
+  [run]
+  (or 
+    (convert-type (:type (common/attrs run))) 
+    "Unknown"))
+

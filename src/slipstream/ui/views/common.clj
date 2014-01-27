@@ -41,7 +41,7 @@
   [type]
   "deployment_type")
 
-(defmethod type-to-icon-class "Run"
+(defmethod type-to-icon-class "Simple Run"
   [type]
   "simple_run_type")
 
@@ -354,7 +354,7 @@
 
 (defn parameter-help
   [parameter]
-  (-> parameter (html/select [:instructions]) first :content first))
+  (common-model/instructions parameter))
 
 ;
 ; Parameters
@@ -545,7 +545,7 @@
                  (html/set-attr :readonly "readonly"))
     [[:td (html/nth-of-type 4)]] 
       (html/content value)
-    [:td :> #{[:input] [:select]}] (if mandatory?
+    [:td :> #{[:select]}] (if mandatory?
                       (html/set-attr :disabled "disabled")
                       identity)
     [[:td html/last-of-type]] (if mandatory?

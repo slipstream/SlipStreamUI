@@ -473,17 +473,6 @@ function innerText(element) {
     return text;
 };
 
-//
-// Execution section
-//
-function setRefresh() {
-    refresher.setRefresh('updateDashboard()');
-};
-
-function toggleRefresh() {
-    refresher.toggle();
-};
-
 function htmlEncode(value){
   //create a in-memory div, set it's inner text (which jQuery automatically encodes)
   //then grab the encoded contents back out.  The div never exists on the page.
@@ -492,7 +481,7 @@ function htmlEncode(value){
 
 // SlipStream namespace (let's start putting things in here)
 var $$ = {
-    
+
     // Default behaviour (can be overriden)
     onModuleChooserSelect: function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
@@ -707,13 +696,13 @@ var $$ = {
         var id = "parameter";
     	var entryPart = id + "--entry--" + index;
 
-        var nameInputPart = '<input type="text" name="parameter-' + entryPart + '--name" value="">\n';
+        var nameInputPart = '<input type="text" name="' + entryPart + '--name" value="">\n';
         if (prefix) {
             // if prefix set, decorate the <entryPart>--name composed of the prefix + postfix
-            // such that the form contans the complete name value
+            // such that the form contains the complete name value
             nameInputPart = '<span id="' + entryPart + '--name-prefix">' + prefix + '.</span>\n';
-            nameInputPart += '<input id="' + entryPart + '--name-postfix" type="text" name="parameter-' + entryPart + '--name-postfix" value="">\n';
-            nameInputPart += '<input id="' + entryPart + '--name" type="hidden" name="parameter-' + entryPart + '--name" value="">\n';
+            nameInputPart += '<input id="' + entryPart + '--name-postfix" type="text" name="' + entryPart + '--name-postfix" value="">\n';
+            nameInputPart += '<input id="' + entryPart + '--name" type="hidden" name="' + entryPart + '--name" value="">\n';
         }
 
         var selectCategories = ['Input', 'Output'];
@@ -721,7 +710,7 @@ var $$ = {
             selectCategories = categories;
         }
 
-        var categorySelectPart = '    	    <select name="parameter-' + entryPart + '--category">\n';
+        var categorySelectPart = '    	    <select name="' + entryPart + '--category">\n';
 	    for (var i = 0; i < selectCategories.length; i++) {
             categorySelectPart += '    	        <option value="' + selectCategories[i] + '">' + selectCategories[i] + '</option>\n';
         }
@@ -730,18 +719,18 @@ var $$ = {
         var newParameter = $('<tr id="' + entryPart + '"> \
         <td> \
             ' + nameInputPart + ' \
-        	<input type="hidden" name="parameter-' + entryPart + '--type" value="String"> \
+        	<input type="hidden" name="' + entryPart + '--type" value="String"> \
         </td> \
         <td> \
-        	<input type="text" name="parameter-' + entryPart + '--description" value=""> \
+        	<input type="text" name="' + entryPart + '--description" value=""> \
         </td> \
         <td> \
     	    ' + categorySelectPart + ' \
         </td> \
         <td> \
-            <input type="text" name="parameter-' + entryPart + '--value" value="" placeholder=""> \
+            <input type="text" name="' + entryPart + '--value" value="" placeholder=""> \
         </td> \
-        <td> \
+        <td class="remove"> \
 	        <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
         </td> \
     </tr>');
@@ -781,7 +770,7 @@ var $$ = {
 		<td> \
 			<input name="' + prefix + 'key" value=""> \
 		</td> \
-		<td> \
+		<td class="remove"> \
     	    <i onclick="$$.removeTrFromButton(this);" class="icon-remove-sign"></i> \
         </td> \
         </tr>');
@@ -923,6 +912,9 @@ $(document).ready(function() {
     
     $('#titles').show();
     $('#content').show();
+    if($('#warning-bar').length == 0)
+        $('#wrapper').css('margin', '0 auto');
+    
 
 	$(window).unload(function() {
 		$$.hideSubmitMessage();

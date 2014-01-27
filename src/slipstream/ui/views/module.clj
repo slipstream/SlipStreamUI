@@ -126,7 +126,19 @@
 
 (def js-scripts-default
   ["/external/jit/js/jit.js" 
-   "/external/jit/js/excanvas.js" ])
+   "/external/jit/js/excanvas.js"
+   "/js/sourcecode-editor.js"
+   "/external/ace-editor/ace.js"
+   "/external/ace-editor/ext-language_tools.js"
+   "/external/ace-editor/mode-python.js"
+   "/external/ace-editor/mode-sh.js"
+   "/external/ace-editor/mode-javascript.js"
+   "/external/ace-editor/mode-powershell.js"
+   "/external/ace-editor/mode-perl.js"
+   "/external/ace-editor/mode-ruby.js"
+   "/external/ace-editor/mode-scheme.js"
+   "/external/ace-editor/mode-plain_text.js"
+   ])
 
 (defmulti js-scripts
   (fn [type category]

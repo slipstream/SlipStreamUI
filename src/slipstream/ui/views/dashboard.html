@@ -155,16 +155,22 @@
                                 <li><a href="#fragment-memory-requested">Memory</a><span></span></li>
                                 <li><a href="#fragment-disk-requested">Disk</a><span></span></li>
                             </ul>
-                            <div id="fragment-vm-running" class="row">
+                            <select id="metering-selector">
+                                <option value="1h">Last hour</option>
+                                <option value="1d">Last day</option>
+                                <option value="7d">Last 7 days</option>
+                                <option value="30d">Last 30 days</option>
+                            </select>
+                            <div id="fragment-vm-running" data-meter="instance" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                            <div id="fragment-cpu-requested" class="row">
+                            <div id="fragment-cpu-requested" data-meter="vcpus" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                            <div id="fragment-memory-requested" class="row">
+                            <div id="fragment-memory-requested" data-meter="memory" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                            <div id="fragment-disk-requested" class="row">
+                            <div id="fragment-disk-requested" data-meter="disk" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
                         </div>
