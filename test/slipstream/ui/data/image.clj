@@ -5,6 +5,12 @@
 <commit author='an-author'><comment>this is a comment</comment></commit>
 <parameters class='org.hibernate.collection.PersistentMap'>
 <entry>
+<string>password</string>
+<parameter category='Cloud' description='A password' isSet='false' mandatory='true' name='password' readonly='false' type='Password'>
+   <value>youshouldnotseethis</value>
+   <instructions><![CDATA[Password...]]></instructions>
+</parameter>
+</entry>
 <string>extra.disk.volatile</string>
 <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Volatile extra disk in GB' isSet='false' mandatory='true' name='extra.disk.volatile' readonly='false' type='String'>
    <value>12345XXX</value>

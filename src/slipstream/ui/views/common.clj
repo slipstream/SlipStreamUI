@@ -256,7 +256,7 @@
   
 
 (html/defsnippet input-snip inputs-template-html [:input]
-  [name placeholder value type & auto?]
+  [name placeholder value type & [auto?]]
   html/this-node (html/do->
                    (html/set-attr :type type)
                    (html/set-attr :name name)
