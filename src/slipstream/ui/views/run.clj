@@ -21,7 +21,7 @@
 
 (defn to-a
   [url]
-  (str "<a href='" url "'>" url "</a>"))
+  (str "<a href='/" url "'>" url "</a>"))
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [run]
