@@ -229,6 +229,13 @@ var dashboardUpdater = {
 	        $('#state').text(newStatus);
             $("#header-title-desc").text("State: " + newStatus);
 
+            var headerTitle = $('#header-title');
+            if(that.isAbort()) {
+                headerTitle.addClass('dashboard-error');
+            } else {
+                headerTitle.removeClass('dashboard-error');
+            }
+
 	        var runtimeParameters = $(run).find('runtimeParameter');
 			runtimeParameters.each(function (i, parameter) {
                 var key = $(parameter).attr('key');

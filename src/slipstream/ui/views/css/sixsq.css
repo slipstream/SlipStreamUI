@@ -91,6 +91,10 @@ th+td {
 	display: none;
 }
 
+#header-title-sub > a {
+    color: #50a7de;
+}
+
 #content {
 	float: none;
 	/* width: 980px; */

@@ -19,13 +19,17 @@
 
 ;; View
 
+(defn to-a
+  [url]
+  (str "<a href='" url "'>" url "</a>"))
+
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [run]
   header/header-summary-sel 
   (html/substitute 
     (let [attrs (common-model/attrs run)
           id (apply str (take common/take-run-no-of-chars (:uuid attrs)))
-          module (:moduleresourceuri attrs)
+          module (to-a (:moduleresourceuri attrs))
           state (:state attrs)
           category (:category attrs)]
       (header/header-titles-snip
