@@ -77,7 +77,11 @@ var dashboardUpdater = {
 	},
 	
 	isAbort: function(nodeName) {
-		return !(this.getRuntimeValue(nodeName, 'abort') === "");
+	    if(nodeName){
+    		return !(this.getRuntimeValue(nodeName, 'abort') === "");
+	    } else {
+    		return !(this.getGlobalRuntimeValue('abort') === "");
+	    }
 	},
 
     // VM active
