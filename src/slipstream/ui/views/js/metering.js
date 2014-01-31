@@ -54,7 +54,7 @@
                 success: function(samples, status, xhr) {
                     $this.empty();
 
-                    if (xhr.status == 204 || 'error' in samples) {
+                    if (xhr.status == 204 || samples === null || 'error' in samples) {
                         $("<div/>").addClass("empty-section").text("No samples currently available").appendTo($this);
                         return;
                     }
