@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.users
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -22,7 +23,7 @@
       "Users"
       "Administer your users"
       "This page provides you with an overview of the activities of all users"
-      "Users"))
+      "users"))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
                                 (user-model/attrs users))))
@@ -39,7 +40,10 @@
                              (html/content (:name attrs)))
                     [[:td (html/nth-of-type 2)]] (html/content (:firstname attrs))
                     [[:td (html/nth-of-type 3)]] (html/content (:lastname attrs))
-                    [[:td (html/nth-of-type 4)]] (html/content (:state attrs))))
+                    [[:td (html/nth-of-type 4)]] (html/content (:state attrs))
+                    [[:td (html/nth-of-type 5)] :> :i] (if (common-model/true-value? (:online attrs))
+                                                         (html/add-class "online")
+                                                         (html/remove-class "online"))))
 
 (html/defsnippet breadcrumb-snip common/breadcrumb-template-html common/breadcrumb-sel
   [name]
