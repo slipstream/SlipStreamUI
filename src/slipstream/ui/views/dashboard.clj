@@ -13,6 +13,7 @@
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
+            [slipstream.ui.views.run :as run]
             [slipstream.ui.views.base :as base]))
 
 (def dashboard-template-html "slipstream/ui/views/dashboard.html")
@@ -47,7 +48,7 @@
                     [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (run-model/convert-type (:type attrs))))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
-                                                         (html/content (apply str (take common/take-run-no-of-chars (:uuid attrs)))))
+                                                         (html/content (run/shorten-runid (:uuid attrs))))
                     [[:td (html/nth-of-type 3)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:moduleresourceuri attrs)))
                                                          (html/content (apply str (drop common/drop-module-slash-no-of-chars (:moduleresourceuri attrs)))))

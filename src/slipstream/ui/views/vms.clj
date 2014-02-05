@@ -3,6 +3,7 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.run :as run]
             [slipstream.ui.views.base :as base]))
 
 (def vms-template-html "slipstream/ui/views/vms-template.html")
@@ -18,8 +19,8 @@
                      [attrs (module-model/attrs vm)]]
                     [[:a]] (html/do->
                              (html/set-attr :href (str "/run/" (:runuuid attrs)))
-                             (html/content (:runuuid attrs)))
-                    [[:td (html/nth-of-type 2)]] (html/content (:status attrs))
+                             (html/content (run/shorten-runid (:runuuid attrs))))
+                    [[:td (html/nth-of-type 2)]] (html/content (:state attrs))
                     [[:td (html/nth-of-type 3)]] (html/content (:instanceid attrs))
                     [[:td (html/nth-of-type 4)]] (html/content (:cloud attrs))))
 
@@ -45,5 +46,5 @@
 (defn page [vms]
   (vms-template
     (common-model/group-by-key
-      :cloudservicename
+      :cloud
       (html/select vms [:vm]))))

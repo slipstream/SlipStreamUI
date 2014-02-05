@@ -16,7 +16,6 @@
 (defn title [value]
   (str slipstream-with-trademark " | " value))
 
-(def take-run-no-of-chars 8)
 (def drop-module-slash-no-of-chars 7)
 
 ; Icon
