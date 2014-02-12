@@ -63,35 +63,45 @@ $(document).ready(function() {
     // default) layout with tabs, not all elements from the DOM are not
     // visible by default. So we trigger the grid redraw when accordion is
     // activated and each time a metric tab is activated.
-    function refresh(plot) {
+    function refreshHistograms(plot) {
         if (plot) {
             plot.setupGrid();
             plot.draw();
         }
     }
 
+    function refreshGauges(parent) {
+        $(".gauge", parent).each(function(idx, elem) {
+            var $elem = $(elem);
+            new JustGage({
+              id: elem.id,
+              value: $elem.data('quota-current'),
+              min: 0,
+              max: $elem.data('quota-max') || 100,
+              title: $elem.data('quota-title'),
+              levelColorsGradient: false
+            });
+        });
+    }
+
     $(".accordion").on("accordionactivate", function(event, ui) {
-        if (ui.newPanel.length && ui.newPanel[0].id == "metering-header") {
-            var plot = $("div.col2", ui.newPanel).first().data('plot');
-            refresh(plot);
+        if (ui.newPanel.length) {
+            if (ui.newPanel[0].id == "metering") {
+                var plot = $("div.col2", ui.newPanel).first().data('plot');
+                refreshHistograms(plot);
+            }
+            if (ui.newPanel[0].id == "quota") {
+                refreshGauges(ui.newPanel);
+            }
         }
     });
 
     $("#metering").on("tabsactivate", function(event, ui) {
         var plot = $(".col2", ui.newPanel).data('plot');
-        refresh(plot);
+        refreshHistograms(plot);
     });
-    // --
 
-    $(".gauge").each(function(idx, elem) {
-        var $elem = $(elem).width(200).height(160).css("display", "inline-block");
-        new JustGage({
-          id: elem.id,
-          value: $elem.data('quota-current'),
-          min: 0,
-          max: $elem.data('quota-max') || 100,
-          title: $elem.data('quota-title'),
-          levelColorsGradient: false
-        });
+    $("#quota").on("tabsactivate", function(event, ui) {
+        refreshGauges(ui.newPanel);
     });
 });
