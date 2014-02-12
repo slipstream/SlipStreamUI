@@ -84,7 +84,7 @@ $(document).ready(function() {
     // --
 
     $(".gauge").each(function(idx, elem) {
-        $elem = $(elem);
+        var $elem = $(elem).width(200).height(160).css("display", "inline-block");
         new JustGage({
           id: elem.id,
           value: $elem.data('quota-current'),
