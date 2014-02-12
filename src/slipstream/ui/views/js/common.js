@@ -805,7 +805,12 @@ var $$ = {
 	},
 
     resizeIframe: function(iframe) {
-        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        var resized = parseInt(iframe.contentWindow.document.body.scrollHeight);
+        var maxHeight = 400;
+        if(maxHeight > 400) {
+            maxHeight = 400;
+        }
+        iframe.style.height = maxHeight + 'px';
     },
 
     iframeLoaded: function(iframe) {

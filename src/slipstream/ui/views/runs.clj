@@ -7,6 +7,7 @@
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
+            [slipstream.ui.views.run :as run]
             [slipstream.ui.views.module-base :as module-base]))
 
 (def runs-template-html "slipstream/ui/views/runs-template.html")
@@ -36,7 +37,7 @@
                     [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
-                                                         (html/content (apply str (take common/take-run-no-of-chars (:uuid attrs)))))
+                                                         (html/content (run/shorten-runid (:uuid attrs))))
                     [[:td (html/nth-of-type 3)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:moduleresourceuri attrs)))
                                                          (html/content (apply str (drop common/drop-module-slash-no-of-chars (:moduleresourceuri attrs)))))

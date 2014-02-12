@@ -77,7 +77,11 @@ var dashboardUpdater = {
 	},
 	
 	isAbort: function(nodeName) {
-		return !(this.getRuntimeValue(nodeName, 'abort') === "");
+	    if(nodeName){
+    		return !(this.getRuntimeValue(nodeName, 'abort') === "");
+	    } else {
+    		return !(this.getGlobalRuntimeValue('abort') === "");
+	    }
 	},
 
     // VM active
@@ -228,6 +232,13 @@ var dashboardUpdater = {
 	        var newStatus = $(run).attr('state');
 	        $('#state').text(newStatus);
             $("#header-title-desc").text("State: " + newStatus);
+
+            var headerTitle = $('#header-title');
+            if(that.isAbort()) {
+                headerTitle.addClass('dashboard-error');
+            } else {
+                headerTitle.removeClass('dashboard-error');
+            }
 
 	        var runtimeParameters = $(run).find('runtimeParameter');
 			runtimeParameters.each(function (i, parameter) {

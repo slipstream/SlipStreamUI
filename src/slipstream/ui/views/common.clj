@@ -16,7 +16,6 @@
 (defn title [value]
   (str slipstream-with-trademark " | " value))
 
-(def take-run-no-of-chars 8)
 (def drop-module-slash-no-of-chars 7)
 
 ; Icon
@@ -256,12 +255,14 @@
   
 
 (html/defsnippet input-snip inputs-template-html [:input]
-  [name placeholder value type]
+  [name placeholder value type & [auto?]]
   html/this-node (html/do->
                    (html/set-attr :type type)
                    (html/set-attr :name name)
                    (html/set-attr :placeholder placeholder)
-                   (html/set-attr :value value)))
+                   (html/set-attr :value value)
+                   (if-not auto?
+                     (html/set-attr :autocomplete "off"))))
 
 (html/defsnippet textarea-snip inputs-template-html [:textarea]
   [name placeholder value]
@@ -317,7 +318,7 @@
         defaultvalue ""
         value (param-val-default parameter)
         type "password"]
-  (input-snip name defaultvalue value type)))
+  (input-snip name defaultvalue value type false)))
 
 (defmethod set-input-value "Enum"
   [parameter tr-id]

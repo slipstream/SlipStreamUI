@@ -91,6 +91,10 @@ th+td {
 	display: none;
 }
 
+#header-title-sub > a {
+    color: white;
+}
+
 #content {
 	float: none;
 	/* width: 980px; */
@@ -334,12 +338,12 @@ th+td {
     content: "\f0e8"; /*fa-sitemap*/
 }
 
-.user_category {
+.user_category, .users_category {
     padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
-.user_category:before {
+.user_category:before, .users_category:before {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
@@ -347,6 +351,14 @@ th+td {
     left: 0px;
     padding-right: 0.5em;
     content: "\f007"; /*icon-user*/
+}
+
+.user_category:before {
+    content: "\f007"; /*icon-user*/
+}
+
+.users_category:before {
+    content: "\f0c0"; /*icon-users*/
 }
 
 .config_category {
@@ -1447,3 +1459,12 @@ th.remove {
 #nodes th:nth-of-type(3) {
     width: 16px;
 }
+
+.icon-circle {
+    color: gray;
+}
+
+.online {
+    color: green;
+}
+
