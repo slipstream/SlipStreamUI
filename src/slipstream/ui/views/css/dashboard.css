@@ -57,9 +57,3 @@
     -moz-border-radius: 4px;
     border-radius: 4px;
 }
-
-#gauge-vm, #gauge-cpu, #gauge-memory, #gauge-disk {
-    width: 200px;
-    height: 160px;
-    display: inline-block;
-}
