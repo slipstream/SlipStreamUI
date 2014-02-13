@@ -51,7 +51,7 @@ $(document).ready(function() {
             var panel_idx = $("#metering").tabs('option', 'active');
             panel = $("#metering .ui-tabs-panel").get(panel_idx);
         }
-        var opt_idx = $("#metering-selector option:selected", this).val() || '1h';
+        var opt_idx = $("#metering-selector option:selected").val();
         var opt = OPTIONS[opt_idx];
 
         $(panel).metrics({
