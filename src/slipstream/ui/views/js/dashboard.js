@@ -26,53 +26,46 @@ $(document).ready(function() {
     };
     $.get("/vms", fillVms, "html");
 
-    $("#metering div.metric").metrics();
-
-    var now = Math.ceil(new Date() / 1000);  // datetime in seconds
     var OPTIONS = {
         "1h": {
-            period: 600,  // 10 minutes, in seconds
-            groupby: "source",
-            start_timestamp: now - 60*60  // last hour, in seconds
+            rollup: 600,            // 10 minutes, in seconds
+            period: 60*60           // 1 hour, in seconds
         },
         "1d": {
-            period: 3600,  // 1 hours, in seconds
-            groupby: "source",
-            start_timestamp: now - 60*60*24  // last day, in seconds
+            rollup: 3600,           // 1 hours, in seconds
+            period: 60*60*24        // 1 day, in seconds
         },
         "7d": {
-            period: 86400,  // 1 day, in seconds
-            groupby: "source",
-            start_timestamp: now - 60*60*24*7  // last 7 days, in seconds
+            rollup: 86400,          // 1 day, in seconds
+            period: 60*60*24*7      // 7 days, in seconds
         },
         "30d": {
-            period: 86400,  // 1 day, in seconds
-            groupby: "source",
-            start_timestamp: now - 60*60*24*30  // last 30 days, in seconds
+            rollup: 86400,          // 1 day, in seconds
+            period: 60*60*24*30     // 30 days, in seconds
         }
     };
-    $("#metering-selector").change(function() {
-        var opt = $("option:selected", this).val();
-        $("#metering div.metric").metrics({params: OPTIONS[opt]});
-    });
 
-    // The next two event handlers are dedicated to redraw the plot grid
-    // ensuring axis labels are displayed as expected. Indeed, we found that
-    // when a DOM element is hidden (not visible for the user), axis labels
-    // are missing. Because we are using an accordion widget (collapsed by
-    // default) layout with tabs, not all elements from the DOM are not
-    // visible by default. So we trigger the grid redraw when accordion is
-    // activated and each time a metric tab is activated.
-    function refreshHistograms(plot) {
-        if (plot) {
-            plot.setupGrid();
-            plot.draw();
+
+    function drawHistograms(panel) {
+        if (panel === undefined) {
+            var panel_idx = $("#metering").tabs('option', 'active');
+            panel = $("#metering .ui-tabs-panel").get(panel_idx);
         }
+        var opt_idx = $("#metering-selector option:selected", this).val() || '1h';
+        var opt = OPTIONS[opt_idx];
+
+        $(panel).metrics({
+            params: {
+                period: opt["rollup"],
+                groupby: "source",
+                start_timestamp: Math.ceil(new Date() / 1000) - opt["period"]
+            }
+        });
     }
 
-    function refreshGauges(parent) {
-        $(".gauge", parent).each(function(idx, elem) {
-            var $elem = $(elem);
+    function drawGauges(panel) {
+        $(".gauge", panel).each(function(idx, elem) {
+            var $elem = $(elem).empty();
             new JustGage({
               id: elem.id,
               value: $elem.data('quota-current'),
@@ -84,24 +77,26 @@ $(document).ready(function() {
         });
     }
 
+    $("#metering-selector").change(function() {
+        drawHistograms();
+    });
+
     $(".accordion").on("accordionactivate", function(event, ui) {
         if (ui.newPanel.length) {
             if (ui.newPanel[0].id == "metering") {
-                var plot = $("div.col2", ui.newPanel).first().data('plot');
-                refreshHistograms(plot);
+                drawHistograms();
             }
             if (ui.newPanel[0].id == "quota") {
-                refreshGauges(ui.newPanel);
+                drawGauges(ui.newPanel);
             }
         }
     });
 
     $("#metering").on("tabsactivate", function(event, ui) {
-        var plot = $(".col2", ui.newPanel).data('plot');
-        refreshHistograms(plot);
+        drawHistograms(ui.newPanel);
     });
 
     $("#quota").on("tabsactivate", function(event, ui) {
-        refreshGauges(ui.newPanel);
+        drawGauges(ui.newPanel);
     });
 });
