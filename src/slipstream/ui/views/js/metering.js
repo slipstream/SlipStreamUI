@@ -53,6 +53,7 @@
                 xaxis: {
                     show: true,
                     mode: "time",
+                    timezone: "browser",
                     reserveSpace: true
                 },
                 yaxis: {

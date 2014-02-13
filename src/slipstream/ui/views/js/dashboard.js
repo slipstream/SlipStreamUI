@@ -45,7 +45,6 @@ $(document).ready(function() {
         }
     };
 
-
     function drawHistograms(panel) {
         if (panel === undefined) {
             var panel_idx = $("#metering").tabs('option', 'active');
