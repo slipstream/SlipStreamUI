@@ -2,7 +2,7 @@
     $.fn.metrics = function(options) {
         var settings = $.extend({
             url: "/meters/<meter>/statistics",
-            colors: ["rgb(77, 169, 68)", "rgb(56, 128, 170)"],
+            colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
             params: {
                 period: 600,  // 10 minutes, in seconds
                 groupby: "source",
