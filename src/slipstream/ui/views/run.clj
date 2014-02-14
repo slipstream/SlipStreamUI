@@ -31,8 +31,8 @@
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [run]
-  header/header-summary-sel 
-  (html/substitute 
+  header/header-summary-sel
+  (html/substitute
     (let [attrs (common-model/attrs run)
           id (shorten-runid (:uuid attrs))
           module (to-a (:moduleresourceuri attrs))
@@ -52,7 +52,7 @@
   [parameters]
   (html/clone-for
     [parameter parameters
-     :let 
+     :let
      [attrs (common-model/attrs parameter)
       name (:key attrs)
       description (:description attrs)
@@ -73,7 +73,7 @@
   "In this case, grouped by vm name (e.g. testclient1.1)"
   [parameters-by-group]
   (for [grouped parameters-by-group]
-    (list 
+    (list
       (html/html-snippet (str "\n    <h3>" (key grouped) "</h3>"))
       (runtime-parameters-snip (val grouped)))))
 
@@ -109,7 +109,8 @@
   runtime-parameters-header-sel nil
   runtime-parameters-sel nil
 
-  [:#reports :> :iframe] (html/set-attr :src (str "/reports/" (:uuid (common-model/attrs run)))))
+  [:#reports :> :iframe]
+  (html/set-attr :src (str "/reports/" (:uuid (common-model/attrs run)) "/")))
 
 ;; CSS inclusion
 
@@ -131,7 +132,7 @@
 ;; Main function
 
 (defn page [run]
-  (base/base 
+  (base/base
     {:css-stylesheets (css-stylesheets)
      :js-scripts (js-scripts)
      :title (common/title (run-model/module-name run))
