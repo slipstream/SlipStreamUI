@@ -11,10 +11,10 @@
 (def interations-template-html "slipstream/ui/views/interations.html")
 (def inputs-template-html "slipstream/ui/views/inputs.html")
 
-(def slipstream-with-trademark "SlipStream™")
+(def slipstream "SlipStream")
 
 (defn title [value]
-  (str slipstream-with-trademark " | " value))
+  (str slipstream " | " value))
 
 (def drop-module-slash-no-of-chars 7)
 
