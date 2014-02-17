@@ -374,7 +374,7 @@ th+td {
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f0ad"; # icon-wrench
+    content: "\f0ad"; /*icon-wrench*/
 }
 
 /* Bottom of the Header!! */
@@ -1344,10 +1344,6 @@ html body .small_delete {
 .packages td:nth-of-type(4),
 .parameters td:nth-of-type(4) {
     width: 5%;
-}
-
-.bottom_section_button {
-//    margin: 10px;
 }
 
 iframe {
