@@ -6,6 +6,7 @@
 (def root-uri "configuration/")
 (def root-uri-length (count root-uri))
 (def metering-enable-param "slipstream.metering.enable")
+(def quota-enable-param "slipstream.quota.enable")
 (def service-catalog-enable-param "slipstream.service.catalog.enable")
 
 (defn attrs
@@ -23,6 +24,10 @@
 (defn metering-enabled?
   [metadata]
   (common/true-value? (common/value (parameter metadata metering-enable-param))))
+
+(defn quota-enabled?
+  [metadata]
+  (common/true-value? (common/value (parameter metadata quota-enable-param))))
 
 (defn service-catalog-enabled?
   [metadata]

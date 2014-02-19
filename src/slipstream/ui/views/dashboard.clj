@@ -21,9 +21,13 @@
 (def metering-sel [:#metering])
 (def metering-header-sel [:#metering-header])
 
+(def quota-sel [:#quota])
+(def quota-header-sel [:#quota-header])
+
 (def runs-sel [:#runs])
-(def vms-sel [:#vms])
 (def runs-fragment-sel [:#fragment-runs-somecloud])
+
+(def vms-sel [:#vms])
 (def vms-fragment-sel [:#fragment-vms-somecloud])
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
@@ -116,6 +120,11 @@
 
   [#{metering-sel metering-header-sel}]
   (if (configuration-model/metering-enabled? dashboard)
+    identity
+    nil)
+
+  [#{quota-sel quota-header-sel}]
+  (if (configuration-model/quota-enabled? dashboard)
     identity
     nil))
 

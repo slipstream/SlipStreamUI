@@ -28,7 +28,7 @@
 
 .dashboard-vm-ok {
     font-family: FontAwesome;
-    content: "\f07c"; # icon-folder-open;
+    content: "\f07c"; /*icon-folder-open*/
 }
 
 .dashboard-vm-error {
