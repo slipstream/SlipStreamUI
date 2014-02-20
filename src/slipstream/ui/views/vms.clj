@@ -21,8 +21,8 @@
                              (html/set-attr :href (str "/run/" (:runuuid attrs)))
                              (html/content (run/shorten-runid (:runuuid attrs))))
                     [[:td (html/nth-of-type 2)]] (html/content (:state attrs))
-                    [[:td (html/nth-of-type 3)]] (html/content (:instanceid attrs))
-                    [[:td (html/nth-of-type 4)]] (html/content (:cloud attrs))))
+                    [[:td (html/nth-of-type 3)]] (html/content (:user attrs))
+                    [[:td (html/nth-of-type 4)]] (html/content (:instanceid attrs))))
 
 (html/defsnippet vms-snip vms-template-html vms-sel
   [grouped-by-cloud]
