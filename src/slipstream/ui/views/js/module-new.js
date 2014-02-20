@@ -37,6 +37,10 @@ $(document).ready(function() {
 				    parentname = "";
 				}
 				var moduleShortName = $("#module-short-name").val();
+				if(moduleShortName === "") {
+				    $$.showError("Missing new name");
+				    return false;
+				}
             	var fullname = parentname + moduleShortName;
             	$("#form-save").attr("action", "/module/" + fullname + "?new=true")
                 $("#module-name-input").val(fullname);
