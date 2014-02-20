@@ -13,6 +13,11 @@
   [file-name]
   (first (clojure.string/split (str file-name) #"_report")))
 
+(defn strip-domain
+  [url]
+  (let [reports "/reports/"]
+    (str reports (last (clojure.string/split url (re-pattern reports))))))
+
 (defn insert-reports
   [reports]
   (let 
@@ -22,7 +27,7 @@
       (html/clone-for
         [a as]
         [:a] (html/do->
-               (html/set-attr :href (:href (common-model/attrs a)))
+               (html/set-attr :href (strip-domain (:href (common-model/attrs a))))
                (html/content (extract-vm-name (common-model/content a))))))))
 
 
