@@ -30,12 +30,16 @@ html {
 body {
 	margin: 0;
 	padding: 0;
+	font: 14px Calibri, "Lucida Grande", Lucida, Verdana, sans-serif;
+	color: #333;
+	/*
 	font-family: 'Arial', sans-serif;
-	font-size: 0.75em;/*12px*/
-	color: #4f4f4f;
+	font-size: 0.75em; 12px
+	color: #4f4f4f;*/
 	width: 100%;
 	/* min-width: 990px; */ /* liquid layout */
-	background: #ffffff url('../images/body.jpg') repeat-x scroll left top;
+	background: #ffffff url('../images/body.png') repeat-x scroll left top;
+	background-position: 0 12px;
 }
 
 body *, body :focus, a {
@@ -47,10 +51,16 @@ table {
 }
 
 a {
-    color:#23A4FF;
+	color: #117cc1;
 	text-decoration: none;
 }
 
+/*
+a {
+    color:#23A4FF;
+	text-decoration: none;
+}
+*/
 img {
 	border: none;
 }
@@ -91,14 +101,10 @@ th+td {
 	display: none;
 }
 
-#header-title-sub > a {
-    color: white;
-}
-
 #content {
 	float: none;
 	/* width: 980px; */
-	width: 98%; /* liquid layout */
+	width: 100%; /* liquid layout */
 	margin: 0px auto 0px auto;
 }
 
@@ -107,23 +113,24 @@ th+td {
 .top {
 	position: relative;
 	margin: 0px auto;
-	padding: 7px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 .logo {
 	position: absolute;
-	top: 12px;
-	left: 20px;
+	left: 0px;
 	display: block;
-	width: 130px;
-	height: 28px;
-	background: transparent url('../images/logo_slipstream.png') no-repeat scroll left top;
+	width: 163px;
+	height: 79px;
+	background: transparent url('../images/LogoHN.png') no-repeat scroll left top;
 }
+
+
 
 .menu_bar {
 	width: 100%; /* liquid layout */
-    max-width: 990px; /* liquid layout */
-	height: 43px;
+    max-width: 966px; /* liquid layout */
+	height: 85px;
 	margin: 0px auto;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -132,48 +139,46 @@ th+td {
     /*-webkit-box-shadow: 0px 0px 2px 0px black;
     box-shadow: 0px 0px 2px 0px black;*/
     
-    background: #bc0318; /* Old browsers */
+    /*background: #bc0318; /* Old browsers */
+    
+	background:	#FFFFFF;
+	/*
     background: -moz-linear-gradient(top,  #bc0318 0%, #660000 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bc0318), color-stop(100%,#660000)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #bc0318 0%,#660000 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #bc0318 0%,#660000 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #bc0318 0%,#660000 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #bc0318 0%,#660000 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc0318', endColorstr='#660000',GradientType=0 ); /* IE6-9 */
-}
-
-.menu_bar ul,
-.menu_bar ul li {
-	margin: 0;
-	padding: 0 10px 0 0;
-	list-style: none;
-	list-style-image: none;
+   /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bc0318), color-stop(100%,#660000)); /* Chrome,Safari4+ */
+  	/*background: -webkit-linear-gradient(top,  #bc0318 0%,#660000 100%); /* Chrome10+,Safari5.1+ */*/
+    /*background: -o-linear-gradient(top,  #bc0318 0%,#660000 100%); /* Opera 11.10+ */
+   /* background: -ms-linear-gradient(top,  #bc0318 0%,#660000 100%); /* IE10+ */
+   /* background: linear-gradient(to bottom,  #bc0318 0%,#660000 100%); /* W3C */
+   /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc0318', endColorstr='#660000',GradientType=0 ); /* IE6-9 */
+    
 }
 
 .menu_bar ul {
 	float: right;
+	margin-top: 0px;
 }
 
 .menu_bar ul li {
-	float: left;
-	padding-top: 9px;
+	display: inline;
 }
 
-.menu_bar ul li.separation a {
-	display: block;
-	border-left: 1px solid #ffffff;
-	padding: 0px 0 0 10px;
-	margin: 0px;
-	line-height: 14px;
-	color: #ffffff;
+
+.menu_bar li a {
+	display: inline-block;
+	background-color: #eee;
+	padding: 3px 10px 10px 10px;
+	border-bottom: 3px solid #367dbd;
+	background-color: #ededed;
+	-moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+	margin: 0 0 0 8px;
 }
 
-.menu_bar ul li a {
-	border: none;
-}
-
-.menu_bar a {
-	color: white;
+.menu_bar li a:hover, #menu li a.menuactive {
+	color: #eee;
+	background-color: #367dbd;
+	border-bottom-color: #eee;
 }
 
 .dashboard-icon i {
@@ -338,12 +343,12 @@ th+td {
     content: "\f0e8"; /*fa-sitemap*/
 }
 
-.user_category, .users_category {
+.user_category {
     padding: 0px 0px 0px 5px !important;
     position: relative;
 }
 
-.user_category:before, .users_category:before {
+.user_category:before {
     position: relative;
     font-family: FontAwesome;
     font-size: 1.5em;
@@ -351,14 +356,6 @@ th+td {
     left: 0px;
     padding-right: 0.5em;
     content: "\f007"; /*icon-user*/
-}
-
-.user_category:before {
-    content: "\f007"; /*icon-user*/
-}
-
-.users_category:before {
-    content: "\f0c0"; /*icon-users*/
 }
 
 .config_category {
@@ -374,7 +371,7 @@ th+td {
     top: 5%;
     left: 0px;
     padding-right: 0.5em;
-    content: "\f0ad"; /*icon-wrench*/
+    content: "\f0ad"; # icon-wrench
 }
 
 /* Bottom of the Header!! */
@@ -396,26 +393,26 @@ th+td {
 
 .bottom_no_icon {
 	/* width: 955px; */
-	width: 96%; /* liquid layout */
-	height: 106px;
+	width: 97%; /* liquid layout */
+	height: 169px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
 	-moz-border-radius: 0px 0px 3px 3px;
 	-webkit-border-radius: 0px 0px 3px 3px;
 	padding: 25px 0px 25px 25px;
-	background: #262626;
+	background: #367dbd;
 }
 
 .bottom_with_slider {
 	/* width: 920px; */
 	width: 92%; /* liquid layout */
-	height: 106px;
+	height: 169px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
 	-moz-border-radius: 0px 0px 3px 3px;
 	-webkit-border-radius: 0px 0px 3px 3px;
 	padding: 25px 0px 25px 60px;
-	background: #262626;
+	background: #367dbd;
 }
 
 .bottom h3,
@@ -435,7 +432,8 @@ th+td {
 	border-bottom: 1px solid #515151;
 	padding-bottom: 0;
 	font-size: 3.167em;/*38px*/
-	color: #50a7de;
+	/*color: #50a7de;*/
+	color: white;
 	font-family: 'helveticaneueltstdmdcn', 'Arial Narrow', 'Arial', sans-serif;
 	line-height: 40px;
 }
@@ -534,10 +532,13 @@ th+td {
 /* Footer */
 
 #footer {
-	clear: both;
-	width: 100%; /* liquid layout */
-    max-width: 990px; /* liquid layout */
-	margin: 10px auto 20px auto;
+	 clear: both;
+	border-top: 3px solid #367dbd;
+	font-size: 11px;
+	width: 957px;
+	margin: 5px 10px;
+	padding: 5px;
+	background: url(/img/bg_grigio.png) #c7ddef;
 }
 
 .footer_inner {
@@ -599,7 +600,7 @@ th+td {
 .navigation {
 	position: relative;
 	margin: 0 6px 0 5px;
-	height: 39px;
+	height: 45px;
 	border-width: 1px 0;
 	border-color: #b8b8b8;
 }
@@ -682,21 +683,24 @@ ul.interaction li {
 .interaction li input,
 .ui-button {
 	border: none;
-	height: 23px;
+	/*height: 23px;*/
+	padding: 8 10px 15px 10px;
+	margin: 0;
 	line-height: 23px;
-	padding: 0 11px;
+	/*
+	padding: 10px 10px 15px 10px;
 	margin: 0 2px;
-	background-color: #ffffff;
+	*/
+	background-color: #ededed;
 	color: #000000;
 	cursor: pointer;
 	font-size: 1em;
 	font-family: 'Arial';
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+	border-bottom: 3px solid #367dbd;
 	
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
-
-	-webkit-box-shadow: 0px 1px 3px 0px #b2b2b2;
-	box-shadow: 0px 1px 3px 0px #b2b2b2;
 }
 
 .ui-dialog-buttonset {
@@ -707,7 +711,7 @@ ul.interaction li {
 .interaction li.attention button,
 .interaction li.attention input,
 .ui-button {
-	background-color: #af1921;
+	background-color: #17025C;
 	color: #ffffff;
 }
 
@@ -742,7 +746,7 @@ ul.interaction li {
 	margin: 2px 0 2px 0;
 	height: 38px;
 	line-height: 38px;
-	color: #ffffff;
+	color: #367dbd;
 	text-indent: 11px;
 	cursor: pointer;
 	
@@ -758,7 +762,8 @@ ul.interaction li {
 	background: -webkit-linear-gradient(top,  #404040 0%,#262626 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top,  #404040 0%,#262626 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #404040 0%,#262626 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #404040 0%,#262626 100%); /* W3C */
+	background:	#ededed
+	/*background: linear-gradient(to bottom,  #404040 0%,#262626 100%); /* W3C */
 }
 
 .summary h3 a {
@@ -1346,6 +1351,10 @@ html body .small_delete {
     width: 5%;
 }
 
+.bottom_section_button {
+//    margin: 10px;
+}
+
 iframe {
     width: 100%;
     height: 680px;
@@ -1441,7 +1450,6 @@ li {
 .inactive {
     pointer-events: none;
     cursor: default;
-    color: black;
 }
 
 th.remove {
@@ -1456,12 +1464,3 @@ th.remove {
 #nodes th:nth-of-type(3) {
     width: 16px;
 }
-
-.icon-circle {
-    color: gray;
-}
-
-.online {
-    color: green;
-}
-
