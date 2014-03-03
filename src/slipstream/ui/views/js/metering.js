@@ -90,16 +90,28 @@
             return [ _get_current_series(series), _get_past_series(series) ];
         }
 
+        function zero_fill(series, key) {
+            if (series[key] === undefined) {
+                var period = settings['params']['period'],
+                    start_idx = Math.ceil(settings['params']['start_timestamp'] / period),
+                    end_idx = Math.ceil(settings['params']['end_timestamp'] / period),
+                    count = end_idx - start_idx;
+                series[key] = Array();
+                for (var idx=0; idx<count; idx++) {
+                    series[key].push([(start_idx + idx ) * period * 1000, 0]);
+                }
+            }
+        }
+
         function _gen_series(samples) {
-            var series = {};
+            var series = {},
+                period = settings['params']['period'],
+                ts_start = Math.ceil(settings['params']['start_timestamp'] / period) * period;
             $.each(samples, function(index, sample) {
                 var key = sample.groupby.source,
-                    serie = [ sample.period_start * 1000.0, sample.mean ];
-                if (key in series) {
-                    series[key].push(serie);
-                } else {
-                    series[key] = Array(serie);
-                }
+                    idx = Math.floor((sample.period_start - ts_start) / period);
+                zero_fill(series, key);
+                series[key][idx] = [ sample.period_start * 1000, sample.mean ];
             });
             return series;
         }

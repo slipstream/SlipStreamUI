@@ -57,7 +57,8 @@ $(document).ready(function() {
             params: {
                 period: opt["rollup"],
                 groupby: "source",
-                start_timestamp: Math.ceil(new Date() / 1000) - opt["period"]
+                start_timestamp: Math.ceil(new Date() / 1000) - opt["period"],
+                end_timestamp: Math.ceil(new Date() / 1000)
             }
         });
     }
