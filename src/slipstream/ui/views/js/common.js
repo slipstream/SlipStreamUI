@@ -558,8 +558,8 @@ var $$ = {
 		element.show();
 	},
 	showError: function(message) {
-		hideSubmitMessage();
-		show($('#error'), message);
+		$$.hideSubmitMessage();
+		$$.show($('#error'), message);
 	},
 	hideError: function() {
 		$('#error').hide();
