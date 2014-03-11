@@ -102,7 +102,11 @@
 			<groupId>enlive</groupId>
 			<artifactId>enlive</artifactId>
 		</dependency>
-		<dependency>
+		 <dependency>
+		 	<groupId>jline</groupId>
+		 	<artifactId>jline</artifactId>
+		 </dependency>
+		 <dependency>
 			<groupId>ring</groupId>
 			<artifactId>ring</artifactId>
 		</dependency>
