@@ -48,6 +48,12 @@
                               (header/header-top-bar-snip
                                 (user-model/attrs run))))
 
+(defn- param-render-fn
+  [name]
+  (if (.startsWith name "url.")
+    to-a
+    identity))
+
 (defn- clone-runtime-parameters
   [parameters]
   (html/clone-for
@@ -56,7 +62,7 @@
      [attrs (common-model/attrs parameter)
       name (:key attrs)
       description (:description attrs)
-      value (common/runtime-parameter-value parameter)]]
+      value ((param-render-fn name) (common/runtime-parameter-value parameter))]]
     [[:td (html/nth-of-type 1)]] (html/content name)
     [[:td (html/nth-of-type 2)]] (html/content description)
     [[:td (html/nth-of-type 3)]] (html/do->
