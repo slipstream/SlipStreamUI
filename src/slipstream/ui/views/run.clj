@@ -25,6 +25,11 @@
   [url]
   (str "<a href='/" url "'>" url "</a>"))
 
+(defn to-a-snip
+  [url]
+  ;; need to sanitize the URL
+  (html/html-snippet (str "<a href='" url "'>" url "</a>")))
+
 (defn shorten-runid
   [runid]
   (apply str (take take-run-no-of-chars runid)))
@@ -48,11 +53,24 @@
                               (header/header-top-bar-snip
                                 (user-model/attrs run))))
 
+(defn- parse-parameter
+  "Parses an absolute parameter name and returns a three-element
+   vector containing the machine name, index, and full parameter
+   name; if the parameter is not absolute then [nil nil pname] is
+   returned."
+  [pname]
+  (if-let [v (re-matches #"([\w\.-]+?)(?:\.(\d+))?:(.*)" pname)]
+    (rest v)
+    [nil nil pname]))
+
 (defn- param-render-fn
-  [name]
-  (if (.startsWith name "url.")
-    to-a
-    identity))
+  "Returns a function to process a parameter value depending on
+   whether the parameter name indicates it is a URL."
+  [p]
+  (let [[_ _ pname] (parse-parameter p)]
+    (if (.startsWith pname "url.")
+      to-a-snip
+      identity)))
 
 (defn- clone-runtime-parameters
   [parameters]
