@@ -3,6 +3,7 @@
 /classes
 /checkouts
 README.html
+.idea
 *~
 *.jar
 *.class
