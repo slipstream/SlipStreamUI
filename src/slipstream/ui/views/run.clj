@@ -6,11 +6,13 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.common :as common-model]
+            [slipstream.ui.models.parameter :as parameter-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.run :as run-model]))
 
 (def run-template-html "slipstream/ui/views/run.html")
 (def runtime-parameters-template-html "slipstream/ui/views/runtime-parameters.html")
+(def util-template-html "slipstream/ui/views/util.html")
 
 (def summary-sel [:#summary])
 (def parameters-sel [:#parameters])
@@ -25,10 +27,12 @@
   [url]
   (str "<a href='/" url "'>" url "</a>"))
 
-(defn to-a-snip
+(html/defsnippet to-a-snip util-template-html [:#a]
   [url]
-  ;; need to sanitize the URL
-  (html/html-snippet (str "<a href='" url "'>" url "</a>")))
+  html/this-node (html/do->
+                   (html/content url)
+                   (html/set-attr :href url)
+                   (html/remove-attr :id)))
 
 (defn shorten-runid
   [runid]
@@ -53,24 +57,13 @@
                               (header/header-top-bar-snip
                                 (user-model/attrs run))))
 
-(defn- parse-parameter
-  "Parses an absolute parameter name and returns a three-element
-   vector containing the machine name, index, and full parameter
-   name; if the parameter is not absolute then [nil nil pname] is
-   returned."
-  [pname]
-  (if-let [v (re-matches #"([\w\.-]+?)(?:\.(\d+))?:(.*)" pname)]
-    (rest v)
-    [nil nil pname]))
-
 (defn- param-render-fn
   "Returns a function to process a parameter value depending on
    whether the parameter name indicates it is a URL."
   [p]
-  (let [[_ _ pname] (parse-parameter p)]
-    (if (.startsWith pname "url.")
-      to-a-snip
-      identity)))
+  (if (parameter-model/url-param? p)
+    to-a-snip
+    identity))
 
 (defn- clone-runtime-parameters
   [parameters]
