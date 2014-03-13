@@ -218,4 +218,6 @@
 ;; The App
 ;; =============================================================================
 
-(defonce ^:dynamic *server* (utils/run-server routes))
+(defn run-test-server
+  []
+  (utils/run-server routes))
