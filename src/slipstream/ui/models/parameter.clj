@@ -4,11 +4,12 @@
   "Parses an absolute parameter name and returns a three-element
    vector containing the machine name, index, and full parameter
    name; if the parameter is not absolute then [nil nil pname] is
-   returned."
+   returned.  This function is tolerant of leading or trailing
+   whitespace, which will be stripped from the result."
   [pname]
-  (if-let [v (re-matches #"([\w\.-]+?)(?:\.(\d+))?:(.*)" pname)]
+  (if-let [v (re-matches #"\s*([\w\.-]+?)(?:\.(\d+))?:(\S*)\s*" pname)]
     (rest v)
-    [nil nil pname]))
+    [nil nil (.trim pname)]))
 
 (defn param-name
   [qualified-param]
