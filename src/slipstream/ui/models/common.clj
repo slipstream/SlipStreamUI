@@ -109,7 +109,6 @@
 
 (defn sort-map-vals-by-name
   [m]
-  (prn m)
   (map-on-vals sort-by-name m))
 
 (defn true-value?
