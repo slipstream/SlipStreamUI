@@ -80,21 +80,38 @@
   (let [grouped (group-by-category parameters)]
     (apply dissoc grouped categories)))
 
-(defn sort-by-key
-  [list _key]
-  (flatten 
-    (vals 
-      (into 
-        (sorted-map) (group-by #(_key (:attrs %)) list)))))
-  
+(defn map-on-vals
+  [f m]
+  (into {} (for [[k v] m] [k (f v)])))
+
+(defn compare-by-key-fn
+  [k]
+  (fn [a b]
+    (compare
+      (str (:order (:attrs a)) (k (:attrs a)))
+      (str (:order (:attrs b)) (k (:attrs b))))))
+
+(defn- sort-by-k
+  [l k]
+  (sort (compare-by-key-fn k) l))
+
 (defn sort-by-name
-  [list]
-  (sort-by-key list :name))
-  
+  [l]
+  (sort-by-k l :name))
+
+(defn sort-by-key
+  [l]
+  (sort-by-k l :key))
+
 (defn sort-by-category
-  [list]
-  (sort-by-key list :category))
-  
+  [l]
+  (sort-by-k l :category))
+
+(defn sort-map-vals-by-name
+  [m]
+  (prn m)
+  (map-on-vals sort-by-name m))
+
 (defn true-value?
   [value]
   (if (empty? value)

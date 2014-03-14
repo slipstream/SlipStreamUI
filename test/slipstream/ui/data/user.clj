@@ -46,7 +46,7 @@
       </entry>
       <entry>
          <string><![CDATA[cloudsigma.username]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='cloudsigma.username' description='CloudSigma account username' category='cloudsigma' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='cloudsigma.username' description='CloudSigma account username' category='cloudsigma' mandatory='true' type='String' readonly='false' order='10'>
             <value><![CDATA[]]></value>
          </parameter>
       </entry>
@@ -85,7 +85,7 @@
       </entry>
       <entry>
          <string><![CDATA[cloudsigma.password]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='cloudsigma.password' description='CloudSigma account password' category='cloudsigma' mandatory='true' type='Password' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='cloudsigma.password' description='CloudSigma account password' category='cloudsigma' mandatory='true' type='Password' readonly='false' order='20'>
             <value><![CDATA[]]></value>
          </parameter>
       </entry>
@@ -119,13 +119,13 @@
       </entry>
       <entry>
          <string><![CDATA[atos.password]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='atos.password' description='StratusLab account password' category='atos' mandatory='true' type='Password' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='atos.password' description='StratusLab account password' category='atos' mandatory='true' type='Password' readonly='false'  order='20'>
             <value><![CDATA[]]></value>
          </parameter>
       </entry>
       <entry>
          <string><![CDATA[atos.username]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='atos.username' description='StratusLab account username' category='atos' mandatory='true' type='RestrictedString' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='atos.username' description='StratusLab account username' category='atos' mandatory='true' type='RestrictedString' readonly='false' order='10'>
             <value><![CDATA[]]></value>
          </parameter>
       </entry>

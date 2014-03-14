@@ -76,7 +76,7 @@
     (html/clone-for
       [i (range (count packages))
        :let [attrs (module-model/attrs
-                     (nth
+                     (get
                        (common-model/sort-by-name packages) i))
              package-name (:name attrs)
              id (str "package--" i)
