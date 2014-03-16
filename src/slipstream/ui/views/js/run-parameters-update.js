@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,8 @@
 // Updated runtime parameters on a cyclic basis
 //
 
-String.prototype.trim = function() {  
-   return this.replace(/^\s+|\s+$/g,"");  
+String.prototype.trim = function() {
+   return this.replace(/^\s+|\s+$/g,"");
 }
 
 $(document).ready(function() {
@@ -75,7 +75,7 @@ var dashboardUpdater = {
 	getRuntimeValueFullName: function(parameterName) {
 		return $("#" + parameterName).text();
 	},
-	
+
 	isAbort: function(nodeName) {
 	    if(nodeName){
     		return !(this.getRuntimeValue(nodeName, 'abort') === "");
@@ -108,16 +108,25 @@ var dashboardUpdater = {
 		return "dashboard-icon dashboard-node " + ((abort) ? 'dashboard-error' : 'dashboard-ok');
 	},
 
+    isUrlProperty: function(propertyName) {
+        var pattern = /[^:]+:url\..*/;
+        return pattern.test(propertyName);
+    },
+
     updateProperty: function(propertyName, value) {
 		var name = propertyName.replace(':', '\\:').replace('.', '\\.');
 		var valueTd = $('#' + name);
-        $(valueTd).text(value);
+		if(this.isUrlProperty(propertyName) && value !== '') {
+		    $(valueTd).html('<a href="' + value + '">' + value + '</a>');
+		} else {
+		    $(valueTd).text(value);
+		}
     },
 
 	extractNodeName: function(vmname) {
 		return vmname.split('.')[0];
 	},
-	
+
 	updateCompletedNodesInfo: function(nodename, completed) {
 		this.nodesInfo[nodename] = this.nodesInfo[nodename] || {};
 		var noOfCompleted = this.nodesInfo[nodename].completed || 0;
@@ -134,7 +143,7 @@ var dashboardUpdater = {
 	getIdPrefix: function(name) {
 		return "dashboard-" + name;
 	},
-	
+
 	getCssClass: function(abort) {
 		return "dashboard-icon dashboard-image " + ((abort) ? 'dashboard-error' : 'dashboard-ok');
 	},
@@ -152,9 +161,9 @@ var dashboardUpdater = {
 		if(params.name.endsWith('.1')) {
 			this.setMultiplicityNodesInfo(nodename, params.multiplicity);
 		}
-		
+
 		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
-		
+
         $('#' + idprefix + '-state').text("State: " + params.state);
         $('#' + idprefix + '-statecustom').text(params.statecustom);
 
@@ -240,6 +249,16 @@ var dashboardUpdater = {
                 headerTitle.removeClass('dashboard-error');
             }
 
+            // Update the global deployment link.
+            var linkDiv = $('#header-title-link');
+            var serviceLink = that.getGlobalRuntimeValue('url.service');
+            if(serviceLink !== undefined && serviceLink !== '') {
+                linkDiv.attr('class', 'url-service-set');
+                linkDiv.html('<a href="' + serviceLink + '"></a>');
+            } else {
+                linkDiv.attr('class', 'url-service-unset');
+            }
+
 	        var runtimeParameters = $(run).find('runtimeParameter');
 			runtimeParameters.each(function (i, parameter) {
                 var key = $(parameter).attr('key');
@@ -248,25 +267,24 @@ var dashboardUpdater = {
 	        });
 
 			var nodeNames = $(run).attr('nodeNames');
-			nodeNames = nodeNames.split(', ');
+            nodeNames = nodeNames.split(', ');
 
-	        for (var i in nodeNames) {
-				var vmname = nodeNames[i].trim();
-				if(vmname === "") {
-					continue;
-				}
-				var params = that.buildParamsFromXmlRun(vmname, run);
-	            that.updateVm(params)
-	        }
+            for (var i in nodeNames) {
+                var vmname = nodeNames[i].trim();
+                if(vmname === "") {
+                    continue;
+                }
+                var params = that.buildParamsFromXmlRun(vmname, run);
+                that.updateVm(params)
+            }
 
-			for (var nodename in that.nodesInfo) {
-				if(nodename.startsWith('orchestrator-')) {
-					that.updateOchestrator(nodename);
-				} else if(nodename != 'machine'){ // machine doesn't have node
-					that.updateNode(nodename);
-				}
-			}
-			
+            for (var nodename in that.nodesInfo) {
+                if(nodename.startsWith('orchestrator-')) {
+                    that.updateOchestrator(nodename);
+                } else if(nodename != 'machine'){ // machine doesn't have node
+                    that.updateNode(nodename);
+                }
+            }
         };
 
 		$.get(location.href, callback, 'xml');
@@ -278,7 +296,7 @@ function updateReports() {
 	// last time
 	var iframe = $('#reports > iframe');
 	var url = iframe.attr('src');
-	iframe.attr('src',url); 
+	iframe.attr('src',url);
 }
 
 function updateDashboard() {
