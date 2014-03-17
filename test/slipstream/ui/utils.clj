@@ -8,11 +8,11 @@
 
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 
-(def webdir "/")
-; (def webdir
-;   (str
-;     "/Users/loomis/Documents/code/SlipStream/SlipStreamUI"
-;     "/src/slipstream/ui/views/"))
+;(def webdir "/")
+ (def webdir
+   (str
+     "/home/user/sixsq/depots/SlipStreamUI"
+     "/src/slipstream/ui/views/"))
 
 (defn render [t]
   (apply str t))
