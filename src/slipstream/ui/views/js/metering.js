@@ -1,7 +1,7 @@
 ﻿(function($, window, document) {
     $.fn.metrics = function(options) {
         var settings = $.extend({
-            url: "/meters/<meter>/statistics",
+            url: "http://127.0.0.1:8080/render",
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
             params: {
                 period: 600,  // 10 minutes, in seconds
@@ -90,28 +90,19 @@
             return [ _get_current_series(series), _get_past_series(series) ];
         }
 
-        function zero_fill(series, key) {
-            if (series[key] === undefined) {
-                var period = settings['params']['period'],
-                    start_idx = Math.ceil(settings['params']['start_timestamp'] / period),
-                    end_idx = Math.ceil(settings['params']['end_timestamp'] / period),
-                    count = end_idx - start_idx;
-                series[key] = Array();
-                for (var idx=0; idx<count; idx++) {
-                    series[key].push([(start_idx + idx ) * period * 1000, 0]);
-                }
-            }
-        }
-
         function _gen_series(samples) {
-            var series = {},
-                period = settings['params']['period'],
-                ts_start = Math.ceil(settings['params']['start_timestamp'] / period) * period;
+            var series = {};
             $.each(samples, function(index, sample) {
-                var key = sample.groupby.source,
-                    idx = Math.floor((sample.period_start - ts_start) / period);
-                zero_fill(series, key);
-                series[key][idx] = [ sample.period_start * 1000, sample.mean ];
+                var datapoints = [];
+                $.each(sample.datapoints, function(index, datapoint) {
+                    if (datapoint[0]) {
+                      datapoints.push([datapoint[1] * 1000, datapoint[0]]);
+                    } else {
+                      datapoints.push([datapoint[1] * 1000, 0]);
+                    }
+                });
+                var key = sample.target.split('.')[3];
+                series[key] = datapoints;
             });
             return series;
         }
@@ -136,8 +127,14 @@
         return this.each(function() {
             var $this = $(this);
             $.ajax({
-                url: settings.url.replace("<meter>", $this.data("meter")),
-                data: settings.params,
+                url: settings.url,
+                data: {
+                  target: $this.data("metric"),
+                  from: "-72h",
+                  maxDataPoints: 20,
+                  format: "json"
+                },
+                type: "GET",
                 success: function(samples, status, xhr) {
                     $this.empty();
 
