@@ -6,13 +6,11 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.common :as common-model]
-            [slipstream.ui.models.parameter :as parameter-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.run :as run-model]))
 
 (def run-template-html "slipstream/ui/views/run.html")
 (def runtime-parameters-template-html "slipstream/ui/views/runtime-parameters.html")
-(def util-template-html "slipstream/ui/views/util.html")
 
 (def summary-sel [:#summary])
 (def parameters-sel [:#parameters])
@@ -26,13 +24,6 @@
 (defn to-a
   [url]
   (str "<a href='/" url "'>" url "</a>"))
-
-(html/defsnippet to-a-snip util-template-html [:#a]
-  [url]
-  html/this-node (html/do->
-                   (html/content url)
-                   (html/set-attr :href url)
-                   (html/remove-attr :id)))
 
 (defn shorten-runid
   [runid]
@@ -57,14 +48,6 @@
                               (header/header-top-bar-snip
                                 (user-model/attrs run))))
 
-(defn- param-render-fn
-  "Returns a function to process a parameter value depending on
-   whether the parameter name indicates it is a URL."
-  [p]
-  (if (parameter-model/url-param? p)
-    to-a-snip
-    identity))
-
 (defn- clone-runtime-parameters
   [parameters]
   (html/clone-for
@@ -73,7 +56,7 @@
      [attrs (common-model/attrs parameter)
       name (:key attrs)
       description (:description attrs)
-      value ((param-render-fn name) (common/runtime-parameter-value parameter))]]
+      value (common/runtime-parameter-value parameter)]]
     [[:td (html/nth-of-type 1)]] (html/content name)
     [[:td (html/nth-of-type 2)]] (html/content description)
     [[:td (html/nth-of-type 3)]] (html/do->

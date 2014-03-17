@@ -70,9 +70,9 @@ $(document).ready(function() {
               id: elem.id,
               value: $elem.data('quota-current'),
               min: 0,
-              max: $elem.data('quota-max') || 100,
+              max: $elem.data('quota-max') || 20,
               title: $elem.data('quota-title'),
-              levelColorsGradient: false
+              levelColorsGradient: true
             });
         });
     }
@@ -86,7 +86,7 @@ $(document).ready(function() {
             if (ui.newPanel[0].id == "metering") {
                 drawHistograms();
             }
-            if (ui.newPanel[0].id == "quota") {
+            if (ui.newPanel[0].id == "usage") {
                 drawGauges(ui.newPanel);
             }
         }
@@ -96,7 +96,7 @@ $(document).ready(function() {
         drawHistograms(ui.newPanel);
     });
 
-    $("#quota").on("tabsactivate", function(event, ui) {
+    $("#usage").on("tabsactivate", function(event, ui) {
         drawGauges(ui.newPanel);
     });
 });

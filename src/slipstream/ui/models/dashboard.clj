@@ -9,3 +9,11 @@
 (defn vms 
   [dashboard]
   (html/select dashboard [:vms :> :item]))
+
+(defn usages
+  [dashboard]
+  (html/select dashboard [:usage :> :usageElement]))
+  
+(defn attrs
+  [dashboard]
+  (common/attrs dashboard))

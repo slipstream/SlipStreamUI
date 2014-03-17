@@ -43,7 +43,7 @@
   [with-items filter-fn]
   (filter filter-fn (html/select with-items sel-modules)))
 
-(defn children 
+(defn children
   "Extract items from root map (e.g. root module list or versions)"
   [with-items]
   (children-with-filter with-items identity))
@@ -70,8 +70,8 @@
   "Generate a list of filtered parameters"
   [parameters categories]
   (let [grouped (group-by-category parameters)]
-    (remove 
-      nil? 
+    (remove
+      nil?
       (flatten
         (reduce #(conj %1 (get grouped %2)) [] categories)))))
 
@@ -119,4 +119,4 @@
       (true? value)
       (= "true" (clojure.string/trim value)))))
 
-  
+
