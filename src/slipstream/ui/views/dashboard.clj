@@ -108,7 +108,7 @@
                    [usage usages
                     :let
                     [attrs (dashboard-model/attrs usage)]]
-                   (html/do-> 
+                   (html/do->
                      (html/set-attr :id (str "gauge-" (:cloud attrs)))
                      (html/set-attr :data-quota-title (:cloud attrs))
                      (html/set-attr :data-quota-max (:quota attrs))
@@ -135,6 +135,11 @@
     identity
     nil)
 
+  usage-header-sel
+  (if (configuration-model/quota-enabled? dashboard)
+    identity
+    nil)
+
   usage-sel
   (if (configuration-model/quota-enabled? dashboard)
     (html/substitute
@@ -143,9 +148,9 @@
     nil))
 
 ;  usage-sel
-;  (usage-snip 
+;  (usage-snip
 ;    (dashboard-model/usages dashboard)))
-    
+
 ;  [#{usage-sel usage-header-sel}]
 ;  (if (configuration-model/quota-enabled? dashboard)
 ;    (usage-snip (dashboard-model/usages dashboard))
