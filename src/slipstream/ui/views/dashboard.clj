@@ -104,6 +104,7 @@
 
 (html/defsnippet usage-snip dashboard-template-html usage-sel
   [usages]
+  [:div :> [:div html/last-of-type]] nil
   [:div :> :div] (html/clone-for
                    [usage usages
                     :let
