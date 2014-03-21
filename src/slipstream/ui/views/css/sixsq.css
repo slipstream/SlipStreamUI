@@ -39,7 +39,6 @@ body {
 	width: 100%;
 	/* min-width: 990px; */ /* liquid layout */
 	background: #ffffff url('../images/body.png') repeat-x scroll left top;
-	background-position: 0 12px;
 }
 
 body *, body :focus, a {
@@ -118,10 +117,11 @@ th+td {
 
 .logo {
 	position: absolute;
+	top: 0px;
 	left: 0px;
 	display: block;
 	width: 163px;
-	height: 79px;
+	height: 113px;
 	background: transparent url('../images/LogoHN.png') no-repeat scroll left top;
 }
 
@@ -130,7 +130,7 @@ th+td {
 .menu_bar {
 	width: 100%; /* liquid layout */
     max-width: 966px; /* liquid layout */
-	height: 85px;
+	height: 113px;
 	margin: 0px auto;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -394,7 +394,7 @@ th+td {
 .bottom_no_icon {
 	/* width: 955px; */
 	width: 97%; /* liquid layout */
-	height: 169px;
+	height: 105px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
 	-moz-border-radius: 0px 0px 3px 3px;
@@ -406,13 +406,13 @@ th+td {
 .bottom_with_slider {
 	/* width: 920px; */
 	width: 92%; /* liquid layout */
-	height: 169px;
+	height: 106px;
 	margin: 0px auto;
 	border-radius: 0px 0px 3px 3px;
 	-moz-border-radius: 0px 0px 3px 3px;
 	-webkit-border-radius: 0px 0px 3px 3px;
 	padding: 25px 0px 25px 60px;
-	background: #367dbd;
+	background: #117cc1;
 }
 
 .bottom h3,
@@ -535,10 +535,11 @@ th+td {
 	 clear: both;
 	border-top: 3px solid #367dbd;
 	font-size: 11px;
+	height: 45px;
 	width: 957px;
 	margin: 5px 10px;
 	padding: 5px;
-	background: url(/img/bg_grigio.png) #c7ddef;
+	/*background: url(/img/bg_grigio.png) #c7ddef;*/
 }
 
 .footer_inner {
@@ -600,7 +601,7 @@ th+td {
 .navigation {
 	position: relative;
 	margin: 0 6px 0 5px;
-	height: 45px;
+	height: 39px;
 	border-width: 1px 0;
 	border-color: #b8b8b8;
 }
@@ -746,7 +747,7 @@ ul.interaction li {
 	margin: 2px 0 2px 0;
 	height: 38px;
 	line-height: 38px;
-	color: #367dbd;
+	color: #ededed;/*#367dbd;*/
 	text-indent: 11px;
 	cursor: pointer;
 	
@@ -762,7 +763,7 @@ ul.interaction li {
 	background: -webkit-linear-gradient(top,  #404040 0%,#262626 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top,  #404040 0%,#262626 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #404040 0%,#262626 100%); /* IE10+ */
-	background:	#ededed
+	background:	 #117cc1;/*#ededed*/
 	/*background: linear-gradient(to bottom,  #404040 0%,#262626 100%); /* W3C */
 }
 
