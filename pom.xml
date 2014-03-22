@@ -103,6 +103,15 @@
 			<artifactId>enlive</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>expectations</groupId>
+			<artifactId>expectations</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jline</groupId>
+			<artifactId>jline</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>ring</groupId>
 			<artifactId>ring</artifactId>
 		</dependency>

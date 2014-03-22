@@ -21,8 +21,8 @@
 (def metering-sel [:#metering])
 (def metering-header-sel [:#metering-header])
 
-(def quota-sel [:#quota])
-(def quota-header-sel [:#quota-header])
+(def usage-sel [:#usage])
+(def usage-header-sel [:#usage-header])
 
 (def runs-sel [:#runs])
 (def runs-fragment-sel [:#fragment-runs-somecloud])
@@ -102,6 +102,19 @@
                      (common/tab-sections grouped-by-cloud "vms" vms-for-cloud-snip))
   [:#fragment-vms-cloudb] nil)
 
+(html/defsnippet usage-snip dashboard-template-html usage-sel
+  [usages]
+  [:div :> [:div html/last-of-type]] nil
+  [:div :> :div] (html/clone-for
+                   [usage usages
+                    :let
+                    [attrs (dashboard-model/attrs usage)]]
+                   (html/do->
+                     (html/set-attr :id (str "gauge-" (:cloud attrs)))
+                     (html/set-attr :data-quota-title (:cloud attrs))
+                     (html/set-attr :data-quota-max (:quota attrs))
+                     (html/set-attr :data-quota-current (:currentusage attrs)))))
+
 (html/defsnippet content-snip dashboard-template-html common/content-sel
   [dashboard]
   runs-sel
@@ -123,10 +136,26 @@
     identity
     nil)
 
-  [#{quota-sel quota-header-sel}]
+  usage-header-sel
   (if (configuration-model/quota-enabled? dashboard)
     identity
+    nil)
+
+  usage-sel
+  (if (configuration-model/quota-enabled? dashboard)
+    (html/substitute
+      (usage-snip
+        (dashboard-model/usages dashboard)))
     nil))
+
+;  usage-sel
+;  (usage-snip
+;    (dashboard-model/usages dashboard)))
+
+;  [#{usage-sel usage-header-sel}]
+;  (if (configuration-model/quota-enabled? dashboard)
+;    (usage-snip (dashboard-model/usages dashboard))
+;    nil))
 
 ;; CSS inclusion
 
