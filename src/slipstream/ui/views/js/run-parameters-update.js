@@ -109,7 +109,7 @@ var dashboardUpdater = {
 	},
 
     isUrlProperty: function(propertyName) {
-        var pattern = /[^:]+:url\..*/;
+        var pattern = /^[^:]+:url\..*$/;
         return pattern.test(propertyName);
     },
 
@@ -117,8 +117,10 @@ var dashboardUpdater = {
 		var name = propertyName.replace(':', '\\:').replace('.', '\\.');
 		var valueTd = $('#' + name);
 		if(this.isUrlProperty(propertyName) && value !== '') {
+		    console.log('Updating LINK property: ' + propertyName);
 		    $(valueTd).html('<a href="' + value + '">' + value + '</a>');
 		} else {
+		    console.log('Updating NON-LINK property: ' + propertyName);
 		    $(valueTd).text(value);
 		}
     },
