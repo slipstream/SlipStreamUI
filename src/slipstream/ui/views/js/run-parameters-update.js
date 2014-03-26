@@ -116,11 +116,20 @@ var dashboardUpdater = {
     updateProperty: function(propertyName, value) {
 		var name = propertyName.replace(':', '\\:').replace('.', '\\.');
 		var valueTd = $('#' + name);
-		if(this.isUrlProperty(propertyName) && value !== '') {
-		    console.log('Updating LINK property: ' + propertyName);
-		    $(valueTd).html('<a href="' + value + '">' + value + '</a>');
+		if(this.isUrlProperty(propertyName)) {
+		    if (value !== '') {
+                var anchor = '<a href="' + value + '">' + value + '</a>';
+                console.log('Updating LINK property: ' + propertyName + ' to ' + anchor);
+                $(valueTd).empty();
+                $(valueTd).html(anchor);
+		    } else {
+                console.log('Updating LINK property: ' + propertyName + ' with empty string');
+                $(valueTd).empty();
+                $(valueTd).text(value);
+		    }
 		} else {
 		    console.log('Updating NON-LINK property: ' + propertyName);
+		    $(valueTd).empty();
 		    $(valueTd).text(value);
 		}
     },
