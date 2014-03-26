@@ -65,7 +65,7 @@ var dashboardUpdater = {
 	nodesInfo: {},
 
 	encodeName: function(parameterName) {
-	    return propertyName.replace(/:/g, '\\:').replace(/\./g, '\\.');
+	    return parameterName.replace(/:/g, '\\:').replace(/\./g, '\\.');
 	},
 
 	getRuntimeValue: function(nodeName, parameterName) {
