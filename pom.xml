@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>SlipStreamUI</artifactId>
-	<version>2.1.7-SNAPSHOT</version>
+	<version>2.1.7</version>
 	<packaging>jar</packaging>
 	<name>SlipStreamUI</name>
 	<description>SlipStream UI</description>
@@ -26,7 +26,7 @@
 		<developerConnection>scm:git:ssh://git@github.com/slipstream/SlipStreamUI.git
 		</developerConnection>
 		<url>https://github.com/slipstream/SlipStreamUI</url>
-		<tag>HEAD</tag>
+		<tag>SlipStreamUI-2.1.7</tag>
 	</scm>
 	<build>
 		<resources>
