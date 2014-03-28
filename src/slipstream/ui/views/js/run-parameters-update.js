@@ -64,12 +64,18 @@ var dashboardUpdater = {
 	initialState: 'Inactive',
 	nodesInfo: {},
 
+	encodeName: function(parameterName) {
+	    return parameterName.replace(/:/g, '\\:').replace(/\./g, '\\.');
+	},
+
 	getRuntimeValue: function(nodeName, parameterName) {
-		return $("#" + nodeName.replace(".", "\\.") + "\\:" + parameterName).text();
+	    var encodedId = this.encodeName('#' + nodeName + ':' + parameterName);
+		return $(encodedId).text();
 	},
 
 	getGlobalRuntimeValue: function(parameterName) {
-		return $("#ss\\:" + parameterName).text();
+	    var encodedId = this.encodeName("#ss:" + parameterName);
+		return $(encodedId).text();
 	},
 
 	getRuntimeValueFullName: function(parameterName) {
@@ -109,16 +115,24 @@ var dashboardUpdater = {
 	},
 
     isUrlProperty: function(propertyName) {
-        var pattern = /[^:]+:url\..*/;
+        var pattern = /^[^:]+:url\..*$/;
         return pattern.test(propertyName);
     },
 
     updateProperty: function(propertyName, value) {
-		var name = propertyName.replace(':', '\\:').replace('.', '\\.');
-		var valueTd = $('#' + name);
-		if(this.isUrlProperty(propertyName) && value !== '') {
-		    $(valueTd).html('<a href="' + value + '">' + value + '</a>');
+		var encodedId = this.encodeName('#' + propertyName);
+		var valueTd = $(encodedId);
+		if(this.isUrlProperty(propertyName)) {
+		    if (value !== '') {
+                var anchor = '<a href="' + value + '">' + value + '</a>';
+                console.log('Set LINK property: ' + propertyName + ' to ' + anchor);
+                $(valueTd).html(anchor);
+		    } else {
+                console.log('Set LINK property: ' + propertyName + ' with empty string');
+                $(valueTd).text(value);
+		    }
 		} else {
+		    console.log('Set NON-LINK property: ' + propertyName + ' to ' + value);
 		    $(valueTd).text(value);
 		}
     },
@@ -197,34 +211,35 @@ var dashboardUpdater = {
 	},
 
     escapeDot: function(value) {
-        return value.replace('.', '\\.');
+        return value.replace(/\./g, '\\.');
     },
 
 	buildParamsFromXmlRun: function(vmname, run) {
 		var params = {};
 		var escapedVmName = this.escapeDot(vmname);
+		var prefix = "runtimeParameter[key='" + escapedVmName + ":";
 		params.name = vmname;
-		params.abort = $(run).find("runtimeParameter[key='" + escapedVmName + ":abort']").text();
-		params.state = $(run).find("runtimeParameter[key='" + escapedVmName + ":state']").text();
-		params.statemessage = $(run).find("runtimeParameter[key='" + escapedVmName + ":statemessage']").text();
-		params.statecustom = this.truncate($(run).find("runtimeParameter[key='" + escapedVmName + ":statecustom']").text());
-		params.vmstate = $(run).find("runtimeParameter[key='" + escapedVmName + ":vmstate']").text();
-		params.completed = $(run).find("runtimeParameter[key='" + escapedVmName + ":complete']").text();
-		params.multiplicity = $(run).find("runtimeParameter[key='" + escapedVmName + ":multiplicity']").text();
+		params.abort = $(run).find(prefix + "abort']").text();
+		params.state = $(run).find(prefix + "state']").text();
+		params.statemessage = $(run).find(prefix + "statemessage']").text();
+		params.statecustom = this.truncate($(run).find(prefix + "statecustom']").text());
+		params.vmstate = $(run).find(prefix + "vmstate']").text();
+		params.completed = $(run).find(prefix + "complete']").text();
+		params.multiplicity = $(run).find(prefix + "multiplicity']").text();
 		return params;
 	},
 
 	buildParamsFromLocalRun: function(vmname) {
 		var params = {};
 		params.name = vmname;
-		vmname = vmname.replace(':', '\\:').replace('.', '\\.');
-		params.abort = $('#' + vmname + "\\:abort").text();
-		params.state = $('#' + vmname + "\\:state").text();
-		params.statemessage = $('#' + vmname + "\\:statemessage").text();
-		params.statecustom = $('#' + vmname + "\\:statecustom").text();
-		params.vmstate = $('#' + vmname + "\\:vmstate").text();
-		params.completed = $('#' + vmname + "\\:completed").text();
-		params.multiplicity = $('#' + vmname + "\\:multiplicity").text();
+		prefix = this.encodeName('#' + vmname + ':');
+		params.abort = $(prefix + "abort").text();
+		params.state = $(prefix + "state").text();
+		params.statemessage = $(prefix + "statemessage").text();
+		params.statecustom = $(prefix + "statecustom").text();
+		params.vmstate = $(prefix + "vmstate").text();
+		params.completed = $(prefix + "completed").text();
+		params.multiplicity = $(prefix + "multiplicity").text();
 		return params;
 	},
 
@@ -253,10 +268,12 @@ var dashboardUpdater = {
             var linkDiv = $('#header-title-link');
             var serviceLink = that.getGlobalRuntimeValue('url.service');
             if(serviceLink !== undefined && serviceLink !== '') {
-                linkDiv.attr('class', 'url-service-set');
+                console.log('setting global service link to ' + serviceLink);
                 linkDiv.html('<a href="' + serviceLink + '"></a>');
+                linkDiv.attr('class', 'url-service-set');
             } else {
                 linkDiv.attr('class', 'url-service-unset');
+                linkDiv.empty();
             }
 
 	        var runtimeParameters = $(run).find('runtimeParameter');

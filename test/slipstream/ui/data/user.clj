@@ -452,7 +452,7 @@
          <string><![CDATA[cloud.connector.security.publicsshkey]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.security.publicsshkey' description='SSH public key used for orchestrator' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[]]></instructions>
-            <value><![CDATA[/root/.ssh/id_rsa.pub]]></value>
+            <value><![CDATA[/opt/slipstream/.ssh/id_rsa.pub]]></value>
          </parameter>
       </entry>
       <entry>
