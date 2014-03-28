@@ -51,7 +51,7 @@
 (defn- clone-runtime-parameters
   [parameters]
   (html/clone-for
-    [parameter parameters
+    [parameter (common-model/sort-by-key parameters)
      :let
      [attrs (common-model/attrs parameter)
       name (:key attrs)
@@ -62,7 +62,6 @@
     [[:td (html/nth-of-type 3)]] (html/do->
                                    (html/content value)
                                    (html/set-attr :id (clojure.string/replace name #":" "\\:")))))
-
 
 (html/defsnippet runtime-parameters-snip runtime-parameters-template-html [:#fragment-parameters-something]
   [parameters]

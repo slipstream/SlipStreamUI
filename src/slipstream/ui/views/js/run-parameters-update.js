@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,8 @@
 // Updated runtime parameters on a cyclic basis
 //
 
-String.prototype.trim = function() {  
-   return this.replace(/^\s+|\s+$/g,"");  
+String.prototype.trim = function() {
+   return this.replace(/^\s+|\s+$/g,"");
 }
 
 $(document).ready(function() {
@@ -64,18 +64,24 @@ var dashboardUpdater = {
 	initialState: 'Inactive',
 	nodesInfo: {},
 
+	encodeName: function(parameterName) {
+	    return parameterName.replace(/:/g, '\\:').replace(/\./g, '\\.');
+	},
+
 	getRuntimeValue: function(nodeName, parameterName) {
-		return $("#" + nodeName.replace(".", "\\.") + "\\:" + parameterName).text();
+	    var encodedId = this.encodeName('#' + nodeName + ':' + parameterName);
+		return $(encodedId).text();
 	},
 
 	getGlobalRuntimeValue: function(parameterName) {
-		return $("#ss\\:" + parameterName).text();
+	    var encodedId = this.encodeName("#ss:" + parameterName);
+		return $(encodedId).text();
 	},
 
 	getRuntimeValueFullName: function(parameterName) {
 		return $("#" + parameterName).text();
 	},
-	
+
 	isAbort: function(nodeName) {
 	    if(nodeName){
     		return !(this.getRuntimeValue(nodeName, 'abort') === "");
@@ -108,16 +114,33 @@ var dashboardUpdater = {
 		return "dashboard-icon dashboard-node " + ((abort) ? 'dashboard-error' : 'dashboard-ok');
 	},
 
+    isUrlProperty: function(propertyName) {
+        var pattern = /^[^:]+:url\..*$/;
+        return pattern.test(propertyName);
+    },
+
     updateProperty: function(propertyName, value) {
-		var name = propertyName.replace(':', '\\:').replace('.', '\\.');
-		var valueTd = $('#' + name);
-        $(valueTd).text(value);
+		var encodedId = this.encodeName('#' + propertyName);
+		var valueTd = $(encodedId);
+		if(this.isUrlProperty(propertyName)) {
+		    if (value !== '') {
+                var anchor = '<a href="' + value + '">' + value + '</a>';
+                console.log('Set LINK property: ' + propertyName + ' to ' + anchor);
+                $(valueTd).html(anchor);
+		    } else {
+                console.log('Set LINK property: ' + propertyName + ' with empty string');
+                $(valueTd).text(value);
+		    }
+		} else {
+		    console.log('Set NON-LINK property: ' + propertyName + ' to ' + value);
+		    $(valueTd).text(value);
+		}
     },
 
 	extractNodeName: function(vmname) {
 		return vmname.split('.')[0];
 	},
-	
+
 	updateCompletedNodesInfo: function(nodename, completed) {
 		this.nodesInfo[nodename] = this.nodesInfo[nodename] || {};
 		var noOfCompleted = this.nodesInfo[nodename].completed || 0;
@@ -134,7 +157,7 @@ var dashboardUpdater = {
 	getIdPrefix: function(name) {
 		return "dashboard-" + name;
 	},
-	
+
 	getCssClass: function(abort) {
 		return "dashboard-icon dashboard-image " + ((abort) ? 'dashboard-error' : 'dashboard-ok');
 	},
@@ -152,9 +175,9 @@ var dashboardUpdater = {
 		if(params.name.endsWith('.1')) {
 			this.setMultiplicityNodesInfo(nodename, params.multiplicity);
 		}
-		
+
 		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
-		
+
         $('#' + idprefix + '-state').text("State: " + params.state);
         $('#' + idprefix + '-statecustom').text(params.statecustom);
 
@@ -188,34 +211,35 @@ var dashboardUpdater = {
 	},
 
     escapeDot: function(value) {
-        return value.replace('.', '\\.');
+        return value.replace(/\./g, '\\.');
     },
 
 	buildParamsFromXmlRun: function(vmname, run) {
 		var params = {};
 		var escapedVmName = this.escapeDot(vmname);
+		var prefix = "runtimeParameter[key='" + escapedVmName + ":";
 		params.name = vmname;
-		params.abort = $(run).find("runtimeParameter[key='" + escapedVmName + ":abort']").text();
-		params.state = $(run).find("runtimeParameter[key='" + escapedVmName + ":state']").text();
-		params.statemessage = $(run).find("runtimeParameter[key='" + escapedVmName + ":statemessage']").text();
-		params.statecustom = this.truncate($(run).find("runtimeParameter[key='" + escapedVmName + ":statecustom']").text());
-		params.vmstate = $(run).find("runtimeParameter[key='" + escapedVmName + ":vmstate']").text();
-		params.completed = $(run).find("runtimeParameter[key='" + escapedVmName + ":complete']").text();
-		params.multiplicity = $(run).find("runtimeParameter[key='" + escapedVmName + ":multiplicity']").text();
+		params.abort = $(run).find(prefix + "abort']").text();
+		params.state = $(run).find(prefix + "state']").text();
+		params.statemessage = $(run).find(prefix + "statemessage']").text();
+		params.statecustom = this.truncate($(run).find(prefix + "statecustom']").text());
+		params.vmstate = $(run).find(prefix + "vmstate']").text();
+		params.completed = $(run).find(prefix + "complete']").text();
+		params.multiplicity = $(run).find(prefix + "multiplicity']").text();
 		return params;
 	},
 
 	buildParamsFromLocalRun: function(vmname) {
 		var params = {};
 		params.name = vmname;
-		vmname = vmname.replace(':', '\\:').replace('.', '\\.');
-		params.abort = $('#' + vmname + "\\:abort").text();
-		params.state = $('#' + vmname + "\\:state").text();
-		params.statemessage = $('#' + vmname + "\\:statemessage").text();
-		params.statecustom = $('#' + vmname + "\\:statecustom").text();
-		params.vmstate = $('#' + vmname + "\\:vmstate").text();
-		params.completed = $('#' + vmname + "\\:completed").text();
-		params.multiplicity = $('#' + vmname + "\\:multiplicity").text();
+		prefix = this.encodeName('#' + vmname + ':');
+		params.abort = $(prefix + "abort").text();
+		params.state = $(prefix + "state").text();
+		params.statemessage = $(prefix + "statemessage").text();
+		params.statecustom = $(prefix + "statecustom").text();
+		params.vmstate = $(prefix + "vmstate").text();
+		params.completed = $(prefix + "completed").text();
+		params.multiplicity = $(prefix + "multiplicity").text();
 		return params;
 	},
 
@@ -240,6 +264,18 @@ var dashboardUpdater = {
                 headerTitle.removeClass('dashboard-error');
             }
 
+            // Update the global deployment link.
+            var linkDiv = $('#header-title-link');
+            var serviceLink = that.getGlobalRuntimeValue('url.service');
+            if(serviceLink !== undefined && serviceLink !== '') {
+                console.log('setting global service link to ' + serviceLink);
+                linkDiv.html('<a href="' + serviceLink + '"></a>');
+                linkDiv.attr('class', 'url-service-set');
+            } else {
+                linkDiv.attr('class', 'url-service-unset');
+                linkDiv.empty();
+            }
+
 	        var runtimeParameters = $(run).find('runtimeParameter');
 			runtimeParameters.each(function (i, parameter) {
                 var key = $(parameter).attr('key');
@@ -248,25 +284,24 @@ var dashboardUpdater = {
 	        });
 
 			var nodeNames = $(run).attr('nodeNames');
-			nodeNames = nodeNames.split(', ');
+            nodeNames = nodeNames.split(', ');
 
-	        for (var i in nodeNames) {
-				var vmname = nodeNames[i].trim();
-				if(vmname === "") {
-					continue;
-				}
-				var params = that.buildParamsFromXmlRun(vmname, run);
-	            that.updateVm(params)
-	        }
+            for (var i in nodeNames) {
+                var vmname = nodeNames[i].trim();
+                if(vmname === "") {
+                    continue;
+                }
+                var params = that.buildParamsFromXmlRun(vmname, run);
+                that.updateVm(params)
+            }
 
-			for (var nodename in that.nodesInfo) {
-				if(nodename.startsWith('orchestrator-')) {
-					that.updateOchestrator(nodename);
-				} else if(nodename != 'machine'){ // machine doesn't have node
-					that.updateNode(nodename);
-				}
-			}
-			
+            for (var nodename in that.nodesInfo) {
+                if(nodename.startsWith('orchestrator-')) {
+                    that.updateOchestrator(nodename);
+                } else if(nodename != 'machine'){ // machine doesn't have node
+                    that.updateNode(nodename);
+                }
+            }
         };
 
 		$.get(location.href, callback, 'xml');
@@ -278,7 +313,7 @@ function updateReports() {
 	// last time
 	var iframe = $('#reports > iframe');
 	var url = iframe.attr('src');
-	iframe.attr('src',url); 
+	iframe.attr('src',url);
 }
 
 function updateDashboard() {

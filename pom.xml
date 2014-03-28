@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>SlipStreamUI</artifactId>
-	<version>2.1.6-SNAPSHOT</version>
+	<version>2.1.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SlipStreamUI</name>
 	<description>SlipStream UI</description>
@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>com.sixsq.slipstream</groupId>
 		<artifactId>SlipStream</artifactId>
-		<version>2.1.1-SNAPSHOT</version>
+		<version>2.1.8-SNAPSHOT</version>
 		<relativePath>../SlipStreamParent</relativePath>
 	</parent>
 	<scm>
@@ -101,6 +101,15 @@
 		<dependency>
 			<groupId>enlive</groupId>
 			<artifactId>enlive</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>expectations</groupId>
+			<artifactId>expectations</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jline</groupId>
+			<artifactId>jline</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>ring</groupId>

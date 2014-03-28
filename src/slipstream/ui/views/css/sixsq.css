@@ -102,6 +102,23 @@ th+td {
 	margin: 0px auto 0px auto;
 }
 
+#header-title-link:before {
+    padding: 0px 20px 20px 0px;
+    font-family: FontAwesome;
+    content: "\f14c"; /*external link icon*/
+    font-size: 10em;
+    float: right;
+    color: #50a7de;
+}
+
+.url-service-unset {
+    visibility: hidden;
+}
+
+.url-service-set {
+    visibility: visible;
+}
+
 /* Main menu */
 
 .top {
@@ -131,7 +148,7 @@ th+td {
 
     /*-webkit-box-shadow: 0px 0px 2px 0px black;
     box-shadow: 0px 0px 2px 0px black;*/
-    
+
     background: #bc0318; /* Old browsers */
     background: -moz-linear-gradient(top,  #bc0318 0%, #660000 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bc0318), color-stop(100%,#660000)); /* Chrome,Safari4+ */
@@ -542,7 +559,7 @@ th+td {
 
 .footer_inner {
 	padding: 15px 15px 15px 15px;
-    /* liquid layout; old static values 5px */        
+    /* liquid layout; old static values 5px */
 	margin-left: auto;
 	margin-right: auto;
 
@@ -654,8 +671,8 @@ ul.breadcrumb {
 	-webkit-font-smoothing: antialiased;
 
 	font-size: 0.5em;
-	
-	content: "\f054"; /* chevron right */  
+
+	content: "\f054"; /* chevron right */
 
 	padding: 0 0.5em 0 0.5em;
 }
@@ -691,7 +708,7 @@ ul.interaction li {
 	cursor: pointer;
 	font-size: 1em;
 	font-family: 'Arial';
-	
+
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 
@@ -723,12 +740,12 @@ ul.interaction li {
 .data_sheet {
 	clear: both;
 	margin: 0px 4px 0 4px;
-	padding: 11px 11px 20px 9px; 
+	padding: 11px 11px 20px 9px;
 	position: relative;
 	border: 1px solid #cccccc;
 	background-color: #ffffff;
 	color: #4f4f4f;
-	
+
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 	-webkit-box-shadow: 0px 0px 2px 0px #b2b2b2;
@@ -745,10 +762,10 @@ ul.interaction li {
 	color: #ffffff;
 	text-indent: 11px;
 	cursor: pointer;
-	
+
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
-	
+
 	/* background: #262626  url('../images/datasheet_title_bg.png') 0 0 repeat-x; */
 
 	/* background gradient to replace image */
@@ -765,7 +782,7 @@ ul.interaction li {
 	color: #ffffff;
 }
 
-/* Styling for the section header of the accordian.  Adds icons from the 
+/* Styling for the section header of the accordian.  Adds icons from the
    FontAwesome font for the open/close icons in each header. */
 .summary h3 span {
 
@@ -799,8 +816,8 @@ ul.interaction li {
     content: "\f077"; /* chevron up */
 }
 
-/* 
-   Ensure that the accordion sections, if they are too large 
+/*
+   Ensure that the accordion sections, if they are too large
    will be scrolled rather than force the page size to expand.
 */
 .summary div {
@@ -824,7 +841,7 @@ ul.interaction li {
 	position: relative;
 	left: auto;
 	top: auto;
-	
+
 }
 
 .tabs li {
@@ -841,7 +858,7 @@ ul.interaction li {
 	background-color: #ffffff;
 	color: #000000;
 	cursor: pointer;
-	
+
 	-webkit-border-radius: 3px 3px 0 0;
 	border-radius: 3px 3px 0 0;
 	-webkit-box-shadow: 0px 0px 1px 0px #b2b2b2;
@@ -850,7 +867,7 @@ ul.interaction li {
 
 .inner_tabs li {
 	border-width: 1px;
-	
+
 	-webkit-border-radius: 4px;
 	border-radius: 3px;
 }
@@ -926,7 +943,7 @@ ul.interaction li {
 
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
-	-webkit-background-clip: padding-box; 
+	-webkit-background-clip: padding-box;
 	background-clip: padding-box;
 }
 
@@ -976,7 +993,7 @@ ul.interaction li {
 	line-height: 20px;
 	border: 1px solid #d3d3d3;
 	font-size: 12px;
-	
+
 	-webkit-border-radius: 1px;
 	border-radius: 1px;
 }
@@ -1072,7 +1089,7 @@ table.parameter_mapping tr td {
 	border: none;
 	padding: 0;
 	height: 40px;
-	
+
 	-webkit-border-radius: 0;
 	border-radius: 0;
 }
@@ -1116,7 +1133,7 @@ table.parameter_mapping input {
 	text-indent: 11px;
 	font-size: 14px;
 	color: #fff;
-	
+
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 	background-color: #313131;
@@ -1147,7 +1164,7 @@ table.parameter_mapping input {
 	text-align: center;
 	color: #ffffff;
 	z-index: 10000;
-	
+
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 	-webkit-box-shadow: 0px 1px 3px 0px #3a3a3a;
@@ -1389,7 +1406,7 @@ dashboard-focus {
 }
 
 li {
-    list-style-type: none;    
+    list-style-type: none;
 }
 
 .hidden {
@@ -1414,7 +1431,7 @@ li {
 }
 
 /* autocomplete */
-.ui-helper-hidden-accessible { 
+.ui-helper-hidden-accessible {
     display:none;
 }
 

@@ -42,6 +42,22 @@
          <runtimeParameter description='Number of CPUs' deleted='false' key='apache1.1:interoute.cpu' isSet='true' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.598 CEST'><![CDATA[1]]></runtimeParameter>
       </entry>
       <entry>
+         <string><![CDATA[apache1.1:url.service]]></string>
+         <runtimeParameter description='URL for machine deployment' deleted='false' key='apache1.1:url.service' isSet='true' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.598 CEST'><![CDATA[http://localhost:8080]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[apache1.1:url.ssh]]></string>
+         <runtimeParameter description='URL for ssh on machine' deleted='false' key='apache1.1:url.ssh' isSet='true' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.598 CEST'><![CDATA[http://localhost:8080]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[apache1.1:url.something.else]]></string>
+         <runtimeParameter description='another URL for machine' deleted='false' key='apache1.1:url.something.else' isSet='true' group='apache1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.598 CEST'><![CDATA[http://localhost:8080]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[testclient1.1:vmstate]]></string>
+         <runtimeParameter description='State of the VM, according to the cloud layer' deleted='false' key='testclient1.1:vmstate' isSet='true' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.576 CEST'><![CDATA[Unknown]]></runtimeParameter>
+      </entry>
+      <entry>
          <string><![CDATA[testclient1.1:vmstate]]></string>
          <runtimeParameter description='State of the VM, according to the cloud layer' deleted='false' key='testclient1.1:vmstate' isSet='true' group='testclient1.1' mapsOthers='false' type='String' mappedRuntimeParameterNames='' isMappedValue='false' creation='2013-06-12 15:39:55.576 CEST'><![CDATA[Unknown]]></runtimeParameter>
       </entry>

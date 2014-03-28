@@ -40,14 +40,14 @@
 
 (defn parameters-view-snip
   [parameters-by-category]
-  (for [grouped parameters-by-category]
+  (for [grouped (common-model/sort-map-vals-by-name parameters-by-category)]
     (list
       (html/html-snippet (str "\n    <h3>" (string/replace (key grouped) #"_" " ") "</h3>"))
       (common/parameters-view-snip (val grouped) nil))))
 
 (defn parameters-edit-snip
   [parameters-by-category]
-  (for [grouped parameters-by-category]
+  (for [grouped (common-model/sort-map-vals-by-name parameters-by-category)]
     (list 
       (html/html-snippet (str "\n    <h3>" (string/replace (key grouped) #"_" " ") "</h3>"))
       (common/parameters-edit-snip (val grouped) false))))
@@ -57,7 +57,7 @@
   [[:li (html/nth-of-type 2)]] (if super?
                                  identity
                                  (html/content "users"))
-  [[:li (html/nth-of-type 3)]] (common/clone-breadcrumbs name "user/"))
+  [[:li (html/nth-of-type 3)]] (common/clone-breadcrumbs name "user"))
 
 (html/defsnippet summary-view-snip user-view-template-html summary-sel
   [user]
