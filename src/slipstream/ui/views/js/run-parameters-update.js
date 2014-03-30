@@ -266,14 +266,15 @@ var dashboardUpdater = {
 
             // Update the global deployment link.
             var linkDiv = $('#header-title-link');
+            var linkAnchor = $('#header-title-link').find('a').first();
             var serviceLink = that.getGlobalRuntimeValue('url.service');
             if(serviceLink !== undefined && serviceLink !== '') {
                 console.log('setting global service link to ' + serviceLink);
-                linkDiv.html('<a href="' + serviceLink + '"></a>');
+                linkAnchor.attr('href', serviceLink);
                 linkDiv.attr('class', 'url-service-set');
             } else {
                 linkDiv.attr('class', 'url-service-unset');
-                linkDiv.empty();
+                linkAnchor.attr('href', '#');
             }
 
 	        var runtimeParameters = $(run).find('runtimeParameter');

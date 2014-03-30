@@ -102,10 +102,8 @@ th+td {
 	margin: 0px auto 0px auto;
 }
 
-#header-title-link:before {
+#header-title-link {
     padding: 0px 20px 20px 0px;
-    font-family: FontAwesome;
-    content: "\f14c"; /*external link icon*/
     font-size: 10em;
     float: right;
     color: #50a7de;
