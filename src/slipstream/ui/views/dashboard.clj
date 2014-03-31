@@ -20,6 +20,7 @@
 
 (def metering-sel [:#metering])
 (def metering-header-sel [:#metering-header])
+(def metrics-sel [:#metering :div.metric])
 
 (def usage-sel [:#usage])
 (def usage-header-sel [:#usage-header])
@@ -134,6 +135,11 @@
   [#{metering-sel metering-header-sel}]
   (if (configuration-model/metering-enabled? dashboard)
     identity
+    nil)
+
+  metrics-sel
+  (if (configuration-model/metering-enabled? dashboard)
+    (html/replace-vars {:username (user-model/username dashboard)})
     nil)
 
   usage-header-sel

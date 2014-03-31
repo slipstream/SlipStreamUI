@@ -1,13 +1,9 @@
 ﻿(function($, window, document) {
     $.fn.metrics = function(options) {
         var settings = $.extend({
-            url: "http://127.0.0.1:8080/render",
+            url: "http://127.0.0.1:8080/metrics/render",
+            from: "-1h",
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
-            params: {
-                period: 600,  // 10 minutes, in seconds
-                groupby: "source",
-                start_timestamp: Math.ceil((new Date() - 1000*60*60) / 1000)  // last hour, in seconds
-            }
         }, options );
 
         function plot(elem, series) {
@@ -130,8 +126,8 @@
                 url: settings.url,
                 data: {
                   target: $this.data("metric"),
-                  from: "-72h",
-                  maxDataPoints: 20,
+                  from: settings.from,
+                  //maxDataPoints: 20,
                   format: "json"
                 },
                 type: "GET",
