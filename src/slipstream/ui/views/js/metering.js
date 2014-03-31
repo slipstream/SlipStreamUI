@@ -60,7 +60,7 @@
                     sorted: true ,
                     container: $(".col3", elem),
                 },
-                points: { show: true },
+                points: { show: false },
                 grid: { hoverable: true, borderWidth: 0 },
                 tooltip: true,
                 tooltipOpts: {
