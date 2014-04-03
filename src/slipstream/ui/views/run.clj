@@ -29,6 +29,10 @@
   [runid]
   (apply str (take take-run-no-of-chars runid)))
 
+(defn header-url-service-link
+  []
+  (html/html-snippet "<div><div id='header-title-link' class='url-service-unset'><a href='#'><i class='icon-external-link'></i></a></div></div>"))
+
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [run]
   header/header-summary-sel
@@ -46,7 +50,9 @@
 
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
-                                (user-model/attrs run))))
+                                (user-model/attrs run)))
+  
+  [:#titles :> :div] (html/before (header-url-service-link)))
 
 (defn- clone-runtime-parameters
   [parameters]
