@@ -10,6 +10,8 @@
 (def header-sel [:#header])
 (def header-titles-sel [:#titles])
 
+(def title-max-size 40)
+
 ; titles
 ; TODO: Refactor this
 (def header-summary-sel [:#titles])
@@ -54,7 +56,7 @@
   [:#header-title] (html/do->
                      (html/remove-class "project_category")
                      (html/add-class (common/to-css-class category))
-                     (html/content title))
+                     (html/content (common/ellipse-left title title-max-size)))
   [:#header-title-sub] (html/html-content title-sub)
   [:#header-title-desc] (html/content title-desc))
 
