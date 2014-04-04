@@ -34,12 +34,15 @@ body {
 	font-size: 0.75em;/*12px*/
 	color: #4f4f4f;
 	width: 100%;
-	/* min-width: 990px; */ /* liquid layout */
 	background: #ffffff url('../images/body.jpg') repeat-x scroll left top;
 }
 
 body *, body :focus, a {
 	outline: none;
+}
+
+emp {
+	font-weight: bold;
 }
 
 table {
@@ -62,6 +65,13 @@ td {
 /* Selects lines that have a header followed by a td*/
 th+td {
     width: 75%;
+}
+
+.module-logo {
+	float: right;
+	max-width: 250px;
+	max-height: 100px;
+	margin: 0 30px 40px 20px;	
 }
 
 #warning-bar {

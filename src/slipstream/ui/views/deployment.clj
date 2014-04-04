@@ -16,7 +16,6 @@
 (def deployment-new-template-html "slipstream/ui/views/deployment-new.html")
 
 (def module-login-sel [:#module-login])
-(def run-with-options-dialog-sel [:#run-with-options-dialog])
 (def nodes-sel [:#nodes])
 (def parameters-mapping-sel [:#parameters-mapping])
 
@@ -48,9 +47,9 @@
                                  (html/set-attr :name (str "parameter--node--" node-name "--" name))
                                  (html/set-attr :value value))))
 
-(html/defsnippet run-with-options-dialog-snip deployment-view-template-html run-with-options-dialog-sel
+(html/defsnippet run-with-options-dialog-snip deployment-view-template-html module-base/run-with-options-dialog-sel
   [deployment]
-  [run-with-options-dialog-sel :> :form :> :div]
+  [:form :> :div]
   (html/content
     (for [node (module-model/nodes deployment)]
       (list
@@ -211,7 +210,7 @@
 
   [[:input (html/attr-has :name "refqname")]] (html/set-attr :value (common-model/resourceuri deployment))
 
-  run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip deployment))
+  module-base/run-with-options-dialog-sel (html/substitute (run-with-options-dialog-snip deployment))
 
   [:#publish-form] (html/set-attr :action (str "/"
                                            (common-model/resourceuri deployment)

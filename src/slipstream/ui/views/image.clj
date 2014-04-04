@@ -26,6 +26,8 @@
 (def image-deployment-sel [:#deployment])
 (def image-deployment-header-sel [:#deployment-header])
 (def deployment-parameter-categories ["Input" "Output"])
+(def parameter-cloudservice-name "parameter--cloudservice")
+(def cloudservice-sel [(keyword (str "#" parameter-cloudservice-name))])
 
 (def platforms
   ["centos"
@@ -39,6 +41,24 @@
    "other"])
 
 ;; View
+
+(html/defsnippet run-with-options-dialog-snip image-view-template-html module-base/run-with-options-dialog-sel
+  [module]
+  [:select]
+  (html/substitute
+    (common/gen-select
+      "parameter--cloudservice"
+      (module-model/available-clouds module)
+      (-> module user-model/default-cloud))))
+
+(html/defsnippet build-with-options-dialog-snip image-view-template-html module-base/build-with-options-dialog-sel
+  [module]
+  [:select]
+  (html/substitute
+    (common/gen-select
+      "parameter--cloudservice"
+      (module-model/available-clouds module)
+      (-> module user-model/default-cloud))))
 
 (defn- creation-trans
   [recipe prerecipe packages view?]
@@ -213,6 +233,14 @@
                                    (module-base/module-summary-view-snip module))
 
   [[:input (html/attr-has :name "refqname")]] (html/set-attr :value (common-model/resourceuri module))
+
+  module-base/run-with-options-dialog-sel
+    (html/substitute
+      (run-with-options-dialog-snip module))
+
+  module-base/build-with-options-dialog-sel
+    (html/substitute
+      (build-with-options-dialog-snip module))
 
   [image-image-ids-sel :> [:div html/first-of-type]]
     (html/clone-for

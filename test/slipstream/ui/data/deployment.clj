@@ -13,12 +13,10 @@
    
 <!--<published publicationDate='2013-07-14 14:16:54.559 CEST'/>-->
 
-<cloudNames length='2'>
+<cloudNames length='1'>
       
 <string>stratuslab</string>
       
-<string>default</string>
-   
 </cloudNames>
    
 <nodes class='org.hibernate.collection.PersistentMap'>
