@@ -56,10 +56,17 @@
 	            </ul>
 	        </div>
             <div id="importdialog" class="dialog" title="Import module (as xml)" style="display: none;">
-                <form id="importform" action="./" enctype="multipart/form-data" method="post">
-                    <input type="file" id="importinputfile" name="file" />
-                </form>
-            </div>
+				<div>
+                    <p>
+						<span>${msg-import}</span>
+                    </p>
+					<p>
+		                <form id="importform" action="./" enctype="multipart/form-data" method="post">
+		                    <input type="file" id="importinputfile" name="file" />
+		                </form>
+					</p>
+            	</div>
+        	</div>
 	        <div class="data_sheet">
 	            <div class="summary accordion">
                     <h3 id="children-header">Children</h3>

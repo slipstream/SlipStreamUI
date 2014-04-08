@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.image
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.common :as common-model]))
+            [slipstream.ui.models.common :as common]
+            [slipstream.ui.models.module :as module]))
 
 (defn cloud-image-ids 
   [image]
@@ -10,7 +11,7 @@
   "Generate a list of cloud names, without default"
   [image]
   (filter 
-    #(not= "default" %) 
+    #(not= module/default-cloud-name %) 
     (flatten (map :content (html/select image [:cloudNames :> :string])))))
 
 (defn cloud-image-id
@@ -82,7 +83,7 @@
           (deployment-report image))))
     (not
       (empty?
-        (common-model/filter-by-categories 
-          (common-model/parameters image) 
+        (common/filter-by-categories 
+          (common/parameters image) 
           ["Input" "Output"])))))
 

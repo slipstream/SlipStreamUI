@@ -25,14 +25,6 @@ $(document).ready(function() {
 		window.location = '?edit=true';
     });	
 	
-    // Run
-    $('#run-button-top, #run-button-bottom').click(function(event){
-    	$$.hideError();
-		$$.showSubmitMessage("Executing Deployment");
-		$$.send($("#form-run"), event, $.post);
-		return false;
-    });	
-
     // Run...
     $('#run-with-options-button-top, #run-with-options-button-bottom').click(function(event){
     	$$.hideError();
@@ -48,7 +40,7 @@ $(document).ready(function() {
 		buttons: {
 			"Run": function(event) {
 				$(this).dialog("close");
-        		$$.showSubmitMessage("Executing Deployment");
+        		$$.showSubmitMessage("Executing Deployment...");
         		$("#refqname").val($("#module-name").text());
         		$$.send($("#form-run-with-options"), event, $.post);
 				return false;
@@ -78,4 +70,8 @@ $(document).ready(function() {
 	$('.accordion').accordion("option", "active", 1);
 
     $$.activateCopyTo();
+
+	// Show dialog
+	$$.showDialog();
+
 })

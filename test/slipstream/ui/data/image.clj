@@ -1,7 +1,7 @@
 (ns slipstream.ui.data.image
   (:require [net.cgrand.enlive-html :as html]))
   
-(def xml-image (first (html/html-snippet "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
+(def xml-image (first (html/html-snippet "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
 <commit author='an-author'><comment>this is a comment</comment></commit>
 <parameters class='org.hibernate.collection.PersistentMap'>
 <entry>
@@ -78,10 +78,10 @@
 <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='false' publicPut='false'>
 <groupMembers class='java.util.ArrayList'></groupMembers>
 </authz>
-<cloudNames length='2'>
+<cloudNames length='3'>
 <string>stratuslab</string>
 <string>atos</string>
-<string>default</string>
+<string>sky</string>
 </cloudNames>
 <targets class='org.hibernate.collection.PersistentBag'>
 <target name='execute' runInBackground='false'>execute target</target>
@@ -102,7 +102,6 @@
 <runs>
   <item username='donald' cloudServiceName='stratuslab' resourceUri='run/638f04c3-44a1-41c7-90db-c81167fc6f19' uuid='638f04c3-44a1-41c7-90db-c81167fc6f19' moduleResourceUri='module/Public/Tutorials/HelloWorld/client_server/11' status='Aborting' startTime='2013-07-05 17:27:12.471 CEST'/>
   <item username='mickey' cloudServiceName='interoute' resourceUri='run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e' uuid='e8d0b957-14a8-4e96-8677-85c7bd9eb64e' moduleResourceUri='module/Mebster/word_press/simple_deployment/410' status='Aborting' startTime='2013-07-04 17:11:56.340 CEST' tags='this is a tag!' />
-  <user issuper='true' resourceUri='user/super' name='super'></user>
 </runs>
-<user issuper='true' resourceUri='user/super' name='super'></user>
+<user issuper='true' resourceUri='user/super' name='super' defaultCloud='sky'></user>
 </imageModule>")))
