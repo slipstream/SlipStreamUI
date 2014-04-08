@@ -393,29 +393,6 @@ var slipstreamns = {
 	}
 }
 
-// var chooser = {
-// 
-//     selectChooserWithVersion: function() {
-//         var modulename = $('#chooseriframe').find('#module-name').text();
-//         var version = $('#chooseriframe').find('#module-version').text();
-//         var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
-//     },
-//      
-//     selectChooser: function() {
-//         var modulename = $('#chooseriframe').contents().find('#module-name').text();
-//         var targetInput = $('#module-reference').attr('value', modulename);
-//     },
-// 
-// };
-// 
-// function selectChooser() {
-//  chooser.selectChooser();
-// };
-// 
-// function selectChooserWithVersion() {
-//  chooser.selectChooserWithVersion();
-// };
-
 var logger = function() {
 	
 	var loggerIframeId = '#loggeriframe';
@@ -520,24 +497,25 @@ var $$ = {
 	},
     
     createProjectChooserDialog: function() {
-    $('#chooser').dialog({
-        autoOpen: false,
-		modal: true,
-	    width: 1000,
-	    title: "Choose a project",
-	    buttons: {
-	        "Select": function() { 
-                $$.onModuleChooserSelect();
-		        $(this).dialog("close");
+    	$('#chooser').dialog({
+        	autoOpen: false,
+			modal: true,
+		    width: 1000,
+		    title: "Choose a project",
+		    buttons: {
+		        "Select": function() { 
+	                $$.onModuleChooserSelect();
+			        $(this).dialog("close");
+			    },
+	            "Cancel": function() {
+	                $(this).dialog("close");
+	            },
 		    },
-            "Cancel": function() {
-                $(this).dialog("close");
-            },
-	    },
-	    open: function() {
-            $$.resizeIframe($("#chooseriframe")[0]);
-        },
-	});},
+		    open: function() {
+	            $$.resizeIframe($("#chooseriframe")[0]);
+	        },
+		});
+	},
     
 	hideSubmitMessage: function() {
 		$('#submit-message').hide();
