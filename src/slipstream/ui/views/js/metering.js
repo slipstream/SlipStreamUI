@@ -1,7 +1,7 @@
 ﻿(function($, window, document) {
     $.fn.metrics = function(options) {
         var settings = $.extend({
-            url: "http://127.0.0.1:8080/metrics/render",
+            url: "/metrics/render",
             from: "-1h",
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
         }, options );
