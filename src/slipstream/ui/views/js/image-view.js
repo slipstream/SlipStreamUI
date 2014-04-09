@@ -32,18 +32,56 @@ $(document).ready(function() {
 		$("#build-form").submit();
     });	
 
-    $('#build-form').submit(function(event){
-        return $$.send($(this), event, $.post);
-    });
-	
-	// Run
-    $('#run-button-top, #run-button-bottom').click(function(event){
+    // Run...
+    $('#build-with-options-button-top, #build-with-options-button-bottom').click(function(event){
     	$$.hideError();
-		$$.showSubmitMessage("Starting Image");
-		$$.send($("#run-form"), event, $.post);
+		$("#build-with-options-dialog").dialog('open');
 		return false;
     });	
-	
+
+	$('#build-with-options-dialog').dialog({
+		autoOpen: false,
+		modal: true,
+		title: "Build Image",
+		buttons: {
+			"Build": function(event) {
+				$(this).dialog("close");
+        		$$.showSubmitMessage("Build Image...");
+        		$('input[name="refqname"]').val($("#module-name").text());
+        		$$.send($("#form-build-with-options"), event, $.post);
+				return false;
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			},
+		}
+	});
+
+    // Run...
+    $('#run-with-options-button-top, #run-with-options-button-bottom').click(function(event){
+    	$$.hideError();
+		$("#run-with-options-dialog").dialog('open');
+		return false;
+    });	
+
+	$('#run-with-options-dialog').dialog({
+		autoOpen: false,
+		modal: true,
+		title: "Run Image",
+		buttons: {
+			"Run": function(event) {
+				$(this).dialog("close");
+        		$$.showSubmitMessage("Run Single Image...");
+        		$('input[name="refqname"]').val($("#module-name").text());
+        		$$.send($("#form-run-with-options"), event, $.post);
+				return false;
+			},
+			"Cancel": function() {
+				$(this).dialog("close");
+			},
+		}
+	});
+
     // Publish button
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
@@ -61,6 +99,9 @@ $(document).ready(function() {
 	
 	$$.activateCopyTo();
 	
+	// Show dialog if query parameter set
+	$$.showDialog();
+
 	textarea2sceditor('#execute', true);
     textarea2sceditor('#report', true);
     textarea2sceditor('#recipe', true);

@@ -21,3 +21,6 @@
   
 (defn username [metadata]
   (:name (attrs metadata)))
+
+(defn default-cloud [metadata]
+  (-> metadata user attrs :defaultcloud))

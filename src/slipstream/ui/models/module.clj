@@ -6,6 +6,7 @@
 
 (def module-root-uri "module/")
 (def module-root-uri-length (count module-root-uri))
+(def default-cloud-name "default")
 
 (defn attrs
   [module]
@@ -18,6 +19,18 @@
 (defn module-category
   [module]
   (:category (attrs module)))
+
+(defn module-description
+  [module]
+  (:description (attrs module)))
+
+(defn module-version
+  [module]
+  (:version (attrs module)))
+
+(defn module-logo-link
+  [module]
+  (:logolink (attrs module)))
 
 (defn username
   [module]

@@ -21,14 +21,14 @@
 $(document).ready(function() {
 	
     $$.createImageChooserDialog();
-
+    
 	$( "#moduleReferenceChooser" ).click(function() {
         $$.chooserMatchCategory = "Image";
 
         $( "#chooser" ).dialog( "open" );
         return false;
     });
-    
+
     textarea2sceditor('#execute');
     textarea2sceditor('#report');
     textarea2sceditor('#recipe');

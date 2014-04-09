@@ -482,5 +482,5 @@
       </entry>
    </parameters>
    </serviceConfiguration>
-   <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
+   <user issuper='true' resourceUri='user/super' name='SuperDooper' defaultCloud='interoute'></user>
 </user>")))

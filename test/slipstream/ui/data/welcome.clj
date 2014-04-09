@@ -4,13 +4,23 @@
 (def xml-welcome
   (first (html/html-snippet "<welcome>
    <modules>
-      <item resourceUri='module/Public/1' category='Project' name='Public' version='1'>
-         <authz owner='sixsq' ownerGet='true' ownerPut='true' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='false' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='true' inheritedGroupMembers='false'>
+      <item logoLink='http://castlefranksystems.com/wp-content/uploads/2013/11/openerp-logo.png' resourceUri='module/Public/Something_with_a_really_super_long_name/1' category='Deployment' name='Something_with_a_really_super_long_name' version='4321' published='true' description='a description'>
+         <authz owner='sixsq inc' ownerGet='true' ownerPut='true' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='false' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='true' inheritedGroupMembers='false'>
             <groupMembers class='java.util.ArrayList'/>
          </authz>
       </item>
       <item resourceUri='module/examples/21' category='Project' name='examples' version='21'>
          <authz owner='sixsq' ownerGet='true' ownerPut='true' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='false' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='true' inheritedGroupMembers='false'>
+            <groupMembers class='java.util.ArrayList'/>
+         </authz>
+      </item>
+      <item logoLink='http://blog.twmg.com.au/wp-content/uploads/2013/09/wordpress-logo.jpg' resourceUri='module/Public/wordpress/122' category='Image' name='Wordpress' version='1111' published='true' description='wordpress description'>
+         <authz owner='wordpress' ownerGet='true' ownerPut='true' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='false' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='true' inheritedGroupMembers='false'>
+            <groupMembers class='java.util.ArrayList'/>
+         </authz>
+      </item>
+      <item resourceUri='module/Public/nuvlabox/122' category='Image' name='nuvlabox' version='2222' published='true' description='nuvlabox description'>
+         <authz owner='nuvlabox inc' ownerGet='true' ownerPut='true' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='false' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='true' inheritedGroupMembers='false'>
             <groupMembers class='java.util.ArrayList'/>
          </authz>
       </item>
