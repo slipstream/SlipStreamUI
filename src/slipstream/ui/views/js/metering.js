@@ -97,7 +97,7 @@
                       datapoints.push([datapoint[1] * 1000, 0]);
                     }
                 });
-                var key = sample.target.split('.')[3];
+                var key = sample.target.split('.')[4];
                 series[key] = datapoints;
             });
             return series;
