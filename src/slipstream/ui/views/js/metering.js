@@ -40,7 +40,7 @@
                 height: 215
             }).plot(series[1], {
                 series: {
-                    stack: true,
+                    stack: false,
                     lines: {
                         show: true,
                         fill: true
