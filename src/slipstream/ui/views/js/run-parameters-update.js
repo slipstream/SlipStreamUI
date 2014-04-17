@@ -119,20 +119,24 @@ var dashboardUpdater = {
         return pattern.test(propertyName);
     },
 
+    isAbortProperty: function(propertyName) {
+        return propertyName.endsWith(':abort');
+    },
+
     updateProperty: function(propertyName, value) {
 		var encodedId = this.encodeName('#' + propertyName);
 		var valueTd = $(encodedId);
 		if(this.isUrlProperty(propertyName)) {
 		    if (value !== '') {
                 var anchor = '<a href="' + value + '">' + value + '</a>';
-                console.log('Set LINK property: ' + propertyName + ' to ' + anchor);
                 $(valueTd).html(anchor);
 		    } else {
-                console.log('Set LINK property: ' + propertyName + ' with empty string');
                 $(valueTd).text(value);
 		    }
+		} else if(this.isAbortProperty(propertyName)) {
+			$(valueTd).addClass('error-value');
+		    $(valueTd).text(value);
 		} else {
-		    console.log('Set NON-LINK property: ' + propertyName + ' to ' + value);
 		    $(valueTd).text(value);
 		}
     },

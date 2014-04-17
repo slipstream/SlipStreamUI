@@ -1304,6 +1304,10 @@ html body .small_delete {
 
 /*ERROR*/
 
+.error-value {
+	color: red !important;
+}
+
 .message {
     margin: 15px 20px 10px 20px;
 	padding: 0 15px;
