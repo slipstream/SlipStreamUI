@@ -47,13 +47,13 @@
   [module]
   (:author (common/attrs (module-commit module))))
 
-(defn module-islatestversion
+(defn module-latestversion?
   [module]
-  (:islatestversion (attrs module)))
+  (common/true-value? (:islatestversion (attrs module))))
 
 (defn title-extra
   [module]
-  (if (and (not (= nil (module-islatestversion module))) (= "false" (module-islatestversion module)))
+  (if (not (module-latestversion? module))
     (str "<i class='icon-warning-sign'></i>You are not on the latest version of this module!")
     (str "")))
 

@@ -59,9 +59,9 @@
                      (html/content (common/ellipse-left title title-max-size)))
   [:#header-title-sub] (html/html-content title-sub)
   [:#header-title-desc] (html/content title-desc)
-  [:#header-title-extra] (if (= nil extra)
-                           identity
-                           (html/html-content (first extra))))
+  [:#header-title-extra] (if extra
+                           (html/html-content (first extra))
+                           identity))
 
 (defn header-titles
   [title title-sub title-desc category extra]
