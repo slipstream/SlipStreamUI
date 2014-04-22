@@ -105,6 +105,11 @@ th+td {
     color: white;
 }
 
+#header-title-extra {
+    color: orange;
+    padding-top: 5px;
+}
+
 #content {
 	float: none;
 	/* width: 980px; */

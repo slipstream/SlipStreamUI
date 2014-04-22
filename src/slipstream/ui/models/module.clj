@@ -60,6 +60,16 @@
   [module]
   (:author (common/attrs (module-commit module))))
 
+(defn module-latestversion?
+  [module]
+  (common/true-value? (:islatestversion (attrs module))))
+
+(defn title-extra
+  [module]
+  (if (not (module-latestversion? module))
+    (str "<i class='icon-warning-sign'></i>You are not on the latest version of this module!")
+    (str "")))
+
 (defn titles
   [module]
   (let 
@@ -74,7 +84,7 @@
     [attrs (attrs module)
      {:keys [name description category version]} attrs 
      comment (module-commit-comment module)]
-    [name (str "Version: " version " - " description) comment category]))
+    [name (str "Version: " version " - " description) comment category (title-extra module)]))
 
 (defn nodes
   [deployment]
