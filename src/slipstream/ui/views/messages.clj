@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.messages)
 
 (def help
-  {:help-module-is-base "This image maps to an existing cloud-specific image, which SlipStream didn't create. For native images, you are required to provide cloud image identifiers for each cloud you want to use. For non-native images, you need to provide a reference image, which can be chained, to a native image."
+  {:help-module-is-base "This image maps to an existing cloud-specific image, which HNX didn't create. For native images, you are required to provide cloud image identifiers for each cloud you want to use. For non-native images, you need to provide a reference image, which can be chained, to a native image."
    :help-reference-module "The image module this image inherits from."
    :help-cloud-image-ids "Contains the cloud specific image unique identifier (e.g. ami-xxxxxx for Amazon EC2)."
    :help-module-platform "The platform is defined by the native image and inherited by all derived images."

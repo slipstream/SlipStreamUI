@@ -113,7 +113,7 @@
     :list (gen-titles 
             "Projects" 
             "All projects" 
-            "This root project is shared with all SlipStream users"
+            "This root project is shared with all HNX users"
             "Project")
     (gen-module-titles root)))
 
