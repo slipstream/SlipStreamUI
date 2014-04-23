@@ -135,6 +135,7 @@ $(document).ready(function() {
 		$("#module-logo").attr("src");
 	    $("#module-logo").attr("src", src);
 		$("#module-logo").attr("src");
+		$("#module-logo").removeClass("hidden");
 	})
 	
 	

@@ -41,19 +41,19 @@
            slash-resourceuri (:resourceuri attrs)
            name (:name attrs)
            logolink (:logolink attrs)]]
-    [:div :> :a] (if logolink
-                   (html/set-attr :href slash-resourceuri)
-                   nil)
+    [:div :> [:div (html/nth-of-type 1)] :a] (if logolink
+                                               (html/set-attr :href slash-resourceuri)
+                                               nil)
     [:img] (if logolink
      (html/set-attr :src logolink)
      nil)
     [:button] (html/set-attr :onclick (str "location = '" slash-resourceuri "?showdialog=run-with-options-dialog'; return false;"))
-    [:div :> [:div (html/nth-of-type 1)] :a] (html/do->
+    [:div :> [:div (html/nth-of-type 2)] :a] (html/do->
                                                (html/set-attr :href slash-resourceuri)
                                                (html/content name))
-    [:div :> [:div (html/nth-of-type 2)]] (html/content (str "Publisher: " (module-model/owner child)))
-    [:div :> [:div (html/nth-of-type 3)]] (html/content (str "Description: " (module-model/module-description child)))
-    [:div :> [:div (html/nth-of-type 4)]] (html/content (str "Version: " (module-model/module-version child)))))
+    [:div :> [:div (html/nth-of-type 3)] :> :span] (html/content (module-model/owner child))
+    [:div :> [:div (html/nth-of-type 4)] :> :span] (html/content (common/ellipse-right (module-model/module-description child) 70))
+    [:div :> [:div (html/nth-of-type 5)] :> :span] (html/content (module-model/module-version child))))
 
 (html/defsnippet modules-snip welcome-template-html common/content-sel
   [root-projects published-modules]

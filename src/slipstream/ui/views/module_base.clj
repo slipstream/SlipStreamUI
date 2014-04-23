@@ -75,7 +75,12 @@
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
                                 (user/attrs module)))
-  [:#module-logo] (html/set-attr :src (module-model/module-logo-link module)))
+  [:#module-logo] (let [link (module-model/module-logo-link module)]
+                    (if link 
+                      (html/do->
+                        (html/set-attr :src (module-model/module-logo-link module))
+                        (html/remove-class "hidden"))
+                      identity)))
 
 (html/defsnippet module-summary-view-snip project-view-template-html module-summary-sel
   [module]
