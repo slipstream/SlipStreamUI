@@ -82,21 +82,22 @@
   authorization-create-children-sel (html/substitute (authz-children-part-snip authz))
   authorization-execute-sel nil)
 
-(html/defsnippet authz-image-snip authorization-edit-template-html authorization-acl-sel
-  [authz]
+(html/defsnippet authz-module-snip authorization-edit-template-html authorization-acl-sel
+  [authz execute-msg]
   authorization-view-sel (html/substitute (authz-view-part-snip authz))
   authorization-edit-sel (html/substitute (authz-edit-part-snip authz))
   authorization-delete-sel (html/substitute (authz-delete-part-snip authz))
   authorization-execute-sel (html/substitute (authz-post-part-snip authz))
-  [authorization-execute-sel :> [:td html/first-of-type]] (html/content "Build or Run Single Image")
+  [authorization-execute-sel :> [:td html/first-of-type]] (html/content execute-msg)
   authorization-create-children-sel nil)
 
-(html/defsnippet authz-deployment-snip authorization-edit-template-html authorization-acl-sel
+(defn authz-image
   [authz]
-  authorization-view-sel (html/substitute (authz-view-part-snip authz))
-  authorization-edit-sel (html/substitute (authz-edit-part-snip authz))
-  authorization-delete-sel (html/substitute (authz-delete-part-snip authz))
-  [authorization-execute-sel :> [:td html/first-of-type]] (html/content "Run Deployment"))
+  (authz-module-snip authz "Build or Run Single Image"))
+
+(defn authz-deployment
+  [authz]
+  (authz-module-snip authz "Run Deployment"))
 
 (html/defsnippet authz-inhertance-snip authorization-edit-template-html authorization-inheritance-sel
   [authz]
@@ -115,11 +116,11 @@
 
 (defmethod authz-by-category "Image"
   [authz category]
-    (authz-image-snip authz))
+    (authz-image authz))
 
 (defmethod authz-by-category "Deployment"
   [authz category]
-    (authz-deployment-snip authz))
+    (authz-deployment authz))
 
 (html/defsnippet authz-edit-snip authorization-edit-template-html authorization-sel
   [module]
@@ -138,5 +139,5 @@
 (html/defsnippet authz-view-snip authorization-edit-template-html authorization-sel
   [module]
   authorization-sel (html/substitute (authz-edit-snip module))
-  ; Only difference for view compaired with edit is that we disable all input elements
+  ; Only difference for view compared with edit is that we disable all input elements
   [authorization-sel :input] (html/set-attr :disabled "disabled"))

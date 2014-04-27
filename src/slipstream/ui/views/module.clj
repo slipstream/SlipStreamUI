@@ -4,7 +4,6 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.version :as version]
-            [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
@@ -12,8 +11,7 @@
             [slipstream.ui.views.image :as image]
             [slipstream.ui.views.deployment :as deployment]
             [slipstream.ui.views.project :as project]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.authz :as authz]))
+            [slipstream.ui.views.footer :as footer]))
 
 (def deployment-view-template-html "slipstream/ui/views/deployment-view.html")
 (def deployment-edit-template-html "slipstream/ui/views/deployment-edit.html")
