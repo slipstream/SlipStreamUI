@@ -11,7 +11,7 @@
 ;(def webdir "/")
  (def webdir
    (str
-     "/Users/meb/Documents/workspace/SlipStream/SlipStreamUI"
+     "/Users/meb/code/SlipStream/SlipStreamUI"
      "/src/slipstream/ui/views/"))
 
 (defn render [t]

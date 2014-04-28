@@ -26,5 +26,5 @@
   head-sel (html/substitute (head-snip title js-scripts css-stylesheets))
   header/header-sel (html/substitute header)
   common/content-sel (html/substitute content)
-  [:span html/text-node] (html/replace-vars messages/help)
+  [:span html/text-node] (html/replace-vars messages/all-messages)
   footer/footer-sel (html/substitute footer))

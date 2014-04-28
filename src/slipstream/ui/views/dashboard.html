@@ -150,9 +150,10 @@
                         <div id="metering" class="tab_block metrics">
                             <ul class="tabs inner_tabs">
                                 <li><a href="#fragment-vm-running">Virtual Machines</a></li>
-                                <li><a href="#fragment-cpu-requested">CPU</a></li>
-                                <li><a href="#fragment-memory-requested">Memory</a></li>
-                                <li><a href="#fragment-disk-requested">Disk</a></li>
+                                <li style="display:none;"><a href="#fragment-cpu-requested">CPU</a></li>
+                                <li style="display:none;"><a href="#fragment-memory-requested">Memory</a></li>
+                                <li style="display:none;"><a href="#fragment-disk-requested">Disk</a></li>
+
                             </ul>
                             <select id="metering-selector">
                                 <option value="1h">Last hour</option>
@@ -160,16 +161,16 @@
                                 <option value="7d">Last 7 days</option>
                                 <option value="30d">Last 30 days</option>
                             </select>
-                            <div id="fragment-vm-running" data-meter="instance" class="metric row">
+                            <div id="fragment-vm-running" data-metric="slipstream.${username}.usage.instance.*" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                            <div id="fragment-cpu-requested" data-meter="vcpus" class="metric row">
+                            <div id="fragment-cpu-requested" data-metric="slipstream.${username}.usage.vcpus.*" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                            <div id="fragment-memory-requested" data-meter="memory" class="metric row">
+                            <div id="fragment-memory-requested" data-metric="slipstream.${username}.usage.memory.*" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                            <div id="fragment-disk-requested" data-meter="disk" class="metric row">
+                            <div id="fragment-disk-requested" data-metric="slipstream.${username}.usage.disk.*" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
                         </div>

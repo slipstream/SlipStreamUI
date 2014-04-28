@@ -128,5 +128,16 @@ $(document).ready(function() {
 			$(buttons).attr( "disabled", true );
 		}
 	};
+	
+	// Logo
+	$("#logo-link-input").change(function (event) {
+		var src = $(this).val();
+		$("#module-logo").attr("src");
+	    $("#module-logo").attr("src", src);
+		$("#module-logo").attr("src");
+		$("#module-logo").removeClass("hidden");
+	})
+	
+	
 
 })

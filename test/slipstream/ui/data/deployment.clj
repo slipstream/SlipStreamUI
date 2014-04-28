@@ -5,7 +5,7 @@
    
 <parameters class='org.hibernate.collection.PersistentMap'></parameters>
    
-<authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='true' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='true' publicPut='false'>
+<authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='true' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='false' publicPut='false'>
       
 <groupMembers class='java.util.ArrayList'></groupMembers>
    
@@ -13,12 +13,10 @@
    
 <!--<published publicationDate='2013-07-14 14:16:54.559 CEST'/>-->
 
-<cloudNames length='2'>
+<cloudNames length='1'>
       
 <string>stratuslab</string>
       
-<string>default</string>
-   
 </cloudNames>
    
 <nodes class='org.hibernate.collection.PersistentMap'>

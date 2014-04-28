@@ -62,58 +62,99 @@
                 <div class="data_sheet">
                     <div class="summary accordion">
                         <h3 id="published-modules-header">
-                         Published Images and Deployments
+	                         App Store
                         </h3>
                         <div id="published-modules">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="icon" />
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Publisher
-                                        </th>
-                                        <th>
-                                            Version
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <td class="category image_category">
-                                        <a href="module/A/555">CentOS-6.3</a>
-                                    </td>
-                                    <td>
-                                        Description...
-                                    </td>
-                                    <td>sixsq</td>
-                                    <td>123</td>
-                                </tr>
-                                <tr>
-                                    <td class="category deployment_category">
-                                        <a href="module/CELAR/899">Ubuntu-12.04</a>
-                                    </td>
-                                    <td>
-                                        Description...
-                                    </td>
-                                    <td>sixsq</td>
-                                    <td>123</td>
-                                </tr>
-                                <tr>
-                                    <td class="category project_category">
-                                        <a href="module/CELAR_CI/917">Windows-8</a>
-                                    </td>
-                                    <td>
-                                        Description...
-                                    </td>
-                                    <td>sixsq</td>
-                                    <td>123</td>
-                                </tr>
-                            </table>
+							<div style="float: left; background-color: #CBCBCB; margin: 20px; width: 270px;">
+								<div style="height: 170px; background-color: white; margin: 10px 10px 0px;">
+								    <center>
+    								    <a href="/module/examples">								    
+									        <img src="http://s3-eu-west-1.amazonaws.com/linapp.production/posts/9/lightbox/centos_logo.png?1288561185" style="max-height: 150px; max-width: 230px; margin: 10px 10px 0 10px;" />
+									    </a>    
+									</center>
+								</div>
+	                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right; margin: 10px;" onclick="alert(location.href); location = '/image-view?showdialog=run-with-options-dialog'; return false;"><i class="icon-rocket" ></i> Free</button>
+								<div style="margin: 10px;">
+									<emp style="font-size: 1.1em;"><a href="/module/examples">CentOS 6.5</a></emp>
+								</div>
+								<div style="margin: 0 10px;">
+									<strong>Publisher: </strong><span>sixsq</span>
+								</div>
+								<div style="margin: 0 10px; height: 30px; overflow: hidden; word-wrap: break-word;">
+									<strong>Description: </strong><span>Standard CentOS native image</span>
+								</div>
+								<div style="margin: 0 10px 10px 10px;">
+									<strong>Version: </strong><span>123</span>
+								</div>
+							</div>
+							<div style="float: left; background-color: #CBCBCB; margin: 20px; width: 270px;">
+								<img src="/images/slipstream.png" style="backgroud-color: white;width: 250px; margin: 10px 10px 0 10px;" />
+	                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right; margin: 10px;"><i class="icon-rocket"></i> Free</button>
+								<div style="margin: 10px;">
+									<emp>SlipStream 2.1.7</emp>
+								</div>
+								<div style="margin-left: 10px;">
+									Publisher: sixsq
+								</div>
+								<div style="margin-left: 10px;">
+									Description: Full SlipStream deployment
+								</div>
+								<div style="margin: 0 10px 10px 10px;">
+									Version: 567
+								</div>
+							</div>
+							<div style="float: left; background-color: #CBCBCB; margin: 20px; width: 270px;">
+								<img src="http://blog.twmg.com.au/wp-content/uploads/2013/09/wordpress-logo.jpg" style="width: 250px; margin: 10px 10px 0 10px;" />
+	                            <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right; margin: 10px;"><i class="icon-rocket"></i> Free</button>
+								<div style="margin: 10px;">
+									<emp>WordPress</emp>
+								</div>
+								<div style="margin-left: 10px;">
+									Publisher: sixsq
+								</div>
+								<div style="margin-left: 10px;">
+									Description: Simple WordPress deployment 
+								</div>
+								<div style="margin: 0 10px 10px 10px;">
+									Version: 321
+								</div>
+							</div>
+							<div style="float: left; background-color: #CBCBCB; margin: 20px; width: 270px;">
+								<div style="margin: 10px; background-color: white;">
+									<img src="http://www.ozonesolutions.com/programming/wp-content/uploads/2012/04/ubuntulogo.png" style="width: 230px; padding: 10px 10px 0 10px;" />
+								</div>
+                            	<button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right; margin: 10px;"><i class="icon-rocket"></i> Free</button>
+								<div style="margin: 10px;">
+									<emp>Ubuntu 12.04</emp>
+								</div>
+								<div style="margin-left: 10px;">
+									Publisher: sixsq
+								</div>
+								<div style="margin-left: 10px;">
+									Description: Standard Ubuntu 12.04 native image
+								</div>
+								<div style="margin: 0 10px 10px 10px;">
+									Version: 345
+								</div>
+							</div>
+							<div style="float: left; background-color: #CBCBCB; margin: 20px; width: 270px;">
+								<div style="margin: 10px; background-color: white;">
+									<img src="http://castlefranksystems.com/wp-content/uploads/2013/11/openerp-logo.png" style="backgroud-color: white;width: 230px; padding: 10px 10px 0 10px;" />
+								</div>
+                            	<button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right; margin: 10px;"><i class="icon-rocket"></i> Free</button>
+								<div style="margin: 10px;">
+									<emp>CentOS 6.5</emp>
+								</div>
+								<div style="margin-left: 10px;">
+									Publisher: sixsq
+								</div>
+								<div style="margin-left: 10px;">
+									Description: Standard CentOS native image
+								</div>
+								<div style="margin: 0 10px 10px 10px;">
+									Version: 123
+								</div>
+							</div>
                         </div>
                         <h3>
                             Shared Projects
@@ -122,7 +163,7 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="icon" />
+                                        <th class="icon"></th>
                                         <th>
                                             Name
                                         </th>

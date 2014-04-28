@@ -655,3 +655,22 @@
   (html/do->
     (html/content message)
     (html/add-class "empty-section")))
+
+(defn ellipse-left
+  [s max]
+  (let [l (count s)
+        pre "..."
+        pre-l (count pre)]
+  (if (> l max)
+    (str "..." (apply str (take-last (- max pre-l) s)))
+    s)))
+
+(defn ellipse-right
+  [s max]
+  (let [l (count s)
+        post "..."
+        post-l (count post)]
+  (if (> l max)
+    (str (apply str (take (- max post-l) s)) "...")
+    s)))
+

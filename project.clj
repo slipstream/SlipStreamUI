@@ -6,5 +6,8 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [enlive "1.1.4"]
                  [ring "1.1.8"]
+                 [expectations "2.0.6"]
                  [net.cgrand/moustache "1.1.0"]]
+  :plugins [[lein-expectations "0.0.7"]
+            [lein-autoexpect "1.0"]]
   :aot [slipstream.ui.views.representation])

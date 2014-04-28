@@ -17,6 +17,9 @@
             [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.common :as common]))
 
+(def published-modules-sel [:#published-modules])
+(def published-modules-header-sel [:#published-modules-header])
+
 (def welcome-template-html "slipstream/ui/views/welcome.html")
 
 (html/defsnippet header-titles-snip welcome-template-html header/titles-sel
@@ -30,18 +33,37 @@
                                     (header/header-top-bar-snip
                                       (user-model/attrs metadata))))
 
+(html/defsnippet published-children-snip welcome-template-html [published-modules-sel :> [:div html/first-of-type]]
+  [children]
+  (html/clone-for
+    [child children
+     :let [attrs (module-model/attrs child)
+           slash-resourceuri (:resourceuri attrs)
+           name (:name attrs)
+           logolink (:logolink attrs)]]
+    [:div :> [:div (html/nth-of-type 1)] :a] (if logolink
+                                               (html/set-attr :href slash-resourceuri)
+                                               nil)
+    [:img] (if logolink
+     (html/set-attr :src logolink)
+     nil)
+    [:button] (html/set-attr :onclick (str "location = '" slash-resourceuri "?showdialog=run-with-options-dialog'; return false;"))
+    [:div :> [:div (html/nth-of-type 2)] :a] (html/do->
+                                               (html/set-attr :href slash-resourceuri)
+                                               (html/content name))
+    [:div :> [:div (html/nth-of-type 3)] :> :span] (html/content (module-model/owner child))
+    [:div :> [:div (html/nth-of-type 4)] :> :span] (html/content (common/ellipse-right (module-model/module-description child) 70))
+    [:div :> [:div (html/nth-of-type 5)] :> :span] (html/content (module-model/module-version child))))
+
 (html/defsnippet modules-snip welcome-template-html common/content-sel
   [root-projects published-modules]
-  [:#published-modules]
-  (html/content (project/children-snip published-modules))
+  published-modules-sel
+  (html/content (published-children-snip published-modules))
 
-  #{[:#published-modules] [:#published-modules-header]}
+  #{published-modules-sel published-modules-header-sel}
   (if (empty? published-modules)
     nil
     identity)
-
-  [:#published-modules :> :table :> :thead :> :tr :> [:th (html/nth-of-type 3)]]
-  (html/content "Publisher")
 
   ; Root projects cannot be empty
   [:#root-projects] 

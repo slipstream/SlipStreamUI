@@ -54,8 +54,6 @@ $(document).ready(function() {
 
 	$('#import-button-top, #import-button-bottom').click(function(event){
 		$$.hideError();
-		background.fadeOutTopWindow();
-		enableDisableImportButton();
 		$('#importdialog').dialog('open');
 		return false;
 	});
@@ -84,7 +82,6 @@ $(document).ready(function() {
 
 	$('#importdialog').dialog({
 		autoOpen: false,
-		width: 500,
 		stack: false,
 		buttons: {
 			"Import": function(event) {

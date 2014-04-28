@@ -45,6 +45,10 @@ body *, body :focus, a {
 	outline: none;
 }
 
+emp {
+	font-weight: bold;
+}
+
 table {
     table-layout: fixed;
 }
@@ -71,6 +75,13 @@ td {
 /* Selects lines that have a header followed by a td*/
 th+td {
     width: 75%;
+}
+
+.module-logo {
+	float: right;
+	max-width: 250px;
+	max-height: 100px;
+	margin: 0 30px 40px 20px;	
 }
 
 #warning-bar {
@@ -100,11 +111,35 @@ th+td {
 	display: none;
 }
 
+#header-title-sub > a {
+    color: white;
+}
+
+#header-title-extra {
+    color: orange;
+    padding-top: 5px;
+}
+
 #content {
 	float: none;
 	/* width: 980px; */
 	width: 100%; /* liquid layout */
 	margin: 0px auto 0px auto;
+}
+
+#header-title-link {
+    padding: 0px 20px 0px 0px;
+    font-size: 10em;
+    float: right;
+    color: #50a7de;
+}
+
+.url-service-unset {
+    visibility: hidden;
+}
+
+.url-service-set {
+    visibility: visible;
 }
 
 /* Main menu */
@@ -1284,6 +1319,10 @@ html body .small_delete {
 }
 
 /*ERROR*/
+
+.error-value {
+	color: red !important;
+}
 
 .message {
     margin: 15px 20px 10px 20px;

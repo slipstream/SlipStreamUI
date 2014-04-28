@@ -18,6 +18,8 @@
 (def module-publish-button-bottom [:#publish-button-bottom])
 (def module-unpublish-button-top [:#unpublish-button-top])
 (def module-unpublish-button-bottom [:#unpublish-button-bottom])
+(def run-with-options-dialog-sel [:#run-with-options-dialog])
+(def build-with-options-dialog-sel [:#build-with-options-dialog])
 
 ;; Templates
 
@@ -72,7 +74,13 @@
                                 (titles-with-version module)))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
-                                (user/attrs module))))
+                                (user/attrs module)))
+  [:#module-logo] (let [link (module-model/module-logo-link module)]
+                    (if link 
+                      (html/do->
+                        (html/set-attr :src (module-model/module-logo-link module))
+                        (html/remove-class "hidden"))
+                      identity)))
 
 (html/defsnippet module-summary-view-snip project-view-template-html module-summary-sel
   [module]
@@ -103,6 +111,7 @@
 
 (html/defsnippet module-summary-edit-snip project-edit-template-html module-summary-sel
   [module]
+  [:#logo-link-input] (html/set-attr :value (module-model/module-logo-link module))
   [:#parent-module-name] (html/content (module-model/parent-name module))
   [:#module-name :> :span] (html/content (:name (module-model/attrs module)))
   [:#module-name :> :input] (html/set-attr :value (:name (module-model/attrs module)))

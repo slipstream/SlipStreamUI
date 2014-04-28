@@ -119,20 +119,24 @@ var dashboardUpdater = {
         return pattern.test(propertyName);
     },
 
+    isAbortProperty: function(propertyName) {
+        return propertyName.endsWith(':abort');
+    },
+
     updateProperty: function(propertyName, value) {
 		var encodedId = this.encodeName('#' + propertyName);
 		var valueTd = $(encodedId);
 		if(this.isUrlProperty(propertyName)) {
 		    if (value !== '') {
                 var anchor = '<a href="' + value + '">' + value + '</a>';
-                console.log('Set LINK property: ' + propertyName + ' to ' + anchor);
                 $(valueTd).html(anchor);
 		    } else {
-                console.log('Set LINK property: ' + propertyName + ' with empty string');
                 $(valueTd).text(value);
 		    }
+		} else if(this.isAbortProperty(propertyName)) {
+			$(valueTd).addClass('error-value');
+		    $(valueTd).text(value);
 		} else {
-		    console.log('Set NON-LINK property: ' + propertyName + ' to ' + value);
 		    $(valueTd).text(value);
 		}
     },
@@ -266,14 +270,15 @@ var dashboardUpdater = {
 
             // Update the global deployment link.
             var linkDiv = $('#header-title-link');
+            var linkAnchor = $('#header-title-link').find('a').first();
             var serviceLink = that.getGlobalRuntimeValue('url.service');
             if(serviceLink !== undefined && serviceLink !== '') {
                 console.log('setting global service link to ' + serviceLink);
-                linkDiv.html('<a href="' + serviceLink + '"></a>');
+                linkAnchor.attr('href', serviceLink);
                 linkDiv.attr('class', 'url-service-set');
             } else {
                 linkDiv.attr('class', 'url-service-unset');
-                linkDiv.empty();
+                linkAnchor.attr('href', '#');
             }
 
 	        var runtimeParameters = $(run).find('runtimeParameter');

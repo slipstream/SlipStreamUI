@@ -1,13 +1,9 @@
 ﻿(function($, window, document) {
     $.fn.metrics = function(options) {
         var settings = $.extend({
-            url: "/meters/<meter>/statistics",
+            url: "/metrics/render",
+            from: "-1h",
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
-            params: {
-                period: 600,  // 10 minutes, in seconds
-                groupby: "source",
-                start_timestamp: Math.ceil((new Date() - 1000*60*60) / 1000)  // last hour, in seconds
-            }
         }, options );
 
         function plot(elem, series) {
@@ -44,7 +40,7 @@
                 height: 215
             }).plot(series[1], {
                 series: {
-                    stack: true,
+                    stack: false,
                     lines: {
                         show: true,
                         fill: true
@@ -64,7 +60,7 @@
                     sorted: true ,
                     container: $(".col3", elem),
                 },
-                points: { show: true },
+                points: { show: false },
                 grid: { hoverable: true, borderWidth: 0 },
                 tooltip: true,
                 tooltipOpts: {
@@ -90,28 +86,19 @@
             return [ _get_current_series(series), _get_past_series(series) ];
         }
 
-        function zero_fill(series, key) {
-            if (series[key] === undefined) {
-                var period = settings['params']['period'],
-                    start_idx = Math.ceil(settings['params']['start_timestamp'] / period),
-                    end_idx = Math.ceil(settings['params']['end_timestamp'] / period),
-                    count = end_idx - start_idx;
-                series[key] = Array();
-                for (var idx=0; idx<count; idx++) {
-                    series[key].push([(start_idx + idx ) * period * 1000, 0]);
-                }
-            }
-        }
-
         function _gen_series(samples) {
-            var series = {},
-                period = settings['params']['period'],
-                ts_start = Math.ceil(settings['params']['start_timestamp'] / period) * period;
+            var series = {};
             $.each(samples, function(index, sample) {
-                var key = sample.groupby.source,
-                    idx = Math.floor((sample.period_start - ts_start) / period);
-                zero_fill(series, key);
-                series[key][idx] = [ sample.period_start * 1000, sample.mean ];
+                var datapoints = [];
+                $.each(sample.datapoints, function(index, datapoint) {
+                    if (datapoint[0]) {
+                      datapoints.push([datapoint[1] * 1000, datapoint[0]]);
+                    } else {
+                      datapoints.push([datapoint[1] * 1000, 0]);
+                    }
+                });
+                var key = sample.target.split('.')[4];
+                series[key] = datapoints;
             });
             return series;
         }
@@ -136,8 +123,14 @@
         return this.each(function() {
             var $this = $(this);
             $.ajax({
-                url: settings.url.replace("<meter>", $this.data("meter")),
-                data: settings.params,
+                url: settings.url,
+                data: {
+                  target: $this.data("metric"),
+                  from: settings.from,
+                  //maxDataPoints: 20,
+                  format: "json"
+                },
+                type: "GET",
                 success: function(samples, status, xhr) {
                     $this.empty();
 

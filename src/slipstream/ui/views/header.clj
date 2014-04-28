@@ -10,6 +10,8 @@
 (def header-sel [:#header])
 (def header-titles-sel [:#titles])
 
+(def title-max-size 40)
+
 ; titles
 ; TODO: Refactor this
 (def header-summary-sel [:#titles])
@@ -50,18 +52,21 @@
    "Action" "icon-bolt"})
 
 (html/defsnippet header-titles-snip header-template-html titles-sel
-  [title title-sub title-desc category]
+  [title title-sub title-desc category & extra]
   [:#header-title] (html/do->
                      (html/remove-class "project_category")
                      (html/add-class (common/to-css-class category))
-                     (html/content title))
+                     (html/content (common/ellipse-left title title-max-size)))
   [:#header-title-sub] (html/html-content title-sub)
-  [:#header-title-desc] (html/content title-desc))
+  [:#header-title-desc] (html/content title-desc)
+  [:#header-title-extra] (if extra
+                           (html/html-content (first extra))
+                           identity))
 
 (defn header-titles
-  [title title-sub title-desc category]
+  [title title-sub title-desc category extra]
   (header-titles-snip 
-    {title :title title-sub :title-sub title-desc :title-desc category :category}))
+    {title :title title-sub :title-sub title-desc :title-desc category :category extra :extra}))
 
 (def breadcrumb-sel [:#breadcrumb])
 

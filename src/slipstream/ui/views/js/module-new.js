@@ -44,6 +44,12 @@ $(document).ready(function() {
             	var fullname = parentname + moduleShortName;
             	$("#form-save").attr("action", "/module/" + fullname + "?new=true")
                 $("#module-name-input").val(fullname);
+                
+                sceditor2textarea('#execute');
+                sceditor2textarea('#report');
+                sceditor2textarea('#recipe');
+                sceditor2textarea('#prerecipe'); 
+                
         		$$.send($("#form-save"), event, $.put);
 				return false;
 			},
