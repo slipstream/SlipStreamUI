@@ -125,9 +125,8 @@
             $.ajax({
                 url: settings.url,
                 data: {
-                  target: $this.data("metric"),
+                  target: 'keepLastValue(' + $this.data("metric") + ',24)',
                   from: settings.from,
-                  //maxDataPoints: 20,
                   format: "json"
                 },
                 type: "GET",
