@@ -67,9 +67,22 @@
   [versions]
    (:name (common-models/attrs (first-item versions))))
 
+(defmulti js-scripts
+  (fn [type]
+    [type]))
+
+(defmethod js-scripts ["chooser"]
+  [type]
+  (module/js-scripts-chooser))
+
+(defmethod js-scripts :default
+  [type]
+  [])
+
 (defn page [versions type]
   (base/base 
-    {:title (common/title "Versions")
+    {:js-scripts (js-scripts type)
+     :title (common/title "Versions")
      :header (module-base/header versions type header-snip)
      :content (content-snip versions)
      :footer (module-base/footer type)}))
