@@ -208,7 +208,9 @@
      super? (user-model/super? user)
      published? (module-model/published? module)]
     (html/transformation
-      #{[:#build-button-top] [:#build-button-bottom]}
+      #{[:#build-with-options-button-top] [:#build-with-options-button-bottom]}
+      (authz-button can-post?)
+      #{[:#run-with-options-button-top] [:#run-with-options-button-bottom]}
       (authz-button can-post?)
       #{[:#edit-button-top] [:#edit-button-bottom] [:#save-button-top] [:#save-button-bottom]}
       (authz-button can-put?)
