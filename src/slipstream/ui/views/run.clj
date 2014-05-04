@@ -43,7 +43,7 @@
           state (:state attrs)
           category (:category attrs)]
       (header/header-titles-snip
-        id
+        (str id " is " (.toUpperCase state))
         module
         (str "State: " state)
         category)))

@@ -274,15 +274,21 @@ var dashboardUpdater = {
 			that.nodesInfo = {};
 
 	        // Update general state and header
-	        var newStatus = that.translateState($(run).attr('state'));
-	        $('#state').text(newStatus);
-            $("#header-title-desc").text("State: " + newStatus);
+	        var newState = that.translateState($(run).attr('state'));
+	        $('#state').text(newState);
+            $("#header-title-desc").text("State: " + newState);
 
             var headerTitle = $('#header-title');
+			var splitValue = " is ";
+			var parts = headerTitle.text().split(splitValue);
+			headerTitle.text(parts[0] + splitValue + newState.toUpperCase());
             if(that.isAbort()) {
                 headerTitle.addClass('dashboard-error');
+				var abort = that.getGlobalRuntimeValue('abort');
+				$$.showError(abort);
             } else {
                 headerTitle.removeClass('dashboard-error');
+				$$.hideError();
             }
 
             // Update the global deployment link.
