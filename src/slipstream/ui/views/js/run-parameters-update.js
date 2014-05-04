@@ -28,6 +28,9 @@ String.prototype.trim = function() {
 
 $(document).ready(function() {
 
+	// Call update now
+	dashboardUpdater.updateDashboard();
+	// Schedule auto-update
     updateDashboard();
 
 	$('input[value="Terminate"]').click(function(event){
@@ -63,6 +66,17 @@ var dashboardUpdater = {
 
 	initialState: 'Inactive',
 	nodesInfo: {},
+
+	translateState: function(state) {
+		var stateMap = {};
+		stateMap["Inactive"] = "Provisioning";
+		stateMap["Detached"] = "Ready";
+		translated = state;
+		if(state in stateMap) {
+			translated = stateMap[state]
+		}
+		return translated;
+	},
 
 	encodeName: function(parameterName) {
 	    return parameterName.replace(/:/g, '\\:').replace(/\./g, '\\.');
@@ -182,7 +196,8 @@ var dashboardUpdater = {
 
 		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
 
-        $('#' + idprefix + '-state').text("State: " + params.state);
+		var state = this.translateState(params.state);
+        $('#' + idprefix + '-state').text("State: " + state);
         $('#' + idprefix + '-statecustom').text(params.statecustom);
 
         // Set the icon
@@ -193,14 +208,16 @@ var dashboardUpdater = {
 	updateNode: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
-        $('#' + idprefix + '-ratio').text("State: " + this.getRuntimeValue(nodename + '.1', 'state') + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
+		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
+        $('#' + idprefix + '-ratio').text("State: " + state + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
         // Set the icon
         $('#' + idprefix).attr('class', this.nodeNodeCssClass(nodename));
 	},
 
 	updateOchestrator: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
-        $('#' + idprefix + '-state').text("State: " + this.getRuntimeValue(nodename, 'state'));
+		var state = this.translateState(this.getRuntimeValue(nodename, 'state'));
+        $('#' + idprefix + '-state').text("State: " + state);
         $('#' + idprefix).attr('class', this.getCssClass(this.isAbort(nodename)));
 	},
 
@@ -256,8 +273,8 @@ var dashboardUpdater = {
 	        var run = $(data).find("run");
 			that.nodesInfo = {};
 
-	        // Update general status and header
-	        var newStatus = $(run).attr('state');
+	        // Update general state and header
+	        var newStatus = that.translateState($(run).attr('state'));
 	        $('#state').text(newStatus);
             $("#header-title-desc").text("State: " + newStatus);
 
