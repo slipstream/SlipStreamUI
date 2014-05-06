@@ -3,6 +3,9 @@
         var settings = $.extend({
             url: "/metrics/render",
             from: "-1h",
+            target_func: function(target) {
+                return target;
+            },
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
         }, options );
 
@@ -125,9 +128,8 @@
             $.ajax({
                 url: settings.url,
                 data: {
-                  target: $this.data("metric"),
+                  target: settings.target_func.call(this, $this.data("metric")),
                   from: settings.from,
-                  //maxDataPoints: 20,
                   format: "json"
                 },
                 type: "GET",

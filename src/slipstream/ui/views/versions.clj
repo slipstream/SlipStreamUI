@@ -1,17 +1,14 @@
 (ns slipstream.ui.views.versions
   (:require [net.cgrand.enlive-html :as html]
             [clojure.string :as string]
-            [slipstream.ui.models.common :as common-model]
-            [slipstream.ui.models.authz :as authz-model]
+            [slipstream.ui.models.common :as common-models]
             [slipstream.ui.models.modules :as modules]
-            [slipstream.ui.models.module :as module]
+            [slipstream.ui.models.module :as module-models]
             [slipstream.ui.models.user :as user]
-            [slipstream.ui.models.version :as version]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
+            [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header-views]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.project :as project]
             [slipstream.ui.views.common :as common]))
 
 (def versions-sel [:#versions])
@@ -38,17 +35,17 @@
     (html/clone-for 
       [child (sort-by
                #(read-string
-                  (:version (common-model/attrs %)))
+                  (:version (common-models/attrs %)))
                (modules/children versions))]
       [[:a]] (html/do->
-               (html/set-attr :href (str "/" (:resourceuri (common-model/attrs child))))
-               (html/content (:version (common-model/attrs child))))
-      [[:td (html/nth-of-type 2)]] (html/content (module/module-commit-comment child))
-      [[:td (html/nth-of-type 3)]] (html/content (module/module-commit-author child))
-      [[:td (html/nth-of-type 4)]] (html/content (:lastmodified (common-model/attrs child)))))
+               (html/set-attr :href (str "/" (:resourceuri (common-models/attrs child))))
+               (html/content (:version (common-models/attrs child))))
+      [[:td (html/nth-of-type 2)]] (html/content (module-models/module-commit-comment child))
+      [[:td (html/nth-of-type 3)]] (html/content (module-models/module-commit-author child))
+      [[:td (html/nth-of-type 4)]] (html/content (:lastmodified (common-models/attrs child)))))
 
 (defn sanitize-module-name
-  "Drop the leading 'module/' and the version number at the end"
+  "Drop the leading 'module-models/' and the version number at the end"
   [module-name]
   (apply str 
          (drop common/drop-module-slash-no-of-chars 
@@ -61,18 +58,31 @@
   (module-base/breadcrumb
     (sanitize-module-name 
       (:resourceuri
-        (common-model/attrs
+        (common-models/attrs
           (first-item versions)))))
 
   versions-sel (html/substitute (items-snip versions)))
 
 (defn title
   [versions]
-   (:name (common-model/attrs (first-item versions))))
+   (:name (common-models/attrs (first-item versions))))
+
+(defmulti js-scripts
+  (fn [type]
+    [type]))
+
+(defmethod js-scripts ["chooser"]
+  [type]
+  (module/js-scripts-chooser))
+
+(defmethod js-scripts :default
+  [type]
+  [])
 
 (defn page [versions type]
   (base/base 
-    {:title (common/title "Versions")
+    {:js-scripts (js-scripts type)
+     :title (common/title "Versions")
      :header (module-base/header versions type header-snip)
      :content (content-snip versions)
      :footer (module-base/footer type)}))

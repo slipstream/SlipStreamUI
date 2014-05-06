@@ -437,7 +437,7 @@ $(document).ready(function() {
     $$.onModuleChooserSelectWithVersion = function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
         var version = $('#chooseriframe').contents().find('#module-version > span:first-of-type').text();
-        $$.addNode("module/" + modulename + "/" + version);
+        $$.addNode(modulename + "/" + version);
     },
 
     $$.createImageChooserDialog();
