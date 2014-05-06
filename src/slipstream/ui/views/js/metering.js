@@ -100,7 +100,7 @@
                       datapoints.push([datapoint[1] * 1000, 0]);
                     }
                 });
-                var key = sample.target.split('.')[4];
+                var key = sample.target.split('.')[4].replace(')', '');
                 series[key] = datapoints;
             });
             return series;
