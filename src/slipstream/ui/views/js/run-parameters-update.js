@@ -64,7 +64,7 @@ $(document).ready(function() {
 
 var dashboardUpdater = {
 
-	initialState: 'Inactive',
+	initialState: '...',
 	nodesInfo: {},
 
 	translateState: function(state) {
@@ -196,8 +196,7 @@ var dashboardUpdater = {
 
 		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
 
-		var state = this.translateState(params.state);
-        $('#' + idprefix + '-state').text("State: " + state);
+        $('#' + idprefix + '-state').text("VM is " + params.vmstate);
         $('#' + idprefix + '-statecustom').text(params.statecustom);
 
         // Set the icon
@@ -208,16 +207,13 @@ var dashboardUpdater = {
 	updateNode: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
-		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
-        $('#' + idprefix + '-ratio').text("State: " + state + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
         // Set the icon
         $('#' + idprefix).attr('class', this.nodeNodeCssClass(nodename));
 	},
 
 	updateOchestrator: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
-		var state = this.translateState(this.getRuntimeValue(nodename, 'state'));
-        $('#' + idprefix + '-state').text("State: " + state);
+        $('#' + idprefix + '-state').text("VM is " + this.getRuntimeValue(nodename, 'vmstate'));
         $('#' + idprefix).attr('class', this.getCssClass(this.isAbort(nodename)));
 	},
 
