@@ -208,7 +208,9 @@ var dashboardUpdater = {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
 		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
-        $('#' + idprefix + '-ratio').text("State: " + state + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
+		// The Ready state never sets the completed flag, so we ignore it
+		var completed = state === 'Ready' ? nodeinfo.multiplicity : nodeinfo.completed;
+        $('#' + idprefix + '-ratio').text("State: " + state + " (" + completed + "/" + nodeinfo.multiplicity + ")");
         // Set the icon
         $('#' + idprefix).attr('class', this.nodeNodeCssClass(nodename));
 	},
