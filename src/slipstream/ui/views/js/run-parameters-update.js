@@ -207,6 +207,8 @@ var dashboardUpdater = {
 	updateNode: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
+		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
+        $('#' + idprefix + '-ratio').text("State: " + state + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
         // Set the icon
         $('#' + idprefix).attr('class', this.nodeNodeCssClass(nodename));
 	},
