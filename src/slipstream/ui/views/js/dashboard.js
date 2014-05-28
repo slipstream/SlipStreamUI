@@ -74,6 +74,8 @@ $(document).ready(function() {
         drawHistograms();
     });
 
+	drawGauges($( "#usage" ).newPanel);
+
     $(".accordion").on("accordionactivate", function(event, ui) {
         if (ui.newPanel.length) {
             if (ui.newPanel[0].id == "metering") {

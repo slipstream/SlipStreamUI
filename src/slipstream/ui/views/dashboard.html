@@ -70,6 +70,12 @@
                 </div>
                 <div class="data_sheet">
                     <div class="summary accordion">
+                        <h3 id="usage-header">Usage</h3>
+                        <div id="usage">
+                            <div id="gauge-cloudA" class="gauge" data-quota-max="100" data-quota-current="11" data-quota-title="Cloud A"></div>
+                            <div id="gauge-cloudB" class="gauge" data-quota-max="100" data-quota-current="83" data-quota-title="Cloud B"></div>
+                        </div>
+
                         <h3>
                             Deployments / Runs / Builds
                         </h3>
@@ -139,6 +145,7 @@
                                 </table>
                             </div>
                         </div>
+                        
                         <h3>
                             Virtual Machines
                         </h3>
@@ -173,12 +180,6 @@
                             <div id="fragment-disk-requested" data-metric="slipstream.${username}.usage.disk.*" class="metric row">
                                 <div class="while-processing"><p>Interrogating service, please wait...</p></div>
                             </div>
-                        </div>
-
-                        <h3 id="usage-header">Usage</h3>
-                        <div id="usage">
-                            <div id="gauge-cloudA" class="gauge" data-quota-max="100" data-quota-current="11" data-quota-title="Cloud A"></div>
-                            <div id="gauge-cloudB" class="gauge" data-quota-max="100" data-quota-current="83" data-quota-title="Cloud B"></div>
                         </div>
                     </div>
                 </div>

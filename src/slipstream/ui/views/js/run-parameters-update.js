@@ -28,6 +28,9 @@ String.prototype.trim = function() {
 
 $(document).ready(function() {
 
+	// Call update now
+	dashboardUpdater.updateDashboard();
+	// Schedule auto-update
     updateDashboard();
 
 	$('input[value="Terminate"]').click(function(event){
@@ -61,8 +64,19 @@ $(document).ready(function() {
 
 var dashboardUpdater = {
 
-	initialState: 'Inactive',
+	initialState: '...',
 	nodesInfo: {},
+
+	translateState: function(state) {
+		var stateMap = {};
+		stateMap["Inactive"] = "Provisioning";
+		stateMap["Detached"] = "Ready";
+		translated = state;
+		if(state in stateMap) {
+			translated = stateMap[state]
+		}
+		return translated;
+	},
 
 	encodeName: function(parameterName) {
 	    return parameterName.replace(/:/g, '\\:').replace(/\./g, '\\.');
@@ -182,7 +196,7 @@ var dashboardUpdater = {
 
 		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
 
-        $('#' + idprefix + '-state').text("State: " + params.state);
+        $('#' + idprefix + '-state').text("VM is " + params.vmstate);
         $('#' + idprefix + '-statecustom').text(params.statecustom);
 
         // Set the icon
@@ -193,14 +207,17 @@ var dashboardUpdater = {
 	updateNode: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
-        $('#' + idprefix + '-ratio').text("State: " + this.getRuntimeValue(nodename + '.1', 'state') + " (" + nodeinfo.completed + "/" + nodeinfo.multiplicity + ")");
+		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
+		// The Ready state never sets the completed flag, so we ignore it
+		var completed = state === 'Ready' ? nodeinfo.multiplicity : nodeinfo.completed;
+        $('#' + idprefix + '-ratio').text("State: " + state + " (" + completed + "/" + nodeinfo.multiplicity + ")");
         // Set the icon
         $('#' + idprefix).attr('class', this.nodeNodeCssClass(nodename));
 	},
 
 	updateOchestrator: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
-        $('#' + idprefix + '-state').text("State: " + this.getRuntimeValue(nodename, 'state'));
+        $('#' + idprefix + '-state').text("VM is " + this.getRuntimeValue(nodename, 'vmstate'));
         $('#' + idprefix).attr('class', this.getCssClass(this.isAbort(nodename)));
 	},
 
@@ -256,16 +273,22 @@ var dashboardUpdater = {
 	        var run = $(data).find("run");
 			that.nodesInfo = {};
 
-	        // Update general status and header
-	        var newStatus = $(run).attr('state');
-	        $('#state').text(newStatus);
-            $("#header-title-desc").text("State: " + newStatus);
+	        // Update general state and header
+	        var newState = that.translateState($(run).attr('state'));
+	        $('#state').text(newState);
+            $("#header-title-desc").text("State: " + newState);
 
             var headerTitle = $('#header-title');
+			var splitValue = " is ";
+			var parts = headerTitle.text().split(splitValue);
+			headerTitle.text(parts[0] + splitValue + newState.toUpperCase());
             if(that.isAbort()) {
                 headerTitle.addClass('dashboard-error');
+				var abort = that.getGlobalRuntimeValue('abort');
+				$$.showError(abort);
             } else {
                 headerTitle.removeClass('dashboard-error');
+				$$.hideError();
             }
 
             // Update the global deployment link.

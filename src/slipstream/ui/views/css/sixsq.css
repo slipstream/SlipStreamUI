@@ -142,6 +142,10 @@ th+td {
     visibility: visible;
 }
 
+.url-service-set a {
+	color: #50a7de;
+}
+
 /* Main menu */
 
 .top {
@@ -1503,4 +1507,28 @@ th.remove {
 
 #nodes th:nth-of-type(3) {
     width: 16px;
+}
+
+.icon-circle {
+    color: gray;
+}
+
+.online {
+    color: green;
+}
+
+.progress-bar {
+	color: orange;
+	width: 975px;
+	margin: 0px auto;
+	background-color: white;
+	position:relative;
+	top:-15px;
+	margin-left: 7px;
+	height: 10px;
+	
+
+	border-radius: 0px 0px 3px 3px;
+	-moz-border-radius: 0px 0px 3px 3px;
+	-webkit-border-radius: 0px 0px 3px 3px;
 }
