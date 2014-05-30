@@ -11,7 +11,7 @@
 (def interations-template-html "slipstream/ui/views/interations.html")
 (def inputs-template-html "slipstream/ui/views/inputs.html")
 
-(def slipstream "SlipStream")
+(def slipstream "Helix Nebula")
 
 (defn title [value]
   (str slipstream " | " value))
