@@ -6,6 +6,9 @@
             target_func: function(target) {
                 return target;
             },
+            transform_func: function(series) {
+                return series;
+            },
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
         }, options );
 
@@ -104,7 +107,7 @@
                     key = parts[parts.length-1].replace(')', '');
                 series[key] = datapoints;
             });
-            return series;
+            return settings.transform_func(series);
         }
 
         function _get_past_series(series) {
