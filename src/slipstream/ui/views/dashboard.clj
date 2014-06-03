@@ -139,7 +139,8 @@
 
   metrics-sel
   (if (configuration-model/metering-enabled? dashboard)
-    (html/replace-vars {:username (user-model/username dashboard)})
+    (html/replace-vars {:username (clojure.string/replace
+                                    (user-model/username dashboard) "." "_")})
     nil)
 
   usage-header-sel
