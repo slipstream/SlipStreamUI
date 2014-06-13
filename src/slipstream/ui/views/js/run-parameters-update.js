@@ -222,7 +222,7 @@ var dashboardUpdater = {
 	},
 
 	truncate: function(message) {
-	    var maxStringSize = 18;
+	    var maxStringSize = 20;
 	    if (message.length > maxStringSize) {
 	        var firstPart = message.substr(0, maxStringSize / 2 - 2);
 	        var lastPart = message.substr(message.length - maxStringSize / 2 + 2, message.length - 1);
