@@ -69,8 +69,7 @@ var dashboardUpdater = {
 
 	translateState: function(state) {
 		var stateMap = {};
-		stateMap["Inactive"] = "Provisioning";
-		stateMap["Detached"] = "Ready";
+		stateMap["SendingReports"] = "Sending Reports";
 		translated = state;
 		if(state in stateMap) {
 			translated = stateMap[state]
@@ -207,7 +206,7 @@ var dashboardUpdater = {
 	updateNode: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
-		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
+		var state = this.translateState(this.getRuntimeValue('ss', 'state'));
 		// The Ready state never sets the completed flag, so we ignore it
 		var completed = state === 'Ready' ? nodeinfo.multiplicity : nodeinfo.completed;
         $('#' + idprefix + '-ratio').text("State: " + state + " (" + completed + "/" + nodeinfo.multiplicity + ")");
