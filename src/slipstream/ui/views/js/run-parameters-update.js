@@ -28,10 +28,8 @@ String.prototype.trim = function() {
 
 $(document).ready(function() {
 
-	// Call update now
-	dashboardUpdater.updateDashboard();
 	// Schedule auto-update
-    updateDashboard();
+	setTimeout("updateDashboard()", 2500);
 
 	$('input[value="Terminate"]').click(function(event){
 		event.preventDefault();
@@ -253,7 +251,7 @@ var dashboardUpdater = {
 		params.name = vmname;
 		prefix = this.encodeName('#' + vmname + ':');
 		params.abort = $(prefix + "abort").text();
-		params.state = $(prefix + "state").text();
+		params.state = $("ss:state").text();
 		params.statecustom = $(prefix + "statecustom").text();
 		params.vmstate = $(prefix + "vmstate").text();
 		params.completed = $(prefix + "completed").text();
