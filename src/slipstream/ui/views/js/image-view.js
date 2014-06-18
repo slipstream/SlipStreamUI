@@ -47,7 +47,7 @@ $(document).ready(function() {
 			"Build": function(event) {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Build Image...");
-        		$('input[name="refqname"]').val($("#module-name").text());
+        		$('input[name="refqname"]').val('module/' + $("#module-name").text() + '/' + $('#module-version span:first').text());
         		$$.send($("#form-build-with-options"), event, $.post);
 				return false;
 			},
@@ -72,7 +72,7 @@ $(document).ready(function() {
 			"Run": function(event) {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Run Single Image...");
-        		$('input[name="refqname"]').val($("#module-name").text());
+        		$('input[name="refqname"]').val('module/' + $("#module-name").text() + '/' + $('#module-version span:first').text());
         		$$.send($("#form-run-with-options"), event, $.post);
 				return false;
 			},

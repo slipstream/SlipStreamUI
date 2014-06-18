@@ -41,7 +41,7 @@ $(document).ready(function() {
 			"Run": function(event) {
 				$(this).dialog("close");
         		$$.showSubmitMessage("Executing Deployment...");
-        		$("#refqname").val($("#module-name").text());
+        		$("#refqname").val('module/' + $("#module-name").text() + '/' + $('#module-version span:first').text());
         		$$.send($("#form-run-with-options"), event, $.post);
 				return false;
 			},
