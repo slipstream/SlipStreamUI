@@ -93,6 +93,16 @@ var dashboardUpdater = {
 		return $("#" + parameterName).text();
 	},
 
+    isFinalState: function(state) {
+        finalStates = ['Cancelled', 'Aborted', 'Done'];
+        for (var i = 0; i < finalStates.length; i++) {
+            if (finalStates[i].toLowerCase() === state.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    },
+
 	isAbort: function(nodeName) {
 	    if(nodeName){
     		return !(this.getRuntimeValue(nodeName, 'abort') === "");
@@ -276,7 +286,8 @@ var dashboardUpdater = {
             var headerTitle = $('#header-title');
 			var splitValue = " is ";
 			var parts = headerTitle.text().split(splitValue);
-			headerTitle.text(parts[0] + splitValue + newState.toUpperCase());
+			var userState = newState;
+			
             if(that.isAbort()) {
                 headerTitle.addClass('dashboard-error');
 				var abort = that.getGlobalRuntimeValue('abort');
@@ -285,6 +296,14 @@ var dashboardUpdater = {
                 headerTitle.removeClass('dashboard-error');
 				$$.hideError();
             }
+            
+            if (that.isAbort() && !that.isFinalState(newState)) {
+                userState = 'Aborting';
+            } else if (that.isAbort() && newState.toLowerCase() == 'done') {
+                userState = 'Error';
+            }
+            
+            headerTitle.text(parts[0] + splitValue + userState.toUpperCase());
 
             // Update the global deployment link.
             var linkDiv = $('#header-title-link');
