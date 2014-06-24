@@ -129,7 +129,7 @@ th+td {
 
 #header-title-link {
     padding: 0px 20px 0px 0px;
-    font-size: 10em;
+    font-size: 8em;
     float: right;
     color: #50a7de;
 }
@@ -470,7 +470,7 @@ th+td {
 	margin: 5px 0 0 0;
 	border-bottom: 1px solid #515151;
 	padding-bottom: 0;
-	font-size: 3.167em;/*38px*/
+	font-size: 2.5em;
 	/*color: #50a7de;*/
 	color: white;
 	font-family: 'helveticaneueltstdmdcn', 'Arial Narrow', 'Arial', sans-serif;
@@ -753,6 +753,8 @@ ul.interaction li {
 .ui-button {
 	background-color: #17025C;
 	color: #ffffff;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .ui-dialog-buttonset .ui-button {
