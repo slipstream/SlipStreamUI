@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Built-By: meb
-Created-By: Leiningen 2.0.0-preview7
-
