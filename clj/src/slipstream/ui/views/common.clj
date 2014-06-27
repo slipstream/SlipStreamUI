@@ -5,24 +5,9 @@
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]))
 
-(defn- trim-leading-trailing-double
-  "Remove leading, trailing and double char c"
-  [s c]
-  (string/join c (filter not-empty (string/split s (re-pattern c)))))
-
-(defn trim-slashes
-  "Remove leading, trailing and double slashes"
-  [s]
-  (trim-leading-trailing-double s "/"))
-
 (defn get-template
   [name]
   (str @config/template-namespace "/" name))
-
-(defn set-template!
-  [ns]
-  (let [template (trim-slashes ns)]
-    (reset! config/template-namespace template)))
 
 (def content-sel [:#content])
 

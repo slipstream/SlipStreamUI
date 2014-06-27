@@ -127,19 +127,3 @@
   "Set the application version"
   [version]
   (version-model/set-release-version version))
-
-(defn -setHtmlTemplateNamespace
-  "Set alternative namespace for HTML template. Must be slash separated."
-  [ns]
-  (println slipstream.ui.views.configuration/configuration-template-html)
-  (common/set-template! ns)
-  (println slipstream.ui.views.configuration/configuration-template-html)
-  (reload/refresh-views)
-  (println slipstream.ui.views.configuration/configuration-template-html)
-  (common/set-template! ns)
-  (println slipstream.ui.views.configuration/configuration-template-html)
-  (require 'slipstream.ui.views.configuration :reload)
-  (println slipstream.ui.views.configuration/configuration-template-html)
-  (common/set-template! ns)
-  (println slipstream.ui.views.configuration/configuration-template-html)
-  @slipstream.ui.config/template-namespace)
