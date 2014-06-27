@@ -441,7 +441,7 @@
            description (:description attrs)
            type (:type attrs)
            defaultvalue (:defaultvalue attrs)
-           tr-id (tr-id category i)
+           tr-id (tr-id name i)
            value (set-input-value parameter tr-id)
            help (parameter-help parameter)]]
     html/this-node (html/set-attr :id tr-id)
@@ -477,7 +477,7 @@
            attrs (common-model/attrs parameter)
            name (:name attrs)
            category (:category attrs)
-           tr-id (tr-id category i)
+           tr-id (tr-id name i)
            category-select (gen-select
                              (set-input-name-category tr-id) 
                              ["Input" "Output"]
@@ -519,7 +519,7 @@
            attrs (common-model/attrs parameter)
            name (:name attrs)
            category (:category attrs)
-           tr-id (tr-id category i)
+           tr-id (tr-id name i)
            description (:description attrs)
            type (:type attrs)
            defaultvalue (:defaultvalue attrs)

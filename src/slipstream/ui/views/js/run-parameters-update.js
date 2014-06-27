@@ -28,10 +28,8 @@ String.prototype.trim = function() {
 
 $(document).ready(function() {
 
-	// Call update now
-	dashboardUpdater.updateDashboard();
 	// Schedule auto-update
-    updateDashboard();
+	setTimeout("updateDashboard()", 2500);
 
 	$('input[value="Terminate"]').click(function(event){
 		event.preventDefault();
@@ -69,8 +67,7 @@ var dashboardUpdater = {
 
 	translateState: function(state) {
 		var stateMap = {};
-		stateMap["Inactive"] = "Provisioning";
-		stateMap["Detached"] = "Ready";
+		stateMap["SendingReports"] = "Sending Reports";
 		translated = state;
 		if(state in stateMap) {
 			translated = stateMap[state]
@@ -95,6 +92,16 @@ var dashboardUpdater = {
 	getRuntimeValueFullName: function(parameterName) {
 		return $("#" + parameterName).text();
 	},
+
+    isFinalState: function(state) {
+        finalStates = ['Cancelled', 'Aborted', 'Done'];
+        for (var i = 0; i < finalStates.length; i++) {
+            if (finalStates[i].toLowerCase() === state.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    },
 
 	isAbort: function(nodeName) {
 	    if(nodeName){
@@ -207,7 +214,7 @@ var dashboardUpdater = {
 	updateNode: function(nodename) {
 		var idprefix = this.getIdPrefix(nodename);
 		var nodeinfo = this.nodesInfo[nodename];
-		var state = this.translateState(this.getRuntimeValue(nodename + '.1', 'state'));
+		var state = this.translateState(this.getRuntimeValue('ss', 'state'));
 		// The Ready state never sets the completed flag, so we ignore it
 		var completed = state === 'Ready' ? nodeinfo.multiplicity : nodeinfo.completed;
         $('#' + idprefix + '-ratio').text("State: " + state + " (" + completed + "/" + nodeinfo.multiplicity + ")");
@@ -222,7 +229,7 @@ var dashboardUpdater = {
 	},
 
 	truncate: function(message) {
-	    var maxStringSize = 18;
+	    var maxStringSize = 20;
 	    if (message.length > maxStringSize) {
 	        var firstPart = message.substr(0, maxStringSize / 2 - 2);
 	        var lastPart = message.substr(message.length - maxStringSize / 2 + 2, message.length - 1);
@@ -242,7 +249,6 @@ var dashboardUpdater = {
 		params.name = vmname;
 		params.abort = $(run).find(prefix + "abort']").text();
 		params.state = $(run).find(prefix + "state']").text();
-		params.statemessage = $(run).find(prefix + "statemessage']").text();
 		params.statecustom = this.truncate($(run).find(prefix + "statecustom']").text());
 		params.vmstate = $(run).find(prefix + "vmstate']").text();
 		params.completed = $(run).find(prefix + "complete']").text();
@@ -255,8 +261,7 @@ var dashboardUpdater = {
 		params.name = vmname;
 		prefix = this.encodeName('#' + vmname + ':');
 		params.abort = $(prefix + "abort").text();
-		params.state = $(prefix + "state").text();
-		params.statemessage = $(prefix + "statemessage").text();
+		params.state = $("ss:state").text();
 		params.statecustom = $(prefix + "statecustom").text();
 		params.vmstate = $(prefix + "vmstate").text();
 		params.completed = $(prefix + "completed").text();
@@ -281,7 +286,8 @@ var dashboardUpdater = {
             var headerTitle = $('#header-title');
 			var splitValue = " is ";
 			var parts = headerTitle.text().split(splitValue);
-			headerTitle.text(parts[0] + splitValue + newState.toUpperCase());
+			var userState = newState;
+			
             if(that.isAbort()) {
                 headerTitle.addClass('dashboard-error');
 				var abort = that.getGlobalRuntimeValue('abort');
@@ -290,6 +296,14 @@ var dashboardUpdater = {
                 headerTitle.removeClass('dashboard-error');
 				$$.hideError();
             }
+            
+            if (that.isAbort() && !that.isFinalState(newState)) {
+                userState = 'Aborting';
+            } else if (that.isAbort() && newState.toLowerCase() == 'done') {
+                userState = 'Error';
+            }
+            
+            headerTitle.text(parts[0] + splitValue + userState.toUpperCase());
 
             // Update the global deployment link.
             var linkDiv = $('#header-title-link');
