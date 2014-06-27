@@ -10,7 +10,7 @@
             [slipstream.ui.views.run :as run]
             [slipstream.ui.views.module-base :as module-base]))
 
-(def runs-template-html "slipstream/ui/views/runs-template.html")
+(def runs-template-html (common/get-template "runs-template.html"))
 
 (def runs-sel [:#runs])
 (def runs-fragment-sel [:#fragment-runs-somecloud])

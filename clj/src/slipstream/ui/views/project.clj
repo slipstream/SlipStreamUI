@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.project
   (:require [net.cgrand.enlive-html :as html]
-            [clojure.string :as string]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -16,7 +16,7 @@
 
 ;; Templates
 
-(def project-new-template-html "slipstream/ui/views/project-new.html")
+(def project-new-template-html (common/get-template "project-new.html"))
 
 (defn authz-buttons
   [module]

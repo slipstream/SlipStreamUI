@@ -1,11 +1,12 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.header :as header]))
 
-(def layout-template-html "slipstream/ui/views/layout.html")
+(def layout-template-html (common/get-template "layout.html"))
 
 (def head-sel [:head])
 (def title-sel [head-sel :> :title])

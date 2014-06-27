@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.error
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.models.version :as version]
@@ -7,7 +8,7 @@
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.common :as common]))
 
-(def error-template-html "slipstream/ui/views/error.html")
+(def error-template-html (common/get-template "error.html"))
 
 (html/defsnippet error-titles-snip header/header-template-html header/titles-sel
   [message code]

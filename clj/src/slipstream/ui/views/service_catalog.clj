@@ -15,7 +15,7 @@
             [slipstream.ui.views.project :as project]
             [slipstream.ui.views.common :as common]))
 
-(def service-catalog-template-html "slipstream/ui/views/service_catalog.html")
+(def service-catalog-template-html (common/get-template "service_catalog.html"))
 
 (def service-catalog-id "service-catalog")
 (def service-catalog-sel [(keyword (str "#" service-catalog-id))])

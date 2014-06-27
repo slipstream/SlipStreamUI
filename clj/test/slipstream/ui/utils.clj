@@ -12,7 +12,7 @@
  (def webdir
    (str
      "/Users/meb/code/SlipStream/SlipStreamUI"
-     "/src/slipstream/ui/views/"))
+     "/clj/src/slipstream/ui/views/"))
 
 (defn render [t]
   (apply str t))

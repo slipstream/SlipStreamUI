@@ -23,9 +23,9 @@
 
 ;; Templates
 
-(def project-view-template-html "slipstream/ui/views/project-view.html")
-(def project-edit-template-html "slipstream/ui/views/project-edit.html")
-(def project-new-template-html "slipstream/ui/views/project-new.html")
+(def project-view-template-html (common/get-template "project-view.html"))
+(def project-edit-template-html (common/get-template "project-edit.html"))
+(def project-new-template-html (common/get-template "project-new.html"))
 
 ;; Utility
 

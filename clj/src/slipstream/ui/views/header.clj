@@ -13,10 +13,9 @@
 (def title-max-size 40)
 
 ; titles
-; TODO: Refactor this
 (def header-summary-sel [:#titles])
 
-(def header-template-html "slipstream/ui/views/header.html")
+(def header-template-html (common/get-template "header.html"))
 
 (def header-top-bar-sel [:.menu_bar])
 

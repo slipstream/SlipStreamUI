@@ -8,7 +8,7 @@
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
-(def knockknock-template-html "slipstream/ui/views/knockknock.html")
+(def knockknock-template-html (common/get-template "knockknock.html"))
 
 (html/defsnippet header-snip knockknock-template-html header/header-sel
   [metadata]

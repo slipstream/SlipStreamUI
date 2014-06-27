@@ -7,7 +7,7 @@
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
-(def byebye-template-html "slipstream/ui/views/byebye.html")
+(def byebye-template-html (common/get-template "byebye.html"))
 
 (html/defsnippet header-titles-snip byebye-template-html header/header-titles-sel
   [metadata]

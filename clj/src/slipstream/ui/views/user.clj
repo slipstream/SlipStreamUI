@@ -10,9 +10,9 @@
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]))
 
-(def user-view-template-html "slipstream/ui/views/user-view.html")
-(def user-edit-template-html "slipstream/ui/views/user-edit.html")
-(def user-new-template-html "slipstream/ui/views/user-new.html")
+(def user-view-template-html (common/get-template "user-view.html"))
+(def user-edit-template-html (common/get-template "user-edit.html"))
+(def user-new-template-html (common/get-template "user-new.html"))
 
 (def summary-sel [:#user-summary])
 (def parameters-sel [:#parameters])

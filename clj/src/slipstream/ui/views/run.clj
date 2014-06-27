@@ -1,16 +1,16 @@
 (ns slipstream.ui.views.run
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.run :as run-model]))
 
-(def run-template-html "slipstream/ui/views/run.html")
-(def runtime-parameters-template-html "slipstream/ui/views/runtime-parameters.html")
+(def run-template-html (common/get-template "run.html"))
+(def runtime-parameters-template-html (common/get-template "runtime-parameters.html"))
 
 (def summary-sel [:#summary])
 (def parameters-sel [:#parameters])

@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.documentation
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
@@ -10,7 +11,7 @@
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]))
 
-(def documentation-template-html "slipstream/ui/views/documentation.html")
+(def documentation-template-html (common/get-template "documentation.html"))
 
 (html/defsnippet header-snip documentation-template-html header/header-sel
   [user]

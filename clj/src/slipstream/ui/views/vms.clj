@@ -6,7 +6,7 @@
             [slipstream.ui.views.run :as run]
             [slipstream.ui.views.base :as base]))
 
-(def vms-template-html "slipstream/ui/views/vms-template.html")
+(def vms-template-html (common/get-template "vms-template.html"))
 
 (def vms-sel [:#vms])
 (def vms-fragment-sel [:#fragment-vms-somecloud])

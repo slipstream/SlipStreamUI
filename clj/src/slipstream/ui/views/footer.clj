@@ -6,6 +6,6 @@
 
 (def footer-sel [:#footer])
 
-(html/defsnippet footer-snip "slipstream/ui/views/footer.html" footer-sel
+(html/defsnippet footer-snip (common/get-template "footer.html") footer-sel
   []
   [:#release-version] (html/content @version/slipstream-release-version))

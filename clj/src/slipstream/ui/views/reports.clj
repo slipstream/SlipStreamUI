@@ -1,11 +1,11 @@
 (ns slipstream.ui.views.reports
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.common :as common-model]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.models.common :as common-model]
             [slipstream.ui.views.base :as base]))
 
-(def reports-template-html "slipstream/ui/views/reports.html")
+(def reports-template-html (common/get-template "reports.html"))
 
 (def reports-sel [:#reports])
 

@@ -1,6 +1,8 @@
 (ns slipstream.ui.views.representation
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.version :as version-model]
+            [slipstream.ui.views.common :as common]
+            [slipstream.common.reload :as reload]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.byebye :as byebye]
@@ -26,6 +28,9 @@
               #^{:static true
                  :doc "Takes: user message code"}
                 [toHtmlError [String String String] String]
+              #^{:static true
+                 :doc "Set alternative namespace for HTML template. Must be slash separated."}
+                [setHtmlTemplateNamespace [String] String]
               #^{:static true
                  :doc "Takes: version"}
                 [setReleaseVersion [String] void]]))
@@ -122,3 +127,19 @@
   "Set the application version"
   [version]
   (version-model/set-release-version version))
+
+(defn -setHtmlTemplateNamespace
+  "Set alternative namespace for HTML template. Must be slash separated."
+  [ns]
+  (println slipstream.ui.views.configuration/configuration-template-html)
+  (common/set-template! ns)
+  (println slipstream.ui.views.configuration/configuration-template-html)
+  (reload/refresh-views)
+  (println slipstream.ui.views.configuration/configuration-template-html)
+  (common/set-template! ns)
+  (println slipstream.ui.views.configuration/configuration-template-html)
+  (require 'slipstream.ui.views.configuration :reload)
+  (println slipstream.ui.views.configuration/configuration-template-html)
+  (common/set-template! ns)
+  (println slipstream.ui.views.configuration/configuration-template-html)
+  @slipstream.ui.config/template-namespace)

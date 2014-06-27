@@ -13,9 +13,9 @@
             [slipstream.ui.views.project :as project]
             [slipstream.ui.views.footer :as footer]))
 
-(def deployment-view-template-html "slipstream/ui/views/deployment-view.html")
-(def deployment-edit-template-html "slipstream/ui/views/deployment-edit.html")
-(def deployment-new-template-html "slipstream/ui/views/deployment-new.html")
+(def deployment-view-template-html (common/get-template "deployment-view.html"))
+(def deployment-edit-template-html (common/get-template "deployment-edit.html"))
+(def deployment-new-template-html (common/get-template "deployment-new.html"))
 
 (defn header
   [module type]

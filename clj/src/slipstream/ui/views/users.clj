@@ -11,7 +11,7 @@
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]))
 
-(def users-template-html "slipstream/ui/views/users.html")
+(def users-template-html (common/get-template "users.html"))
 
 (def users-sel [:#users])
 

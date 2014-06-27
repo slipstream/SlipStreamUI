@@ -1,15 +1,35 @@
 (ns slipstream.ui.views.common
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.config :as config]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]))
+
+(defn- trim-leading-trailing-double
+  "Remove leading, trailing and double char c"
+  [s c]
+  (string/join c (filter not-empty (string/split s (re-pattern c)))))
+
+(defn trim-slashes
+  "Remove leading, trailing and double slashes"
+  [s]
+  (trim-leading-trailing-double s "/"))
+
+(defn get-template
+  [name]
+  (str @config/template-namespace "/" name))
+
+(defn set-template!
+  [ns]
+  (let [template (trim-slashes ns)]
+    (reset! config/template-namespace template)))
 
 (def content-sel [:#content])
 
 (def interaction-sel [:.interaction])
 
-(def interations-template-html "slipstream/ui/views/interations.html")
-(def inputs-template-html "slipstream/ui/views/inputs.html")
+(def interations-template-html (get-template "interations.html"))
+(def inputs-template-html (get-template "inputs.html"))
 
 (def slipstream "SlipStream")
 
@@ -48,7 +68,7 @@
 ; Breadcrumbs
 ;
 
-(def breadcrumb-template-html "slipstream/ui/views/breadcrumb.html")
+(def breadcrumb-template-html (get-template "breadcrumb.html"))
 
 (def breadcrumb-sel [:#breadcrumb])
 
@@ -361,9 +381,9 @@
 ; Parameters
 ;
 
-(def parameters-view-template-html "slipstream/ui/views/parameters-view.html")
-(def parameters-edit-template-html "slipstream/ui/views/parameters-edit.html")
-(def parameter-edit-template-html "slipstream/ui/views/parameter-edit.html")
+(def parameters-view-template-html (get-template "parameters-view.html"))
+(def parameters-edit-template-html (get-template "parameters-edit.html"))
+(def parameter-edit-template-html (get-template "parameter-edit.html"))
 
 (def parameters-sel [:#parameters])
 

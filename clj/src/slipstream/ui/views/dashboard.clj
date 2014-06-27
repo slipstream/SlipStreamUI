@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.dashboard
   (:require [net.cgrand.enlive-html :as html]
-            [clojure.string :as string]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.run :as run-model]
             [slipstream.ui.models.authz :as authz-model]
@@ -16,7 +16,7 @@
             [slipstream.ui.views.run :as run]
             [slipstream.ui.views.base :as base]))
 
-(def dashboard-template-html "slipstream/ui/views/dashboard.html")
+(def dashboard-template-html (common/get-template "dashboard.html"))
 
 (def metering-sel [:#metering])
 (def metering-header-sel [:#metering-header])

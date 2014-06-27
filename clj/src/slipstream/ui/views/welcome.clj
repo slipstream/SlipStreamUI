@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.welcome
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -20,7 +21,7 @@
 (def published-modules-sel [:#published-modules])
 (def published-modules-header-sel [:#published-modules-header])
 
-(def welcome-template-html "slipstream/ui/views/welcome.html")
+(def welcome-template-html (common/get-template "welcome.html"))
 
 (html/defsnippet header-titles-snip welcome-template-html header/titles-sel
   []

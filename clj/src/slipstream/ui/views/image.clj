@@ -12,9 +12,9 @@
             [slipstream.ui.models.run :as run-model]
             [slipstream.ui.models.image :as image-model]))
 
-(def image-view-template-html "slipstream/ui/views/image-view.html")
-(def image-edit-template-html "slipstream/ui/views/image-edit.html")
-(def image-new-template-html "slipstream/ui/views/image-new.html")
+(def image-view-template-html (common/get-template "image-view.html"))
+(def image-edit-template-html (common/get-template "image-edit.html"))
+(def image-new-template-html (common/get-template "image-new.html"))
 
 (def image-reference-sel [:#module-reference])
 (def image-image-ids-sel [:#module-image-ids])

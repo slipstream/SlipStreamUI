@@ -13,7 +13,7 @@
 
 (def versions-sel [:#versions])
 
-(def versions-template-html "slipstream/ui/views/versions.html")
+(def versions-template-html (common/get-template "versions.html"))
 
 (html/defsnippet header-snip header-views/header-template-html header-views/header-sel
   [versions]

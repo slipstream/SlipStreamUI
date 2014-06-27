@@ -21,6 +21,7 @@
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.documentation :as documentation]
+            [slipstream.ui.views.representation :as representation]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.models.version :as version]

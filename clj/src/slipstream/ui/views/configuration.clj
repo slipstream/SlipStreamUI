@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.configuration
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.views.common :as common]
@@ -8,7 +9,7 @@
             [slipstream.ui.views.footer :as footer]
             [slipstream.ui.views.base :as base]))
 
-(def configuration-template-html "slipstream/ui/views/configuration.html")
+(def configuration-template-html (common/get-template "configuration.html"))
 
 (def parameters-sel [:#parameters])
 
@@ -27,7 +28,7 @@
   [parameters-by-category]
   (for [grouped parameters-by-category]
     (list
-      (html/html-snippet (str "\n    <h3>" (string/replace (key grouped) #"_" " ") "</h3>"))
+      (html/html-snippet (str "\n    <h3>" configuration-template-html " " (string/replace (key grouped) #"_" " ") "</h3>"))
       (common/parameters-edit-snip (val grouped) false))))
 
 (html/defsnippet content-snip configuration-template-html common/content-sel
