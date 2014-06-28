@@ -130,12 +130,14 @@ function init(){
 	var addNode = function(nodeName, multiplicity, orchestrator) {
 		nodeName = nodeName.trim();
 		var node = {name: nodeName, id: "id_" + nodeName, data: {type: "node"}, children: []};
-		addVm($("#" + nodeName + "\\.1\\:multiplicity").text(), node);
+		addVm($("#" + nodeName + "\\:ids").text(), node);
 		orchestrator.children.push(node);
 	};
 
-	var addVm = function(multiplicity, node) {
-		for(var i=1;i<=multiplicity;i++) {
+	var addVm = function(ids, node) {
+	    var idsList = ids.split(',')
+		for (var index = 0; index < idsList.length; ++index) {
+		    var i = idsList[index];
 			node.children.push({name: node.name + "." + i, id: "id_" + node.name + "." + i, data: {type: "vm"}});
 		}
 	};
