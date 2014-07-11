@@ -50,7 +50,7 @@ function init(){
 
 	var cloudServiceNodesMap = function() {
 		var map = {};
-		var nodeGroups = $("#" + "ss\\:groups").text().split(", ");
+		var nodeGroups = $("#" + "ss\\:groups").text().split(",");
 		for(var index in nodeGroups) {
 			var nodeGroup = nodeGroups[index].trim();
 			if(!nodeGroup) {
@@ -135,6 +135,7 @@ function init(){
 	};
 
 	var addVm = function(ids, node) {
+	    if (ids == '') return;
 	    var idsList = ids.split(',')
 		for (var index = 0; index < idsList.length; ++index) {
 		    var i = idsList[index];

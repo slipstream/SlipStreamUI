@@ -176,7 +176,9 @@ var dashboardUpdater = {
 	},
 
 	setMultiplicityNodesInfo: function(nodename, multiplicity) {
+	    this.nodesInfo[nodename] = this.nodesInfo[nodename] || {};
 		this.nodesInfo[nodename].multiplicity = multiplicity;
+		this.nodesInfo[nodename].completed = this.nodesInfo[nodename].completed || 0;
 	},
 
 	getIdPrefix: function(name) {
