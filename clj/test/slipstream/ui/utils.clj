@@ -4,15 +4,13 @@
         [ring.util.response :only [response file-response]]
         [ring.middleware.reload :only [wrap-reload]]
         [ring.middleware.file :only [wrap-file]]
-        [ring.middleware.stacktrace :only [wrap-stacktrace]]))
+        [ring.middleware.stacktrace :only [wrap-stacktrace]]
+        [slipstream.ui.test-config :as config]))
 
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 
-;(def webdir "/")
- (def webdir
-   (str
-     "/Users/meb/code/SlipStream/SlipStreamUI"
-     "/clj/src/slipstream/ui/views/"))
+(def webdir
+  (config/value :webdir "clj/src/slipstream/ui/views/"))
 
 (defn render [t]
   (apply str t))
