@@ -16,3 +16,4 @@ README.html
 .lein-deps-sum
 .lein-failures
 .lein-plugins
+test_config.edn
