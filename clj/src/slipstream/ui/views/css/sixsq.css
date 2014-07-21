@@ -565,69 +565,6 @@ th+td {
 	background: #af1921;
 }
 
-/* Footer */
-
-#footer {
-	clear: both;
-	width: 100%; /* liquid layout */
-    max-width: 990px; /* liquid layout */
-	margin: 10px auto 20px auto;
-}
-
-.footer_inner {
-	padding: 15px 15px 15px 15px;
-    /* liquid layout; old static values 5px */
-	margin-left: auto;
-	margin-right: auto;
-
-    text-align: center;
-
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-}
-
-.copyright,
-.sixsq_logo,
-.swiss_made {
-	display: inline-block;
-}
-
-.copyright {
-	margin-left: 10px;
-	margin-right: 10px;
-	padding-top: 7px;
-	text-align: center;
-}
-
-.sixsq_logo {
-	margin-left: 10px;
-	margin-right: 10px;
-	text-align: center;
-        vertical-align: bottom;
-}
-
-.sixsq_logo a {
-	display: block;
-	width: 21px;
-	height: 21px;
-	background: transparent url('../images/logo_sixsq_small.png') no-repeat scroll left top;
-}
-
-.swiss_made {
-        margin-left: 10px;
-        margin-right: 10px;
-        text-align: center;
-        vertical-align: bottom;
-}
-
-.swiss_made a {
-	display: block;
-	width: 120px;
-	height: 14px;
-	background: transparent url('../images/logo_swiss_made_software.png') no-repeat scroll left top;
-}
-
 /* Navigation, breadcrumb */
 
 .navigation {

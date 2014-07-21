@@ -6,6 +6,8 @@
 
 (def footer-sel [:#footer])
 
-(html/defsnippet footer-snip (common/get-template "footer.html") footer-sel
+(def footer-template (common/get-template "footer.html"))
+
+(html/defsnippet footer-snip footer-template footer-sel
   []
   [:#release-version] (html/content @version/slipstream-release-version))
