@@ -51,7 +51,7 @@
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
                                 (user-model/attrs run)))
-  
+
   [:#titles :> :div] (html/before (header-url-service-link)))
 
 (defn- clone-runtime-parameters
@@ -91,6 +91,7 @@
   [:#account] (html/content (:user (common-model/attrs run)))
   [:#start] (html/content (:starttime (common-model/attrs run)))
   [:#end] (html/content (:endtime (common-model/attrs run)))
+  [:#laststatechange] (html/content (:laststatechangetime (common-model/attrs run)))
   [:#state] (html/content (:state (common-model/attrs run)))
   [:#runtype] (html/content (run-model/get-type run))
   [:#uuid] (html/content (:uuid (common-model/attrs run)))

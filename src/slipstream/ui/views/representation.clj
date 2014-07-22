@@ -20,7 +20,7 @@
             [slipstream.ui.views.documentation :as documentation])
   (:gen-class
     :name slipstream.ui.views.Representation
-    :methods [#^{:static true 
+    :methods [#^{:static true
                  :doc "Takes: metadata pagename type"}
                 [toHtml [String String String] String]
               #^{:static true
@@ -36,7 +36,7 @@
 (defn render [t]
   (apply str t))
 
-(defmulti gen-page 
+(defmulti gen-page
   (fn [metadata pagename type]
     pagename))
 
@@ -121,4 +121,4 @@
 (defn -setReleaseVersion
   "Set the application version"
   [version]
-  (version-model/set-release-version version))
+  (version-model/set-release-version! version))

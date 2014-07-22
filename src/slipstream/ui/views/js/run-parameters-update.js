@@ -281,6 +281,9 @@ var dashboardUpdater = {
 	        $('#state').text(newState);
             $("#header-title-desc").text("State: " + newState);
 
+            $('#laststatechange').text($(run).attr('lastStateChangeTime'));
+            $('#end').text($(run).attr('endTime'));
+
             var headerTitle = $('#header-title');
 			var splitValue = " is ";
 			var parts = headerTitle.text().split(splitValue);
