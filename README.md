@@ -1,15 +1,24 @@
 # SlipStreamUI
 
-Here is the list of the static pages currently available, including the static
-features they support:
+## Introduction to Enlive
+
+If you are not familiar with Cristophe Grand's templating framework
+Enlive you might want to check out following documentation:
+
+  - <https://github.com/swannodette/enlive-tutorial>
+  - <https://github.com/cgrand/enlive>
+
+## Static pages
+
+Here is the list of the static pages currently available, including the static features they support.
 
 To evaluate them, clone the repository and point your favourite browser to the links
-here.  Or even better, generate a markdown rendering of this page and click away :-). 
+here.  Or even better, generate a markdown rendering of this page and click away :-).
 
 A few observations:
 
 * I've managed to only use accordions for the top level organisation of pages.
-  When necessary, tabs inside accordions are used to provide further structure. 
+  When necessary, tabs inside accordions are used to provide further structure.
 * The accordions are configured such that they can all be closed and opened
   (as well as all closed) which makes navigation easier and less jumpy.
 * The layout of all pages is the same, with the only exception of the login
@@ -43,17 +52,17 @@ A few observations:
   * *Shared Projects* is the original root projects.
   * The lists, e.g. *My Modules* now includes an icon, which could replace
     the category.
-    
+
 1. **Projects (view) [page](src/slipstream/ui/views/project-view.html)**
   * The project (in view mode) includes a large icon corresponding to the category
     of the module.
   * The breadcrumb here is more interesting and useful
-  
+
 1. **Projects (edit) [page](src/slipstream/ui/views/project-edit.html)**
   * To get here, the user must click on a *New Project* button, available
     on the welcome page, to create a new root project, or on any page for
     which she has *create children* rights.
-    
+
 1. **Image (view) [page](src/slipstream/ui/views/image-view.html)**
   * The *Overview* section provides a graphical view of the inheritance relationships
     between the current image (highlighted with a bold border) and images it
@@ -76,10 +85,10 @@ A few observations:
 1. **Deployment (view) [page](src/slipstream/ui/views/deployment-view.html)**
   * The *Overview* section provides a graphical view of the nodes composing the
     deployment,as well as their reference image.  The graphics is similar to the
-    run dashboard, such that the user has a more coherent user experience.  
+    run dashboard, such that the user has a more coherent user experience.
   * The *Nodes* section uses more space and less packed, hopefully making its
     constituent clearer.
-  * Clicking on the *Run* button will show an overlay message with a spinner. 
+  * Clicking on the *Run* button will show an overlay message with a spinner.
 
     1. **Deployment (edit) [page](src/slipstream/ui/views/deployment-edit.html)**
   * The *Nodes* section include functional remove buttons for parameters and nodes
@@ -87,7 +96,7 @@ A few observations:
     *Linked to* values, as with the current UI.
   * As for the image, the *Add Node* button shows the new chooser window.
   * The *remove buttons* also work for both nodes and parameter mappings.
-  
+
 1. **Versions/History [page](src/slipstream/ui/views/versions.html)**
   * From any *module* page, the *history* link will show the list of available
     versions.
@@ -104,17 +113,17 @@ A few observations:
     thiner.
   * Each VM now has its own section.
   * The last section is for the reports.
-  
+
 1. **Logout [page](src/slipstream/ui/views/logout.html)**
   * Nothing much to say here.
 
 1. **Configurations [page](src/slipstream/ui/views/configurations.html)**
   * Each section corresponds to a configuration group.
-  
+
 1. **Documentation [page](src/slipstream/ui/views/documentation.html)**
   * Each type of document is available in a separate section, with corresponding
     link.
-  
+
 1. **Error [page](src/slipstream/ui/views/error.html)**
   * Oops... shot happens ;-)
 
