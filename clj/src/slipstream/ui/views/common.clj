@@ -18,8 +18,9 @@
 
 (def slipstream "SlipStream")
 
-(defn title [value]
-  (str slipstream " | " value))
+(defn title
+  [page-title]
+  (str slipstream " | " page-title))
 
 (def drop-module-slash-no-of-chars 7)
 
@@ -27,7 +28,7 @@
 
 (defn to-css-class
   [category]
-  (str (string/lower-case category) "_category"))  
+  (str (string/lower-case category) "_category"))
 
 (defmulti type-to-icon-class
   (fn [type]
@@ -66,21 +67,21 @@
     (str "/"
       root-uri
       "/"
-      (reduce 
-        #(str %1 (if (= "" %1) "" "/") %2) 
-        "" 
+      (reduce
+        #(str %1 (if (= "" %1) "" "/") %2)
+        ""
         (subvec names 0 (inc index))))))
-                                 
+
 (defn clone-breadcrumbs
   [name root-uri]
-    (html/clone-for 
-      [i (range (count (string/split name #"/")))] 
+    (html/clone-for
+      [i (range (count (string/split name #"/")))]
       [:a]
-      (let 
+      (let
         [names (string/split name #"/")
          href (breadcrumb-href names i root-uri)
          short-name (names i)]
-        (html/do-> 
+        (html/do->
           (html/content (if (= "" short-name)
                           root-uri short-name))
           (html/set-attr :href href)))))
@@ -121,15 +122,15 @@
 
 (defn to-stars
   [clear-string]
-  (apply 
-    str 
+  (apply
+    str
     (take
       (count clear-string)
       (repeat "●"))))
 
 (declare insert-name)
 (declare insert-id)
-  
+
 (defn gen-select
   "Generate a select/option element, optionaly disabled"
   ([name options selected] (gen-select name options selected false))
@@ -139,10 +140,10 @@
            (insert-name name)
            (insert-id name)
            (when disabled? " disabled='disabled'")
-           ">\n" 
+           ">\n"
            (apply str
                   (for [option options]
-                    (str 
+                    (str
                       "<option value='" option "'"
                       (if (= option selected)
                         " selected='selected'"
@@ -177,7 +178,7 @@
 (defmethod param-val "Password"
   [parameter]
   (to-stars (param-val-default parameter)))
-  
+
 (defmethod param-val "Boolean"
   [parameter]
   (= "true" (param-val-default parameter)))
@@ -253,11 +254,11 @@
 (defn- set-input-name-value
   [tr-id]
   (str tr-id "--value"))
-  
+
 (defn- set-input-name-category
   [tr-id]
   (str tr-id "--category"))
-  
+
 
 (html/defsnippet input-snip inputs-template-html [:input]
   [name placeholder value type & [auto?]]
@@ -327,8 +328,8 @@
 
 (defmethod set-input-value "Enum"
   [parameter tr-id]
-  (let [options (map 
-                  #(-> % :content first) 
+  (let [options (map
+                  #(-> % :content first)
                   (html/select parameter [:enumValues :string]))
         selected (param-val parameter)]
     (gen-select (set-input-name-value tr-id) options selected)))
@@ -336,8 +337,8 @@
 (defmethod set-input-value "Boolean"
   [parameter tr-id]
   (let [value (param-val parameter)]
-    (html/html-snippet 
-      (str 
+    (html/html-snippet
+      (str
         "<input type='checkbox'"
         (insert-name (set-input-name-value tr-id))
         (if (true? value)
@@ -376,7 +377,7 @@
   [parameters]
   (html/clone-for
     [parameter parameters
-     :let 
+     :let
      [attrs (module-model/attrs parameter)
       description (:description attrs)
       value (parameter-value parameter)
@@ -396,7 +397,7 @@
   [parameters]
   (html/clone-for
     [parameter parameters
-     :let 
+     :let
      [attrs (module-model/attrs parameter)
       description (:description attrs)
       category (:category attrs)
@@ -417,7 +418,7 @@
   [parameters]
   (html/clone-for
     [parameter parameters
-     :let 
+     :let
      [attrs (module-model/attrs parameter)
       name (:name attrs)
       description (:description attrs)
@@ -451,23 +452,23 @@
            help (parameter-help parameter)]]
     html/this-node (html/set-attr :id tr-id)
     [[:td (html/nth-of-type 1)] :> :span] (html/content description)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
-      (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]]
+      (set-input
         (input-name-name tr-id)
         name)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]] 
-      (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]]
+      (set-input
         (input-name-category tr-id)
         category)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 3)]] 
-      (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 3)]]
+      (set-input
         (input-name-type tr-id)
         type)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 4)]] 
-      (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 4)]]
+      (set-input
         (input-name-description tr-id)
         description)
-    [[:td (html/nth-of-type 2)] :> :input] 
+    [[:td (html/nth-of-type 2)] :> :input]
       (html/substitute value)
     [[:td (html/nth-of-type 3)] :> :span] (html/content help)
     [[:td (html/nth-of-type 3)]] (if (empty? help)
@@ -484,7 +485,7 @@
            category (:category attrs)
            tr-id (tr-id name i)
            category-select (gen-select
-                             (set-input-name-category tr-id) 
+                             (set-input-name-category tr-id)
                              ["Input" "Output"]
                              category)
            description (:description attrs)
@@ -493,21 +494,21 @@
            value (set-input-value parameter tr-id)
            mandatory? (= "true" (:mandatory attrs))]]
     html/this-node (html/set-attr :id tr-id)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
-      (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]]
+      (set-input
         (input-name-name tr-id)
         name)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]] 
-      (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]]
+      (set-input
         (input-name-type tr-id)
         type)
-    [[:td (html/nth-of-type 2)] :> :input] 
-      (set-input 
+    [[:td (html/nth-of-type 2)] :> :input]
+      (set-input
         (input-name-description tr-id)
         description)
-    [[:td (html/nth-of-type 3)]] 
+    [[:td (html/nth-of-type 3)]]
       (html/content category-select)
-    [[:td (html/nth-of-type 4)]] 
+    [[:td (html/nth-of-type 4)]]
       (html/content value)
     [:td :> #{[:input] [:select]}] (if mandatory?
                                      (html/set-attr :disabled "disabled")
@@ -531,25 +532,25 @@
            value (set-input-value parameter tr-id)
            mandatory? (= "true" (:mandatory attrs))]]
     html/this-node (html/set-attr :id tr-id)
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]] 
-      (html/do-> (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 1)]]
+      (html/do-> (set-input
                    (input-name-name tr-id)
                    name)
                  (html/set-attr :readonly "readonly"))
-    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]] 
-      (html/do-> (set-input 
+    [[:td (html/nth-of-type 1)] :> [:input (html/nth-of-type 2)]]
+      (html/do-> (set-input
                    (input-name-type tr-id)
                    type)
                  (html/set-attr :readonly "readonly"))
-    [[:td (html/nth-of-type 2)] :> :input] 
-      (html/do-> (set-input 
+    [[:td (html/nth-of-type 2)] :> :input]
+      (html/do-> (set-input
                    (input-name-description tr-id)
                    description)
                  (html/set-attr :readonly "readonly"))
-    [[:td (html/nth-of-type 3)]] 
+    [[:td (html/nth-of-type 3)]]
       (html/do-> (html/content category)
                  (html/set-attr :readonly "readonly"))
-    [[:td (html/nth-of-type 4)]] 
+    [[:td (html/nth-of-type 4)]]
       (html/content value)
     [:td :> #{[:select]}] (if mandatory?
                       (html/set-attr :disabled "disabled")
@@ -630,7 +631,7 @@
   [parameters-grouped-by-category]
   (tab-headers parameters-grouped-by-category "parameters"))
 
-(defn define-tab-sections-for-parameters-view 
+(defn define-tab-sections-for-parameters-view
   [parameters-grouped-by-category]
   (tab-sections parameters-grouped-by-category "parameters" parameters-view-snip))
 
@@ -644,13 +645,13 @@
 
 (html/defsnippet parameters-view-tabs-by-category-snip parameters-view-template-html parameters-sel
   [parameters-grouped-by-category]
-  [:ul :> :li] (define-tabs-for-parameters parameters-grouped-by-category) 
+  [:ul :> :li] (define-tabs-for-parameters parameters-grouped-by-category)
   [:#fragment-parameters-something]
     (define-tab-sections-for-parameters-view parameters-grouped-by-category))
 
 (html/defsnippet parameters-edit-tabs-by-category-snip parameters-view-template-html parameters-sel
   [parameters-grouped-by-category]
-  [:ul :> :li] (define-tabs-for-parameters parameters-grouped-by-category) 
+  [:ul :> :li] (define-tabs-for-parameters parameters-grouped-by-category)
   [:#fragment-parameters-something]
     (define-tab-sections-for-parameters-edit parameters-grouped-by-category))
 

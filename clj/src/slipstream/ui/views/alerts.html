@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Alerts Template</title>
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/alerts.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>Generic alerts</h1>
+
+    <p>
+      Content can be modified. To be passed to the <tt>(base)</tt> function as follows:
+    </p>
+
+    <pre>
+     :alerts [{:type :error
+     ;; You might add the following flag to any alert type to disable the closing button:
+     ;; :dismissible false
+     :msg "Something is wrong with your credentials."}
+
+     {:type :warning
+     :msg "With the deployment you just performed you are aproaching the quota limit on Amazon EC2 cloud."}
+
+     {:type :success
+     :msg "Your credentials for Amazon EC2 cloud were successfully validated."}
+
+     {:type :info
+     :msg "To have an overview of your deployments go to the dashboard."}]
+   </pre>
+
+   <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
+   <div id="alert-error" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <span>
+      <h3>
+        <span class="glyphicon glyphicon-remove"></span>
+        <span class="alert-title">
+          Error
+        </span>
+      </h3>
+      <div class="alert-msg-container">
+        <div class="alert-msg">
+          Something is wrong with your credentials.
+        </div>
+      </div>
+    </span>
+  </div><!-- /#alert-error -->
+
+  <div id="alert-warning" class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <span>
+      <h3>
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        <span class="alert-title">
+          Warning
+        </span>
+      </h3>
+      <div class="alert-msg-container">
+        <div class="alert-msg">
+          With the deployment you just performed you are aproaching the quota limit on Amazon EC2 cloud.
+        </div>
+      </div>
+    </span>
+  </div><!-- /#alert-warning -->
+
+  <div id="alert-success" class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <span>
+      <h3>
+        <span class="glyphicon glyphicon-ok"></span>
+        <span class="alert-title">
+          Success
+        </span>
+      </h3>
+      <div class="alert-msg-container">
+        <div class="alert-msg">
+          Your credentials for Amazon EC2 cloud were successfully validated.
+        </div>
+      </div>
+    </span>
+  </div><!-- /#alert-success -->
+
+  <div id="alert-info" class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" on-click="resize_navbar">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <span>
+      <h3>
+        <!-- <span class="glyphicon glyphicon-comment"></span> -->
+        <span class="glyphicon glyphicon-bookmark"></span>
+        <span class="alert-title">
+          Info
+        </span>
+      </h3>
+      <div class="alert-msg-container">
+        <div class="alert-msg">
+          To have an overview of your deployments go to the dashboard.
+        </div>
+      </div>
+    </span>
+  </div><!-- /#alert-info -->
+
+
+  <h1>Prebuilt alerts</h1>
+
+  <p>
+    Content cannot be modified. To be passed to the <tt>(base)</tt> function using the <tt>:#id</tt> selector. They can be mixed with the generic alerts:
+  </p>
+
+  <pre>
+   :alerts [{:type :error, :msg "Blah blah blah..."}
+   :#alert-wrong-credentials]
+ </pre>
+
+ <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
+ <div id="alert-wrong-credentials" class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <span>
+    <h3>
+      <span class="glyphicon glyphicon-remove"></span>
+      <span class="alert-title">
+        Error
+      </span>
+    </h3>
+    <div class="alert-msg-container">
+      <div class="alert-msg">
+        Something is wrong with your credentials. Do you need a <a data-toggle="modal" data-target="#pwdResetModal" class="alert-link">new password</a>?
+      </div>
+    </div>
+  </span>
+</div><!-- /#alert-wrong-credentials -->
+
+</div> <!-- /.container -->
+
+
+<div id="bottom-scripts">
+  <!-- Bootstrap core JavaScript -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+  <script src="external/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+  resize_navbar = function() {
+    $(document.body).css('padding-top', $(".navbar").height());
+  }
+  </script>
+
+</div>
+</body>
+</html>

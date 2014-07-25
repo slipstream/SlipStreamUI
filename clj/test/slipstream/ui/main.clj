@@ -6,7 +6,8 @@
             [slipstream.ui.views.error :as error]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.byebye :as byebye]
-            [slipstream.ui.views.knockknock :as knockknock]
+            [slipstream.ui.views.knockknock :as knockknock] ;; TODO: To remove
+            [slipstream.ui.views.singin :as singin]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.action :as action]
             [slipstream.ui.views.module :as module]
@@ -70,6 +71,12 @@
 
 (defn reports-page []
   (reports/page reports-data/xml-reports))
+
+(defn singin-page []
+  (singin/page projects/xml-projects nil))
+
+(defn singin-chooser-page []
+  (singin/page projects/xml-projects "chooser"))
 
 (defn knockknock-page []
   (knockknock/page projects/xml-projects nil))
@@ -181,11 +188,17 @@
   [page]
   `(-> (~page) ring.util.response/response constantly))
 
+(defmacro route
+  [page]
+  `(-> (~page) ring.util.response/response constantly))
+
 (def routes
   (app
     ["logout"] (render byebye-page)
-    ["login"] (render knockknock-page)
-    ["login-chooser"] (render knockknock-chooser-page)
+    ["login"] (render singin-page)
+    ["login-chooser"] (render singin-chooser-page)
+    ["login-legacy"] (render knockknock-page)
+    ["login-chooser-legacy"] (render knockknock-chooser-page)
     ["service_catalog"] (render service-catalog-page)
     ["welcome"] (render welcome-page)
     ["welcome-chooser"] (render welcome-page-chooser)

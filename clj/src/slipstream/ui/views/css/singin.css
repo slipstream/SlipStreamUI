@@ -1,0 +1,22 @@
+.jumbotron {
+  color: white;
+  background: rgb(160,0,0);
+  background-image: url('../images/slipstream_logo_red_on_transparent.svg');
+}
+
+.jumbotron form {
+  padding: 30px;
+}
+
+.jumbotron form .help-block {
+  margin-bottom: 0;
+  margin-left: 4px;
+  color: white;
+}
+
+.jumbotron h1,
+.jumbotron a,
+.jumbotron p {
+  color: white;
+}
+

@@ -32,7 +32,7 @@
 (defn module-resource-uri-to-name
   [moduleresourceuri]
   (apply str (drop module-model/module-root-uri-length moduleresourceuri)))
-  
+
 (defn set-a
   [moduleresourceuri]
   (html/do->
@@ -50,14 +50,14 @@
 (defn titles-with-version
   [module]
   (if (true? (module-model/new? module))
-    [(str "New " (module-model/module-category module) "...") 
-     "" 
-     "" 
+    [(str "New " (module-model/module-category module) "...")
+     ""
+     ""
      (module-model/module-category module)]
     (module-model/titles-with-version module)))
 
 (def js-scripts-default
-  ["/external/jit/js/jit.js" 
+  ["/external/jit/js/jit.js"
    "/external/jit/js/excanvas.js" ])
 
 (defn js-scripts-chooser
@@ -70,13 +70,13 @@
   [module]
   header/header-summary-sel (html/substitute
                               (apply
-                                header/header-titles-snip 
+                                header/header-titles-snip
                                 (titles-with-version module)))
   header/header-top-bar-sel (html/substitute
                               (header/header-top-bar-snip
                                 (user/attrs module)))
   [:#module-logo] (let [link (module-model/module-logo-link module)]
-                    (if link 
+                    (if link
                       (html/do->
                         (html/set-attr :src (module-model/module-logo-link module))
                         (html/remove-class "hidden"))
@@ -139,13 +139,11 @@
 
 (defn header
   [metadata type snip-fn]
-  (if (ischooser? type)
-    nil
+  (when-not (ischooser? type)
     (snip-fn metadata)))
-  
+
 (defn footer
   [type]
-  (if (ischooser? type)
-    nil
+  (when-not (ischooser? type)
     (footer/footer-snip)))
 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Singin Template</title>
+
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/singin.css"/>
+</head>
+<body>
+  <div id="header" class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-lg-8">
+          <h1 class="visible-lg">Deploy your apps,<br>to every cloud.</h1>
+          <h1 class="hidden-lg">Deploy apps,<br>to every cloud.</h1>
+          <p>Your gateway to multi-cloud deployment automation, remaining independent from
+            the underlying IaaS platform used. See the Use Cases below for more info.</p>
+            <p class="hidden-xs"><strong>Try it for free!</strong> No credit card needed.</p>
+          </div>
+          <div class="col-sm-4 col-lg-3 col-lg-offset-1" id="create-account-form" >
+            <form id="form-register"
+            method="post" enctype="application/x-www-form-urlencoded" action="/register"
+            data-bv-live="enabled"
+            class="form-horizontal"
+            data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+            data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+            data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+
+            >
+
+            <div class="form-group">
+              <label class="sr-only" for="username">Username</label>
+              <input type="text" class="form-control" name="username"
+              autofocus
+              placeholder="Pick a username"
+
+              data-bv-message="The username is not valid"
+
+              data-bv-notempty="true"
+              data-bv-notempty-message="Please choose a username."
+
+
+              data-bv-stringlength="true"
+              data-bv-stringlength-max="20"
+              data-bv-stringlength-message="Oups... thats too looooong!"
+
+              data-bv-regexp="true"
+              data-bv-regexp-regexp="^[a-z][a-z0-9]{2,}$"
+              data-bv-regexp-message= "Please use three or more lower-case letters and digits, starting with a letter."
+
+              data-bv-remote="false"
+              data-bv-remote-url="http://localhost:8085/username/available"
+              data-bv-remote-message="The username is not available."
+
+              data-bv-container="#user-help-block"
+              />
+              <span class="help-block" id="user-help-block" style="min-height:10px"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="email">Email</label>
+              <input class="form-control" name="email" type="email"
+              placeholder="Enter your email"
+
+              data-bv-notempty="true"
+              data-bv-notempty-message="Please enter an email to validate your account."
+
+              data-bv-emailaddress="true"
+              data-bv-emailaddress-message="Please enter an email to validate your account."
+
+              data-bv-container="#email-help-block"
+              />
+              <span class="help-block" id="email-help-block" style="min-height:10px"></span>
+            </div>
+            <div class="form-group" style="display:none">
+              <input type="hidden" name="firstname" value="Your first name">
+              <input type="hidden" name="lastname" value="Your second name">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success btn-block">
+                Sign up for SlipStream
+              </button>
+              <small class="help-block">
+                By clicking "Sign up for SlipStream", you agree to our <a href="https://slipstream.sixsq.com/html/terms-of-service.html">terms of service</a>.
+              </small>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="content" class="container">
+    <div class="text-center">
+      <img src="images/slipstream_schema_color_on_transparent_1000px.png" width="100%"  style="max-width:1000px;">
+    </div>
+  </div> <!--/#content --> <!-- /.container -->
+
+  <div id="bottom-scripts">
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+
+    <!-- From: http://bootstrapvalidator.com : -->
+    <script src="external/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+
+    <script>
+    jQuery(function() {
+      $('#form-register').bootstrapValidator();
+    });
+    </script>
+  </div>
+</body>
+</html>

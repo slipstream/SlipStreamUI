@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>SlipStream Base Template</title>
+
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css" />
+  <!-- <link href="external/bootstrap/css/bootstrap-theme.min.css" data-href="external/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" id="bs-theme-stylesheet"> -->
+
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/topbar.css" />
+  <link rel="stylesheet" type="text/css" href="css/header.css" />
+  <link rel="stylesheet" type="text/css" href="css/footer.css" />
+</head>
+<body>
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="topbar">
+    <div class="container" id="menubar">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="images/slipstream_logo_red_on_transparent.svg" height='100%'></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <span id="hidden-msg-container" style="display: none"></span>
+        <form id="form-signin"
+        method="post"
+        action="/login"
+        enctype="application/x-www-form-urlencoded"
+        class="navbar-form navbar-right" role="form"
+        data-bv-live="disabled"
+        data-bv-container="#hidden-msg-container"
+        data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+        data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+        data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+        >
+        <div class="form-group">
+          <label class="sr-only" for="username">Username</label>
+          <input name="username" class="form-control"
+          type="text"
+          placeholder="Username"
+          data-bv-notempty="true"
+          data-bv-remote="false"
+          data-bv-remote-url="http://localhost:8085/username/used"
+          >
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="password">Password</label>
+          <input name="password" class="form-control"
+          type="password"
+          placeholder="Password"
+          data-bv-notempty="true"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-default btn-block visible-xs"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
+        <ul class="nav navbar-nav visible-xs">
+          <li><a href="#" data-toggle="modal" data-target="#pwdResetModal"><span class="glyphicon glyphicon-flash"></span> Reset password</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
+        </ul>
+        <div class="btn-group hidden-xs">
+          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" data-toggle="modal" data-target="#pwdResetModal"><span class="glyphicon glyphicon-flash"></span> Reset password</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
+          </ul>
+        </div>
+      </form>
+    </div><!--/.navbar-collapse -->
+  </div>
+    <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
+    <div id="alert-container" class="container">
+    </div>
+</div>
+
+<div id="header" class="jumbotron">
+  <div class="container">
+    <div id="header-content">
+      <h1>Page title</h1>
+      <p>This is the placeholder for the page header.</p>
+    </div><!--/#header-content -->
+  </div>
+</div><!--/#header -->
+
+<div id="content">
+  <div class="container text-center" style="min-height: 500px; padding-top: 200px; background-color: rgb(182,182,182);">
+    <h1>This is the placeholder for the page content.</h1>
+  </div>
+</div><!--/#content -->
+
+<div id="footer" class="footer">
+  <div class="container">
+    <div class="row text-muted">
+      <div class="col-xs-6 col-sm-4 text-left">
+        Copyright &copy; 2014 <a href="http://sixsq.com">SixSq</a>
+      </div>
+      <div class="col-sm-4 text-center hidden-xs">
+        <a href="http://swissmadesoftware.org"><img src="images/logo_swiss_made_software.png"></a>
+      </div>
+      <div class="col-xs-6 col-sm-4 text-right">
+        <span class="hidden-xs">Powered by </span>SlipStream&nbsp;&reg;&nbsp;&nbsp;v<span id="release-version">0.0.0</span>
+      </div>
+    </div>
+  </div>
+</div><!--/#footer -->
+
+<div id="bottom-scripts">
+  <!-- Bootstrap core JavaScript -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+  <script src="external/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- From: http://bootstrapvalidator.com : -->
+  <script src="external/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+
+  <!-- From: http://mimo84.github.io/bootstrap-maxlength/ -->
+  <script src="external/bootstrap-maxlength/js/bootstrap-maxlength.min.js"></script>
+
+  <!-- From: http://meetselva.github.io/attrchange/ -->
+  <!-- <script src="external/attrchange/js/attrchange.js"></script> -->
+  <script>
+  jQuery(function() {
+    $(document.body).css('padding-top', $('.navbar').height() || 0);
+    $('#form-signin').bootstrapValidator();
+    $('#form-pwd-reset').bootstrapValidator();
+    $('#form-contact-us').bootstrapValidator();
+    $('#contact-request-textarea').maxlength({
+      placement: 'bottom',
+      threshold: 50,
+      showCharsTyped: false,
+      warningClass: "label label-warning",
+      limitReachedClass: "label label-danger",
+      preText: 'You can still write ',
+      separator: ' chars (',
+        postText: ' max)'
+    });
+  });
+  </script>
+</div>
+</body>
+</html>
