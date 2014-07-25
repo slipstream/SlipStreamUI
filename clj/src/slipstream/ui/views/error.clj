@@ -1,35 +1,22 @@
 (ns slipstream.ui.views.error
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.models.version :as version]
-            [slipstream.ui.models.user :as user-models]
-            [slipstream.ui.views.header :as header]
             [slipstream.ui.views.common :as common]))
 
-(def error-template-html (common/get-template "error.html"))
+(def error-template-filename (common/get-template "error.html"))
 
-(html/defsnippet error-titles-snip header/header-template-html header/titles-sel
-  [message code]
-  header/titles-sel (html/substitute
-                      (header/header-titles-snip
-                        (html/html-snippet "<i style='color:red' class='icon-warning-sign'></i> Error")
-                        message 
-                        (str "Code: " code)
-                        "Error")))
+(def status-code-sel [:#status-code])
+(def error-title-sel [:#error-title])
+(def error-msg-sel [:#error-msg])
 
-(html/defsnippet error-header-snip header/header-template-html header/header-sel
+
+(html/defsnippet error-header-snip error-template-filename base/header-sel
   [message code user]
-  header/header-top-bar-sel (html/substitute (header/header-top-bar-snip (user-models/attrs user)))
-  header/titles-sel (html/substitute (error-titles-snip message code)))
-
+  status-code-sel (html/content (str code))
+  error-msg-sel (html/content (str message)))
 (defn page [message code user]
-  (base/base 
-    {:title (common/title "Error")
-     :header (error-header-snip 
-               message 
-               code
-               user)
-     :content nil
-     :footer (footer/footer-snip)}))
+  (base/base
+    {:title "Error"
+     :template error-template-filename
+     :header (error-header-snip message code user)
+     :content nil}))

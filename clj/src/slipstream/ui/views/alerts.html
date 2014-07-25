@@ -97,7 +97,7 @@
   </div><!-- /#alert-success -->
 
   <div id="alert-info" class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" on-click="resize_navbar">
+    <button type="button" class="close" data-dismiss="alert">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>
     </button>
@@ -158,11 +158,6 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
   <script src="external/bootstrap/js/bootstrap.min.js"></script>
-  <script>
-  resize_navbar = function() {
-    $(document.body).css('padding-top', $(".navbar").height());
-  }
-  </script>
 
 </div>
 </body>

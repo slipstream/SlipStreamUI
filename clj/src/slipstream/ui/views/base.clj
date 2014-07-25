@@ -8,6 +8,8 @@
             [slipstream.ui.views.alerts :as alerts]
             [slipstream.ui.views.footer :as footer]))
 
+(def base-template-filename (common/get-template "base.html"))
+
 (def head-sel [:head])
 (def title-sel (concat head-sel [:> :title]))
 
@@ -24,7 +26,6 @@
 (def content-sel [:#content])
 (def footer-sel [:#footer])
 
-(def base-template-filename (common/get-template "base.html"))
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
 (defn chooser?
@@ -63,14 +64,14 @@
 
 (deftemplate base base-template-filename
   [{:keys [title header content type alerts template] :as context}]
-  menubar-sel (remove-if (chooser? type))
-  topbar-sel (remove-if (and (chooser? type) (empty? alerts)))
+  menubar-sel         (remove-if (chooser? type))
+  topbar-sel          (remove-if (and (chooser? type) (empty? alerts)))
   [:#release-version] (html/content @version/slipstream-release-version)
-  footer-sel (remove-if (chooser? type))
-  title-sel (html/content (common/title title))
-  css-container-sel  (html/append (when template (additional css-sel context)))
-  header-sel (html/substitute header)
-  content-sel (html/substitute content)
+  footer-sel          (remove-if (chooser? type))
+  title-sel           (html/content (common/title title))
+  css-container-sel   (html/append (when template (additional css-sel context)))
+  header-sel          (html/substitute header)
+  content-sel         (html/substitute content)
   alert-container-sel (html/content (map alerts/alert alerts))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (when template (additional bottom-scripts-sel context)))

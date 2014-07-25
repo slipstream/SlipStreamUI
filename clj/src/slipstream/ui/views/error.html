@@ -2,57 +2,48 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
 
-    <title>SlipStream | Error</title>
+  <title>404 Error Template</title>
 
-    <link rel="stylesheet" type="text/css" href="/css/application.css" />
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css" />
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/jquery-ui.js"></script>
-    <script src="/js/common.js"></script>
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/error.css" />
+
 </head>
 
-<body>
-    <div id="wrapper">
-        <div id="header">
-	        <div class="top">
-	            <a href="/" class="logo"></a>
-                <div class="menu_bar">
-                    <ul>
-                        <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a></li>
-                        <li class="first"><a href="#"><i class="icon-info-sign icon-2x"></i></a></li>
-                        <li class="first"><a href="#"><i class="icon-bar-chart icon-2x"></i></a></li>
-                        <li><a id="user" href="#">Joe <i class="icon-user icon-2x"></i></a></li>
-                        <li class="first"><a class="action" href="#"><i class="icon-signout icon-2x"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-    	    <div id="titles" class="bottom bottom_no_icon">
-    	        <h2><i style="color:red" class="icon-warning-sign"></i>Error</h2>
-    	        <h3>StratusLab username cannot be empty, please edit your <a href="#">user account</a>.</h3>
-    	        <p>Further detailed information for the error...</p>
-    	    </div> 
-        </div>
-        <div id="content">
-    	    <div class="navigation">
-    	        <ul class="breadcrumb">
-    	            <li>
-    	                <a href="/"><i class="icon-home"></i></a>
-    	            </li>
-    	            <li>Error</li>
-    	        </ul>
-    	    </div>
-    	</div>
-    	<div id="footer">
-    	    <div class="footer_inner">
-                <div class="sixsq_logo"><a href="http://sixsq.com"></a></div>
-    	        <div class="copyright">Copyright &copy; 2008-2013 SixSq S&agrave;rl | 1.0-772</div>
-    	        <div class="swiss_made"><a href="http://swissmadesoftware.org"></a></div>
-    	    </div>
-    	</div>
-    </div>
-</body>
 
+<body>
+  <div id="header" class="jumbotron">
+    <div class="container">
+      <div id="header-content">
+        <div class="row">
+          <div class="col-sm-1 text-right hidden-xs">
+            <h1 class="error-header">
+              <span class="glyphicon glyphicon-remove"></span>
+            </h1>
+          </div> <!-- /col -->
+          <div class="col-sm-11 text-left">
+            <div class="container">
+              <h1 class="error-header">
+                Error
+                <span id="status-code">404</span>
+                -
+                <span id="error-title">Oups!</span>
+              </h1>
+              <p id="error-msg">
+                We are affraid, we cannot show you the content you requested. But dont
+                worry, we stopped to play ping-pong to go straight to look into what
+                happened!
+              </p>
+            </div> <!-- /.container -->
+          </div> <!-- /col -->
+        </div> <!-- /row -->
+      </div><!--/#header-content -->
+    </div>
+  </div><!--/#header -->
+</body>
 </html>
