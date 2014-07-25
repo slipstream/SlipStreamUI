@@ -236,6 +236,5 @@
 ;; The App
 ;; =============================================================================
 
-(defn run-test-server
-  []
-  (utils/run-server routes))
+(defonce run-test-server
+  (delay (utils/run-server routes)))
