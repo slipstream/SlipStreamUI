@@ -6,8 +6,7 @@ test: clean
 repl:
 	$(info )
 	$(info Execute following forms to start the test server:)
-	$(info ;  (require '[slipstream.ui.main :as s] :reload-all))
-	$(info ;  (s/run-test-server))
+	$(info ;  (require '[slipstream.ui.main :as s] :reload-all)) @s/run-test-server
 	$(info )
 	$(info If you change the enlive code, just reload the concerned namespace (or the main one as above).)
 	$(info If you change the HTML templates, you'll have to restart the server, i.e. the REPL.)
