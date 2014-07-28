@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Menubar Template</title>
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/menubar.css" />
+</head>
+<body>
+
+  <h1 class="container">
+    Menubar when not logged in
+  </h1>
+
+
+  <div class="navbar navbar-default">
+    <div class="navbar-unlogged">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="images/slipstream_logo_red_on_transparent.svg" height='100%'></a>
+        </div><!--/.navbar-header -->
+        <div class="navbar-collapse collapse">
+          <span id="hidden-msg-container" style="display: none"></span>
+          <form id="form-signin"
+          method="post"
+          action="/login"
+          enctype="application/x-www-form-urlencoded"
+          class="navbar-form navbar-right" role="form"
+          data-bv-live="disabled"
+          data-bv-container="#hidden-msg-container"
+          data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+          data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+          data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+          >
+          <div class="form-group">
+            <label class="sr-only" for="username">Username</label>
+            <input name="username" class="form-control"
+            type="text"
+            placeholder="Username"
+            data-bv-notempty="true"
+            data-bv-remote="false"
+            data-bv-remote-url="http://localhost:8085/username/used"
+            >
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="password">Password</label>
+            <input name="password" class="form-control"
+            type="password"
+            placeholder="Password"
+            data-bv-notempty="true"
+            >
+          </div>
+
+          <button type="submit" class="btn btn-default btn-block visible-xs"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
+          <ul class="nav navbar-nav visible-xs">
+            <li><a href="#" data-toggle="modal" data-target="#pwdResetModal"><span class="glyphicon glyphicon-flash"></span> Reset password</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
+          </ul>
+          <div class="btn-group hidden-xs">
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" data-toggle="modal" data-target="#pwdResetModal"><span class="glyphicon glyphicon-flash"></span> Reset password</a></li>
+              <li class="divider"></li>
+              <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
+            </ul>
+          </div>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div><!--/.container -->
+  </div><!--/.navbar-unlogged #menubar -->
+</div><!--/.navbar -->
+
+<hr>
+
+<h1 class="container">
+  Menubar when logged in
+</h1>
+
+<div class="navbar navbar-default">
+  <div class="navbar-logged-in">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="images/slipstream_logo_white_on_transparent.svg" height='100%'></a>
+      </div><!--/.navbar-header -->
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a  class="active" href="/dashboard">Dashboard</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle navbar-super-user-item" data-toggle="dropdown">Configuration <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/config"><span class="glyphicon glyphicon-cog"></span> System</a></li>
+              <li><a href="/user"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="navbar-username">username</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a id="menubar-user-profile-anchor" href="/user/username"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
+              <li class="divider"></li>
+              <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.navbar-collapse -->
+    </div><!--/.container -->
+  </div><!--/.navbar-logged-in #menubar -->
+</div><!--/.navbar -->
+
+<div class="container">
+  <p>The dropdown "Configuration" appears only for super-users.</p>
+</div> <!-- /.container -->
+
+<div id="bottom-scripts">
+  <!-- Bootstrap core JavaScript -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+  <script src="external/bootstrap/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+h1.error-header {
+  color: rgb(170,0,0);
+}
+
+h1.error-header .glyphicon {
+  font-size: 50px;
+}

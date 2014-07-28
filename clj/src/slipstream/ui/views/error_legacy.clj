@@ -1,4 +1,4 @@
-(ns slipstream.ui.views.error
+(ns slipstream.ui.views.error-legacy
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]

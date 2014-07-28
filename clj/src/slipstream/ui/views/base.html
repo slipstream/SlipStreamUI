@@ -14,76 +14,14 @@
   <link rel="stylesheet" type="text/css" href="css/header.css" />
   <link rel="stylesheet" type="text/css" href="css/footer.css" />
 </head>
+
 <body>
   <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="topbar">
-    <div class="container" id="menubar">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#"><img src="images/slipstream_logo_red_on_transparent.svg" height='100%'></a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <span id="hidden-msg-container" style="display: none"></span>
-        <form id="form-signin"
-        method="post"
-        action="/login"
-        enctype="application/x-www-form-urlencoded"
-        class="navbar-form navbar-right" role="form"
-        data-bv-live="disabled"
-        data-bv-container="#hidden-msg-container"
-        data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-        data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-        data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
-        >
-        <div class="form-group">
-          <label class="sr-only" for="username">Username</label>
-          <input name="username" class="form-control"
-          type="text"
-          placeholder="Username"
-          data-bv-notempty="true"
-          data-bv-remote="false"
-          data-bv-remote-url="http://localhost:8085/username/used"
-          >
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="password">Password</label>
-          <input name="password" class="form-control"
-          type="password"
-          placeholder="Password"
-          data-bv-notempty="true"
-          >
-        </div>
-
-        <button type="submit" class="btn btn-default btn-block visible-xs"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
-        <ul class="nav navbar-nav visible-xs">
-          <li><a href="#" data-toggle="modal" data-target="#pwdResetModal"><span class="glyphicon glyphicon-flash"></span> Reset password</a></li>
-          <li class="divider"></li>
-          <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
-        </ul>
-        <div class="btn-group hidden-xs">
-          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#" data-toggle="modal" data-target="#pwdResetModal"><span class="glyphicon glyphicon-flash"></span> Reset password</a></li>
-            <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
-          </ul>
-        </div>
-      </form>
-    </div><!--/.navbar-collapse -->
+  <div id="menubar">
+  </div> <!-- /#menubar -->
+  <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
+  <div id="alert-container" class="container">
   </div>
-    <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
-    <div id="alert-container" class="container">
-    </div>
 </div>
 
 <div id="header" class="jumbotron">
@@ -94,6 +32,15 @@
     </div><!--/#header-content -->
   </div>
 </div><!--/#header -->
+
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+  </ol>
+</div> <!-- /.container -->
+
 
 <div id="content">
   <div class="container text-center" style="min-height: 500px; padding-top: 200px; background-color: rgb(182,182,182);">
@@ -147,7 +94,7 @@
       preText: 'You can still write ',
       separator: ' chars (',
         postText: ' max)'
-    });
+  });
   });
   </script>
 </div>

@@ -9,13 +9,13 @@
 (def error-title-sel [:#error-title])
 (def error-msg-sel [:#error-msg])
 
-
 (html/defsnippet error-header-snip error-template-filename base/header-sel
   [message code user]
   status-code-sel (html/content (str code))
-  error-msg-sel (html/content (str message)))
+  error-msg-sel (html/html-content (str message)))
+
 (defn page [message code user]
-  (base/base
+  (base/generate
     {:title "Error"
      :template error-template-filename
      :header (error-header-snip message code user)

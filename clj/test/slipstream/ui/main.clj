@@ -188,10 +188,6 @@
   [page]
   `(-> (~page) ring.util.response/response constantly))
 
-(defmacro route
-  [page]
-  `(-> (~page) ring.util.response/response constantly))
-
 (def routes
   (app
     ["logout"] (render byebye-page)

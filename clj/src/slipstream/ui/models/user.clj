@@ -1,7 +1,7 @@
 (ns slipstream.ui.models.user
   (:require [net.cgrand.enlive-html :as html]))
 
-(def sel-user 
+(def sel-user
   #{[:tag "user"]})
 
 (defn user [metadata]
@@ -18,9 +18,22 @@
 
 (defn super? [metadata]
   (= "true" (:issuper (attrs metadata))))
-  
+
 (defn username [metadata]
   (:name (attrs metadata)))
 
+(defn user-map
+  [metadata]
+  (let [logged-in-user (first (html/select metadata [html/root :> :user]))
+        user (or logged-in-user
+                 (first (html/select metadata [:user])))
+        user-attrs (:attrs user)]
+    (when user
+      {:name (username metadata)
+       :uri (:resourceuri user-attrs)
+       :super? (:issuper user-attrs)
+       :logged-in? (boolean logged-in-user)})))
+
 (defn default-cloud [metadata]
   (-> metadata user attrs :defaultcloud))
+

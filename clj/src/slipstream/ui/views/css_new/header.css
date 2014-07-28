@@ -1,0 +1,10 @@
+.jumbotron {
+	background-color: #262626;
+	color: white;
+	min-height: 150px;
+	padding-top: 35px;
+}
+
+.jumbotron h1 {
+	color: #50A7DE;
+}

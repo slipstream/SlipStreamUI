@@ -2,7 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]))
 
-(def alerts-template-filename (common/get-template "alerts.html"))
+(def template-filename (common/get-template "alerts.html"))
 
 (def dismiss-button-sel [:button])
 (def title-sel [:.alert-title])
@@ -17,7 +17,7 @@
 (def alerts
   "Static (computed) snippet with all alerts HTML templates.
   Since the templates don't change, we don't need to compute them at runtime."
-  (let [snip (html/snippet alerts-template-filename [:body] [] identity)]
+  (let [snip (html/snippet template-filename [:body] [] identity)]
     (snip)))
 
 (defn when-content

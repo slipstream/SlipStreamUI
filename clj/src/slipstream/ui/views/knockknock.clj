@@ -57,7 +57,7 @@
     js-scripts-default))
 
 (defn page [metadata type]
-  (base/base 
+  (base/base
     {:css-stylesheets css-stylesheets-default
      :js-scripts (js-scripts type)
      :title (common/title "Login/Register")

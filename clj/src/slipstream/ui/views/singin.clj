@@ -3,24 +3,25 @@
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]))
 
-(def singin-template-filename (common/get-template "singin.html"))
+(def template-filename (common/get-template "singin.html"))
 
-(html/defsnippet header singin-template-filename base/header-sel
+(html/defsnippet header template-filename base/header-sel
   []
   identity)
 
-(html/defsnippet content singin-template-filename base/content-sel
+(html/defsnippet content template-filename base/content-sel
   []
   identity)
 
 (defn page [metadata type]
   (prn metadata)
-  (base/base
-    {:template singin-template-filename
+  (base/generate
+    {:template-filename template-filename
      :title "Sign up"
      ; :alerts [:#alert-wrong-credentials 
      ;          {:type :info, :msg "This could be an interesting note."}]
      :header (header)
      :content (content)
      :type type
+     :metadata metadata
      }))

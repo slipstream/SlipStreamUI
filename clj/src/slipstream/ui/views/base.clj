@@ -1,11 +1,14 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
             [slipstream.ui.models.version :as version]
+            [slipstream.ui.models.user :as mu]
+            [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
+            [slipstream.ui.views.menubar :as menubar]
             [slipstream.ui.views.footer :as footer]))
 
 (def base-template-filename (common/get-template "base.html"))
@@ -26,53 +29,48 @@
 (def content-sel [:#content])
 (def footer-sel [:#footer])
 
+(defn-memo ^:private node-from-template
+  [template-filename sel]
+  ((html/snippet template-filename sel [] identity)))
 
-;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
-(defn chooser?
-  [type]
-  (= "chooser" type))
+(defn-memo ^:private node-from-base-template
+  [sel]
+  (set (node-from-template base-template-filename sel)))
 
-(def base-css
-  "Static (computed) snippet with the CSS of the base-template-filename.
-  Since the css of the base-template-filename don't change, we don't need
-  to compute those at runtime."
-  (let [snip (html/snippet base-template-filename css-sel [] identity)]
-    (snip)))
+(defn nodes-from-templates
+  [sel template-filenames]
+  (mapcat #(node-from-template % sel) template-filenames))
 
-(def base-bottom-scripts
-  "Static (computed) snippet with the bottom scripts of the base-template-filename.
-  Since the bottom scripts of the base-template-filename don't change, we don't need
-  to compute those at runtime."
-  (let [snip (html/snippet base-template-filename bottom-scripts-sel [] identity)]
-    (snip)))
-
-(defn additional
-  [resources-sel {:keys [template alerts]}]
-  (let [template-resources-snip (html/snippet template resources-sel [] identity)
-        template-resources (template-resources-snip)
-        alerts-resources (when (not-empty alerts)
-                           ((html/snippet alerts/alerts-template-filename resources-sel [] identity)))
-        base-resources (condp = resources-sel
-                         css-sel base-css
-                         bottom-scripts-sel base-bottom-scripts)]
-    (remove (set base-resources) (concat alerts-resources template-resources))))
-
-(defn remove-if
-  [pred]
-  (when-not pred
-    identity))
+(defn additional-html
+  [sel template-filenames]
+  (->> template-filenames
+       (remove nil?)
+       (nodes-from-templates sel)
+       distinct
+       (remove (node-from-base-template sel))))
 
 (deftemplate base base-template-filename
-  [{:keys [title header content type alerts template] :as context}]
-  menubar-sel         (remove-if (chooser? type))
-  topbar-sel          (remove-if (and (chooser? type) (empty? alerts)))
+  [{:keys [title header content type alerts involved-templates metadata user] :as context}]
+  menubar-sel         (html/content (menubar/menubar context))
+  topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
   [:#release-version] (html/content @version/slipstream-release-version)
-  footer-sel          (remove-if (chooser? type))
+  footer-sel          (u/remove-if (u/chooser? type))
   title-sel           (html/content (common/title title))
-  css-container-sel   (html/append (when template (additional css-sel context)))
+  css-container-sel   (html/append (additional-html css-sel involved-templates))
   header-sel          (html/substitute header)
   content-sel         (html/substitute content)
   alert-container-sel (html/content (map alerts/alert alerts))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
-  bottom-scripts-container-sel  (html/append (when template (additional bottom-scripts-sel context)))
+  bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   )
+
+(defn generate
+  [{:keys [metadata template-filename alerts] :as context}]
+  (let [user (mu/user-map metadata)
+        involved-templates [(when-not (empty? alerts) alerts/template-filename)
+                            menubar/template-filename
+                            template-filename]]
+    (println "user:" user)
+    (base (assoc context
+            :user user
+            :involved-templates involved-templates))))
