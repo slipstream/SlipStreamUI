@@ -60,6 +60,7 @@
   header-sel          (html/substitute header)
   content-sel         (html/substitute content)
   alert-container-sel (html/content (map alerts/alert alerts))
+  alert-container-sel (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   )
@@ -67,7 +68,7 @@
 (defn generate
   [{:keys [metadata template-filename alerts] :as context}]
   (let [user (mu/user-map metadata)
-        involved-templates [(when-not (empty? alerts) alerts/template-filename)
+        involved-templates [alerts/template-filename
                             menubar/template-filename
                             template-filename]]
     (println "user:" user)

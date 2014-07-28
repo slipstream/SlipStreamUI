@@ -127,10 +127,10 @@
   <pre>
    :alerts [{:type :error, :msg "Blah blah blah..."}
    :#alert-wrong-credentials]
- </pre>
+  </pre>
 
- <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
- <div id="alert-wrong-credentials" class="alert alert-danger alert-dismissible" role="alert">
+  <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
+  <div id="alert-wrong-credentials" class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert">
     <span aria-hidden="true">&times;</span>
     <span class="sr-only">Close</span>
@@ -148,7 +148,23 @@
       </div>
     </div>
   </span>
-</div><!-- /#alert-wrong-credentials -->
+  </div><!-- /#alert-wrong-credentials -->
+
+
+  <h1>Dynamic alerts</h1>
+
+  <p>
+    Alerts can be dynamically added to a page with the following function call. You can try it
+    in the JavaScript console of this template page.
+  </p>
+
+  <pre>
+    ss_alert({type: "error", title: "Dynamic alert", msg: "This is the message."});
+  </pre>
+
+  <div id="alert-container">
+  </div>
+
 
 </div> <!-- /.container -->
 
@@ -158,7 +174,43 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
   <script src="external/bootstrap/js/bootstrap.min.js"></script>
+  <!-- <script src="external/attrchange/js/attrchange.js"></script> -->
+  <script>
+    var ss_alert_defaults = {
+      type: "error",
+      title: null,
+      msg: null
+    };
 
+    function ss_alert( options ) {
+      /* merge ss_alert_defaults and options, without modifying ss_alert_defaults */
+      var settings = $.extend({}, ss_alert_defaults, options);
+      var alert_container = $("#alert-container");
+
+      if (alert_container.length == 0) {
+        return false;
+      };
+
+      var alert_div = $("#alert-" + settings.type)
+        .clone()
+        .removeClass("hidden") // Bootstrap class
+        .hide()
+        .removeAttr("id");
+
+      alert_div
+        .find(".alert-msg")
+        .html(settings.msg);
+
+      if (settings.title) {
+        alert_div.find(".alert-title").html(settings.title)
+      }
+
+      alert_container.prepend(alert_div);
+      alert_div.show("fast");
+
+      return true;
+    };
+  </script>
 </div>
 </body>
 </html>

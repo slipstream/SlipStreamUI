@@ -73,7 +73,7 @@
   (reports/page reports-data/xml-reports))
 
 (defn singin-page []
-  (singin/page projects/xml-projects nil))
+  (singin/page nil nil))
 
 (defn singin-chooser-page []
   (singin/page projects/xml-projects "chooser"))

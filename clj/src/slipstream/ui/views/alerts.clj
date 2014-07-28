@@ -1,9 +1,11 @@
 (ns slipstream.ui.views.alerts
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.utils :as u]))
 
 (def template-filename (common/get-template "alerts.html"))
 
+(def alert-class-sel [:.alert])
 (def dismiss-button-sel [:button])
 (def title-sel [:.alert-title])
 (def msg-sel [:.alert-msg])
@@ -20,24 +22,26 @@
   (let [snip (html/snippet template-filename [:body] [] identity)]
     (snip)))
 
-(defn when-content
-  [content]
-  (fn [match]
-    (if (seq content)
-      ((html/content content) match)
-      (identity match))))
+(defmulti alert
+  #(cond
+     (keyword? %) :pre-defined
+     (map? %) :custom))
 
-(defmulti alert type)
-
-(defmethod alert clojure.lang.Keyword
+(defmethod alert :pre-defined
   [pre-built-alert-id]
-  (html/select alerts [pre-built-alert-id]))
+  (prn pre-built-alert-id)
+  (html/at (html/select alerts [pre-built-alert-id])
+           [:> :div] (html/remove-attr :id)))
 
-(defmethod alert clojure.lang.PersistentArrayMap
+(defmethod alert :custom
   [{:keys [type title msg dismissible] :or {dismissible true}}]
   (html/at (html/select alerts (alert-sel type))
+           [:> :div] (html/remove-attr :id)
            dismiss-button-sel (when dismissible identity)
-           title-sel (when-content title)
+           title-sel (u/when-content title)
            msg-sel (html/content msg)))
 
-
+(defn hidden-templates
+  []
+  (html/at (html/select alerts alert-class-sel)
+           alert-class-sel (html/add-class "hidden")))

@@ -1,9 +1,17 @@
-(ns slipstream.ui.views.utils)
+(ns slipstream.ui.views.utils
+  (:require [net.cgrand.enlive-html :as html]))
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
 (defn chooser?
   [type]
   (= "chooser" type))
+
+(defn when-content
+  [content]
+  (fn [match]
+    (if (seq content)
+      ((html/content content) match)
+      (identity match))))
 
 (defn remove-if
   [test]
