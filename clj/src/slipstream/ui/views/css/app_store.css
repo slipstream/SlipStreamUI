@@ -1,4 +1,4 @@
-.ss-app-thumbnail-container {
+.thumbnail .ss-app-thumbnail-container {
   position: relative;
   width: 100%;
   height: 0;
@@ -11,7 +11,15 @@
   background-position: center center;
 }
 
-.thumbnail .btn {
+.thumbnail:hover {
+  -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+  -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+  box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+}
+
+/* Button */
+
+.thumbnail .ss-app-thumbnail-container .btn {
   opacity: 0.15;
   position: absolute;
   bottom: 0;
@@ -19,17 +27,22 @@
   right: 0;
 }
 
-.thumbnail:hover {
+.thumbnail:hover .ss-app-thumbnail-container .btn {
+  opacity: 1;
   -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
 }
 
-.thumbnail:hover .btn {
-  opacity: 1;
-  -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-  -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-  box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+.thumbnail .ss-app-thumbnail-container .btn:empty::before {
+  content: "Deploy";
+}
+
+
+/* App name and version defaults */
+
+.thumbnail a .ss-app-name:empty::before {
+  content: "Application";
 }
 
 .thumbnail a.ss-app-name-container {
@@ -52,23 +65,76 @@
   opacity: 1;
 }
 
-/* Placeholders */
+.thumbnail .caption hr {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
 
-.thumbnail a .ss-app-name:empty::before {
-  content: "Application";
+/* App version defaults */
+
+.thumbnail .ss-app-version-number-container::before {
+  content: "v";
 }
 
 .thumbnail .ss-app-version-number-container .ss-app-version-number:empty::before {
   content: "0";
 }
 
-.thumbnail dd .ss-app-publisher:empty::before {
+.thumbnail .ss-app-version-number-container {
+  color: #777;
+  font-weight: normal;
+}
+
+.thumbnail .caption .h4 {
+  margin-top: 5px;
+}
+
+
+/* Metadata Labels and defaults */
+
+.thumbnail .ss-app-price {
+  /* Hide price for the moment */
+  display: none;
+}
+
+.thumbnail dt.ss-app-price:empty::before {
+  content: "Price";
+}
+
+.thumbnail dd.ss-app-price:empty::before {
+  content: "free";
+  color: white;
+  background-color: #5cb85c;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.thumbnail dt.ss-app-publisher:empty::before {
+  content: "Publisher";
+}
+
+.thumbnail dd.ss-app-publisher:empty::before {
   content: "(unkown)";
 }
 
-.thumbnail dd .ss-app-description:empty::before {
+.thumbnail dt.ss-app-description:empty::before {
+  content: "Description";
+}
+
+.thumbnail dd.ss-app-description:empty::before {
   content: "(unkown)";
 }
+
+.thumbnail dt.ss-app-publication-date:empty::before {
+  content: "Date";
+}
+
+.thumbnail dd.ss-app-publication-date:empty::before {
+  content: "(unkown)";
+}
+
+
+/* Application metadata box size */
 
 .thumbnail div.caption dl {
   margin: 0;
@@ -83,34 +149,25 @@
 
 .thumbnail div.caption dd {
   margin-left: 90px;
-  /*white-space: nowrap;*/
   text-overflow:ellipsis;
   overflow: hidden;
 }
 
-.ss-app-metadata-container {
+.thumbnail .ss-app-metadata-container {
   overflow: hidden;
   width: 100%;
   height: 80px;
 }
 
 @media (max-width: 767px) {
-  .ss-app-metadata-container {
+  .thumbnail .ss-app-metadata-container {
     height: auto;
   }
 }
 
-.ss-app-price:empty::before {
-  content: "free";
-  color: white;
-  background-color: #5cb85c;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 /* Decorator labels */
 
-.ss-label-decorator {
+.thumbnail .ss-label-decorator {
   background-color: #999;
   color: white;
   text-align: center;
@@ -127,32 +184,19 @@
   box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
 }
 
-.ss-label-decorator-new {
+.thumbnail .ss-label-decorator-new {
   background-color: #5cb85c;
 }
 
-.ss-label-decorator-new:empty::before {
+.thumbnail .ss-label-decorator-new:empty::before {
   content: "New";
 }
 
-.ss-label-decorator-updated {
+.thumbnail .ss-label-decorator-updated {
   background-color: #3071a9;
 }
 
-.ss-label-decorator-updated:empty::before {
+.thumbnail .ss-label-decorator-updated:empty::before {
   content: "Updated";
 }
 
-.ss-app-version-number-container {
-  color: #777;
-  font-weight: normal;
-}
-
-.thumbnail .caption .h4 {
-  margin-top: 5px;
-}
-
-.thumbnail .caption hr {
-  margin-top: 5px;
-  margin-bottom: 10px;
-}

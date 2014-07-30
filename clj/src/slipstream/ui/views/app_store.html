@@ -48,7 +48,7 @@
           :name ""
           ;; Will be the content in .ss-app-name
 
-          :url ""
+          :uri ""
           ;; Will go to:  $("a[href='#'].ss-app-name-container")
                             .attr('href', '/modules/app/version')
 
@@ -88,18 +88,29 @@
           ...
         }
 
+        {
+          :decorator nil
+          ;; Will leave the app thumbnail without decorator.
+
+          ...
+        }
+
         ...
 
       ]
     </pre>
+    <p>
+      Note: in case both are enabled, <span class="label label-success">New</span> wins. (If something is new, it can be somehow considered updated as well.)
+    </p>
     <hr>
     <div class="row ss-app-thumbnails">
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="thumbnail">
           <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/400x200/aa0000/fff.png), url(images/app_image_placeholder.png);">
-            <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
+            <!-- When both decorators shown, "New" wins. -->
             <span class="hidden ss-label-decorator ss-label-decorator-updated"></span>
-            <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
+            <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
+            <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button"></a>
           </div> <!-- /.ss-app-thumbnail-container -->
           <div class="caption">
             <div class="row h4">
@@ -107,14 +118,15 @@
                 <a class="ss-app-name-container" href="#"><span class="ss-app-name"></span> <span class="glyphicon glyphicon-chevron-right"></span></a>
               </div> <!-- /col -->
               <div class="col-xs-3 text-right ss-app-version-number-container">
-                v<span class="ss-app-version-number"></span>
+                <span class="ss-app-version-number"></span>
               </div> <!-- /col -->
             </div> <!-- /row -->
             <hr>
             <dl class="dl-horizontal ss-app-metadata-container">
-              <dt>Price</dt><dd><span class="ss-app-price"></span></dd>
-              <dt>Publisher</dt><dd><span class="ss-app-publisher"></span></dd>
-              <dt>Description</dt><dd><span class="ss-app-description"></span></dd>
+              <dt class="ss-app-price"></dt><dd class="ss-app-price"></dd>
+              <dt class="ss-app-publication-date"></dt><dd class="ss-app-publication-date"></dd>
+              <dt class="ss-app-publisher"></dt><dd class="ss-app-publisher"></dd>
+              <dt class="ss-app-description"></dt><dd class="ss-app-description"></dd>
             </dl>
           </div>
         </div><!--/.thumbnail -->

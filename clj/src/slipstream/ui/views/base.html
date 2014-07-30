@@ -27,12 +27,34 @@
 
 <div id="header" class="jumbotron">
   <div class="container">
-    <div id="header-content">
-      <h1>Page title</h1>
-      <p>This is the placeholder for the page header.</p>
+    <div id="header-content" class="ss-header">
+    <!-- <div id="header-content" class="ss-header ss-header-error"> -->
+      <div class="row">
+        <div class="col-sm-1 text-right hidden-xs">
+          <h1 class="ss-header-title-icon">
+            <span class="glyphicon glyphicon-remove"></span>
+          </h1>
+        </div> <!-- /col -->
+        <div class="col-sm-11 text-left">
+          <div class="container">
+            <h1 class="ss-header-title">
+              <div class="ss-header-error-prefix">
+                Error
+                <span class="ss-header-error-status-code">404</span>
+                -
+              </div> <!-- /.ss-header-error-prefix -->
+              Page title
+            </h1>
+            <p id="ss-header-subtitle">
+              This is the placeholder for the page header.
+            </p>
+          </div> <!-- /.container -->
+        </div> <!-- /col -->
+      </div> <!-- /row -->
     </div><!--/#header-content -->
   </div>
 </div><!--/#header -->
+
 
 <!-- We place the breadcrumbs within a #ss-breadcrumb-placeholder to
 maintain the body layout when the #ss-breadcrumb-container is affixed,

@@ -6,6 +6,7 @@
   <title>App Store Template</title>
 
   <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/section.css"/>
   <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
 
   <!-- Internal CSS Stylesheets -->
@@ -15,108 +16,227 @@
 
   <div class="container">
     <hr>
-    <div class="row ss-app-thumbnails">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="thumbnail">
-          <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/400x200/aa0000/fff.png), url(images/app_image_placeholder.png);">
-            <span class="ss-label-decorator ss-label-decorator-new"></span>
-            <span class="hidden ss-label-decorator ss-label-decorator-updated"></span>
-            <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
-          </div> <!-- /.ss-app-thumbnail-container -->
-          <div class="caption">
-            <div class="row h4">
-              <div class="col-xs-9 text-left">
-                <a class="ss-app-name-container" href="#"><span class="ss-app-name">Application name</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div> <!-- /col -->
-              <div class="col-xs-3 text-right ss-app-version-number-container">
-                v<span class="ss-app-version-number">477</span>
-              </div> <!-- /col -->
-            </div> <!-- /row -->
-            <hr>
-            <dl class="dl-horizontal ss-app-metadata-container">
-              <dt>Price</dt><dd><span class="ss-app-price"></span></dd>
-              <dt>Publisher</dt><dd><span class="ss-app-publisher">SixSq</span></dd>
-              <dt>Description</dt><dd><span class="ss-app-description">Simple, single node deployment of WordPress. And this might be a very long description.</span></dd>
-            </dl>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              <span class="row">
+                <span class="col-xs-10 ss-section-title">
+                  App Store
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body ss-section-content">
+            <div class="row ss-app-thumbnails">
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail">
+                  <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/400x200/aa0000/fff.png), url(images/app_image_placeholder.png);">
+                    <span class="ss-label-decorator ss-label-decorator-updated"></span>
+                    <span class="ss-label-decorator ss-label-decorator-new"></span>
+                    <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
+                  </div> <!-- /.ss-app-thumbnail-container -->
+                  <div class="caption">
+                    <div class="row h4">
+                      <div class="col-xs-9 text-left">
+                        <a class="ss-app-name-container" href="#"><span class="ss-app-name">Application name</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
+                      </div> <!-- /col -->
+                      <div class="col-xs-3 text-right ss-app-version-number-container">
+                        v<span class="ss-app-version-number">477</span>
+                      </div> <!-- /col -->
+                    </div> <!-- /row -->
+                    <hr>
+                    <dl class="dl-horizontal ss-app-metadata-container">
+                      <dt>Price</dt><dd><span class="ss-app-price"></span></dd>
+                      <dt>Publisher</dt><dd><span class="ss-app-publisher">SixSq</span></dd>
+                      <dt>Description</dt><dd><span class="ss-app-description">Simple, single node deployment of WordPress. And this might be a very long description.</span></dd>
+                    </dl>
+                  </div>
+                </div><!--/.thumbnail -->
+              </div><!--/.col-* -->
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail">
+                  <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/150x200/aa0000/fff.png), url(images/app_image_placeholder.png);">
+                    <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
+                    <span class="hidden ss-label-decorator ss-label-decorator-updated"></span>
+                    <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
+                  </div> <!-- /.ss-app-thumbnail-container -->
+                  <div class="caption">
+                    <div class="row h4">
+                      <div class="col-xs-9 text-left">
+                        <a class="ss-app-name-container" href="#"><span class="ss-app-name">Maecenas</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
+                      </div> <!-- /col -->
+                      <div class="col-xs-3 text-right ss-app-version-number-container">
+                        v<span class="ss-app-version-number">297</span>
+                      </div> <!-- /col -->
+                    </div> <!-- /row -->
+                    <hr>
+                    <dl class="dl-horizontal ss-app-metadata-container">
+                      <dt>Price</dt><dd><span class="ss-app-price"></span></dd>
+                      <dt>Publisher</dt><dd><span class="ss-app-publisher">Aliquam</span></dd>
+                      <dt>Description</dt><dd><span class="ss-app-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></dd>
+                    </dl>
+                  </div>
+                </div><!--/.thumbnail -->
+              </div><!--/.col-* -->
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail">
+                  <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/200x150/aa0000/fff.png), url(images/app_image_placeholder.png);">
+                    <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
+                    <span class="ss-label-decorator ss-label-decorator-updated"></span>
+                    <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
+                  </div> <!-- /.ss-app-thumbnail-container -->
+                  <div class="caption">
+                    <div class="row h4">
+                      <div class="col-xs-9 text-left">
+                        <a class="ss-app-name-container" href="#"><span class="ss-app-name">Nullam convallis</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
+                      </div> <!-- /col -->
+                      <div class="col-xs-3 text-right ss-app-version-number-container">
+                        v<span class="ss-app-version-number">87</span>
+                      </div> <!-- /col -->
+                    </div> <!-- /row -->
+                    <hr>
+                    <dl class="dl-horizontal ss-app-metadata-container">
+                      <dt>Price</dt><dd><span class="ss-app-price">4.99 EUR / month</span></dd>
+                      <dt>Publisher</dt><dd><span class="ss-app-publisher">Etiam</span></dd>
+                      <dt>Description</dt><dd><span class="ss-app-description">Cras commodo nibh non tellus convallis elementum. Integer auctor tempor imperdiet. Fusce tempor auctor sagittis</span></dd>
+                    </dl>
+                  </div>
+                </div><!--/.thumbnail -->
+              </div><!--/.col-* -->
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail">
+                  <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/75x75/aa0000/fff.png), url(images/app_image_placeholder.png);">
+                    <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
+                    <span class="hidden ss-label-decorator ss-label-decorator-updated"></span>
+                    <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
+                  </div> <!-- /.ss-app-thumbnail-container -->
+                  <div class="caption">
+                    <div class="row h4">
+                      <div class="col-xs-9 text-left">
+                        <a class="ss-app-name-container" href="#"><span class="ss-app-name">Pellentesque</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
+                      </div> <!-- /col -->
+                      <div class="col-xs-3 text-right ss-app-version-number-container">
+                        v<span class="ss-app-version-number">109</span>
+                      </div> <!-- /col -->
+                    </div> <!-- /row -->
+                    <hr>
+                    <dl class="dl-horizontal ss-app-metadata-container">
+                      <dt>Price</dt><dd><span class="ss-app-price">9.99 EUR / month</span></dd>
+                      <dt>Publisher</dt><dd><span class="ss-app-publisher">Curabitur</span></dd>
+                      <dt>Description</dt><dd><span class="ss-app-description">Maecenas massa nunc, convallis quis porttitor at, euismod sed lacus. Cras eleifend turpis id rhoncus eleifend.</span></dd>
+                    </dl>
+                  </div>
+                </div><!--/.thumbnail -->
+              </div><!--/.col-* -->
+            </div><!--/.row.ss-app-thumbnails -->
           </div>
-        </div><!--/.thumbnail -->
-      </div><!--/.col-* -->
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="thumbnail">
-          <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/150x200/aa0000/fff.png), url(images/app_image_placeholder.png);">
-            <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
-            <span class="hidden ss-label-decorator ss-label-decorator-updated"></span>
-            <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
-          </div> <!-- /.ss-app-thumbnail-container -->
-          <div class="caption">
-            <div class="row h4">
-              <div class="col-xs-9 text-left">
-                <a class="ss-app-name-container" href="#"><span class="ss-app-name">Maecenas</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div> <!-- /col -->
-              <div class="col-xs-3 text-right ss-app-version-number-container">
-                v<span class="ss-app-version-number">297</span>
-              </div> <!-- /col -->
-            </div> <!-- /row -->
-            <hr>
-            <dl class="dl-horizontal ss-app-metadata-container">
-              <dt>Price</dt><dd><span class="ss-app-price"></span></dd>
-              <dt>Publisher</dt><dd><span class="ss-app-publisher">Aliquam</span></dd>
-              <dt>Description</dt><dd><span class="ss-app-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></dd>
-            </dl>
+        </div>
+      </div><!--/.panel-default -->
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+              <span class="row">
+                <span class="col-xs-10 ss-section-title">
+                  Shared Projects
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body ss-section-content">
+            <table class="table table-responsive table-hover ss-table">
+              <thead class="ss-table-head">
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Owner</th>
+                  <th>Version</th>
+                </tr>
+              </thead>
+              <tbody class="ss-table-body">
+                <tr>
+                  <td><span class="glyphicon glyphicon-folder-open"></span></td>
+                  <td><a href="module/A/555">Some project</a></td>
+                  <td>Description...</td>
+                  <td>sixsq</td>
+                  <td>123</td>
+                </tr>
+                <tr>
+                  <td><span class="glyphicon glyphicon-th"></span></td>
+                  <td><a href="module/CELAR/899">Some deployment</a></td>
+                  <td>Some other description...</td>
+                  <td>Joe</td>
+                  <td>321</td>
+                </tr>
+                <tr>
+                  <td><span class="glyphicon glyphicon-hdd"></span></td>
+                  <td><a href="module/CELAR/899">Some machine</a></td>
+                  <td>Some other description...</td>
+                  <td>Joe</td>
+                  <td>321</td>
+                </tr>
+                <tr class="danger">
+                  <td><span class="glyphicon glyphicon-th"></span></td>
+                  <td><a href="module/CELAR/899">Some deployment</a></td>
+                  <td>Failed deployment could be with red background (<code>.danger</code>)</td>
+                  <td>Joe</td>
+                  <td>321</td>
+                </tr>
+                <tr class="success">
+                  <td><span class="glyphicon glyphicon-th"></span></td>
+                  <td><a href="module/CELAR/899">Some deployment</a></td>
+                  <td>Ready deployment could be with green background (<code>.success</code>)</td>
+                  <td>Joe</td>
+                  <td>321</td>
+                </tr>
+                <tr>
+                  <td class="danger"><span class="glyphicon glyphicon-th"></span></td>
+                  <td><a href="module/CELAR/899">Some deployment</a></td>
+                  <td>This can be applied even only in the icon.</td>
+                  <td>Joe</td>
+                  <td>321</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div><!--/.thumbnail -->
-      </div><!--/.col-* -->
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="thumbnail">
-          <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/200x150/aa0000/fff.png), url(images/app_image_placeholder.png);">
-            <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
-            <span class="ss-label-decorator ss-label-decorator-updated"></span>
-            <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
-          </div> <!-- /.ss-app-thumbnail-container -->
-          <div class="caption">
-            <div class="row h4">
-              <div class="col-xs-9 text-left">
-                <a class="ss-app-name-container" href="#"><span class="ss-app-name">Nullam convallis</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div> <!-- /col -->
-              <div class="col-xs-3 text-right ss-app-version-number-container">
-                v<span class="ss-app-version-number">87</span>
-              </div> <!-- /col -->
-            </div> <!-- /row -->
-            <hr>
-            <dl class="dl-horizontal ss-app-metadata-container">
-              <dt>Price</dt><dd><span class="ss-app-price">4.99 EUR / month</span></dd>
-              <dt>Publisher</dt><dd><span class="ss-app-publisher">Etiam</span></dd>
-              <dt>Description</dt><dd><span class="ss-app-description">Cras commodo nibh non tellus convallis elementum. Integer auctor tempor imperdiet. Fusce tempor auctor sagittis</span></dd>
-            </dl>
-          </div>
-        </div><!--/.thumbnail -->
-      </div><!--/.col-* -->
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="thumbnail">
-          <div class="ss-app-thumbnail-container" style="background-image: url(http://dummyimage.com/75x75/aa0000/fff.png), url(images/app_image_placeholder.png);">
-            <span class="hidden ss-label-decorator ss-label-decorator-new"></span>
-            <span class="hidden ss-label-decorator ss-label-decorator-updated"></span>
-            <a href="#" onclick="alert('Deploying! :)')" class="btn btn-primary" role="button">Deploy</a>
-          </div> <!-- /.ss-app-thumbnail-container -->
-          <div class="caption">
-            <div class="row h4">
-              <div class="col-xs-9 text-left">
-                <a class="ss-app-name-container" href="#"><span class="ss-app-name">Pellentesque</span> <span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div> <!-- /col -->
-              <div class="col-xs-3 text-right ss-app-version-number-container">
-                v<span class="ss-app-version-number">109</span>
-              </div> <!-- /col -->
-            </div> <!-- /row -->
-            <hr>
-            <dl class="dl-horizontal ss-app-metadata-container">
-              <dt>Price</dt><dd><span class="ss-app-price">9.99 EUR / month</span></dd>
-              <dt>Publisher</dt><dd><span class="ss-app-publisher">Curabitur</span></dd>
-              <dt>Description</dt><dd><span class="ss-app-description">Maecenas massa nunc, convallis quis porttitor at, euismod sed lacus. Cras eleifend turpis id rhoncus eleifend.</span></dd>
-            </dl>
-          </div>
-        </div><!--/.thumbnail -->
-      </div><!--/.col-* -->
-    </div><!--/.row.ss-app-thumbnails -->
-  </div><!--/.container -->
-</body>
-</html>
+        </div>
+      </div><!--/.panel-default -->
+
+    </div><!--/.container -->
+    <div id="bottom-scripts">
+      <!-- Bootstrap core JavaScript -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+      <script src="external/bootstrap/js/bootstrap.min.js"></script>
+      <script>
+      jQuery(function() {
+        $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
+          var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+          console.log(chevron_sel)
+          $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        });
+        $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
+          var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+          console.log(chevron_sel)
+          $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        });
+      });
+      </script>
+    </div>
+
+  </body>
+  </html>

@@ -6,6 +6,18 @@
   margin: 0;
 }
 
-.jumbotron h1 {
+.jumbotron .ss-header h1 {
   color: #50a7de;
+}
+
+.jumbotron .ss-header.ss-header-error h1 {
+  color: rgb(170,0,0);
+}
+
+.jumbotron .ss-header h1 .glyphicon {
+  font-size: 50px;
+}
+
+.jumbotron .ss-header.ss-header-error .ss-header-error-prefix {
+  display: none;
 }
