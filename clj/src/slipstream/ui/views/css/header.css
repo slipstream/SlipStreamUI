@@ -10,14 +10,32 @@
   color: #50a7de;
 }
 
-.jumbotron .ss-header.ss-header-error h1 {
-  color: rgb(170,0,0);
-}
-
 .jumbotron .ss-header h1 .glyphicon {
   font-size: 50px;
 }
 
-.jumbotron .ss-header.ss-header-error .ss-header-error-prefix {
+/* Header Error Status code hidden if not error page */
+
+.jumbotron .ss-header .ss-header-error-status-code {
   display: none;
+}
+
+/* Header title default message */
+
+.jumbotron .ss-header .ss-header-title:empty::before {
+  content: "Welcome to SlipStream";
+}
+
+.jumbotron .ss-header .ss-header-subtitle:empty::before {
+  content: "Your way to multi-cloud deployments.";
+}
+
+/* Header icon defaults */
+
+.jumbotron .ss-header .ss-header-icon-error {
+  display: none;
+}
+
+.jumbotron .ss-header .ss-header-icon {
+  display:  inline-block;
 }

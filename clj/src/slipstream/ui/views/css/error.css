@@ -1,7 +1,78 @@
-h1.error-header {
+/* Page on error */
+
+body.ss-error-page:after {
+  content : "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0c113a;
+  /*
+      From http://thienbao.deviantart.com/art/Lost-in-the-Clouds-21423013
+      Ask for permission if accepted ;)
+  */
+  background-image: url(../images/lost_in_the_clouds.jpg);
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position: 50% 120px;
+  width: 100%;
+  height: 100%;
+  opacity : 0.8;
+  z-index: -1;
+  -webkit-box-shadow: inset 0 260px 120px -80px white;
+  -moz-box-shadow: inset 0 260px 120px -80px white;
+  box-shadow: inset 0 260px 120px -80px white;
+}
+
+body.ss-error-page p {
+  text-shadow: 0 0 8px black;
+}
+
+
+body.ss-error-page #header {
+  background-color: transparent;
+  opacity: 0.8;
+}
+
+body.ss-error-page .jumbotron .ss-header h1 {
   color: rgb(170,0,0);
 }
 
-h1.error-header .glyphicon {
-  font-size: 50px;
+/* Header Error Status code */
+
+body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code {
+  display:  inline-block;
+}
+
+body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code::before {
+  content: "Error ";
+}
+
+body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code:empty::before {
+  content: "Error 500";
+}
+
+body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code::after {
+  content: " -";
+}
+
+/* Header title default message in case of error */
+
+body.ss-error-page .jumbotron .ss-header .ss-header-title:empty::before {
+  content: "Oups...";
+}
+
+body.ss-error-page .jumbotron .ss-header .ss-header-subtitle:empty::before {
+  content: "How embarrassing. We lost you on the cloud, away from the slip stream. We are surely working on it, but if you land to this page many times, please don't hesitate to let us know.";
+}
+
+
+/* Header icon defaults */
+
+body.ss-error-page .jumbotron .ss-header .ss-header-icon {
+  display: none;
+}
+
+body.ss-error-page .jumbotron .ss-header .ss-header-icon-error{
+  display:  inline-block;
 }

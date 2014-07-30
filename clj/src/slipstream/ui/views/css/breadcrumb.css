@@ -1,3 +1,7 @@
+body.ss-error-page #ss-breadcrumb-placeholder {
+  display: none;
+}
+
 #ss-breadcrumb-placeholder {
   min-height: 30px;
   height: 30px;
