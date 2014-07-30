@@ -3,6 +3,10 @@ body {
   padding-top: 50px;
 }
 
+body * {
+  border-radius: 0 !important;
+}
+
 body > .navbar {
   opacity: 0.98;
   border-color: #700;

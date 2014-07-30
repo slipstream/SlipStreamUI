@@ -5,11 +5,11 @@
 
 (def template-filename (common/get-template "singin.html"))
 
-(html/defsnippet header template-filename base/header-sel
+(html/defsnippet header-snip template-filename base/header-sel
   []
   identity)
 
-(html/defsnippet content template-filename base/content-sel
+(html/defsnippet content-snip template-filename base/content-sel
   []
   identity)
 
@@ -20,8 +20,8 @@
      :title "Sign up"
      ; :alerts [:#alert-wrong-credentials 
      ;          {:type :info, :msg "This could be an interesting note."}]
-     :header (header)
-     :content (content)
+     :header (header-snip)
+     :content (content-snip)
      :type type
      :metadata metadata
      }))

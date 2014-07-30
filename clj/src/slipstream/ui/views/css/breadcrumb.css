@@ -1,0 +1,32 @@
+#ss-breadcrumb-placeholder {
+  min-height: 30px;
+  height: 30px;
+  width: 100%;
+  background-color: #333;
+  padding: 0;
+  opacity: 0.98;
+}
+
+#ss-breadcrumb-container {
+  height: 30px;
+  min-height: 30px;
+  margin-bottom: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #333;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb a {
+  color: #50a7de;
+}
+
+#ss-breadcrumb-container.affix {
+  width: 100%;
+  position: fixed;
+}

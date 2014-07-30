@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Section Template</title>
+
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/section.css"/>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Section Template</h1>
+    <p>
+      Currently, sections are implemented as accordions. However, this template offers an
+      abstraction as a section, so that the underlying layout can be changed without modifiyng
+      the enlive code.
+    </p>
+    <hr>
+
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              <span class="row">
+                <span class="col-xs-10">
+                  Collapsible Group Item #1 (open by default)
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body">
+            content
+          </div>
+        </div>
+      </div><!--/.panel-default -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+              <span class="row">
+                <span class="col-xs-10">
+                  Collapsible Group Item #2 (closed by default)
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body">
+            content
+          </div>
+        </div>
+      </div><!--/.panel-default -->
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+              <span class="row">
+                <span class="col-xs-10">
+                  Info
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">
+            The <code>div.panel</code> of this section has <code>.panel-info</code>.
+          </div>
+        </div>
+      </div><!--/.panel-info -->
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+              <span class="row">
+                <span class="col-xs-10">
+                  Danger
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+          <div class="panel-body">
+            The <code>div.panel</code> of this section has <code>.panel-danger</code>.
+          </div>
+        </div>
+      </div><!--/.panel-danger -->
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+              <span class="row">
+                <span class="col-xs-10">
+                  Success
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse">
+          <div class="panel-body">
+            The <code>div.panel</code> of this section has <code>.panel-success</code>.
+          </div>
+        </div>
+      </div><!--/.panel-success -->
+    </div><!--/.panel-group -->
+  </div><!--/.container -->
+
+  <div id="bottom-scripts">
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="external/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+    jQuery(function() {
+      $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
+        var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+        console.log(chevron_sel)
+        $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+      });
+      $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
+        var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+        console.log(chevron_sel)
+        $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+      });
+    });
+    </script>
+  </div>
+</body>
+</html>

@@ -3,6 +3,10 @@
 }
 */
 
+/*.btn{
+  border-radius: 0;
+}*/
+
 .menubar-logged-in {
   color: white;
   background-color: #a00;
@@ -17,6 +21,7 @@
 
 .menubar-logged-in .dropdown-menu {
   background-color: #a00;
+  border-radius: 0;
 }
 
 .menubar-logged-in .navbar-nav li > a:hover,

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Table Template</title>
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Table Template</h1>
+    <p>
+      Other options include:
+    </p>
+
+    <table class="table table-bordered table-striped">
+      <colgroup>
+        <col class="col-xs-2">
+        <col class="col-xs-7">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code>.table-condensed</code>
+          </td>
+          <td>Makes tables more compact by cutting cell padding in half.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.active</code>
+          </td>
+          <td>Applies the hover color to a particular row or cell</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.success</code>
+          </td>
+          <td>Indicates a successful or positive action</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.info</code>
+          </td>
+          <td>Indicates a neutral informative change or action</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.warning</code>
+          </td>
+          <td>Indicates a warning that might need attention</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.danger</code>
+          </td>
+          <td>Indicates a dangerous or potentially negative action</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      From: <a href="http://getbootstrap.com/css/#tables">http://getbootstrap.com/css/#tables</a>
+    </p>
+
+    <hr>
+
+    <table class="table table-responsive table-hover ss-table">
+      <thead class="ss-table-head">
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Owner</th>
+          <th>Version</th>
+        </tr>
+      </thead>
+      <tbody class="ss-table-body">
+        <tr>
+          <td><span class="glyphicon glyphicon-folder-open"></span></td>
+          <td><a href="module/A/555">Some project</a></td>
+          <td>Description...</td>
+          <td>sixsq</td>
+          <td>123</td>
+        </tr>
+        <tr>
+          <td><span class="glyphicon glyphicon-th"></span></td>
+          <td><a href="module/CELAR/899">Some deployment</a></td>
+          <td>Some other description...</td>
+          <td>Joe</td>
+          <td>321</td>
+        </tr>
+        <tr>
+          <td><span class="glyphicon glyphicon-hdd"></span></td>
+          <td><a href="module/CELAR/899">Some machine</a></td>
+          <td>Some other description...</td>
+          <td>Joe</td>
+          <td>321</td>
+        </tr>
+        <tr class="danger">
+          <td><span class="glyphicon glyphicon-th"></span></td>
+          <td><a href="module/CELAR/899">Some deployment</a></td>
+          <td>Failed deployment could be with red background (<code>.danger</code>)</td>
+          <td>Joe</td>
+          <td>321</td>
+        </tr>
+        <tr class="success">
+          <td><span class="glyphicon glyphicon-th"></span></td>
+          <td><a href="module/CELAR/899">Some deployment</a></td>
+          <td>Ready deployment could be with green background (<code>.success</code>)</td>
+          <td>Joe</td>
+          <td>321</td>
+        </tr>
+        <tr>
+          <td class="danger"><span class="glyphicon glyphicon-th"></span></td>
+          <td><a href="module/CELAR/899">Some deployment</a></td>
+          <td>This can be applied even only in the icon.</td>
+          <td>Joe</td>
+          <td>321</td>
+        </tr>
+      </tbody>
+    </table>
+</div> <!-- /.container -->
+
+</body>
+</html>

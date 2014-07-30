@@ -71,7 +71,8 @@
         involved-templates [alerts/template-filename
                             menubar/template-filename
                             template-filename]]
-    (println "user:" user)
+    (println "Generating base for" template-filename)
+    (println "   user:" user)
     (base (assoc context
             :user user
             :involved-templates involved-templates))))

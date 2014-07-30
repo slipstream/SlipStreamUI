@@ -1,0 +1,10 @@
+/**
+* Using div (block element) inside a <a> element is not allowed in enlive
+* Using span to create a grid.
+* See: https://github.com/cgrand/enlive/issues/110
+*/
+span.row,
+span.row span {
+  margin: 0;
+  padding: 0;
+}

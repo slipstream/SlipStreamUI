@@ -12,6 +12,7 @@
   <!-- Internal CSS Stylesheets -->
   <link rel="stylesheet" type="text/css" href="css/topbar.css" />
   <link rel="stylesheet" type="text/css" href="css/header.css" />
+  <link rel="stylesheet" type="text/css" href="css/breadcrumb.css" />
   <link rel="stylesheet" type="text/css" href="css/footer.css" />
 </head>
 
@@ -33,13 +34,21 @@
   </div>
 </div><!--/#header -->
 
-<div class="container">
-  <ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Library</a></li>
-    <li class="active">Data</li>
-  </ol>
-</div> <!--/.container -->
+<!-- We place the breadcrumbs within a #ss-breadcrumb-placeholder to
+maintain the body layout when the #ss-breadcrumb-container is affixed,
+avoiding sudden mouvements of the layout. -->
+<div class="jumbotron"  id="ss-breadcrumb-placeholder">
+  <div id="ss-breadcrumb-container">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="/welcome"><span class="glyphicon glyphicon-home"></span></a></li>
+      <li><a class="ss-breadcrumb-middle" href="#">Library</a></li>
+      <li><a class="ss-breadcrumb-middle" href="#">Module</a></li>
+      <li class="active ss-breadcrumb-last">Data</li>
+    </ol>
+  </div> <!--/.container -->
+  </div> <!-- /.ss-breadcrumb-container -->
+</div> <!-- /.jumbotron #ss-breadcrumb-placeholder-->
 
 
 <div id="content">
@@ -81,20 +90,30 @@
   <!-- <script src="external/attrchange/js/attrchange.js"></script> -->
   <script>
   jQuery(function() {
-    $(document.body).css('padding-top', $('.navbar').height() || 0);
-    $('#form-signin').bootstrapValidator();
-    $('#form-pwd-reset').bootstrapValidator();
-    $('#form-contact-us').bootstrapValidator();
-    $('#contact-request-textarea').maxlength({
-      placement: 'bottom',
+    $(document.body).css("padding-top", $(".navbar").height() || 0);
+    $("#form-signin").bootstrapValidator();
+    $("#form-pwd-reset").bootstrapValidator();
+    $("#form-contact-us").bootstrapValidator();
+    $("#contact-request-textarea").maxlength({
+      placement: "bottom",
       threshold: 50,
       showCharsTyped: false,
       warningClass: "label label-warning",
       limitReachedClass: "label label-danger",
-      preText: 'You can still write ',
-      separator: ' chars (',
-        postText: ' max)'
+      preText: "You can still write ",
+      separator: " chars (",
+        postText: " max)"
   });
+    $("#ss-breadcrumb-container").affix({
+      offset: {
+        top: function () {
+          return ($("#header").offset().top + $("#header").outerHeight() - $("#topbar").outerHeight())
+        }
+      }
+    });
+    $("#ss-breadcrumb-container").on("affixed.bs.affix", function () {
+      $("#ss-breadcrumb-container.affix").css("top",$("#topbar").outerHeight());
+   });
   });
   </script>
 </div>

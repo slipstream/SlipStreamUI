@@ -1,4 +1,4 @@
-(ns slipstream.ui.views.welcome
+(ns slipstream.ui.views.welcome-legacy
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.authz :as authz]
@@ -98,40 +98,10 @@
     (concat js-scripts-default (module/js-scripts-chooser))
     js-scripts-default))
 
-; (defn page [root-projects type]
-;   (base/base 
-;     {:js-scripts (js-scripts type)
-;      :title (common/title "Welcome")
-;      :header (module-base/header root-projects type header-snip)
-;      :content (content-snip root-projects)
-;      :footer (module-base/footer type)}))
-
-
-
-(def template-filename (common/get-template "welcome.html"))
-
-(html/defsnippet header-snip template-filename base/header-sel
-  []
-  identity)
-
-(html/defsnippet content-snip template-filename base/content-sel
-  []
-  identity)
-
-(html/defsnippet snip (common/get-template "welcome_test.html") [:a]
-  []
-  identity)
-
-(defn page [metadata type]
-  (base/generate
-    {:template-filename template-filename
-     :title "Welcome"
-     :header (header-snip)
-     :content (content-snip)
-     :type type
-     :metadata metadata
-     }))
-
-
-
-
+(defn page [root-projects type]
+  (base/base 
+    {:js-scripts (js-scripts type)
+     :title (common/title "Welcome")
+     :header (module-base/header root-projects type header-snip)
+     :content (content-snip root-projects)
+     :footer (module-base/footer type)}))
