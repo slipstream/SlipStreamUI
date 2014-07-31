@@ -4,8 +4,7 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.run :as run-model]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.common :as common]
+                        [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.run :as run]
             [slipstream.ui.views.module-base :as module-base]))
@@ -70,5 +69,4 @@
      :title (common/title "Runs")
      :header (header-snip runs)
      :content (runs-snip
-                (run-model/group-by-cloud runs))
-     :footer (footer/footer-snip)}))
+                (run-model/group-by-cloud runs))}))

@@ -11,8 +11,7 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.project :as project]
+                        [slipstream.ui.views.project :as project]
             [slipstream.ui.views.common :as common]))
 
 (def service-catalog-template-html (common/get-template "service_catalog.html"))
@@ -118,5 +117,4 @@
     {:js-scripts (js-scripts type)
      :title (common/title "Service Catalog")
      :header (module-base/header root-projects type header-snip)
-     :content (content-snip root-projects)
-     :footer (module-base/footer type)}))
+     :content (content-snip root-projects)}))

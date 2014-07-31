@@ -8,8 +8,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.base :as base]))
+                        [slipstream.ui.views.base :as base]))
 
 (def users-template-html (common/get-template "users.html"))
 
@@ -68,5 +67,4 @@
     {:js-scripts (js-scripts)
      :title (common/title "Users")
      :header (header-snip users)
-     :content (content-snip users)
-     :footer (footer/footer-snip)}))
+     :content (content-snip users)}))

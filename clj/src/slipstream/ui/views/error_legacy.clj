@@ -2,8 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.models.version :as version]
+                        [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user :as user-models]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.common :as common]))
@@ -31,5 +30,4 @@
                message 
                code
                user)
-     :content nil
-     :footer (footer/footer-snip)}))
+     :content nil}))

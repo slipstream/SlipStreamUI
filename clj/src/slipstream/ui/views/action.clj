@@ -4,8 +4,7 @@
             [slipstream.ui.models.action :as action-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.common :as common]))
+                        [slipstream.ui.views.common :as common]))
 
 (def action-template-html (common/get-template "action.html"))
 
@@ -19,5 +18,4 @@
   (base/base 
     {:title (common/title "Action Confirmation")
      :header (header-snip (action-model/message metadata))
-     :content nil
-     :footer (footer/footer-snip)}))
+     :content nil}))

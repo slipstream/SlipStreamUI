@@ -3,8 +3,7 @@
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.models.user :as user]
+                        [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]))
 
 ;; Selectors
@@ -145,5 +144,5 @@
 (defn footer
   [type]
   (when-not (ischooser? type)
-    (footer/footer-snip)))
+    nil))
 

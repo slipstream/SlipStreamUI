@@ -7,8 +7,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.base :as base]))
+                        [slipstream.ui.views.base :as base]))
 
 (def user-view-template-html (common/get-template "user-view.html"))
 (def user-edit-template-html (common/get-template "user-edit.html"))
@@ -181,5 +180,4 @@
     {:js-scripts (js-scripts type)
      :title (common/title (common-model/elem-name user))
      :header (header-snip  user)
-     :content (content user type)
-     :footer (footer/footer-snip)}))
+     :content (content user type)}))

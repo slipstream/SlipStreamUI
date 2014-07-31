@@ -84,5 +84,4 @@
     {:js-scripts (js-scripts type)
      :title (common/title "Versions")
      :header (module-base/header versions type header-snip)
-     :content (content-snip versions)
-     :footer (module-base/footer type)}))
+     :content (content-snip versions)}))

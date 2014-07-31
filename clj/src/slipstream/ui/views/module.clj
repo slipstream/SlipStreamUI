@@ -10,8 +10,7 @@
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.image :as image]
             [slipstream.ui.views.deployment :as deployment]
-            [slipstream.ui.views.project :as project]
-            [slipstream.ui.views.footer :as footer]))
+            [slipstream.ui.views.project :as project]))
 
 (def deployment-view-template-html (common/get-template "deployment-view.html"))
 (def deployment-edit-template-html (common/get-template "deployment-edit.html"))
@@ -27,7 +26,7 @@
   [type]
   (if (module-base/ischooser? type)
     nil
-    (footer/footer-snip)))
+    nil))
 
 
 ;; View

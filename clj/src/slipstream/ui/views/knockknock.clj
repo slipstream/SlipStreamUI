@@ -3,8 +3,7 @@
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.module-base :as module-base]
+                        [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
@@ -25,12 +24,11 @@
   [type]
   (if (module-base/ischooser? type)
     nil
-    (footer/footer-snip)))
+    nil))
 
 (html/deftemplate base knockknock-template-html
   [{:keys [js-scripts header content footer]}]
-  header/header-sel (html/substitute header)
-  footer/footer-sel (html/substitute footer))
+  header/header-sel (html/substitute header))
 
 (html/defsnippet head knockknock-template-html base/head-sel
   []

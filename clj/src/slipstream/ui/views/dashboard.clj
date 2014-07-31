@@ -12,8 +12,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.run :as run]
+                        [slipstream.ui.views.run :as run]
             [slipstream.ui.views.base :as base]))
 
 (def dashboard-template-html (common/get-template "dashboard.html"))
@@ -193,5 +192,4 @@
      :js-scripts (js-scripts)
      :title (common/title "Dashboard")
      :header (header-snip dashboard)
-     :content (content-snip dashboard)
-     :footer (footer/footer-snip)}))
+     :content (content-snip dashboard)}))

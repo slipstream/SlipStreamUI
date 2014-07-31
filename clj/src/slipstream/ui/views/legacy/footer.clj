@@ -1,4 +1,4 @@
-(ns slipstream.ui.views.footer
+(ns slipstream.ui.views.legacy.footer
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.user :as user]

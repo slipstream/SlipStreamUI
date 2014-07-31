@@ -8,8 +8,7 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
-            [slipstream.ui.views.menubar :as menubar]
-            [slipstream.ui.views.footer :as footer]))
+            [slipstream.ui.views.menubar :as menubar]))
 
 (def base-template-filename (common/get-template "base.html"))
 

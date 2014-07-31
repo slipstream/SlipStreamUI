@@ -2,8 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.base :as base]
+                        [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
@@ -142,5 +141,4 @@
      :js-scripts (js-scripts)
      :title (common/title (run-model/module-name run))
      :header (header-snip run)
-     :content (content-snip run)
-     :footer (footer/footer-snip)}))
+     :content (content-snip run)}))

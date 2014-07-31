@@ -2,8 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.error :as error]
+                        [slipstream.ui.views.error :as error]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.knockknock :as knockknock] ;; TODO: To remove

@@ -8,8 +8,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.base :as base]))
+                        [slipstream.ui.views.base :as base]))
 
 (def documentation-template-html (common/get-template "documentation.html"))
 
@@ -28,5 +27,4 @@
   (base/base 
     {:title (common/title "Documentation")
      :header (header-snip (user-model/user user))
-     :content (content-snip)
-     :footer (footer/footer-snip)}))
+     :content (content-snip)}))

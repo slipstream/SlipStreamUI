@@ -2,8 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.common :as common]
+                        [slipstream.ui.views.common :as common]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
@@ -28,5 +27,4 @@
   (base/base 
     {:title (common/title "Logout")
      :header (header-snip metadata)
-     :content (content-snip metadata)
-     :footer (footer/footer-snip)}))
+     :content (content-snip metadata)}))

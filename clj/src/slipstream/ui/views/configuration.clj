@@ -6,8 +6,7 @@
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.footer :as footer]
-            [slipstream.ui.views.base :as base]))
+                        [slipstream.ui.views.base :as base]))
 
 (def configuration-template-html (common/get-template "configuration.html"))
 
@@ -53,5 +52,4 @@
     {:js-scripts (js-scripts)
      :title (common/title "Configuration")
      :header (header-snip (user-model/user configuration))
-     :content (content-snip configuration)
-     :footer (footer/footer-snip)}))
+     :content (content-snip configuration)}))
