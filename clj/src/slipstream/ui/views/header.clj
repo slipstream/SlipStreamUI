@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.header
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.user :as user]
+            [slipstream.ui.views.utils :as u]
             [slipstream.ui.views.common :as common]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
@@ -136,3 +137,24 @@
   titles-sel nil
   breadcrumb-sel nil
   common/interaction-sel nil)
+
+
+;;;;;;;;;;
+
+(def status-code-sel [:.ss-header-error-status-code])
+(def title-sel [:.ss-header-title])
+(def subtitle-sel [:.ss-header-subtitle])
+(def header-icon-sel [:.ss-header-icon])
+
+(def header-icon-default-cls (u/glyphicon-icon-cls :home))
+
+(defn transform
+  [{:keys [status-code title subtitle icon] :as header}]
+  (fn [match]
+    (html/at match
+             header-icon-sel  (u/when-replace-class icon
+                                header-icon-default-cls
+                                (u/glyphicon-icon-cls icon))
+             status-code-sel  (u/when-html-content status-code)
+             title-sel        (u/when-html-content title)
+             subtitle-sel     (u/when-html-content subtitle))))

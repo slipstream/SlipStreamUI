@@ -126,7 +126,12 @@
   (base/generate
     {:template-filename template-filename
      :title "Welcome"
-     :header (header-snip)
+     :header {:icon :star
+              :title "Welcome to SlipStream"
+              :subtitle "The welcome page provides you with all currently published
+                         modules and root modules, including yours and the ones
+                         shared with you."
+              }
      :content (content-snip)
      :type type
      :metadata metadata

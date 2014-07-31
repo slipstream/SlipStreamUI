@@ -115,7 +115,7 @@
   (user/page user-data/xml-user "edit"))
 
 (defn error-page [message code]
-  (error/page (or message "Oops!!") code (user-model/user projects/xml-projects)))
+  (error/page message code (user-model/user projects/xml-projects)))
 
 (defn module-view [module]
   (module-page module "view"))
@@ -225,7 +225,7 @@
     ["documentation"] (render documentation-page)
     ["action"] (render action-page)
     ["error"] (-> (error-page "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>" 500) ring.util.response/response constantly)
-    [&] (-> (error-page "Unknown page" 404)
+    [&] (-> (error-page nil 404)
           ring.util.response/response constantly)))
 
 ;; =============================================================================

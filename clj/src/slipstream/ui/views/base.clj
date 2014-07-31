@@ -29,6 +29,9 @@
 (def content-sel [:#content])
 (def footer-sel [:#footer])
 
+(def error-page-cls "ss-error-page")
+
+
 (defn-memo ^:private node-from-template
   [template-filename sel]
   ((html/snippet template-filename sel [] identity)))
@@ -50,14 +53,16 @@
        (remove (node-from-base-template sel))))
 
 (deftemplate base base-template-filename
-  [{:keys [title header content type alerts involved-templates metadata user] :as context}]
+  [{:keys [error title header content type alerts involved-templates metadata user] :as context}]
+  [:body]             (u/when-add-class error error-page-cls)
   menubar-sel         (html/content (menubar/menubar context))
   topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
   [:#release-version] (html/content @version/slipstream-release-version)
   footer-sel          (u/remove-if (u/chooser? type))
   title-sel           (html/content (common/title title))
   css-container-sel   (html/append (additional-html css-sel involved-templates))
-  header-sel          (html/substitute header)
+  header-sel          (header/transform header)
+  ; header-sel          (html/substitute header)
   content-sel         (html/substitute content)
   alert-container-sel (html/content (map alerts/alert alerts))
   alert-container-sel (html/append (alerts/hidden-templates))
