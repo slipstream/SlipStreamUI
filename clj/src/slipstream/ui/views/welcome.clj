@@ -109,15 +109,7 @@
 
 (def template-filename (common/get-template "welcome.html"))
 
-(html/defsnippet header-snip template-filename base/header-sel
-  []
-  identity)
-
 (html/defsnippet content-snip template-filename base/content-sel
-  []
-  identity)
-
-(html/defsnippet snip (common/get-template "welcome_test.html") [:a]
   []
   identity)
 
@@ -125,12 +117,11 @@
   (base/generate
     {:template-filename template-filename
      :title "Welcome"
-     :header {:icon :star
+     :header {:icon :home
               :title "Welcome to SlipStream"
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
-                         shared with you."
-              }
+                         shared with you."}
      :content (content-snip)
      :type type
      :metadata metadata

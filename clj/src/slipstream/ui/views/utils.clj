@@ -2,9 +2,23 @@
   (:require [net.cgrand.enlive-html :as html]))
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
+
+;; SlipStream
+
 (defn chooser?
   [type]
   (= "chooser" type))
+
+
+;; Enlive
+
+(defn enlive-node?
+  "To differenciate between maps that represent enlive-generated nodes from
+  normal clojure maps."
+  [n]
+  (or
+    (instance? clojure.lang.PersistentStructMap n)
+    (instance? clojure.lang.PersistentStructMap (first n))))
 
 (defn when-content
   [content]
@@ -29,17 +43,17 @@
 
 (defn replace-class
   [class-to-remove class-to-add]
-  (fn [match]
-    (html/at match
-             ((html/remove-class class-to-remove) match)
-             ((html/add-class class-to-add) match))))
+  (prn "class-to-remove" class-to-remove)
+  (prn "class-to-add" class-to-add)
+  (html/do->
+    (html/remove-class class-to-remove)
+    (html/add-class class-to-add)))
 
-(defn when-replace-class
+(defmacro when-replace-class
   [test class-to-remove class-to-add]
-  (fn [match]
-    (if test
-      ((replace-class class-to-remove class-to-add) match)
-      (identity match))))
+  `(if ~test
+    (replace-class ~class-to-remove ~class-to-add)
+    identity))
 
 (defn remove-if
   [test]
@@ -49,6 +63,9 @@
 (defn remove-if-not
   [test]
   (remove-if (not test)))
+
+
+;; Clojure
 
 (defmacro defn-memo
   [fname & body]

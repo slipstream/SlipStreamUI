@@ -60,7 +60,9 @@
   footer-sel          (u/remove-if (u/chooser? type))
   title-sel           (html/content (common/title title))
   css-container-sel   (html/append (additional-html css-sel involved-templates))
-  header-sel          (header/transform header)
+  header-sel          (if (u/enlive-node? header)
+                        (html/substitute header)
+                        (header/transform header))
   ; header-sel          (html/substitute header)
   content-sel         (html/substitute content)
   alert-container-sel (html/content (map alerts/alert alerts))
@@ -70,7 +72,7 @@
   )
 
 (defn generate
-  [{:keys [metadata template-filename alerts] :as context}]
+  [{:keys [header metadata template-filename alerts] :as context}]
   (let [user (mu/user-map metadata)
         involved-templates [alerts/template-filename
                             menubar/template-filename

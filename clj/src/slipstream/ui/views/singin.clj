@@ -14,7 +14,6 @@
   identity)
 
 (defn page [metadata type]
-  (prn metadata)
   (base/generate
     {:template-filename template-filename
      :title "Sign up"

@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.header
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.user :as user]
-            [slipstream.ui.views.utils :as u]
+            [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [slipstream.ui.views.common :as common]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
@@ -22,7 +22,7 @@
 
 (html/defsnippet header-top-bar-snip header-template-html header-top-bar-sel
   [{username :name issuper :issuper}]
-  [:#header-user :> :a] (html/do-> 
+  [:#header-user :> :a] (html/do->
                           (html/html-content
                             (str username " <i class='icon-user icon-2x'>"))
                           (html/set-attr :href (str "/user/" username)))
@@ -33,7 +33,7 @@
                                         identity
                                         nil)
   [:#header-loginout :a] (if (= nil username)
-                           (html/do-> 
+                           (html/do->
                              (html/html-content "<i class='icon-signin icon-2x'>")
                              (html/set-attr :href "/login"))
                            identity))
@@ -65,7 +65,7 @@
 
 (defn header-titles
   [title title-sub title-desc category extra]
-  (header-titles-snip 
+  (header-titles-snip
     {title :title title-sub :title-sub title-desc :title-desc category :category extra :extra}))
 
 (def breadcrumb-sel [:#breadcrumb])
@@ -76,12 +76,12 @@
   [names index root-uri]
   (if (= "" (names index))
     root-uri
-    (str 
-      root-uri 
-      "/" 
-      (reduce 
-        #(str %1 (if (= "" %1) "" "/") %2) 
-        "" 
+    (str
+      root-uri
+      "/"
+      (reduce
+        #(str %1 (if (= "" %1) "" "/") %2)
+        ""
         (subvec names 0 (inc index))))))
 
 (html/defsnippet header-breadcrumb-snip header-template-html breadcrumb-sel
@@ -89,9 +89,9 @@
   [[:li (html/nth-of-type 2)] :> :a] (html/do->
                                        (html/content root-uri)
                                        (html/set-attr :href root-uri))
-  [[:li (html/nth-of-type 3)] :> :a] (html/clone-for 
-                                       [i (range (count (string/split name #"/")))] 
-                                       (let 
+  [[:li (html/nth-of-type 3)] :> :a] (html/clone-for
+                                       [i (range (count (string/split name #"/")))]
+                                       (let
                                          [names (string/split name #"/")
                                           href (breadcrumb-href names i root-uri)
                                           short-name (names i)]
@@ -101,13 +101,13 @@
                                            (html/set-attr :href href)))))
 
 (defn- gen-titles [title sub desc category]
-  {:title title 
-   :title-sub sub 
-   :title-desc desc 
+  {:title title
+   :title-sub sub
+   :title-desc desc
    :category category})
 
 (defn- gen-module-titles [module]
-  (gen-titles 
+  (gen-titles
     (:name (:attrs module))
     (str "Version: " (:version (:attrs module)))
     (:description (:attrs module))
@@ -115,9 +115,9 @@
 
 (defn titles [root]
   (case (:tag root)
-    :list (gen-titles 
-            "Projects" 
-            "All projects" 
+    :list (gen-titles
+            "Projects"
+            "All projects"
             "This root project is shared with all SlipStream users"
             "Project")
     (gen-module-titles root)))
@@ -125,7 +125,7 @@
 (defn root-uri [root]
   (if (or (= :list (:tag root)) (nil? root))
     "module"
-    (first (string/split 
+    (first (string/split
              (-> root :attrs :resourceuri)
              #"/"))))
 
@@ -144,16 +144,20 @@
 (def status-code-sel [:.ss-header-error-status-code])
 (def title-sel [:.ss-header-title])
 (def subtitle-sel [:.ss-header-subtitle])
-(def header-icon-sel [:.ss-header-icon])
+(def header-icon-sel [:span.ss-header-icon])
 
-(def header-icon-default-cls (u/glyphicon-icon-cls :home))
+(defn-memo header-icon-default-cls
+  [header-node]
+  (let [icon-span (first (html/select header-node header-icon-sel))
+        icon-cls-list (html/attr-values icon-span :class)]
+    (some #(re-matches #"glyphicon-[\w-]+" %) icon-cls-list)))
 
 (defn transform
   [{:keys [status-code title subtitle icon] :as header}]
   (fn [match]
     (html/at match
              header-icon-sel  (u/when-replace-class icon
-                                header-icon-default-cls
+                                (header-icon-default-cls match)
                                 (u/glyphicon-icon-cls icon))
              status-code-sel  (u/when-html-content status-code)
              title-sel        (u/when-html-content title)
