@@ -16,7 +16,7 @@
 (defn page [metadata type]
   (base/generate
     {:template-filename template-filename
-     :title "Sign up"
+     :page-title "Sign up"
      ; :alerts [:#alert-wrong-credentials 
      ;          {:type :info, :msg "This could be an interesting note."}]
      :header (header-snip)

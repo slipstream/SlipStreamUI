@@ -135,10 +135,19 @@
 
 ;; Main function
 
-(defn page [run]
+(defn page-legacy [run]
   (base/base
     {:css-stylesheets (css-stylesheets)
      :js-scripts (js-scripts)
      :title (common/title (run-model/module-name run))
      :header (header-snip run)
      :content (content-snip run)}))
+
+(defn page [run]
+  (base/generate
+    {:metadata run
+     :placeholder-page? true
+     :header {:icon :th
+              :title "91aac79a is DONE"
+              :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
+     :content nil}))

@@ -1,6 +1,6 @@
 /* Page on error */
 
-body.ss-error-page:after {
+body.ss-error-page::after {
   content : "";
   display: block;
   position: absolute;

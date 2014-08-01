@@ -112,9 +112,18 @@
     (concat js-scripts-default (module/js-scripts-chooser))
     js-scripts-default))
 
-(defn page [root-projects type]
+(defn page-legacy [root-projects type]
   (base/base 
     {:js-scripts (js-scripts type)
      :title (common/title "Service Catalog")
      :header (module-base/header root-projects type header-snip)
      :content (content-snip root-projects)}))
+
+(defn page [root-projects type]
+  (base/generate
+    {:metadata root-projects
+     :placeholder-page? true
+     :header {:icon :wrench
+              :title "Service Catalog"
+              :subtitle "Provides detailed capability information for each available clouds"}
+     :content nil}))

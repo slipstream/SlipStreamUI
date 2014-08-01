@@ -46,10 +46,20 @@
   (concat js-scripts-default ["/js/configuration.js"]))
 
 
-(defn page
+(defn page-legacy
   [configuration]
-  (base/base 
+  (base/base
     {:js-scripts (js-scripts)
      :title (common/title "Configuration")
      :header (header-snip (user-model/user configuration))
      :content (content-snip configuration)}))
+
+(defn page [metadata]
+  (base/generate
+    {:metadata metadata
+     :placeholder-page? true
+     :header {:icon :wrench
+              :title "System Configuration"
+              :subtitle "Configure the SlipStream service and its cloud connectors"}
+     :content nil}))
+

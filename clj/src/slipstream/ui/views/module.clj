@@ -208,7 +208,7 @@
 
 ;; Main function
 
-(defn page [module type]
+(defn page-legacy [module type]
   (let
     [category (module-model/module-category module)]
     (base/base 
@@ -217,3 +217,12 @@
        :header (header module type)
        :content (content module type category)
        :footer (footer type)})))
+
+(defn page [module type]
+  (base/generate
+    {:metadata module
+     :placeholder-page? true
+     :header {:icon :folder-open
+              :title "Project name"
+              :subtitle "Version: 53 - Project description"}
+     :content nil}))

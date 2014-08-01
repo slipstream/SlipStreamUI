@@ -68,11 +68,11 @@
 
     <hr>
 
-    <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
+    <div id="ss-section-group-1" class="panel-group">
+      <div class="panel panel-default ss-section">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            <a data-toggle="collapse" data-parent="#ss-section-group-1" href="#ss-collapse-1">
               <span class="row">
                 <span class="col-xs-10 ss-section-title">
                   Collapsible Group Item
@@ -84,7 +84,7 @@
             </a>
           </h4>
         </div>
-        <div id="collapse1" class="panel-collapse collapse in">
+        <div id="ss-collapse-1" class="panel-collapse collapse in">
           <div class="panel-body ss-section-content">
             content
           </div>
@@ -100,11 +100,29 @@
     <script src="external/bootstrap/js/bootstrap.min.js"></script>
     <script>
     jQuery(function() {
+
+      // Ensure correct chevrons at page load depending on open/close state
+
+      $(".panel .panel-collapse.collapse.in")
+        .parent()
+        .find(".glyphicon-chevron-down")
+        .removeClass("glyphicon-chevron-down")
+        .addClass("glyphicon-chevron-up")
+
+      $(".panel .panel-collapse.collapse:not(.in)")
+        .parent()
+        .find(".glyphicon-chevron-up")
+        .removeClass("glyphicon-chevron-up")
+        .addClass("glyphicon-chevron-down")
+
+      // Ensure correct chevrons when opening/closing the sections
+
       $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
         var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         console.log(chevron_sel)
         $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
       });
+
       $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
         var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         console.log(chevron_sel)

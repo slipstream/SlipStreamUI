@@ -23,8 +23,17 @@
   [metadata]
   common/content-sel identity)
 
-(defn page [metadata]
+(defn page-legacy [metadata]
   (base/base 
     {:title (common/title "Logout")
      :header (header-snip metadata)
      :content (content-snip metadata)}))
+
+(defn page [metadata]
+  (base/generate
+    {:metadata metadata
+     :placeholder-page? true
+     :header {:icon :log-out
+              :title "Leaving? We hope to see you back soon..."
+              :subtitle "Your gateway to multi-cloud automation"}
+     :content nil}))

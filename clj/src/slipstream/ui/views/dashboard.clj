@@ -186,10 +186,20 @@
   []
   (concat js-scripts-default []))
 
-(defn page [dashboard]
+(defn page-legacy [dashboard]
   (base/base
     {:css-stylesheets (css-stylesheets)
      :js-scripts (js-scripts)
      :title (common/title "Dashboard")
      :header (header-snip dashboard)
      :content (content-snip dashboard)}))
+
+(defn page [dashboard]
+  (base/generate
+    {:metadata dashboard
+     :placeholder-page? true
+     :header {:icon :dashboard
+              :title "Dashboard"
+              :subtitle "Control and monitor your cloud activity"}
+     :content nil}))
+

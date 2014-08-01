@@ -8,12 +8,13 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
+            [slipstream.ui.views.content :as content]
             [slipstream.ui.views.menubar :as menubar]))
 
 (def base-template-filename (common/get-template "base.html"))
 
 (def head-sel [:head])
-(def title-sel (concat head-sel [:> :title]))
+(def page-title-sel (concat head-sel [:> :title]))
 
 (def css-container-sel head-sel)
 (def css-sel (concat css-container-sel [:> :link]))
@@ -25,10 +26,12 @@
 (def topbar-sel [:#topbar])
 (def menubar-sel [:#menubar])
 (def header-sel [:#header])
-(def content-sel [:#content])
+(def content-sel [:#ss-content])
 (def footer-sel [:#footer])
 
 (def error-page-cls "ss-error-page")
+(def beta-page-cls "ss-beta-page")
+(def placeholder-page-cls "ss-placeholder-page")
 
 
 (defn-memo ^:private node-from-template
@@ -52,19 +55,33 @@
        (remove (node-from-base-template sel))))
 
 (deftemplate base base-template-filename
-  [{:keys [error title header content type alerts involved-templates metadata user] :as context}]
-  [:body]             (u/when-add-class error error-page-cls)
+  [{:keys [error-page?
+           beta-page?
+           placeholder-page?
+           page-title
+           header
+           content
+           type
+           alerts
+           involved-templates
+           metadata
+           user]
+    :as context}]
+  [:body]             (u/when-add-class error-page? error-page-cls)
+  [:body]             (u/when-add-class placeholder-page? placeholder-page-cls)
+  [:body]             (u/when-add-class beta-page? beta-page-cls)
+  page-title-sel      (html/content (u/page-title (or page-title (:title header))))
   menubar-sel         (html/content (menubar/menubar context))
   topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
   [:#release-version] (html/content @version/slipstream-release-version)
   footer-sel          (u/remove-if (u/chooser? type))
-  title-sel           (html/content (common/title title))
   css-container-sel   (html/append (additional-html css-sel involved-templates))
-  header-sel          (if (u/enlive-node? header)
+  header-sel          (if (or (nil? header) (u/enlive-node? header))
                         (html/substitute header)
                         (header/transform header))
-  ; header-sel          (html/substitute header)
-  content-sel         (html/substitute content)
+  content-sel         (if (or (nil? content) (u/enlive-node? content))
+                        (html/substitute content)
+                        (content/build content))
   alert-container-sel (html/content (map alerts/alert alerts))
   alert-container-sel (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
@@ -72,13 +89,16 @@
   )
 
 (defn generate
-  [{:keys [header metadata template-filename alerts] :as context}]
+  [{:keys [header metadata template-filename content alerts] :as context}]
   (let [user (mu/user-map metadata)
         involved-templates [alerts/template-filename
                             menubar/template-filename
+                            ; sections/template-filename ;; TODO: only if sections in body.
                             template-filename]]
     (println "Generating base for" template-filename)
-    (println "   user:" user)
+    ; (println "   user:" user)
+    ; (println "   content type:" (type (first content)))
     (base (assoc context
             :user user
+            ; :beta-page? true
             :involved-templates involved-templates))))

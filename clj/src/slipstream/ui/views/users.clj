@@ -62,9 +62,18 @@
   []
   (concat js-scripts-default ["/js/users.js"]))
 
-(defn page [users]
+(defn page-legacy [users]
   (base/base 
     {:js-scripts (js-scripts)
      :title (common/title "Users")
      :header (header-snip users)
      :content (content-snip users)}))
+
+(defn page [users]
+  (base/generate
+    {:metadata users
+     :placeholder-page? true
+     :header {:icon :user
+              :title "Users"
+              :subtitle "Configure the users in the SlipStream service."}
+     :content nil}))

@@ -1,14 +1,22 @@
 (ns slipstream.ui.views.utils
   (:require [net.cgrand.enlive-html :as html]))
 
-;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
-
 ;; SlipStream
 
+;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
 (defn chooser?
   [type]
   (= "chooser" type))
 
+;; TODO: Look at slipstream.ui.views.common/slipstream and refactor.
+(def slipstream "SlipStream")
+
+;; TODO: Look at slipstream.ui.views.common/title and refactor.
+(defn page-title
+  [s]
+  (if s
+    (str slipstream " | " s)
+    slipstream))
 
 ;; Enlive
 
@@ -43,8 +51,6 @@
 
 (defn replace-class
   [class-to-remove class-to-add]
-  (prn "class-to-remove" class-to-remove)
-  (prn "class-to-add" class-to-add)
   (html/do->
     (html/remove-class class-to-remove)
     (html/add-class class-to-add)))

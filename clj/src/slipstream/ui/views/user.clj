@@ -175,9 +175,18 @@
   (concat js-scripts-default ["/js/user-new.js"]))
 
 
-(defn page [user type]
+(defn page-legacy [user type]
   (base/base 
     {:js-scripts (js-scripts type)
      :title (common/title (common-model/elem-name user))
      :header (header-snip  user)
      :content (content user type)}))
+
+(defn page [user type]
+  (base/generate
+    {:metadata user
+     :placeholder-page? true
+     :header {:icon :user
+              :title "Profile"
+              :subtitle "Regular user"}
+     :content nil}))

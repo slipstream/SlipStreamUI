@@ -22,9 +22,18 @@
   []
   common/content-sel identity)
 
-(defn page
+(defn page-legacy
   [user]
   (base/base 
     {:title (common/title "Documentation")
      :header (header-snip (user-model/user user))
      :content (content-snip)}))
+
+(defn page [user]
+  (base/generate
+    {:metadata user
+     :placeholder-page? true
+     :header {:icon :book
+              :title "Documentation"
+              :subtitle "SlipStream technical documentation at a glance"}
+     :content nil}))

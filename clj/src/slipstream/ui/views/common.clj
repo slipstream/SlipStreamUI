@@ -20,7 +20,10 @@
 
 (defn title
   [page-title]
-  (str slipstream " | " page-title))
+  (if page-title
+    (str slipstream " | " page-title)
+    slipstream))
+
 
 (def drop-module-slash-no-of-chars 7)
 

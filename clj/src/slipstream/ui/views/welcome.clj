@@ -116,13 +116,19 @@
 (defn page [metadata type]
   (base/generate
     {:template-filename template-filename
-     :title "Welcome"
+     :page-title "Welcome"
      :header {:icon :home
               :title "Welcome to SlipStream"
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
                          shared with you."}
-     :content (content-snip)
+     :content [{:title "First section"
+                :content "Here be content."
+                :open false
+                :type :danger}
+               {:title "Second section"
+                :content "Here be content."
+                :open true}]
      :type type
      :metadata metadata
      }))

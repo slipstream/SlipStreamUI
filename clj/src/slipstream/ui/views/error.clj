@@ -4,7 +4,7 @@
 (defn page [message code user]
   (base/generate
     {:title "Error"
-     :error true
+     :error-page? true
      :header {:status-code code
               :title nil
               :subtitle message}}))
