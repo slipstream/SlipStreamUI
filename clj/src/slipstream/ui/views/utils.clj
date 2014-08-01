@@ -42,12 +42,11 @@
       (identity match)
       ((html/html-content (str html-content)) match))))
 
-(defn when-add-class
+(defmacro when-add-class
   [test & classes]
-  (fn [match]
-    (if test
-      ((apply html/add-class classes) match)
-      (identity match))))
+  `(if ~test
+    (html/add-class ~@classes)
+    identity))
 
 (defn replace-class
   [class-to-remove class-to-add]
@@ -69,6 +68,29 @@
 (defn remove-if-not
   [test]
   (remove-if (not test)))
+
+(defmacro if-enlive-node
+  [node form-when-true form-when-false]
+  `(if (or (nil? ~node) (u/enlive-node? ~node))
+     ~form-when-true
+     ~form-when-false))
+
+(defn set-href
+  [uri]
+  (html/set-attr :href uri))
+
+(defn set-id
+  [id]
+  (html/set-attr :id id))
+
+(defn style
+  [node]
+  (html/attr-values node :style))
+
+(defn set-style
+  [style]
+  (html/set-attr :style style))
+
 
 
 ;; Clojure

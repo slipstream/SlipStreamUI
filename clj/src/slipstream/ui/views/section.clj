@@ -1,37 +1,35 @@
 (ns slipstream.ui.views.section
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u :refer [defn-memo]]
+            [slipstream.ui.views.utils :as u]
             [slipstream.ui.views.common :as common]))
 
 (def template-filename (common/get-template "section.html"))
 
-(def section-group-sel [:.ss-section-group])
+(def section-id "ss-section")
+(def section-selected-cls "ss-section-selected")
+
+(def section-group-sel [:#ss-section-group])
 (def section-sel [:.ss-section])
-(def section-sel [:#ss-section.panel-group])
+(def section-anchor-sel (concat section-sel [[:a html/first-of-type]]))
+(def section-id-sel [(html/id= section-id)])
+(def section-title-sel [:.ss-section-title])
+(def section-content-sel [:.ss-section-content])
 
-; (html/defsnippet header-snip template-filename base/header-sel
-;   []
-;   identity)
+(defn section-nodes
+  [sections]
+  (html/clone-for [{:keys [title selected? content type] :as section} sections
+                   :let [section-uid (gensym section-id)]]
+    section-sel         (u/when-add-class selected? section-selected-cls)
+    section-sel         (u/when-add-class type (str "ss-section-" (name type)))
+    section-title-sel   (html/content (str title))
+    section-content-sel (html/content content)
+    section-anchor-sel  (u/set-href (str "#" section-uid))
+    section-id-sel      (u/set-id (str section-uid))))
 
-; (html/defsnippet content-snip template-filename base/content-sel
-;   []
-;   identity)
+(html/defsnippet section-group-snip template-filename section-group-sel
+  [sections]
+  section-sel (section-nodes sections))
 
-; (defn-memo header-icon-default-cls
-;   [header-node]
-;   (let [icon-span (first (html/select header-node header-icon-sel))
-;         icon-cls-list (html/attr-values icon-span :class)]
-;     (some #(re-matches #"glyphicon-[\w-]+" %) icon-cls-list)))
-
-; (gensym "collapse")
-
-; (defn transform
-;   [sections]
-;   (fn [match]
-;     (html/at match
-;              header-icon-sel  (u/when-replace-class icon
-;                                 (header-icon-default-cls match)
-;                                 (u/glyphicon-icon-cls icon))
-;              status-code-sel  (u/when-html-content status-code)
-;              title-sel        (u/when-html-content title)
-;              subtitle-sel     (u/when-html-content subtitle))))
+(defn build
+  [sections]
+  (html/content (section-group-snip sections)))

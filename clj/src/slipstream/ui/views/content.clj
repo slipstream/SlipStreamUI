@@ -4,6 +4,5 @@
 (defn build
   [content]
   (if (vector? content)
-    nil
-    ; (section/build content)
+    (section/build content)
     (throw (Exception. "Not yet implemented"))))

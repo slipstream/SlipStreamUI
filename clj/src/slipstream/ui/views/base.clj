@@ -8,6 +8,7 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
+            [slipstream.ui.views.section :as section]
             [slipstream.ui.views.content :as content]
             [slipstream.ui.views.menubar :as menubar]))
 
@@ -76,10 +77,10 @@
   [:#release-version] (html/content @version/slipstream-release-version)
   footer-sel          (u/remove-if (u/chooser? type))
   css-container-sel   (html/append (additional-html css-sel involved-templates))
-  header-sel          (if (or (nil? header) (u/enlive-node? header))
+  header-sel          (u/if-enlive-node header
                         (html/substitute header)
                         (header/transform header))
-  content-sel         (if (or (nil? content) (u/enlive-node? content))
+  content-sel         (u/if-enlive-node content
                         (html/substitute content)
                         (content/build content))
   alert-container-sel (html/content (map alerts/alert alerts))
@@ -93,7 +94,7 @@
   (let [user (mu/user-map metadata)
         involved-templates [alerts/template-filename
                             menubar/template-filename
-                            ; sections/template-filename ;; TODO: only if sections in body.
+                            section/template-filename ;; TODO: only if sections in body.
                             template-filename]]
     (println "Generating base for" template-filename)
     ; (println "   user:" user)

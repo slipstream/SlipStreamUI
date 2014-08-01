@@ -1,4 +1,4 @@
-.thumbnail .ss-app-thumbnail-container {
+.thumbnail .ss-app-image-container {
   position: relative;
   width: 100%;
   height: 0;
@@ -19,7 +19,7 @@
 
 /* Button */
 
-.thumbnail .ss-app-thumbnail-container .btn {
+.thumbnail .ss-app-image-container .btn {
   opacity: 0.15;
   position: absolute;
   bottom: 0;
@@ -27,14 +27,14 @@
   right: 0;
 }
 
-.thumbnail:hover .ss-app-thumbnail-container .btn {
+.thumbnail:hover .ss-app-image-container .btn {
   opacity: 1;
   -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
 }
 
-.thumbnail .ss-app-thumbnail-container .btn:empty::before {
+.thumbnail .ss-app-image-container .btn:empty::before {
   content: "Deploy";
 }
 
@@ -167,8 +167,9 @@
 
 /* Decorator labels */
 
-.thumbnail .ss-label-decorator {
-  background-color: #999;
+.ss-app-updated.ss-app-image-container::before {
+  content: "Updated";
+  background-color: #3071a9;
   color: white;
   text-align: center;
   position: absolute;
@@ -184,19 +185,20 @@
   box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
 }
 
-.thumbnail .ss-label-decorator-new {
-  background-color: #5cb85c;
-}
-
-.thumbnail .ss-label-decorator-new:empty::before {
+.ss-app-new.ss-app-image-container::before {
   content: "New";
+  background-color: #5cb85c;
+  color: white;
+  text-align: center;
+  position: absolute;
+  width: 180px;
+  font-size: 16px;
+  margin-top: 18px;
+  margin-left: -50px;
+  -webkit-transform: rotate(-35deg);
+  -moz-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+  -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+  -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+  box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
 }
-
-.thumbnail .ss-label-decorator-updated {
-  background-color: #3071a9;
-}
-
-.thumbnail .ss-label-decorator-updated:empty::before {
-  content: "Updated";
-}
-

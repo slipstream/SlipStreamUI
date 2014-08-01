@@ -1,6 +1,8 @@
 (ns slipstream.ui.views.welcome
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.utils :as u]
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -105,13 +107,92 @@
 ;      :content (content-snip root-projects)
 ;      :footer (module-base/footer type)}))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(def template-filename (common/get-template "welcome.html"))
 
-(html/defsnippet content-snip template-filename base/content-sel
-  []
-  identity)
+(def template-filename (common/get-template "app_store.html"))
+
+(def app-thumbnail-group-sel [:.ss-app-thumbnail-group])
+(def app-thumbnail-sel [:.ss-app-thumbnail])
+(def app-image-container-sel [:.ss-app-image-container])
+(def app-name-sel [:.ss-app-name])
+(def app-version-sel [:.ss-app-version-number])
+(def app-description-sel [:dd.ss-app-description])
+
+(def app-updated-cls "ss-app-updated")
+(def app-new-cls "ss-app-new")
+
+(defn set-app-image
+  [image]
+  (fn [node]
+    (let [style (u/style node)
+          bg-img-rule (some #(re-matches #"background-image:.*" %) style)
+          new-bg-img-rule (s/replace bg-img-rule #"(background-image:url\().*?(\))" (str "$1" image "$2"))]
+      (println bg-img-rule)
+      (println new-bg-img-rule)
+      ((u/set-style new-bg-img-rule) node))))
+
+(defn app-thumbnail-nodes
+  [app-metadata-list]
+  (html/clone-for [{:keys [title updated? new? version description image] :as app} app-metadata-list]
+    app-image-container-sel (u/when-add-class updated? app-updated-cls)
+    app-image-container-sel (u/when-add-class new? app-new-cls)
+    app-name-sel            (html/content (str title))
+    app-version-sel         (html/content version)
+    app-description-sel     (html/content description)
+    app-image-container-sel (set-app-image image)
+    ))
+
+(html/defsnippet app-thumbnails-snip template-filename app-thumbnail-group-sel
+  [app-thumbnails]
+  app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
+
+(def apps-test
+  [{:title "Some app"
+    :image "http://dummyimage.com/400x100/aa1000/fff.png"
+    :updated? true
+    :version "98"
+    }
+   {
+    :title "Another app"
+    :image "http://dummyimage.com/400x200/aa2000/fff.png"
+    :updated? false
+    :new? false
+    :version "171"
+    }
+   {
+    :title "Blah"
+    :image "http://dummyimage.com/400x300/aa3000/fff.png"
+    :updated? false
+    :new? true
+    :version "244"
+    }
+   {
+    :title "New and updated"
+    :image "http://dummyimage.com/400x400/aa4000/fff.png"
+    :updated? true
+    :new? true
+    :description "This one is updated and new."
+    :version "317"
+    }
+   {
+    :title "Another app"
+    :image "http://dummyimage.com/400x500/aa5000/fff.png"
+    :updated? false
+    :new? false
+    :version "390"
+    }
+   {
+    :title "Another app"
+    :image "http://dummyimage.com/400x600/aa6000/fff.png"
+    :updated? false
+    :new? false
+    :version "463"
+    }
+   ])
 
 (defn page [metadata type]
   (base/generate
@@ -122,17 +203,23 @@
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
                          shared with you."}
-     :content [{:title "First section"
-                :content "Here be content."
-                :open false
-                :type :danger}
+     :content [{:title "App Store"
+                :content (app-thumbnails-snip apps-test)
+                :selected? true
+                :type :default}
                {:title "Second section"
                 :content "Here be content."
-                :open true}]
+                :type :danger}
+               {:title "Third section"
+                :content "Here be content."
+                :type :info}
+               {:title "Fourth section"
+                :content "Here be content."
+                :type :warning}
+               {:title "Fith section"
+                :content "Here be content."
+                :type :success} ]
      :type type
      :metadata metadata
      }))
-
-
-
 

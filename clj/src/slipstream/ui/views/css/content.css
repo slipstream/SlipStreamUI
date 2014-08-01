@@ -2,3 +2,7 @@ body.ss-error-page #ss-content {
   display: none;
 }
 
+#ss-content {
+  padding-top: 30px;
+}
+

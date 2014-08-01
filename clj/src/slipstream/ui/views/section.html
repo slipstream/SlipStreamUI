@@ -40,23 +40,29 @@
           <td>
             <code>.in</code>
           </td>
-          <td>Add <code>.in</code> to the <code>div.panel-collapse</code> to open it by default. Remember to update the <code>.glyphicon-chevron-up</code> accordingly.</td>
+          <td>Add <code>.in</code> to the <code>div.panel-collapse</code> to open it by default.</td>
         </tr>
         <tr class="info">
           <td>
-            <code>.panel-info</code>
+            <code>.ss-section-info</code>
           </td>
           <td>Add <code>.panel-info</code> to the <code>div.panel</code> of the section.</td>
         </tr>
         <tr class="danger">
           <td>
-            <code>.panel-danger</code>
+            <code>.ss-section-danger</code>
           </td>
           <td>Add <code>.panel-danger</code> to the <code>div.panel</code> of the section.</td>
         </tr>
+        <tr class="warning">
+          <td>
+            <code>.ss-section-warning</code>
+          </td>
+          <td>Add <code>.panel-warning</code> to the <code>div.panel</code> of the section.</td>
+        </tr>
         <tr class="success">
           <td>
-            <code>.panel-success</code>
+            <code>.ss-section-success</code>
           </td>
           <td>Add <code>.panel-success</code> to the <code>div.panel</code> of the section.</td>
         </tr>
@@ -68,11 +74,11 @@
 
     <hr>
 
-    <div id="ss-section-group-1" class="panel-group">
+    <div id="ss-section-group" class="panel-group">
       <div class="panel panel-default ss-section">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#ss-section-group-1" href="#ss-collapse-1">
+            <a data-toggle="collapse" data-parent="#ss-section-group" href="#ss-section">
               <span class="row">
                 <span class="col-xs-10 ss-section-title">
                   Collapsible Group Item
@@ -84,7 +90,7 @@
             </a>
           </h4>
         </div>
-        <div id="ss-collapse-1" class="panel-collapse collapse in">
+        <div id="ss-section" class="panel-collapse collapse">
           <div class="panel-body ss-section-content">
             content
           </div>
@@ -101,17 +107,23 @@
     <script>
     jQuery(function() {
 
+      // Open panel of selected section
+
+      $(".panel.ss-section-selected .panel-collapse.collapse")
+        .removeClass("in")
+        .addClass("in")
+
       // Ensure correct chevrons at page load depending on open/close state
 
       $(".panel .panel-collapse.collapse.in")
         .parent()
-        .find(".glyphicon-chevron-down")
+        .find(".panel-title .glyphicon-chevron-down")
         .removeClass("glyphicon-chevron-down")
         .addClass("glyphicon-chevron-up")
 
       $(".panel .panel-collapse.collapse:not(.in)")
         .parent()
-        .find(".glyphicon-chevron-up")
+        .find(".panel-title .glyphicon-chevron-up")
         .removeClass("glyphicon-chevron-up")
         .addClass("glyphicon-chevron-down")
 
@@ -119,15 +131,28 @@
 
       $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
         var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
-        console.log(chevron_sel)
         $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
       });
 
       $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
         var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
-        console.log(chevron_sel)
         $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
       });
+
+      // Update .ss-panel-{info,danger,warning,success} to Bootstrap classes
+      $("div.panel.ss-section-info")
+        .removeClass("panel-default")
+        .addClass("panel-info")
+      $("div.panel.ss-section-danger")
+        .removeClass("panel-defaulter")
+        .addClass("panel-danger")
+      $("div.panel.ss-section-warning")
+        .removeClass("panel-defaulting")
+        .addClass("panel-warning")
+      $("div.panel.ss-section-success")
+        .removeClass("panel-defaultess")
+        .addClass("panel-success")
+
     });
     </script>
   </div>

@@ -34,3 +34,7 @@ body.ss-error-page #ss-breadcrumb-placeholder {
   width: 100%;
   position: fixed;
 }
+
+#ss-breadcrumb-container .breadcrumb {
+  z-index: 2;
+}

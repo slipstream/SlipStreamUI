@@ -41,4 +41,4 @@
   (html/at menubar-logged-in
            menubar-super-user-item-sel (u/remove-if-not (:super? user))
            menubar-username-sel (html/content (:name user))
-           menubar-user-profile-anchor-sel (html/set-attr :href (:uri user))))
+           menubar-user-profile-anchor-sel (u/set-href (:uri user))))
