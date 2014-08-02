@@ -130,23 +130,6 @@
 (def app-updated-cls "ss-app-updated")
 (def app-new-cls "ss-app-new")
 
-; (def background-image-rule-template
-;   (let [snip (html/snippet template-filename app-image-container-sel [] identity)
-;         style (apply u/style (snip))]
-;     (some #(re-matches #"background-image:.*" %) style)))
-
-; (defn background-image-rule
-;   [image]
-;   (s/replace background-image-rule-template #"(background-image:url\().*?(\))" (str "$1" image "$2")))
-
-; (defn set-app-image
-;   [image]
-;   (u/set-style (background-image-rule image)))
-
-(defn set-app-image
-  [image]
-  (u/set-src image))
-
 (defn app-thumbnail-nodes
   [app-metadata-list]
   (html/clone-for [{:keys [name
@@ -158,7 +141,7 @@
                            publication-date
                            image]
                     :as app} app-metadata-list]
-    app-image-preloader-sel  (set-app-image image)
+    app-image-preloader-sel  (u/set-src image)
     app-image-container-sel  (u/when-add-class updated? app-updated-cls)
     app-image-container-sel  (u/when-add-class new? app-new-cls)
     app-name-sel             (html/content (str name))
@@ -171,51 +154,6 @@
   [app-thumbnails]
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
-(def apps-test
-  [{:title "Some app"
-    :image "http://dummyimage.com/400x100/aa1000/fff.png"
-    :updated? true
-    :version "98"
-    :publisher "SixSq"
-    }
-   {
-    :title "Another app"
-    :image "http://dummyimage.com/400x200/aa2000/fff.png"
-    :updated? false
-    :new? false
-    :version "171"
-    }
-   {
-    :title "Blah"
-    :image "http://dummyimage.com/400x300/aa3000/fff.png"
-    :updated? false
-    :new? true
-    :version "244"
-    }
-   {
-    :title "New and updated"
-    :image "http://dummyimage.com/400x400/aa4000/fff.png"
-    :updated? true
-    :new? true
-    :description "This one is updated and new."
-    :version "317"
-    }
-   {
-    :title "Another app"
-    :image "http://dummyimage.com/400x500/aa5000/fff.png"
-    :updated? false
-    :new? false
-    :version "390"
-    }
-   {
-    :title "Another app"
-    :image "http://dummyimage.com/400x600/aa6000/fff.png"
-    :updated? false
-    :new? false
-    :version "463"
-    }
-   ])
-
 (defn page [metadata type]
   (base/generate
     {:template-filename template-filename
@@ -226,7 +164,6 @@
                          modules and root modules, including yours and the ones
                          shared with you."}
      :content [{:title "App Store"
-                ; :content (app-thumbnails-snip apps-test)
                 :content (app-thumbnails-snip (asm/published-apps metadata))
                 :selected? true
                 :type :default}
