@@ -1,20 +1,27 @@
-.thumbnail .ss-app-image-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 75%;
-  overflow: hidden;
-  background-color: #eee;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url("../images/app_image_placeholder.png");
-  background-position: center center;
-}
-
 .thumbnail:hover {
   -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+}
+
+/* App logo image */
+
+img.ss-app-image-preloader {
+  display: none;
+}
+
+.thumbnail .ss-app-image-container {
+  position: relative;
+  margin: 2.5%;
+  width: 95%;
+  padding-bottom: 70%;
+  height: 0;
+  overflow: hidden;
+  background-color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../images/app_image_placeholder.png");
+  background-position: center center;
 }
 
 /* Button */

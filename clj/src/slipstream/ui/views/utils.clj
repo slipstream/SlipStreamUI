@@ -83,13 +83,18 @@
   [id]
   (html/set-attr :id id))
 
+(defn set-style
+  [style]
+  (html/set-attr :style style))
+
+(defn set-src
+  [src]
+  (html/set-attr :src src))
+
 (defn style
   [node]
   (html/attr-values node :style))
 
-(defn set-style
-  [style]
-  (html/set-attr :style style))
 
 
 

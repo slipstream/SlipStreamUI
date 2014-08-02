@@ -120,6 +120,7 @@
 (def app-thumbnail-group-sel [:.ss-app-thumbnail-group])
 (def app-thumbnail-sel [:.ss-app-thumbnail])
 (def app-image-container-sel [:.ss-app-image-container])
+(def app-image-preloader-sel (concat app-image-container-sel [:.ss-app-image-preloader]))
 (def app-name-sel [:.ss-app-name])
 (def app-version-sel [:.ss-app-version-number])
 (def app-description-sel [:dd.ss-app-description])
@@ -129,18 +130,22 @@
 (def app-updated-cls "ss-app-updated")
 (def app-new-cls "ss-app-new")
 
-(def background-image-rule-template
-  (let [snip (html/snippet template-filename app-image-container-sel [] identity)
-        style (apply u/style (snip))]
-    (some #(re-matches #"background-image:.*" %) style)))
+; (def background-image-rule-template
+;   (let [snip (html/snippet template-filename app-image-container-sel [] identity)
+;         style (apply u/style (snip))]
+;     (some #(re-matches #"background-image:.*" %) style)))
 
-(defn background-image-rule
-  [image]
-  (s/replace background-image-rule-template #"(background-image:url\().*?(\))" (str "$1" image "$2")))
+; (defn background-image-rule
+;   [image]
+;   (s/replace background-image-rule-template #"(background-image:url\().*?(\))" (str "$1" image "$2")))
+
+; (defn set-app-image
+;   [image]
+;   (u/set-style (background-image-rule image)))
 
 (defn set-app-image
   [image]
-  (u/set-style (background-image-rule image)))
+  (u/set-src image))
 
 (defn app-thumbnail-nodes
   [app-metadata-list]
@@ -153,7 +158,7 @@
                            publication-date
                            image]
                     :as app} app-metadata-list]
-    app-image-container-sel  (set-app-image image)
+    app-image-preloader-sel  (set-app-image image)
     app-image-container-sel  (u/when-add-class updated? app-updated-cls)
     app-image-container-sel  (u/when-add-class new? app-new-cls)
     app-name-sel             (html/content (str name))
