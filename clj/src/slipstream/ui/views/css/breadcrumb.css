@@ -35,6 +35,3 @@ body.ss-error-page #ss-breadcrumb-placeholder {
   position: fixed;
 }
 
-#ss-breadcrumb-container .breadcrumb {
-  z-index: 2;
-}

@@ -2,7 +2,7 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
-            [slipstream.ui.views.utils :as u]
+            [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -121,30 +121,44 @@
 (def app-name-sel [:.ss-app-name])
 (def app-version-sel [:.ss-app-version-number])
 (def app-description-sel [:dd.ss-app-description])
+(def app-publisher-sel [:dd.ss-app-publisher])
+(def app-publication-date-sel [:dd.ss-app-publication-date])
 
 (def app-updated-cls "ss-app-updated")
 (def app-new-cls "ss-app-new")
 
+(def background-image-rule-template
+  (let [snip (html/snippet template-filename app-image-container-sel [] identity)
+        style (apply u/style (snip))]
+    (some #(re-matches #"background-image:.*" %) style)))
+
+(defn background-image-rule
+  [image]
+  (s/replace background-image-rule-template #"(background-image:url\().*?(\))" (str "$1" image "$2")))
+
 (defn set-app-image
   [image]
-  (fn [node]
-    (let [style (u/style node)
-          bg-img-rule (some #(re-matches #"background-image:.*" %) style)
-          new-bg-img-rule (s/replace bg-img-rule #"(background-image:url\().*?(\))" (str "$1" image "$2"))]
-      (println bg-img-rule)
-      (println new-bg-img-rule)
-      ((u/set-style new-bg-img-rule) node))))
+  (u/set-style (background-image-rule image)))
 
 (defn app-thumbnail-nodes
   [app-metadata-list]
-  (html/clone-for [{:keys [title updated? new? version description image] :as app} app-metadata-list]
-    app-image-container-sel (u/when-add-class updated? app-updated-cls)
-    app-image-container-sel (u/when-add-class new? app-new-cls)
-    app-name-sel            (html/content (str title))
-    app-version-sel         (html/content version)
-    app-description-sel     (html/content description)
-    app-image-container-sel (set-app-image image)
-    ))
+  (html/clone-for [{:keys [title
+                           updated?
+                           new?
+                           version
+                           description
+                           publisher
+                           publication-date
+                           image]
+                    :as app} app-metadata-list]
+    app-image-container-sel  (set-app-image image)
+    app-image-container-sel  (u/when-add-class updated? app-updated-cls)
+    app-image-container-sel  (u/when-add-class new? app-new-cls)
+    app-name-sel             (html/content (str title))
+    app-version-sel          (html/content version)
+    app-description-sel      (html/content description)
+    app-publisher-sel        (html/content publisher)
+    app-publication-date-sel (html/content publication-date)))
 
 (html/defsnippet app-thumbnails-snip template-filename app-thumbnail-group-sel
   [app-thumbnails]
@@ -155,6 +169,7 @@
     :image "http://dummyimage.com/400x100/aa1000/fff.png"
     :updated? true
     :version "98"
+    :publisher "SixSq"
     }
    {
     :title "Another app"
@@ -195,6 +210,7 @@
    ])
 
 (defn page [metadata type]
+  
   (base/generate
     {:template-filename template-filename
      :page-title "Welcome"
@@ -207,18 +223,8 @@
                 :content (app-thumbnails-snip apps-test)
                 :selected? true
                 :type :default}
-               {:title "Second section"
-                :content "Here be content."
-                :type :danger}
-               {:title "Third section"
-                :content "Here be content."
-                :type :info}
-               {:title "Fourth section"
-                :content "Here be content."
-                :type :warning}
-               {:title "Fith section"
-                :content "Here be content."
-                :type :success} ]
+               {:title "Shared Projects"
+                :content "Here be content."}]
      :type type
      :metadata metadata
      }))
