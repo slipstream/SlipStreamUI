@@ -130,12 +130,12 @@
       // Ensure correct chevrons when opening/closing the sections
 
       $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
-        var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
       });
 
       $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
-        var chevron_sel = "a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
       });
 

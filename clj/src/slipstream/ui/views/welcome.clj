@@ -3,6 +3,8 @@
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
+            [slipstream.ui.models.app-store :as asm]
+            
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -142,7 +144,7 @@
 
 (defn app-thumbnail-nodes
   [app-metadata-list]
-  (html/clone-for [{:keys [title
+  (html/clone-for [{:keys [name
                            updated?
                            new?
                            version
@@ -154,7 +156,7 @@
     app-image-container-sel  (set-app-image image)
     app-image-container-sel  (u/when-add-class updated? app-updated-cls)
     app-image-container-sel  (u/when-add-class new? app-new-cls)
-    app-name-sel             (html/content (str title))
+    app-name-sel             (html/content (str name))
     app-version-sel          (html/content version)
     app-description-sel      (html/content description)
     app-publisher-sel        (html/content publisher)
@@ -210,7 +212,6 @@
    ])
 
 (defn page [metadata type]
-  
   (base/generate
     {:template-filename template-filename
      :page-title "Welcome"
@@ -220,7 +221,8 @@
                          modules and root modules, including yours and the ones
                          shared with you."}
      :content [{:title "App Store"
-                :content (app-thumbnails-snip apps-test)
+                ; :content (app-thumbnails-snip apps-test)
+                :content (app-thumbnails-snip (asm/published-apps metadata))
                 :selected? true
                 :type :default}
                {:title "Shared Projects"

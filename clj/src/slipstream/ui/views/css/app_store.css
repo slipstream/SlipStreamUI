@@ -42,22 +42,6 @@
   text-shadow: none;
 }
 
-/*
-.thumbnail .ss-app-image-container .btn {
-  opacity: 0.15;
-  position: absolute;
-  bottom: 0;
-  margin: 5%;
-  right: 0;
-}
-
-.thumbnail:hover .ss-app-image-container .btn {
-  opacity: 1;
-  -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-  -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-  box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-}
-*/
 .thumbnail .ss-app-image-container .btn:empty::before {
   content: "Deploy";
 }
@@ -74,6 +58,14 @@
   white-space: nowrap;
   text-overflow:ellipsis;
   overflow: hidden;
+}
+
+.thumbnail .ss-app-name {
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+  display: inline-block;
 }
 
 .thumbnail a:hover.ss-app-name-container {
@@ -107,7 +99,7 @@
 .thumbnail .ss-app-version-number-container {
   color: #777;
   font-weight: normal;
-  padding-top: 7px;
+  padding-top: 4px;
 }
 
 .thumbnail .caption .h4 {
