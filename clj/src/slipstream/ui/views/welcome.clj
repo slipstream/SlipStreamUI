@@ -121,6 +121,8 @@
 (def app-thumbnail-sel [:.ss-app-thumbnail])
 (def app-image-container-sel [:.ss-app-image-container])
 (def app-image-preloader-sel (concat app-image-container-sel [:.ss-app-image-preloader]))
+(def app-name-deploy-btn-sel [:.ss-app-deploy-btn])
+(def app-name-container-sel [:.ss-app-name-container])
 (def app-name-sel [:.ss-app-name])
 (def app-version-sel [:.ss-app-version-number])
 (def app-description-sel [:dd.ss-app-description])
@@ -133,6 +135,7 @@
 (defn app-thumbnail-nodes
   [app-metadata-list]
   (html/clone-for [{:keys [name
+                           uri
                            updated?
                            new?
                            version
@@ -144,6 +147,8 @@
     app-image-preloader-sel  (u/set-src image)
     app-image-container-sel  (u/when-add-class updated? app-updated-cls)
     app-image-container-sel  (u/when-add-class new? app-new-cls)
+    app-name-deploy-btn-sel  (u/set-onclick "location = '" uri "?showdialog=run-with-options-dialog'; return false;")
+    app-name-container-sel   (u/set-href uri)
     app-name-sel             (html/content (str name))
     app-version-sel          (html/content version)
     app-description-sel      (html/content description)
@@ -155,6 +160,7 @@
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
 (defn page [metadata type]
+  (prn (asm/published-apps metadata))
   (base/generate
     {:template-filename template-filename
      :page-title "Welcome"
@@ -172,4 +178,3 @@
      :type type
      :metadata metadata
      }))
-

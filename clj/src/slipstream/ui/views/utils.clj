@@ -75,27 +75,22 @@
      ~form-when-true
      ~form-when-false))
 
-(defn set-href
-  [uri]
-  (html/set-attr :href uri))
+(defmacro defn-set-attr
+  "Defines a top level function as a helper to set attr values.
+  Ex: (defn-set-attr :href) will create a 'set-href function in the current namespace:
+  (defn set-href
+    [& parts]
+    (html/set-attr :href (apply str parts)))"
+  [attr-name]
+  (list 'defn (symbol (str "set-" (name attr-name)))
+    '[& parts]
+    (list 'println "Setting" attr-name "to value" '(apply str parts))
+    (list 'html/set-attr (keyword attr-name) '(apply str parts))))
 
-(defn set-id
-  [id]
-  (html/set-attr :id id))
-
-(defn set-style
-  [style]
-  (html/set-attr :style style))
-
-(defn set-src
-  [src]
-  (html/set-attr :src src))
-
-(defn style
-  [node]
-  (html/attr-values node :style))
-
-
+(defn-set-attr :href)
+(defn-set-attr :onclick)
+(defn-set-attr :id)
+(defn-set-attr :src)
 
 
 ;; Clojure
@@ -111,18 +106,6 @@
   `(def ~fname
      (memoize
        (fn ~@body))))
-
-; (def ^:private valid-symbols
-;   #{:template-filename})
-
-; (defn- value
-;   "Returns the value bound to the symbol in the given namespace."
-;   [page-ns sym]
-;   (if-let [valid-ns (find-ns page-ns)]
-;     (when-let [valid-sym (valid-symbols sym)]
-;       (let [s (intern valid-ns (symbol (name valid-sym)))]
-;         (when (bound? s) @s)))
-;     (throw (Exception. (str "Namespace not found: " page-ns)))))
 
 
 ;; Bootstrap

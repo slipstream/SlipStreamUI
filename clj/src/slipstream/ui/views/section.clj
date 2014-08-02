@@ -10,7 +10,7 @@
 
 (def section-group-sel [:#ss-section-group])
 (def section-sel [:.ss-section])
-(def section-anchor-sel (concat section-sel [[:a html/first-of-type]]))
+(def section-anchor-sel (concat section-sel [:.ss-section-activator]))
 (def section-id-sel [(html/id= section-id)])
 (def section-title-sel [:.ss-section-title])
 (def section-content-sel [:.ss-section-content])
@@ -23,8 +23,8 @@
     section-sel         (u/when-add-class type (str "ss-section-" (name type)))
     section-title-sel   (html/content (str title))
     section-content-sel (html/content content)
-    section-anchor-sel  (u/set-href (str "#" section-uid))
-    section-id-sel      (u/set-id (str section-uid))))
+    section-anchor-sel  (u/set-href "#" section-uid)
+    section-id-sel      (u/set-id section-uid)))
 
 (html/defsnippet section-group-snip template-filename section-group-sel
   [sections]
