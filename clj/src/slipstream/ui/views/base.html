@@ -20,48 +20,43 @@
 
 <body>
   <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="topbar">
-  <div id="menubar">
-  </div><!--/#menubar -->
-  <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
-  <div id="alert-container" class="container">
-  </div><!--/#alert-container -->
-</div><!--/.navbar -->
+    <div id="menubar">
+    </div><!--/#menubar -->
+    <!-- Options: "alert-danger" "alert-warning" "alert-info" -->
+    <div id="alert-container" class="container">
+    </div><!--/#alert-container -->
+  </div><!--/.navbar -->
 
-<div id="header" class="jumbotron">
-  <div class="container">
-    <!-- <div id="header-content" class="ss-header"> -->
-    <div id="header-content" class="ss-header">
-      <div class="row">
-        <div class="col-sm-1 text-right hidden-xs">
-          <h1 class="ss-header-title-icon">
-            <span class="ss-header-icon-error glyphicon glyphicon-remove"></span>
-            <span class="ss-header-icon glyphicon glyphicon-picture"></span>
-          </h1>
-        </div> <!-- /col -->
-        <div class="col-sm-11 text-left">
-          <div class="container">
-            <h1>
-              <span class="ss-header-error-status-code"></span>
-              <span class="ss-header-title"></span>
+  <div id="header" class="jumbotron">
+    <div class="container">
+      <!-- <div id="header-content" class="ss-header"> -->
+      <div id="header-content" class="ss-header">
+        <div class="row">
+          <div class="col-sm-1 text-right hidden-xs">
+            <h1 class="ss-header-title-icon">
+              <span class="ss-header-icon-error glyphicon glyphicon-remove"></span>
+              <span class="ss-header-icon glyphicon glyphicon-picture"></span>
             </h1>
-            <p class="ss-header-subtitle"></p>
-          </div> <!-- /.container -->
-        </div> <!-- /col -->
-      </div> <!-- /row -->
-    </div><!--/#header-content -->
-  </div>
-</div><!--/#header -->
+          </div> <!-- /col -->
+          <div class="col-sm-11 text-left">
+            <div class="container">
+              <h1>
+                <span class="ss-header-error-status-code"></span>
+                <span class="ss-header-title"></span>
+              </h1>
+              <p class="ss-header-subtitle"></p>
+            </div> <!-- /.container -->
+          </div> <!-- /col -->
+        </div> <!-- /row -->
+      </div><!--/#header-content -->
+    </div>
+  </div><!--/#header -->
 
-<!-- This is the placeholder for the page header. Adding <code>.ss-header-error</code>
-to <code>div#header-content.ss-header</code> turns it red and adds the error status code
-placeholder (with <code>500</code> as a default).
- -->
+<!-- The #ss-breadcrumb-placeholder will maintain the body layout when the
+#ss-breadcrumb-container is affixed, avoiding sudden mouvements of the layout. -->
+<div id="ss-breadcrumb-placeholder"></div>
 
-<!-- We place the breadcrumbs within a #ss-breadcrumb-placeholder to
-maintain the body layout when the #ss-breadcrumb-container is affixed,
-avoiding sudden mouvements of the layout. -->
-<div class="jumbotron"  id="ss-breadcrumb-placeholder">
-  <div id="ss-breadcrumb-container">
+<div id="ss-breadcrumb-container">
   <div class="container">
     <ol class="breadcrumb">
       <li><a href="/welcome"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -70,8 +65,7 @@ avoiding sudden mouvements of the layout. -->
       <li class="active ss-breadcrumb-last">Data</li>
     </ol>
   </div> <!--/.container -->
-  </div> <!-- /.ss-breadcrumb-container -->
-</div> <!-- /.jumbotron #ss-breadcrumb-placeholder-->
+</div> <!-- /.ss-breadcrumb-container -->
 
 
 <div id="ss-content" class="container">
@@ -136,9 +130,14 @@ avoiding sudden mouvements of the layout. -->
         }
       }
     });
+
     $("#ss-breadcrumb-container").on("affixed.bs.affix", function () {
       $("#ss-breadcrumb-container.affix").css("top",$("#topbar").outerHeight());
-   });
+      $("#ss-breadcrumb-placeholder").show();
+    });
+    $("#ss-breadcrumb-container").on("affixed-top.bs.affix", function () {
+      $("#ss-breadcrumb-placeholder").hide();
+    });
   });
   </script>
 </div>

@@ -3,15 +3,16 @@ body.ss-error-page #ss-breadcrumb-placeholder {
 }
 
 #ss-breadcrumb-placeholder {
-  min-height: 30px;
+  display: none;
   height: 30px;
   width: 100%;
-  background-color: #333;
+  background-color: transparent;
   padding: 0;
-  opacity: 0.98;
 }
 
 #ss-breadcrumb-container {
+  opacity: 0.98;
+  width: 100%;
   height: 30px;
   min-height: 30px;
   margin-bottom: 0;
@@ -31,7 +32,6 @@ body.ss-error-page #ss-breadcrumb-placeholder {
 }
 
 #ss-breadcrumb-container.affix {
-  width: 100%;
   position: fixed;
+    z-index:10;
 }
-
