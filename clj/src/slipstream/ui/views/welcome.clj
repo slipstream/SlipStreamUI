@@ -4,6 +4,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [slipstream.ui.models.app-store :as asm]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.common :as common-model]
@@ -168,9 +169,7 @@
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
                          shared with you."}
-     :secondary-menu [{:name "New project"
-                       :uri "module/new"
-                       :icon :folder-open}]
+     :secondary-menu [action/new-project]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (asm/published-apps metadata))
                 :selected? true

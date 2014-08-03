@@ -12,7 +12,6 @@
   <link rel="stylesheet" type="text/css" href="css/app_store.css"/>
 </head>
 <body>
-
   <div class="container">
     <h1>App Store Template</h1>
     <p>
@@ -136,13 +135,26 @@
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="external/imagesloaded/js/imagesloaded.min.js"></script>
     <script>
     jQuery(function() {
       // Put image as centered justified background image only when it's loaded.
-      $('img.ss-app-image-preloader').load(function() {
-        var image_url = $(this).attr("src");
-        $(this).parent().css("background-image", "url(" + image_url +")");
+      // $('img.ss-app-image-preloader').load(function() {
+      // Doesn't work if image is cached.
+      //   var image_url = $(this).attr("src");
+      //   $(this).parent().css("background-image", "url(" + image_url +")");
+      //  });
+      $('img.ss-app-image-preloader').imagesLoaded(function( imgLoad ) {
+        for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
+          var image = imgLoad.images[i];
+          if (image.isLoaded) {
+            var img = image.img;
+            var img_src = img.src;
+            $(img).parent().css("background-image", "url(" + img_src +")");
+          }
+        }
        });
+
     });
     </script>
   </div>

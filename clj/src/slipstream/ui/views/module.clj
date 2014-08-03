@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.module
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -225,4 +226,8 @@
      :header {:icon :folder-open
               :title "Project name"
               :subtitle "Version: 53 - Project description"}
+     :secondary-menu [action/run
+                      action/edit
+                      action/copy
+                      action/unpublish]
      :content nil}))
