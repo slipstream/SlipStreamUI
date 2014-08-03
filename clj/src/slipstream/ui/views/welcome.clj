@@ -170,16 +170,7 @@
                          shared with you."}
      :secondary-menu [{:name "New project"
                        :uri "module/new"
-                       :icon :folder-open}
-                      {:name "New image"
-                       :icon :hdd}
-                      {:name "Edit"
-                       :enabled? false
-                       :icon :pencil}
-                      {:name "Save"
-                       :enabled? true
-                       :icon :floppy-disk}
-                      ]
+                       :icon :folder-open}]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (asm/published-apps metadata))
                 :selected? true

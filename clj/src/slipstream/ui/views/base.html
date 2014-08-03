@@ -164,6 +164,7 @@
         $("#ss-secondary-menubar-placeholder").show();
       });
       $("#ss-secondary-menubar-container").on("affixed-top.bs.affix", function () {
+        $("#ss-secondary-menubar-container.affix-top").css("top",0);
         $("#ss-secondary-menubar-placeholder").hide();
       });
 
