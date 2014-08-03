@@ -160,7 +160,6 @@
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
 (defn page [metadata type]
-  (prn (asm/published-apps metadata))
   (base/generate
     {:template-filename template-filename
      :page-title "Welcome"
@@ -169,6 +168,18 @@
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
                          shared with you."}
+     :secondary-menu [{:name "New project"
+                       :uri "module/new"
+                       :icon :folder-open}
+                      {:name "New image"
+                       :icon :hdd}
+                      {:name "Edit"
+                       :enabled? false
+                       :icon :pencil}
+                      {:name "Save"
+                       :enabled? true
+                       :icon :floppy-disk}
+                      ]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (asm/published-apps metadata))
                 :selected? true

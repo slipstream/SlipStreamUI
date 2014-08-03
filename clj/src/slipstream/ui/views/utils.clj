@@ -20,6 +20,10 @@
 
 ;; Enlive
 
+(def this
+  "Selector to match the whole node within a transformation snippet."
+  [:> html/first-child])
+
 (defn enlive-node?
   "To differenciate between maps that represent enlive-generated nodes from
   normal clojure maps."
@@ -76,21 +80,32 @@
      ~form-when-false))
 
 (defmacro defn-set-attr
-  "Defines a top level function as a helper to set attr values.
-  Ex: (defn-set-attr :href) will create a 'set-href function in the current namespace:
-  (defn set-href
-    [& parts]
-    (html/set-attr :href (apply str parts)))"
+  "Defines 2 top level functions as a helpers to set attr values.
+  Ex: (defn-set-attr :href) will create 'set-href and 'when-set-href
+  functions in the current namespace. See doc-str of generated functions
+  for details."
   [attr-name]
-  (list 'defn (symbol (str "set-" (name attr-name)))
-    '[& parts]
-    (list 'println "Setting" attr-name "to value" '(apply str parts))
-    (list 'html/set-attr (keyword attr-name) '(apply str parts))))
+  (let [doc-str (str "\n  Defined with the macro " (first &form) " on namespace " *ns* ", line " (-> &form meta :line) ".")
+        set-fn-symbol (symbol (str "set-" (name attr-name)))
+        when-set-fn-symbol (symbol (str "when-set-" (name attr-name)))]
+    (list 'do
+      (list 'defn set-fn-symbol
+          (str "Shortcut to (html/set-attr " (keyword attr-name) " (apply str parts))." doc-str)
+          '[& parts]
+          (list 'println "Setting" attr-name "to value" '(apply str parts)) ;; TODO: Only for dev
+          (list 'html/set-attr (keyword attr-name) '(apply str parts)))
+      (list 'defn when-set-fn-symbol
+          (str "Sets the attr " attr-name " if test is truthy." doc-str)
+          '[test & parts]
+          (list 'if 'test
+            (list 'apply set-fn-symbol 'parts)
+            'identity)))))
 
 (defn-set-attr :href)
 (defn-set-attr :onclick)
 (defn-set-attr :id)
 (defn-set-attr :src)
+(defn-set-attr :class)
 
 
 ;; Clojure
@@ -113,3 +128,8 @@
 (defn glyphicon-icon-cls
   [icon]
   (str "glyphicon-" (name icon)))
+
+(defn set-icon
+  [icon]
+  (when icon
+    (set-class "glyphicon glyphicon-" (name icon))))

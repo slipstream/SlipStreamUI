@@ -12,7 +12,7 @@
   <!-- Internal CSS Stylesheets -->
   <link rel="stylesheet" type="text/css" href="css/topbar.css"/>
   <link rel="stylesheet" type="text/css" href="css/header.css"/>
-  <link rel="stylesheet" type="text/css" href="css/breadcrumb.css"/>
+  <link rel="stylesheet" type="text/css" href="css/secondary-menubar.css"/>
   <link rel="stylesheet" type="text/css" href="css/content.css"/>
   <link rel="stylesheet" type="text/css" href="css/footer.css"/>
   <link rel="stylesheet" type="text/css" href="css/error.css"/>
@@ -52,94 +52,132 @@
     </div>
   </div><!--/#header -->
 
-<!-- The #ss-breadcrumb-placeholder will maintain the body layout when the
-#ss-breadcrumb-container is affixed, avoiding sudden mouvements of the layout. -->
-<div id="ss-breadcrumb-placeholder"></div>
+<!-- The #ss-secondary-menubar-placeholder will maintain the body layout when the
+  #ss-secondary-menubar-container is affixed, avoiding sudden mouvements of the layout. -->
+  <div id="ss-secondary-menubar-placeholder"></div>
 
-<div id="ss-breadcrumb-container">
-  <div class="container">
-    <ol class="breadcrumb">
-      <li><a href="/welcome"><span class="glyphicon glyphicon-home"></span></a></li>
-      <li><a class="ss-breadcrumb-middle" href="#">Library</a></li>
-      <li><a class="ss-breadcrumb-middle" href="#">Module</a></li>
-      <li class="active ss-breadcrumb-last">Data</li>
-    </ol>
-  </div> <!--/.container -->
-</div> <!-- /.ss-breadcrumb-container -->
+  <div id="ss-secondary-menubar-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-8 text-left">
+          <div class="ss-breadcrumb-container">
+            <ol class="breadcrumb">
+              <li><a href="/welcome"><span class="glyphicon glyphicon-home"></span></a></li>
+              <li><a class="ss-breadcrumb-middle" href="#">Library</a></li>
+              <li><a class="ss-breadcrumb-middle" href="#">Module</a></li>
+              <li class="active ss-breadcrumb-last">Data</li>
+            </ol>
+          </div> <!-- /.ss-breadcrumb-container -->
+        </div> <!-- /col -->
+        <div class="col-xs-4 text-right">
+          <div id="ss-secondary-menu">
+            <div class="btn-group">
+              <button class="ss-secondary-btn ss-secondary-menu-main-action btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                <span>Main action</span>
+              </button>
+              <button type="button" class="ss-secondary-btn ss-secondary-extra-actions-toggle btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu pull-right navbar-inverse ss-secondary-menu-extra-actions-container" role="menu">
+                <li class="ss-secondary-menu-extra-action">
+                  <a data-toggle="modal">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    <span>Extra action more</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div> <!-- /#ss-secondary-menu -->
+        </div> <!-- /col -->
+      </div> <!-- /row -->
+    </div> <!--/.container -->
+  </div> <!-- /.ss-secondary-menubar-container -->
 
 
-<div id="ss-content" class="container">
-  <div class="text-center" style="min-height: 500px; padding-top: 200px; background-color: rgb(182,182,182);">
-    <h1>This is the placeholder for the page content.</h1>
-    Adding <code>.ss-error-page</code> to <code>body</code> turns this page into an error page,
-    i.e. red title and status code placeholder (with <code>500</code> as a default).
-  </div>
-</div><!--/#ss-content.container -->
+  <div id="ss-content" class="container">
+    <div class="text-center" style="min-height: 500px; padding-top: 200px; background-color: rgb(182,182,182);">
+      <h1>This is the placeholder for the page content.</h1>
+      Adding <code>.ss-error-page</code> to <code>body</code> turns this page into an error page,
+      i.e. red title and status code placeholder (with <code>500</code> as a default).
+    </div>
+  </div><!--/#ss-content.container -->
 
-<div id="footer" class="footer">
-  <div class="container">
-    <div class="row text-muted">
-      <div class="col-xs-6 col-sm-4 text-left">
-        Copyright &copy; 2014 <a href="http://sixsq.com">SixSq</a>
-      </div>
-      <div class="col-sm-4 text-center hidden-xs">
-        <a href="http://swissmadesoftware.org"><img src="images/logo_swiss_made_software.png"></a>
-      </div>
-      <div class="col-xs-6 col-sm-4 text-right">
-        <span class="hidden-xs">Powered by </span>SlipStream&nbsp;&reg;&nbsp;&nbsp;v<span id="release-version">0.0.0</span>
+  <div id="footer" class="footer">
+    <div class="container">
+      <div class="row text-muted">
+        <div class="col-xs-6 col-sm-4 text-left">
+          Copyright &copy; 2014 <a href="http://sixsq.com">SixSq</a>
+        </div>
+        <div class="col-sm-4 text-center hidden-xs">
+          <a href="http://swissmadesoftware.org"><img src="images/logo_swiss_made_software.png"></a>
+        </div>
+        <div class="col-xs-6 col-sm-4 text-right">
+          <span class="hidden-xs">Powered by </span>SlipStream&nbsp;&reg;&nbsp;&nbsp;v<span id="release-version">0.0.0</span>
+        </div>
       </div>
     </div>
-  </div>
-</div><!--/#footer -->
+  </div><!--/#footer -->
 
-<div id="bottom-scripts">
-  <!-- Bootstrap core JavaScript -->
-  <!-- Placed at the end of the document so the pages load faster -->
+  <div id="bottom-scripts">
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
 
-  <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
-  <script src="external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="external/bootstrap/js/bootstrap.min.js"></script>
 
-  <!-- From: http://bootstrapvalidator.com : -->
-  <script src="external/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+    <!-- From: http://bootstrapvalidator.com : -->
+    <script src="external/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 
-  <!-- From: http://mimo84.github.io/bootstrap-maxlength/ -->
-  <script src="external/bootstrap-maxlength/js/bootstrap-maxlength.min.js"></script>
+    <!-- From: http://mimo84.github.io/bootstrap-maxlength/ -->
+    <script src="external/bootstrap-maxlength/js/bootstrap-maxlength.min.js"></script>
 
-  <!-- From: http://meetselva.github.io/attrchange/ -->
-  <!-- <script src="external/attrchange/js/attrchange.js"></script> -->
-  <script>
-  jQuery(function() {
-    $(document.body).css("padding-top", $(".navbar").height() || 0);
-    $("#form-signin").bootstrapValidator();
-    $("#form-pwd-reset").bootstrapValidator();
-    $("#form-contact-us").bootstrapValidator();
-    $("#contact-request-textarea").maxlength({
-      placement: "bottom",
-      threshold: 50,
-      showCharsTyped: false,
-      warningClass: "label label-warning",
-      limitReachedClass: "label label-danger",
-      preText: "You can still write ",
-      separator: " chars (",
-        postText: " max)"
-  });
-    $("#ss-breadcrumb-container").affix({
-      offset: {
-        top: function () {
-          return ($("#header").offset().top + $("#header").outerHeight() - $("#topbar").outerHeight())
+    <!-- From: http://meetselva.github.io/attrchange/ -->
+    <!-- <script src="external/attrchange/js/attrchange.js"></script> -->
+    <script>
+    jQuery(function() {
+      $(document.body).css("padding-top", $(".navbar").height() || 0);
+      $("#form-signin").bootstrapValidator();
+      $("#form-pwd-reset").bootstrapValidator();
+      $("#form-contact-us").bootstrapValidator();
+      $("#contact-request-textarea").maxlength({
+        placement: "bottom",
+        threshold: 50,
+        showCharsTyped: false,
+        warningClass: "label label-warning",
+        limitReachedClass: "label label-danger",
+        preText: "You can still write ",
+        separator: " chars (",
+          postText: " max)"
+    });
+      $("#ss-secondary-menubar-container").affix({
+        offset: {
+          top: function () {
+            return ($("#header").offset().top + $("#header").outerHeight() - $("#topbar").outerHeight())
+          }
         }
+      });
+
+      $("#ss-secondary-menubar-container").on("affixed.bs.affix", function () {
+        $("#ss-secondary-menubar-container.affix").css("top",$("#topbar").outerHeight());
+        $("#ss-secondary-menubar-placeholder").show();
+      });
+      $("#ss-secondary-menubar-container").on("affixed-top.bs.affix", function () {
+        $("#ss-secondary-menubar-placeholder").hide();
+      });
+
+      // Remove secondary menu if no actions
+      $(".ss-secondary-menu-main-action .ss-secondary-menu-action-name:empty")
+        .closest("#ss-secondary-menu")
+        .hide();
+
+      // Remove secondary menu dropdown caret if no extra actions
+      if ( $(".ss-secondary-menu-extra-actions-container .ss-secondary-menu-extra-action:first-child a").length == 0 ) {
+        $(".ss-secondary-extra-actions-toggle").hide();
       }
     });
-
-    $("#ss-breadcrumb-container").on("affixed.bs.affix", function () {
-      $("#ss-breadcrumb-container.affix").css("top",$("#topbar").outerHeight());
-      $("#ss-breadcrumb-placeholder").show();
-    });
-    $("#ss-breadcrumb-container").on("affixed-top.bs.affix", function () {
-      $("#ss-breadcrumb-placeholder").hide();
-    });
-  });
-  </script>
+</script>
 </div>
 </body>
 </html>

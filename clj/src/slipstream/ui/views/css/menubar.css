@@ -109,3 +109,9 @@
     margin-left: -15px;
   }
 }
+
+/* Adjusting left side caret with the secondary menu caret */
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: 0;
+}

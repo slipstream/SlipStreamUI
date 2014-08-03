@@ -1,0 +1,100 @@
+body.ss-error-page #ss-secondary-menubar-placeholder,
+body.ss-error-page #ss-secondary-menubar-container {
+  display: none;
+}
+
+#ss-secondary-menubar-placeholder {
+  display: none;
+  height: 30px;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+}
+
+#ss-secondary-menubar-container {
+  opacity: 0.98;
+  width: 100%;
+  height: 30px;
+  min-height: 30px;
+  margin-bottom: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #353535;
+}
+
+#ss-secondary-menubar-container.affix {
+  position: fixed;
+    z-index:10;
+}
+
+/* Breadcrumbs */
+
+.breadcrumb {
+  color: white;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+}
+
+.breadcrumb a {
+  color: #50a7de;
+}
+
+
+/* Secondary button group */
+
+button.ss-secondary-btn {
+  background-color: transparent;
+  color: #50a7de;
+  border: none;
+  font-size: 14px;
+  margin-top: -2px;
+  padding-top: 1px;
+  padding-bottom: 0;
+}
+
+button.ss-secondary-btn:hover,
+button.ss-secondary-btn:focus {
+  color: #50a7de;
+  background-color: #252525;
+}
+
+button.ss-secondary-btn:active,
+button.ss-secondary-btn.active,
+.open > button.dropdown-toggle.ss-secondary-btn {
+  color: #50a7de;
+  background-color: #151515;
+}
+
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a {
+  color: #50a7de;
+  background-color: #353535;
+}
+
+.dropdown-menu.ss-secondary-menu-extra-actions-container {
+  background-color: #353535;
+}
+
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a:hover,
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a:focus {
+  color: #50a7de;
+  text-decoration: none;
+  background-color: #252525;
+}
+
+.ss-secondary-menu-main-action span.glyphicon:nth-of-type(1),
+.ss-secondary-menu-extra-action span.glyphicon:nth-of-type(1) {
+  padding-right: 5px;
+}
+
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.disabled,
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.disabled:hover,
+button.ss-secondary-menu-main-action.disabled {
+  color: #777;
+  background-color: transparent;
+  opacity: .8;
+  cursor: default;
+}

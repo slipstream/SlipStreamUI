@@ -10,7 +10,9 @@
             [slipstream.ui.views.alerts :as alerts]
             [slipstream.ui.views.section :as section]
             [slipstream.ui.views.content :as content]
-            [slipstream.ui.views.menubar :as menubar]))
+            [slipstream.ui.views.menubar :as menubar]
+            [slipstream.ui.views.secondary-menu :as secondary-menu]
+            ))
 
 (def base-template-filename (common/get-template "base.html"))
 
@@ -27,6 +29,7 @@
 (def topbar-sel [:#topbar])
 (def menubar-sel [:#menubar])
 (def header-sel [:#header])
+(def secondary-menu-sel [:#ss-secondary-menu])
 (def content-sel [:#ss-content])
 (def footer-sel [:#footer])
 
@@ -66,6 +69,7 @@
            alerts
            involved-templates
            metadata
+           secondary-menu
            user]
     :as context}]
   [:body]             (u/when-add-class error-page? error-page-cls)
@@ -74,6 +78,7 @@
   page-title-sel      (html/content (u/page-title (or page-title (:title header))))
   menubar-sel         (html/content (menubar/menubar context))
   topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
+  secondary-menu-sel  (secondary-menu/transform secondary-menu)
   [:#release-version] (html/content @version/slipstream-release-version)
   footer-sel          (u/remove-if (u/chooser? type))
   css-container-sel   (html/append (additional-html css-sel involved-templates))
