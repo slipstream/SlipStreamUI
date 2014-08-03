@@ -76,7 +76,7 @@
   [:body]             (u/when-add-class placeholder-page? placeholder-page-cls)
   [:body]             (u/when-add-class beta-page? beta-page-cls)
   page-title-sel      (html/content (u/page-title (or page-title (:title header))))
-  menubar-sel         (html/content (menubar/menubar context))
+  menubar-sel         (html/substitute (menubar/menubar context))
   topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
   secondary-menu-sel  (secondary-menu/transform secondary-menu)
   [:#release-version] (html/content @version/slipstream-release-version)

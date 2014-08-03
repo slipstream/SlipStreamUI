@@ -1,15 +1,28 @@
-/*.navbar-unlogged {
-  background-color: rgb(100,100,100);
+body > .navbar {
+  opacity: 0.98;
 }
-*/
 
-/*.btn{
-  border-radius: 0;
-}*/
+body > .navbar-default,
+body > .navbar-default .menubar {
+  border: none;
+}
 
-.menubar-logged-in {
+body > .navbar .menubar-unlogged,
+body > .navbar .menubar-logged-in {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+body > .navbar .menubar-unlogged {
+  background-color: white;
+  border-bottom-color: white;
+}
+
+
+body > .navbar .menubar-logged-in {
   color: white;
   background-color: #a00;
+  border-bottom-color: #700;
 }
 
 .menubar-logged-in .navbar-nav li > a,
@@ -21,7 +34,6 @@
 
 .menubar-logged-in .dropdown-menu {
   background-color: #a00;
-  border-radius: 0;
 }
 
 .menubar-logged-in .navbar-nav li > a:hover,
