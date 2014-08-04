@@ -140,17 +140,14 @@
     <script>
     jQuery(function() {
       // Put image as centered justified background image only when and if it's loaded.
-      $('img.ss-app-image-preloader').imagesLoaded(function( imgLoad ) {
-        for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
-          var image = imgLoad.images[i];
+      $('img.ss-app-image-preloader').imagesLoaded()
+        .progress( function( instance, image ) {
           if (image.isLoaded) {
             var img = image.img;
             var img_src = img.src;
             $(img).parent().css("background-image", "url(" + img_src +")");
           }
-        }
-       });
-
+        });
     });
     </script>
   </div>
