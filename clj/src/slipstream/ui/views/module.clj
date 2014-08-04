@@ -226,8 +226,8 @@
      :header {:icon :folder-open
               :title "Project name"
               :subtitle "Version: 53 - Project description"}
-     :secondary-menu [action/run
-                      action/edit
-                      action/copy
-                      action/unpublish]
+     :secondary-menu-actions [action/run
+                              action/edit
+                              action/copy
+                              action/unpublish]
      :content nil}))

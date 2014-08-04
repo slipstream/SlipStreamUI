@@ -67,10 +67,7 @@
            content
            type
            alerts
-           involved-templates
-           metadata
-           secondary-menu
-           user]
+           involved-templates]
     :as context}]
   [:body]             (u/when-add-class error-page? error-page-cls)
   [:body]             (u/when-add-class placeholder-page? placeholder-page-cls)
@@ -78,7 +75,7 @@
   page-title-sel      (html/content (u/page-title (or page-title (:title header))))
   menubar-sel         (html/substitute (menubar/menubar context))
   topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
-  secondary-menu-sel  (secondary-menu/transform secondary-menu)
+  secondary-menu-sel  (secondary-menu/transform context)
   [:#release-version] (html/content @version/slipstream-release-version)
   footer-sel          (u/remove-if (u/chooser? type))
   css-container-sel   (html/append (additional-html css-sel involved-templates))

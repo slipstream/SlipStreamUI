@@ -31,7 +31,7 @@
     (when user
       {:name (username metadata)
        :uri (:resourceuri user-attrs)
-       :super? (:issuper user-attrs)
+       :super? (= "true" (:issuper user-attrs))
        :logged-in? (boolean logged-in-user)})))
 
 (defn default-cloud [metadata]

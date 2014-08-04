@@ -3,27 +3,29 @@
 
 (def new-project
   {:name "New project"
-   :uri "module/new"
+   :uri  "module/new"
    :icon :folder-open})
 
 (def run
   {:name "Run..."
-   :uri "module/new"
+   :uri  "module/new"
    :icon :send})
 
 (def edit
   {:name "Edit"
-   :uri "module/new"
+   :uri  "module/new"
    :icon :pencil
-   :enabled? false})
+   :super-only? true})
 
 (def copy
   {:name "Copy..."
-   :uri "module/new"
-   :icon :repeat})
+   :uri  "module/new"
+   :icon :repeat
+   :disabled? false
+   :super-only? true})
 
 (def unpublish
   {:name "Un-publish"
-   :uri "module/new"
+   :uri  "module/new"
    :icon :globe
-   :enabled? false})
+   :disabled? true})

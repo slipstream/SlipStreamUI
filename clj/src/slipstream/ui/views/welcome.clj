@@ -169,7 +169,7 @@
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
                          shared with you."}
-     :secondary-menu [action/new-project]
+     :secondary-menu-actions [action/new-project]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (asm/published-apps metadata))
                 :selected? true

@@ -16,5 +16,5 @@
         <string>stratuslab</string>
         <string>default</string>
      </cloudNames>
-     <user issuper='false' resourceUri='user/super' name='SuperDooper'></user>
+     <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
   </projectModule>")))
