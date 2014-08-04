@@ -174,9 +174,9 @@
      :secondary-menu-actions [action/new-project]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (mw/published-apps metadata))
+                :selected? true
                 :type :default}
                {:title "Shared Projects"
-                :selected? true
                 :content (t/shared-projects-table (mw/shared-projects metadata))}]
      :type type
      :metadata metadata

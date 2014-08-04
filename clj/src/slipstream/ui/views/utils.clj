@@ -3,9 +3,10 @@
             [clojure.zip :as z]
             [net.cgrand.xml :as xml]))
 
-
-;; NOTE: Only for dev:
-(defn e [x] (println x) x)
+; TODO: Consider splitting this namespace into three:
+;         - slipstream.ui.views.util.core
+;         - slipstream.ui.views.util.enlive
+;         - slipstream.ui.views.util.bootstrap
 
 
 ;; SlipStream
@@ -129,8 +130,6 @@
 ; NOTE: Next lines inspired from
 ;       https://github.com/cgrand/enlive/blob/master/src/net/cgrand/enlive_html.clj#L838-L878
 
-(defn- de [x] (println ">>>" x) x)
-
 (defn- pred-attr-value
   [attr value]
   #(boolean
@@ -159,15 +158,12 @@
  ([attr value a b] (html/zip-pred (nth-with-attr-value? attr value z/rights a b))))
 
 (def first-of-attr #(nth-of-attr %1 %2 1))
-
 (def last-of-attr #(nth-last-of-attr %1 %2 1))
 
 (def first-of-class (partial first-of-attr :class))
-
 (def last-of-class (partial last-of-attr :class))
 
 (def first-of-id (partial first-of-attr :id))
-
 (def last-of-id (partial last-of-attr :id))
 
 
@@ -187,6 +183,10 @@
 
 
 ;; Bootstrap
+
+; TODO: Consider implementing an extraction level to name SlipStream icons
+;       E.g. use :welcome instead of :home, and :project instead of :folder-open
+;       That will make easier later on to modify the icons.
 
 (defn glyphicon-icon-cls
   [icon]
