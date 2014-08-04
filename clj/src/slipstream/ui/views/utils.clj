@@ -3,6 +3,11 @@
             [clojure.zip :as z]
             [net.cgrand.xml :as xml]))
 
+
+;; NOTE: Only for dev:
+(defn e [x] (println x) x)
+
+
 ;; SlipStream
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
@@ -131,7 +136,7 @@
   #(boolean
       (re-matches
         (re-pattern (str "(?:.*\\s|^)" value "(?:$|\\s.*)"))
-        (get-in % [:attrs (keyword attr)]))))
+        (get-in % [:attrs (keyword attr)] ""))))
 
 (defn- nth-with-attr-value?
   [attr value f a b]

@@ -2,12 +2,10 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
-            [slipstream.ui.views.table :as table]
-            [slipstream.ui.views.table-rows :as tr]
+            [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [slipstream.ui.models.welcome :as mw]
             [slipstream.ui.views.secondary-menu-actions :as action]
-            
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -73,7 +71,7 @@
     identity)
 
   ; Root projects cannot be empty
-  [:#root-projects] 
+  [:#root-projects]
   (html/content (project/children-snip root-projects)))
 
 (html/defsnippet content-snip welcome-template-html common/content-sel
@@ -84,13 +82,13 @@
       (modules-model/children-with-filter modules #(not= "true" (:published (module-model/attrs %))))
       (modules-model/children-with-filter modules #(= "true" (:published (module-model/attrs %))))))
 
-  service-catalog/service-catalog-sel 
+  service-catalog/service-catalog-sel
   (html/substitute
     (service-catalog/service-catalog-snip
       (service-catalog-model/service-catalog-items modules)
       false))
 
-  [#{service-catalog/service-catalog-sel service-catalog/service-catalog-header-sel}] 
+  [#{service-catalog/service-catalog-sel service-catalog/service-catalog-header-sel}]
   (if (configuration-model/service-catalog-enabled? modules)
     identity
     nil))
@@ -105,7 +103,7 @@
     js-scripts-default))
 
 ; (defn page [root-projects type]
-;   (base/base 
+;   (base/base
 ;     {:js-scripts (js-scripts type)
 ;      :title (common/title "Welcome")
 ;      :header (module-base/header root-projects type header-snip)
@@ -162,12 +160,7 @@
   [app-thumbnails]
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
-(defn- shared-projects-table
-  [shared-projects]
-  (let [headers tr/shared-project-headers
-        rows (map tr/shared-project-row shared-projects)]
-    (table/build {:headers headers
-                  :rows rows})))
+
 
 (defn page [metadata type]
   (base/generate
@@ -184,7 +177,7 @@
                 :type :default}
                {:title "Shared Projects"
                 :selected? true
-                :content (shared-projects-table (mw/shared-projects metadata))}]
+                :content (t/shared-projects-table (mw/shared-projects metadata))}]
      :type type
      :metadata metadata
      }))
