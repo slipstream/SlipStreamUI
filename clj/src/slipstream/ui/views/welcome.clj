@@ -2,8 +2,10 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.table :as table]
+            [slipstream.ui.views.table-rows :as tr]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
-            [slipstream.ui.models.app-store :as asm]
+            [slipstream.ui.models.welcome :as mw]
             [slipstream.ui.views.secondary-menu-actions :as action]
             
             [slipstream.ui.models.authz :as authz]
@@ -160,6 +162,13 @@
   [app-thumbnails]
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
+(defn- shared-projects-table
+  [shared-projects]
+  (let [headers tr/shared-project-headers
+        rows (map tr/shared-project-row shared-projects)]
+    (table/build {:headers headers
+                  :rows rows})))
+
 (defn page [metadata type]
   (base/generate
     {:template-filename template-filename
@@ -171,11 +180,11 @@
                          shared with you."}
      :secondary-menu-actions [action/new-project]
      :content [{:title "App Store"
-                :content (app-thumbnails-snip (asm/published-apps metadata))
-                :selected? true
+                :content (app-thumbnails-snip (mw/published-apps metadata))
                 :type :default}
                {:title "Shared Projects"
-                :content "Here be content."}]
+                :selected? true
+                :content (shared-projects-table (mw/shared-projects metadata))}]
      :type type
      :metadata metadata
      }))

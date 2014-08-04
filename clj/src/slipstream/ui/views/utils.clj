@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.utils
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [clojure.zip :as z]
+            [net.cgrand.xml :as xml]))
 
 ;; SlipStream
 
@@ -21,8 +23,18 @@
 ;; Enlive
 
 (def this
-  "Selector to match the whole node within a transformation snippet."
-  [:> html/first-child])
+  "Selector to match the whole node within a transformation snippet.
+  It seems it should be [:root] as in http://cgrand.github.io/enlive/syntax.html
+  but not:
+    user=> (html/select (html/html-snippet '<a></a>') [:> html/first-child])
+    ({:tag :a, :attrs nil, :content nil})
+    user=> (html/select (html/html-snippet '<a></a>') [:root])
+    ().
+  I found it! It's [:*]"
+  ; [:root]
+  ; [:> html/first-child] ;; This works
+  [:*]
+  )
 
 (defn enlive-node?
   "To differenciate between maps that represent enlive-generated nodes from
@@ -106,6 +118,52 @@
 (defn-set-attr :id)
 (defn-set-attr :src)
 (defn-set-attr :class)
+
+
+
+; NOTE: Next lines inspired from
+;       https://github.com/cgrand/enlive/blob/master/src/net/cgrand/enlive_html.clj#L838-L878
+
+(defn- de [x] (println ">>>" x) x)
+
+(defn- pred-attr-value
+  [attr value]
+  #(boolean
+      (re-matches
+        (re-pattern (str "(?:.*\\s|^)" value "(?:$|\\s.*)"))
+        (get-in % [:attrs (keyword attr)]))))
+
+(defn- nth-with-attr-value?
+  [attr value f a b]
+  (let [pred (pred-attr-value attr value)]
+    (if (zero? a)
+      #(and (-> % z/node pred)
+            (= (->> % f (filter pred) count inc) b))
+      #(let [an+b (->> % f (filter pred) count inc)
+             an (- an+b b)]
+        (and (zero? (rem an a)) (<= 0 (quot an a)))))))
+
+(defn nth-of-attr
+ "Selector step, tests if the node has an+b-1 siblings of the same attr value on its left. Something like the missing CSS :nth-of-class."
+ ([attr value b] (nth-of-attr attr value 0 b))
+ ([attr value a b] (html/zip-pred (nth-with-attr-value? attr value z/lefts a b))))
+
+(defn nth-last-of-attr
+ "Selector step, tests if the node has an+b-1 siblings of the same attr value on its right.Something like the missinge CSS :nth-laclassf-type."
+ ([attr value b] (nth-last-of-attr attr value 0 b))
+ ([attr value a b] (html/zip-pred (nth-with-attr-value? attr value z/rights a b))))
+
+(def first-of-attr #(nth-of-attr %1 %2 1))
+
+(def last-of-attr #(nth-last-of-attr %1 %2 1))
+
+(def first-of-class (partial first-of-attr :class))
+
+(def last-of-class (partial last-of-attr :class))
+
+(def first-of-id (partial first-of-attr :id))
+
+(def last-of-id (partial last-of-attr :id))
 
 
 ;; Clojure
