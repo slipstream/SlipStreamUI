@@ -9,9 +9,11 @@
 
 (def reports-sel [:#reports])
 
-(defn extract-vm-name
+(defn extract-vm-name-and-time
   [file-name]
-  (first (clojure.string/split (str file-name) #"_report")))
+  (clojure.string/replace-first
+    (clojure.string/replace-first (str file-name) #".tgz" "")
+    #"_report_" "  "))
 
 (defn strip-domain
   [url]
@@ -20,7 +22,7 @@
 
 (defn insert-reports
   [reports]
-  (let 
+  (let
     [as (filter #(not= ".." (common-model/content %)) (html/select reports [:a]))]
     (if (empty? as)
       (html/content "No reports available yet")
@@ -28,7 +30,7 @@
         [a as]
         [:a] (html/do->
                (html/set-attr :href (strip-domain (:href (common-model/attrs a))))
-               (html/content (extract-vm-name (common-model/content a))))))))
+               (html/content (extract-vm-name-and-time (common-model/content a))))))))
 
 
 (html/defsnippet content-snip reports-template-html common/content-sel
@@ -36,9 +38,9 @@
   [reports-sel :> :ul :> [:li html/last-of-type]] nil
   [reports-sel :> :ul :> :li]
   (insert-reports reports))
-  
+
 (defn page [reports]
-  (base/base 
+  (base/base
     {:title (common/title "Reports")
      :header nil
      :content (content-snip reports)
