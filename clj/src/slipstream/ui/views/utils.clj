@@ -8,6 +8,12 @@
 ;         - slipstream.ui.views.util.enlive
 ;         - slipstream.ui.views.util.bootstrap
 
+;; Clojure
+
+(defmacro def-this-ns
+  "Defines a private top level var with the namespace string of the current file."
+  []
+  `(def ^:private ^:const ~(symbol "this-ns") (str *ns*)))
 
 ;; SlipStream
 
@@ -180,19 +186,3 @@
   `(def ~fname
      (memoize
        (fn ~@body))))
-
-
-;; Bootstrap
-
-; TODO: Consider implementing an extraction level to name SlipStream icons
-;       E.g. use :welcome instead of :home, and :project instead of :folder-open
-;       That will make easier later on to modify the icons.
-
-(defn glyphicon-icon-cls
-  [icon]
-  (str "glyphicon-" (name icon)))
-
-(defn set-icon
-  [icon]
-  (when icon
-    (set-class "glyphicon glyphicon-" (name icon))))

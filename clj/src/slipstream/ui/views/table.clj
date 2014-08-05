@@ -1,7 +1,8 @@
 (ns slipstream.ui.views.table
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.utils :as u]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.util.icons :as icons]))
 
 (def template-filename (common/get-template "table.html"))
 
@@ -32,7 +33,7 @@
 
 (html/defsnippet cell-icon-snip template-filename cell-icon-sel
   [icon]
-  [:span] (u/set-icon icon))
+  [:span] (icons/set icon))
 
 (def cell-snip-dispatching
   {:cell/text cell-text-snip

@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.secondary-menu
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]))
+            [slipstream.ui.views.utils :as u]
+            [slipstream.ui.views.util.icons :as icons]))
 
 (def main-action-sel [:.ss-secondary-menu-main-action])
 (def extra-action-sel [:.ss-secondary-menu-extra-action])
@@ -14,7 +15,7 @@
     (html/at action-node
              u/this           (u/when-set-onclick enabled? "window.location = '" uri "';")
              u/this           (u/when-add-class (not enabled?) "disabled")
-             action-icon-sel  (u/set-icon icon)
+             action-icon-sel  (icons/set icon)
              action-name-sel  (html/content (str name)))))
 
 (defn- setup-extra-actions

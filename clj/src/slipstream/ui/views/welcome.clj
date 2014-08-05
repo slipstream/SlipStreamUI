@@ -4,6 +4,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.models.welcome :as mw]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.models.authz :as authz]
@@ -166,7 +167,7 @@
   (base/generate
     {:template-filename template-filename
      :page-title "Welcome"
-     :header {:icon :home
+     :header {:icon icons/welcome
               :title "Welcome to SlipStream"
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones

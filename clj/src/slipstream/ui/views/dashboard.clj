@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.dashboard
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.run :as run-model]
@@ -198,7 +199,7 @@
   (base/generate
     {:metadata dashboard
      :placeholder-page? true
-     :header {:icon :dashboard
+     :header {:icon icons/dashboard
               :title "Dashboard"
               :subtitle "Control and monitor your cloud activity"}
      :content nil}))

@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.run
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
                         [slipstream.ui.views.base :as base]
@@ -147,7 +148,7 @@
   (base/generate
     {:metadata run
      :placeholder-page? true
-     :header {:icon :th
+     :header {:icon icons/run
               :title "91aac79a is DONE"
               :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
      :content nil}))

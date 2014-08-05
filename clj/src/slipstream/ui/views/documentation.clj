@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.documentation
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
@@ -33,7 +34,7 @@
   (base/generate
     {:metadata user
      :placeholder-page? true
-     :header {:icon :book
+     :header {:icon icons/documentation
               :title "Documentation"
               :subtitle "SlipStream technical documentation at a glance"}
      :content nil}))

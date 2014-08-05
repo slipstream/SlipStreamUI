@@ -5,6 +5,7 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.version :as version]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
@@ -223,7 +224,7 @@
   (base/generate
     {:metadata module
      :placeholder-page? true
-     :header {:icon :folder-open
+     :header {:icon icons/module
               :title "Project name"
               :subtitle "Version: 53 - Project description"}
      :secondary-menu-actions [action/run

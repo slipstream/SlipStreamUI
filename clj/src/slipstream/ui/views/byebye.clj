@@ -1,8 +1,9 @@
 (ns slipstream.ui.views.byebye
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
-                        [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
@@ -33,7 +34,7 @@
   (base/generate
     {:metadata metadata
      :placeholder-page? true
-     :header {:icon :log-out
+     :header {:icon icons/action-log-out
               :title "Leaving? We hope to see you back soon..."
               :subtitle "Your gateway to multi-cloud automation"}
      :content nil}))

@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.configuration
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
@@ -58,7 +59,7 @@
   (base/generate
     {:metadata metadata
      :placeholder-page? true
-     :header {:icon :wrench
+     :header {:icon icons/config
               :title "System Configuration"
               :subtitle "Configure the SlipStream service and its cloud connectors"}
      :content nil}))

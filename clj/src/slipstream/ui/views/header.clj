@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
@@ -146,19 +147,17 @@
 (def subtitle-sel [:.ss-header-subtitle])
 (def header-icon-sel [:span.ss-header-icon])
 
-(defn-memo header-icon-default-cls
-  [header-node]
-  (let [icon-span (first (html/select header-node header-icon-sel))
-        icon-cls-list (html/attr-values icon-span :class)]
-    (some #(re-matches #"glyphicon-[\w-]+" %) icon-cls-list)))
+; (defn-memo header-icon-default-cls
+;   [header-node]
+;   (let [icon-span (first (html/select header-node header-icon-sel))
+;         icon-cls-list (html/attr-values icon-span :class)]
+;     (some #(re-matches #"glyphicon-[\w-]+" %) icon-cls-list)))
 
 (defn transform
   [{:keys [status-code title subtitle icon] :as header}]
   (fn [match]
     (html/at match
-             header-icon-sel  (u/when-replace-class icon
-                                (header-icon-default-cls match)
-                                (u/glyphicon-icon-cls icon))
+             header-icon-sel  (icons/set icon)
              status-code-sel  (u/when-html-content status-code)
              title-sel        (u/when-html-content title)
              subtitle-sel     (u/when-html-content subtitle))))

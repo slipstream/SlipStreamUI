@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.users
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
@@ -73,7 +74,7 @@
   (base/generate
     {:metadata users
      :placeholder-page? true
-     :header {:icon :user
+     :header {:icon icons/users
               :title "Users"
               :subtitle "Configure the users in the SlipStream service."}
      :content nil}))
