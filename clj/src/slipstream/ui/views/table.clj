@@ -41,22 +41,17 @@
    :cell/icon cell-icon-snip})
 
 (defn- cell-node
-  [type content]
+  [{:keys [type content]}]
   (let [cell-snip (get cell-snip-dispatching type cell-text-snip)]
     (cell-snip content)))
 
 
 ;; Row
 
-(defn- row-node
-  [cells]
-  (for [{:keys [type content]} cells]
-    (cell-node type content)))
-
 (html/defsnippet rows-snip template-filename table-row-sel
   [rows]
   u/this (html/clone-for [row rows]
-           u/this (html/content (row-node row))))
+           u/this (html/content (map cell-node row))))
 
 
 ;; Headers

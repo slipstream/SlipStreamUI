@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.header :as header]
                         [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]
@@ -151,4 +152,8 @@
      :header {:icon icons/run
               :title "91aac79a is DONE"
               :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
+     :breadcrumbs [{:icon icons/dashboard :text "Dashboard"}
+                   {:text "Runs"}
+                   {:icon icons/run :uri "runs/91aac79a" :text "91aac79a"}
+                   {:text "done"}]
      :content nil}))

@@ -6,7 +6,6 @@
 ; TODO: Consider splitting this namespace into three:
 ;         - slipstream.ui.views.util.core
 ;         - slipstream.ui.views.util.enlive
-;         - slipstream.ui.views.util.bootstrap
 
 ;; Clojure
 
@@ -41,11 +40,10 @@
     user=> (html/select (html/html-snippet '<a></a>') [:> html/first-child])
     ({:tag :a, :attrs nil, :content nil})
     user=> (html/select (html/html-snippet '<a></a>') [:root])
-    ().
-  I found it! It's [:*]"
+    ()."
   ; [:root]
-  ; [:> html/first-child] ;; This works
-  [:*]
+  [:> html/first-child] ;; This works
+  ; [:*] ;; This obviously selects all nodes.
   )
 
 (defn enlive-node?
@@ -111,19 +109,27 @@
   [attr-name]
   (let [doc-str (str "\n  Defined with the macro " (first &form) " on namespace " *ns* ", line " (-> &form meta :line) ".")
         set-fn-symbol (symbol (str "set-" (name attr-name)))
-        when-set-fn-symbol (symbol (str "when-set-" (name attr-name)))]
-    (list 'do
-      (list 'defn set-fn-symbol
-          (str "Shortcut to (html/set-attr " (keyword attr-name) " (apply str parts))." doc-str)
-          '[& parts]
-          (list 'println "Setting" attr-name "to value" '(apply str parts)) ;; TODO: Only for dev
-          (list 'html/set-attr (keyword attr-name) '(apply str parts)))
-      (list 'defn when-set-fn-symbol
-          (str "Sets the attr " attr-name " if test is truthy." doc-str)
-          '[test & parts]
-          (list 'if 'test
-            (list 'apply set-fn-symbol 'parts)
-            'identity)))))
+        when-set-fn-symbol (symbol (str "when-set-" (name attr-name)))
+        ;; NOTE: Not using gemsym higienic symbols, since not needed and it makes the code and (doc) weird.
+        parts-symbol (symbol "parts")
+        test-symbol (symbol "test")]
+    `(do
+      (defn ~set-fn-symbol
+          ~(str "If parts are not nil, shortcut to (html/set-attr " (keyword attr-name) " (apply str parts)).\n"
+               "  Note that if parts are nil, attr " (keyword attr-name) " will be removed, instead of setting a\n"
+               "  blank string as value, as done by default by enlive."
+               doc-str)
+          [& ~parts-symbol]
+          ; (list 'println "Setting" attr-name "to value" '(apply str ~parts-symbol)) ;; TODO: Only for dev
+          (if (apply = nil ~parts-symbol)
+             (html/remove-attr ~(keyword attr-name))
+             (html/set-attr ~(keyword attr-name) (apply str ~parts-symbol))))
+      (defn ~when-set-fn-symbol
+          ~(str "Sets the attr " attr-name " if test is truthy." doc-str)
+          [~test-symbol & ~parts-symbol]
+          (if ~test-symbol
+            (apply ~set-fn-symbol ~parts-symbol)
+            identity)))))
 
 (defn-set-attr :href)
 (defn-set-attr :onclick)
@@ -131,6 +137,25 @@
 (defn-set-attr :src)
 (defn-set-attr :class)
 
+(defmacro content-for
+  "Replaces the content of the matched node with clones of the child matching
+  the 'seed-node-sel' parameter. Useful e.g. to build a table cloning just one row
+  of the template and removing the (dummy) other rows. To avoid errors related to
+  inline-block displaying, it preserves the original whitespace of the template
+  source, if any."
+  [seed-node-sel comprehension & forms]
+  `(fn [node#]
+     (let [seed-node# (html/select node# ~seed-node-sel)
+           node-whitespace# (html/select node# (concat this [:> html/whitespace]))
+           heading-whitespace# (first node-whitespace#)
+           inter-node-whitespace# (-> node-whitespace# butlast second)
+           trailing-whitespace# (last node-whitespace#)
+           cloned-nodes# (for ~comprehension (html/at seed-node# ~@forms))
+           content# (-> (interpose inter-node-whitespace# cloned-nodes#)
+                        (conj heading-whitespace#)
+                        vec
+                        (conj trailing-whitespace#))]
+       ((html/content content#) node#))))
 
 
 ; NOTE: Next lines inspired from

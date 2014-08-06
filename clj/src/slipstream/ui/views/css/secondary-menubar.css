@@ -30,7 +30,7 @@ body.ss-error-page #ss-secondary-menubar-container {
 
 /* Breadcrumbs */
 
-.breadcrumb {
+#ss-breadcrumb-container > .breadcrumb {
   color: white;
   background-color: transparent;
   padding: 0;
@@ -40,10 +40,36 @@ body.ss-error-page #ss-secondary-menubar-container {
   overflow: hidden;
 }
 
-.breadcrumb a {
-  color: #50a7de;
+#ss-breadcrumb-container > .breadcrumb > li,
+#ss-breadcrumb-container > .breadcrumb a {
+  color: rgb(80,167,222);
 }
 
+#ss-breadcrumb-container > .breadcrumb > li + li:before {
+  padding: 0 2px;
+  color: #ccc;
+  content: "\00a0/\00a0";
+}
+
+
+#ss-breadcrumb-container > .breadcrumb > li span.glyphicon + span::before {
+    padding-left: 5px;
+    content: "";
+}
+
+#ss-breadcrumb-container > .breadcrumb > li span.glyphicon + span:empty::before {
+    padding-left: 0px;
+    content: "";
+}
+
+#ss-breadcrumb-container > .breadcrumb > li.disabled > a,
+#ss-breadcrumb-container > .breadcrumb > li.disabled > a:hover,
+#ss-breadcrumb-container > .breadcrumb > li:last-child {
+  color: rgba(80,167,222,.6);
+  background-color: transparent;
+  text-decoration: none;
+  cursor: default;
+}
 
 /* Secondary button group */
 
@@ -84,6 +110,7 @@ button.ss-secondary-btn.active,
   color: #50a7de;
   text-decoration: none;
   background-color: #252525;
+  cursor: pointer;
 }
 
 .ss-secondary-menu-main-action span.glyphicon:nth-of-type(1),

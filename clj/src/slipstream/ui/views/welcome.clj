@@ -167,11 +167,12 @@
   (base/generate
     {:template-filename template-filename
      :page-title "Welcome"
-     :header {:icon icons/welcome
+     :header {:icon icons/home
               :title "Welcome to SlipStream"
               :subtitle "The welcome page provides you with all currently published
                          modules and root modules, including yours and the ones
                          shared with you."}
+     :breadcrumbs []
      :secondary-menu-actions [action/new-project]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (mw/published-apps metadata))

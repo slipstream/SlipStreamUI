@@ -4,7 +4,8 @@
             [slipstream.ui.views.util.icons :as icons]))
 
 (def main-action-sel [:.ss-secondary-menu-main-action])
-(def extra-action-sel [:.ss-secondary-menu-extra-action])
+(def extra-actions-container-sel [:#ss-secondary-menu :> :div :> :ul])
+(def extra-action-sel [[:.ss-secondary-menu-extra-action (u/first-of-class "ss-secondary-menu-extra-action")]])
 (def action-icon-sel [[:span (html/nth-of-type 1)]])
 (def action-name-sel [[:span html/last-of-type]])
 (def extra-action-anchor-sel [:a])
@@ -20,8 +21,8 @@
 
 (defn- setup-extra-actions
   [actions]
-  (html/clone-for [action actions]
-    extra-action-anchor-sel   (setup-action action)))
+  (u/content-for extra-action-sel [action actions]
+       extra-action-anchor-sel (setup-action action)))
 
 (defn- toggle-super-only-action
   "Enable ':super-only?' actions if user is ':admin?'.
@@ -35,5 +36,5 @@
   (let [actions (map (partial toggle-super-only-action user) secondary-menu-actions)]
     (fn [match]
       (html/at match
-               main-action-sel  (setup-action (first actions))
-               extra-action-sel (setup-extra-actions (rest actions))))))
+               main-action-sel              (setup-action (first actions))
+               extra-actions-container-sel  (setup-extra-actions (rest actions))))))

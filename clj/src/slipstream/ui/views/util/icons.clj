@@ -7,7 +7,7 @@
 
 (u/def-this-ns)
 
-(def welcome        ::home)
+(def home           ::home)
 (def project        ::folder-open)
 (def module         project)
 (def user           ::user)
@@ -38,8 +38,6 @@
 
 (defn- set-icon
   [icon]
-  (prn (namespace icon))
-  (prn this-ns)
   (when-not (= (namespace icon) this-ns)
     (throw (Exception. (format "Invalid icon %s. Use predefined icons in namespace %s."
                                icon

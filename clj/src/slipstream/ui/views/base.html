@@ -60,14 +60,48 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-8 text-left">
-          <div class="ss-breadcrumb-container">
+          <div id="ss-breadcrumb-container">
             <ol class="breadcrumb">
-              <li><a href="/welcome"><span class="glyphicon glyphicon-home"></span></a></li>
-              <li><a class="ss-breadcrumb-middle" href="#">Library</a></li>
-              <li><a class="ss-breadcrumb-middle" href="#">Module</a></li>
-              <li class="active ss-breadcrumb-last">Data</li>
+              <li class="ss-breadcrumb-item">
+                <a href="/welcome">
+                  <span class="ss-breadcrumb-item-icon glyphicon glyphicon-home"></span>
+                  <span class="ss-breadcrumb-item-text">Text</span>
+                </a>
+              </li>
+              <li class="ss-breadcrumb-item disabled">
+                <a>
+                  <span class="ss-breadcrumb-item-icon glyphicon glyphicon-folder-open"></span>
+                  <span class="ss-breadcrumb-item-text">
+                    Modules
+                  </span>
+                </a>
+              </li>
+              <li class="ss-breadcrumb-item">
+                <a href="/welcome">
+                  <span class="glyphicon glyphicon-hdd"></span>
+                  <span class="ss-breadcrumb-item-text">
+                    module-name
+                  </span>
+                </a>
+              </li>
+              <li class="ss-breadcrumb-item disabled">
+                <a>
+                  <span class="glyphicon glyphicon-hdd"></span>
+                  <span class="ss-breadcrumb-item-text">
+                    module-name
+                  </span>
+                </a>
+              </li>
+              <li class="ss-breadcrumb-item disabled">
+                <a>
+                  <span class="glyphicon glyphicon-hdd"></span>
+                  <span class="ss-breadcrumb-item-text">
+                    477
+                  </span>
+                </a>
+              </li>
             </ol>
-          </div> <!-- /.ss-breadcrumb-container -->
+          </div> <!-- /#ss-breadcrumb-container -->
         </div> <!-- /col -->
         <div class="col-xs-4 text-right">
           <div id="ss-secondary-menu">
@@ -84,7 +118,13 @@
                 <li class="ss-secondary-menu-extra-action">
                   <a data-toggle="modal">
                     <span class="glyphicon glyphicon-folder-open"></span>
-                    <span>Extra action more</span>
+                    <span>Extra action</span>
+                  </a>
+                </li>
+                <li class="ss-secondary-menu-extra-action">
+                  <a data-toggle="modal">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    <span>2nd extra action</span>
                   </a>
                 </li>
               </ul>
@@ -151,6 +191,18 @@
         separator: " chars (",
           postText: " max)"
     });
+
+
+      // Remove secondary menu if no actions
+      $(".ss-secondary-menu-main-action span:last-of-type:empty")
+        .closest("#ss-secondary-menu")
+        .remove();
+
+      // Remove secondary menu dropdown caret if no extra actions
+      if ( $(".ss-secondary-menu-extra-actions-container .ss-secondary-menu-extra-action:first-child a").length == 0 ) {
+        $(".ss-secondary-extra-actions-toggle").remove();
+      }
+
       $("#ss-secondary-menubar-container").affix({
         offset: {
           top: function () {
@@ -167,16 +219,6 @@
         $("#ss-secondary-menubar-container.affix-top").css("top",0);
         $("#ss-secondary-menubar-placeholder").hide();
       });
-
-      // Remove secondary menu if no actions
-      $(".ss-secondary-menu-main-action .ss-secondary-menu-action-name:empty")
-        .closest("#ss-secondary-menu")
-        .hide();
-
-      // Remove secondary menu dropdown caret if no extra actions
-      if ( $(".ss-secondary-menu-extra-actions-container .ss-secondary-menu-extra-action:first-child a").length == 0 ) {
-        $(".ss-secondary-extra-actions-toggle").hide();
-      }
     });
 </script>
 </div>

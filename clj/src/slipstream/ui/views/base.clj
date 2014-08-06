@@ -11,6 +11,7 @@
             [slipstream.ui.views.section :as section]
             [slipstream.ui.views.content :as content]
             [slipstream.ui.views.menubar :as menubar]
+            [slipstream.ui.views.breadcrumbs :as breadcrumbs]
             [slipstream.ui.views.secondary-menu :as secondary-menu]
             ))
 
@@ -29,6 +30,8 @@
 (def topbar-sel [:#topbar])
 (def menubar-sel [:#menubar])
 (def header-sel [:#header])
+(def secondary-menubar-sel [:#ss-secondary-menubar-container])
+(def breadcrumbs-sel [:#ss-breadcrumb-container :> :ol])
 (def secondary-menu-sel [:#ss-secondary-menu])
 (def content-sel [:#ss-content])
 (def footer-sel [:#footer])
@@ -64,29 +67,33 @@
            placeholder-page?
            page-title
            header
+           breadcrumbs
+           secondary-menu-actions
            content
            type
            alerts
            involved-templates]
     :as context}]
-  [:body]             (u/when-add-class error-page? error-page-cls)
-  [:body]             (u/when-add-class placeholder-page? placeholder-page-cls)
-  [:body]             (u/when-add-class beta-page? beta-page-cls)
-  page-title-sel      (html/content (u/page-title (or page-title (:title header))))
-  menubar-sel         (html/substitute (menubar/menubar context))
-  topbar-sel          (u/remove-if (and (u/chooser? type) (empty? alerts)))
-  secondary-menu-sel  (secondary-menu/transform context)
-  [:#release-version] (html/content @version/slipstream-release-version)
-  footer-sel          (u/remove-if (u/chooser? type))
-  css-container-sel   (html/append (additional-html css-sel involved-templates))
-  header-sel          (u/if-enlive-node header
-                        (html/substitute header)
-                        (header/transform header))
-  content-sel         (u/if-enlive-node content
-                        (html/substitute content)
+  [:body]               (u/when-add-class error-page? error-page-cls)
+  [:body]               (u/when-add-class placeholder-page? placeholder-page-cls)
+  [:body]               (u/when-add-class beta-page? beta-page-cls)
+  page-title-sel        (html/content (u/page-title (or page-title (:title header))))
+  menubar-sel           (html/substitute (menubar/menubar context))
+  topbar-sel            (u/remove-if (and (u/chooser? type) (empty? alerts)))
+  breadcrumbs-sel       (breadcrumbs/transform context)
+  secondary-menu-sel    (secondary-menu/transform context)
+  secondary-menubar-sel (u/remove-if-not (or breadcrumbs secondary-menu-actions))
+  [:#release-version]   (html/content @version/slipstream-release-version)
+  footer-sel            (u/remove-if (u/chooser? type))
+  css-container-sel     (html/append (additional-html css-sel involved-templates))
+  header-sel            (u/if-enlive-node header
+                          (html/substitute header)
+                          (header/transform header))
+  content-sel           (u/if-enlive-node content
+                          (html/substitute content)
                         (content/build content))
-  alert-container-sel (html/content (map alerts/alert alerts))
-  alert-container-sel (html/append (alerts/hidden-templates))
+  alert-container-sel   (html/content (map alerts/alert alerts))
+  alert-container-sel   (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   )
