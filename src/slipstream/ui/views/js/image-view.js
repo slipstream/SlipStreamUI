@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,21 +23,21 @@ $(document).ready(function() {
     // Edit button
     $('#edit-button-top, #edit-button-bottom').click(function(event){
 		window.location = '?edit=true';
-    });	
-	
+    });
+
     // Build
     $('#build-button-top, #build-button-bottom').click(function(event){
     	$$.hideError();
 		$$.showSubmitMessage("Requesting Build Image");
 		$("#build-form").submit();
-    });	
+    });
 
     // Run...
     $('#build-with-options-button-top, #build-with-options-button-bottom').click(function(event){
     	$$.hideError();
 		$("#build-with-options-dialog").dialog('open');
 		return false;
-    });	
+    });
 
 	$('#build-with-options-dialog').dialog({
 		autoOpen: false,
@@ -62,7 +62,7 @@ $(document).ready(function() {
     	$$.hideError();
 		$("#run-with-options-dialog").dialog('open');
 		return false;
-    });	
+    });
 
 	$('#run-with-options-dialog').dialog({
 		autoOpen: false,
@@ -86,7 +86,7 @@ $(document).ready(function() {
     $('#publish-button-top, #publish-button-bottom').click(function(event){
     	$$.hideError();
 		return $$.send($('#publish-form'), null, $.put);
-    });	
+    });
 
     // Un-Publish button
     $('#unpublish-button-top, #unpublish-button-bottom').click(function(event){
@@ -95,10 +95,10 @@ $(document).ready(function() {
 			location.reload();
 	    });
 		return false;
-    });	
-	
+    });
+
 	$$.activateCopyTo();
-	
+
 	// Show dialog if query parameter set
 	$$.showDialog();
 
@@ -106,5 +106,7 @@ $(document).ready(function() {
     textarea2sceditor('#report', true);
     textarea2sceditor('#recipe', true);
     textarea2sceditor('#prerecipe', true);
-    
+    textarea2sceditor('#onvmadd', true);
+    textarea2sceditor('#onvmremove', true);
+
 })
