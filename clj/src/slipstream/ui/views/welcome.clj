@@ -147,8 +147,8 @@
                            image]
                     :as app} app-metadata-list]
     app-image-preloader-sel  (u/set-src image)
-    app-image-container-sel  (u/when-add-class updated? app-updated-cls)
-    app-image-container-sel  (u/when-add-class new? app-new-cls)
+    app-image-container-sel  (u/enable-class updated? app-updated-cls)
+    app-image-container-sel  (u/enable-class new? app-new-cls)
     app-name-deploy-btn-sel  (u/set-onclick "location = '" uri "?showdialog=run-with-options-dialog'; return false;")
     app-name-container-sel   (u/set-href uri)
     app-name-sel             (html/content (str name))
@@ -173,6 +173,7 @@
                          modules and root modules, including yours and the ones
                          shared with you."}
      :breadcrumbs []
+     ; :alerts [{:msg "aie" :title "Tada!"}]
      :secondary-menu-actions [action/new-project]
      :content [{:title "App Store"
                 :content (app-thumbnails-snip (mw/published-apps metadata))

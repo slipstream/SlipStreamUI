@@ -3,19 +3,21 @@
             [slipstream.ui.views.utils :as u]
             [slipstream.ui.views.util.icons :as icons]))
 
-(def main-action-sel [:.ss-secondary-menu-main-action])
-(def extra-actions-container-sel [:#ss-secondary-menu :> :div :> :ul])
-(def extra-action-sel [[:.ss-secondary-menu-extra-action (u/first-of-class "ss-secondary-menu-extra-action")]])
-(def action-icon-sel [[:span (html/nth-of-type 1)]])
-(def action-name-sel [[:span html/last-of-type]])
-(def extra-action-anchor-sel [:a])
+(def ^:private disabled-cls "disabled")
+
+(def ^:private main-action-sel [:.ss-secondary-menu-main-action])
+(def ^:private extra-actions-container-sel [:#ss-secondary-menu :> :div :> :ul])
+(def ^:private extra-action-sel [[:.ss-secondary-menu-extra-action (u/first-of-class "ss-secondary-menu-extra-action")]])
+(def ^:private action-icon-sel [[:span (html/nth-of-type 1)]])
+(def ^:private action-name-sel [[:span html/last-of-type]])
+(def ^:private extra-action-anchor-sel [:a])
 
 (defn- setup-action
   [{:keys [icon name uri] enabled? ::enabled? :or {enabled? true}}]
   (fn [action-node]
     (html/at action-node
              u/this           (u/when-set-onclick enabled? "window.location = '" uri "';")
-             u/this           (u/when-add-class (not enabled?) "disabled")
+             u/this           (u/enable-class (not enabled?) disabled-cls)
              action-icon-sel  (icons/set icon)
              action-name-sel  (html/content (str name)))))
 

@@ -34,7 +34,7 @@
            [:> :div] (html/remove-attr :id)))
 
 (defmethod alert :custom
-  [{:keys [type title msg dismissible] :or {dismissible true}}]
+  [{:keys [type title msg dismissible] :or {dismissible true type :info}}]
   (html/at (html/select alerts (alert-sel type))
            [:> :div] (html/remove-attr :id)
            dismiss-button-sel (when dismissible identity)

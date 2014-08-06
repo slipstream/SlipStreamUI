@@ -24,7 +24,7 @@
   (when breadcrumbs
     (let [breadcrumbs (cons initial-breadcrumb (make-last-inactive breadcrumbs))]
       (u/content-for item-sel [{:keys [text uri icon]} breadcrumbs]
-                     u/this     (u/when-add-class (empty? uri) disabled-cls)
+                     u/this     (u/enable-class (empty? uri) disabled-cls)
                      anchor-sel (u/set-href uri)
                      icon-sel   (icons/set icon)
                      text-sel   (html/content (str text))))))

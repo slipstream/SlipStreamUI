@@ -14,6 +14,18 @@
   []
   `(def ^:private ^:const ~(symbol "this-ns") (str *ns*)))
 
+(defmacro defn-memo
+  [fname & body]
+  (when-not (symbol? fname)
+    (throw (IllegalArgumentException.
+             "First argument to defn-memo must be a symbol.")))
+  (when (string? (first body))
+    (throw (IllegalArgumentException.
+             (str "Doc-string is not implemented for defn-memo: " (first body)))))
+  `(def ~fname
+     (memoize
+       (fn ~@body))))
+
 ;; SlipStream
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
@@ -42,8 +54,9 @@
     user=> (html/select (html/html-snippet '<a></a>') [:root])
     ()."
   ; [:root]
-  [:> html/first-child] ;; This works
+  ; [identity]
   ; [:*] ;; This obviously selects all nodes.
+  [:> html/first-child] ;; This works
   )
 
 (defn enlive-node?
@@ -56,17 +69,15 @@
 
 (defn when-content
   [content]
-  (fn [match]
-    (if (nil? content)
-      (identity match)
-      ((html/content (str content)) match))))
+  (if (nil? content)
+    identity
+    (html/content (str content))))
 
 (defn when-html-content
   [html-content]
-  (fn [match]
-    (if (nil? html-content)
-      (identity match)
-      ((html/html-content (str html-content)) match))))
+  (if (nil? html-content)
+    identity
+    (html/html-content (str html-content))))
 
 (defmacro when-add-class
   [test & classes]
@@ -85,6 +96,16 @@
   `(if ~test
     (replace-class ~class-to-remove ~class-to-add)
     identity))
+
+(defn enable-class
+  "Add the class if 'enable?' and remove it if not. Using (when-add-class) will
+  not remove the class if the test is falsey, thus often we want rahter to turn
+  on/off the class, rather than only adding it, since it might already be present
+  in the node being transformed, e.g. from the template."
+  [enable? cls]
+  (if enable?
+    (html/add-class cls)
+    (html/remove-class cls)))
 
 (defn remove-if
   [test]
@@ -196,18 +217,3 @@
 
 (def first-of-id (partial first-of-attr :id))
 (def last-of-id (partial last-of-attr :id))
-
-
-;; Clojure
-
-(defmacro defn-memo
-  [fname & body]
-  (when-not (symbol? fname)
-    (throw (IllegalArgumentException.
-             "First argument to defn-memo must be a symbol.")))
-  (when (string? (first body))
-    (throw (IllegalArgumentException.
-             (str "Doc-string is not implemented for defn-memo: " (first body)))))
-  `(def ~fname
-     (memoize
-       (fn ~@body))))

@@ -74,9 +74,9 @@
            alerts
            involved-templates]
     :as context}]
-  [:body]               (u/when-add-class error-page? error-page-cls)
-  [:body]               (u/when-add-class placeholder-page? placeholder-page-cls)
-  [:body]               (u/when-add-class beta-page? beta-page-cls)
+  [:body]               (u/enable-class error-page? error-page-cls)
+  [:body]               (u/enable-class placeholder-page? placeholder-page-cls)
+  [:body]               (u/enable-class beta-page? beta-page-cls)
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   menubar-sel           (html/substitute (menubar/menubar context))
   topbar-sel            (u/remove-if (and (u/chooser? type) (empty? alerts)))

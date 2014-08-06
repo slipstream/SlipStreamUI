@@ -19,7 +19,7 @@
   [sections]
   (html/clone-for [{:keys [title selected? content type] :as section} sections
                    :let [section-uid (gensym section-id)]]
-    section-sel         (u/when-add-class selected? section-selected-cls)
+    section-sel         (u/enable-class selected? section-selected-cls)
     section-sel         (u/when-add-class type (str "ss-section-" (name type)))
     section-title-sel   (html/content (str title))
     section-content-sel (html/content content)
