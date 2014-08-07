@@ -8,7 +8,7 @@
     <title>SlipStream | Image: Fedora 14.0</title>
 
     <link rel="stylesheet" type="text/css" href="css/application.css" />
-    
+
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="external/jit/js/jit.js" type="text/javascript"></script>
@@ -24,7 +24,7 @@
         <div id="header">
             <div class="top">
                 <a href="#" class="logo"></a>
-          
+
                 <div class="menu_bar">
                     <ul>
                         <li class="first"><a href="#"><i class="icon-home icon-2x"></i></a></li>
@@ -44,7 +44,7 @@
                 <p>Latest comment...</p>
 			</div>
         </div>
-      
+
         <div id="content">
 	        <div class="navigation">
 	            <ul id="breadcrumb" class="breadcrumb">
@@ -356,18 +356,8 @@
 		                                <td>
 			                                <textarea id="recipe" disabled="disabled">
 #!/bin/sh -xe
-apt-get update -y
-apt-get install -y apache2
 
-echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
-
-service apache2 stop
-port=$(ss-get port)
-sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
-sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
-sed -i -e 's/^&lt;VirtualHost.*$/&lt;VirtualHost *:'$port'&gt;/' /etc/apache2/sites-available/default
-service apache2 start
-ss-set ready true
+echo Image creation recipe
 			                                </textarea>
 		                                </td>
 		                            </tr>
@@ -417,6 +407,8 @@ ss-set ready true
                             <li id="fragment-deployment-execute-header"><a href="#fragment-deployment-execute">Execute</a><span></span></li>
                             <li id="fragment-deployment-report-header"><a href="#fragment-deployment-report">Report</a><span></span></li>
                             <li id="fragment-deployment-parameters-header"><a href="#fragment-deployment-parameters">Parameters</a><span></span></li>
+                            <li id="fragment-deployment-onvmadd-header"><a href="#fragment-deployment-onvmadd">OnVmAdd</a><span></span></li>
+                            <li id="fragment-deployment-onvmremove-header"><a href="#fragment-deployment-onvmremove">OnVmRemove</a><span></span></li>
 	                    </ul>
 	                    <div id="fragment-deployment-execute">
 		                    <table>
@@ -430,18 +422,8 @@ ss-set ready true
 		                                <td>
 			                                <textarea id="execute" disabled="disabled">
 #!/bin/sh -xe
-apt-get update -y
-apt-get install -y apache2
 
-echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
-
-service apache2 stop
-port=$(ss-get port)
-sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
-sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
-sed -i -e 's/^&lt;VirtualHost.*$/&lt;VirtualHost *:'$port'&gt;/' /etc/apache2/sites-available/default
-service apache2 start
-ss-set ready true
+echo Executing application provisioning script.
 			                                </textarea>
 		                                </td>
 		                            </tr>
@@ -460,18 +442,8 @@ ss-set ready true
 		                                <td>
 			                                <textarea id="report" disabled="disabled">
 #!/bin/sh -xe
-apt-get update -y
-apt-get install -y apache2
 
-echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
-
-service apache2 stop
-port=$(ss-get port)
-sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
-sed -i -e 's/^NameVirtualHost.*$/NameVirtualHost *:'$port'/' /etc/apache2/ports.conf
-sed -i -e 's/^&lt;VirtualHost.*$/&lt;VirtualHost *:'$port'&gt;/' /etc/apache2/sites-available/default
-service apache2 start
-ss-set ready true
+echo Collecting reports.
 			                                </textarea>
 		                                </td>
 		                            </tr>
@@ -500,6 +472,46 @@ ss-set ready true
 		                        </tbody>
 	                        </table>
     	                </div>
+                        <div id="fragment-deployment-onvmadd">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Runs when new VM(s) added to the deployment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <textarea id="onvmadd" disabled="disabled">
+#!/bin/sh -xe
+
+echo VM(s) added.
+                                            </textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="fragment-deployment-onvmremove">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Runs when VM(s) removed from the deployment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <textarea id="onvmremove" disabled="disabled">
+#!/bin/sh -xe
+
+echo VM(s) removed.
+                                            </textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 	                </div>
 	                <h3 id="runs-header">Runs</h3>
 	                <div id="runs">
@@ -624,5 +636,5 @@ ss-set ready true
 
     </div>
 </body>
-  
+
 </html>

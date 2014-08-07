@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -135,7 +135,7 @@ function setHash() {
 // Navigator section
 //
 /*
-** TODO: refactor this code to use a single counter and write a function to set the class for alternating the 
+** TODO: refactor this code to use a single counter and write a function to set the class for alternating the
 **       colors in the rows.
 */
 
@@ -203,6 +203,12 @@ function addTarget(targetid) {
     option = document.createElement('option');
     option.innerHTML = "report";
     select.appendChild(option);
+    option = document.createElement('option');
+    option.innerHTML = "onvmadd";
+    select.appendChild(option);
+    option = document.createElement('option');
+    option.innerHTML = "onvmremove";
+    select.appendChild(option);
     newth.appendChild(select);
     newtr.appendChild(newth);
 
@@ -251,7 +257,7 @@ function addTarget(targetid) {
 
 /**
 	 * An alternative function to document.createElement() which accepts name=value pair arguments for specifying attributes
-	 * 
+	 *
 	 * @param ele The tagname of the element you want to create
 	 * @param [args] The attribute arguments in the format name=value
 	 * @return returns a created element with the specified attributes
@@ -376,7 +382,7 @@ function login() {
 
 var slipstreamns = {
 	slipstreamns: window.top.document.slipstreamns,
-	
+
 	get: function(key) {
 		var value;
 		if (window.top.document.slipstreamns) {
@@ -384,7 +390,7 @@ var slipstreamns = {
 		}
 		return value;
 	},
-	
+
 	set: function(key, value) {
 		if (!window.top.document.slipstreamns) {
 			window.top.document.slipstreamns = {};
@@ -394,10 +400,10 @@ var slipstreamns = {
 }
 
 var logger = function() {
-	
+
 	var loggerIframeId = '#loggeriframe';
 	var topdiv = '#topdiv';
-	
+
 	function fadeOutTopWindow() {
 		$(topdiv).fadeTo(0, 0.5);
 	};
@@ -426,7 +432,7 @@ var logger = function() {
 			hideFrame();
 		    fadeInTopWindow();
 		}
-	    
+
 	};
 }();
 
@@ -464,13 +470,13 @@ var $$ = {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
         $('#module-reference').attr('value', modulename);
     },
-    
+
     onModuleChooserSelectWithVersion: function() {
         var modulename = $('#chooseriframe').contents().find('#module-name').text();
         var version = $('#chooseriframe').contents().find('#module-version > span:first-of-type').text();
         var targetInput = $('#module-reference').attr('value', modulename + "/" + version);
     },
-    
+
     createImageChooserDialog: function() {
         $('#chooser').dialog({
             autoOpen: false,
@@ -478,7 +484,7 @@ var $$ = {
     	    width: 1000,
     	    title: "Choose an image",
     	    buttons: {
-    	        "Select": function() { 
+    	        "Select": function() {
                     $$.onModuleChooserSelect();
     		        $(this).dialog("close");
     		    },
@@ -495,7 +501,7 @@ var $$ = {
             }
 	    });
 	},
-    
+
     createProjectChooserDialog: function() {
     	$('#chooser').dialog({
         	autoOpen: false,
@@ -503,7 +509,7 @@ var $$ = {
 		    width: 1000,
 		    title: "Choose a project",
 		    buttons: {
-		        "Select": function() { 
+		        "Select": function() {
 	                $$.onModuleChooserSelect();
 			        $(this).dialog("close");
 			    },
@@ -516,7 +522,7 @@ var $$ = {
 	        },
 		});
 	},
-    
+
 	hideSubmitMessage: function() {
 		$('#submit-message').hide();
 		$('#overlay').hide();
@@ -593,7 +599,7 @@ var $$ = {
 		action(url, data, callback, 'text');
 		return false;
 	},
-	
+
 	parameterDefaultUpdater: {
 
 		buildNameDefaultValueMap: function(image) {
@@ -603,7 +609,7 @@ var $$ = {
 			});
 			return map;
 		},
-		
+
 		findInputByName: function(name) {
 			return $('input[name="' + name + '"]');
 		},
@@ -615,17 +621,17 @@ var $$ = {
 		setValueInputPlaceHolderAttribute: function(input, value) {
 			$(input).attr('placeholder', value);
 		},
-			
+
 		extractPartsFromInputName: function(name) {
 			var x = $(name);
 			var parts = $(name).attr('name').split('-');
 			return {category: parts[1], index: parts[3]};
 		},
-				
+
 		composeValueInputNameFromIndex: function(category, index) {
 			return 'parameter-' + category + '--' + index + '--value';
 		},
-				
+
 		updateDefault: function(inputName, value) {
 			var nameInput = this.findInputByValue(inputName);
 			var parts = this.extractPartsFromInputName(nameInput);
@@ -633,7 +639,7 @@ var $$ = {
 			var valueInput = this.findInputByName(valueInputName);
 			this.setValueInputPlaceHolderAttribute(valueInput, value);
 		},
-		
+
 		callback: function(data, status, xhr) {
 	        // Assign the XML file to a var
 			var image = $(data.firstChild);
@@ -654,19 +660,19 @@ var $$ = {
 		    $.get(url, $$.parameterDefaultUpdater.callback, "xml");
 		},
 	},
-	
+
 	removeTrFromButton: function(element) {
         $(element).parent().parent().remove();
     },
-    
+
     addParameter: function(element, categories, prefix) {
         // categories for select options
         // prefix for parameter name (e.g. cloud)
-        
+
         if(!element) {
             element = this;
         }
-        
+
         var table = $(element).prev();
     	var count = $(table).find('tr').length;
         var index = count + 1000; // a big number so that there are no clashed with other parameters
@@ -718,7 +724,7 @@ var $$ = {
         newParameter.appendTo(table);
 
         setHash();
-        
+
         // Add prefix handler to concatenate prefix and postfix and set it to name
         if (prefix) {
             var postfixInput = $("#" + entryPart + "--name-postfix");
@@ -760,7 +766,7 @@ var $$ = {
         setHash();
         return false;
     },
-    
+
 	newModuleRedirect: function($this) {
 		var category = $this.attr('name');
 		window.location = '/module/' + $('#module-name').text() + "/new?category=" + category;
@@ -801,7 +807,7 @@ var $$ = {
             $("span:contains('Select')").parent().attr("disabled", "disabled");
         }
     },
-    
+
     activateCopyTo: function() {
 
         // copy to...
@@ -862,7 +868,7 @@ var $$ = {
             return false;
         };
 
-        
+
     },
 
 	queryMap: function() {
@@ -878,7 +884,7 @@ var $$ = {
 		}
 		return vars;
 	},
-	
+
 	showDialog: function() {
 		var query = $$.queryMap()['showdialog'];
 		var dialog = $('#' + query);
@@ -914,17 +920,17 @@ $(document).ready(function() {
 	});
 
     $$.hideError();
-    
+
     $('#titles').show();
     $('#content').show();
     if($('#warning-bar').length == 0)
         $('#wrapper').css('margin', '0 auto');
-    
+
 
 	$(window).unload(function() {
 		$$.hideSubmitMessage();
 	});
-	
+
 	$('.accordion').accordion(
 		{ heightStyle: "content",
 		  collapsible: true,
@@ -948,18 +954,18 @@ $(document).ready(function() {
 		.button()
 		.click(function( event ) {
 	});
-	
+
 	// Logout dialog
 	$('#logoutdialog').dialog(
 		{ autoOpen: false,
 		  modal: true,
 		  title: "Logout",
-		  buttons: [ { text: "Logout", 
-		               click: function() { $( this ).dialog( "close" ); 
+		  buttons: [ { text: "Logout",
+		               click: function() { $( this ).dialog( "close" );
 		                                   $.delete_("/logout", $.delete_("/logout", success=function() {
                            					   window.location = "/login";
                            				       }));} },
-		             { text: "Cancel", 
+		             { text: "Cancel",
 		               click: function() { $( this ).dialog( "close" ); } }
 		           ]
 	});
@@ -967,7 +973,7 @@ $(document).ready(function() {
 	    event.preventDefault();
         $( "#logoutdialog" ).dialog( "open" );
     });
-    
+
 	$('.ui-widget-overlay, .please_wait').hide();
 
     //
@@ -984,7 +990,7 @@ $(document).ready(function() {
 		}
 	});
 
-    // Convert instruction strings into HTML in the page 
+    // Convert instruction strings into HTML in the page
 	$$.decodeHtmlInHelp();
 
     // When clicking on the question mark, show message dialog with the help info
@@ -993,12 +999,12 @@ $(document).ready(function() {
 	    $("#help-dialog > p").text(help);
 	    $("#help-dialog").dialog('open');
 	});
-	
+
 	$('#add-parameter-button').click(function() {
 	    $$.addParameter(this);
 	    return false;
 	});
-    
+
 })
 
 

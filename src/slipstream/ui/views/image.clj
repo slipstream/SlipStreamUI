@@ -137,7 +137,7 @@
   (creation-trans recipe prerecipe packages false))
 
 (defn- deployment-trans
-  [execute report parameters parameters-gen-fn]
+  [execute report onvmadd onvmremove parameters parameters-gen-fn]
   (html/transformation
     [:ul :> :#fragment-deployment-execute-header]
     (if (string/blank? execute)
@@ -149,6 +149,14 @@
       identity)
     [:ul :> :#fragment-deployment-parameters-header]
     (if (empty? parameters)
+      nil
+      identity)
+    [:ul :> :#fragment-deployment-onvmadd-header]
+    (if (string/blank? onvmadd)
+      nil
+      identity)
+    [:ul :> :#fragment-deployment-onvmremove-header]
+    (if (string/blank? onvmremove)
       nil
       identity)
 
@@ -171,15 +179,29 @@
     [:#fragment-deployment-parameters]
     (if (empty? parameters)
       nil
+      identity)
+
+    [:#onvmadd]
+    (html/content onvmadd)
+    [:#fragment-deployment-onvmadd]
+    (if (string/blank? onvmadd)
+      nil
+      identity)
+
+    [:#onvmremove]
+    (html/content onvmremove)
+    [:#fragment-deployment-onvmremove]
+    (if (string/blank? onvmremove)
+      nil
       identity)))
 
 (html/defsnippet deployment-view-snip image-view-template-html image-deployment-sel
-  [execute report parameters]
-  (deployment-trans execute report parameters common/parameters-view-with-name-and-category-snip))
+  [execute report onvmadd onvmremove parameters]
+  (deployment-trans execute report onvmadd onvmremove parameters common/parameters-view-with-name-and-category-snip))
 
 (html/defsnippet deployment-edit-snip image-edit-template-html image-deployment-sel
-  [execute report parameters]
-  (deployment-trans execute report parameters common/parameters-edit-all-snip))
+  [execute report onvmadd onvmremove parameters]
+  (deployment-trans execute report onvmadd onvmremove parameters common/parameters-edit-all-snip))
 
 ;; Edit
 
@@ -292,6 +314,8 @@
                          (deployment-view-snip
                            (image-model/deployment-execute module)
                            (image-model/deployment-report module)
+                           (image-model/deployment-onvmadd module)
+                           (image-model/deployment-onvmremove module)
                            (common-model/filter-by-categories
                              (common-model/parameters module)
                              deployment-parameter-categories)))
@@ -379,6 +403,8 @@
                          (deployment-edit-snip
                            (image-model/deployment-execute module)
                            (image-model/deployment-report module)
+                           (image-model/deployment-onvmadd module)
+                           (image-model/deployment-onvmremove module)
                            (common-model/filter-by-categories
                              (common-model/parameters module)
                              deployment-parameter-categories)))
