@@ -96,6 +96,27 @@
           </div>
         </div>
       </div><!--/.panel-default -->
+      <div class="panel panel-default ss-section">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a class="ss-section-activator" data-toggle="collapse" data-parent="#ss-section-group" href="#ss-section2">
+              <span class="row">
+                <span class="col-xs-10 ss-section-title">
+                  2nd Collapsible Group Item
+                </span> <!-- /col -->
+                <span class="col-xs-2 text-right">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </span> <!-- /col -->
+              </span> <!-- /row -->
+            </a>
+          </h4>
+        </div>
+        <div id="ss-section2" class="panel-collapse collapse">
+          <div class="panel-body ss-section-content">
+            content
+          </div>
+        </div>
+      </div><!--/.panel-default -->
     </div><!--/.panel-group -->
   </div><!--/.container -->
 
@@ -104,57 +125,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
     <script src="external/bootstrap/js/bootstrap.min.js"></script>
-    <script>
-    jQuery(function() {
-
-      // Open panel of selected section
-
-      $(".panel.ss-section-selected .panel-collapse.collapse")
-        .removeClass("in")
-        .addClass("in")
-
-      // Ensure correct chevrons at page load depending on open/close state
-
-      $(".panel .panel-collapse.collapse.in")
-        .parent()
-        .find(".panel-title .glyphicon-chevron-down")
-        .removeClass("glyphicon-chevron-down")
-        .addClass("glyphicon-chevron-up")
-
-      $(".panel .panel-collapse.collapse:not(.in)")
-        .parent()
-        .find(".panel-title .glyphicon-chevron-up")
-        .removeClass("glyphicon-chevron-up")
-        .addClass("glyphicon-chevron-down")
-
-      // Ensure correct chevrons when opening/closing the sections
-
-      $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
-        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
-        $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-      });
-
-      $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
-        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
-        $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-      });
-
-      // Update .ss-panel-{info,danger,warning,success} to Bootstrap classes
-      $("div.panel.ss-section-info")
-        .removeClass("panel-default")
-        .addClass("panel-info")
-      $("div.panel.ss-section-danger")
-        .removeClass("panel-default")
-        .addClass("panel-danger")
-      $("div.panel.ss-section-warning")
-        .removeClass("panel-default")
-        .addClass("panel-warning")
-      $("div.panel.ss-section-success")
-        .removeClass("panel-default")
-        .addClass("panel-success")
-
-    });
-    </script>
+    <script src="js/section.js"></script>
   </div>
 </body>
 </html>

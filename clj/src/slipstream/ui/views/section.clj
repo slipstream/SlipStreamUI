@@ -9,15 +9,15 @@
 (def section-selected-cls "ss-section-selected")
 
 (def section-group-sel [:#ss-section-group])
-(def section-sel [:.ss-section])
+(def section-sel [[:.ss-section (u/first-of-class "ss-section")]])
 (def section-anchor-sel (concat section-sel [:.ss-section-activator]))
 (def section-id-sel [(html/id= section-id)])
 (def section-title-sel [:.ss-section-title])
 (def section-content-sel [:.ss-section-content])
 
-(defn section-nodes
+(html/defsnippet section-group-snip template-filename section-group-sel
   [sections]
-  (html/clone-for [{:keys [title selected? content type] :as section} sections
+  u/this (u/content-for section-sel [{:keys [title selected? content type] :as section} sections
                    :let [section-uid (gensym section-id)]]
     section-sel         (u/enable-class selected? section-selected-cls)
     section-sel         (u/when-add-class type (str "ss-section-" (name type)))
@@ -25,10 +25,6 @@
     section-content-sel (html/content content)
     section-anchor-sel  (u/set-href "#" section-uid)
     section-id-sel      (u/set-id section-uid)))
-
-(html/defsnippet section-group-snip template-filename section-group-sel
-  [sections]
-  section-sel (section-nodes sections))
 
 (defn build
   [sections]

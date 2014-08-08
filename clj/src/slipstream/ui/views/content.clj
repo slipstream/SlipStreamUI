@@ -5,4 +5,4 @@
   [content]
   (if (vector? content)
     (section/build content)
-    (throw (Exception. "Not yet implemented"))))
+    (throw (Exception. (str "Not yet implemented. Content: " (vec content))))))

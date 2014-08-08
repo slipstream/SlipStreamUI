@@ -1,5 +1,6 @@
 body > .navbar {
   opacity: 0.98;
+  background: none;
 }
 
 body > .navbar-default,

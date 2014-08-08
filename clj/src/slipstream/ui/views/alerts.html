@@ -174,42 +174,7 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
   <script src="external/bootstrap/js/bootstrap.min.js"></script>
-  <script>
-    var ss_alert_defaults = {
-      type: "error",
-      title: null,
-      msg: null
-    };
-
-    function ss_alert( options ) {
-      /* merge ss_alert_defaults and options, without modifying ss_alert_defaults */
-      var settings = $.extend({}, ss_alert_defaults, options);
-      var alert_container = $("#alert-container");
-
-      if (alert_container.length == 0) {
-        return false;
-      };
-
-      var alert_div = $("#alert-" + settings.type)
-        .clone()
-        .removeClass("hidden") // Bootstrap class
-        .hide()
-        .removeAttr("id");
-
-      alert_div
-        .find(".alert-msg")
-        .html(settings.msg);
-
-      if (settings.title) {
-        alert_div.find(".alert-title").html(settings.title)
-      }
-
-      alert_container.prepend(alert_div);
-      alert_div.show("fast");
-
-      return true;
-    };
-  </script>
+  <script src="js/alerts.js"></script>
 </div>
 </body>
 </html>

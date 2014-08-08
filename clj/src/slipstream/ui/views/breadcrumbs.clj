@@ -11,7 +11,7 @@
 (def ^:private text-sel (concat anchor-sel [:> :.ss-breadcrumb-item-text]))
 
 (def ^:private initial-breadcrumb
-  {:icon icons/home :uri "/welcome"})
+  {:icon icons/home :uri "/"})
 
 (defn- make-last-inactive
   [breadcrumbs]

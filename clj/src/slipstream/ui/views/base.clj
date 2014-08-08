@@ -91,7 +91,7 @@
                           (header/transform header))
   content-sel           (u/if-enlive-node content
                           (html/substitute content)
-                        (content/build content))
+                          (content/build content))
   alert-container-sel   (html/content (map alerts/alert alerts))
   alert-container-sel   (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)

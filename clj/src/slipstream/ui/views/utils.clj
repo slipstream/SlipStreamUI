@@ -56,7 +56,8 @@
   ; [:root]
   ; [identity]
   ; [:*] ;; This obviously selects all nodes.
-  [:> html/first-child] ;; This works
+  ; [:> html/first-child] ;; This works
+  html/this-node ;; EUREKA! https://github.com/cgrand/enlive/blob/master/src/net/cgrand/enlive_html.clj#L941
   )
 
 (defn enlive-node?
@@ -64,6 +65,8 @@
   normal clojure maps."
   [n]
   (or
+    (nil? n)
+    (empty? n)
     (instance? clojure.lang.PersistentStructMap n)
     (instance? clojure.lang.PersistentStructMap (first n))))
 

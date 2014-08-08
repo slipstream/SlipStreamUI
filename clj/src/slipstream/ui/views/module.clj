@@ -104,19 +104,19 @@
   (fn [module type category]
     type))
 
-(defmethod content "view" 
+(defmethod content "view"
   [module type category]
   (content-by-category-view module category))
 
-(defmethod content "edit" 
+(defmethod content "edit"
   [module type category]
   (content-by-category-edit module category))
 
-(defmethod content "new" 
+(defmethod content "new"
   [module type category]
   (content-by-category-new module category))
 
-(defmethod content "chooser" 
+(defmethod content "chooser"
   [module type category]
     (content-by-category-view module category))
 
@@ -124,7 +124,7 @@
 ;; javascript inclusion
 
 (def js-scripts-default
-  ["/external/jit/js/jit.js" 
+  ["/external/jit/js/jit.js"
    "/external/jit/js/excanvas.js"
    "/js/sourcecode-editor.js"
    "/external/ace-editor/ace.js"
@@ -213,7 +213,7 @@
 (defn page-legacy [module type]
   (let
     [category (module-model/module-category module)]
-    (base/base 
+    (base/base
       {:js-scripts (js-scripts type category)
        :title (common/title (module-model/module-name module))
        :header (header module type)
