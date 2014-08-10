@@ -1,9 +1,9 @@
-(ns slipstream.ui.views.singin
+(ns slipstream.ui.views.login
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]))
 
-(def template-filename (common/get-template "singin.html"))
+(def template-filename (common/get-template "login.html"))
 
 (html/defsnippet header-snip template-filename base/header-sel
   []

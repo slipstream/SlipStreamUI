@@ -6,7 +6,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.knockknock :as knockknock] ;; TODO: To remove
-            [slipstream.ui.views.singin :as singin]
+            [slipstream.ui.views.login :as login]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.action :as action]
             [slipstream.ui.views.module :as module]
@@ -71,11 +71,11 @@
 (defn reports-page []
   (reports/page reports-data/xml-reports))
 
-(defn singin-page []
-  (singin/page nil nil))
+(defn login-page []
+  (login/page nil nil))
 
-(defn singin-chooser-page []
-  (singin/page projects/xml-projects "chooser"))
+(defn login-chooser-page []
+  (login/page projects/xml-projects "chooser"))
 
 (defn knockknock-page []
   (knockknock/page projects/xml-projects nil))
@@ -190,8 +190,8 @@
 (def routes
   (app
     ["logout"] (render byebye-page)
-    ["login"] (render singin-page)
-    ["login-chooser"] (render singin-chooser-page)
+    ["login"] (render login-page)
+    ["login-chooser"] (render login-chooser-page)
     ["login-legacy"] (render knockknock-page)
     ["login-chooser-legacy"] (render knockknock-chooser-page)
     ["service_catalog"] (render service-catalog-page)

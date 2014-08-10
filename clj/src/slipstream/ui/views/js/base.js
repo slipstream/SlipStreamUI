@@ -1,6 +1,3 @@
-// Pattern from:
-// http://appendto.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/
-
 jQuery( function() { ( function( $$, $, undefined ) {
 
     $(document.body).css("padding-top", $(".navbar").height() || 0);

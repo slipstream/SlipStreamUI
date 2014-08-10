@@ -1,6 +1,3 @@
-// Pattern from:
-// http://appendto.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/
-
 jQuery( function() { ( function( $$, $, undefined ) {
 
     var alertDefaultOptions = {
@@ -51,7 +48,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return true;
     }
 
-    function showPrebuilt(type, titleOrMsg, msg) {
+    function showOfType(type, titleOrMsg, msg) {
         return show({
             type: type,
             title: msg ? titleOrMsg : null,
@@ -59,18 +56,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     }
 
-    $$.alert = {
+    $$.Alert = {
         showError: function (titleOrMsg, msg) {
-            return showPrebuilt("error", titleOrMsg, msg);
+            return showOfType("error", titleOrMsg, msg);
         },
         showWarning: function (titleOrMsg, msg) {
-            return showPrebuilt("warning", titleOrMsg, msg);
+            return showOfType("warning", titleOrMsg, msg);
         },
         showSuccess: function (titleOrMsg, msg) {
-            return showPrebuilt("success", titleOrMsg, msg);
+            return showOfType("success", titleOrMsg, msg);
         },
         showInfo: function (titleOrMsg, msg) {
-            return showPrebuilt("info", titleOrMsg, msg);
+            return showOfType("info", titleOrMsg, msg);
         }
     };
 

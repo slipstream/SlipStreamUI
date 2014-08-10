@@ -23,14 +23,14 @@
             <p class="hidden-xs"><strong>Try it for free!</strong> No credit card needed.</p>
           </div>
           <div class="col-sm-4 col-lg-3 col-lg-offset-1" id="create-account-form" >
-            <form id="form-register"
-            method="post" enctype="application/x-www-form-urlencoded" action="/register"
+            <!-- method="post" enctype="application/x-www-form-urlencoded"-->
+            <form id="register"
+            action="/register"
             data-bv-live="enabled"
             class="form-horizontal"
             data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
             data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
             data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
-
             >
 
             <div class="form-group">
@@ -110,11 +110,11 @@
     <!-- From: http://bootstrapvalidator.com : -->
     <script src="external/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 
-    <script>
-    jQuery(function() {
-      $('#form-register').bootstrapValidator();
-    });
-    </script>
+    <script src="js/util.js"></script>
+    <!-- <script src="js/slipstream.js"></script> -->
+    <script src="js/alert.js"></script>
+    <script src="js/request.js"></script>
+    <script src="js/login.js"></script>
   </div>
 </body>
 </html>

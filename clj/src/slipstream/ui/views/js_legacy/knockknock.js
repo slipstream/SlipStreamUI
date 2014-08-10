@@ -24,11 +24,12 @@ $(document).ready(function() {
         speed: 500,
         mode: 'fade',
         pause: 5000,
-        prevImage: 'images/prev.png',
-        nextImage: 'images/next.png',
+        prevImage: '../images/prev.png',
+        nextImage: '../images/next.png',
     });
     
 	$('#formlogin').submit(function(event){
+		console.log(event);
 		var callback = function(data, status, xhr) {
 		    var location;
 			if(window.location.search) {
@@ -40,8 +41,11 @@ $(document).ready(function() {
 			window.location.assign(location);
 			hideLogger();
 		}
-		return $$.send($(this), event, $.post, callback);
+		return false;
+		// return $$.send($(this), event, $.post, callback);
 	});
+
+	
 
 	$('#register-dialog').dialog({
 		autoOpen: false,

@@ -1,6 +1,3 @@
-// Pattern from:
-// http://appendto.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/
-
 jQuery( function() { ( function( $$, $, undefined ) {
 
     // Open panel of selected section
@@ -74,7 +71,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return "sucessfully selected";
     }
 
-    $$.section = {
+    $$.Section = {
         select: function (index) {
             return toggleCollapsible(
                 $(".panel-group .panel:nth-child(" + index + ")")

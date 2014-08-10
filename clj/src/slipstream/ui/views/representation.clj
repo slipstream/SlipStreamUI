@@ -4,7 +4,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.common.reload :as reload]
             [slipstream.ui.views.welcome :as welcome]
-            [slipstream.ui.views.singin :as singin]
+            [slipstream.ui.views.login :as login]
             ; [slipstream.ui.views.knockknock :as knockknock]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.action :as action]
@@ -52,7 +52,7 @@
 
 (defmethod gen-page "login"
   [metadata pagename type]
-    (render (singin/page (xml-string-to-map metadata) type)))
+    (render (login/page (xml-string-to-map metadata) type)))
 
 (defmethod gen-page "logout"
   [metadata pagename type]
