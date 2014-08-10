@@ -164,11 +164,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     event.preventDefault();
                     request.dataObject($(this).serializeObject())
                         .send()
+                        .always(request.intern.always)
                         .always(function () {
                             // Mark it so that the next submit can be performed
                             $form.data("submitted", false);
-                        })
-                        .always(request.intern.always);
+                        });
                     return false;
                 });
             }

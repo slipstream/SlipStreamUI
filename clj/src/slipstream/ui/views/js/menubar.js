@@ -10,7 +10,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.Request
             .delete("/logout")
             .onSuccessRedirectURL("/login")
-            .onErrorAlert("Something wrong happened when trying to log out.")
+            .onErrorAlert("Unable to log out",
+                "Something wrong happened when trying to log you out." +
+                " Maybe the server is unreachable, or the connection is down." +
+                "Please try later again.")
             .send();
     }
     $("a.ss-logout-action").on("click", logout);

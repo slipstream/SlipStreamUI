@@ -2,15 +2,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var alertDefaultOptions = {
       type: "info",
-      title: null,
-      msg: null
+      title: undefined,
+      msg: undefined
     };
 
     function show(options) {
 
         var settings,
             $alertContainer,
-            $alertElem;
+            $alertElem,
+            $lastAlertElem;
 
         $alertContainer = $("#alert-container");
 
@@ -42,6 +43,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $alertElem.find(".alert-title").html(settings.title);
         }
 
+        $lastAlertElem = $("#alert-container div.alert").first();
+        if ( $alertElem.html() == $lastAlertElem.html() ){
+            // Highlight the last alert instead of adding the same again.
+            // Happy to learn a nicer way to highlight it ;)
+            $lastAlertElem.fadeTo(80, 0.3,
+                function (){
+                    $lastAlertElem.fadeTo(120, 1);
+                });
+            return true;
+        }
+
         $alertContainer.prepend($alertElem);
         $alertElem.show("fast");
 
@@ -51,7 +63,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function showOfType(type, titleOrMsg, msg) {
         return show({
             type: type,
-            title: msg ? titleOrMsg : null,
+            title: msg ? titleOrMsg : undefined,
             msg: msg ? msg : titleOrMsg,
         });
     }
