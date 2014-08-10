@@ -2,6 +2,9 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.views.tables :as t]
+            [slipstream.ui.views.secondary-menu-actions :as action]
+            [slipstream.ui.models.users :as mu]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
@@ -70,11 +73,18 @@
      :header (header-snip users)
      :content (content-snip users)}))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn page [users]
   (base/generate
     {:metadata users
-     :placeholder-page? true
      :header {:icon icons/users
               :title "Users"
               :subtitle "Configure the users in the SlipStream service."}
-     :content nil}))
+     :breadcrumbs [{:text "Users"}]
+     :secondary-menu-actions [action/new-user]
+     :content [{:title "Users"
+                :selected? true
+                :content (t/users-table (mu/users users))}]}))

@@ -5,10 +5,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .post()
         .onErrorStatusCodeAlert(500, "Server Error",
             "Sorry, something unexpected happend while processing your registration request.")
-        // .onError(function () {
-        //     console.log(arguments);
-        //     return;
-        // })
         .onSuccessAlert("Registration successful",
             "You will receive in short an email with instructions to validate the account.")
         .useToSubmitForm("#register");

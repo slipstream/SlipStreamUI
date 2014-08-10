@@ -7,6 +7,11 @@
    :uri  "module/new"
    :icon icons/action-new-project})
 
+(def new-user
+  {:name "New user"
+   :uri  "user/new"
+   :icon icons/action-new-user})
+
 (def run
   {:name "Run..."
    :uri  "module/new"

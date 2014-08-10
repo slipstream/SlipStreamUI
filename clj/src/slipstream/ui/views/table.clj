@@ -50,8 +50,9 @@
 
 (html/defsnippet rows-snip template-filename table-row-sel
   [rows]
-  u/this (html/clone-for [row rows]
-           u/this (html/content (map cell-node row))))
+  u/this (html/clone-for [{:keys [style cells]} rows]
+           u/this (html/content (map cell-node cells))
+           u/this (u/when-add-class style (name style))))
 
 
 ;; Headers

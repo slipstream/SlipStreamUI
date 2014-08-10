@@ -19,6 +19,7 @@
 (def documentation  ::book)
 
 (def action-new-project project)
+(def action-new-user    user)
 (def action-run         ::send)
 (def action-edit        ::pencil)
 (def action-copy        ::repeat)
