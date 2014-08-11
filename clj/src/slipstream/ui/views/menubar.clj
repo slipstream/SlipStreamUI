@@ -6,17 +6,17 @@
 (def template-filename (common/get-template "menubar.html"))
 
 (def navbar-sel [:.navbar])
-(def menubar-unlogged-sel (concat navbar-sel [:.menubar-unlogged]))
-(def menubar-logged-in-sel (concat navbar-sel [:.menubar-logged-in]))
-(def menubar-super-user-item-sel [:.menubar-super-user-item])
-(def menubar-username-sel [:#menubar-username])
-(def menubar-user-profile-anchor-sel [:#menubar-user-profile-anchor])
+(def menubar-unlogged-sel (concat navbar-sel [:.ss-menubar-unlogged]))
+(def menubar-logged-in-sel (concat navbar-sel [:.ss-menubar-logged-in]))
+(def super-user-item-sel [:.ss-menubar-super-user-item])
+(def username-sel [:#ss-menubar-username])
+(def user-profile-anchor-sel [:#ss-menubar-user-profile-anchor])
 
-(def menubar-unlogged
+(def menubar-unlogged-node
   (let [snip (html/snippet template-filename menubar-unlogged-sel [] identity)]
     (snip)))
 
-(def menubar-logged-in
+(def menubar-logged-in-node
   (let [snip (html/snippet template-filename menubar-logged-in-sel [] identity)]
     (snip)))
 
@@ -34,11 +34,11 @@
 
 (defmethod menubar :unlogged
   [_]
-  menubar-unlogged)
+  menubar-unlogged-node)
 
 (defmethod menubar :logged-in
   [{:keys [user]}]
-  (html/at menubar-logged-in
-           menubar-super-user-item-sel (u/remove-if-not (:super? user))
-           menubar-username-sel (html/content (:name user))
-           menubar-user-profile-anchor-sel (u/set-href (:uri user))))
+  (html/at menubar-logged-in-node
+           super-user-item-sel (u/remove-if-not (:super? user))
+           username-sel (html/content (:name user))
+           user-profile-anchor-sel (u/set-href (:uri user))))

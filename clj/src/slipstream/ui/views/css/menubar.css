@@ -8,62 +8,62 @@ body > .navbar-default .menubar {
   border: none;
 }
 
-body > .navbar .menubar-unlogged,
-body > .navbar .menubar-logged-in {
+body > .navbar .ss-menubar-unlogged,
+body > .navbar .ss-menubar-logged-in {
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
 
-body > .navbar .menubar-unlogged {
+body > .navbar .ss-menubar-unlogged {
   background-color: white;
   border-bottom-color: white;
 }
 
 
-body > .navbar .menubar-logged-in {
+body > .navbar .ss-menubar-logged-in {
   color: white;
   background-color: #a00;
   border-bottom-color: #700;
 }
 
-.menubar-logged-in .navbar-nav li > a,
-.menubar-logged-in .navbar-nav .open a,
-.menubar-logged-in .navbar-nav .open .dropdown-menu > li > a {
+.ss-menubar-logged-in .navbar-nav li > a,
+.ss-menubar-logged-in .navbar-nav .open a,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a {
   color: inherit;
   background-color: transparent;
 }
 
-.menubar-logged-in .dropdown-menu {
+.ss-menubar-logged-in .dropdown-menu {
   background-color: #a00;
 }
 
-.menubar-logged-in .navbar-nav li > a:hover,
-.menubar-logged-in .navbar-nav li > a:focus,
-.menubar-logged-in .navbar-nav li > a:active,
-.menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:hover,
-.menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:focus,
-.menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:active {
+.ss-menubar-logged-in .navbar-nav li > a:hover,
+.ss-menubar-logged-in .navbar-nav li > a:focus,
+.ss-menubar-logged-in .navbar-nav li > a:active,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:hover,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:focus,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:active {
   color: inherit;
   background-color: #950000;
 }
 
 /* Menu toggle toggle button */
 
-.menubar-logged-in .navbar-toggle {
+.ss-menubar-logged-in .navbar-toggle {
   border-color: white;
   background-color: transparent;
 }
 
-.menubar-logged-in .navbar-toggle .icon-bar {
+.ss-menubar-logged-in .navbar-toggle .icon-bar {
   background-color: white;
 }
 
-.menubar-logged-in .navbar-toggle:hover,
-.menubar-logged-in .navbar-toggle:focus {
+.ss-menubar-logged-in .navbar-toggle:hover,
+.ss-menubar-logged-in .navbar-toggle:focus {
   background-color: #950000;
 }
 
-.menubar-logged-in .navbar-nav li > a:active {
+.ss-menubar-logged-in .navbar-nav li > a:active {
   color: inherit;
   background-color: #800;
   -webkit-box-shadow: inset 0 0 8px 6px #700000;
@@ -74,9 +74,9 @@ body > .navbar .menubar-logged-in {
 /* Pushed down effet on other than mobile (!xs) */
 
 @media (min-width: 767px) {
-  .menubar-logged-in .navbar-nav li.open > a,
-  .menubar-logged-in .navbar-nav li.open > a:hover,
-  .menubar-logged-in .navbar-nav li.open > a:focus {
+  .ss-menubar-logged-in .navbar-nav li.open > a,
+  .ss-menubar-logged-in .navbar-nav li.open > a:hover,
+  .ss-menubar-logged-in .navbar-nav li.open > a:focus {
     color: inherit;
     background-color: #800;
     -webkit-box-shadow: inset 0 0 8px 6px #700000;
@@ -89,7 +89,7 @@ body > .navbar .menubar-logged-in {
 
 @media (max-width: 767px) {
 
-  .menubar-logged-in .navbar-nav li.dropdown.open {
+  .ss-menubar-logged-in .navbar-nav li.dropdown.open {
     color: inherit;
     background-color: #800;
     -webkit-box-shadow: inset 0 0 8px 6px #700000;
@@ -97,18 +97,18 @@ body > .navbar .menubar-logged-in {
     box-shadow: inset 0 0 8px 6px #700000;
   }
 
-  .menubar-logged-in .navbar-nav li.open > a,
-  .menubar-logged-in .navbar-nav li.open > a:hover,
-  .menubar-logged-in .navbar-nav li.open > a:focus {
+  .ss-menubar-logged-in .navbar-nav li.open > a,
+  .ss-menubar-logged-in .navbar-nav li.open > a:hover,
+  .ss-menubar-logged-in .navbar-nav li.open > a:focus {
     color: inherit;
     background-color: transparent;
   }
 
-  .menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:hover {
+  .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:hover {
     background-color: #700;
   }
 
-  .menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:active {
+  .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:active {
     background-color: #500000;
     -webkit-box-shadow: inset 0 0 8px 6px #600000;
     -moz-box-shadow: inset 0 0 8px 6px #600000;

@@ -17,7 +17,7 @@
 
 
   <div class="navbar navbar-default">
-    <div class="menubar menubar-unlogged">
+    <div class="menubar ss-menubar-unlogged">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -63,7 +63,7 @@
         </form>
       </div><!--/.navbar-collapse -->
     </div><!--/.container -->
-  </div><!--/.menubar-unlogged #menubar -->
+  </div><!--/.ss-menubar-unlogged .menubar -->
 </div><!--/.navbar -->
 
 <hr>
@@ -73,7 +73,7 @@
 </h1>
 
 <div class="navbar navbar-default">
-  <div class="menubar menubar-logged-in">
+  <div class="menubar ss-menubar-logged-in">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -89,16 +89,16 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a  class="active" href="/dashboard">Dashboard</a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle navbar-super-user-item" data-toggle="dropdown">Configuration <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle ss-menubar-super-user-item" data-toggle="dropdown">Configuration <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="/configuration"><span class="glyphicon glyphicon-cog"></span> System</a></li>
               <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="menubar-username">username</span> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="ss-menubar-username">username</span> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a id="menubar-user-profile-anchor" href="/user/username"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+              <li><a id="ss-menubar-user-profile-anchor" href="/user/username"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
               <li><a href="/documentation"><span class="glyphicon glyphicon-book"></span> Documentation</a></li>
               <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
               <li class="divider"></li>
@@ -108,7 +108,7 @@
         </ul>
       </div><!--/.navbar-collapse -->
     </div><!--/.container -->
-  </div><!--/.menubar-logged-in #menubar -->
+  </div><!--/.ss-menubar-logged-in .menubar -->
 </div><!--/.navbar -->
 
 <div class="container">

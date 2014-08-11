@@ -150,7 +150,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 var request = this,
                     $form = $("form" + sel),
                     url = $form.attr("action");
-                request.onErrorStatusCodeAlert(0, "No internet connection.")
+                // StatusCode 0: No internet connection.
+                request.onErrorStatusCodeAlert(0, "Something strange out there",
+                    "Sorry, but we're having trouble connecting to SlipStream. This problem is" +
+                     "usually the result of a broken Internet connection. You can try" +
+                     "refreshing this page and doing the request again.")
                     // .serialization("json")
                     .url(url);
                 $form.off("submit");

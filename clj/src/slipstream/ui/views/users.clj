@@ -88,3 +88,6 @@
      :content [{:title "Users"
                 :selected? true
                 :content (t/users-table (mu/users users))}]}))
+
+;; TODO: Make sections non-collapsible
+;; TODO: Remove config menu for non-admins
