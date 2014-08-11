@@ -26,6 +26,12 @@
      (memoize
        (fn ~@body))))
 
+(defn first-not-nil
+  [& args]
+  "Returns the first args which is not nil. Useful to deal with boolean vars,
+  to differenciate nil from a defined 'false'."
+  (first (drop-while nil? args)))
+
 ;; SlipStream
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
@@ -83,6 +89,8 @@
     (html/html-content (str html-content))))
 
 (defmacro when-add-class
+  "Consider using (enable-class enable? cls) function below, instead of this one,
+  since it will also ensure it's not present if enabled? is falsey."
   [test & classes]
   `(if ~test
     (html/add-class ~@classes)
@@ -126,30 +134,48 @@
      ~form-when-false))
 
 (defmacro defn-set-attr
-  "Defines 2 top level functions as a helpers to set attr values.
-  Ex: (defn-set-attr :href) will create 'set-href and 'when-set-href
+  "Defines 3 top level functions as a helpers to set attr values.
+  Ex: (defn-set-attr :href) will create 'set-href, 'if-set-href and 'when-set-href
   functions in the current namespace. See doc-str of generated functions
   for details."
-  [attr-name]
-  (let [doc-str (str "\n  Defined with the macro " (first &form) " on namespace " *ns* ", line " (-> &form meta :line) ".")
-        set-fn-symbol (symbol (str "set-" (name attr-name)))
-        when-set-fn-symbol (symbol (str "when-set-" (name attr-name)))
+  [attr]
+  (let [attr (keyword attr)
+        attr-name (name attr)
+        doc-str (str "\n  Defined with the macro " (first &form) " on namespace " *ns* ", line " (-> &form meta :line) ".")
+        set-fn-symbol (symbol (str "set-" attr-name))
+        if-set-fn-symbol (symbol (str "if-set-" attr-name))
+        when-set-fn-symbol (symbol (str "when-set-" attr-name))
         ;; NOTE: Not using gemsym higienic symbols, since not needed and it makes the code and (doc) weird.
         parts-symbol (symbol "parts")
+        truthy-value-symbol (symbol "value-if-truthy")
+        falsey-value-symbol (symbol "value-if-falsey")
         test-symbol (symbol "test")]
     `(do
       (defn ~set-fn-symbol
-          ~(str "If parts are not nil, shortcut to (html/set-attr " (keyword attr-name) " (apply str parts)).\n"
-               "  Note that if parts are nil, attr " (keyword attr-name) " will be removed, instead of setting a\n"
+          ~(str "If parts are not nil, shortcut to (html/set-attr " attr " (apply str parts)).\n"
+               "  Note that if parts are nil, attr '" attr-name "' will be removed, instead of setting a\n"
                "  blank string as value, as done by default by enlive."
                doc-str)
           [& ~parts-symbol]
           ; (list 'println "Setting" attr-name "to value" '(apply str ~parts-symbol)) ;; TODO: Only for dev
           (if (apply = nil ~parts-symbol)
-             (html/remove-attr ~(keyword attr-name))
-             (html/set-attr ~(keyword attr-name) (apply str ~parts-symbol))))
+             (html/remove-attr ~attr)
+             (html/set-attr ~attr (apply str ~parts-symbol))))
+      (defn ~if-set-fn-symbol
+          ~(str "Sets the attr '" attr-name "' to 'value-if-truthy' if test is truthy, and to"
+                " 'value-if-falsey' otherwise."
+                "\n  On both branches, a nil value removes the attr '" attr-name "', instead of setting a blank string as value,"
+                "\n  as done by default by enlive."
+                doc-str)
+          [~test-symbol ~truthy-value-symbol ~falsey-value-symbol]
+          (if ~test-symbol
+            (~set-fn-symbol ~truthy-value-symbol)
+            (~set-fn-symbol ~falsey-value-symbol)))
       (defn ~when-set-fn-symbol
-          ~(str "Sets the attr " attr-name " if test is truthy." doc-str)
+          ~(str "Sets the attr '" attr-name "' if test is truthy, and leaves it untouched otherwise."
+                "\n  Note that if parts are nil, attr '" attr-name "' will be removed, instead of setting a"
+                "\n  blank string as value, as done by default by enlive."
+                doc-str)
           [~test-symbol & ~parts-symbol]
           (if ~test-symbol
             (apply ~set-fn-symbol ~parts-symbol)

@@ -14,7 +14,4 @@
      :breadcrumbs [{:text "Users"}]
      :secondary-menu-actions [action/new-user]
      :content [{:title "Users"
-                :selected? true
                 :content (t/users-table (mu/users users))}]}))
-
-;; TODO: Make sections non-collapsible
