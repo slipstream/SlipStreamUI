@@ -62,6 +62,7 @@
   [user message code]
     (render (error/page message code (xml-string-to-map user))))
 
+;; NOTE: Done :)
 (defmethod gen-page "documentation"
   [user pagename type]
     (render (documentation/page (xml-string-to-map user))))

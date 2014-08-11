@@ -1,6 +1,9 @@
 (ns slipstream.ui.views.versions
   (:require [net.cgrand.enlive-html :as html]
-            [clojure.string :as string]
+            [clojure.string :as s]
+            [slipstream.ui.views.tables :as t]
+            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.models.versions :as mv]
             [slipstream.ui.models.common :as common-models]
             [slipstream.ui.models.modules :as modules]
             [slipstream.ui.models.module :as module-models]
@@ -17,8 +20,8 @@
 
 (html/defsnippet header-snip header-views/header-template-html header-views/header-sel
   [versions]
-  header-views/titles-sel (html/substitute 
-                            (apply header-views/header-titles-snip 
+  header-views/titles-sel (html/substitute
+                            (apply header-views/header-titles-snip
                                    (modules/titles-from-versions versions)))
   header-views/header-top-bar-sel (html/substitute
                                (header-views/header-top-bar-snip
@@ -31,8 +34,8 @@
 (html/defsnippet items-snip versions-template-html [versions-sel :> :table]
   [versions]
   [:tbody :> [:tr html/last-of-type]] nil
-  [:tbody :> [:tr html/first-of-type]] 
-    (html/clone-for 
+  [:tbody :> [:tr html/first-of-type]]
+    (html/clone-for
       [child (sort-by
                #(read-string
                   (:version (common-models/attrs %)))
@@ -47,16 +50,16 @@
 (defn sanitize-module-name
   "Drop the leading 'module-models/' and the version number at the end"
   [module-name]
-  (apply str 
-         (drop common/drop-module-slash-no-of-chars 
-               (string/join "/" 
-                            (drop-last (string/split module-name #"/"))))))
+  (apply str
+         (drop common/drop-module-slash-no-of-chars
+               (s/join "/"
+                            (drop-last (s/split module-name #"/"))))))
 
 (html/defsnippet content-snip versions-template-html common/content-sel
   [versions]
   common/breadcrumb-sel
   (module-base/breadcrumb
-    (sanitize-module-name 
+    (sanitize-module-name
       (:resourceuri
         (common-models/attrs
           (first-item versions)))))
@@ -79,9 +82,34 @@
   [type]
   [])
 
-(defn page [versions type]
-  (base/base 
+(defn page-legacy [versions type]
+  (base/base
     {:js-scripts (js-scripts type)
      :title (common/title "Versions")
      :header (module-base/header versions type header-snip)
      :content (content-snip versions)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- subtitle
+  [category versions]
+  (format "There %s of this %s."
+    (if (= 1 (count versions))
+      "is one version"
+      (str "are " (count versions) " versions"))
+    (s/lower-case (or category "{unkown module category}"))))
+
+(defn page [metadata type]
+  (let [{:keys [versions breadcrumbs module-name category]} (mv/parse metadata)
+        icon (icons/icon-for category)]
+    (base/generate
+      {:metadata metadata
+       :type type
+       :header {:icon icon
+                :title (str "History of '" module-name"'")
+                :subtitle (subtitle category versions)}
+       :breadcrumbs breadcrumbs
+       :content [{:title "Versions"
+                  :content (t/versions-table icon versions)}]})))

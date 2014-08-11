@@ -2,10 +2,13 @@
   "Predefined icons for SlipStream items as an abstraction of the underlying
   icon or icon set used, e.g. Glyphicons or other..."
   (:refer-clojure :exclude [set])
-  (:require [slipstream.ui.views.utils :as u :refer [defn-memo]]
+  (:require [clojure.string :as s]
+            [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [net.cgrand.enlive-html :as html]))
 
 (u/def-this-ns)
+
+(def unknown        ::question-sign)
 
 (def home           ::home)
 (def project        ::folder-open)
@@ -14,6 +17,7 @@
 (def users          user)
 (def dashboard      ::dashboard)
 (def run            ::th)
+(def deployment     run)
 (def image          ::hdd)
 (def config         ::cog) ; or ::wrench
 (def documentation  ::book)
@@ -25,6 +29,18 @@
 (def action-copy        ::repeat)
 (def action-unpublish   ::globe)
 (def action-log-out     ::log-out)
+
+(defn icon-for
+  "Returns the icon keywords given a keyword or a string.
+  E.g. given :deployment, 'deployment' or 'Deployment' returns :slipstream.ui.views.util.icons/th.
+  Useful to "
+  [item]
+  (->> (or item "unknown")
+       name
+       s/lower-case
+       (symbol this-ns)
+       resolve
+       var-get))
 
 ;; Bootstrap
 

@@ -32,6 +32,46 @@
   to differenciate nil from a defined 'false'."
   (first (drop-while nil? args)))
 
+(defn parse-pos-int
+  "Reads a positive integer number from a string. Returns nil if not a positive integer."
+  [s]
+  (binding [*read-eval* false]
+    (when (re-find #"^\d+$" s)
+      (read-string s))))
+
+(defn trim-up-to-last
+  "Returns the input string without the characters appearing before the last char passed,
+  and without the char, e.g. '(trim-up-to-last \\. 'a.b.c.d') => 'd'"
+  [s c]
+  {:pre [(char? c)]}
+  (when s
+    (->> s
+         reverse
+         (take-while #(not (= c %)))
+         reverse
+         (apply str))))
+
+(defn trim-from-last
+  "Returns the input string without the characters appearing after the last char passed,
+  and without the char, e.g. '(trim-from-last \\. 'a.b.c.d') => 'a.b.c'"
+  [s c]
+  {:pre [(char? c)]}
+  (when s
+    (->> s
+         reverse
+         (drop-while #(not (= c %)))
+         rest
+         reverse
+         (apply str))))
+
+(defn trim-last-path-segment
+  [path-str]
+  (trim-from-last path-str \/))
+
+(defn get-last-path-segment
+  [path-str]
+  (trim-up-to-last path-str \/))
+
 ;; SlipStream
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.

@@ -1,7 +1,7 @@
 (ns slipstream.ui.models.users
   (:require [net.cgrand.enlive-html :as html]))
 
-(def ^:private user-sel [:list [:item]])
+(def ^:private user-sel [:list :item])
 
 (defn- user-metadata
   [user-node]

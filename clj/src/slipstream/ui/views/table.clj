@@ -35,7 +35,6 @@
   [cell]
     (cell-link-snip (assoc cell :open-in-new-window? true)))
 
-
 (html/defsnippet cell-icon-snip template-filename cell-icon-sel
   [icon]
   [:span] (icons/set icon))
