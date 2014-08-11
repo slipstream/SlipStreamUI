@@ -21,7 +21,9 @@
   u/this (u/content-for section-sel [{:keys [title selected? content type] :as section} sections
                    :let [section-uid (gensym section-id)
                          unique-section? (-> sections count (= 1))
-                         collapsible? (not (nil? selected?))]]
+                         collapsible? (if (nil? selected?)
+                                        (not unique-section?)
+                                        true)]]
     section-sel         (u/enable-class (u/first-not-nil selected? unique-section?) section-selected-cls)
     section-sel         (u/when-add-class type (str "ss-section-" (name type)))
     section-title-sel   (html/content (str title))
