@@ -67,6 +67,7 @@
   [user pagename type]
     (render (documentation/page (xml-string-to-map user))))
 
+;; NOTE: Done :)
 (defmethod gen-page "versions"
   [metadata pagename type]
     (render (versions/page (xml-string-to-map metadata) type)))

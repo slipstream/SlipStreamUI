@@ -1,7 +1,7 @@
 (ns slipstream.ui.models.versions
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u] ))
+            [slipstream.ui.views.utils :as u]))
 
 (def ^:private version-sel [:versionList :item])
 (def ^:private commit-sel [:commit])
