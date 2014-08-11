@@ -128,9 +128,20 @@ function init(){
 	};
 
 	var addNode = function(nodeName, multiplicity, orchestrator) {
-		nodeName = nodeName.trim();
+		var nodeName = nodeName.trim();
 		var node = {name: nodeName, id: "id_" + nodeName, data: {type: "node"}, children: []};
-		addVm($("#" + nodeName + "\\:ids").text(), node);
+		var idList = $("#" + nodeName + "\\:ids").text()
+
+		if (idList.length == 0){
+		    idList = '';
+		    var multiplicity = $("#" + nodeName + "\\.1\\:multiplicity").text()
+		    for (var i=1; i < parseInt(multiplicity); i++) {
+		        idList += i + ',';
+		    }
+		    idList += multiplicity;
+		}
+
+		addVm(idList, node);
 		orchestrator.children.push(node);
 	};
 
