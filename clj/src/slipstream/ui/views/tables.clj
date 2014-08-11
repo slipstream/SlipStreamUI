@@ -54,3 +54,31 @@
         rows (map user-row users)]
     (table/build {:headers headers
                   :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def ^:private doc-headers
+  [nil
+   "Name"
+   "HTML"
+   "PDF"
+   "ePub"])
+
+(defn- doc-row
+  [{:keys [title basename] :as doc}]
+  {:style nil
+   :cells [{:type :cell/icon, :content icons/documentation}
+           {:type :cell/text, :content title}
+           {:type :cell/external-link, :content {:text "Open in new page"
+                                                 :href (str "/html/" basename ".html")}}
+           {:type :cell/external-link, :content {:text "Open PDF in new page"
+                                                 :href (str "/pdf/" basename ".pdf")}}
+           {:type :cell/external-link, :content {:text "Download"
+                                                 :href (str "/epub/" basename ".epub")}}]})
+
+(defn docs-table
+  [docs]
+  (let [headers doc-headers
+        rows (map doc-row docs)]
+    (table/build {:headers headers
+                  :rows rows})))

@@ -186,6 +186,7 @@
 (defn-set-attr :id)
 (defn-set-attr :src)
 (defn-set-attr :class)
+(defn-set-attr :target)
 
 (defmacro content-for
   "Replaces the content of the matched node with clones of the child matching

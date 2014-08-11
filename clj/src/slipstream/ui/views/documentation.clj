@@ -2,6 +2,7 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
@@ -30,11 +31,21 @@
      :header (header-snip (user-model/user user))
      :content (content-snip)}))
 
-(defn page [user]
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def ^:private docs
+  [{:title "User Guide and Tutorial"  :basename "tutorial"}
+   {:title "Administrator Manual"     :basename "administrator-manual"}
+   {:title "Terms of Service"         :basename "terms-of-service"}])
+
+(defn page [metadata]
   (base/generate
-    {:metadata user
-     :placeholder-page? true
+    {:metadata metadata
      :header {:icon icons/documentation
               :title "Documentation"
               :subtitle "SlipStream technical documentation at a glance"}
-     :content nil}))
+     :breadcrumbs [{:text "Documentation"}]
+     :content [{:title "Documentation"
+                :content (t/docs-table docs)}]}))

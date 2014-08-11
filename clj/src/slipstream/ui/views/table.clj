@@ -26,9 +26,14 @@
   u/this (html/content (str text)))
 
 (html/defsnippet cell-link-snip template-filename cell-link-sel
-  [{:keys [text href]}]
+  [{:keys [text href open-in-new-window?]}]
     [:a] (html/content (str text))
-    [:a] (u/set-href href))
+    [:a] (u/set-href href)
+    [:a] (u/when-set-target open-in-new-window? "_blank"))
+
+(defn cell-external-link-snip
+  [cell]
+    (cell-link-snip (assoc cell :open-in-new-window? true)))
 
 
 (html/defsnippet cell-icon-snip template-filename cell-icon-sel
@@ -38,6 +43,7 @@
 (def cell-snip-dispatching
   {:cell/text cell-text-snip
    :cell/link cell-link-snip
+   :cell/external-link cell-external-link-snip
    :cell/icon cell-icon-snip})
 
 (defn- cell-node
