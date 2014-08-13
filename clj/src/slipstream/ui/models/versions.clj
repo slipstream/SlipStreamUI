@@ -28,29 +28,6 @@
        (map version-metadata)
        (sort-by :version)))
 
-(def ^:private breadcrumbs-root "module")
-
-(defn- breadcrumbs
-  "From some module resourceUri, will build up the breadcrumbs metadata.
-  E.g. From this uri 'module/examples/tutorials/wordpress/wordpress/180'
-    it will build this breadcrumbs:
-    [{:text 'examples' :uri 'module/examples'}
-     {:text 'tutorials' :uri 'module/examples/tutorials'}
-     {:text 'wordpress' :uri 'module/examples/tutorials/wordpress'}
-     {:text 'wordpress' :uri 'module/examples/tutorials/wordpress/wordpress'}]"
-  [version-node]
-  (let [module-path (-> version-node
-                        (get-in [:attrs :resourceuri])
-                        u/trim-last-path-segment)
-        uris (->> module-path
-                  (iterate u/trim-last-path-segment)
-                  (take-while not-empty)
-                  reverse)]
-    (into [] (for [uri uris
-                   :let [uri-name (u/get-last-path-segment uri)]]
-               {:text uri-name
-                :uri (when (not= breadcrumbs-root uri-name) uri)}))))
-
 (defn- module-name
   [version-nodes]
   (-> version-nodes
@@ -62,6 +39,8 @@
   (let [version-nodes (html/select metadata version-sel)
         first-version-node (first version-nodes)]
    {:versions (versions version-nodes)
-    :breadcrumbs (breadcrumbs first-version-node)
+    :resource-uri (-> first-version-node
+                      (get-in [:attrs :resourceuri])
+                      u/trim-last-path-segment)
     :module-name (get-in first-version-node [:attrs :name])
     :category (get-in first-version-node [:attrs :category])}))

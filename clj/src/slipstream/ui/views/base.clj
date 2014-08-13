@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
             [slipstream.ui.models.version :as version]
-            [slipstream.ui.models.user :as mu]
+            [slipstream.ui.models.user.loggedin :as user-loggedin]
             [slipstream.ui.views.utils :as u :refer [defn-memo]]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
@@ -11,14 +11,18 @@
             [slipstream.ui.views.section :as section]
             [slipstream.ui.views.content :as content]
             [slipstream.ui.views.menubar :as menubar]
+            [slipstream.ui.views.table :as table]
             [slipstream.ui.views.breadcrumbs :as breadcrumbs]
             [slipstream.ui.views.secondary-menu :as secondary-menu]
             ))
+
+(def ^:dynamic *prod?* true)
 
 (def base-template-filename (common/get-template "base.html"))
 
 (def head-sel [:head])
 (def page-title-sel (concat head-sel [:> :title]))
+(def base-sel (concat head-sel [:> :base]))
 
 (def css-container-sel head-sel)
 (def css-sel (concat css-container-sel [:> :link]))
@@ -67,7 +71,7 @@
            placeholder-page?
            page-title
            header
-           breadcrumbs
+           resource-uri
            secondary-menu-actions
            content
            type
@@ -78,11 +82,12 @@
   [:body]               (u/enable-class placeholder-page? placeholder-page-cls)
   [:body]               (u/enable-class beta-page? beta-page-cls)
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
+  base-sel              (u/when-set-href *prod?* "/")
   menubar-sel           (html/substitute (menubar/menubar context))
   topbar-sel            (u/remove-if (and (u/chooser? type) (empty? alerts)))
   breadcrumbs-sel       (breadcrumbs/transform context)
   secondary-menu-sel    (secondary-menu/transform context)
-  secondary-menubar-sel (u/remove-if-not (or breadcrumbs secondary-menu-actions))
+  secondary-menubar-sel (u/remove-if-not (or resource-uri secondary-menu-actions))
   [:#release-version]   (html/content @version/slipstream-release-version)
   footer-sel            (u/remove-if (u/chooser? type))
   css-container-sel     (html/append (additional-html css-sel involved-templates))
@@ -100,10 +105,11 @@
 
 (defn generate
   [{:keys [header metadata template-filename content alerts] :as context}]
-  (let [user (mu/user-map metadata)
+  (let [user (user-loggedin/parse metadata)
         involved-templates [alerts/template-filename
                             menubar/template-filename
                             section/template-filename ;; TODO: only if sections in body.
+                            table/template-filename ;; TODO: only if tables in body.
                             template-filename]]
     (println "Generating base for" template-filename)
     ; (println "   user:" user)

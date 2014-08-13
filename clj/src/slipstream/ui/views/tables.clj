@@ -1,7 +1,8 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
   (:require [slipstream.ui.views.table :as table]
-            [slipstream.ui.views.util.icons :as icons]))
+            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.models.parameters :as p]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -107,3 +108,49 @@
         rows (map (partial version-row icon) versions)]
     (table/build {:headers headers
                   :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def ^:private parameter-headers
+  ["Description"
+   "Value"])
+
+(defn- parameter-type->cell-type
+  [parameter-type]
+  (case parameter-type
+    "Enum"              :cell/text
+    "String"            :cell/text
+    "Boolean"           :cell/boolean
+    "RestrictedText"    :cell/text
+    "Password"          :cell/password
+    "RestrictedString"  :cell/text))
+
+(defn- parameter-row
+  [{:keys [type description value] :as parameter}]
+  {:style nil
+   :cells [{:type :cell/text, :content description}
+           {:type (parameter-type->cell-type type), :content value}]})
+
+(defn parameters-table
+  [parameters]
+  (let [headers parameter-headers
+        rows (map parameter-row parameters)]
+    (table/build {:headers headers
+                  :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn user-summary-table
+  [user-summary-map]
+  (parameters-table
+    (p/map->parameter-list user-summary-map
+      :username     {:description "Username"          :type "String"}
+      :first-name   {:description "First name"        :type "String"}
+      :last-name    {:description "Last name"         :type "String"}
+      :organization {:description "Organization"      :type "String"}
+      :email        {:description "Email"             :type "String"}
+      :super?       {:description "Is administrator?" :type "Boolean"}
+      :creation     {:description "Date of creation"  :type "String"}
+      :state        {:description "Status"            :type "String"})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,0 +1,4 @@
+td.ss-table-cell-boolean > input[type="checkbox"],
+td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
+  cursor: default;
+}

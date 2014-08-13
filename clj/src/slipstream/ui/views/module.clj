@@ -227,9 +227,7 @@
      :header {:icon icons/module
               :title "Project name"
               :subtitle "Version: 53 - Project description"}
-     :breadcrumbs [{:text "Module" :icon icons/module}
-                   {:text "IARO" :icon icons/module :uri "/modules/iaro"}
-                   {:text "477" :uri "/modules/iaro/477"}]
+     :resource-uri "/module/iaro/477"
      :secondary-menu-actions [action/run
                               action/edit
                               action/copy

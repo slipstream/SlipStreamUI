@@ -6,6 +6,7 @@
   <title>Table Template</title>
   <!-- External CSS Stylesheets -->
   <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="css/table.css"/>
 </head>
 <body>
 
@@ -77,8 +78,8 @@
           <th>Icon cell</th>
           <th>Link cell</th>
           <th>Text cell</th>
-          <th>Owner</th>
-          <th>Version</th>
+          <th>Checkbox cell</th>
+          <th>Password cell</th>
         </tr>
       </thead>
       <tbody class="ss-table-body">
@@ -86,28 +87,28 @@
           <td class="ss-table-cell-icon"><span class="glyphicon glyphicon-picture"></span></td>
           <td class="ss-table-cell-link"><a href="#">Some project</a></td>
           <td class="ss-table-cell-text">Description...</td>
-          <td>sixsq</td>
-          <td>123</td>
+          <td class="ss-table-cell-boolean"><input type="checkbox" checked="checked"/></td>
+          <td class="ss-table-cell-password"><input type="password" disabled="" value="asfd"/></td>
         </tr>
         <tr>
           <td><span class="glyphicon glyphicon-th"></span></td>
           <td><a href="module/CELAR/899">Some deployment</a></td>
           <td>Some other description...</td>
-          <td>Joe</td>
+          <td class="ss-table-cell-boolean"><input type="checkbox" checked="checked" disabled="disabled"/></td>
           <td>321</td>
         </tr>
         <tr>
           <td><span class="glyphicon glyphicon-hdd"></span></td>
           <td><a href="module/CELAR/899">Some machine</a></td>
           <td>Some other description...</td>
-          <td>Joe</td>
+          <td class="ss-table-cell-boolean"><input type="checkbox" disabled="disabled"/></td>
           <td>321</td>
         </tr>
         <tr class="danger">
           <td><span class="glyphicon glyphicon-th"></span></td>
           <td><a href="module/CELAR/899">Some deployment</a></td>
           <td>Failed deployment could be with red background (<code>.danger</code>)</td>
-          <td>Joe</td>
+          <td class="ss-table-cell-boolean"><input type="checkbox" class="disabled"/></td>
           <td>321</td>
         </tr>
         <tr class="success">

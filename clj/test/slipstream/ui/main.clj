@@ -185,7 +185,8 @@
 
 (defmacro render
   [page]
-  `(-> (~page) ring.util.response/response constantly))
+  `(binding [base/*prod?* false]
+     (-> (~page) ring.util.response/response constantly)))
 
 (def routes
   (app

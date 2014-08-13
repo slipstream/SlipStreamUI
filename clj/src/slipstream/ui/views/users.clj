@@ -11,7 +11,7 @@
      :header {:icon icons/users
               :title "Users"
               :subtitle "Configure the users in the SlipStream service."}
-     :breadcrumbs [{:text "Users"}]
+     :resource-uri "/users"
      :secondary-menu-actions [action/new-user]
      :content [{:title "Users"
                 :content (t/users-table (mu/users users))}]}))

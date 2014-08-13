@@ -14,6 +14,6 @@
      :header {:icon icons/documentation
               :title "Documentation"
               :subtitle "SlipStream technical documentation at a glance"}
-     :breadcrumbs [{:text "Documentation"}]
+     :resource-uri "/documentation"
      :content [{:title "Documentation"
                 :content (t/docs-table docs)}]}))

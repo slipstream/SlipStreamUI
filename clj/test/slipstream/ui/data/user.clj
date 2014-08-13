@@ -1,6 +1,6 @@
 (ns slipstream.ui.data.user
   (:require [net.cgrand.enlive-html :as html]))
-  
+
 (def xml-user (first (html/html-snippet "<user deleted='false' resourceUri='user/test' name='test' email='test@example.com' firstName='Test' lastName='Me' organization='Disney' issuper='false' state='ACTIVE' creation='2013-03-06 14:30:59.30 UTC'>
    <parameters class='org.hibernate.collection.PersistentMap'>
       <entry>
@@ -86,7 +86,7 @@
       <entry>
          <string><![CDATA[cloudsigma.password]]></string>
          <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='cloudsigma.password' description='CloudSigma account password' category='cloudsigma' mandatory='true' type='Password' readonly='false' order='20'>
-            <value><![CDATA[]]></value>
+            <value><![CDATA[thesecretpassword]]></value>
          </parameter>
       </entry>
       <entry>

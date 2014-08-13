@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.utils
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
             [clojure.zip :as z]
+            [net.cgrand.enlive-html :as html]
             [net.cgrand.xml :as xml]))
 
 ; TODO: Consider splitting this namespace into three:
@@ -36,7 +37,7 @@
   "Reads a positive integer number from a string. Returns nil if not a positive integer."
   [s]
   (binding [*read-eval* false]
-    (when (re-find #"^\d+$" s)
+    (when (and s (re-find #"^\d+$" s))
       (read-string s))))
 
 (defn trim-up-to-last
@@ -72,6 +73,14 @@
   [path-str]
   (trim-up-to-last path-str \/))
 
+(defn trim-last-slash
+  [s]
+  {:pre [(or (nil? s) (string? s))]}
+  (if (and s (-> s last (= \/)))
+    (->> s butlast (apply str))
+    s))
+
+
 ;; SlipStream
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
@@ -89,7 +98,22 @@
     (str slipstream " | " s)
     slipstream))
 
-;; Enlive
+;; NOTE: Memoizing this function decreases performance
+(defn parse-boolean
+  "Casts 'true' and 'false' strings to their corresponding boolean
+  values, both case insensitive and after trimming whitespace right
+  and left, but leaving nil and empty string to nil, which is equivalent
+  to false, but allows to detect if a value was set or not. All other
+  strings will trigger an IllegalArgumentException."
+  [s]
+  {:pre [(or (nil? s) (string? s))]}
+  (when (not-empty s)
+    (cond
+      ; NOTE: (?i) means case-insensitive
+      (re-matches #"(?i)^\s*true\s*$" s)  true
+      (re-matches #"(?i)^\s*false\s*$" s) false
+      :else (throw (IllegalArgumentException.
+                     (str "Cannot parse boolean from string: " s))))))
 
 (def this
   "Selector to match the whole node within a transformation snippet.
@@ -185,6 +209,7 @@
         set-fn-symbol (symbol (str "set-" attr-name))
         if-set-fn-symbol (symbol (str "if-set-" attr-name))
         when-set-fn-symbol (symbol (str "when-set-" attr-name))
+        toggle-fn-symbol (symbol (str "toggle-" attr-name))
         ;; NOTE: Not using gemsym higienic symbols, since not needed and it makes the code and (doc) weird.
         parts-symbol (symbol "parts")
         truthy-value-symbol (symbol "value-if-truthy")
@@ -219,14 +244,27 @@
           [~test-symbol & ~parts-symbol]
           (if ~test-symbol
             (apply ~set-fn-symbol ~parts-symbol)
-            identity)))))
+            identity))
+      (defn ~toggle-fn-symbol
+          ~(str "Sets the attr '" attr-name "' if test is truthy, and removes it otherwise. Note the difference"
+                "\n  with '" (name when-set-fn-symbol) "'. If parts are not provided or they are nil,"
+                "\n  the attr '" attr-name "' will be toggled with a blank string as value, instead of removing"
+                "\n  it as done by other fns of the '" (name set-fn-symbol) "' family."
+                doc-str)
+          [~test-symbol & ~parts-symbol]
+          (if ~test-symbol
+            (~set-fn-symbol (str ~parts-symbol))
+            (html/remove-attr ~attr))))))
 
 (defn-set-attr :href)
 (defn-set-attr :onclick)
 (defn-set-attr :id)
 (defn-set-attr :src)
 (defn-set-attr :class)
+(defn-set-attr :style)
 (defn-set-attr :target)
+(defn-set-attr :checked)
+(defn-set-attr :disabled)
 
 (defmacro content-for
   "Replaces the content of the matched node with clones of the child matching

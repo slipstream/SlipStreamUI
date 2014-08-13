@@ -152,8 +152,5 @@
      :header {:icon icons/run
               :title "91aac79a is DONE"
               :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
-     :breadcrumbs [{:icon icons/dashboard :text "Dashboard"}
-                   {:text "Runs"}
-                   {:icon icons/run :uri "runs/91aac79a" :text "91aac79a"}
-                   {:text "done"}]
+     :resource-uri "/run/91aa79a"
      :content nil}))

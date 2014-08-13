@@ -40,5 +40,5 @@
   [{:keys [user]}]
   (html/at menubar-logged-in-node
            super-user-item-sel (u/remove-if-not (:super? user))
-           username-sel (html/content (:name user))
+           username-sel (html/content (:username user))
            user-profile-anchor-sel (u/set-href (:uri user))))

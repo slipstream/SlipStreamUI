@@ -63,13 +63,11 @@
     (render (error/page message code (xml-string-to-map user))))
 
 ;; NOTE: Done :)
-;; TODO: Check this page :(
 (defmethod gen-page "documentation"
   [user pagename type]
     (render (documentation/page (xml-string-to-map user))))
 
 ;; NOTE: Done :)
-;; TODO: Check this page :(
 (defmethod gen-page "versions"
   [metadata pagename type]
     (render (versions/page (xml-string-to-map metadata) type)))

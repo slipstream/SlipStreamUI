@@ -2,9 +2,12 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.views.tables :as t]
+            [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
+            [slipstream.ui.models.user.core :as user]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
@@ -21,8 +24,8 @@
 
 (html/defsnippet header-snip header/header-template-html header/header-sel
   [user]
-  header/header-summary-sel 
-  (html/substitute 
+  header/header-summary-sel
+  (html/substitute
     (let [attrs (common-model/attrs user)
             firstname (:firstname attrs)
             lastname (:lastname attrs)]
@@ -48,7 +51,7 @@
 (defn parameters-edit-snip
   [parameters-by-category]
   (for [grouped (common-model/sort-map-vals-by-name parameters-by-category)]
-    (list 
+    (list
       (html/html-snippet (str "\n    <h3>" (string/replace (key grouped) #"_" " ") "</h3>"))
       (common/parameters-edit-snip (val grouped) false))))
 
@@ -83,7 +86,7 @@
   [:#organization] (html/set-attr :value (:organization (common-model/attrs user)))
   [:#issuper] (if (user-model/super? user)
                 (html/set-attr :checked "checked")
-                (do 
+                (do
                   (html/remove-attr :checked)
                   (html/set-attr :disabled "disabled"))))
 
@@ -100,7 +103,7 @@
   summary-sel (html/after
                 (parameters-view-snip
                   (common-model/group-by-category (common-model/parameters user))))
-  
+
   [:#parameters-header] nil
   [:#parameters] nil)
 
@@ -116,7 +119,7 @@
 
   summary-sel (html/after
                 (parameters-edit-snip (common-model/group-by-category (common-model/parameters user))))
-  
+
   [:#parameters-header] nil
   [:#parameters] nil)
 
@@ -129,7 +132,7 @@
 
   summary-sel (html/after
                 (parameters-edit-snip (common-model/group-by-category (common-model/parameters user))))
-  
+
   [:#parameters-header] nil
   [:#parameters] nil)
 
@@ -141,15 +144,15 @@
   (fn [user type]
     type))
 
-(defmethod content "view" 
+(defmethod content "view"
   [user type]
   (content-view-snip user))
 
-(defmethod content "edit" 
+(defmethod content "edit"
   [user type]
   (content-edit-snip user))
 
-(defmethod content "new" 
+(defmethod content "new"
   [user type]
   (content-new-snip user))
 
@@ -177,17 +180,38 @@
 
 
 (defn page-legacy [user type]
-  (base/base 
+  (base/base
     {:js-scripts (js-scripts type)
      :title (common/title (common-model/elem-name user))
      :header (header-snip  user)
      :content (content user type)}))
 
-(defn page [user type]
-  (base/generate
-    {:metadata user
-     :placeholder-page? true
-     :header {:icon icons/user
-              :title "Profile"
-              :subtitle "Regular user"}
-     :content nil}))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- category-section
+  [{:keys [category parameters]}]
+  {:title category
+   :content (t/parameters-table parameters)})
+
+(defn- header
+  [user]
+  {:icon icons/user
+   :title (if (:loggedin? user)
+            "Your profile"
+            (str (:username user) "'s user profile"))
+   :subtitle (if (:super? user)
+               "Administrator"
+               "Regular user")})
+
+(defn page [metadata type]
+  (let [user (user/parse metadata)]
+    (base/generate
+      {:metadata metadata
+       :header (header user)
+       :resource-uri (:uri user)
+       :content (into [{:title "Summary"
+                        :selected? true
+                        :content (t/user-summary-table user)}]
+                      (map category-section (parameters/parse metadata)))})))
