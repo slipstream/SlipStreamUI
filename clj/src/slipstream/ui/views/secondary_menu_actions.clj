@@ -12,6 +12,11 @@
    :uri  "user/new"
    :icon icons/action-new-user})
 
+(def edit-user
+  {:name "Edit user (url missing yet)"
+   :uri  "" ; TODO: provide right URL hele
+   :icon icons/action-edit-user})
+
 (def run
   {:name "Run..."
    :uri  "module/new"

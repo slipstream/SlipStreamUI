@@ -4,6 +4,7 @@
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.user.core :as user]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.base :as base]))
 
 (defn- category-section
@@ -26,6 +27,7 @@
     (base/generate
       {:metadata metadata
        :header (header user)
+       :secondary-menu-actions [action/edit-user]
        :resource-uri (:uri user)
        :content (into [{:title "Summary"
                         :selected? true

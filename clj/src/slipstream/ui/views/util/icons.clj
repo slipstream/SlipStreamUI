@@ -23,12 +23,13 @@
 (def documentation  ::book)
 
 (def action-new-project project)
-(def action-new-user    user)
 (def action-run         ::send)
 (def action-edit        ::pencil)
 (def action-copy        ::repeat)
 (def action-unpublish   ::globe)
 (def action-log-out     ::log-out)
+(def action-new-user    user)
+(def action-edit-user   action-edit)
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.
