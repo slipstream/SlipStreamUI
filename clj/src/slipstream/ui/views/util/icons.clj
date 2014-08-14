@@ -23,7 +23,10 @@
 (def documentation  ::book)
 
 (def action-new-project project)
+(def action-new-image   image)
+(def action-new-deployment   deployment)
 (def action-run         ::send)
+(def action-import      ::cloud-upload)
 (def action-edit        ::pencil)
 (def action-copy        ::repeat)
 (def action-unpublish   ::globe)
@@ -34,7 +37,7 @@
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.
   E.g. given :deployment, 'deployment' or 'Deployment' returns :slipstream.ui.views.util.icons/th.
-  Useful to "
+  Useful to retrieve icons for module categories."
   [item]
   (->> (or item "unknown")
        name

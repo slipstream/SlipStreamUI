@@ -22,7 +22,7 @@
                   (take-while not-empty)
                   reverse)]
     (into [] (for [uri uris
-                   :let [uri-name (u/get-last-path-segment uri)
+                   :let [uri-name (u/last-path-segment uri)
                          is-inactive? (or (blind-breadcrumb-segments uri-name)
                                         (= uri (last uris)))
                          breadcrumb-base {:text uri-name}]]

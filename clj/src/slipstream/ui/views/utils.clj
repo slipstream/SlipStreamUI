@@ -69,7 +69,7 @@
   [path-str]
   (trim-from-last path-str \/))
 
-(defn get-last-path-segment
+(defn last-path-segment
   [path-str]
   (trim-up-to-last path-str \/))
 

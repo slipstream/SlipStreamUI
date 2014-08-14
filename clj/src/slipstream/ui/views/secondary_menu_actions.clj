@@ -1,11 +1,27 @@
 (ns slipstream.ui.views.secondary-menu-actions
   "Predefined actions for the secondary menu."
+  (:refer-clojure :exclude [import])
   (:require [slipstream.ui.views.util.icons :as icons]))
 
 (def new-project
   {:name "New project"
    :uri  "module/new"
    :icon icons/action-new-project})
+
+(def new-image
+  {:name "New machine image"
+   :uri  "module/new"
+   :icon icons/action-new-image})
+
+(def new-deployment
+  {:name "New deployment"
+   :uri  "module/new"
+   :icon icons/action-new-deployment})
+
+(def import
+  {:name "Import"
+   :uri  "module/new"
+   :icon icons/action-import})
 
 (def new-user
   {:name "New user"

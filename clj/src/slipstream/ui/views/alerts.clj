@@ -27,6 +27,10 @@
      (keyword? %) :pre-defined
      (map? %) :custom))
 
+(defmethod alert nil
+  [_]
+  nil)
+
 (defmethod alert :pre-defined
   [pre-built-alert-id]
   (prn pre-built-alert-id)

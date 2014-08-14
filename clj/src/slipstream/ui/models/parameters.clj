@@ -43,6 +43,9 @@
        parameter-categories
        (sort-by :category)))
 
+
+;; Parameter util method
+
 (defn map->parameter-list
   "Convert a map of keys and values into a parameter list, in the form used above.
    E.g. [{:name name, :type type, :description description :value value} ... ]"

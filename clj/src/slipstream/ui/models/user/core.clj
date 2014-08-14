@@ -15,6 +15,6 @@
                       :first-name (:firstname attrs)
                       :last-name  (:lastname attrs)
                       :uri        (:resourceuri attrs)
-                      :super?     (u/parse-boolean (:issuper attrs))
-                      :deleted?   (u/parse-boolean (:deleted attrs))
+                      :super?     (-> attrs :issuper u/parse-boolean)
+                      :deleted?   (-> attrs :deleted u/parse-boolean)
                       :loggedin?  (= (:name attrs) (:username loggedin-user))))))

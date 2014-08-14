@@ -32,6 +32,18 @@
           <td>
             <code>.table-condensed</code>
           </td>
+          <td>Makes tables with borders on all sides of the table and cells.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.table-striped</code>
+          </td>
+          <td>Adds zebra-striping to any table row within the <code>tbody</code>.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>.table-bordered</code>
+          </td>
           <td>Makes tables more compact by cutting cell padding in half.</td>
         </tr>
         <tr>
@@ -40,29 +52,35 @@
           </td>
           <td>Applies the hover color to a particular row or cell</td>
         </tr>
-        <tr>
+        <tr class="success">
           <td>
             <code>.success</code>
           </td>
           <td>Indicates a successful or positive action</td>
         </tr>
-        <tr>
+        <tr class="info">
           <td>
             <code>.info</code>
           </td>
           <td>Indicates a neutral informative change or action</td>
         </tr>
-        <tr>
+        <tr class="warning">
           <td>
             <code>.warning</code>
           </td>
           <td>Indicates a warning that might need attention</td>
         </tr>
-        <tr>
+        <tr class="danger">
           <td>
             <code>.danger</code>
           </td>
           <td>Indicates a dangerous or potentially negative action</td>
+        </tr>
+        <tr>
+          <td class="info">
+            <code>.info</code>
+          </td>
+          <td class="warning">Classes to modify the background color might be applied only to a particular cell.</td>
         </tr>
       </tbody>
     </table>
@@ -75,55 +93,43 @@
     <table class="table table-responsive table-hover table-condensed ss-table">
       <thead class="ss-table-head">
         <tr>
-          <th>Icon cell</th>
-          <th>Link cell</th>
-          <th>Text cell</th>
-          <th>Checkbox cell</th>
-          <th>Password cell</th>
+          <th>Cell class</th>
+          <th>Cell description</th>
+          <th>Template cell</th>
         </tr>
       </thead>
       <tbody class="ss-table-body">
         <tr>
-          <td class="ss-table-cell-icon"><span class="glyphicon glyphicon-picture"></span></td>
-          <td class="ss-table-cell-link"><a href="#">Some project</a></td>
+          <td><code>ss-table-cell-text</code></td>
+          <td>Text cell</td>
           <td class="ss-table-cell-text">Description...</td>
-          <td class="ss-table-cell-boolean"><input type="checkbox" checked="checked"/></td>
+        </tr>
+        <tr>
+          <td><code>ss-table-cell-link</code></td>
+          <td>Link cell</td>
+          <td class="ss-table-cell-link"><a href="#">Some project</a></td>
+        </tr>
+        <tr>
+          <td><code>ss-table-cell-icon</code></td>
+          <td>Icon cell</td>
+          <td class="ss-table-cell-icon"><span class="glyphicon glyphicon-picture"></span></td>
+        </tr>
+        <tr>
+          <td><code>ss-table-cell-boolean</code></td>
+          <td>Checkbox cell</td>
+          <td class="ss-table-cell-boolean"><input type="checkbox" checked="" disabled=""/></td>
+        </tr>
+<!--
+        <tr>
+          <td><code>ss-table-cell-password</code></td>
+          <td>Password cell</td>
           <td class="ss-table-cell-password"><input type="password" disabled="" value="asfd"/></td>
         </tr>
+-->
         <tr>
-          <td><span class="glyphicon glyphicon-th"></span></td>
-          <td><a href="module/CELAR/899">Some deployment</a></td>
-          <td>Some other description...</td>
-          <td class="ss-table-cell-boolean"><input type="checkbox" checked="checked" disabled="disabled"/></td>
-          <td>321</td>
-        </tr>
-        <tr>
-          <td><span class="glyphicon glyphicon-hdd"></span></td>
-          <td><a href="module/CELAR/899">Some machine</a></td>
-          <td>Some other description...</td>
-          <td class="ss-table-cell-boolean"><input type="checkbox" disabled="disabled"/></td>
-          <td>321</td>
-        </tr>
-        <tr class="danger">
-          <td><span class="glyphicon glyphicon-th"></span></td>
-          <td><a href="module/CELAR/899">Some deployment</a></td>
-          <td>Failed deployment could be with red background (<code>.danger</code>)</td>
-          <td class="ss-table-cell-boolean"><input type="checkbox" class="disabled"/></td>
-          <td>321</td>
-        </tr>
-        <tr class="success">
-          <td><span class="glyphicon glyphicon-th"></span></td>
-          <td><a href="module/CELAR/899">Some deployment</a></td>
-          <td>Ready deployment could be with green background (<code>.success</code>)</td>
-          <td>Joe</td>
-          <td>321</td>
-        </tr>
-        <tr>
-          <td class="danger"><span class="glyphicon glyphicon-th"></span></td>
-          <td><a href="module/CELAR/899">Some deployment</a></td>
-          <td>This can be applied even only in the icon.</td>
-          <td>Joe</td>
-          <td>321</td>
+          <td><code>ss-table-cell-module-version</code></td>
+          <td>Module version cell</td>
+          <td class="ss-table-cell-module-version"><span>999</span> (<a href="#">history</a>)</td>
         </tr>
       </tbody>
     </table>

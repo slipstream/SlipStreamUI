@@ -112,8 +112,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def ^:private parameter-headers
-  ["Description"
-   "Value"])
+  ; ["Description"
+  ;  "Value"])
+  [""
+   ""])
 
 (defn- parameter-type->cell-type
   [parameter-type]
@@ -123,7 +125,9 @@
     "Boolean"           :cell/boolean
     "RestrictedText"    :cell/text
     "Password"          :cell/password
-    "RestrictedString"  :cell/text))
+    "RestrictedString"  :cell/text
+    "ModuleVersionURI"  :cell/module-version
+    "Set"               :cell/set))
 
 (defn- parameter-row
   [{:keys [type description value] :as parameter}]
@@ -152,5 +156,73 @@
       :super?       {:description "Is administrator?" :type "Boolean"}
       :creation     {:description "Date of creation"  :type "String"}
       :state        {:description "Status"            :type "String"})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn module-summary-table
+  [module]
+  (parameters-table
+    (p/map->parameter-list module
+      :name          {:description "Name"             :type "String"}
+      :uri           {:description "Version"          :type "ModuleVersionURI"}
+      :description   {:description "Description"      :type "String"}
+      :comment       {:description "Comment"          :type "String"}
+      :category      {:description "Category"         :type "String"}
+      :creation      {:description "Created"          :type "String"}
+      :last-modified {:description "Last modified"    :type "String"}
+      :owner         {:description "Owner"            :type "String"}
+      )))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(def ^:private access-right-headers
+  ["Access Right"
+   "Owner"
+   "Group"
+   "Public"])
+
+(defn- access-right-row-style
+  [{:keys [owner-access? group-access? public-access?]}]
+  (if-not owner-access?
+    :danger
+    (case [group-access? public-access?]
+          [false         false]          :warning
+          [true          true]           :success
+          nil)))
+
+(defn- access-right-row
+  [[access-right-name {:keys [owner-access? group-access? public-access?] :as access-rights}]]
+  {:style (access-right-row-style access-rights)
+   :cells [{:type :cell/text,     :content access-right-name}
+           {:type :cell/boolean,  :content owner-access?}
+           {:type :cell/boolean,  :content group-access?}
+           {:type :cell/boolean,  :content public-access?}]})
+
+(defn- map->sorted-vector
+  [access-rights]
+  (vector
+    ["View"             (:get access-rights)]
+    ["Edit"             (:put access-rights)]
+    ["Delete"           (:delete access-rights)]
+    ["Create children"  (:create-children access-rights)]))
+
+(defn access-rights-table
+  [access-rights]
+  (let [headers access-right-headers
+        rows (->> access-rights
+                  map->sorted-vector
+                  (map access-right-row))]
+    (table/build {:headers headers
+                  :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn group-members-table
+  [group-members]
+  (parameters-table
+    (p/map->parameter-list group-members
+      :inherited-group-members? {:description "Are group members inherited from parent module?", :type "Boolean"}
+      :group-members            {:description "Group members" :type "Set"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.module
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.tables :as t]
+            [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
@@ -220,16 +222,41 @@
        :content (content module type category)
        :footer (footer type)})))
 
-(defn page [module type]
-  (base/generate
-    {:metadata module
-     :placeholder-page? true
-     :header {:icon icons/module
-              :title "Project name"
-              :subtitle "Version: 53 - Project description"}
-     :resource-uri "/module/iaro/477"
-     :secondary-menu-actions [action/run
-                              action/edit
-                              action/copy
-                              action/unpublish]
-     :content nil}))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- header
+  [module]
+  {:icon (icons/icon-for (:category module))
+   :title (format "%s: %s"
+                 (:category module)
+                 (:short-name module))
+   :subtitle (str "Version: " (:version module)
+               (when-let [desc (:description module)]
+                 (str " - " desc)))})
+
+(defn- old-version-alert
+  [module]
+  (when-not (:latest-version? module)
+    {:type :warning
+     :msg "You are not on the latest version of this module."}))
+
+(defn page [metadata type]
+  (let [module (module-model/parse metadata)]
+    (base/generate
+      {:metadata metadata
+       :header (header module)
+       :alerts [(old-version-alert module)]
+       :resource-uri (:uri module)
+       :secondary-menu-actions [action/edit
+                                action/new-project
+                                action/new-image
+                                action/new-deployment
+                                action/import]
+       :content [{:title "Summary"
+                  :selected? true
+                  :content (t/module-summary-table module)}
+                 {:title "Authorizations"
+                  :content [(t/access-rights-table (-> module :authorization :access-rights))
+                            (t/group-members-table (-> module :authorization))]}]})))

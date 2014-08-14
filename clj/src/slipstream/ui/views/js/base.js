@@ -1,6 +1,6 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    $(document.body).css("padding-top", $(".navbar").height() || 0);
+    // $(document.body).css("padding-top", $(".navbar").height() || 0);
 
     // $("#form-signin").bootstrapValidator();
     // $("#form-pwd-reset").bootstrapValidator();
