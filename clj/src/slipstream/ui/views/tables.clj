@@ -121,15 +121,16 @@
 
 (defn- parameter-type->cell-type
   [parameter-type]
-  (case parameter-type
-    "Enum"              :cell/text
-    "String"            :cell/text
-    "Boolean"           :cell/boolean
-    "RestrictedText"    :cell/text
-    "Password"          :cell/password
-    "RestrictedString"  :cell/text
-    "ModuleVersionURI"  :cell/module-version
-    "Set"               :cell/set))
+  (if (and (keyword? parameter-type)
+           (-> parameter-type namespace (= "cell")))
+    parameter-type
+    (case parameter-type
+      "Enum"              :cell/text
+      "String"            :cell/text
+      "Boolean"           :cell/boolean
+      "RestrictedText"    :cell/text
+      "Password"          :cell/password
+      "RestrictedString"  :cell/text)))
 
 (defn- parameter-row
   [{:keys [type description value] :as parameter}]
@@ -154,7 +155,7 @@
       :first-name   {:description "First name"        :type "String"}
       :last-name    {:description "Last name"         :type "String"}
       :organization {:description "Organization"      :type "String"}
-      :email        {:description "Email"             :type "String"}
+      :email        {:description "Email"             :type :cell/email}
       :super?       {:description "Is administrator?" :type "Boolean"}
       :creation     {:description "Date of creation"  :type "String"}
       :state        {:description "Status"            :type "String"})))
@@ -166,7 +167,7 @@
   (parameters-table
     (p/map->parameter-list module
       :name          {:description "Name"             :type "String"}
-      :uri           {:description "Version"          :type "ModuleVersionURI"}
+      :uri           {:description "Version"          :type :cell/module-version}
       :description   {:description "Description"      :type "String"}
       :comment       {:description "Comment"          :type "String"}
       :category      {:description "Category"         :type "String"}
@@ -225,6 +226,6 @@
   (parameters-table
     (p/map->parameter-list group-members
       :inherited-group-members? {:description "Are group members inherited from parent module?", :type "Boolean"}
-      :group-members            {:description "Group members" :type "Set"})))
+      :group-members            {:description "Group members" :type :cell/set})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -52,6 +52,10 @@
   [cell]
   (cell-link-snip (assoc cell :open-in-new-window? true)))
 
+(defn cell-email-snip
+  [email]
+  (cell-link-snip {:text email :href (str "mailto:" email)}))
+
 (html/defsnippet cell-icon-snip template-filename cell-icon-sel
   [icon]
   [:span] (icons/set icon))
@@ -79,6 +83,7 @@
     :cell/set            cell-set-snip
     :cell/link           cell-link-snip
     :cell/external-link  cell-external-link-snip
+    :cell/email          cell-email-snip
     :cell/icon           cell-icon-snip
     :cell/boolean        cell-boolean-snip
     :cell/module-version cell-module-version-snip
