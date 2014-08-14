@@ -2,8 +2,11 @@
   (:require [net.cgrand.enlive-html :as html]))
 
 (def xml-users (first (html/html-snippet "<list>
-    <item name='sixsq' resourceUri='user/sixsq' firstName='SixSq' lastName='Administrator' state='ACTIVE' lastOnline='2014-03-25 15:59:32.65 UTC' online='true'/>
-    <item name='super' resourceUri='user/super' firstName='Super' lastName='Smith' state='NEW' lastOnline='2014-08-05 12:38:40.190 UTC' online='false'/>
-    <item name='test' resourceUri='user/test' firstName='Test' lastName='Taylor' state='ACTIVE' online='false'/>
-    <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
+    <item firstName='Super' lastName='User' lastOnline='2014-08-14 20:14:20.810 CEST' name='super' online='true' organization='SixSq' resourceUri='user/super' state='ACTIVE'/>
+    <item firstName='A Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='atest' online='false' organization='ACME' resourceUri='user/atest' state='ACTIVE'/>
+    <item firstName='D Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='dtest' online='true' organization='SixSq' resourceUri='user/tdest' state='ACTIVE'/>
+    <item firstName='B Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='btest' online='false' organization='ACME' resourceUri='user/btest' state='ACTIVE'/>
+    <item firstName='Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='test' online='true' organization='ACME' resourceUri='user/test' state='ACTIVE'/>
+    <item firstName='C Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='ctest' online='false' organization='ACME' resourceUri='user/tcest' state='ACTIVE'/>
+    <item firstName='SixSq' lastName='Administrator' name='sixsq' online='false' organization='SixSq' resourceUri='user/sixsq' state='ACTIVE'/>
 </list>")))

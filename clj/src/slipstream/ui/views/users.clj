@@ -3,15 +3,15 @@
             [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.secondary-menu-actions :as action]
-            [slipstream.ui.models.users :as mu]))
+            [slipstream.ui.models.users :as users]))
 
-(defn page [users]
+(defn page [metadata]
   (base/generate
-    {:metadata users
+    {:metadata metadata
      :header {:icon icons/users
               :title "Users"
               :subtitle "Configure the users in the SlipStream service."}
      :resource-uri "/users"
      :secondary-menu-actions [action/new-user]
      :content [{:title "Users"
-                :content (t/users-table (mu/users users))}]}))
+                :content (t/users-table (users/parse metadata))}]}))

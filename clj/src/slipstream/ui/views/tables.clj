@@ -36,16 +36,18 @@
    "Username"
    "First Name"
    "Last Name"
+   "Organization"
    "State"
    "Last online"])
 
 (defn- user-row
-  [{:keys [username uri first-name last-name state last-online online?] :as user}]
+  [{:keys [username uri first-name last-name organization state last-online online?] :as user}]
   {:style (when online? :success)
    :cells [{:type :cell/icon, :content icons/user}
            {:type :cell/link, :content {:text username, :href uri}}
            {:type :cell/text, :content first-name}
            {:type :cell/text, :content last-name}
+           {:type :cell/text, :content organization}
            {:type :cell/text, :content state}
            {:type :cell/text, :content (or (not-empty last-online) "Unknown")}]})
 
