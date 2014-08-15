@@ -119,12 +119,17 @@
   [""
    ""])
 
-(defn- parameter-type->cell-type
-  [parameter-type]
-  (if (and (keyword? parameter-type)
-           (-> parameter-type namespace (= "cell")))
-    parameter-type
-    (case parameter-type
+(defn- cell-type?
+  [x]
+  (and
+    (keyword? x)
+    (-> x namespace (= "cell"))))
+
+(defn- type->cell-type
+  [type]
+  (if (cell-type? type)
+    type
+    (case type
       "Enum"              :cell/text
       "String"            :cell/text
       "Boolean"           :cell/boolean
@@ -136,7 +141,7 @@
   [{:keys [type description value] :as parameter}]
   {:style nil
    :cells [{:type :cell/text, :content description}
-           {:type (parameter-type->cell-type type), :content value}]})
+           {:type (type->cell-type type), :content value}]})
 
 (defn parameters-table
   [parameters]
@@ -151,14 +156,14 @@
   [user-summary-map]
   (parameters-table
     (p/map->parameter-list user-summary-map
-      :username     {:description "Username"          :type "String"}
-      :first-name   {:description "First name"        :type "String"}
-      :last-name    {:description "Last name"         :type "String"}
-      :organization {:description "Organization"      :type "String"}
+      :username     {:description "Username"          :type :cell/text}
+      :first-name   {:description "First name"        :type :cell/text}
+      :last-name    {:description "Last name"         :type :cell/text}
+      :organization {:description "Organization"      :type :cell/text}
       :email        {:description "Email"             :type :cell/email}
-      :super?       {:description "Is administrator?" :type "Boolean"}
-      :creation     {:description "Date of creation"  :type "String"}
-      :state        {:description "Status"            :type "String"})))
+      :super?       {:description "Is administrator?" :type :cell/boolean}
+      :creation     {:description "Date of creation"  :type :cell/text}
+      :state        {:description "Status"            :type :cell/text})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -166,14 +171,14 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name          {:description "Name"             :type "String"}
+      :name          {:description "Name"             :type :cell/text}
       :uri           {:description "Version"          :type :cell/module-version}
-      :description   {:description "Description"      :type "String"}
-      :comment       {:description "Comment"          :type "String"}
-      :category      {:description "Category"         :type "String"}
-      :creation      {:description "Created"          :type "String"}
-      :last-modified {:description "Last modified"    :type "String"}
-      :owner         {:description "Owner"            :type "String"}
+      :description   {:description "Description"      :type :cell/text}
+      :comment       {:description "Comment"          :type :cell/text}
+      :category      {:description "Category"         :type :cell/text}
+      :creation      {:description "Created"          :type :cell/text}
+      :last-modified {:description "Last modified"    :type :cell/text}
+      :owner         {:description "Owner"            :type :cell/text}
       )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -225,7 +230,7 @@
   [group-members]
   (parameters-table
     (p/map->parameter-list group-members
-      :inherited-group-members? {:description "Are group members inherited from parent module?", :type "Boolean"}
+      :inherited-group-members? {:description "Are group members inherited from parent module?", :type :cell/boolean}
       :group-members            {:description "Group members" :type :cell/set})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
