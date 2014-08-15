@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.section
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.utils :as u]
+            [slipstream.ui.views.subsection :as subsection]
             [slipstream.ui.views.common :as common]))
 
 (def template-filename (common/get-template "section.html"))
@@ -27,7 +28,9 @@
     section-sel         (u/enable-class (u/first-not-nil selected? unique-section?) section-selected-cls)
     section-sel         (u/when-add-class type (str "ss-section-" (name type)))
     section-title-sel   (html/content (str title))
-    section-content-sel (html/content content)
+    section-content-sel (u/if-enlive-node content
+                          (html/content content)
+                          (subsection/build content))
     section-anchor-sel  (u/if-set-href collapsible?
                                        (str "#" section-uid)
                                        nil)

@@ -137,8 +137,10 @@
   (or
     (nil? n)
     (empty? n)
+    (string? n)
     (instance? clojure.lang.PersistentStructMap n)
-    (instance? clojure.lang.PersistentStructMap (first n))))
+    (instance? clojure.lang.PersistentStructMap (first n))
+    (instance? clojure.lang.PersistentStructMap (ffirst n))))
 
 (defn when-content
   [content]
@@ -265,6 +267,7 @@
 (defn-set-attr :target)
 (defn-set-attr :checked)
 (defn-set-attr :disabled)
+(defn-set-attr :value)
 
 (defmacro content-for
   "Replaces the content of the matched node with clones of the child matching

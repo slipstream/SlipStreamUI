@@ -9,6 +9,7 @@
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
             [slipstream.ui.views.section :as section]
+            [slipstream.ui.views.subsection :as subsection]
             [slipstream.ui.views.content :as content]
             [slipstream.ui.views.menubar :as menubar]
             [slipstream.ui.views.table :as table]
@@ -109,6 +110,7 @@
         involved-templates [alerts/template-filename
                             menubar/template-filename
                             section/template-filename ;; TODO: only if sections in body.
+                            subsection/template-filename ;; TODO: only if subsections in body.
                             table/template-filename ;; TODO: only if tables in body.
                             template-filename]]
     (println "Generating base for" template-filename)

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Subsection Template</title>
+
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+
+  <!-- Internal CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/subsection.css"/>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Subsection Template</h1>
+    <p>
+      Currently, subsections are implemented as tabs in form of stacked pills.
+      However, this template offers an abstraction as a subsection, so that the underlying layout can be changed without modifiyng the enlive code.
+    </p>
+        <p>
+      Other options include:
+    </p>
+
+    <table class="table table-bordered table-striped">
+      <colgroup>
+        <col class="col-xs-2">
+        <col class="col-xs-7">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code>.active</code>
+          </td>
+          <td>Add <code>.active</code> to the <code>ul > li</code> and <code>div.tab-pane</code> to open it by default.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      From: <a href="http://getbootstrap.com/javascript/#tabs">http://getbootstrap.com/javascript/#tabs</a>
+      and <a href="http://getbootstrap.com/components/#nav">http://getbootstrap.com/components/#nav</a>
+    </p>
+
+    <hr>
+
+    <div class="ss-subsection-group">
+      <!-- Nav tabs -->
+      <ul class="hidden-xs ss-subsection-activator-group nav nav-tabs" role="tablist">
+        <li class="active"><a href="#home" role="tab">Home</a></li>
+        <li><a href="#profile" role="tab">Profile</a></li>
+        <li><a href="#messages" role="tab">Messages</a></li>
+        <li><a href="#settings" role="tab">Settings</a></li>
+      </ul>
+      <select class="visible-xs ss-subsection-activator-xs-group form-control">
+        <option role="tab" value="#home">Home</option>
+        <option role="tab" value="#profile">Profiles</option>
+        <option role="tab" value="#messages">Messages</option>
+        <option role="tab" value="#settings">Settings</option>
+      </select>
+      <!-- Tab panes -->
+      <div class="tab-content ss-subsection-content-group">
+        <div class="tab-pane active" id="home">Content of the pane #1</div>
+        <div class="tab-pane" id="profile">Content of the pane #2</div>
+        <div class="tab-pane" id="messages">
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+          Content of the pane #3<br>
+        </div>
+        <div class="tab-pane" id="settings">Content of the pane #4</div>
+      </div>
+    </div> <!-- /.ss-subsections-container -->
+
+
+    <hr>
+
+    <div class="ss-subsection-group-stacked row">
+      <div class="col-sm-2 text-left">
+        <!-- Nav tabs -->
+        <ul class="hidden-xs ss-subsection-activator-group nav nav-pills nav-stacked" role="tablist">
+          <li class="active"><a href="#home-stacked" role="tab">Home</a></li>
+          <li><a href="#profile-stacked" role="tab">Profile</a></li>
+          <li><a href="#messages-stacked" role="tab">Messages</a></li>
+          <li><a href="#settings-stacked" role="tab">Settings</a></li>
+        </ul>
+        <select class="visible-xs ss-subsection-activator-xs-group form-control">
+          <option role="tab" value="#home-stacked">Home</option>
+          <option role="tab" value="#profile-stacked">Profiles</option>
+          <option role="tab" value="#messages-stacked">Messages</option>
+          <option role="tab" value="#settings-stacked">Settings</option>
+        </select>
+      </div> <!-- /col -->
+      <div class="col-sm-10">
+        <!-- Tab panes -->
+        <div class="tab-content ss-subsection-content-group">
+          <div class="tab-pane active" id="home-stacked">Content of the pane #1</div>
+          <div class="tab-pane" id="profile-stacked">Content of the pane #2</div>
+          <div class="tab-pane" id="messages-stacked">
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+            Content of the pane #3<br>
+          </div>
+          <div class="tab-pane" id="settings-stacked">Content of the pane #4</div>
+        </div>
+      </div> <!-- /col -->
+    </div> <!-- /row -->
+
+
+  <div id="bottom-scripts">
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/subsection.js"></script>
+  </div>
+</body>
+</html>
