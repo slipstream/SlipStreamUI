@@ -3,9 +3,9 @@
             [slipstream.ui.views.utils :as u]
             [slipstream.ui.views.common :as common]))
 
-(def template-filename (common/get-template "subsection.html"))
+(def ^:private template-filename (common/get-template "subsection.html"))
 
-(def subsection-selected-cls "active")
+(def ^:private subsection-selected-cls "active")
 
 (def ^:private stacked-sections? false)
 

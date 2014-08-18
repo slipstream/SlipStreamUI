@@ -268,6 +268,7 @@
 (defn-set-attr :checked)
 (defn-set-attr :disabled)
 (defn-set-attr :value)
+(defn-set-attr :title)
 
 (defmacro content-for
   "Replaces the content of the matched node with clones of the child matching

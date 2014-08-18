@@ -114,10 +114,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def ^:private parameter-headers
-  ; ["Description"
-  ;  "Value"])
-  [""
-   ""])
+  ["Description"
+   "Value"
+   nil])
 
 (defn- cell-type?
   [x]
@@ -138,10 +137,11 @@
       "RestrictedString"  :cell/text)))
 
 (defn- parameter-row
-  [{:keys [type description value] :as parameter}]
+  [{:keys [type description value help-hint] :as parameter}]
   {:style nil
    :cells [{:type :cell/text, :content description}
-           {:type (type->cell-type type), :content value}]})
+           {:type (type->cell-type type), :content value}
+           {:type :cell/help-hint, :content help-hint}]})
 
 (defn parameters-table
   [parameters]

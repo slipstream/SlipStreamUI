@@ -20,6 +20,7 @@
 (def cell-icon-sel (concat table-body-sel [[:td (u/first-of-class "ss-table-cell-icon")]]))
 (def cell-boolean-sel (concat table-body-sel [[:td (u/first-of-class "ss-table-cell-boolean")]]))
 (def cell-module-version-sel (concat table-body-sel [[:td (u/first-of-class "ss-table-cell-module-version")]]))
+(def cell-help-hint-sel (concat table-body-sel [[:td (u/first-of-class "ss-table-cell-help-hint")]]))
 
 
 ;; Cell
@@ -70,6 +71,11 @@
   [:span] (html/content (u/last-path-segment uri))
   [:a]    (u/set-href   (u/trim-last-path-segment uri)))
 
+(html/defsnippet cell-help-hint-snip template-filename cell-help-hint-sel
+  [help-text]
+  [:.ss-table-tooltip]  (u/set-title help-text)
+  [:.ss-table-tooltip]  (u/remove-if-not help-text))
+
 (defn- cell-snip
   "Get the cell-snip fn corresponding to a given cell type. This is done with a
   case (instead of e.g. a simple map) to detect unexpected cell types via an
@@ -87,6 +93,7 @@
     :cell/icon           cell-icon-snip
     :cell/boolean        cell-boolean-snip
     :cell/module-version cell-module-version-snip
+    :cell/help-hint      cell-help-hint-snip
     (throw (IllegalArgumentException.
       (str "No cell-snip defined for cell type: " type)))))
 

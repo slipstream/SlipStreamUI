@@ -50,8 +50,9 @@
   "Convert a map of keys and values into a parameter list, in the form used above.
    E.g. [{:name name, :type type, :description description :value value} ... ]"
   [m & conversion-hints]
-  (for [[k {:keys [description type]}] (partition 2 conversion-hints)]
+  (for [[k {:keys [description help-hint type]}] (partition 2 conversion-hints)]
      {:name (name k)
       :type type
       :description description
+      :help-hint help-hint
       :value (get m k)}))

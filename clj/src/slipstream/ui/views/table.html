@@ -119,21 +119,37 @@
           <td>Checkbox cell</td>
           <td class="ss-table-cell-boolean"><input type="checkbox" checked="" disabled=""/></td>
         </tr>
-<!--
-        <tr>
-          <td><code>ss-table-cell-password</code></td>
-          <td>Password cell</td>
-          <td class="ss-table-cell-password"><input type="password" disabled="" value="asfd"/></td>
-        </tr>
--->
+        <!--
+          <tr>
+            <td><code>ss-table-cell-password</code></td>
+            <td>Password cell</td>
+            <td class="ss-table-cell-password"><input type="password" disabled="" value="asfd"/></td>
+          </tr>
+        -->
         <tr>
           <td><code>ss-table-cell-module-version</code></td>
           <td>Module version cell</td>
           <td class="ss-table-cell-module-version"><span>999</span> (<a href="#">history</a>)</td>
         </tr>
+        <tr>
+          <td><code>ss-table-cell-help-hint</code></td>
+          <td>Cell with help hint as tooltip</td>
+          <td class="ss-table-cell-help-hint">
+            <div class="ss-table-tooltip" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+              <span class="glyphicon glyphicon-question-sign"></span></td>
+            </div>
+        </tr>
       </tbody>
     </table>
-</div> <!-- /.container -->
+  </div> <!-- /.container -->
+
+  <div id="bottom-scripts">
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/table.js"></script>
+  </div>
 
 </body>
 </html>
