@@ -103,6 +103,10 @@
             <artifactId>enlive</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.taoensso</groupId>
+            <artifactId>tower</artifactId>
+        </dependency>
+        <dependency>
             <groupId>expectations</groupId>
             <artifactId>expectations</artifactId>
             <scope>test</scope>
