@@ -1,6 +1,6 @@
 (ns slipstream.ui.models.parameters
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]))
+            [slipstream.ui.util.clojure :as uc]))
 
 (def ^:private parameter-sel [html/root :> :parameters :> :entry :> :parameter])
 
@@ -14,7 +14,7 @@
   [parameter]
   (-> parameter
       (get-in [:attrs :order])
-      u/parse-pos-int
+      uc/parse-pos-int
       (or Integer/MAX_VALUE)))
 
 (defn- parse-parameter

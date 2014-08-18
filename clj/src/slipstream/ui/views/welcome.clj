@@ -3,8 +3,8 @@
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.views.utils :as u :refer [defn-memo]]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.welcome :as mw]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.base :as base]))
@@ -39,11 +39,11 @@
                            publication-date
                            image]
                     :as app} app-metadata-list]
-    app-image-preloader-sel  (u/set-src image)
-    app-image-container-sel  (u/enable-class updated? app-updated-cls)
-    app-image-container-sel  (u/enable-class new? app-new-cls)
-    app-name-deploy-btn-sel  (u/set-onclick "location = '" uri "?showdialog=run-with-options-dialog'; return false;")
-    app-name-container-sel   (u/set-href uri)
+    app-image-preloader-sel  (ue/set-src image)
+    app-image-container-sel  (ue/enable-class updated? app-updated-cls)
+    app-image-container-sel  (ue/enable-class new? app-new-cls)
+    app-name-deploy-btn-sel  (ue/set-onclick "location = '" uri "?showdialog=run-with-options-dialog'; return false;")
+    app-name-container-sel   (ue/set-href uri)
     app-name-sel             (html/content (str name))
     app-version-sel          (html/content version)
     app-description-sel      (html/content description)

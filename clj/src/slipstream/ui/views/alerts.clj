@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.alerts
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
-            [slipstream.ui.views.utils :as u]))
+            [slipstream.ui.util.enlive :as ue]))
 
 (def template-filename (common/get-template "alerts.html"))
 
@@ -42,7 +42,7 @@
   (html/at (html/select alerts (alert-sel type))
            [:> :div] (html/remove-attr :id)
            dismiss-button-sel (when dismissible identity)
-           title-sel (u/when-content title)
+           title-sel (ue/when-content title)
            msg-sel (html/content msg)))
 
 (defn hidden-templates

@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.user
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.user.core :as user]

@@ -2,7 +2,7 @@
   (:require [clojure.string :as s]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.versions :as mv]))
 
 (defn- subtitle

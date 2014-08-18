@@ -1,6 +1,6 @@
 (ns slipstream.ui.models.module
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.common :as common]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.authz :as authz]))
@@ -154,7 +154,7 @@
   keyword into a path. E.g. will merge ':grouppost true' into {:post {:group-access? true}}"
   [m [k v]]
   (if-let [authz-setting-path (parse-keyword k)]
-    (assoc-in m authz-setting-path (u/parse-boolean v))
+    (assoc-in m authz-setting-path (uc/parse-boolean v))
     m))
 
 (defn- add-rights
@@ -172,7 +172,7 @@
   (let [authz (first (html/select metadata [:authz]))
         attrs (:attrs authz)]
     (-> {}
-        (assoc :inherited-group-members? (-> attrs :inheritedgroupmembers u/parse-boolean)
+        (assoc :inherited-group-members? (-> attrs :inheritedgroupmembers uc/parse-boolean)
                :group-members            (group-members authz))
         (add-rights attrs))))
 
@@ -189,11 +189,11 @@
                       :category
                       :name
                       :creation])
-        (assoc        :version          (-> attrs :version u/parse-pos-int)
+        (assoc        :version          (-> attrs :version uc/parse-pos-int)
                       :short-name       (:shortname attrs)
                       :last-modified    (:lastmodified attrs)
-                      :latest-version?  (-> attrs :islatestversion u/parse-boolean)
-                      :deleted?         (-> attrs :deleted u/parse-boolean)
+                      :latest-version?  (-> attrs :islatestversion uc/parse-boolean)
+                      :deleted?         (-> attrs :deleted uc/parse-boolean)
                       :uri              (:resourceuri attrs)
                       :parent-uri       (:parenturi attrs)
                       :owner            (-> metadata (html/select [:authz]) first :attrs :owner)

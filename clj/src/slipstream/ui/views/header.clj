@@ -1,8 +1,8 @@
 (ns slipstream.ui.views.header
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.user :as user]
-            [slipstream.ui.views.utils :as u :refer [defn-memo]]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
@@ -158,11 +158,11 @@
   (fn [match]
     (html/at match
              icon-sel  (icons/set icon)
-             status-code-sel      (u/when-content status-code)
-             title-sel            (u/when-content title)
-             subtitle-sel         (u/when-html-content subtitle)
-             title-col-sel        (u/when-replace-class (not image)
+             status-code-sel      (ue/when-content status-code)
+             title-sel            (ue/when-content title)
+             subtitle-sel         (ue/when-html-content subtitle)
+             title-col-sel        (ue/when-replace-class (not image)
                                                         "col-sm-8"
                                                         "col-sm-11")
-             image-preloader-sel  (u/set-src image)
-             image-col-sel        (u/remove-if-not image))))
+             image-preloader-sel  (ue/set-src image)
+             image-col-sel        (ue/remove-if-not image))))

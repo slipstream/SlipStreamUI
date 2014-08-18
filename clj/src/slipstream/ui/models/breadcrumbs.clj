@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.breadcrumbs
-  (:require [slipstream.ui.views.utils :as u]))
+  (:require [slipstream.ui.util.clojure :as uc]))
 
 (def ^:private blind-breadcrumb-segments
   #{"module"})
@@ -15,14 +15,14 @@
      {:text 'wordpress' :uri 'module/examples/tutorials/wordpress/wordpress'}
      {:text '180'}]
   Note that if the ressource-uri ends with a slash, a last segment {:text \"\", :uri nil}
-  will be included, so consider using u/trim-last-slash on the ressource-uri."
+  will be included, so consider using uc/trim-last-slash on the ressource-uri."
   [ressource-uri]
   (let [uris (->> ressource-uri
-                  (iterate u/trim-last-path-segment)
+                  (iterate uc/trim-last-path-segment)
                   (take-while not-empty)
                   reverse)]
     (into [] (for [uri uris
-                   :let [uri-name (u/last-path-segment uri)
+                   :let [uri-name (uc/last-path-segment uri)
                          is-inactive? (or (blind-breadcrumb-segments uri-name)
                                         (= uri (last uris)))
                          breadcrumb-base {:text uri-name}]]

@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.configuration
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.user :as user-model]

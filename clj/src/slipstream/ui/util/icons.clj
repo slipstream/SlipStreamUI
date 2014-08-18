@@ -1,12 +1,13 @@
-(ns slipstream.ui.views.util.icons
+(ns slipstream.ui.util.icons
   "Predefined icons for SlipStream items as an abstraction of the underlying
   icon or icon set used, e.g. Glyphicons or other..."
   (:refer-clojure :exclude [set])
   (:require [clojure.string :as s]
-            [slipstream.ui.views.utils :as u :refer [defn-memo]]
+            [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
+            [slipstream.ui.util.enlive :as ue]
             [net.cgrand.enlive-html :as html]))
 
-(u/def-this-ns)
+(uc/def-this-ns)
 
 (def unknown        ::question-sign)
 
@@ -36,7 +37,7 @@
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.
-  E.g. given :deployment, 'deployment' or 'Deployment' returns :slipstream.ui.views.util.icons/th.
+  E.g. given :deployment, 'deployment' or 'Deployment' returns :slipstream.ui.util.icons :as/th.
   Useful to retrieve icons for module categories."
   [item]
   (->> (or item "unknown")
@@ -64,7 +65,7 @@
                                icon
                                this-ns))))
   (fn [icon-node]
-    ((u/replace-class
+    ((ue/replace-class
         (current-glyphicon-icon-cls icon-node)
         (glyphicon-icon-cls icon))
      icon-node)))

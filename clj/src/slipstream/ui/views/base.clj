@@ -2,7 +2,9 @@
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
-            [slipstream.ui.views.utils :as u :refer [defn-memo]]
+            [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.module-base :as module-base]
@@ -79,23 +81,23 @@
            alerts
            involved-templates]
     :as context}]
-  [:body]               (u/enable-class error-page? error-page-cls)
-  [:body]               (u/enable-class placeholder-page? placeholder-page-cls)
-  [:body]               (u/enable-class beta-page? beta-page-cls)
+  [:body]               (ue/enable-class error-page? error-page-cls)
+  [:body]               (ue/enable-class placeholder-page? placeholder-page-cls)
+  [:body]               (ue/enable-class beta-page? beta-page-cls)
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
-  base-sel              (u/when-set-href *prod?* "/")
+  base-sel              (ue/when-set-href *prod?* "/")
   menubar-sel           (html/substitute (menubar/menubar context))
-  topbar-sel            (u/remove-if (and (u/chooser? type) (empty? alerts)))
+  topbar-sel            (ue/remove-if (and (u/chooser? type) (empty? alerts)))
   breadcrumbs-sel       (breadcrumbs/transform context)
   secondary-menu-sel    (secondary-menu/transform context)
-  secondary-menubar-sel (u/remove-if-not (or resource-uri secondary-menu-actions))
+  secondary-menubar-sel (ue/remove-if-not (or resource-uri secondary-menu-actions))
   [:#release-version]   (html/content @version/slipstream-release-version)
-  footer-sel            (u/remove-if (u/chooser? type))
+  footer-sel            (ue/remove-if (u/chooser? type))
   css-container-sel     (html/append (additional-html css-sel involved-templates))
-  header-sel            (u/if-enlive-node header
+  header-sel            (ue/if-enlive-node header
                           (html/substitute header)
                           (header/transform header))
-  content-sel           (u/if-enlive-node content
+  content-sel           (ue/if-enlive-node content
                           (html/substitute content)
                           (content/build content))
   alert-container-sel   (html/content (map alerts/alert alerts))

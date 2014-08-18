@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.user.core
-  (:require [slipstream.ui.views.utils :as u]
+  (:require [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.user.loggedin :as l]))
 
 (defn parse
@@ -15,6 +15,6 @@
                       :first-name (:firstname attrs)
                       :last-name  (:lastname attrs)
                       :uri        (:resourceuri attrs)
-                      :super?     (-> attrs :issuper u/parse-boolean)
-                      :deleted?   (-> attrs :deleted u/parse-boolean)
+                      :super?     (-> attrs :issuper uc/parse-boolean)
+                      :deleted?   (-> attrs :deleted uc/parse-boolean)
                       :loggedin?  (= (:name attrs) (:username loggedin-user))))))

@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
   (:require [slipstream.ui.views.table :as table]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.parameters :as p]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

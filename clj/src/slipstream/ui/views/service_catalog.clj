@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.service-catalog
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.authz :as authz]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.module :as module-model]

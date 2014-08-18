@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.dashboard
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.run :as run-model]

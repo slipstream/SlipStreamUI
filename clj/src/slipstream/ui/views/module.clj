@@ -7,7 +7,7 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.version :as version]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]

@@ -1,8 +1,7 @@
 (ns slipstream.ui.views.run
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
-            [slipstream.ui.views.util.icons :as icons]
             [slipstream.ui.views.header :as header]
                         [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module-base :as module-base]

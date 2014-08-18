@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.documentation
   (:require [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.util.icons :as icons]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.tables :as t]))
 
 (def ^:private docs

@@ -1,7 +1,7 @@
 (ns slipstream.ui.models.versions
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]))
+            [slipstream.ui.util.clojure :as uc]))
 
 (def ^:private version-sel [:versionList :item])
 (def ^:private commit-sel [:commit])
@@ -18,7 +18,7 @@
 (defn- version-metadata
   [version-node]
   (let [attrs (:attrs version-node)]
-    {:version (u/parse-pos-int (:version attrs))
+    {:version (uc/parse-pos-int (:version attrs))
      :uri (:resourceuri attrs)
      :commit (commit-metadata version-node)}))
 
@@ -41,6 +41,6 @@
    {:versions (versions version-nodes)
     :resource-uri (-> first-version-node
                       (get-in [:attrs :resourceuri])
-                      u/trim-last-path-segment)
+                      uc/trim-last-path-segment)
     :module-name (get-in first-version-node [:attrs :name])
     :category (get-in first-version-node [:attrs :category])}))

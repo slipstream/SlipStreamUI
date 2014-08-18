@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.secondary-menu-actions
   "Predefined actions for the secondary menu."
   (:refer-clojure :exclude [import])
-  (:require [slipstream.ui.views.util.icons :as icons]))
+  (:require [slipstream.ui.util.icons :as icons]))
 
 (def new-project
   {:name "New project"

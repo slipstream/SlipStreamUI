@@ -1,9 +1,9 @@
 (ns slipstream.ui.views.subsection
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.common :as common]))
 
-(def ^:private template-filename (common/get-template "subsection.html"))
+(def template-filename (common/get-template "subsection.html"))
 
 (def ^:private subsection-selected-cls "active")
 
@@ -23,23 +23,23 @@
 
 (defn- activator-group
   [subsections]
-  (u/content-for activator-sel [{:keys [title selected? id]} subsections]
-                  u/this  (u/enable-class selected? subsection-selected-cls)
-                  [:a]    (u/set-href "#" id)
+  (ue/content-for activator-sel [{:keys [title selected? id]} subsections]
+                  ue/this  (ue/enable-class selected? subsection-selected-cls)
+                  [:a]    (ue/set-href "#" id)
                   [:a]    (html/content (str title))))
 
 (defn- activator-xs-group
   [subsections]
-  (u/content-for activator-xs-sel [{:keys [title id]} subsections]
-                  u/this  (u/set-value "#" id)
-                  u/this  (html/content (str title))))
+  (ue/content-for activator-xs-sel [{:keys [title id]} subsections]
+                  ue/this  (ue/set-value "#" id)
+                  ue/this  (html/content (str title))))
 
 (defn- content-group
   [subsections]
-  (u/content-for content-sel [{:keys [content selected? id]} subsections]
-                  u/this  (u/enable-class selected? subsection-selected-cls)
-                  u/this  (u/set-id id)
-                  u/this  (html/content content)))
+  (ue/content-for content-sel [{:keys [content selected? id]} subsections]
+                  ue/this  (ue/enable-class selected? subsection-selected-cls)
+                  ue/this  (ue/set-id id)
+                  ue/this  (html/content content)))
 
 (html/defsnippet subsection-group-snip template-filename subsection-group-sel
   [subsections]

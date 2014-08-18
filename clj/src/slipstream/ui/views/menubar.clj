@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.menubar
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.common :as common]))
 
 (def template-filename (common/get-template "menubar.html"))
@@ -39,6 +40,6 @@
 (defmethod menubar :logged-in
   [{:keys [user]}]
   (html/at menubar-logged-in-node
-           super-user-item-sel (u/remove-if-not (:super? user))
+           super-user-item-sel (ue/remove-if-not (:super? user))
            username-sel (html/content (:username user))
-           user-profile-anchor-sel (u/set-href (:uri user))))
+           user-profile-anchor-sel (ue/set-href (:uri user))))

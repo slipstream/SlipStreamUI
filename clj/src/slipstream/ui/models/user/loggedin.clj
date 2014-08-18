@@ -1,6 +1,6 @@
 (ns slipstream.ui.models.user.loggedin
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.utils :as u]))
+            [slipstream.ui.util.clojure :as uc]))
 
 (def ^:private user-sel [html/root :> :user])
 
@@ -11,5 +11,5 @@
     (when user
       {:username    (:name user-attrs)
        :uri         (:resourceuri user-attrs)
-       :super?      (u/parse-boolean (:issuper user-attrs))
+       :super?      (uc/parse-boolean (:issuper user-attrs))
        :logged-in?  true})))
