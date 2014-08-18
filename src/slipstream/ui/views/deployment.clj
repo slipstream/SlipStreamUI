@@ -32,11 +32,11 @@
       (:cloudservice (common-model/attrs node))))
   [:#run-parameters-edit :> :table :> :tbody :> [:tr html/last-of-type]]
   (html/clone-for
-    [p (filter 
+    [p (filter
          #(and
-            (not 
+            (not
               (empty? (common-model/value %)))
-            (not 
+            (not
               (nil? (re-find #"^[\"'].*[\"']$" (common-model/value %)))))
            (common-model/parameter-mappings node))
      :let [node-name (common-model/elem-name node)
@@ -49,8 +49,10 @@
 
 (html/defsnippet run-with-options-dialog-snip deployment-view-template-html module-base/run-with-options-dialog-sel
   [deployment]
-  [:form :> :div]
-  (html/content
+  [:form :> :div :> [:h3 html/last-of-type]] nil ; remove unwanted part
+  [:form :> :div :> [:div html/last-of-type]] nil ; remove unwanted part
+  [:form :> :div :> :#run-parameters-edit-global]
+  (html/after
     (for [node (module-model/nodes deployment)]
       (list
         (html/html-snippet (str "\n    <h3>" (common-model/elem-name node) "</h3>"))
@@ -94,7 +96,7 @@
     (html/do->
       (html/set-attr :value (common-model/elem-name node))
       (html/set-attr :name (str id-prefix "shortname")))
-    
+
     ; reference
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :a]
     (module-base/set-a image-uri)
@@ -104,19 +106,19 @@
       (html/after
         (html/html-snippet
           " <span><a href='#' title='Missing image'><i style='color:red' class='error icon-warning-sign' /></a></span>"))
-    identity)      
-  
+    identity)
+
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 1)] :> :td :> :input]
     (html/do->
       (html/set-attr :name (str id-prefix "imagelink"))
       (html/set-attr :value image-uri))
-    
+
     ; multiplicity
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 2)] :> :td :> :input]
     (html/do->
       (html/set-attr :value (:multiplicity attrs))
       (html/set-attr :name (str id-prefix "multiplicity--value")))
-    
+
     ; default cloud
     [:td :> [:table.image_link] :> :tbody :> [:tr (html/nth-of-type 3)] :> :td :> :select]
     (html/substitute
@@ -125,7 +127,7 @@
         available-clouds
         (:cloudservice attrs)
         view?))
-    
+
     ; parameter mapping
     parameters-mapping-sel
     (html/substitute
@@ -134,7 +136,7 @@
 (html/defsnippet nodes-snip deployment-edit-template-html nodes-sel
   [nodes available-clouds view?]
   [:#cloudServiceNamesList] (html/substitute
-                              (common/gen-select 
+                              (common/gen-select
                                 "cloudServiceNamesList"
                                 available-clouds
                                 false))
@@ -146,7 +148,7 @@
            id-prefix (str "node--" i "--")
            image-uri (:imageuri attrs)]]
     (node-trans node i available-clouds attrs id-prefix image-uri view?)))
-  
+
 (html/defsnippet nodes-view-snip deployment-view-template-html nodes-sel
   [nodes available-clouds]
   nodes-sel (html/substitute (nodes-snip nodes available-clouds true))
@@ -171,24 +173,24 @@
      super? (user-model/super? user)
      published? (module-model/published? module)]
     (html/transformation
-      #{[:#build-button-top] [:#build-button-bottom]} 
+      #{[:#build-button-top] [:#build-button-bottom]}
       (if can-post?
-        (html/remove-attr :disabled) 
+        (html/remove-attr :disabled)
         (html/set-attr :disabled "disabled"))
-      #{[:#edit-button-top] [:#edit-button-bottom]} 
+      #{[:#edit-button-top] [:#edit-button-bottom]}
       (if can-put?
-        (html/remove-attr :disabled) 
+        (html/remove-attr :disabled)
         (html/set-attr :disabled "disabled"))
       #{module-base/module-publish-button-top module-base/module-publish-button-bottom
-        module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
+        module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom}
       (if super?
-        (html/remove-attr :disabled) 
+        (html/remove-attr :disabled)
         (html/set-attr :disabled "disabled"))
-      #{module-base/module-publish-button-top module-base/module-publish-button-bottom} 
+      #{module-base/module-publish-button-top module-base/module-publish-button-bottom}
       (if published?
         nil
         identity)
-      #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom} 
+      #{module-base/module-unpublish-button-top module-base/module-unpublish-button-bottom}
       (if published?
         identity
         nil)
@@ -201,7 +203,7 @@
 (html/defsnippet view-snip deployment-view-template-html common/content-sel
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
-  module-base/module-summary-sel (html/substitute 
+  module-base/module-summary-sel (html/substitute
                                    (module-base/module-summary-view-snip deployment))
   nodes-sel (html/substitute
               (nodes-view-snip
@@ -219,15 +221,15 @@
   ; Copy to
   [:#source_uri] (html/set-attr :value (common-model/resourceuri deployment))
   [:#target_name] (html/set-attr :value (:shortname (common-model/attrs deployment)))
-  
+
   module-base/module-interaction-top-sel
   (html/substitute
     (view-interaction-snip deployment))
-  
+
   module-base/module-interaction-bottom-sel
   (html/substitute
     (view-interaction-snip deployment))
-  
+
   runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud deployment)))
 
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
@@ -235,29 +237,29 @@
 (html/defsnippet new-summary-snip deployment-new-template-html module-base/module-summary-sel
   [module]
   (module-base/module-summary-trans module))
-                 
+
 (html/defsnippet new-snip deployment-edit-template-html common/content-sel
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
-  module-base/module-summary-sel (html/substitute 
+  module-base/module-summary-sel (html/substitute
                                    (new-summary-snip deployment))
-  
+
   nodes-sel (html/substitute
               (nodes-edit-snip
                 (module-model/nodes deployment)
                 (module-model/available-clouds deployment)))
-  
+
   authz/authorization-sel (html/substitute (authz/authz-edit-snip deployment)))
 
 
 (html/defsnippet edit-snip deployment-edit-template-html common/content-sel
   [deployment]
   common/breadcrumb-sel (module-base/breadcrumb (module-model/module-name deployment))
-  module-base/module-summary-sel (html/substitute 
+  module-base/module-summary-sel (html/substitute
                                    (module-base/module-summary-edit-snip deployment))
   nodes-sel (html/substitute
               (nodes-edit-snip
                 (module-model/nodes deployment)
                 (module-model/available-clouds deployment)))
-  
+
   authz/authorization-sel (html/substitute (authz/authz-edit-snip deployment)))

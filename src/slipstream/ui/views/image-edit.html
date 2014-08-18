@@ -484,6 +484,14 @@
                                         <a href="#fragment-deployment-parameters">Parameters</a>
                                         <span></span>
                                     </li>
+                                    <li>
+                                        <a href="#fragment-onvmadd">OnVmAdd</a>
+                                        <span></span>
+                                    </li>
+                                    <li>
+                                        <a href="#fragment-onvmremove">OnVmRemove</a>
+                                        <span></span>
+                                    </li>
                                 </ul>
                                 <div id="fragment-execute">
                                     <table>
@@ -498,7 +506,7 @@
                                             <tr>
                                                 <td>
                                                     <textarea id="execute" name="execute--script" rows="20" cols="128">
-</textarea>
+                                                    </textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -517,7 +525,7 @@
                                             <tr>
                                                 <td>
                                                     <textarea id="report" name="report--script" rows="20" cols="128">
-</textarea>
+                                                    </textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -547,6 +555,44 @@
                                     <button class="add_item ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="$$.addParameter(this); return false;">
                                         <i class="icon-plus"></i> Add Parameter</button>
             	                </div>
+                                <div id="fragment-onvmadd">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Execute if any VM was added
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <textarea id="onvmadd" name="onvmadd--script" rows="20" cols="128">
+                                                    </textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="fragment-onvmremove">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Execute if any VM was removed
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <textarea id="onvmremove" name="onvmremove--script" rows="20" cols="128">
+                                                    </textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <h3>
                                 Authorization

@@ -176,7 +176,9 @@ var dashboardUpdater = {
 	},
 
 	setMultiplicityNodesInfo: function(nodename, multiplicity) {
+	    this.nodesInfo[nodename] = this.nodesInfo[nodename] || {};
 		this.nodesInfo[nodename].multiplicity = multiplicity;
+		this.nodesInfo[nodename].completed = this.nodesInfo[nodename].completed || 0;
 	},
 
 	getIdPrefix: function(name) {
@@ -197,9 +199,6 @@ var dashboardUpdater = {
 		var vmname = params.name;
 		var nodename = this.extractNodeName(vmname);
 		this.updateCompletedNodesInfo(nodename, params.completed);
-		if(params.name.endsWith('.1')) {
-			this.setMultiplicityNodesInfo(nodename, params.multiplicity);
-		}
 
 		var idprefix = this.escapeDot(this.getIdPrefix(params.name));
 
@@ -265,7 +264,6 @@ var dashboardUpdater = {
 		params.statecustom = $(prefix + "statecustom").text();
 		params.vmstate = $(prefix + "vmstate").text();
 		params.completed = $(prefix + "completed").text();
-		params.multiplicity = $(prefix + "multiplicity").text();
 		return params;
 	},
 
@@ -282,6 +280,9 @@ var dashboardUpdater = {
 	        var newState = that.translateState($(run).attr('state'));
 	        $('#state').text(newState);
             $("#header-title-desc").text("State: " + newState);
+
+            $('#laststatechange').text($(run).attr('lastStateChangeTime'));
+            $('#end').text($(run).attr('endTime'));
 
             var headerTitle = $('#header-title');
 			var splitValue = " is ";
@@ -325,9 +326,8 @@ var dashboardUpdater = {
                 that.updateProperty(key, value);
 	        });
 
-			var nodeNames = $(run).attr('nodeNames');
-            nodeNames = nodeNames.split(', ');
-
+            var nodeNames = $(run).attr('nodeNames');
+            nodeNames = nodeNames.split(',');
             for (var i in nodeNames) {
                 var vmname = nodeNames[i].trim();
                 if(vmname === "") {
@@ -335,6 +335,17 @@ var dashboardUpdater = {
                 }
                 var params = that.buildParamsFromXmlRun(vmname, run);
                 that.updateVm(params)
+            }
+            
+            var groups = $(run).attr('groups');
+            groups = groups.split(',');
+            for (var i in groups) {
+                var groupname = groups[i].trim().split(':')[1];
+                if(groupname == undefined){
+                    continue;
+                }
+                var multiplicity = $(run).find("runtimeParameter[key='" + groupname + ":multiplicity']").text();
+	        	that.setMultiplicityNodesInfo(groupname, multiplicity);
             }
 
             for (var nodename in that.nodesInfo) {

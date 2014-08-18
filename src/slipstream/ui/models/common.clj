@@ -22,7 +22,7 @@
   (filter #(= parameter-name (:name (:attrs %))) (parameters elem)))
 
 (defn parameter-mappings [elem]
-  (html/select elem [:parameterMappings :nodeParameter]))
+  (html/select elem [:parameterMappings :parameter]))
 
 (defn content [elem]
   (first (:content elem)))

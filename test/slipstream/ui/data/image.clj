@@ -1,6 +1,6 @@
 (ns slipstream.ui.data.image
   (:require [net.cgrand.enlive-html :as html]))
-  
+
 (def xml-image (first (html/html-snippet "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
 <commit author='an-author'><comment>this is a comment</comment></commit>
 <parameters class='org.hibernate.collection.PersistentMap'>
@@ -55,16 +55,16 @@
 <string>stratuslab.cpu</string>
 <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested CPUs' isSet='false' mandatory='true' name='stratuslab.cpu' readonly='false' type='String'></parameter>
 </entry>
-<entry> 
-<string>stratuslab.ram</string>  
+<entry>
+<string>stratuslab.ram</string>
 <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested RAM (in GB)' isSet='false' mandatory='true' name='stratuslab.ram' readonly='false' type='String'></parameter>
 </entry>
-<entry> 
-<string>instanceid</string>  
+<entry>
+<string>instanceid</string>
 <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance id' isSet='false' mandatory='true' name='instanceid' readonly='false' type='String'></parameter>
 </entry>
-<entry> 
-<string>network</string>  
+<entry>
+<string>network</string>
 <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Network type' isSet='true' mandatory='true' name='network' readonly='false' type='Enum'>
 <enumValues length='2'>
 <string>Public</string>
@@ -86,6 +86,8 @@
 <targets class='org.hibernate.collection.PersistentBag'>
 <target name='execute' runInBackground='false'>execute target</target>
 <target name='report' runInBackground='false'>report target</target>
+<target name='onvmadd' runInBackground='false'>onvmadd target</target>
+<target name='onvmremove' runInBackground='false'>onvmremove target</target>
 </targets>
 <packages class='org.hibernate.collection.PersistentBag'>
 <package key='httpd_key' name='httpd' repository='httpd_repo'/>
