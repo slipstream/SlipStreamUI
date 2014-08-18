@@ -40,6 +40,40 @@
   display:  inline-block;
 }
 
+/* Left header image */
+
+#header img.ss-image-preloader {
+  display: none;
+}
+
+#header .ss-header-image-container {
+  position: relative;
+  margin: 2.5%;
+  width: 95%;
+  padding-bottom: 70%;
+  height: 0;
+  overflow: hidden;
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../images/header_image_placeholder.png");
+  background-position: center center;
+
+}
+
+#header .ss-header-image-col {
+  margin-top: 15px;
+  padding: 10px;
+}
+
+@media (max-width: 767px) {
+  #header .ss-header-image-col {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
 
 /* Beta and placeholder page decoration */
 

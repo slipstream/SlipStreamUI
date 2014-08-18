@@ -15,7 +15,7 @@
 (def app-thumbnail-group-sel [:.ss-app-thumbnail-group])
 (def app-thumbnail-sel [:.ss-app-thumbnail])
 (def app-image-container-sel [:.ss-app-image-container])
-(def app-image-preloader-sel (concat app-image-container-sel [:.ss-app-image-preloader]))
+(def app-image-preloader-sel (concat app-image-container-sel [:.ss-image-preloader]))
 (def app-name-deploy-btn-sel [:.ss-app-deploy-btn])
 (def app-name-container-sel [:.ss-app-name-container])
 (def app-name-sel [:.ss-app-name])

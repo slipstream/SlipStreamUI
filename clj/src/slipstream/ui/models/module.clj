@@ -151,7 +151,7 @@
 
 (defn- assoc-authz-setting
   "Assoc into the map 'm' the access rights transforming the original
-  keyword into a path. E.g. will merge ':grouppost true' into {:group-rights {:post true}}"
+  keyword into a path. E.g. will merge ':grouppost true' into {:post {:group-access? true}}"
   [m [k v]]
   (if-let [authz-setting-path (parse-keyword k)]
     (assoc-in m authz-setting-path (u/parse-boolean v))

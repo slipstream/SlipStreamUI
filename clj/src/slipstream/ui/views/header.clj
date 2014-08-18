@@ -148,13 +148,21 @@
 (def status-code-sel [:.ss-header-error-status-code])
 (def title-sel [:.ss-header-title])
 (def subtitle-sel [:.ss-header-subtitle])
-(def header-icon-sel [:span.ss-header-icon])
+(def title-col-sel [:.ss-header-title-col])
+(def icon-sel [:span.ss-header-icon])
+(def image-preloader-sel [:img.ss-image-preloader])
+(def image-col-sel [:.ss-header-image-col])
 
 (defn transform
-  [{:keys [status-code title subtitle icon] :as header}]
+  [{:keys [status-code title subtitle icon image] :as header}]
   (fn [match]
     (html/at match
-             header-icon-sel  (icons/set icon)
-             status-code-sel  (u/when-content status-code)
-             title-sel        (u/when-content title)
-             subtitle-sel     (u/when-html-content subtitle))))
+             icon-sel  (icons/set icon)
+             status-code-sel      (u/when-content status-code)
+             title-sel            (u/when-content title)
+             subtitle-sel         (u/when-html-content subtitle)
+             title-col-sel        (u/when-replace-class (not image)
+                                                        "col-sm-8"
+                                                        "col-sm-11")
+             image-preloader-sel  (u/set-src image)
+             image-col-sel        (u/remove-if-not image))))
