@@ -1,58 +1,71 @@
 (ns slipstream.ui.views.secondary-menu-actions
   "Predefined actions for the secondary menu."
   (:refer-clojure :exclude [import])
-  (:require [slipstream.ui.util.icons :as icons]))
+  (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.icons :as icons]))
 
-(def new-project
-  {:name "New project"
+(localization/def-scoped-t)
+
+(defn new-project
+  []
+  {:name (t :new-project)
    :uri  "module/new"
    :icon icons/action-new-project})
 
-(def new-image
-  {:name "New machine image"
+(defn new-image
+  []
+  {:name (t :new-image)
    :uri  "module/new"
    :icon icons/action-new-image})
 
-(def new-deployment
-  {:name "New deployment"
+(defn new-deployment
+  []
+  {:name (t :new-deployment)
    :uri  "module/new"
    :icon icons/action-new-deployment})
 
-(def import
-  {:name "Import"
+(defn import
+  []
+  {:name (t :import)
    :uri  "module/new"
    :icon icons/action-import})
 
-(def new-user
-  {:name "New user"
+(defn new-user
+  []
+  {:name (t :new-user)
    :uri  "user/new"
    :icon icons/action-new-user})
 
-(def edit-user
-  {:name "Edit user (url missing yet)"
+(defn edit-user
+  []
+  {:name (t :edit-user)
    :uri  "" ; TODO: provide right URL hele
    :icon icons/action-edit-user})
 
-(def run
-  {:name "Run..."
+(defn run
+  []
+  {:name (t :run)
    :uri  "module/new"
    :icon icons/action-run})
 
-(def edit
-  {:name "Edit"
+(defn edit
+  []
+  {:name (t :edit)
    :uri  "module/new"
    :icon icons/action-edit
    :super-only? true})
 
-(def copy
-  {:name "Copy..."
+(defn copy
+  []
+  {:name (t :copy)
    :uri  "module/new"
    :icon icons/action-copy
    :disabled? false
    :super-only? true})
 
-(def unpublish
-  {:name "Un-publish"
+(defn unpublish
+  []
+  {:name (t :unpublish)
    :uri  "module/new"
    :icon icons/action-unpublish
    :disabled? true})

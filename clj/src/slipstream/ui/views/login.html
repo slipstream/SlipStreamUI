@@ -16,11 +16,14 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-lg-8">
-          <h1 class="visible-lg">Deploy your apps,<br>to every cloud.</h1>
-          <h1 class="hidden-lg">Deploy apps,<br>to every cloud.</h1>
-          <p>Your gateway to multi-cloud deployment automation, remaining independent from
-            the underlying IaaS platform used. See the Use Cases below for more info.</p>
-            <p class="hidden-xs"><strong>Try it for free!</strong> No credit card needed.</p>
+          <h1 class="ss-header-title">Title.</h1>
+          <p class="ss-header-subtitle">
+            Subtitle.
+          </p>
+            <p class="ss-header-last-line">
+              <!-- <strong>Try it for free!</strong> No credit card needed. -->
+              Last line.
+            </p>
           </div>
           <div class="col-sm-4 col-lg-3 col-lg-offset-1" id="create-account-form" >
             <!-- method="post" enctype="application/x-www-form-urlencoded"-->
@@ -35,7 +38,7 @@
 
             <div class="form-group">
               <label class="sr-only" for="username">Username</label>
-              <input type="text" class="form-control" name="username"
+              <input type="text" class="form-control ss-input-pick-username" name="username"
               autofocus
               placeholder="Pick a username"
 
@@ -64,7 +67,7 @@
 
             <div class="form-group">
               <label class="sr-only" for="email">Email</label>
-              <input class="form-control" name="email" type="email"
+              <input class="form-control ss-input-email" name="email" type="email"
               placeholder="Enter your email"
 
               data-bv-notempty="true"
@@ -83,10 +86,10 @@
               <input type="hidden" name="agreement" value="true"/>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-success btn-block">
+              <button type="submit" class="btn btn-success btn-block ss-btn-signup">
                 Sign up for SlipStream
               </button>
-              <small class="help-block">
+              <small class="help-block ss-terms-hint">
                 By clicking "Sign up for SlipStream", you agree to our <a href="https://slipstream.sixsq.com/html/terms-of-service.html">terms of service</a>.
               </small>
             </div>

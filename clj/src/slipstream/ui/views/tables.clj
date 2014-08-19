@@ -1,17 +1,23 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
   (:require [slipstream.ui.views.table :as table]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.parameters :as p]))
 
+(localization/def-scoped-t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def ^:private shared-project-headers
+(defn- shared-project-headers
+  "All headers must be computed on runtime to take into account the localization
+  language."
+  []
   [nil
-   "Name"
-   "Description"
-   "Owner"
-   "Version"])
+   (t :header.name)
+   (t :header.description)
+   (t :header.owner)
+   (t :header.version)])
 
 (defn- shared-project-row
   [{:keys [name uri description owner version] :as shared-project}]
@@ -24,21 +30,22 @@
 
 (defn shared-projects-table
   [shared-projects]
-  (let [headers shared-project-headers
+  (let [headers (shared-project-headers)
         rows (map shared-project-row shared-projects)]
     (table/build {:headers headers
                   :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def ^:private user-headers
+(defn- user-headers
+  []
   [nil
-   "Username"
-   "First Name"
-   "Last Name"
-   "Organization"
-   "State"
-   "Last online"])
+   (t :header.username)
+   (t :header.first-name)
+   (t :header.last-name)
+   (t :header.organization)
+   (t :header.state)
+   (t :header.last-online)])
 
 (defn- user-row
   [{:keys [username uri first-name last-name organization state last-online online?] :as user}]
@@ -53,47 +60,49 @@
 
 (defn users-table
   [users]
-  (let [headers user-headers
+  (let [headers (user-headers)
         rows (map user-row users)]
     (table/build {:headers headers
                   :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def ^:private doc-headers
+(defn- doc-headers
+  []
   [nil
-   "Name"
-   "HTML"
-   "PDF"
-   "ePub"])
+   (t :header.name)
+   (t :header.html)
+   (t :header.pdf)
+   (t :header.epub)])
 
 (defn- doc-row
   [{:keys [title basename] :as doc}]
   {:style nil
    :cells [{:type :cell/icon, :content icons/documentation}
            {:type :cell/text, :content title}
-           {:type :cell/external-link, :content {:text "Open in new page"
+           {:type :cell/external-link, :content {:text (t :documentation.open-html)
                                                  :href (str "/html/" basename ".html")}}
-           {:type :cell/external-link, :content {:text "Open PDF in new page"
+           {:type :cell/external-link, :content {:text (t :documentation.open-pdf)
                                                  :href (str "/pdf/" basename ".pdf")}}
-           {:type :cell/external-link, :content {:text "Download"
+           {:type :cell/external-link, :content {:text (t :documentation.open-epub)
                                                  :href (str "/epub/" basename ".epub")}}]})
 
 (defn docs-table
   [docs]
-  (let [headers doc-headers
+  (let [headers (doc-headers)
         rows (map doc-row docs)]
     (table/build {:headers headers
                   :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def ^:private version-headers
+(defn- version-headers
+  []
   [nil
-   "Version"
-   "Comment"
-   "Author"
-   "Date"])
+   (t :header.version)
+   (t :header.comment)
+   (t :header.author)
+   (t :header.date)])
 
 (defn- version-row
   [icon {:keys [version uri commit] :as version}]
@@ -106,16 +115,17 @@
 
 (defn versions-table
   [icon versions]
-  (let [headers version-headers
+  (let [headers (version-headers)
         rows (map (partial version-row icon) versions)]
     (table/build {:headers headers
                   :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def ^:private parameter-headers
-  ["Description"
-   "Value"
+(defn- parameter-headers
+  []
+  [(t :header.description)
+   (t :header.value)
    nil])
 
 (defn- cell-type?
@@ -137,15 +147,15 @@
       "RestrictedString"  :cell/text)))
 
 (defn- parameter-row
-  [{:keys [type description value help-hint] :as parameter}]
+  [{:keys [type description value help-hint name] :as parameter}]
   {:style nil
-   :cells [{:type :cell/text, :content description}
+   :cells [{:type :cell/text, :content (or description (t name))}
            {:type (type->cell-type type), :content value}
            {:type :cell/help-hint, :content help-hint}]})
 
 (defn parameters-table
   [parameters]
-  (let [headers parameter-headers
+  (let [headers (parameter-headers)
         rows (map parameter-row parameters)]
     (table/build {:headers headers
                   :rows rows})))
@@ -156,14 +166,14 @@
   [user-summary-map]
   (parameters-table
     (p/map->parameter-list user-summary-map
-      :username     {:description "Username"          :type :cell/text}
-      :first-name   {:description "First name"        :type :cell/text}
-      :last-name    {:description "Last name"         :type :cell/text}
-      :organization {:description "Organization"      :type :cell/text}
-      :email        {:description "Email"             :type :cell/email}
-      :super?       {:description "Is administrator?" :type :cell/boolean}
-      :creation     {:description "Date of creation"  :type :cell/text}
-      :state        {:description "Status"            :type :cell/text})))
+      :username     {:type :cell/text}
+      :first-name   {:type :cell/text}
+      :last-name    {:type :cell/text}
+      :organization {:type :cell/text}
+      :email        {:type :cell/email}
+      :super?       {:type :cell/boolean}
+      :creation     {:type :cell/text}
+      :state        {:type :cell/text})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -171,24 +181,25 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name          {:description "Name"             :type :cell/text}
-      :uri           {:description "Version"          :type :cell/module-version}
-      :description   {:description "Description"      :type :cell/text}
-      :comment       {:description "Comment"          :type :cell/text}
-      :category      {:description "Category"         :type :cell/text}
-      :creation      {:description "Created"          :type :cell/text}
-      :last-modified {:description "Last modified"    :type :cell/text}
-      :owner         {:description "Owner"            :type :cell/text}
+      :name          {:type :cell/text}
+      :uri           {:description (t :module-version) :type :cell/module-version}
+      :description   {:type :cell/text}
+      :comment       {:type :cell/text}
+      :category      {:type :cell/text}
+      :creation      {:type :cell/text}
+      :last-modified {:type :cell/text}
+      :owner         {:type :cell/text}
       )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(def ^:private access-right-headers
-  ["Access Right"
-   "Owner"
-   "Group"
-   "Public"])
+(defn- access-right-headers
+  []
+  [(t :header.access-right)
+   (t :header.owner)
+   (t :header.group)
+   (t :header.public)])
 
 (defn- access-right-row-style
   [{:keys [owner-access? group-access? public-access?]}]
@@ -210,14 +221,14 @@
 (defn- map->sorted-vector
   [access-rights]
   (vector
-    ["View"             (:get access-rights)]
-    ["Edit"             (:put access-rights)]
-    ["Delete"           (:delete access-rights)]
-    ["Create children"  (:create-children access-rights)]))
+    [(t :access.get)             (:get access-rights)]
+    [(t :access.put)             (:put access-rights)]
+    [(t :access.delete)          (:delete access-rights)]
+    [(t :access.create-children) (:create-children access-rights)]))
 
 (defn access-rights-table
   [access-rights]
-  (let [headers access-right-headers
+  (let [headers (access-right-headers)
         rows (->> access-rights
                   map->sorted-vector
                   (map access-right-row))]
@@ -230,7 +241,7 @@
   [group-members]
   (parameters-table
     (p/map->parameter-list group-members
-      :inherited-group-members? {:description "Are group members inherited from parent module?", :type :cell/boolean}
-      :group-members            {:description "Group members" :type :cell/set})))
+      :inherited-group-members? {:type :cell/boolean}
+      :group-members            {:type :cell/set})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

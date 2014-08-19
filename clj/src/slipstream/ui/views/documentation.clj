@@ -1,19 +1,25 @@
 (ns slipstream.ui.views.documentation
-  (:require [slipstream.ui.views.base :as base]
+  (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.views.base :as base]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.tables :as t]))
 
-(def ^:private docs
-  [{:title "User Guide and Tutorial"  :basename "tutorial"}
-   {:title "Administrator Manual"     :basename "administrator-manual"}
-   {:title "Terms of Service"         :basename "terms-of-service"}])
+(localization/def-scoped-t)
 
-(defn page [metadata]
-  (base/generate
-    {:metadata metadata
-     :header {:icon icons/documentation
-              :title "Documentation"
-              :subtitle "SlipStream technical documentation at a glance"}
-     :resource-uri "/documentation"
-     :content [{:title "Documentation"
-                :content (t/docs-table docs)}]}))
+(defn- docs
+  []
+  [{:title (t :tutorial.title)              :basename "tutorial"}
+   {:title (t :administrator-manual.title)  :basename "administrator-manual"}
+   {:title (t :terms-of-service.title)      :basename "terms-of-service"}])
+
+(defn page
+  [metadata]
+  (localization/with-lang-from-metadata
+    (base/generate
+      {:metadata metadata
+       :header {:icon icons/documentation
+                :title (t :header.title)
+                :subtitle (t :header.subtitle)}
+       :resource-uri "/documentation"
+       :content [{:title (t :title)
+                  :content (t/docs-table (docs))}]})))

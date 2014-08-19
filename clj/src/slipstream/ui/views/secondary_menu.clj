@@ -33,9 +33,21 @@
   [{:keys [super?] :as user} {:keys [disabled? super-only?] :as action}]
   (assoc action ::enabled? (if disabled? false (or super? (not super-only?)))))
 
+(defn- call-action-fn
+  "Actions defined in slipstream.ui.views.secondary-menu-actions are functions
+  (in order to take into account the localization language). To make the code
+  more readable, they can be included in the secondary-menu-actions vector in both
+  called [(action/new) (action/import)] or uncalled forms [action/new action/import]."
+  [map-or-fn]
+  (if (map? map-or-fn)
+    map-or-fn
+    (map-or-fn)))
+
 (defn transform
   [{:keys [secondary-menu-actions user] :as context}]
-  (let [actions (map (partial toggle-super-only-action user) secondary-menu-actions)]
+  (let [actions (->> secondary-menu-actions
+                     (map call-action-fn)
+                     (map (partial toggle-super-only-action user)))]
     (fn [match]
       (html/at match
                main-action-sel              (setup-action (first actions))

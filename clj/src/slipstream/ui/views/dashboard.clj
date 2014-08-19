@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.dashboard
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
@@ -195,12 +196,20 @@
      :header (header-snip dashboard)
      :content (content-snip dashboard)}))
 
-(defn page [dashboard]
-  (base/generate
-    {:metadata dashboard
-     :placeholder-page? true
-     :header {:icon icons/dashboard
-              :title "Dashboard"
-              :subtitle "Control and monitor your cloud activity"}
-     :content nil}))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/def-scoped-t)
+
+(defn page
+  [metadata]
+  (localization/with-lang-from-metadata
+    (base/generate
+      {:metadata metadata
+       :placeholder-page? true
+       :header {:icon icons/dashboard
+                :title (t :header.title)
+                :subtitle (t :header.subtitle)}
+       :content nil})))
 

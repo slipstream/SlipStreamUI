@@ -1,4 +1,4 @@
-(defproject com.sixsq.slipstream/SlipStreamUI "1.0-SNAPSHOT"
+(defproject com.sixsq.slipstream/SlipStreamUI "2.3.1-SNAPSHOT"
   :description "SlipStream UI Clojure/Enlive"
   :url "http://sixsq.com"
   :license {:name "Apache License, Version 2.0"
@@ -14,7 +14,10 @@
             [lein-autoexpect "1.0"]]
 
   :source-paths ["src"]
-  :target-path "target"
+  :target-path "target/%s/"
 
-  :aot [slipstream.ui.views.representation
-        slipstream.ui.config])
+  :resource-paths ["resources"]
+
+  ; :aot [slipstream.ui.views.representation
+  ;       slipstream.ui.config]
+  )

@@ -15,6 +15,9 @@
     </parent>
     <build>
 		<resources>
+            <resource>
+                <directory>clj/resources</directory>
+            </resource>
 			<resource>
 				<directory>clj/src</directory>
 			</resource>

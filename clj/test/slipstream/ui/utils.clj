@@ -10,7 +10,7 @@
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 
 (def webdir
-  (config/value :webdir "clj/src/slipstream/ui/views/"))
+  (config/value :webdir "src/slipstream/ui/views/"))
 
 (defn render [t]
   (apply str t))

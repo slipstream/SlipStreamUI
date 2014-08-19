@@ -1,0 +1,199 @@
+{
+   ; :example {
+   ;       :foo           ":en :example/foo text"
+   ;       :foo_comment   "Hello translator, please do x"
+   ;       ; :bar {:baz ":en :example.bar/baz text"}
+   ;       :greeting "Hello %s, how are you?"
+   ;       :inline-markdown "<tag>**strong**</tag>"
+   ;       :block-markdown* "<tag>**strong**</tag>"
+   ;       :with-exclaim!   "<tag>**strong**</tag>"
+   ;       :with-arguments  "Num %d = %s"
+   ;       :greeting-alias :example/greeting
+   ;       :baz-alias      :example.bar/baz
+   ; }
+   ; :missing        "|Missing translation: [%1$s %2$s %3$s]|"
+
+   :missing        "%1$s %3$s"
+
+   :global {:nouns {
+                    :author         "Author"
+                    :category       "Category"
+                    :comment        "Comment"
+                    :configuration  "Configuration"
+                    :dashboard      "Dashboard"
+                    :date           "Date"
+                    :deployment     "Deployment"
+                    :description    "Description"
+                    :documentation  "Documentation"
+                    :email          "Email"
+                    :epub           "ePub"
+                    :error          "Error"
+                    :first-name     "First name"
+                    :group          "Group"
+                    :html           "HTML"
+                    :last-name      "Last name"
+                    :name           "Name"
+                    :organization   "Organization"
+                    :owner          "Owner"
+                    :password       "Password"
+                    :pdf            "PDF"
+                    :profile        "Profile"
+                    :public         "Public"
+                    :publisher      "Publisher"
+                    :regular-user   "Regular user"
+                    :state          "State"
+                    :summary        "Summary"
+                    :super-user     "Administrator"
+                    :system         "System"
+                    :user           "User"
+                    :username       "Username"
+                    :users          "Users"
+                    :value          "Value"
+                    :version        "Version"
+                    :versions       "Versions"
+                    }
+            :verbs {
+                    :delete         "Delete"
+                    :deploy         "Deploy"
+                    :download       "Download"
+                    :edit           "Edit"
+                    :import         "Import"
+                    :login          "Log in"
+                    :logout         "Log out"
+                    :unpublish      "Un-publish"
+                    :view           "View"
+                    }
+            }
+
+
+   :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
+   :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
+   :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
+   :slipstream.ui.views.menubar.unlogged.action.reset-password       "Reset password"
+   :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
+   :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contact us"
+
+   :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
+   :slipstream.ui.views.menubar.logged-in.action.configuration       :global.nouns.configuration
+   :slipstream.ui.views.menubar.logged-in.action.system              :global.nouns.system
+   :slipstream.ui.views.menubar.logged-in.action.users               :global.nouns.users
+   :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
+   :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
+   :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
+   :slipstream.ui.views.menubar.logged-in.action.logout              :global.verbs.logout
+
+
+   :slipstream.ui.views.error.page-title                       :global.nouns.error
+
+
+   :slipstream.ui.views.login.header.title                     "Deploy to every cloud."
+   :slipstream.ui.views.login.header.subtitle                  "Your gateway to multi-cloud deployment automation,
+                                                               remaining independent from the underlying IaaS
+                                                               platform used. See the Use Cases below for more info."
+   :slipstream.ui.views.login.header.last-line                 "**Try it for free!** No credit card needed."
+   :slipstream.ui.views.login.input.pick-username.placeholder  "Pick a username"
+   :slipstream.ui.views.login.input.email.placeholder          "Enter your email"
+   :slipstream.ui.views.login.signup.button.label              "Sign up for SlipStream"
+   :slipstream.ui.views.login.signup.terms-hint                "By clicking 'Sign up for SlipStream', you agree to our
+                                                               [terms of service](https://slipstream.sixsq.com/html/terms-of-service.html)."
+
+   :slipstream.ui.views.user.header.title.loggedin             "Your profile"
+   :slipstream.ui.views.user.header.title.not-loggedin         "%s's user profile"
+   :slipstream.ui.views.user.header.subtitle.super             :global.nouns.super-user
+   :slipstream.ui.views.user.header.subtitle.not-super         :global.nouns.regular-user
+   :slipstream.ui.views.user.summary                           :global.nouns.summary
+
+
+   :slipstream.ui.views.tables.header.description              :global.nouns.description
+   :slipstream.ui.views.tables.header.value                    :global.nouns.value
+   :slipstream.ui.views.tables.header.access-right             "Access Right"
+   :slipstream.ui.views.tables.header.owner                    :global.nouns.owner
+   :slipstream.ui.views.tables.header.group                    :global.nouns.group
+   :slipstream.ui.views.tables.header.public                   :global.nouns.public
+   :slipstream.ui.views.tables.header.version                  :global.nouns.version
+   :slipstream.ui.views.tables.header.comment                  :global.nouns.comment
+   :slipstream.ui.views.tables.header.author                   :global.nouns.author
+   :slipstream.ui.views.tables.header.date                     :global.nouns.date
+   :slipstream.ui.views.tables.header.name                     :global.nouns.name
+   :slipstream.ui.views.tables.header.html                     :global.nouns.html
+   :slipstream.ui.views.tables.header.pdf                      :global.nouns.pdf
+   :slipstream.ui.views.tables.header.epub                     :global.nouns.epub
+   :slipstream.ui.views.tables.header.username                 :global.nouns.username
+   :slipstream.ui.views.tables.header.first-name               :global.nouns.first-name
+   :slipstream.ui.views.tables.header.last-name                :global.nouns.last-name
+   :slipstream.ui.views.tables.header.organization             :global.nouns.organization
+   :slipstream.ui.views.tables.header.state                    :global.nouns.state
+   :slipstream.ui.views.tables.header.last-online              "Last online"
+
+   :slipstream.ui.views.tables.username                        :global.nouns.username
+   :slipstream.ui.views.tables.first-name                      :global.nouns.first-name
+   :slipstream.ui.views.tables.last-name                       :global.nouns.last-name
+   :slipstream.ui.views.tables.organization                    :global.nouns.organization
+   :slipstream.ui.views.tables.email                           :global.nouns.email
+   :slipstream.ui.views.tables.super?                          "Is administrator?"
+   :slipstream.ui.views.tables.creation                        "Date of creation"
+   :slipstream.ui.views.tables.state                           :global.nouns.state
+   :slipstream.ui.views.tables.name                            :global.nouns.name
+   :slipstream.ui.views.tables.module-version                  :global.nouns.version
+   :slipstream.ui.views.tables.description                     :global.nouns.description
+   :slipstream.ui.views.tables.comment                         :global.nouns.comment
+   :slipstream.ui.views.tables.category                        :global.nouns.category
+   :slipstream.ui.views.tables.last-modified                   "Last modified"
+   :slipstream.ui.views.tables.owner                           :global.nouns.owner
+   :slipstream.ui.views.tables.inherited-group-members?        "Are group members inherited from parent module?"
+   :slipstream.ui.views.tables.group-members                   "Group members"
+
+   :slipstream.ui.views.tables.documentation.open-html         "Open in new page"
+   :slipstream.ui.views.tables.documentation.open-pdf          "Open PDF in new page"
+   :slipstream.ui.views.tables.documentation.open-epub         :global.verbs.download
+
+   :slipstream.ui.views.tables.access.get                      :global.verbs.view
+   :slipstream.ui.views.tables.access.put                      :global.verbs.edit
+   :slipstream.ui.views.tables.access.delete                   :global.verbs.delete
+   :slipstream.ui.views.tables.access.create-children          "Create children"
+
+
+   :slipstream.ui.views.welcome.page-title                     "Welcome"
+   :slipstream.ui.views.welcome.header.title                   "Welcome to SlipStream"
+   :slipstream.ui.views.welcome.header.subtitle                "The welcome page provides you with all currently published
+                                                               modules and root modules, including yours and the ones
+                                                               shared with you."
+   :slipstream.ui.views.welcome.app.label.description          :global.nouns.description
+   :slipstream.ui.views.welcome.app.label.publisher            :global.nouns.publisher
+   :slipstream.ui.views.welcome.app.label.publication-date     :global.nouns.date
+   :slipstream.ui.views.welcome.app.label.deploy               :global.verbs.deploy
+   :slipstream.ui.views.welcome.section.app-store.title        "App Store"
+   :slipstream.ui.views.welcome.section.shared-projects.title  "Shared Projects"
+
+
+   :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
+   :slipstream.ui.views.secondary-menu-actions.new-image       "New machine image"
+   :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
+   :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
+   :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
+   :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user (url missing yet)"
+   :slipstream.ui.views.secondary-menu-actions.run             "Run..."
+   :slipstream.ui.views.secondary-menu-actions.edit            :global.verbs.edit
+   :slipstream.ui.views.secondary-menu-actions.copy            "Copy..."
+   :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
+
+
+   :slipstream.ui.views.users.header.title                     :global.nouns.users
+   :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
+   :slipstream.ui.views.users.content.title                    :global.nouns.users
+
+   :slipstream.ui.views.documentation.header.title             :global.nouns.documentation
+   :slipstream.ui.views.documentation.header.subtitle          "SlipStream technical documentation at a glance"
+   :slipstream.ui.views.documentation.tutorial.title           "User Guide and Tutorial"
+   :slipstream.ui.views.documentation.administrator-manual.title  "Administrator Manual"
+   :slipstream.ui.views.documentation.terms-of-service.title   "Terms of Service"
+
+   :slipstream.ui.views.dashboard.header.title                 :global.nouns.dashboard
+   :slipstream.ui.views.dashboard.header.subtitle              "Control and monitor your cloud activity"
+
+   :slipstream.ui.views.versions.header.title                  "History of '%s'"
+   :slipstream.ui.views.versions.header.subtitle.one-version   "There is one version of this %s."
+   :slipstream.ui.views.versions.header.subtitle.multiple-versions "There are %s versions of this %s."
+   :slipstream.ui.views.versions.content.title                 :global.nouns.versions
+   :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
+}
