@@ -2,10 +2,18 @@
   "Util functions only related to the string localization."
   (:require [clojure.java.io :as io]
             [taoensso.tower :as tower]
-            [slipstream.ui.util.clojure :as uc]))
+            [slipstream.ui.util.clojure :as uc])
+  (:import  java.io.File))
 
-(def ^:private lang-resources-dir "clj/resources/lang/")
-; (def ^:private lang-resources-dir "resources/lang/")
+(def ^:private available-languages
+  "In dev and in the REPL the lang/ folder can be inspected for the present files
+  and automatically load them without having to declare them here.
+  However, this doesn't work (i.e. it's much more complicated) from within the
+  packajed jar, so that known resources must be directly loaded."
+  #{:en})
+
+(def ^:private lang-resources-dir "lang/")
+
 (def ^:private spot-missing-t-calls-mode? false)
 ; (def ^:private spot-missing-t-calls-mode? true)
 
@@ -18,22 +26,19 @@
   setup for the current thread."
   nil)
 
-(defn- file->locale-entry
-  [file]
-  (let [filename (.getName file)
-        basename (uc/trim-from-last filename \.)
-        extension (uc/trim-up-to-last filename \.)
-        iso-language (-> basename keyword tower/iso-languages)]
-    (when (and (= extension "edn") iso-language)
-      [iso-language (str "lang/" filename)])))
-
+(defn- language-code->locale-entry
+  [language-code]
+  (let [lang-resource-filename (str lang-resources-dir (name language-code) ".edn")]
+    (when-not (io/resource lang-resource-filename)
+      (throw (IllegalArgumentException.
+           (str "No lang locale file '" lang-resource-filename
+                "' found in resource dir '" lang-resources-dir "'"))))
+    [language-code lang-resource-filename]))
 
 (def ^:private lang-locales
-  (into {} (->> lang-resources-dir
-                io/file
-                file-seq
-                rest
-                (map file->locale-entry))))
+  (->> available-languages
+       (map language-code->locale-entry)
+       (into {})))
 
 (when (empty? lang-locales)
   (throw (IllegalStateException.

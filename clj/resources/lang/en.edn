@@ -184,6 +184,7 @@
 
    :slipstream.ui.views.documentation.header.title             :global.nouns.documentation
    :slipstream.ui.views.documentation.header.subtitle          "SlipStream technical documentation at a glance"
+   :slipstream.ui.views.documentation.content.title            :global.nouns.documentation
    :slipstream.ui.views.documentation.tutorial.title           "User Guide and Tutorial"
    :slipstream.ui.views.documentation.administrator-manual.title  "Administrator Manual"
    :slipstream.ui.views.documentation.terms-of-service.title   "Terms of Service"

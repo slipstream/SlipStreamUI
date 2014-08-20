@@ -21,5 +21,5 @@
                 :title (t :header.title)
                 :subtitle (t :header.subtitle)}
        :resource-uri "/documentation"
-       :content [{:title (t :title)
+       :content [{:title (t :content.title)
                   :content (t/docs-table (docs))}]})))
