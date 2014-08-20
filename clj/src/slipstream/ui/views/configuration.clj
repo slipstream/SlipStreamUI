@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.configuration
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
@@ -55,12 +56,20 @@
      :header (header-snip (user-model/user configuration))
      :content (content-snip configuration)}))
 
-(defn page [metadata]
-  (base/generate
-    {:metadata metadata
-     :placeholder-page? true
-     :header {:icon icons/config
-              :title "System Configuration"
-              :subtitle "Configure the SlipStream service and its cloud connectors"}
-     :content nil}))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/def-scoped-t)
+
+(defn page
+  [metadata]
+  (localization/with-lang-from-metadata
+    (base/generate
+      {:metadata metadata
+       :placeholder-page? true
+       :header {:icon icons/config
+                :title "System Configuration"
+                :subtitle "Configure the SlipStream service and its cloud connectors"}
+       :content nil})))
 
