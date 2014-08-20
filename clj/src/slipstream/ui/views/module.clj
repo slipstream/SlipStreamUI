@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.module
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.views.secondary-menu-actions :as action]
@@ -226,37 +227,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(localization/def-scoped-t)
+
 (defn- header
   [module]
   {:icon (icons/icon-for (:category module))
-   :title (format "%s: %s"
-                 (:category module)
-                 (:short-name module))
-   :subtitle (str "Version: " (:version module)
-               (when-let [desc (:description module)]
-                 (str " - " desc)))})
+   :title (t :header.title (:category module) (:short-name module))
+   :subtitle (t :header.subtitle (str (:version module)
+                  (when-let [desc (:description module)]
+                    (str " - " desc))))})
 
 (defn- old-version-alert
   [module]
   (when-not (:latest-version? module)
     {:type :warning
-     :msg "You are not on the latest version of this module."}))
+     :msg (t :alert.old-version)}))
 
-(defn page [metadata type]
-  (let [module (module-model/parse metadata)]
-    (base/generate
-      {:metadata metadata
-       :header (header module)
-       :alerts [(old-version-alert module)]
-       :resource-uri (:uri module)
-       :secondary-menu-actions [action/edit
-                                action/new-project
-                                action/new-image
-                                action/new-deployment
-                                action/import]
-       :content [{:title "Summary"
-                  :selected? true
-                  :content (t/module-summary-table module)}
-                 {:title "Authorizations"
-                  :content [(t/access-rights-table (-> module :authorization :access-rights))
-                            (t/group-members-table (-> module :authorization))]}]})))
+(defn page
+  [metadata type]
+  (localization/with-lang-from-metadata
+    (let [module (module-model/parse metadata)]
+      (base/generate
+        {:metadata metadata
+         :header (header module)
+         :alerts [(old-version-alert module)]
+         :resource-uri (:uri module)
+         :secondary-menu-actions [action/edit
+                                  action/new-project
+                                  action/new-image
+                                  action/new-deployment
+                                  action/import]
+         :content [{:title (t :section.summary.title)
+                    :selected? true
+                    :content (t/module-summary-table module)}
+                   {:title (t :section.authorizations.title)
+                    :content [(t/access-rights-table (-> module :authorization :access-rights))
+                              (t/group-members-table (-> module :authorization))]}]}))))

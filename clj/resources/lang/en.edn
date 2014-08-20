@@ -17,6 +17,8 @@
 
    :global {:nouns {
                     :author         "Author"
+                    :authorization  "Authorization"
+                    :authorizations "Authorizations"
                     :category       "Category"
                     :comment        "Comment"
                     :configuration  "Configuration"
@@ -197,4 +199,10 @@
    :slipstream.ui.views.versions.header.subtitle.multiple-versions "There are %s versions of this %s."
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
    :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
+
+   :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
+   :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
+   :slipstream.ui.views.module.alert.old-version               "You are not on the latest version of this module."
+   :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
+   :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 }
