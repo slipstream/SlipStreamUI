@@ -9,8 +9,9 @@
   "In dev and in the REPL the lang/ folder can be inspected for the present files
   and automatically load them without having to declare them here.
   However, this doesn't work (i.e. it's much more complicated) from within the
-  packajed jar, so that known resources must be directly loaded."
-  #{:en})
+  packajed jar, so that known resources must be directly loaded.
+  For one possible solution see: http://stackoverflow.com/a/22363700"
+  #{:en :ja})
 
 (def ^:private lang-resources-dir "lang/")
 
@@ -51,7 +52,7 @@
    ; :fmt-fn fmt-str ; (fn [loc fmt args])
    :log-missing-translation-fn
    (fn [{:keys [locale ks scope] :as args}]
-     (println ">>>>>>>>>>>> Missing translation:" args))})
+     (println ">>> Missing translation:" args))})
 
 (def t
   (if spot-missing-t-calls-mode?

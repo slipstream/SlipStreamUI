@@ -30,13 +30,19 @@
     (instance? clojure.lang.PersistentStructMap (first n))
     (instance? clojure.lang.PersistentStructMap (ffirst n))))
 
-(defn when-content
+(defn content-when-not-nil
   [content]
   (if (nil? content)
     identity
     (html/content (str content))))
 
-(defn when-html-content
+(defmacro if-content
+  [test content-if-truthy content-if-falsey]
+  `(if ~test
+    (html/content (str ~content-if-truthy))
+    (html/content (str ~content-if-falsey))))
+
+(defn html-content-when-not-nil
   [html-content]
   (if (nil? html-content)
     identity

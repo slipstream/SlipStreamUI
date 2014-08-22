@@ -149,7 +149,7 @@
 (defn- parameter-row
   [{:keys [type description value help-hint name] :as parameter}]
   {:style nil
-   :cells [{:type :cell/text, :content (or description (t name))}
+   :cells [{:type :cell/text, :content description}
            {:type (type->cell-type type), :content value}
            {:type :cell/help-hint, :content help-hint}]})
 
@@ -182,7 +182,7 @@
   (parameters-table
     (p/map->parameter-list module
       :name          {:type :cell/text}
-      :uri           {:description (t :module-version) :type :cell/module-version}
+      :uri           {:as-parameter :module-version :type :cell/module-version}
       :description   {:type :cell/text}
       :comment       {:type :cell/text}
       :category      {:type :cell/text}
@@ -243,5 +243,24 @@
     (p/map->parameter-list group-members
       :inherited-group-members? {:type :cell/boolean}
       :group-members            {:type :cell/set})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn cloud-image-details-table
+  [cloud-image-details]
+  (parameters-table
+    (p/map->parameter-list cloud-image-details
+      :native-image?      {:type :cell/boolean}
+      :cloud-identifiers  {:type :cell/map}
+      :reference-image    {:type :cell/url})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn os-details-table
+  [os-details]
+  (parameters-table
+    (p/map->parameter-list os-details
+      :platform         {:type :cell/text}
+      :login-username   {:type :cell/text})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -12,7 +12,6 @@
             [slipstream.ui.views.alerts :as alerts]
             [slipstream.ui.views.section :as section]
             [slipstream.ui.views.subsection :as subsection]
-            [slipstream.ui.views.content :as content]
             [slipstream.ui.views.menubar :as menubar]
             [slipstream.ui.views.table :as table]
             [slipstream.ui.views.breadcrumbs :as breadcrumbs]
@@ -99,7 +98,7 @@
                           (header/transform header))
   content-sel           (ue/if-enlive-node content
                           (html/substitute content)
-                          (content/build content))
+                          (section/build content))
   alert-container-sel   (html/content (map alerts/alert alerts))
   alert-container-sel   (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)

@@ -1,8 +1,8 @@
 (ns slipstream.ui.views.module
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
@@ -230,36 +230,79 @@
 (localization/def-scoped-t)
 
 (defn- header
-  [module]
-  {:icon (icons/icon-for (:category module))
-   :title (t :header.title (:category module) (:short-name module))
-   :subtitle (t :header.subtitle (str (:version module)
-                  (when-let [desc (:description module)]
+  [summary]
+  {:icon (icons/icon-for (:category summary))
+   :title (t :header.title (:category summary) (:short-name summary))
+   :subtitle (t :header.subtitle (str (:version summary)
+                  (when-let [desc (:description summary)]
                     (str " - " desc))))})
 
 (defn- old-version-alert
-  [module]
-  (when-not (:latest-version? module)
+  [latest-version?]
+  (when-not latest-version?
     {:type :warning
-     :msg (t :alert.old-version)}))
+     :msg (t :alert.old-version.msg)}))
+
+(defmulti middle-sections (comp uc/keywordize :category :summary))
+
+(defmethod middle-sections :default
+  [_]
+  nil)
+
+(defn- category-section
+  [{:keys [category parameters]}]
+  {:title category
+   :content (t/parameters-table parameters)})
+
+(defn- table-fn-for
+  [metadata-key]
+  (->> metadata-key
+       name
+       (format "slipstream.ui.views.tables/%s-table")
+       symbol
+       resolve))
+
+(defn- middle-section
+  [module metadata-key]
+  (let [section-metadata (get module metadata-key)]
+    {:title   (->> metadata-key name (format "section.%s.title") keyword t)
+     :content (if-let [table-fn (table-fn-for metadata-key)]
+                (table-fn section-metadata)
+                (map category-section section-metadata))}))
+
+(defmethod middle-sections :image
+  [module]
+  (->> [:cloud-image-details
+        :os-details
+        :cloud-configuration]
+       (map (partial middle-section module))))
+
+(defn- sections
+  [module]
+  (let [summary-section {:title (t :section.summary.title)
+                         :selected? true
+                         :content (t/module-summary-table (:summary module))}
+        auth-section    {:title (t :section.authorizations.title)
+                         :content [(t/access-rights-table (-> module :authorization :access-rights))
+                                   (t/group-members-table (-> module :authorization))]}]
+    (-> [summary-section (middle-sections module) auth-section]
+        flatten
+        vec)))
 
 (defn page
   [metadata type]
   (localization/with-lang-from-metadata
-    (let [module (module-model/parse metadata)]
+    (let [module (module-model/parse metadata)
+          summary (:summary module)]
+      (prn module)
       (base/generate
         {:metadata metadata
-         :header (header module)
-         :alerts [(old-version-alert module)]
-         :resource-uri (:uri module)
+         :header (header summary)
+         :alerts [(-> summary :latest-version? old-version-alert)]
+         :resource-uri (:uri summary)
          :secondary-menu-actions [action/edit
                                   action/new-project
                                   action/new-image
                                   action/new-deployment
                                   action/import]
-         :content [{:title (t :section.summary.title)
-                    :selected? true
-                    :content (t/module-summary-table module)}
-                   {:title (t :section.authorizations.title)
-                    :content [(t/access-rights-table (-> module :authorization :access-rights))
-                              (t/group-members-table (-> module :authorization))]}]}))))
+         :content (sections module)}))))

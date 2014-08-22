@@ -40,4 +40,4 @@
 
 (defn build
   [sections]
-  (html/content (section-group-snip sections)))
+  (html/content (->> sections (remove nil?) section-group-snip)))

@@ -6,6 +6,8 @@
 
 ul.ss-subsection-activator-group > li > a {
   color: #777;
+  height: 30px;
+  padding-top: 4px;
 }
 
 ul.ss-subsection-activator-group > li > a:hover {

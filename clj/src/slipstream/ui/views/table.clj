@@ -22,6 +22,8 @@
 (def cell-boolean-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-boolean")]]))
 (def cell-module-version-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-module-version")]]))
 (def cell-help-hint-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-help-hint")]]))
+(def cell-map-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-map")]]))
+(def cell-map-entry-sel (concat cell-map-sel [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
 
 
 ;; Cell
@@ -38,6 +40,15 @@
 (defn cell-set-snip
   [set]
   (cell-text-snip (s/join ", " set)))
+
+(html/defsnippet term-dict-entry-snip template-filename cell-map-entry-sel
+  [[k v]]
+  [:dt] (html/content (if (keyword? k) (name k) (str k)))
+  [:dd] (html/content (str v)))
+
+(html/defsnippet cell-map-snip template-filename cell-map-sel
+  [m]
+  [:dl] (html/content (mapcat term-dict-entry-snip m)))
 
 (html/defsnippet cell-long-text-snip template-filename cell-text-sel
   [text]
@@ -58,6 +69,10 @@
   [email]
   (cell-link-snip {:text email :href (str "mailto:" email)}))
 
+(defn cell-url-snip
+  [url]
+  (cell-link-snip {:text url :href url}))
+
 (html/defsnippet cell-icon-snip template-filename cell-icon-sel
   [icon]
   [:span] (icons/set icon))
@@ -75,7 +90,7 @@
 (html/defsnippet cell-help-hint-snip template-filename cell-help-hint-sel
   [help-text]
   [:.ss-table-tooltip]  (ue/set-title help-text)
-  [:.ss-table-tooltip]  (ue/remove-if-not help-text))
+  [:.ss-table-tooltip]  (ue/remove-if-not (not-empty help-text)))
 
 (defn- cell-snip
   "Get the cell-snip fn corresponding to a given cell type. This is done with a
@@ -88,9 +103,11 @@
                            cell-text-snip)
     :cell/password       cell-password-snip
     :cell/set            cell-set-snip
+    :cell/map            cell-map-snip
     :cell/link           cell-link-snip
     :cell/external-link  cell-external-link-snip
     :cell/email          cell-email-snip
+    :cell/url            cell-url-snip
     :cell/icon           cell-icon-snip
     :cell/boolean        cell-boolean-snip
     :cell/module-version cell-module-version-snip

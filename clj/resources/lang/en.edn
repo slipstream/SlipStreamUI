@@ -33,17 +33,20 @@
                     :first-name     "First name"
                     :group          "Group"
                     :html           "HTML"
+                    :info           "Information"
                     :last-name      "Last name"
                     :name           "Name"
                     :organization   "Organization"
                     :owner          "Owner"
                     :password       "Password"
                     :pdf            "PDF"
+                    :platform       "Platform"
                     :profile        "Profile"
                     :public         "Public"
                     :publisher      "Publisher"
                     :regular-user   "Regular user"
                     :state          "State"
+                    :success        "Success"
                     :summary        "Summary"
                     :super-user     "Administrator"
                     :system         "System"
@@ -53,6 +56,7 @@
                     :value          "Value"
                     :version        "Version"
                     :versions       "Versions"
+                    :warning        "Warning"
                     }
             :verbs {
                     :delete         "Delete"
@@ -87,6 +91,11 @@
 
    :slipstream.ui.views.error.page-title                       :global.nouns.error
 
+
+   :slipstream.ui.views.alerts.success.title                   :global.nouns.success
+   :slipstream.ui.views.alerts.info.title                      :global.nouns.info
+   :slipstream.ui.views.alerts.warning.title                   :global.nouns.warning
+   :slipstream.ui.views.alerts.error.title                     :global.nouns.error
 
    :slipstream.ui.views.login.header.title                     "Deploy to every cloud."
    :slipstream.ui.views.login.header.subtitle                  "Your gateway to multi-cloud deployment automation,
@@ -127,23 +136,8 @@
    :slipstream.ui.views.tables.header.state                    :global.nouns.state
    :slipstream.ui.views.tables.header.last-online              "Last online"
 
-   :slipstream.ui.views.tables.username                        :global.nouns.username
-   :slipstream.ui.views.tables.first-name                      :global.nouns.first-name
-   :slipstream.ui.views.tables.last-name                       :global.nouns.last-name
-   :slipstream.ui.views.tables.organization                    :global.nouns.organization
-   :slipstream.ui.views.tables.email                           :global.nouns.email
-   :slipstream.ui.views.tables.super?                          "Is administrator?"
-   :slipstream.ui.views.tables.creation                        "Date of creation"
-   :slipstream.ui.views.tables.state                           :global.nouns.state
-   :slipstream.ui.views.tables.name                            :global.nouns.name
-   :slipstream.ui.views.tables.module-version                  :global.nouns.version
-   :slipstream.ui.views.tables.description                     :global.nouns.description
-   :slipstream.ui.views.tables.comment                         :global.nouns.comment
-   :slipstream.ui.views.tables.category                        :global.nouns.category
-   :slipstream.ui.views.tables.last-modified                   "Last modified"
-   :slipstream.ui.views.tables.owner                           :global.nouns.owner
-   :slipstream.ui.views.tables.inherited-group-members?        "Are group members inherited from parent module?"
-   :slipstream.ui.views.tables.group-members                   "Group members"
+
+
 
    :slipstream.ui.views.tables.documentation.open-html         "Open in new page"
    :slipstream.ui.views.tables.documentation.open-pdf          "Open PDF in new page"
@@ -153,6 +147,82 @@
    :slipstream.ui.views.tables.access.put                      :global.verbs.edit
    :slipstream.ui.views.tables.access.delete                   :global.verbs.delete
    :slipstream.ui.views.tables.access.create-children          "Create children"
+
+
+   ;; Parameters
+
+   :slipstream.ui.models.parameters.username.description                        :global.nouns.username
+   :slipstream.ui.models.parameters.username.help-hint                          ""
+
+   :slipstream.ui.models.parameters.first-name.description                      :global.nouns.first-name
+   :slipstream.ui.models.parameters.first-name.help-hint                        ""
+
+   :slipstream.ui.models.parameters.last-name.description                       :global.nouns.last-name
+   :slipstream.ui.models.parameters.last-name.help-hint                         ""
+
+   :slipstream.ui.models.parameters.organization.description                    :global.nouns.organization
+   :slipstream.ui.models.parameters.organization.help-hint                      ""
+
+   :slipstream.ui.models.parameters.email.description                           :global.nouns.email
+   :slipstream.ui.models.parameters.email.help-hint                             ""
+
+   :slipstream.ui.models.parameters.super?.description                          "Is administrator?"
+   :slipstream.ui.models.parameters.super?.help-hint                            ""
+
+   :slipstream.ui.models.parameters.creation.description                        "Date of creation"
+   :slipstream.ui.models.parameters.creation.help-hint                          ""
+
+   :slipstream.ui.models.parameters.state.description                           :global.nouns.state
+   :slipstream.ui.models.parameters.state.help-hint                             ""
+
+   :slipstream.ui.models.parameters.name.description                            :global.nouns.name
+   :slipstream.ui.models.parameters.name.help-hint                              ""
+
+   :slipstream.ui.models.parameters.module-version.description                  :global.nouns.version
+   :slipstream.ui.models.parameters.module-version.help-hint                    ""
+
+   :slipstream.ui.models.parameters.description.description                     :global.nouns.description
+   :slipstream.ui.models.parameters.description.help-hint                       ""
+
+   :slipstream.ui.models.parameters.comment.description                         :global.nouns.comment
+   :slipstream.ui.models.parameters.comment.help-hint                           ""
+
+   :slipstream.ui.models.parameters.category.description                        :global.nouns.category
+   :slipstream.ui.models.parameters.category.help-hint                          ""
+
+   :slipstream.ui.models.parameters.last-modified.description                   "Last modified"
+   :slipstream.ui.models.parameters.last-modified.help-hint                     ""
+
+   :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
+   :slipstream.ui.models.parameters.owner.help-hint                             ""
+
+   :slipstream.ui.models.parameters.inherited-group-members?.description        "Are group members inherited from parent module?"
+   :slipstream.ui.models.parameters.inherited-group-members?.help-hint          ""
+
+   :slipstream.ui.models.parameters.group-members.description                   "Group members"
+   :slipstream.ui.models.parameters.group-members.help-hint                     ""
+
+   :slipstream.ui.models.parameters.native-image?.description                   "Native image"
+   :slipstream.ui.models.parameters.native-image?.help-hint                     "This image maps to an existing cloud-specific image,
+                                                                                 which SlipStream didn't create. For native images, you
+                                                                                 are required to provide cloud image identifiers for
+                                                                                 each cloud you want to use. For non-native images, you
+                                                                                 need to provide a reference image, which can be chained,
+                                                                                 to a native image."
+
+   :slipstream.ui.models.parameters.cloud-identifiers.description               "Cloud image IDs"
+   :slipstream.ui.models.parameters.cloud-identifiers.help-hint                 "Contains the cloud specific image unique identifier
+                                                                                 (e.g. ami-xxxxxx for Amazon EC2)."
+
+   :slipstream.ui.models.parameters.reference-image.description                 "This image is based on"
+   :slipstream.ui.models.parameters.reference-image.help-hint                   "The image module this image inherits from."
+
+   :slipstream.ui.models.parameters.platform.description                        :global.nouns.platform
+   :slipstream.ui.models.parameters.platform.help-hint                          "The platform is defined by the native image and inherited by
+                                                                                 all derived images."
+
+   :slipstream.ui.models.parameters.login-username.description                  "Login username"
+   :slipstream.ui.models.parameters.login-username.help-hint                    "The login is defined by the native image and inherited by all derived images."
 
 
    :slipstream.ui.views.welcome.page-title                     "Welcome"
@@ -202,7 +272,11 @@
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
-   :slipstream.ui.views.module.alert.old-version               "You are not on the latest version of this module."
+   :slipstream.ui.views.module.alert.old-version.msg           "You are not on the latest version of this module."
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
+
+   :slipstream.ui.views.module.section.cloud-image-details.title "Cloud Image Identifiers and Image Hierarchy"
+   :slipstream.ui.views.module.section.os-details.title        "Operating System Details"
+   :slipstream.ui.views.module.section.cloud-configuration.title "Cloud Configuration"
 }

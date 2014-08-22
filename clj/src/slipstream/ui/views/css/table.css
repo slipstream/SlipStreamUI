@@ -2,3 +2,24 @@ td.ss-table-cell-boolean > input[type="checkbox"],
 td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   cursor: default;
 }
+
+.ss-table th:empty {
+  width:  1px;
+}
+
+.ss-table-cell-map dl {
+  margin: 0;
+}
+
+.ss-table-cell-map dt {
+  width: 130px;
+  text-align: left;
+  clear: left;
+  float: left;
+}
+
+.ss-table-cell-map dd {
+  margin-left: 135px;
+  text-overflow:ellipsis;
+  overflow: hidden;
+}

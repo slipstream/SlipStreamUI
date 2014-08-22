@@ -51,6 +51,15 @@
   [subsection]
   (assoc subsection :id (gensym "ss-subsection")))
 
+(defn- ensure-one-selected
+  [subsections]
+  (if (some :selected? subsections)
+    subsections
+    (assoc-in subsections [0 :selected?] true)))
+
 (defn build
   [subsections]
-  (html/content (subsection-group-snip (map assoc-id subsections))))
+  (html/content (subsection-group-snip (->> subsections
+                                            vec
+                                            ensure-one-selected
+                                            (map assoc-id)))))
