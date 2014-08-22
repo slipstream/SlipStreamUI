@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Code Area Template</title>
+  <!-- External CSS Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
+    <style type="text/css" media="screen">
+    .ace_editor {
+        height: 200px;
+    }
+    </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Code Area Template</h1>
+    <p>
+      Other options include:
+    </p>
+
+    <table class="table table-bordered table-striped">
+      <colgroup>
+        <col class="col-xs-2">
+        <col class="col-xs-7">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code>var viewer = ace.edit("ss-code-viewer");</code>
+          </td>
+          <td>To enable the ACE editor behaviour.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>viewer.setTheme("ace/theme/tomorrow");</code>
+          </td>
+          <td>The theme <code>.js</code> file must be loaded previously.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>viewer.getSession().setMode("ace/mode/sh");</code>
+          </td>
+          <td>Syntax highlighting language.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>viewer.setReadOnly(true);</code>
+          </td>
+          <td>(what the method name indicates) ;)</td>
+        </tr>
+        <tr>
+          <td>
+            <code>viewer.setHighlightActiveLine(false);</code>
+          </td>
+          <td>(what the method name indicates) ;)</td>
+        </tr>
+        <tr>
+          <td>
+            <code>viewer.setHighlightGutterLine(false);</code>
+          </td>
+          <td>(what the method name indicates) ;)</td>
+        </tr>
+        <tr>
+          <td>
+            <code>editor.setShowInvisibles(false);</code>
+          </td>
+          <td>(what the method name indicates) ;)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      From: <a href="http://ace.c9.io/#nav=api&api=editor">http://ace.c9.io/#nav=api&api=editor</a>
+    </p>
+
+    <hr>
+
+    <h2><code>.ss-code-viewer</code></h2>
+    <pre id="id1" class="ss-code-viewer">
+#! bin/sh
+# This is a comment
+
+echo $blah "nothing else"
+
+function test() {
+    for i in ${@}; do
+        echo "${@}"
+    done
+}
+</pre>
+
+    <h2><code>.ss-code-editor</code></h2>
+    <pre id="id2" class="ss-code-editor">
+#! bin/sh
+# This is a comment
+
+echo $blah "nothing else"
+
+function test() {
+    for i in ${@}; do
+        echo "${@}"
+    done
+}
+</pre>
+
+
+
+  </div> <!-- /.container -->
+
+  <div id="bottom-scripts">
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="external/ace-editor/src-min-noconflict-1.1.6/ace.js"></script>
+    <script src="external/ace-editor/src-min-noconflict-1.1.6/theme-tomorrow.js"></script>
+    <script src="external/ace-editor/src-min-noconflict-1.1.6/theme-tomorrow_night.js"></script>
+    <script src="js/code_area.js"></script>
+  </div>
+
+</body>
+</html>
