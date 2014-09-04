@@ -109,6 +109,7 @@
 		<dependency>
 			<groupId>jline</groupId>
 			<artifactId>jline</artifactId>
+                        <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>ring</groupId>
