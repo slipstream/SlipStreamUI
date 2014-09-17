@@ -145,7 +145,7 @@
       </entry>
       <entry>
          <string><![CDATA[slipstream.version]]></string>
-         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.version' description='Installed SlipStream version' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
+         <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.version' description='Installed SlipStream version' category='SlipStream_Advanced' mandatory='true' type='String' readonly='true'>
             <instructions><![CDATA[]]></instructions>
             <value><![CDATA[1.7]]></value>
          </parameter>
