@@ -107,16 +107,18 @@
   "Primary intended to 'better' group a coll of maps sorting the result by the
   grouping value. There are some options available to specify the keywords used
   in the result. See tests for expectations."
-  [f coll & {:keys [group-keyword items-keyword group-type-fn group-type-keyword]
+  [f coll & {:keys [group-keyword group-sort-fn items-keyword items-sort-fn group-type-fn group-type-keyword]
              :or   {group-keyword :group
+                    group-sort-fn identity
                     items-keyword :items}}]
   (let [group-keyword (if (keyword? f) f group-keyword)
         group-type-keyword (or
                              group-type-keyword
                              (-> group-keyword name (str "-type") keyword))
-        grouped-items (->> coll (group-by f) (sort-by first))]
+        items-sort (if items-sort-fn (partial sort-by items-sort-fn) identity)
+        grouped-items (->> coll (group-by f) (sort-by (comp group-sort-fn first)))]
     (for [[group items] grouped-items]
-      (let [res {group-keyword group, items-keyword items}]
-        (if (fn? group-type-fn)
+      (let [res {group-keyword group, items-keyword (items-sort items)}]
+        (if (ifn? group-type-fn)
           (assoc res group-type-keyword (group-type-fn group))
           res)))))

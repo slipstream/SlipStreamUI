@@ -52,17 +52,17 @@
 ;; coll-grouped-by
 
 (def personas
-  [{:age 20 :name "Alice"}
+  [{:age 17 :name "Clara"}
    {:age 20 :name "Bob"}
-   {:age 17 :name "Clara"}])
+   {:age 20 :name "Alice"}])
 
 
 (def result-basic
   [{:age 17
     :items [{:age 17, :name "Clara"}]}
    {:age 20
-    :items [{:age 20, :name "Alice"}
-            {:age 20, :name "Bob"}]}])
+    :items [{:age 20, :name "Bob"}
+            {:age 20, :name "Alice"}]}])
 
 (expect
   result-basic
@@ -75,8 +75,8 @@
     :members [{:age 17, :name "Clara"}]}
    {:age-type :adult
     :age 20
-    :members [{:age 20, :name "Alice"}
-              {:age 20, :name "Bob"}]}])
+    :members [{:age 20, :name "Bob"}
+              {:age 20, :name "Alice"}]}])
 
 (expect
   result-with-type
@@ -93,12 +93,31 @@
     :members [{:age 17, :name "Clara"}]}
    {:minors false
     :age 20
-    :members [{:age 20, :name "Alice"}
-              {:age 20, :name "Bob"}]}])
+    :members [{:age 20, :name "Bob"}
+              {:age 20, :name "Alice"}]}])
 
 (expect
   result-with-type-2
   (coll-grouped-by :age personas
                    :items-keyword :members
+                   :group-type-keyword :minors
+                   :group-type-fn #(< % 18)))
+
+
+(def result-with-sorting
+  [{:minors false
+    :age 20
+    :members [{:age 20, :name "Alice"}
+              {:age 20, :name "Bob"}]}
+   {:minors true
+    :age 17
+    :members [{:age 17, :name "Clara"}]}])
+
+(expect
+  result-with-sorting
+  (coll-grouped-by :age personas
+                   :group-sort-fn -
+                   :items-keyword :members
+                   :items-sort-fn :name
                    :group-type-keyword :minors
                    :group-type-fn #(< % 18)))
