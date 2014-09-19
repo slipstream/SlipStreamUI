@@ -120,3 +120,21 @@
               (s/replace #"(?<!(?:-|^))([A-Z])" "-$1")
               s/lower-case
               keyword)))
+
+(defn coll-grouped-by
+  "Primary intended to 'better' group a coll of maps sorting the result by the
+  grouping value. There are some options available to specify the keywords used
+  in the result. See tests for expectations."
+  [f coll & {:keys [group-keyword items-keyword group-type-fn group-type-keyword]
+             :or   {group-keyword :group
+                    items-keyword :items}}]
+  (let [group-keyword (if (keyword? f) f group-keyword)
+        group-type-keyword (or
+                             group-type-keyword
+                             (-> group-keyword name (str "-type") keyword))
+        grouped-items (->> coll (group-by f) (sort-by first))]
+    (for [[group items] grouped-items]
+      (let [res {group-keyword group, items-keyword items}]
+        (if (fn? group-type-fn)
+          (assoc res group-type-keyword (group-type-fn group))
+          res)))))
