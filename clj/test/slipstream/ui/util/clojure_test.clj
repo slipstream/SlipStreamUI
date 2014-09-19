@@ -4,6 +4,51 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; keywordize
+
+(expect
+  :deployment
+  (keywordize "Deployment"))
+
+(expect
+  :a-keyword
+  (keywordize :a-keyword))
+
+(expect
+  :a-Keyword
+  (keywordize :a-Keyword))
+
+(expect
+  :keyword
+  (keywordize "Keyword"))
+
+(expect
+  :keyword
+  (keywordize ":Keyword"))
+
+(expect
+  :-keyword
+  (keywordize "-Keyword"))
+
+(expect
+  :some-dash-case-string
+  (keywordize "some-dash-case-string"))
+
+(expect
+  :some-snake-case-string
+  (keywordize "some_snake_case_string"))
+
+(expect
+  :some-camel-case-string
+  (keywordize "someCamelCaseString"))
+
+(expect
+  :u-might-want-2-do-that
+  (keywordize [\U :might :Want 2 'do "that"]))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; coll-grouped-by
 
 (def personas

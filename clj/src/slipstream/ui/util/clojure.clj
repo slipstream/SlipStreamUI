@@ -88,27 +88,9 @@
       :else (throw (IllegalArgumentException.
                      (str "Cannot parse boolean from string: " s))))))
 
-;; TODO: Make tests for this fn
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
-  idiomatic Clojure keyword, e.g.
-    (keywordize 'Deployment')
-    ; => :deployment
-    (keywordize :a-keyword)
-    ; => :a-keyword
-    (keywordize :a-Keyword)
-    ; => :a-Keyword
-    (keywordize 'a-Keyword')
-    ; => :a-keyword
-    (keywordize 'aKeyword')
-    ; => :a-keyword
-    (keywordize ':aKeyword')
-    ; => :a-keyword
-    (keywordize 'someCamelCaseString')
-    ; => :some-camel-case-string
-    (keywordize [\\U :might :Want 2 'do 'that'])
-    ; => :u-might-want-2-do-that
-  "
+  idiomatic Clojure keyword. See tests for expectations."
   [x]
   (cond
     (nil? x) nil
