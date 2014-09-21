@@ -79,9 +79,10 @@
 
 (defn trim-last-path-segment
   [path-str]
-  (if ((set path-str) \/)
-    (trim-from-last path-str \/)
-    nil))
+  (when path-str
+    (if ((set path-str) \/)
+      (trim-from-last path-str \/)
+      "")))
 
 (defn last-path-segment
   [path-str]
