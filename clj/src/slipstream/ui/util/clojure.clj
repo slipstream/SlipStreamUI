@@ -31,28 +31,41 @@
     (when (and s (re-find #"^\d+$" s))
       (read-string s))))
 
-(defn trim-up-to-last
-  "Returns the input string without the characters appearing before the last char passed,
-  and without the char, e.g. '(trim-up-to-last \\. 'a.b.c.d') => 'd'"
+(defn trim-from
+  "Returns the input string without the characters appearing after the first instance of the char passed,
+  and without the char, e.g. '(trim-from 'a.b.c.d' \\.) => 'a'. See tests for expectations."
   [s c]
   {:pre [(char? c)]}
-  (when s
+  (if-not ((set s) c)
+    s
     (->> s
-         reverse
          (take-while #(not (= c %)))
-         reverse
          (apply str))))
 
 (defn trim-from-last
   "Returns the input string without the characters appearing after the last char passed,
-  and without the char, e.g. '(trim-from-last \\. 'a.b.c.d') => 'a.b.c'"
+  and without the char, e.g. '(trim-from-last 'a.b.c.d' \\.) => 'a.b.c'. See tests for expectations."
   [s c]
   {:pre [(char? c)]}
-  (when s
+  (if-not ((set s) c)
+    s
     (->> s
          reverse
          (drop-while #(not (= c %)))
          rest
+         reverse
+         (apply str))))
+
+(defn trim-up-to-last
+  "Returns the input string without the characters appearing before the last char passed,
+  and without the char, e.g. '(trim-up-to-last 'a.b.c.d' \\.) => 'd'. See tests for expectations."
+  [s c]
+  {:pre [(char? c)]}
+  (if-not ((set s) c)
+    s
+    (->> s
+         reverse
+         (take-while #(not (= c %)))
          reverse
          (apply str))))
 

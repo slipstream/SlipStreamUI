@@ -4,6 +4,110 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; trim-from
+
+(expect
+  AssertionError
+  (trim-from nil nil))
+
+(expect
+  AssertionError
+  (trim-from nil "not a char"))
+
+(expect
+  nil
+  (trim-from nil \.))
+
+(expect
+  "a"
+  (trim-from "a.b.c....." \.))
+
+(expect
+  "e8d0b957"
+  (trim-from "e8d0b957-14a8-4e96-8677-85c7bd9eb64e" \-))
+
+(expect
+  "abc"
+  (trim-from "abc" \-))
+
+(expect
+  ""
+  (trim-from "a" \a))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; trim-from-last
+
+(expect
+  AssertionError
+  (trim-from-last nil nil))
+
+(expect
+  AssertionError
+  (trim-from-last nil "not a char"))
+
+(expect
+  nil
+  (trim-from-last nil \.))
+
+(expect
+  "a.b"
+  (trim-from-last "a.b.c" \.))
+
+(expect
+  "a.b.c."
+  (trim-from-last "a.b.c.." \.))
+
+(expect
+  "e8d0b957-14a8-4e96-8677"
+  (trim-from-last "e8d0b957-14a8-4e96-8677-85c7bd9eb64e" \-))
+
+(expect
+  "abc"
+  (trim-from-last "abc" \-))
+
+(expect
+  ""
+  (trim-from-last "a" \a))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; trim-up-to-last
+
+(expect
+  AssertionError
+  (trim-up-to-last nil nil))
+
+(expect
+  AssertionError
+  (trim-up-to-last nil "not a char"))
+
+(expect
+  nil
+  (trim-up-to-last nil \.))
+
+(expect
+  "c"
+  (trim-up-to-last "a.b.c" \.))
+
+(expect
+  ""
+  (trim-up-to-last "a.b.c.." \.))
+
+(expect
+  "85c7bd9eb64e"
+  (trim-up-to-last "e8d0b957-14a8-4e96-8677-85c7bd9eb64e" \-))
+
+(expect
+  "abc"
+  (trim-up-to-last "abc" \-))
+
+(expect
+  ""
+  (trim-up-to-last "a" \a))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; keywordize
 
 (expect
