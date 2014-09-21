@@ -35,6 +35,7 @@
                     :html           "HTML"
                     :info           "Information"
                     :last-name      "Last name"
+                    :module         "Module"
                     :name           "Name"
                     :organization   "Organization"
                     :owner          "Owner"
@@ -50,6 +51,8 @@
                     :summary        "Summary"
                     :super-user     "Administrator"
                     :system         "System"
+                    :tag            "Tag"
+                    :tags           "Tags"
                     :user           "User"
                     :username       "Username"
                     :users          "Users"
@@ -136,8 +139,12 @@
    :slipstream.ui.views.tables.header.state                    :global.nouns.state
    :slipstream.ui.views.tables.header.last-online              "Last online"
 
-
-
+   :slipstream.ui.views.tables.run.id                           "Run Id"
+   :slipstream.ui.views.tables.run.module                       :global.nouns.module
+   :slipstream.ui.views.tables.run.status                       :global.nouns.state
+   :slipstream.ui.views.tables.run.start-time                   "Start Time"
+   :slipstream.ui.views.tables.run.user                         :global.nouns.user
+   :slipstream.ui.views.tables.run.tags                         :global.nouns.tags
 
    :slipstream.ui.views.tables.documentation.open-html         "Open in new page"
    :slipstream.ui.views.tables.documentation.open-pdf          "Open PDF in new page"
@@ -276,7 +283,8 @@
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
-   :slipstream.ui.views.module.section.cloud-image-details.title "Cloud Image Identifiers and Image Hierarchy"
-   :slipstream.ui.views.module.section.os-details.title        "Operating System Details"
-   :slipstream.ui.views.module.section.cloud-configuration.title "Cloud Configuration"
+   :slipstream.ui.views.module.image.section.cloud-image-details.title "Cloud Image Identifiers and Image Hierarchy"
+   :slipstream.ui.views.module.image.section.os-details.title          "Operating System Details"
+   :slipstream.ui.views.module.image.section.cloud-configuration.title "Cloud Configuration"
+   :slipstream.ui.views.module.image.section.runs.title                "Runs"
 }

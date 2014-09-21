@@ -4,6 +4,7 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.secondary-menu-actions :as action]
+            [slipstream.ui.views.module.image :as image]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -13,7 +14,7 @@
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.image :as image]
+            [slipstream.ui.views.image :as image-legacy]
             [slipstream.ui.views.deployment :as deployment]
             [slipstream.ui.views.project :as project]))
 
@@ -46,7 +47,7 @@
 
 (defmethod content-by-category-view "Image"
   [module category]
-  common/content-sel (image/view-snip module))
+  common/content-sel (image-legacy/view-snip module))
 
 (defmethod content-by-category-view "Deployment"
   [module category]
@@ -68,7 +69,7 @@
 
 (defmethod content-by-category-edit "Image"
   [module category]
-  common/content-sel (image/edit-snip module))
+  common/content-sel (image-legacy/edit-snip module))
 
 (defmethod content-by-category-edit "Deployment"
   [module category]
@@ -90,7 +91,7 @@
 
 (defmethod content-by-category-new "Image"
   [module category]
-  common/content-sel (image/new-snip module))
+  common/content-sel (image-legacy/new-snip module))
 
 (defmethod content-by-category-new "Deployment"
   [module category]
@@ -249,33 +250,9 @@
   [_]
   nil)
 
-(defn- category-section
-  [{:keys [category parameters]}]
-  {:title category
-   :content (t/parameters-table parameters)})
-
-(defn- table-fn-for
-  [metadata-key]
-  (->> metadata-key
-       name
-       (format "slipstream.ui.views.tables/%s-table")
-       symbol
-       resolve))
-
-(defn- middle-section
-  [module metadata-key]
-  (let [section-metadata (get module metadata-key)]
-    {:title   (->> metadata-key name (format "section.%s.title") keyword t)
-     :content (if-let [table-fn (table-fn-for metadata-key)]
-                (table-fn section-metadata)
-                (map category-section section-metadata))}))
-
 (defmethod middle-sections :image
   [module]
-  (->> [:cloud-image-details
-        :os-details
-        :cloud-configuration]
-       (map (partial middle-section module))))
+  (image/middle-sections module))
 
 (defn- sections
   [module]

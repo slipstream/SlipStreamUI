@@ -60,22 +60,23 @@
 
 (def ^:private deployment-categories #{"Input" "Output"})
 
+(defn- group
+  [parameters]
+  (uc/coll-grouped-by :category parameters
+                      :group-keyword :category
+                      :group-type-fn #(if (deployment-categories %) :deployment :global)
+                      :items-keyword :parameters
+                      :items-sort-fn (juxt :order :name)))
+
 (defn- parameter-categories
   [metadata]
-  (let [params (html/select metadata parameter-sel)
-        params-by-cat (group-by #(get-in % [:attrs :category]) params)]
-    (for [[cat params] params-by-cat]
-      {:category cat
-       :category-type (if (deployment-categories cat) :deployment :global)
-       :parameters (->> params
-                        (map parse-parameter)
-                        (sort-by (juxt :order :name)))})))
+  (->> (html/select metadata parameter-sel)
+       (map parse-parameter)
+       group))
 
 (defn parse
   [metadata]
-  (->> metadata
-       parameter-categories
-       (sort-by :category)))
+  (parameter-categories metadata))
 
 ;; Parameter util method
 

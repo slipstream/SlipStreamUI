@@ -4,6 +4,64 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; def-this-ns
+
+(def-this-ns)
+
+(expect
+  "slipstream.ui.util.clojure-test"
+  this-ns)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; ensure-prefix
+
+(expect
+  nil
+  (ensure-prefix nil nil))
+
+(expect
+  nil
+  (ensure-prefix nil "some prefix"))
+
+(expect
+  "some string"
+  (ensure-prefix "some string" nil))
+
+(expect
+  "prefix some string"
+  (ensure-prefix "prefix some string" "prefix some string"))
+
+(expect
+  "prefix some string"
+  (ensure-prefix "" "prefix some string"))
+
+(expect
+  "prefix some string"
+  (ensure-prefix "prefix some string" "prefix "))
+
+(expect
+  "prefix some string"
+  (ensure-prefix "some string" "prefix "))
+
+(expect
+  "/some/path/or/url"
+  (ensure-prefix "some/path/or/url" "/"))
+
+(expect
+  "/some/path/or/url"
+  (ensure-prefix "/some/path/or/url" "/"))
+
+(expect
+  "/some/path/or/url"
+  (ensure-prefix "some/path/or/url" \/))
+
+(expect
+  "/some/path/or/url"
+  (ensure-prefix "/some/path/or/url" \/))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; trim-from
 
 (expect
@@ -105,6 +163,46 @@
 (expect
   ""
   (trim-up-to-last "a" \a))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; trim-last-path-segment
+
+(expect
+  nil
+  (trim-last-path-segment nil))
+
+(expect
+  "module/examples/tutorials/wordpress/wordpress"
+  (trim-last-path-segment "module/examples/tutorials/wordpress/wordpress/180"))
+
+(expect
+  ""
+  (trim-last-path-segment "module"))
+
+(expect
+  ""
+  (trim-last-path-segment "/module"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; last-path-segment
+
+(expect
+  nil
+  (last-path-segment nil))
+
+(expect
+  "180"
+  (last-path-segment "module/examples/tutorials/wordpress/wordpress/180"))
+
+(expect
+  "module"
+  (last-path-segment "module"))
+
+(expect
+  "module"
+  (last-path-segment "/module"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

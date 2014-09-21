@@ -3,6 +3,7 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.common :as common]
             [slipstream.ui.models.parameters :as parameters]
+            [slipstream.ui.models.module.image :as image]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.authz :as authz]))
 
@@ -182,35 +183,18 @@
 ;   (let [authz (first (html/select metadata [:authz]))]
 ;     (-> authz :attrs :owner)))
 
-(defmulti other-sections (comp uc/keywordize :category :attrs))
+(defmulti category-sections (comp uc/keywordize :category :attrs))
 
-(defmethod other-sections :project
+(defmethod category-sections :project
   [metadata])
 
-(defmethod other-sections :image
+(defmethod category-sections :image
   [metadata]
-  (let [parameters (parameters/parse metadata)]
-    (-> {}
-        (assoc-in [:summary :img-src] (-> metadata :attrs :logolink))
+  (image/sections metadata))
 
-        (assoc-in [:cloud-image-details :native-image?]     (-> metadata :attrs :isbase uc/parse-boolean))
-        (assoc-in [:cloud-image-details :cloud-identifiers] (->> (html/select metadata [:cloudImageIdentifier])
-                                                                 (map :attrs)
-                                                                 (map (juxt :cloudservicename :cloudimageidentifier))
-                                                                 (into {})))
-        (assoc-in [:cloud-image-details :reference-image]   (-> metadata :attrs :modulereferenceuri))
-
-        (assoc-in [:os-details :platform]         (-> metadata :attrs :platform))
-        (assoc-in [:os-details :login-username]   (-> metadata :attrs :loginuser))
-
-        (assoc-in [:cloud-configuration]          (-> parameters
-                                                      (parameters/categories-of-type :global)))
-
-        )))
-
-(defn assoc-other-sections
+(defn assoc-category-sections
   [module-map metadata]
-  (merge-with merge module-map (other-sections metadata)))
+  (merge-with merge module-map (category-sections metadata)))
 
 (defn parse
   [metadata]
@@ -229,7 +213,7 @@
         (assoc-in [:summary :parent-uri]        (-> attrs :parenturi))
         (assoc-in [:summary :owner]             (-> metadata (html/select [:authz]) first :attrs :owner))
         (assoc     :authorization    (authorization metadata))
-        (assoc-other-sections metadata))))
+        (assoc-category-sections metadata))))
 
 
 ;; Note: The parse function above will generate a map with the following structure:

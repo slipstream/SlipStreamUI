@@ -3,6 +3,7 @@
   (:require [slipstream.ui.views.table :as table]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.parameters :as p]))
 
 (localization/def-scoped-t)
@@ -262,5 +263,35 @@
     (p/map->parameter-list os-details
       :platform         {:type :cell/text}
       :login-username   {:type :cell/text})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- run-headers
+  []
+  [nil
+   (t :run.id)
+   (t :run.module)
+   (t :run.status)
+   (t :run.start-time)
+   (t :run.user)
+   (t :run.tags)])
+
+(defn- run-row
+  [{:keys [cloud-name uri module-uri start-time username uuid status tags] :as run}]
+  {:style nil
+   :cells [{:type :cell/icon, :content icons/run}
+           {:type :cell/link, :content {:text (uc/trim-from uuid \-), :href uri}}
+           {:type :cell/link, :content {:text module-uri, :href module-uri}}
+           {:type :cell/text, :content status}
+           {:type :cell/text, :content start-time}
+           {:type :cell/link, :content {:text username, :href (str "/user/" username)}}
+           {:type :cell/text, :content tags}]})
+
+(defn runs-table
+  [docs]
+  (let [headers (run-headers)
+        rows (map run-row docs)]
+    (table/build {:headers headers
+                  :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

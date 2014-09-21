@@ -31,6 +31,14 @@
     (when (and s (re-find #"^\d+$" s))
       (read-string s))))
 
+(defn ensure-prefix
+  [s prefix]
+  {:pre [(or (nil? s) (string? s))]}
+  (when s
+    (if (-> prefix (str ".*") re-pattern (re-matches s))
+      s
+      (str prefix s))))
+
 (defn trim-from
   "Returns the input string without the characters appearing after the first instance of the char passed,
   and without the char, e.g. '(trim-from 'a.b.c.d' \\.) => 'a'. See tests for expectations."
@@ -71,7 +79,9 @@
 
 (defn trim-last-path-segment
   [path-str]
-  (trim-from-last path-str \/))
+  (if ((set path-str) \/)
+    (trim-from-last path-str \/)
+    nil))
 
 (defn last-path-segment
   [path-str]

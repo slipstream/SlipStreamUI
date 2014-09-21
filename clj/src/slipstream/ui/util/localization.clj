@@ -81,7 +81,7 @@
             (t *lang* t-path#))))))
 
 (defn lang
-  "Get iso language code from the servers metadata. "
+  "Get iso language code from the server's metadata. "
   [metadata]
   ;; TODO: Parse server metadata to retrieve the wanted iso language code.
   lang-default)
