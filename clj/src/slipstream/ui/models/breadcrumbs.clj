@@ -5,17 +5,10 @@
   #{"module"})
 
 (defn parse
-  "Transform a ressource-uri into the the breadcrumbs metadata.
-  E.g. From this uri 'module/examples/tutorials/wordpress/wordpress/180'
-    it will build this breadcrumbs:
-    [{:text 'module'}
-     {:text 'examples' :uri 'module/examples'}
-     {:text 'tutorials' :uri 'module/examples/tutorials'}
-     {:text 'wordpress' :uri 'module/examples/tutorials/wordpress'}
-     {:text 'wordpress' :uri 'module/examples/tutorials/wordpress/wordpress'}
-     {:text '180'}]
-  Note that if the ressource-uri ends with a slash, a last segment {:text \"\", :uri nil}
-  will be included, so consider using uc/trim-last-slash on the ressource-uri."
+  "Transform a ressource-uri into the the breadcrumbs metadata. Note that if the
+  ressource-uri ends with a slash, a last segment {:text \"\", :uri nil} will be
+  included, so consider using uc/trim-last-slash on the ressource-uri. See tests
+  for expectations."
   [ressource-uri]
   (let [uris (->> ressource-uri
                   (iterate uc/trim-last-path-segment)
