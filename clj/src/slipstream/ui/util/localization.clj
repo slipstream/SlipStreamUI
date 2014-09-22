@@ -27,6 +27,14 @@
   setup for the current thread."
   nil)
 
+(defn locale
+  "Returns valid Locale matching given the current *lang*"
+  []
+  (if *lang*
+    (tower/locale *lang*)
+    (throw (IllegalStateException.
+             "Requesting Locale outside the context of one 'with-lang...' macro."))))
+
 (defn- language-code->locale-entry
   [language-code]
   (let [lang-resource-filename (str lang-resources-dir (name language-code) ".edn")]
