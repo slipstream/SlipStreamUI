@@ -82,6 +82,10 @@
   [url]
   (cell-link-snip {:text url :href url}))
 
+(defn- cell-username-snip
+  [username]
+  (cell-link-snip {:text username :href (str "/user/" username)}))
+
 (html/defsnippet cell-icon-snip template-filename cell-icon-sel
   [icon]
   [:span] (icons/set icon))
@@ -110,8 +114,9 @@
     :cell/text           (if (string? content) cell-plain-text-snip cell-text-snip)
     :cell/password       cell-password-snip
     :cell/set            cell-set-snip
-    :cell/map            cell-map-snip
     :cell/timestamp      cell-timestamp-snip
+    :cell/username       cell-username-snip
+    :cell/map            cell-map-snip
     :cell/link           cell-link-snip
     :cell/external-link  cell-external-link-snip
     :cell/email          cell-email-snip

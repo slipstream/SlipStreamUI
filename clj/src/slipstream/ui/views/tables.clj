@@ -49,15 +49,15 @@
    (t :header.last-online)])
 
 (defn- user-row
-  [{:keys [username uri first-name last-name organization state last-online online?] :as user}]
+  [{:keys [username first-name last-name organization state last-online online?] :as user}]
   {:style (when online? :success)
-   :cells [{:type :cell/icon, :content icons/user}
-           {:type :cell/link, :content {:text username, :href uri}}
-           {:type :cell/text, :content first-name}
-           {:type :cell/text, :content last-name}
-           {:type :cell/text, :content organization}
-           {:type :cell/text, :content state}
-           {:type :cell/text, :content (or (not-empty last-online) "Unknown")}]})
+   :cells [{:type :cell/icon,     :content icons/user}
+           {:type :cell/username, :content username}
+           {:type :cell/text,     :content first-name}
+           {:type :cell/text,     :content last-name}
+           {:type :cell/text,     :content organization}
+           {:type :cell/text,     :content state}
+           {:type :cell/text,     :content (or (not-empty last-online) "Unknown")}]})
 
 (defn users-table
   [users]
@@ -189,7 +189,7 @@
       :category      {:type :cell/text}
       :creation      {:type :cell/timestamp}
       :last-modified {:type :cell/timestamp}
-      :owner         {:type :cell/text}
+      :owner         {:type :cell/username}
       )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -281,10 +281,10 @@
   {:style nil
    :cells [{:type :cell/icon,      :content icons/run}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
-           {:type :cell/link,      :content {:text module-uri, :href module-uri}}
+           {:type :cell/url,       :content module-uri}
            {:type :cell/text,      :content status}
            {:type :cell/timestamp, :content start-time}
-           {:type :cell/link,      :content {:text username, :href (str "/user/" username)}}
+           {:type :cell/username,  :content username}
            {:type :cell/text,      :content tags}]})
 
 (defn runs-table
