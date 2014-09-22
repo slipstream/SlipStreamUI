@@ -1,5 +1,4 @@
 (ns slipstream.ui.models.breadcrumbs-test
-  (:refer-clojure :exclude [parse])
   (:use [expectations]
         [slipstream.ui.models.breadcrumbs]))
 
