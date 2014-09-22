@@ -62,6 +62,56 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; parse-pos-int
+
+(expect
+  nil
+  (parse-pos-int nil))
+
+(expect
+  nil
+  (parse-pos-int :keyword))
+
+(expect
+  nil
+  (parse-pos-int "some string"))
+
+(expect
+  nil
+  (parse-pos-int "12 and some string"))
+
+(expect
+  12
+  (parse-pos-int "12"))
+
+; octal
+(expect
+  16
+  (parse-pos-int "020"))
+
+(expect
+  12
+  (parse-pos-int "+12"))
+
+(expect
+  12
+  (parse-pos-int 12))
+
+(expect
+  12
+  (parse-pos-int +12))
+
+(expect
+  nil
+  (parse-pos-int "-12"))
+
+(expect
+  nil
+  (parse-pos-int -12))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; trim-from
 
 (expect

@@ -25,11 +25,13 @@
   (first (drop-while nil? args)))
 
 (defn parse-pos-int
-  "Reads a positive integer number from a string. Returns nil if not a positive integer."
-  [s]
+  "Reads a positive integer number from a string or int. Returns nil if not a positive integer."
+  [x]
   (binding [*read-eval* false]
-    (when (and s (re-find #"^\d+$" s))
-      (read-string s))))
+    (cond
+      (not x) nil
+      (and (string? x) (re-find #"^\+?\d+$" x)) (read-string x)
+      (and (integer? x) (pos? x)) x)))
 
 (defn ensure-prefix
   [s prefix]
