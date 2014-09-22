@@ -110,6 +110,10 @@
             <artifactId>tower</artifactId>
         </dependency>
         <dependency>
+            <groupId>clj-time</groupId>
+            <artifactId>clj-time</artifactId>
+        </dependency>
+        <dependency>
             <groupId>expectations</groupId>
             <artifactId>expectations</artifactId>
             <scope>test</scope>

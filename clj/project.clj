@@ -9,7 +9,8 @@
                  [expectations "2.0.6"]
                  [net.cgrand/moustache "1.1.0"]
                  [org.clojure/core.async "0.1.256.0-1bf8cf-alpha"]
-                 [com.taoensso/tower "2.1.0-RC2"]]
+                 [com.taoensso/tower "2.1.0-RC2"]
+                 [clj-time "0.8.0"]]
   :plugins [[lein-expectations "0.0.7"]
             [lein-autoexpect "1.0"]]
 
