@@ -10,7 +10,7 @@
 
 (def ^:private ss-timestamp-pattern
   "Corresponds to the format currently returned by SlipStream server."
-  #"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d \w{3,4}")
+  #"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d{1,3} \w{3,4}")
 
 (def ^:private human-readable-long-pattern
   "Corresponds to 'Friday, 5 July 2013, 15:27:12 UTC'."

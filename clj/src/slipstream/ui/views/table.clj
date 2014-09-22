@@ -3,6 +3,7 @@
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.time :as ut]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.util.icons :as icons]))
 
@@ -29,17 +30,30 @@
 ;; Cell
 
 (html/defsnippet cell-text-snip template-filename cell-text-sel
+  [{:keys [text tooltip]}]
+  ue/this (html/content (str text))
+  ue/this (ue/when-set-style (-> text str count (> 100))
+                             "word-wrap: break-word; max-width: 500px;")
+  ue/this (ue/when-set-title (not-empty tooltip)
+                             (str tooltip)))
+
+(defn cell-plain-text-snip
   [text]
-  ue/this (html/content (str text)))
+  (cell-text-snip {:text text}))
 
 (defn cell-password-snip
   [pwd]
   ; (cell-text-snip (when pwd "•••")))
-  (cell-text-snip (when pwd "***")))
+  (cell-plain-text-snip (when pwd "***")))
 
 (defn cell-set-snip
   [set]
-  (cell-text-snip (s/join ", " set)))
+  (cell-plain-text-snip (s/join ", " set)))
+
+(defn- cell-timestamp-snip
+  [timestamp]
+  (cell-text-snip {:text (ut/format :human-readable-long timestamp)
+                   :tooltip timestamp}))
 
 (html/defsnippet term-dict-entry-snip template-filename cell-map-entry-sel
   [[k v]]
@@ -49,11 +63,6 @@
 (html/defsnippet cell-map-snip template-filename cell-map-sel
   [m]
   [:dl] (html/content (mapcat term-dict-entry-snip m)))
-
-(html/defsnippet cell-long-text-snip template-filename cell-text-sel
-  [text]
-  ue/this (html/content (str text))
-  ue/this (ue/set-style "word-wrap: break-word; max-width: 500px;"))
 
 (html/defsnippet cell-link-snip template-filename cell-link-sel
   [{:keys [text href open-in-new-window?]}]
@@ -98,12 +107,11 @@
   IllegalArgumentException."
   [{:keys [type content] :as cell}]
   (case type
-    :cell/text           (if (-> content str count (> 100))
-                           cell-long-text-snip
-                           cell-text-snip)
+    :cell/text           (if (string? content) cell-plain-text-snip cell-text-snip)
     :cell/password       cell-password-snip
     :cell/set            cell-set-snip
     :cell/map            cell-map-snip
+    :cell/timestamp      cell-timestamp-snip
     :cell/link           cell-link-snip
     :cell/external-link  cell-external-link-snip
     :cell/email          cell-email-snip

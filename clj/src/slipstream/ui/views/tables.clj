@@ -173,7 +173,7 @@
       :organization {:type :cell/text}
       :email        {:type :cell/email}
       :super?       {:type :cell/boolean}
-      :creation     {:type :cell/text}
+      :creation     {:type :cell/timestamp}
       :state        {:type :cell/text})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -187,8 +187,8 @@
       :description   {:type :cell/text}
       :comment       {:type :cell/text}
       :category      {:type :cell/text}
-      :creation      {:type :cell/text}
-      :last-modified {:type :cell/text}
+      :creation      {:type :cell/timestamp}
+      :last-modified {:type :cell/timestamp}
       :owner         {:type :cell/text}
       )))
 
@@ -279,13 +279,13 @@
 (defn- run-row
   [{:keys [cloud-name uri module-uri start-time username uuid status tags] :as run}]
   {:style nil
-   :cells [{:type :cell/icon, :content icons/run}
-           {:type :cell/link, :content {:text (uc/trim-from uuid \-), :href uri}}
-           {:type :cell/link, :content {:text module-uri, :href module-uri}}
-           {:type :cell/text, :content status}
-           {:type :cell/text, :content start-time}
-           {:type :cell/link, :content {:text username, :href (str "/user/" username)}}
-           {:type :cell/text, :content tags}]})
+   :cells [{:type :cell/icon,      :content icons/run}
+           {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
+           {:type :cell/link,      :content {:text module-uri, :href module-uri}}
+           {:type :cell/text,      :content status}
+           {:type :cell/timestamp, :content start-time}
+           {:type :cell/link,      :content {:text username, :href (str "/user/" username)}}
+           {:type :cell/text,      :content tags}]})
 
 (defn runs-table
   [docs]
