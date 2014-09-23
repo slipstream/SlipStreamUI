@@ -30,7 +30,9 @@
   #"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\d(?:Z|[\+-]\d\d(?:\:?\d\d)?)")
 
 (defn- normalize-timezone
-  "The timezone code CEST is not recognized as standard by org.joda.time."
+  "The timezone code CEST is not recognized as standard by org.joda.time.
+  For a complete list of supported timezones run:
+    (org.joda.time.DateTimeZone/getAvailableIDs)"
   [s]
   (-> s
       (s/replace "CEST" "CET")))
