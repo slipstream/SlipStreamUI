@@ -86,6 +86,8 @@
 <targets class='org.hibernate.collection.PersistentBag'>
     <target name='execute' runInBackground='false'>execute target</target>
     <target name='report' runInBackground='false'>report target</target>
+    <target name='onvmadd' runInBackground='false'>onvmadd target</target>
+    <target name='onvmremove' runInBackground='false'>onvmremove target</target>
 </targets>
 <packages class='org.hibernate.collection.PersistentBag'>
     <package key='httpd_key' name='httpd' repository='httpd_repo'/>
