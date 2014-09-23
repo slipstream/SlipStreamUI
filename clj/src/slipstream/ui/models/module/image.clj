@@ -36,6 +36,10 @@
 
 ;; Image creation metadata section
 
+(defn- parse-recipe
+  [recipe-type metadata]
+  {:code (-> metadata (html/select [recipe-type html/text-node]) first)})
+
 (defn- parse-package
   [package-metadata]
   (let [attrs (:attrs package-metadata)]
@@ -46,11 +50,41 @@
 
 (defn- image-creation
   [metadata]
-  {:recipe      (first (html/select metadata [:recipe html/text-node]))
+  {:recipe      (parse-recipe :recipe metadata)
    :packages    (->> (html/select metadata [:package])
                      (map parse-package)
                      (sort-by :name))
-   :pre-recipe  (first (html/select metadata [:prerecipe html/text-node])) })
+   :pre-recipe  (parse-recipe :prerecipe metadata)})
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Deployment metadata section
+
+(def ^:private target-names
+  {:execute       "execute"
+   :report        "report"
+   :parameters    "parameters"
+   :on-vm-add     "onvmadd"
+   :on-vm-remove  "onvmremove"})
+
+(defn- assoc-target
+  [m target metadata]
+  (let [target-metadata (-> metadata
+                            (html/select [[:target (html/attr= :name (target-names target))]])
+                            first)]
+    (assoc-in m [:targets target]
+        {:code              (-> target-metadata (html/select [html/text-node]) first)
+         :run-in-background (-> target-metadata :attrs :runinbackground uc/parse-boolean)})))
+
+
+(defn- deployment
+  [metadata]
+  (-> {}
+      (assoc-target :execute metadata)
+      (assoc-target :report metadata)
+      (assoc-target :on-vm-add metadata)
+      (assoc-target :on-vm-remove metadata)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -76,6 +110,7 @@
                                                       (parameters/categories-of-type :global)))
 
         (assoc-in [:image-creation]               (image-creation metadata))
+        (assoc-in [:deployment]                   (deployment metadata))
         (assoc-in [:runs]                         (runs metadata))
         )))
 
