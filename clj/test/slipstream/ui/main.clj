@@ -2,7 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
-                        [slipstream.ui.views.error :as error]
+            [slipstream.ui.views.error :as error]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.knockknock :as knockknock] ;; TODO: To remove
@@ -33,12 +33,12 @@
             [slipstream.ui.data.users :as users-data]
             [slipstream.ui.data.user :as user-data]
             [slipstream.ui.data.projects :as projects]
-            [slipstream.ui.data.project :as project]
+            [slipstream.ui.models.module.project-test :as project]
             [slipstream.ui.data.project-new :as project-new]
             [slipstream.ui.data.project-root :as project-root]
             [slipstream.ui.data.project-root-new :as project-root-new]
             [slipstream.ui.data.welcome :as welcome-data]
-            [slipstream.ui.data.image :as image]
+            [slipstream.ui.models.module.image-test :as image]
             [slipstream.ui.data.image-new :as image-new]
             [slipstream.ui.data.versions :as versions-data]
             [slipstream.ui.data.dashboard :as dashboard-data]
@@ -135,10 +135,10 @@
   (module-edit projects/xml-projects))
 
 (defn module-project-view []
-  (module-view project/xml-project))
+  (module-view project/raw-metadata))
 
 (defn module-project-edit []
-  (module-edit project/xml-project))
+  (module-edit project/raw-metadata))
 
 (defn module-project-new []
   (module-new project-new/xml-project))
@@ -153,16 +153,16 @@
   (module-new project-root-new/xml-project))
 
 (defn module-image-view []
-  (module-view image/xml-image))
+  (module-view image/raw-metadata))
 
 (defn module-image-edit []
-  (module-edit image/xml-image))
+  (module-edit image/raw-metadata))
 
 (defn module-image-new []
   (module-new image-new/xml-image))
 
 (defn module-image-chooser []
-  (module-chooser image/xml-image))
+  (module-chooser image/raw-metadata))
 
 (defn module-deployment-view []
   (module-view deployment/xml-deployment))
