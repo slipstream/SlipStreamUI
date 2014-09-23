@@ -78,8 +78,8 @@
 
 
 (defn- deployment
-  [metadata]
-  (-> {}
+  [metadata parameters]
+  (-> {:parameters (parameters/categories-of-type parameters :deployment)}
       (assoc-target :execute metadata)
       (assoc-target :report metadata)
       (assoc-target :on-vm-add metadata)
@@ -110,7 +110,7 @@
                                                       (parameters/categories-of-type :global)))
 
         (assoc-in [:image-creation]               (image-creation metadata))
-        (assoc-in [:deployment]                   (deployment metadata))
+        (assoc-in [:deployment]                   (deployment metadata parameters))
         (assoc-in [:runs]                         (runs metadata))
         )))
 

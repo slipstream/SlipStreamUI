@@ -92,5 +92,5 @@
       :value (get m k)}))
 
 (defn categories-of-type
-  [parameters type]
-  (filter #(= type (get % :category-type)) parameters))
+  [parameters & types]
+  (filter #((set types) (get % :category-type)) parameters))
