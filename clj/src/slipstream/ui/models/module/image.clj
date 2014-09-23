@@ -4,6 +4,10 @@
             [slipstream.ui.models.common :as common]
             [slipstream.ui.models.parameters :as parameters]))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Runs metadata section
+
 (defn- parse-run
   [run-metadata]
   (let [attrs (:attrs run-metadata)]
@@ -28,6 +32,30 @@
        (map parse-run)
        group-runs))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Image creation metadata section
+
+(defn- parse-package
+  [package-metadata]
+  (let [attrs (:attrs package-metadata)]
+    (-> attrs
+        (select-keys [:key
+                      :name
+                      :repository]))))
+
+(defn- image-creation
+  [metadata]
+  {:recipe      (first (html/select metadata [:recipe html/text-node]))
+   :packages    (->> (html/select metadata [:package])
+                     (map parse-package)
+                     (sort-by :name))
+   :pre-recipe  (first (html/select metadata [:prerecipe html/text-node])) })
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Metadata section build
+
 (defn sections
   [metadata]
   (let [parameters (parameters/parse metadata)]
@@ -47,6 +75,7 @@
         (assoc-in [:cloud-configuration]          (-> parameters
                                                       (parameters/categories-of-type :global)))
 
+        (assoc-in [:image-creation]               (image-creation metadata))
         (assoc-in [:runs]                         (runs metadata))
         )))
 
