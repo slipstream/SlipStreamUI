@@ -16,6 +16,7 @@
             [slipstream.ui.views.table :as table]
             [slipstream.ui.views.breadcrumbs :as breadcrumbs]
             [slipstream.ui.views.secondary-menu :as secondary-menu]
+            [slipstream.ui.views.code-area :as code-area]
             ))
 
 (def ^:dynamic *prod?* true)
@@ -113,6 +114,7 @@
                             section/template-filename ;; TODO: only if sections in body.
                             subsection/template-filename ;; TODO: only if subsections in body.
                             table/template-filename ;; TODO: only if tables in body.
+                            code-area/template-filename ;; TODO: only if code-areas in body.
                             template-filename]]
     (println "Generating base for" template-filename)
     ; (println "   user:" user)

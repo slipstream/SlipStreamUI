@@ -34,18 +34,26 @@
                     :group          "Group"
                     :html           "HTML"
                     :info           "Information"
+                    :key            "Key"
                     :last-name      "Last name"
                     :module         "Module"
                     :name           "Name"
                     :organization   "Organization"
                     :owner          "Owner"
+                    :package        "Package"
+                    :packages       "Packages"
+                    :parameter      "Parameter"
+                    :parameters     "Parameters"
                     :password       "Password"
                     :pdf            "PDF"
                     :platform       "Platform"
+                    :pre-recipe     "Pre-recipe"
                     :profile        "Profile"
                     :public         "Public"
                     :publisher      "Publisher"
+                    :recipe         "Recipe"
                     :regular-user   "Regular user"
+                    :repository     "Repository"
                     :state          "State"
                     :success        "Success"
                     :summary        "Summary"
@@ -66,9 +74,11 @@
                     :deploy         "Deploy"
                     :download       "Download"
                     :edit           "Edit"
+                    :execute        "Execute"
                     :import         "Import"
                     :login          "Log in"
                     :logout         "Log out"
+                    :report         "Report"
                     :unpublish      "Un-publish"
                     :view           "View"
                     }
@@ -155,6 +165,14 @@
    :slipstream.ui.views.tables.access.delete                   :global.verbs.delete
    :slipstream.ui.views.tables.access.create-children          "Create children"
 
+   :slipstream.ui.views.tables.deployment-parameter.name        :global.nouns.name
+   :slipstream.ui.views.tables.deployment-parameter.description :global.nouns.description
+   :slipstream.ui.views.tables.deployment-parameter.category    :global.nouns.category
+   :slipstream.ui.views.tables.deployment-parameter.value       :global.nouns.value
+
+   :slipstream.ui.views.tables.image-creation-package.name        :global.nouns.name
+   :slipstream.ui.views.tables.image-creation-package.repository  :global.nouns.repository
+   :slipstream.ui.views.tables.image-creation-package.key         :global.nouns.key
 
    ;; Parameters
 
@@ -283,8 +301,34 @@
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
-   :slipstream.ui.views.module.image.section.cloud-image-details.title "Cloud Image Identifiers and Image Hierarchy"
-   :slipstream.ui.views.module.image.section.os-details.title          "Operating System Details"
-   :slipstream.ui.views.module.image.section.cloud-configuration.title "Cloud Configuration"
-   :slipstream.ui.views.module.image.section.runs.title                "Runs"
+   :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
+   :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
+   :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Cloud Configuration"
+   :slipstream.ui.views.module.image.section.image-creation.title                       "Image Creation Recipes"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe
+   :slipstream.ui.views.module.image.section.image-creation.subsection.packages.title   :global.nouns.packages
+   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.title  :global.nouns.pre-recipe
+   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.description
+      "Standard recipe (fires after packages are installed)"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.description
+      "Pre-recipe (fires before SlipStream client install and packages are installed)"
+   :slipstream.ui.views.module.image.section.deployment.title                           "Deployment Recipes and Coordination Parameters"
+   :slipstream.ui.views.module.image.section.deployment.subsection.execute.title        :global.verbs.execute
+   :slipstream.ui.views.module.image.section.deployment.subsection.report.title         :global.verbs.report
+   :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
+   :slipstream.ui.views.module.image.section.runs.title                                 "Runs"
+   :slipstream.ui.views.module.image.section.deployment.subsection.execute.description
+      "Standard recipe (fires during Running phase)"
+   :slipstream.ui.views.module.image.section.deployment.subsection.report.description
+      "Gather logs and things for posterity (fires during the Sending Report phase)"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description
+      "Runs when new VM(s) added to the deployment"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description
+      "Runs when VM(s) removed from the deployment"
 }
+
+
+
+

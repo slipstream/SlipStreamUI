@@ -232,9 +232,10 @@
 
 (defn- header
   [summary]
-  {:icon (icons/icon-for (:category summary))
-   :title (t :header.title (:category summary) (:short-name summary))
-   :subtitle (t :header.subtitle (str (:version summary)
+  {:icon      (-> summary :category icons/icon-for)
+   :title     (t :header.title (:category summary) (:short-name summary))
+   :image     (-> summary :image)
+   :subtitle  (t :header.subtitle (str (:version summary)
                   (when-let [desc (:description summary)]
                     (str " - " desc))))})
 

@@ -295,3 +295,57 @@
                   :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- deployment-parameter-headers
+  []
+  [(t :deployment-parameter.name)
+   (t :deployment-parameter.description)
+   (t :deployment-parameter.category)
+   (t :deployment-parameter.value)
+   nil])
+
+(defn- deployment-parameter-row
+  [{:keys [help-hint read-only order value category description type name]
+    :as deployment-parameter}]
+  {:style  (case
+             "Output" :info
+             "Input"  :warning)
+   :cells [{:type :cell/text,             :content name}
+           {:type :cell/text,             :content description}
+           {:type :cell/text,             :content category}
+           (case type
+             "String" {:type :cell/text,  :content {:text value
+                                                    :tooltip (when read-only
+                                                               (t :deployment-parameter.is-read-only))}})
+           {:type :cell/help-hint,        :content help-hint}]})
+
+(defn deployment-parameters-table
+  [deployment-parameters]
+  (let [headers (deployment-parameter-headers)
+        rows (map deployment-parameter-row deployment-parameters)]
+    (table/build {:headers headers
+                  :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- image-creation-package-headers
+  []
+  [(t :image-creation-package.name)
+   (t :image-creation-package.repository)
+   (t :image-creation-package.key)])
+
+(defn- image-creation-package-row
+  [{:keys [repository name key] :as image-creation-package}]
+  {:style  nil
+   :cells [{:type :cell/text, :content name}
+           {:type :cell/text, :content repository}
+           {:type :cell/text, :content key}]})
+
+(defn image-creation-packages-table
+  [image-creation-packages]
+  (let [headers (image-creation-package-headers)
+        rows (map image-creation-package-row image-creation-packages)]
+    (table/build {:headers headers
+                  :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

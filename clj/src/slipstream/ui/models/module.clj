@@ -178,11 +178,6 @@
                :group-members            (group-members authz))
         (add-rights attrs))))
 
-; (defn- owner
-;   [metadata]
-;   (let [authz (first (html/select metadata [:authz]))]
-;     (-> authz :attrs :owner)))
-
 (defmulti category-sections (comp uc/keywordize :category :attrs))
 
 (defmethod category-sections :project
@@ -201,17 +196,17 @@
   [metadata]
   (let [attrs (:attrs metadata)]
     (-> {}
-        (assoc-in [:summary :description]       (-> attrs :description))
-        (assoc-in [:summary :category]          (-> attrs :category))
-        (assoc-in [:summary :name]              (-> attrs :name))
-        (assoc-in [:summary :creation]          (-> attrs :creation))
-        (assoc-in [:summary :version]           (-> attrs :version uc/parse-pos-int))
-        (assoc-in [:summary :short-name]        (-> attrs :shortname))
-        (assoc-in [:summary :last-modified]     (-> attrs :lastmodified))
-        (assoc-in [:summary :latest-version?]   (-> attrs :islatestversion uc/parse-boolean))
-        (assoc-in [:summary :deleted?]          (-> attrs :deleted uc/parse-boolean))
-        (assoc-in [:summary :uri]               (-> attrs :resourceuri))
-        (assoc-in [:summary :parent-uri]        (-> attrs :parenturi))
-        (assoc-in [:summary :owner]             (-> metadata (html/select [:authz]) first :attrs :owner))
-        (assoc     :authorization    (authorization metadata))
+        (assoc-in [:summary :description]     (-> attrs :description))
+        (assoc-in [:summary :category]        (-> attrs :category))
+        (assoc-in [:summary :name]            (-> attrs :name))
+        (assoc-in [:summary :creation]        (-> attrs :creation))
+        (assoc-in [:summary :version]         (-> attrs :version uc/parse-pos-int))
+        (assoc-in [:summary :short-name]      (-> attrs :shortname))
+        (assoc-in [:summary :last-modified]   (-> attrs :lastmodified))
+        (assoc-in [:summary :latest-version?] (-> attrs :islatestversion uc/parse-boolean))
+        (assoc-in [:summary :deleted?]        (-> attrs :deleted uc/parse-boolean))
+        (assoc-in [:summary :uri]             (-> attrs :resourceuri))
+        (assoc-in [:summary :parent-uri]      (-> attrs :parenturi))
+        (assoc-in [:summary :owner]           (-> metadata (html/select [:authz]) first :attrs :owner))
+        (assoc     :authorization             (authorization metadata))
         (assoc-category-sections metadata))))
