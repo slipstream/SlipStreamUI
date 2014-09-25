@@ -269,12 +269,12 @@
 (defn- run-headers
   []
   [nil
-   (t :run.id)
-   (t :run.module)
-   (t :run.status)
-   (t :run.start-time)
-   (t :run.user)
-   (t :run.tags)])
+   (t :header.id)
+   (t :header.module)
+   (t :header.status)
+   (t :header.start-time)
+   (t :header.user)
+   (t :header.tags)])
 
 (defn- run-row
   [{:keys [cloud-name uri module-uri start-time username uuid status tags] :as run}]
@@ -298,10 +298,10 @@
 
 (defn- deployment-parameter-headers
   []
-  [(t :deployment-parameter.name)
-   (t :deployment-parameter.description)
-   (t :deployment-parameter.category)
-   (t :deployment-parameter.value)
+  [(t :header.name)
+   (t :header.description)
+   (t :header.category)
+   (t :header.value)
    nil])
 
 (defn- deployment-parameter-row
@@ -330,9 +330,9 @@
 
 (defn- image-creation-package-headers
   []
-  [(t :image-creation-package.name)
-   (t :image-creation-package.repository)
-   (t :image-creation-package.key)])
+  [(t :header.name)
+   (t :header.repository)
+   (t :header.key)])
 
 (defn- image-creation-package-row
   [{:keys [repository name key] :as image-creation-package}]

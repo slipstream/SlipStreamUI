@@ -150,13 +150,15 @@
    :slipstream.ui.views.tables.header.organization             :global.nouns.organization
    :slipstream.ui.views.tables.header.state                    :global.nouns.state
    :slipstream.ui.views.tables.header.last-online              "Last online"
-
-   :slipstream.ui.views.tables.run.id                           "Run Id"
-   :slipstream.ui.views.tables.run.module                       :global.nouns.module
-   :slipstream.ui.views.tables.run.status                       :global.nouns.state
-   :slipstream.ui.views.tables.run.start-time                   "Start Time"
-   :slipstream.ui.views.tables.run.user                         :global.nouns.user
-   :slipstream.ui.views.tables.run.tags                         :global.nouns.tags
+   :slipstream.ui.views.tables.header.repository               :global.nouns.repository
+   :slipstream.ui.views.tables.header.key                      :global.nouns.key
+   :slipstream.ui.views.tables.header.category                 :global.nouns.category
+   :slipstream.ui.views.tables.header.id                       "Run Id"
+   :slipstream.ui.views.tables.header.module                   :global.nouns.module
+   :slipstream.ui.views.tables.header.status                   :global.nouns.state
+   :slipstream.ui.views.tables.header.start-time               "Start Time"
+   :slipstream.ui.views.tables.header.user                     :global.nouns.user
+   :slipstream.ui.views.tables.header.tags                     :global.nouns.tags
 
    :slipstream.ui.views.tables.documentation.open-html         "Open in new page"
    :slipstream.ui.views.tables.documentation.open-pdf          "Open PDF in new page"
@@ -166,15 +168,6 @@
    :slipstream.ui.views.tables.access.put                      :global.verbs.edit
    :slipstream.ui.views.tables.access.delete                   :global.verbs.delete
    :slipstream.ui.views.tables.access.create-children          "Create children"
-
-   :slipstream.ui.views.tables.deployment-parameter.name        :global.nouns.name
-   :slipstream.ui.views.tables.deployment-parameter.description :global.nouns.description
-   :slipstream.ui.views.tables.deployment-parameter.category    :global.nouns.category
-   :slipstream.ui.views.tables.deployment-parameter.value       :global.nouns.value
-
-   :slipstream.ui.views.tables.image-creation-package.name        :global.nouns.name
-   :slipstream.ui.views.tables.image-creation-package.repository  :global.nouns.repository
-   :slipstream.ui.views.tables.image-creation-package.key         :global.nouns.key
 
    ;; Parameters
 
