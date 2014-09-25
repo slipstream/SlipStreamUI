@@ -4,8 +4,11 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.time :as ut]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.util.icons :as icons]))
+
+(localization/def-scoped-t)
 
 (def template-filename (common/get-template "table.html"))
 
@@ -144,10 +147,16 @@
 
 ;; Headers
 
+(defn- header-str
+  [header]
+  (if (keyword? header)
+    (->> header name (str "header.") keyword t)
+    (str header)))
+
 (html/defsnippet head-snip template-filename table-header-sel
   [headers]
   ue/this (html/clone-for [header headers]
-            ue/this (html/content (str header))))
+            ue/this (html/content (header-str header))))
 
 (html/defsnippet table-snip template-filename table-sel
   [{:keys [headers rows] :as table}]

@@ -10,16 +10,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- shared-project-headers
-  "All headers must be computed on runtime to take into account the localization
-  language."
-  []
-  [nil
-   (t :header.name)
-   (t :header.description)
-   (t :header.owner)
-   (t :header.version)])
-
 (defn- shared-project-row
   [{:keys [name uri description owner version] :as shared-project}]
   {:style nil
@@ -31,22 +21,11 @@
 
 (defn shared-projects-table
   [shared-projects]
-  (let [headers (shared-project-headers)
-        rows (map shared-project-row shared-projects)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [nil :name :description :owner :version]
+     :rows (map shared-project-row shared-projects)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- user-headers
-  []
-  [nil
-   (t :header.username)
-   (t :header.first-name)
-   (t :header.last-name)
-   (t :header.organization)
-   (t :header.state)
-   (t :header.last-online)])
 
 (defn- user-row
   [{:keys [username first-name last-name organization state last-online online?] :as user}]
@@ -61,20 +40,11 @@
 
 (defn users-table
   [users]
-  (let [headers (user-headers)
-        rows (map user-row users)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [nil :username :first-name :last-name :organization :state :last-online]
+     :rows (map user-row users)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- doc-headers
-  []
-  [nil
-   (t :header.name)
-   (t :header.html)
-   (t :header.pdf)
-   (t :header.epub)])
 
 (defn- doc-row
   [{:keys [title basename] :as doc}]
@@ -90,20 +60,11 @@
 
 (defn docs-table
   [docs]
-  (let [headers (doc-headers)
-        rows (map doc-row docs)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [nil :name :html :pdf :epub]
+     :rows (map doc-row docs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- version-headers
-  []
-  [nil
-   (t :header.version)
-   (t :header.comment)
-   (t :header.author)
-   (t :header.date)])
 
 (defn- version-row
   [icon {:keys [version uri commit] :as version}]
@@ -116,18 +77,11 @@
 
 (defn versions-table
   [icon versions]
-  (let [headers (version-headers)
-        rows (map (partial version-row icon) versions)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [nil :version :comment :author :date]
+     :rows (map (partial version-row icon) versions)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- parameter-headers
-  []
-  [(t :header.description)
-   (t :header.value)
-   nil])
 
 (defn- cell-type?
   [x]
@@ -156,10 +110,9 @@
 
 (defn parameters-table
   [parameters]
-  (let [headers (parameter-headers)
-        rows (map parameter-row parameters)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [:description :value nil]
+     :rows (map parameter-row parameters)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -189,18 +142,9 @@
       :category      {:type :cell/text}
       :creation      {:type :cell/timestamp}
       :last-modified {:type :cell/timestamp}
-      :owner         {:type :cell/username}
-      )))
+      :owner         {:type :cell/username})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defn- access-right-headers
-  []
-  [(t :header.access-right)
-   (t :header.owner)
-   (t :header.group)
-   (t :header.public)])
 
 (defn- access-right-row-style
   [{:keys [owner-access? group-access? public-access?]}]
@@ -229,12 +173,11 @@
 
 (defn access-rights-table
   [access-rights]
-  (let [headers (access-right-headers)
-        rows (->> access-rights
-                  map->sorted-vector
-                  (map access-right-row))]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [:access-right :owner :group :public]
+     :rows (->> access-rights
+                map->sorted-vector
+                (map access-right-row))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -266,16 +209,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- run-headers
-  []
-  [nil
-   (t :header.id)
-   (t :header.module)
-   (t :header.status)
-   (t :header.start-time)
-   (t :header.user)
-   (t :header.tags)])
-
 (defn- run-row
   [{:keys [cloud-name uri module-uri start-time username uuid status tags] :as run}]
   {:style nil
@@ -289,20 +222,11 @@
 
 (defn runs-table
   [docs]
-  (let [headers (run-headers)
-        rows (map run-row docs)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [nil :id :module :status :start-time :user :tags]
+     :rows (map run-row docs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- deployment-parameter-headers
-  []
-  [(t :header.name)
-   (t :header.description)
-   (t :header.category)
-   (t :header.value)
-   nil])
 
 (defn- deployment-parameter-row
   [{:keys [help-hint read-only order value category description type name]
@@ -321,18 +245,11 @@
 
 (defn deployment-parameters-table
   [deployment-parameters]
-  (let [headers (deployment-parameter-headers)
-        rows (map deployment-parameter-row deployment-parameters)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [:name :description :category :value nil]
+     :rows (map deployment-parameter-row deployment-parameters)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn- image-creation-package-headers
-  []
-  [(t :header.name)
-   (t :header.repository)
-   (t :header.key)])
 
 (defn- image-creation-package-row
   [{:keys [repository name key] :as image-creation-package}]
@@ -343,24 +260,14 @@
 
 (defn image-creation-packages-table
   [image-creation-packages]
-  (let [headers (image-creation-package-headers)
-        rows (map image-creation-package-row image-creation-packages)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [:name :repository :key]
+     :rows (map image-creation-package-row image-creation-packages)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- project-child-headers
-  []
-  [nil
-   (t :header.name)
-   (t :header.description)
-   (t :header.owner)
-   (t :header.version)])
-
 (defn- project-child-row
   [{:keys [category name description owner version uri] :as project-child}]
-  (prn version)
   {:style  nil
    :cells [{:type :cell/icon,     :content (icons/icon-for category)}
            {:type :cell/link,     :content {:text name, :href uri}}
@@ -370,9 +277,8 @@
 
 (defn project-children-table
   [project-children]
-  (let [headers (project-child-headers)
-        rows (map project-child-row project-children)]
-    (table/build {:headers headers
-                  :rows rows})))
+  (table/build
+    {:headers [nil :name :description :owner :version]
+     :rows (map project-child-row project-children)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

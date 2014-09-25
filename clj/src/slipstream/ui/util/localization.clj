@@ -91,7 +91,9 @@
 (defmacro with-prefixed-t
   [prefix & body]
   (if-let [scoped-t (-> "t" symbol resolve)]
-   `(let [~(symbol "t") (fn [t-path#] (~scoped-t (keyword (str (name ~prefix) "." (name t-path#)))))]
+   `(let [~(symbol "t") (fn [t-path#]
+                          (when t-path#
+                            (~scoped-t (keyword (str (name ~prefix) "." (name t-path#))))))]
       ~@body)
    (throw (IllegalStateException. (str "Scopped t function not found for namespace" *ns*)))))
 
