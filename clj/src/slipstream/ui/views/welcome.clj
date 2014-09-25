@@ -65,20 +65,21 @@
 
 (defn page [metadata type]
   (localization/with-lang-from-metadata
-    (base/generate
-      {:template-filename template-filename
-       :page-title (t :page-title)
-       :header {:icon icons/home
-                :title (t :header.title)
-                :subtitle (t :header.subtitle)}
-       ; :alerts [{:msg "aie" :title "Tada!"}]
-       :secondary-menu-actions [action/new-project]
-       :content [{:title (t :section.app-store.title)
-                  :content (app-thumbnails-snip (mw/published-apps metadata))
-                  :selected? true
-                  :type :default}
-                 {:title (t :section.projects.title)
-                  :content (t/welcome-projects-table (mw/projects metadata))}]
-       :type type
-       :metadata metadata
-       })))
+    (let [welcome-metadata (mw/parse metadata)]
+      (base/generate
+          {:template-filename template-filename
+           :page-title (t :page-title)
+           :header {:icon icons/home
+                    :title (t :header.title)
+                    :subtitle (t :header.subtitle)}
+           ; :alerts [{:msg "aie" :title "Tada!"}]
+           :secondary-menu-actions [action/new-project]
+           :content [{:title (t :section.app-store.title)
+                      :content (app-thumbnails-snip (:published-apps welcome-metadata))
+                      :selected? true
+                      :type :default}
+                     {:title (t :section.projects.title)
+                      :content (t/welcome-projects-table (:projects welcome-metadata))}]
+           :type type
+           :metadata metadata
+           }))))

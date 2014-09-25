@@ -37,7 +37,7 @@
             [slipstream.ui.data.project-new :as project-new]
             [slipstream.ui.data.project-root :as project-root]
             [slipstream.ui.data.project-root-new :as project-root-new]
-            [slipstream.ui.data.welcome :as welcome-data]
+            [slipstream.ui.models.welcome-test :as welcome-data]
             [slipstream.ui.models.module.image-test :as image]
             [slipstream.ui.data.image-new :as image-new]
             [slipstream.ui.data.versions :as versions-data]
@@ -96,10 +96,10 @@
   (byebye/page projects/xml-projects))
 
 (defn welcome-page []
-  (welcome/page welcome-data/xml-welcome "view"))
+  (welcome/page welcome-data/raw-metadata "view"))
 
 (defn welcome-page-chooser []
-  (welcome/page welcome-data/xml-welcome "chooser"))
+  (welcome/page welcome-data/raw-metadata "chooser"))
 
 (defn dashboard-page []
   (dashboard/page dashboard-data/xml-dashboard))

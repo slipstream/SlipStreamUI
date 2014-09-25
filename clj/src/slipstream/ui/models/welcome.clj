@@ -19,7 +19,7 @@
              :image     (get-in app-node [:attrs :logolink])
              :publisher (owner app-node))))
 
-(defn published-apps
+(defn- published-apps
   [metadata]
   (let [apps-nodes (html/select metadata app-sel)]
     (map app-metadata apps-nodes)))
@@ -32,8 +32,13 @@
       (assoc :uri (get-in project-node [:attrs :resourceuri])
              :owner (owner project-node))))
 
-(defn projects
+(defn- projects
   [metadata]
   (let [project-nodes (html/select metadata project-sel)]
     (map project-metadata project-nodes)))
 
+(defn parse
+  "See tests for structure of the expected parsed metadata."
+  [metadata]
+  {:published-apps (published-apps metadata)
+   :projects (projects metadata)})
