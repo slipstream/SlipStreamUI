@@ -1,7 +1,6 @@
 (ns slipstream.ui.models.module.image
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.models.common :as common]
             [slipstream.ui.models.parameters :as parameters]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

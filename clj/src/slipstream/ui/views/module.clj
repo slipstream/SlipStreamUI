@@ -5,6 +5,7 @@
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.module.image :as image]
+            [slipstream.ui.views.module.project :as project]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -16,7 +17,7 @@
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.image :as image-legacy]
             [slipstream.ui.views.deployment :as deployment]
-            [slipstream.ui.views.project :as project]))
+            [slipstream.ui.views.project :as project-legacy]))
 
 (def deployment-view-template-html (common/get-template "deployment-view.html"))
 (def deployment-edit-template-html (common/get-template "deployment-edit.html"))
@@ -55,7 +56,7 @@
 
 (defmethod content-by-category-view "Project"
   [module category]
-  common/content-sel (project/view-snip module))
+  common/content-sel (project-legacy/view-snip module))
 
 ;; Edit
 
@@ -77,7 +78,7 @@
 
 (defmethod content-by-category-edit "Project"
   [module category]
-  common/content-sel (project/edit-snip module))
+  common/content-sel (project-legacy/edit-snip module))
 
 ;; New
 
@@ -99,7 +100,7 @@
 
 (defmethod content-by-category-new "Project"
   [module category]
-  common/content-sel (project/new-snip module))
+  common/content-sel (project-legacy/new-snip module))
 
 ;; Dispatch function
 
@@ -248,8 +249,8 @@
 (defmulti middle-sections (comp uc/keywordize :category :summary))
 
 (defmethod middle-sections :default
-  [_]
-  nil)
+  [module]
+  (project/middle-sections module))
 
 (defmethod middle-sections :image
   [module]
@@ -258,7 +259,6 @@
 (defn- sections
   [module]
   (let [summary-section {:title (t :section.summary.title)
-                         :selected? true
                          :content (t/module-summary-table (:summary module))}
         auth-section    {:title (t :section.authorizations.title)
                          :content [(t/access-rights-table (-> module :authorization :access-rights))

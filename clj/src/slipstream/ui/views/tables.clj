@@ -349,3 +349,30 @@
                   :rows rows})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- project-child-headers
+  []
+  [nil
+   (t :header.name)
+   (t :header.description)
+   (t :header.owner)
+   (t :header.version)])
+
+(defn- project-child-row
+  [{:keys [category name description owner version uri] :as project-child}]
+  (prn version)
+  {:style  nil
+   :cells [{:type :cell/icon,     :content (icons/icon-for category)}
+           {:type :cell/link,     :content {:text name, :href uri}}
+           {:type :cell/text,     :content description}
+           {:type :cell/username, :content owner}
+           {:type :cell/text,     :content version}]})
+
+(defn project-children-table
+  [project-children]
+  (let [headers (project-child-headers)
+        rows (map project-child-row project-children)]
+    (table/build {:headers headers
+                  :rows rows})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

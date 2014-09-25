@@ -4,6 +4,7 @@
             [slipstream.ui.models.common :as common]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.module.image :as image]
+            [slipstream.ui.models.module.project :as project]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.authz :as authz]))
 
@@ -181,7 +182,8 @@
 (defmulti category-sections (comp uc/keywordize :category :attrs))
 
 (defmethod category-sections :project
-  [metadata])
+  [metadata]
+  (project/sections metadata))
 
 (defmethod category-sections :image
   [metadata]

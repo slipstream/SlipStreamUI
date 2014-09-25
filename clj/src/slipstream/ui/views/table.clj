@@ -111,7 +111,7 @@
   IllegalArgumentException."
   [{:keys [type content] :as cell}]
   (case type
-    :cell/text           (if (string? content) cell-plain-text-snip cell-text-snip)
+    :cell/text           (if (map? content) cell-text-snip cell-plain-text-snip)
     :cell/password       cell-password-snip
     :cell/set            cell-set-snip
     :cell/timestamp      cell-timestamp-snip
