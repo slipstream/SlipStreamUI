@@ -51,6 +51,8 @@
                     :platform       "Platform"
                     :pre-recipe     "Pre-recipe"
                     :profile        "Profile"
+                    :project        "Project"
+                    :projects       "Projects"
                     :public         "Public"
                     :publisher      "Publisher"
                     :recipe         "Recipe"
@@ -255,7 +257,7 @@
    :slipstream.ui.views.welcome.app.label.publication-date     :global.nouns.date
    :slipstream.ui.views.welcome.app.label.deploy               :global.verbs.deploy
    :slipstream.ui.views.welcome.section.app-store.title        "App Store"
-   :slipstream.ui.views.welcome.section.shared-projects.title  "Shared Projects"
+   :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
 
 
    :slipstream.ui.views.secondary-menu-actions.new-project     "New project"

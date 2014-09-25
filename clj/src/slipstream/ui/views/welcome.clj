@@ -77,8 +77,8 @@
                   :content (app-thumbnails-snip (mw/published-apps metadata))
                   :selected? true
                   :type :default}
-                 {:title (t :section.shared-projects.title)
-                  :content (t/shared-projects-table (mw/shared-projects metadata))}]
+                 {:title (t :section.projects.title)
+                  :content (t/welcome-projects-table (mw/projects metadata))}]
        :type type
        :metadata metadata
        })))

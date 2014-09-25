@@ -10,8 +10,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- shared-project-row
-  [{:keys [name uri description owner version] :as shared-project}]
+(defn- welcome-project-row
+  [{:keys [name uri description owner version] :as welcome-project}]
   {:style nil
    :cells [{:type :cell/icon, :content icons/project}
            {:type :cell/link, :content {:text name, :href uri}}
@@ -19,11 +19,11 @@
            {:type :cell/text, :content owner}
            {:type :cell/text, :content version}]})
 
-(defn shared-projects-table
-  [shared-projects]
+(defn welcome-projects-table
+  [welcome-projects]
   (table/build
     {:headers [nil :name :description :owner :version]
-     :rows (map shared-project-row shared-projects)}))
+     :rows (map welcome-project-row welcome-projects)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

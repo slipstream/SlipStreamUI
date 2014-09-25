@@ -3,7 +3,7 @@
 
 (def ^:private app-sel [:modules [:item (html/attr-has :published "true")]])
 (def ^:private publisher-sel [:authz])
-(def ^:private shared-project-sel [:modules [:item (html/but (html/attr-has :published "true"))]])
+(def ^:private project-sel [:modules [:item (html/but (html/attr-has :published "true"))]])
 
 (defn- owner
   [app-node]
@@ -24,16 +24,16 @@
   (let [apps-nodes (html/select metadata app-sel)]
     (map app-metadata apps-nodes)))
 
-(defn- shared-project-metadata
-  [shared-project-node]
-  (-> shared-project-node
+(defn- project-metadata
+  [project-node]
+  (-> project-node
       :attrs
       (select-keys [:category :description :version :name])
-      (assoc :uri (get-in shared-project-node [:attrs :resourceuri])
-             :owner (owner shared-project-node))))
+      (assoc :uri (get-in project-node [:attrs :resourceuri])
+             :owner (owner project-node))))
 
-(defn shared-projects
+(defn projects
   [metadata]
-  (let [shared-project-nodes (html/select metadata shared-project-sel)]
-    (map shared-project-metadata shared-project-nodes)))
+  (let [project-nodes (html/select metadata project-sel)]
+    (map project-metadata project-nodes)))
 
