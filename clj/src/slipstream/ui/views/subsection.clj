@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.subsection
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.common :as common]))
 
 (def template-filename (common/get-template "subsection.html"))
@@ -51,15 +52,9 @@
   [subsection]
   (assoc subsection :id (gensym "ss-subsection")))
 
-(defn- ensure-one-selected
-  [subsections]
-  (if (some :selected? subsections)
-    subsections
-    (assoc-in subsections [0 :selected?] true)))
-
 (defn build
   [subsections]
   (html/content (subsection-group-snip (->> subsections
                                             vec
-                                            ensure-one-selected
+                                            u/ensure-one-selected
                                             (map assoc-id)))))

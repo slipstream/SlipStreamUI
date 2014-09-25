@@ -15,3 +15,13 @@
   (if s
     (str slipstream " | " s)
     slipstream))
+
+(defn ensure-one-selected
+  "If no section in the section-coll is selected, this will ensure that at least
+  the first one is. See tests for expectations."
+  [sections-coll]
+  (if (some :selected? sections-coll)
+    sections-coll
+    (-> sections-coll
+        vec
+        (assoc-in [0 :selected?] true))))

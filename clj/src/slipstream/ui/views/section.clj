@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.section
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.subsection :as subsection]
@@ -40,4 +41,7 @@
 
 (defn build
   [sections]
-  (html/content (->> sections (remove nil?) section-group-snip)))
+  (html/content (->> sections
+                     (remove nil?)
+                     u/ensure-one-selected
+                     section-group-snip)))
