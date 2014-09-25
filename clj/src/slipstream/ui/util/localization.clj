@@ -88,6 +88,13 @@
             (apply t *lang* t-path# args#)
             (t *lang* t-path#))))))
 
+(defmacro with-prefixed-t
+  [prefix & body]
+  (if-let [scoped-t (-> "t" symbol resolve)]
+   `(let [~(symbol "t") (fn [t-path#] (~scoped-t (keyword (str (name ~prefix) "." (name t-path#)))))]
+      ~@body)
+   (throw (IllegalStateException. (str "Scopped t function not found for namespace" *ns*)))))
+
 (defn lang
   "Get iso language code from the server's metadata. "
   [metadata]

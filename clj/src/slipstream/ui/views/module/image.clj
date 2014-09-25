@@ -21,23 +21,17 @@
 
 ; Section "image creation recipes"
 
-; (defn- image-creation-section
-;   [{:keys [cloud-name runs]}]
-;   {:title cloud-name
-;    :content (t/runs-table runs)})
-
 (defmethod middle-section-content :image-creation
   [section-metadata _]
-  [
-  {:title   (t :section.image-creation.subsection.recipe.title)
-   :content [(t :section.image-creation.subsection.recipe.description)
-             (-> section-metadata :recipe :code (code-area/build false))]}
-  {:title   (t :section.image-creation.subsection.packages.title)
-   :content (-> section-metadata :packages t/image-creation-packages-table)}
-  {:title   (t :section.image-creation.subsection.prerecipe.title)
-   :content [(t :section.image-creation.subsection.prerecipe.description)
-             (-> section-metadata :pre-recipe :code (code-area/build false))]}
-   ])
+  (localization/with-prefixed-t :section.image-creation.subsection
+    [{:title    (t :recipe.title)
+      :content [(t :recipe.description)
+                (-> section-metadata :recipe :code (code-area/build false))]}
+     {:title    (t :packages.title)
+      :content (-> section-metadata :packages t/image-creation-packages-table)}
+     {:title    (t :prerecipe.title)
+      :content [(t :prerecipe.description)
+                (-> section-metadata :pre-recipe :code (code-area/build false))]}]))
 
 ; Section "deployment recipes"
 
@@ -48,22 +42,21 @@
 
 (defmethod middle-section-content :deployment
   [section-metadata _]
-  [
-  {:title   (t :section.deployment.subsection.execute.title)
-   :content [(t :section.deployment.subsection.execute.description)
-             (-> section-metadata :targets :execute :code (code-area/build false))]}
-  {:title   (t :section.deployment.subsection.report.title)
-   :content [(t :section.deployment.subsection.report.description)
-             (-> section-metadata :targets :report :code (code-area/build false))]}
-  {:title   (t :section.deployment.subsection.parameters.title)
-   :content (-> section-metadata :parameters merge-in-out-params t/deployment-parameters-table)}
-  {:title   (t :section.deployment.subsection.on-vm-add.title)
-   :content [(t :section.deployment.subsection.on-vm-add.description)
-             (-> section-metadata :targets :on-vm-add :code (code-area/build false))]}
-  {:title   (t :section.deployment.subsection.on-vm-remove.title)
-   :content [(t :section.deployment.subsection.on-vm-remove.description)
-             (-> section-metadata :targets :on-vm-remove :code (code-area/build false))]}
-   ])
+  (localization/with-prefixed-t :section.deployment.subsection
+    [{:title    (t :execute.title)
+      :content [(t :execute.description)
+                (-> section-metadata :targets :execute :code (code-area/build false))]}
+     {:title    (t :report.title)
+      :content [(t :report.description)
+                (-> section-metadata :targets :report :code (code-area/build false))]}
+     {:title    (t :parameters.title)
+      :content (-> section-metadata :parameters merge-in-out-params t/deployment-parameters-table)}
+     {:title    (t :on-vm-add.title)
+      :content [(t :on-vm-add.description)
+                (-> section-metadata :targets :on-vm-add :code (code-area/build false))]}
+     {:title    (t :on-vm-remove.title)
+      :content [(t :on-vm-remove.description)
+                (-> section-metadata :targets :on-vm-remove :code (code-area/build false))]}]))
 
 ; Section "runs"
 
