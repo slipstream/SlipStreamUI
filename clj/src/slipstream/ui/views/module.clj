@@ -3,7 +3,6 @@
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.module.image :as image]
             [slipstream.ui.views.module.project :as project]
             [slipstream.ui.views.module.deployment :as deployment]
@@ -247,6 +246,8 @@
     {:type :warning
      :msg (t :alert.old-version.msg)}))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defmulti middle-sections (comp uc/keywordize :category :summary))
 
 (defmethod middle-sections :project
@@ -272,20 +273,27 @@
         flatten
         vec)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- actions
+  [module]
+  (case (-> module :summary :category uc/keywordize)
+    :project     project/actions
+    :image       image/actions
+    :deployment  deployment/actions))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (defn page
   [metadata type]
   (localization/with-lang-from-metadata
     (let [module (module-model/parse metadata)
           summary (:summary module)]
-      (prn module)
       (base/generate
         {:metadata metadata
          :header (header summary)
          :alerts [(-> summary :latest-version? old-version-alert)]
          :resource-uri (:uri summary)
-         :secondary-menu-actions [action/edit
-                                  action/new-project
-                                  action/new-image
-                                  action/new-deployment
-                                  action/import]
+         :secondary-menu-actions (actions module)
          :content (sections module)}))))

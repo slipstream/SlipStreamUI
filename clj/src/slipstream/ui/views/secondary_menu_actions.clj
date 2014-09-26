@@ -6,6 +6,10 @@
 
 (localization/def-scoped-t)
 
+(defn- t-with-ellipsis
+  [t-path]
+  (str (t t-path) (t :ellipsis)))
+
 (defn new-project
   []
   {:name (t :new-project)
@@ -44,9 +48,15 @@
 
 (defn run
   []
-  {:name (t :run)
+  {:name (t-with-ellipsis :run)
    :uri  "module/new"
    :icon icons/action-run})
+
+(defn build
+  []
+  {:name (t-with-ellipsis :build)
+   :uri  "module/build"
+   :icon icons/action-build})
 
 (defn edit
   []
@@ -57,11 +67,18 @@
 
 (defn copy
   []
-  {:name (t :copy)
+  {:name (t-with-ellipsis :copy)
    :uri  "module/new"
    :icon icons/action-copy
    :disabled? false
    :super-only? true})
+
+(defn publish
+  []
+  {:name (t :publish)
+   :uri  "module/new"
+   :icon icons/action-publish
+   :disabled? true})
 
 (defn unpublish
   []

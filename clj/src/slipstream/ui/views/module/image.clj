@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.module.image
   (:require [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.code-area :as code-area]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
 
 (localization/def-scoped-t)
@@ -100,3 +101,10 @@
         :deployment
         :runs]
        (map (partial middle-section module))))
+
+(def actions
+  [action/build
+   action/run
+   action/edit
+   action/copy
+   action/publish])

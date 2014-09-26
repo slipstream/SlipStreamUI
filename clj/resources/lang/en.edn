@@ -15,7 +15,10 @@
 
    :missing        "%1$s %3$s"
 
-   :global {:nouns {
+   :global {:punctuation {
+                          :ellipsis "..."
+                          }
+            :nouns {
                     :author         "Author"
                     :authorization  "Authorization"
                     :authorizations "Authorizations"
@@ -76,6 +79,8 @@
                     :warning        "Warning"
                     }
             :verbs {
+                    :build          "Build"
+                    :copy           "Copy"
                     :delete         "Delete"
                     :deploy         "Deploy"
                     :download       "Download"
@@ -84,6 +89,8 @@
                     :import         "Import"
                     :login          "Log in"
                     :logout         "Log out"
+                    :publish        "Publish"
+                    :run            "Run"
                     :report         "Report"
                     :unpublish      "Un-publish"
                     :view           "View"
@@ -269,17 +276,19 @@
    :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
 
 
+   :slipstream.ui.views.secondary-menu-actions.ellipsis        :global.punctuation.ellipsis
    :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
    :slipstream.ui.views.secondary-menu-actions.new-image       "New machine image"
    :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
    :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
    :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
-   :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user (url missing yet)"
-   :slipstream.ui.views.secondary-menu-actions.run             "Run..."
+   :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user"
+   :slipstream.ui.views.secondary-menu-actions.run             :global.verbs.run
+   :slipstream.ui.views.secondary-menu-actions.build           :global.verbs.build
    :slipstream.ui.views.secondary-menu-actions.edit            :global.verbs.edit
-   :slipstream.ui.views.secondary-menu-actions.copy            "Copy..."
+   :slipstream.ui.views.secondary-menu-actions.copy            :global.verbs.copy
+   :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
    :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
-
 
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
