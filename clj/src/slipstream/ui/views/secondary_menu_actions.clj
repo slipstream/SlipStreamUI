@@ -86,3 +86,9 @@
    :uri  "module/new"
    :icon icons/action-unpublish
    :disabled? true})
+
+(defn terminate
+  []
+  {:name (t :terminate)
+   :uri  "run/terminate"
+   :icon icons/action-terminate})

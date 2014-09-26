@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.run
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
@@ -144,12 +146,15 @@
      :header (header-snip run)
      :content (content-snip run)}))
 
-(defn page [run]
-  (base/generate
-    {:metadata run
-     :placeholder-page? true
-     :header {:icon icons/run
-              :title "91aac79a is DONE"
-              :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
-     :resource-uri "/run/91aa79a"
-     :content nil}))
+(defn page
+  [metadata]
+  (localization/with-lang-from-metadata
+   (base/generate
+      {:metadata metadata
+       :placeholder-page? true
+       :header {:icon icons/run
+                :title "91aac79a is DONE"
+                :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
+       :resource-uri "/run/91aa79a"
+       :secondary-menu-actions [action/terminate]
+       :content nil})))

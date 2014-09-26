@@ -34,6 +34,7 @@
 (def action-publish     ::eye-open)
 (def action-unpublish   ::eye-close)
 (def action-log-out     ::log-out)
+(def action-terminate   ::ban-circle)
 (def action-new-user    user)
 (def action-edit-user   action-edit)
 
