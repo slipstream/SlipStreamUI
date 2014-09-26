@@ -164,20 +164,25 @@
            {:type :cell/boolean,  :content public-access?}]})
 
 (defn- map->sorted-vector
-  [access-rights]
+  [module-type access-rights]
   (vector
-    [(t :access.get)             (:get access-rights)]
-    [(t :access.put)             (:put access-rights)]
+    [(t :access.view)            (:get access-rights)]
+    [(t :access.edit)            (:put access-rights)]
     [(t :access.delete)          (:delete access-rights)]
-    [(t :access.create-children) (:create-children access-rights)]))
+    (case module-type
+      :project    [(t :access.create-children)    (:create-children access-rights)]
+      :image      [(t :access.build-or-run-image) (:post access-rights)]
+      :deployment [(t :access.run-deployment)     (:post access-rights)])))
 
 (defn access-rights-table
-  [access-rights]
-  (table/build
-    {:headers [:access-right :owner :group :public]
-     :rows (->> access-rights
-                map->sorted-vector
-                (map access-right-row))}))
+  [module]
+  (let [module-type   (-> module :summary :category uc/keywordize)
+        access-rights (-> module :authorization :access-rights)]
+    (table/build
+      {:headers [:access-right :owner :group :public]
+       :rows (->> access-rights
+                  (map->sorted-vector module-type)
+                  (map access-right-row))})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -280,5 +285,19 @@
   (table/build
     {:headers [nil :name :description :owner :version]
      :rows (map project-child-row project-children)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- deployment-node-row
+  [{:keys [name reference-image default-multiplicity default-cloud] :as deployment-node}]
+  {:style  nil
+   :cells [{:type :cell/text, :content name}
+           {:type :cell/map,  :content (dissoc deployment-node :name)}]})
+
+(defn deployment-nodes-table
+  [deployment-nodes]
+  (table/build
+    {:headers [:name :image-link]
+     :rows (map deployment-node-row deployment-nodes)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

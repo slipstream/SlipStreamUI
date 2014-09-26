@@ -58,9 +58,15 @@
   (cell-text-snip {:text (ut/format :human-readable-long timestamp)
                    :tooltip timestamp}))
 
+(defn- map-key-str
+  [map-key]
+  (if (keyword? map-key)
+    (->> map-key name (str "map-cell.key.") keyword t)
+    (str map-key)))
+
 (html/defsnippet term-dict-entry-snip template-filename cell-map-entry-sel
   [[k v]]
-  [:dt] (html/content (if (keyword? k) (name k) (str k)))
+  [:dt] (html/content (map-key-str k))
   [:dd] (html/content (str v)))
 
 (html/defsnippet cell-map-snip template-filename cell-map-sel

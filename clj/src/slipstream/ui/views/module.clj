@@ -6,6 +6,7 @@
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.module.image :as image]
             [slipstream.ui.views.module.project :as project]
+            [slipstream.ui.views.module.deployment :as deployment]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
@@ -16,7 +17,7 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.image :as image-legacy]
-            [slipstream.ui.views.deployment :as deployment]
+            [slipstream.ui.views.deployment :as deployment-legacy]
             [slipstream.ui.views.project :as project-legacy]))
 
 (def deployment-view-template-html (common/get-template "deployment-view.html"))
@@ -52,7 +53,7 @@
 
 (defmethod content-by-category-view "Deployment"
   [module category]
-  common/content-sel (deployment/view-snip module))
+  common/content-sel (deployment-legacy/view-snip module))
 
 (defmethod content-by-category-view "Project"
   [module category]
@@ -74,7 +75,7 @@
 
 (defmethod content-by-category-edit "Deployment"
   [module category]
-  common/content-sel (deployment/edit-snip module))
+  common/content-sel (deployment-legacy/edit-snip module))
 
 (defmethod content-by-category-edit "Project"
   [module category]
@@ -96,7 +97,7 @@
 
 (defmethod content-by-category-new "Deployment"
   [module category]
-  common/content-sel (deployment/new-snip module))
+  common/content-sel (deployment-legacy/new-snip module))
 
 (defmethod content-by-category-new "Project"
   [module category]
@@ -248,7 +249,7 @@
 
 (defmulti middle-sections (comp uc/keywordize :category :summary))
 
-(defmethod middle-sections :default
+(defmethod middle-sections :project
   [module]
   (project/middle-sections module))
 
@@ -256,12 +257,16 @@
   [module]
   (image/middle-sections module))
 
+(defmethod middle-sections :deployment
+  [module]
+  (deployment/middle-sections module))
+
 (defn- sections
   [module]
   (let [summary-section {:title (t :section.summary.title)
                          :content (t/module-summary-table (:summary module))}
         auth-section    {:title (t :section.authorizations.title)
-                         :content [(t/access-rights-table (-> module :authorization :access-rights))
+                         :content [(t/access-rights-table module)
                                    (t/group-members-table (-> module :authorization))]}]
     (-> [summary-section (middle-sections module) auth-section]
         flatten

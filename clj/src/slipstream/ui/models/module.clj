@@ -5,6 +5,7 @@
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.module.image :as image]
             [slipstream.ui.models.module.project :as project]
+            [slipstream.ui.models.module.deployment :as deployment]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.authz :as authz]))
 
@@ -188,6 +189,10 @@
 (defmethod category-sections :image
   [metadata]
   (image/sections metadata))
+
+(defmethod category-sections :deployment
+  [metadata]
+  (deployment/sections metadata))
 
 (defn assoc-category-sections
   [module-map metadata]
