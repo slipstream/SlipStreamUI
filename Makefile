@@ -3,6 +3,12 @@ run: clean install
 test: clean
 	mvn clojure:test 2>&1 | grep -v "at clojure."
 
+expect:
+	$(info )
+	$(info After creating a new clj file, quit (CTRL-C) and reload.)
+	$(info )
+	(cd clj; lein autoexpect)
+
 repl:
 	$(info )
 	$(info Execute following forms to start the test server:)
