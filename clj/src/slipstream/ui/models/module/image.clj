@@ -3,7 +3,33 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.parameters :as parameters]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Logo image info
+
+(defn- logo-image
+  [metadata]
+  {:image (-> metadata :attrs :logolink)})
+
+
+;; Cloud image section
+
+(defn- cloud-image-details
+  [metadata]
+  {:native-image?     (-> metadata :attrs :isbase uc/parse-boolean)
+   :cloud-identifiers (->> (html/select metadata [:cloudImageIdentifier])
+                           (map :attrs)
+                           (map (juxt :cloudservicename :cloudimageidentifier))
+                           (into {}))
+   :reference-image   (-> metadata :attrs :modulereferenceuri)})
+
+
+;; Os details section
+
+(defn- os-details
+  [metadata]
+  {:platform         (-> metadata :attrs :platform)
+   :login-username   (-> metadata :attrs :loginuser)})
+
 
 ;; Runs metadata section
 
@@ -31,7 +57,6 @@
        (map parse-run)
        group-runs))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Image creation metadata section
 
@@ -55,7 +80,6 @@
                      (sort-by :name))
    :pre-recipe  (parse-recipe :prerecipe metadata)})
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Deployment metadata section
 
@@ -85,31 +109,16 @@
       (assoc-target :on-vm-remove metadata)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; Metadata section build
 
 (defn sections
   [metadata]
   (let [parameters (parameters/parse metadata)]
-    (-> {}
-        (assoc-in [:summary :image] (-> metadata :attrs :logolink))
-
-        (assoc-in [:cloud-image-details :native-image?]     (-> metadata :attrs :isbase uc/parse-boolean))
-        (assoc-in [:cloud-image-details :cloud-identifiers] (->> (html/select metadata [:cloudImageIdentifier])
-                                                                 (map :attrs)
-                                                                 (map (juxt :cloudservicename :cloudimageidentifier))
-                                                                 (into {})))
-        (assoc-in [:cloud-image-details :reference-image]   (-> metadata :attrs :modulereferenceuri))
-
-        (assoc-in [:os-details :platform]         (-> metadata :attrs :platform))
-        (assoc-in [:os-details :login-username]   (-> metadata :attrs :loginuser))
-
-        (assoc-in [:cloud-configuration]          (-> parameters
-                                                      (parameters/categories-of-type :global)))
-
-        (assoc-in [:image-creation]               (image-creation metadata))
-        (assoc-in [:deployment]                   (deployment metadata parameters))
-        (assoc-in [:runs]                         (runs metadata))
-        )))
+    {:summary              (logo-image metadata)
+     :cloud-image-details  (cloud-image-details metadata)
+     :os-details           (os-details metadata)
+     :cloud-configuration  (parameters/categories-of-type parameters :global)
+     :image-creation       (image-creation metadata)
+     :deployment           (deployment metadata parameters)
+     :runs                 (runs metadata)}))
 
