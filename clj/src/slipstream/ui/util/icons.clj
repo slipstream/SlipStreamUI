@@ -37,6 +37,9 @@
 (def action-terminate   ::ban-circle)
 (def action-new-user    user)
 (def action-edit-user   action-edit)
+(def action-save        ::floppy-disk)
+(def action-cancel      ::stop)
+(def action-delete      ::trash)
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.

@@ -92,3 +92,21 @@
   {:name (t :terminate)
    :uri  "run/terminate"
    :icon icons/action-terminate})
+
+(defn save
+  []
+  {:name (t :save)
+   :uri  "run/save"
+   :icon icons/action-save})
+
+(defn cancel
+  []
+  {:name (t :cancel)
+   :uri  "run/cancel"
+   :icon icons/action-cancel})
+
+(defn delete
+  []
+  {:name (t :delete)
+   :uri  "run/delete"
+   :icon icons/action-delete})

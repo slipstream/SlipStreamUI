@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.user.core :as user]
@@ -30,7 +31,8 @@
   (localization/with-lang-from-metadata
     (let [user (user/parse metadata)]
       (base/generate
-        {:metadata metadata
+        {:page-type (uc/keywordize type)
+         :metadata metadata
          :header (header user)
          :secondary-menu-actions [action/edit-user] ;; TODO: Only if (or (:loggedin? user) (:super? user))
          :resource-uri (:uri user)

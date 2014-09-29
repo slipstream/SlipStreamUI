@@ -291,7 +291,8 @@
     (let [module (module-model/parse metadata)
           summary (:summary module)]
       (base/generate
-        {:metadata metadata
+        {:page-type (uc/keywordize type)
+         :metadata metadata
          :header (header summary)
          :alerts [(-> summary :latest-version? old-version-alert)]
          :resource-uri (:uri summary)

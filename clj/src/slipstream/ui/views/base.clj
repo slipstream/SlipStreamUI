@@ -16,6 +16,7 @@
             [slipstream.ui.views.table :as table]
             [slipstream.ui.views.breadcrumbs :as breadcrumbs]
             [slipstream.ui.views.secondary-menu :as secondary-menu]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.code-area :as code-area]
             ))
 
@@ -47,6 +48,14 @@
 (def beta-page-cls "ss-beta-page")
 (def placeholder-page-cls "ss-placeholder-page")
 
+(def edit-page-actions
+  [action/save
+   action/cancel
+   action/delete])
+
+
+(def new-page-actions
+  (butlast edit-page-actions))
 
 (defn-memo ^:private node-from-template
   [template-filename sel]
@@ -77,7 +86,7 @@
            resource-uri
            secondary-menu-actions
            content
-           type
+           page-type
            alerts
            involved-templates]
     :as context}]
@@ -107,7 +116,7 @@
   )
 
 (defn generate
-  [{:keys [header metadata template-filename content alerts] :as context}]
+  [{:keys [header metadata template-filename content alerts page-type] :as context}]
   (let [user (user-loggedin/parse metadata)
         involved-templates [alerts/template-filename
                             menubar/template-filename
@@ -117,9 +126,14 @@
                             code-area/template-filename ;; TODO: only if code-areas in body.
                             template-filename]]
     (println "Generating base for" template-filename)
+    (prn :page-type (:page-type context))
     ; (println "   user:" user)
     ; (println "   content type:" (type (first content)))
-    (base (assoc context
-            :user user
-            ; :beta-page? true
-            :involved-templates involved-templates))))
+    (base
+      (cond-> context
+        (= page-type :edit)   (assoc :secondary-menu-actions edit-page-actions)
+        (= page-type :new)    (assoc :secondary-menu-actions new-page-actions)
+        :always               (assoc
+                                :user user
+                                ; :beta-page? true
+                                :involved-templates involved-templates)))))

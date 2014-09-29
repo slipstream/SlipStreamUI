@@ -81,6 +81,7 @@
             :verbs {
                     :build          "Build"
                     :copy           "Copy"
+                    :cancel         "Cancel"
                     :delete         "Delete"
                     :deploy         "Deploy"
                     :download       "Download"
@@ -93,6 +94,7 @@
                     :run            "Run"
                     :report         "Report"
                     :terminate      "Terminate"
+                    :save           "Save"
                     :unpublish      "Un-publish"
                     :view           "View"
                     }
@@ -291,6 +293,9 @@
    :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
    :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
    :slipstream.ui.views.secondary-menu-actions.terminate       :global.verbs.terminate
+   :slipstream.ui.views.secondary-menu-actions.save            :global.verbs.save
+   :slipstream.ui.views.secondary-menu-actions.cancel          :global.verbs.cancel
+   :slipstream.ui.views.secondary-menu-actions.delete          :global.verbs.delete
 
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
