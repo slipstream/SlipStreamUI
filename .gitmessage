@@ -1,1 +1,15 @@
 [WIP] new: 
+
+#
+# You might want to use one of this labels to prefix your commit message:
+#
+#   fix:
+#   new:
+#   change:
+#   refactor:
+#
+# After editing the message, save and quit your editor, e.g. in vim
+# with 'ZZ' or ':wq'. If you exit without modifing the message or
+# with a blank message, the commit is aborted.
+#
+#
