@@ -149,7 +149,7 @@
                 doc-str)
           [~test-symbol & ~parts-symbol]
           (if ~test-symbol
-            (~set-fn-symbol (str ~parts-symbol))
+            (~set-fn-symbol (apply str ~parts-symbol))
             (html/remove-attr ~attr))))))
 
 (defn-set-attr :href)

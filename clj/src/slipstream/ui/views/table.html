@@ -100,39 +100,60 @@
       </thead>
       <tbody class="ss-table-body">
         <tr>
-          <td><code>ss-table-cell-text</code></td>
+          <td><code>.ss-table-cell-text</code></td>
           <td>Text cell</td>
           <td class="ss-table-cell-text">Description...</td>
         </tr>
         <tr>
-          <td><code>ss-table-cell-link</code></td>
+          <td><code>.ss-table-cell-text-editable</code></td>
+          <td>Editable text cell</td>
+          <td class="ss-table-cell-text-editable">
+            <input type="text" class="form-control" placeholder="Text" value="">
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-text-area-editable</code></td>
+          <td>Editable text area cell</td>
+          <td class="ss-table-cell-text-area-editable">
+            <textarea class="form-control" placeholder="Long text" rows="3"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-password-editable</code></td>
+          <td>Editable password cell</td>
+          <td class="ss-table-cell-password-editable">
+            <input type="password" class="form-control" placeholder="Password" value="">
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-link</code></td>
           <td>Link cell</td>
           <td class="ss-table-cell-link"><a href="#">Some project</a></td>
         </tr>
         <tr>
-          <td><code>ss-table-cell-icon</code></td>
+          <td><code>.ss-table-cell-icon</code></td>
           <td>Icon cell</td>
           <td class="ss-table-cell-icon"><span class="glyphicon glyphicon-picture"></span></td>
         </tr>
         <tr>
-          <td><code>ss-table-cell-boolean</code></td>
-          <td>Checkbox cell</td>
+          <td><code>.ss-table-cell-boolean</code></td>
+          <td>Boolean cell</td>
           <td class="ss-table-cell-boolean"><input type="checkbox" checked="" disabled=""/></td>
         </tr>
-        <!--
-          <tr>
-            <td><code>ss-table-cell-password</code></td>
-            <td>Password cell</td>
-            <td class="ss-table-cell-password"><input type="password" disabled="" value="asfd"/></td>
-          </tr>
-        -->
         <tr>
-          <td><code>ss-table-cell-module-version</code></td>
+          <td><code>.ss-table-cell-boolean-editable</code></td>
+          <td>Editable boolean cell</td>
+          <td class="ss-table-cell-boolean-editable">
+            <input type="checkbox" checked=""/>
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-module-version</code></td>
           <td>Module version cell</td>
           <td class="ss-table-cell-module-version"><span>999</span> (<a href="#">history</a>)</td>
         </tr>
         <tr>
-          <td><code>ss-table-cell-help-hint</code></td>
+          <td><code>.ss-table-cell-help-hint</code></td>
           <td>Cell with help hint as tooltip</td>
           <td class="ss-table-cell-help-hint">
             <div class="ss-table-tooltip" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
@@ -141,7 +162,7 @@
           </td>
         </tr>
         <tr>
-          <td><code>ss-table-cell-map</code></td>
+          <td><code>.ss-table-cell-map</code></td>
           <td>Cell to easily display a clojure map</td>
           <td class="ss-table-cell-map">
             <dl class="dl-horizontal">
@@ -154,6 +175,19 @@
               <dt>Looooooooooonger Key 4</dt>
               <dd>value 4</dd>
             </dl>
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-enum-editable</code></td>
+          <td>Enum cell</td>
+          <td class="ss-table-cell-enum-editable">
+            <!-- <select multiple="" class="form-control form-control-xs"> -->
+            <select class="form-control form-control-xs">
+              <option value="value1">Value 1</option>
+              <option value="value2">Value 2</option>
+              <option value="value3">Value 3</option>
+              <option value="value4">Value 4</option>
+            </select>
           </td>
         </tr>
       </tbody>

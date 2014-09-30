@@ -67,7 +67,7 @@
 (defn- set-icon
   [icon]
   (when-not (= (namespace icon) this-ns)
-    (throw (Exception. (format "Invalid icon %s. Use predefined icons in namespace %s."
+    (throw (IllegalArgumentException. (format "Invalid icon %s. Use predefined icons in namespace %s."
                                icon
                                this-ns))))
   (fn [icon-node]

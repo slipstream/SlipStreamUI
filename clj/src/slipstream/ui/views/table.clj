@@ -20,7 +20,11 @@
 (def table-body-sel [:.ss-table-body])
 (def table-row-sel (concat table-body-sel [:> [:tr html/first-of-type]]))
 
-(def cell-text-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-text")]]))
+
+(defn- sel-for-cell
+  [cls & variation]
+  (concat table-body-sel [[:td (ue/first-of-class (str cls (when (= (first variation) :editable) "-editable")))]]))
+
 (def cell-link-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-link")]]))
 (def cell-icon-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-icon")]]))
 (def cell-boolean-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-boolean")]]))
@@ -32,11 +36,17 @@
 
 ;; Cell
 
-(html/defsnippet cell-text-snip template-filename cell-text-sel
+(html/defsnippet cell-text-snip template-filename (sel-for-cell "ss-table-cell-text")
   [{:keys [text tooltip]}]
   ue/this (html/content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
+  ue/this (ue/when-set-title (not-empty tooltip)
+                             (str tooltip)))
+
+(html/defsnippet cell-editable-text-snip template-filename (sel-for-cell "ss-table-cell-text" :editable)
+  [{:keys [text tooltip]}]
+  [:input] (ue/set-value (str text))
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
@@ -51,9 +61,9 @@
 
 (defn cell-set-snip
   [set]
-  (cell-plain-text-snip (s/join ", " set)))
+  (cell-plain-text-snip (->> set (into (sorted-set)) (s/join ", "))))
 
-(defn- cell-timestamp-snip
+(defn cell-timestamp-snip
   [timestamp]
   (cell-text-snip {:text (ut/format :human-readable-long timestamp)
                    :tooltip timestamp}))
@@ -71,7 +81,7 @@
 
 (html/defsnippet cell-map-snip template-filename cell-map-sel
   [m]
-  [:dl] (html/content (mapcat term-dict-entry-snip m)))
+  [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip))))
 
 (html/defsnippet cell-link-snip template-filename cell-link-sel
   [{:keys [text href open-in-new-window?]}]
@@ -91,7 +101,7 @@
   [url]
   (cell-link-snip {:text url :href url}))
 
-(defn- cell-username-snip
+(defn cell-username-snip
   [username]
   (cell-link-snip {:text username :href (str "/user/" username)}))
 
