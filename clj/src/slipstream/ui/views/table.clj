@@ -23,20 +23,12 @@
 
 (defn- sel-for-cell
   [cls & variation]
-  (concat table-body-sel [[:td (ue/first-of-class (str cls (when (= (first variation) :editable) "-editable")))]]))
-
-(def cell-link-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-link")]]))
-(def cell-icon-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-icon")]]))
-(def cell-boolean-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-boolean")]]))
-(def cell-module-version-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-module-version")]]))
-(def cell-help-hint-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-help-hint")]]))
-(def cell-map-sel (concat table-body-sel [[:td (ue/first-of-class "ss-table-cell-map")]]))
-(def cell-map-entry-sel (concat cell-map-sel [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
+  (concat table-body-sel [[:td (ue/first-of-class (str "ss-table-cell-" (name cls) (when (= (first variation) :editable) "-editable")))]]))
 
 
 ;; Cell
 
-(html/defsnippet cell-text-snip template-filename (sel-for-cell "ss-table-cell-text")
+(html/defsnippet cell-text-snip template-filename (sel-for-cell :text)
   [{:keys [text tooltip]}]
   ue/this (html/content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
@@ -44,7 +36,7 @@
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
-(html/defsnippet cell-editable-text-snip template-filename (sel-for-cell "ss-table-cell-text" :editable)
+(html/defsnippet cell-editable-text-snip template-filename (sel-for-cell :text :editable)
   [{:keys [text tooltip]}]
   [:input] (ue/set-value (str text))
   ue/this (ue/when-set-title (not-empty tooltip)
@@ -74,16 +66,18 @@
     (->> map-key name (str "map-cell.key.") keyword t)
     (str map-key)))
 
+(def cell-map-entry-sel (concat (sel-for-cell :map) [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
+
 (html/defsnippet term-dict-entry-snip template-filename cell-map-entry-sel
   [[k v]]
   [:dt] (html/content (map-key-str k))
   [:dd] (html/content (str v)))
 
-(html/defsnippet cell-map-snip template-filename cell-map-sel
+(html/defsnippet cell-map-snip template-filename (sel-for-cell :map)
   [m]
   [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip))))
 
-(html/defsnippet cell-link-snip template-filename cell-link-sel
+(html/defsnippet cell-link-snip template-filename (sel-for-cell :link)
   [{:keys [text href open-in-new-window?]}]
     [:a] (html/content (str text))
     [:a] (ue/set-href href)
@@ -105,21 +99,21 @@
   [username]
   (cell-link-snip {:text username :href (str "/user/" username)}))
 
-(html/defsnippet cell-icon-snip template-filename cell-icon-sel
+(html/defsnippet cell-icon-snip template-filename (sel-for-cell :icon)
   [icon]
   [:span] (icons/set icon))
 
-(html/defsnippet cell-boolean-snip template-filename cell-boolean-sel
+(html/defsnippet cell-boolean-snip template-filename (sel-for-cell :boolean)
   [value]
   ; [:input] (ue/toggle-disabled true)
   [:input] (ue/toggle-checked value))
 
-(html/defsnippet cell-module-version-snip template-filename cell-module-version-sel
+(html/defsnippet cell-module-version-snip template-filename (sel-for-cell :module-version)
   [uri]
   [:span] (html/content (uc/last-path-segment uri))
   [:a]    (ue/set-href   (uc/trim-last-path-segment uri)))
 
-(html/defsnippet cell-help-hint-snip template-filename cell-help-hint-sel
+(html/defsnippet cell-help-hint-snip template-filename (sel-for-cell :help-hint)
   [help-text]
   [:.ss-table-tooltip]  (ue/set-title help-text)
   [:.ss-table-tooltip]  (ue/remove-if-not (not-empty help-text)))
