@@ -156,13 +156,15 @@
     (keyword? x)  (name x)
     :else         (str x)))
 
-(defn join-as-sorted-str
-  "Comma-separated string with sorted coll elements. See tests for expectations."
+(defn join-as-str
+  "Comma-separated string with sorted coll elements. To allow consistent results
+  set items are joined in alphabetical order. Other collections (e.g. vecs and
+  lists) are joined in the exitent order. See tests for expectations."
   [coll]
   {:pre [(and
            (coll? coll)
            (not (map? coll)))]}
-  (->> coll
-       (map stringify)
-       sort
-       (s/join ", ")))
+  (cond->> coll
+   :always      (map stringify)
+   (set? coll)  sort
+   :always      (s/join ", ")))
