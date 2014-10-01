@@ -148,3 +148,21 @@
         (if (ifn? group-type-fn)
           (assoc res group-type-keyword (group-type-fn group))
           res)))))
+
+(defn- stringify
+  [x]
+  (cond
+    (string? x)   (s/trim x)
+    (keyword? x)  (name x)
+    :else         (str x)))
+
+(defn join-as-sorted-str
+  "Comma-separated string with sorted coll elements. See tests for expectations."
+  [coll]
+  {:pre [(and
+           (coll? coll)
+           (not (map? coll)))]}
+  (->> coll
+       (map stringify)
+       sort
+       (s/join ", ")))

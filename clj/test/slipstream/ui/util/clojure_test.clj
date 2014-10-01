@@ -373,3 +373,73 @@
                    :items-sort-fn :name
                    :group-type-keyword :minors
                    :group-type-fn #(< % 18)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; join-as-sorted-str
+
+(expect
+  "a, b, c"
+  (join-as-sorted-str ["b"
+                       "a"
+                       "c"]))
+
+(expect
+  "a, b, c"
+  (join-as-sorted-str ["b "
+                       " a"
+                       " c"]))
+
+(expect
+  "a, b, b, b, c"
+  (join-as-sorted-str ["b"
+                       "a"
+                       "c"
+                       "b "
+                       " b"]))
+
+(expect
+  "1, 2, 3, 5, A, B, B, B, B4, C, D, a, b, b, b, c, d"
+  (join-as-sorted-str [
+                       " B"
+                       "b"
+                       "c"
+                       "2"
+                       "b "
+                       " b"
+                       "B"
+                       "C"
+                       "B "
+                       :d
+                       "B4"
+                       :D
+                       "a"
+                       "1"
+                       "A"
+                       "3"
+                       " 5"
+                       ]))
+
+(expect
+  "a, b, c"
+  (join-as-sorted-str #{"b"
+                        "a"
+                        "c"}))
+
+(expect
+  "a, b, c"
+  (join-as-sorted-str #{:b "a"
+                           "c"}))
+
+(expect
+  AssertionError
+  (join-as-sorted-str {:b "a" 1 "c"}))
+
+(expect
+  AssertionError
+  (join-as-sorted-str "some string"))
+
+(expect
+  AssertionError
+  (join-as-sorted-str 123))
