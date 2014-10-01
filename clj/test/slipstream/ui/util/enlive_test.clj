@@ -55,6 +55,12 @@
                  this (set-href "http://some.url.com")))
 
 (expect
+  "<a>some text</a>"
+  (html/sniptest anchor-html
+                 this (html/content "some text")
+                 this (set-href nil)))
+
+(expect
   "<a href=\"the.url.if.true\"></a>"
   (html/sniptest anchor-html
                  this (if-set-href true
@@ -69,10 +75,16 @@
                         "the.url.if.false")))
 
 (expect
-  "<a>some text</a>"
+  "<a href=\"the.url.if.true\"></a>"
   (html/sniptest anchor-html
-                 this (html/content "some text")
-                 this (set-href nil)))
+                 this (when-set-href true
+                        "the.url.if.true")))
+
+(expect
+  "<a href=\"#\"></a>"
+  (html/sniptest anchor-html
+                 this (when-set-href false
+                        "the.url.if.true")))
 
 (expect
   "<a disabled=\"\" href=\"#\">some text</a>"
