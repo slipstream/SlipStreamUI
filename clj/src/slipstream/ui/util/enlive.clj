@@ -161,6 +161,7 @@
 (defn-set-attr :target)
 (defn-set-attr :checked)
 (defn-set-attr :disabled)
+(defn-set-attr :selected)
 (defn-set-attr :value)
 (defn-set-attr :title)
 (defn-set-attr :placeholder)

@@ -28,7 +28,7 @@
 
 ;; Cell
 
-(html/defsnippet cell-text-snip template-filename (sel-for-cell :text)
+(html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
   [{:keys [text tooltip]}]
   ue/this (html/content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
@@ -36,29 +36,65 @@
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
-(html/defsnippet cell-editable-text-snip template-filename (sel-for-cell :text :editable)
+(html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
   [{:keys [text tooltip]}]
   [:input] (ue/set-value (str text))
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
-(defn cell-plain-text-snip
+(defn- cell-plain-text-snip-view
   [text]
-  (cell-text-snip {:text text}))
+  (cell-text-snip-view {:text text}))
 
-(defn cell-password-snip
+(defn- cell-plain-text-snip-edit
+  [text]
+  (cell-text-snip-edit {:text text}))
+
+(defn- cell-password-snip-view
   [pwd]
-  ; (cell-text-snip (when pwd "•••")))
-  (cell-plain-text-snip (when pwd "***")))
+  ; (cell-text-snip-view (when pwd "•••")))
+  (cell-text-snip-view {:text (when pwd "***")}))
 
-(defn cell-set-snip
+(html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
+  [_]
+  identity)
+
+;; Enum cells
+
+(defn- options-str
+  [enum-options & ]
+  (->> enum-options
+    (map :text)
+    uc/join-as-str))
+
+(defn- selected-options-str
+  [enum-options]
+  (->> enum-options
+       (filter :selected?)
+       options-str))
+
+(defn- cell-enum-snip-view
+  [enum-options]
+  (cell-text-snip-view {:text (selected-options-str enum-options)
+                        :tooltip (str "Possible values: " (options-str enum-options))}))
+
+(html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
+  [enum-options]
+  [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum-options]
+                            ue/this (ue/set-value value)
+                            ue/this (html/content (str text))
+                            ue/this (ue/toggle-selected selected?)))
+
+;; Set cells
+
+(defn- cell-set-snip
   [set]
-  (cell-plain-text-snip (->> set (into (sorted-set)) (s/join ", "))))
+  (cell-text-snip-view {:text (uc/join-as-str set)}))
 
-(defn cell-timestamp-snip
+(defn- cell-timestamp-snip
   [timestamp]
-  (cell-text-snip {:text (ut/format :human-readable-long timestamp)
-                   :tooltip timestamp}))
+  (cell-text-snip-view {:text (ut/format :human-readable-long timestamp)
+                        :tooltip timestamp}))
 
 (defn- map-key-str
   [map-key]
@@ -68,52 +104,57 @@
 
 (def cell-map-entry-sel (concat (sel-for-cell :map) [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
 
-(html/defsnippet term-dict-entry-snip template-filename cell-map-entry-sel
+(html/defsnippet ^:private term-dict-entry-snip template-filename cell-map-entry-sel
   [[k v]]
   [:dt] (html/content (map-key-str k))
   [:dd] (html/content (str v)))
 
-(html/defsnippet cell-map-snip template-filename (sel-for-cell :map)
+(html/defsnippet ^:private cell-map-snip template-filename (sel-for-cell :map)
   [m]
   [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip))))
 
-(html/defsnippet cell-link-snip template-filename (sel-for-cell :link)
+(html/defsnippet ^:private cell-link-snip template-filename (sel-for-cell :link)
   [{:keys [text href open-in-new-window?]}]
     [:a] (html/content (str text))
     [:a] (ue/set-href href)
     [:a] (ue/when-set-target open-in-new-window? "_blank"))
 
-(defn cell-external-link-snip
+(defn- cell-external-link-snip
   [cell]
   (cell-link-snip (assoc cell :open-in-new-window? true)))
 
-(defn cell-email-snip
+(defn- cell-email-snip
   [email]
   (cell-link-snip {:text email :href (str "mailto:" email)}))
 
-(defn cell-url-snip
+(defn- cell-url-snip
   [url]
   (cell-link-snip {:text url :href url}))
 
-(defn cell-username-snip
+(defn- cell-username-snip
   [username]
   (cell-link-snip {:text username :href (str "/user/" username)}))
 
-(html/defsnippet cell-icon-snip template-filename (sel-for-cell :icon)
+(html/defsnippet ^:private cell-icon-snip template-filename (sel-for-cell :icon)
   [icon]
   [:span] (icons/set icon))
 
-(html/defsnippet cell-boolean-snip template-filename (sel-for-cell :boolean)
+(html/defsnippet ^:private cell-boolean-snip-view template-filename (sel-for-cell :boolean)
   [value]
   ; [:input] (ue/toggle-disabled true)
   [:input] (ue/toggle-checked value))
 
-(html/defsnippet cell-module-version-snip template-filename (sel-for-cell :module-version)
+(html/defsnippet ^:private cell-boolean-snip-edit template-filename (sel-for-cell :boolean :editable)
+  [value]
+  ; [:input] (ue/toggle-disabled false)
+  [:input] (ue/toggle-checked value))
+
+(html/defsnippet ^:private cell-module-version-snip template-filename (sel-for-cell :module-version)
   [uri]
   [:span] (html/content (uc/last-path-segment uri))
   [:a]    (ue/set-href   (uc/trim-last-path-segment uri)))
 
-(html/defsnippet cell-help-hint-snip template-filename (sel-for-cell :help-hint)
+(html/defsnippet ^:private cell-help-hint-snip template-filename (sel-for-cell :help-hint)
   [help-text]
   [:.ss-table-tooltip]  (ue/set-title help-text)
   [:.ss-table-tooltip]  (ue/remove-if-not (not-empty help-text)))
@@ -122,24 +163,29 @@
   "Get the cell-snip fn corresponding to a given cell type. This is done with a
   case (instead of e.g. a simple map) to detect unexpected cell types via an
   IllegalArgumentException."
-  [{:keys [type content] :as cell}]
-  (case type
-    :cell/text           (if (map? content) cell-text-snip cell-plain-text-snip)
-    :cell/password       cell-password-snip
-    :cell/set            cell-set-snip
-    :cell/timestamp      cell-timestamp-snip
-    :cell/username       cell-username-snip
-    :cell/map            cell-map-snip
-    :cell/link           cell-link-snip
-    :cell/external-link  cell-external-link-snip
-    :cell/email          cell-email-snip
-    :cell/url            cell-url-snip
-    :cell/icon           cell-icon-snip
-    :cell/boolean        cell-boolean-snip
-    :cell/module-version cell-module-version-snip
-    :cell/help-hint      cell-help-hint-snip
+  [{:keys [type content editable?] :as cell}]
+  (case [type (if editable? :edit :view)]
+    [:cell/text :view]           (if (map? content) cell-text-snip-view cell-plain-text-snip-view)
+    [:cell/text :edit]           (if (map? content) cell-text-snip-edit cell-plain-text-snip-edit)
+    [:cell/password :view]       cell-password-snip-view
+    [:cell/password :edit]       cell-password-snip-edit
+    [:cell/enum :view]           cell-enum-snip-view
+    [:cell/enum :edit]           cell-enum-snip-edit
+    [:cell/set :view]            cell-set-snip
+    [:cell/timestamp :view]      cell-timestamp-snip
+    [:cell/boolean :view]        cell-boolean-snip-view
+    [:cell/boolean :edit]        cell-boolean-snip-edit
+    [:cell/username :view]       cell-username-snip
+    [:cell/map :view]            cell-map-snip
+    [:cell/link :view]           cell-link-snip
+    [:cell/external-link :view]  cell-external-link-snip
+    [:cell/email :view]          cell-email-snip
+    [:cell/url :view]            cell-url-snip
+    [:cell/icon :view]           cell-icon-snip
+    [:cell/module-version :view] cell-module-version-snip
+    [:cell/help-hint :view]      cell-help-hint-snip
     (throw (IllegalArgumentException.
-      (str "No cell-snip defined for cell type: " type)))))
+      (str "No cell-snip defined for cell: " cell)))))
 
 (defn- cell-node
   [{:keys [content] :as cell}]
@@ -148,7 +194,7 @@
 
 ;; Row
 
-(html/defsnippet rows-snip template-filename table-row-sel
+(html/defsnippet ^:private rows-snip template-filename table-row-sel
   [rows]
   ue/this (html/clone-for [{:keys [style cells]} rows]
            ue/this (html/content (map cell-node cells))
@@ -163,12 +209,12 @@
     (->> header name (str "header.") keyword t)
     (str header)))
 
-(html/defsnippet head-snip template-filename table-header-sel
+(html/defsnippet ^:private head-snip template-filename table-header-sel
   [headers]
   ue/this (html/clone-for [header headers]
             ue/this (html/content (header-str header))))
 
-(html/defsnippet table-snip template-filename table-sel
+(html/defsnippet ^:private table-snip template-filename table-sel
   [{:keys [headers rows] :as table}]
   table-head-sel (html/content (head-snip headers))
   table-body-sel (html/content (rows-snip rows)))
