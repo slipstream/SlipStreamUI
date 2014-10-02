@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.runs
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [slipstream.ui.util.localization :as localization]
+            [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.run :as run-model]
@@ -31,7 +33,7 @@
   [runs _]
   [:tbody :> :tr] (html/clone-for
                     [run runs
-                     :let 
+                     :let
                      [attrs (module-model/attrs run)]]
                     [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
@@ -47,8 +49,8 @@
 
 (html/defsnippet runs-snip runs-template-html runs-sel
   [grouped-by-cloud]
-  [:ul :> [:li html/last-of-type]] nil 
-  [:ul :> :li] 
+  [:ul :> [:li html/last-of-type]] nil
+  [:ul :> :li]
   (common/tab-headers grouped-by-cloud "runs")
   [:ul] (if (empty? grouped-by-cloud)
           nil
@@ -63,10 +65,28 @@
   []
   )
 
-(defn page [runs]
+(defn page-legacy [runs]
   (base/base
     {:js-scripts (js-scripts)
      :title (common/title "Runs")
      :header (header-snip runs)
      :content (runs-snip
                 (run-model/group-by-cloud runs))}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn page
+  [metadata type]
+  (localization/with-lang-from-metadata
+    (base/generate
+      {:metadata metadata
+       :page-type type
+       :placeholder-page? true
+       :header {:icon icons/run
+                :title "Runs"
+                :subtitle "View current runs"}
+       ; :resource-uri "/run/91aa79a"
+       ; :secondary-menu-actions [action/terminate]
+       :content nil})))

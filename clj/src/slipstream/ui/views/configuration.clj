@@ -63,10 +63,11 @@
 (localization/def-scoped-t)
 
 (defn page
-  [metadata]
+  [metadata type]
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata
+       :page-type type
        :placeholder-page? true
        :header {:icon icons/config
                 :title "System Configuration"

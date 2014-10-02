@@ -1,9 +1,10 @@
 (ns slipstream.ui.models.module.deployment-test
   (:use [expectations])
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.module :as module]))
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.module :as model]))
 
-(def raw-metadata (first (html/html-snippet "<deploymentModule category='Deployment' creation='2013-03-08 22:37:40.773 CET' deleted='false' lastModified='2013-03-08 22:37:40.774 CET' name='Public/Tutorials/HelloWorld/client_server' parentUri='module/Public/Tutorials/HelloWorld' resourceUri='module/Public/Tutorials/HelloWorld/client_server/11' shortName='client_server' version='11'>
+(def raw-metadata
+  "<deploymentModule category='Deployment' creation='2013-03-08 22:37:40.773 CET' deleted='false' lastModified='2013-03-08 22:37:40.774 CET' name='Public/Tutorials/HelloWorld/client_server' parentUri='module/Public/Tutorials/HelloWorld' resourceUri='module/Public/Tutorials/HelloWorld/client_server/11' shortName='client_server' version='11'>
   <parameters class='org.hibernate.collection.PersistentMap'></parameters>
   <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='true' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='false' publicPut='false'>
     <groupMembers class='java.util.ArrayList'></groupMembers>
@@ -163,7 +164,7 @@
       </entry>
     </nodes>
     <user issuper='true' resourceUri='user/super' name='super'></user>
-  </deploymentModule>")))
+  </deploymentModule>")
 
 (def parsed-metadata
    {:authorization {:access-rights {:create-children {:public-access? false
@@ -206,4 +207,4 @@
 
 (expect
   parsed-metadata
-  (module/parse raw-metadata))
+  (-> raw-metadata u/clojurify-raw-metadata model/parse))

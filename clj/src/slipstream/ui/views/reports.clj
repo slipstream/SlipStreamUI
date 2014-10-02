@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.reports
-  (:require [clojure.string :as string]
+  (:require [slipstream.ui.util.localization :as localization]
+            [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
@@ -37,9 +38,25 @@
   [reports-sel :> :ul :> :li]
   (insert-reports reports))
   
-(defn page [reports]
+(defn page-legacy [reports]
   (base/base 
     {:title (common/title "Reports")
      :header nil
      :content (content-snip reports)
      :footer nil}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn page
+  [metadata type]
+  (localization/with-lang-from-metadata
+    (base/generate
+      {:metadata metadata
+       :page-type type
+       :placeholder-page? true
+       :header nil
+       ; :resource-uri "/run/91aa79a"
+       ; :secondary-menu-actions [action/terminate]
+       :content nil})))

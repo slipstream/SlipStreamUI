@@ -1,10 +1,10 @@
 (ns slipstream.ui.models.welcome-test
-  (:use [expectations]
-        [slipstream.ui.models.welcome])
-  (:require [net.cgrand.enlive-html :as html]))
+  (:use [expectations])
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.welcome :as model]))
 
 (def raw-metadata
-  (first (html/html-snippet "<welcome>
+  "<welcome>
    <modules>
       <item resourceUri=\"module/EBU_TTF/53\" category=\"Project\" description=\"Global module for TTF relates deployments and tasks\" version=\"53\" name=\"EBU_TTF\">
          <authz owner=\"rob\" ownerGet=\"true\" ownerPut=\"true\" ownerPost=\"false\" ownerDelete=\"true\" ownerCreateChildren=\"true\" groupGet=\"true\" groupPut=\"false\" groupPost=\"false\" groupDelete=\"false\" groupCreateChildren=\"false\" publicGet=\"false\" publicPut=\"false\" publicPost=\"false\" publicDelete=\"false\" publicCreateChildren=\"false\" inheritedGroupMembers=\"true\">
@@ -80,7 +80,7 @@
       </item>
    </modules>
    <user issuper='true' resourceUri='user/meb' name='meb'></user>
-</welcome>")))
+</welcome>")
 
 (def parsed-metadata
   {:published-apps [{:publisher "sixsq"
@@ -146,4 +146,4 @@
 
 (expect
   parsed-metadata
-  (parse raw-metadata))
+  (-> raw-metadata u/clojurify-raw-metadata model/parse))

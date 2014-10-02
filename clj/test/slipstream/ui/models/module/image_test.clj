@@ -1,9 +1,9 @@
 (ns slipstream.ui.models.module.image-test
   (:use [expectations])
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.module :as module]))
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.module :as model]))
 
-(def raw-metadata (first (html/html-snippet "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
+(def raw-metadata "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
     <commit author='an-author'><comment>this is a comment</comment></commit>
     <parameters class='org.hibernate.collection.PersistentMap'>
     <entry>
@@ -108,7 +108,7 @@
     <item username='mickey' cloudServiceName='interoute' resourceUri='run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e' uuid='e8d0b957-14a8-4e96-8677-85c7bd9eb64e' moduleResourceUri='module/Mebster/word_press/simple_deployment/410' status='Aborting' startTime='2013-07-04 17:11:56.340 CEST' tags='this is a tag!' />
 </runs>
 <user issuper='true' resourceUri='user/super' name='super' defaultCloud='sky'></user>
-</imageModule>")))
+</imageModule>")
 
 (def parsed-metadata
   {:cloud-image-details {:reference-image nil
@@ -262,4 +262,4 @@
 
 (expect
   parsed-metadata
-  (module/parse raw-metadata))
+  (-> raw-metadata u/clojurify-raw-metadata model/parse))

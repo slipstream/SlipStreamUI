@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.service-catalog
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [slipstream.ui.util.localization :as localization]
+
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.common :as common-model]
@@ -37,7 +39,7 @@
   [parameters-grouped-by-category]
   (common/tab-headers parameters-grouped-by-category "service-catalog"))
 
-(defn define-tab-sections-for-parameters-view 
+(defn define-tab-sections-for-parameters-view
   [parameters-grouped-by-category]
   (common/tab-sections-with-add-button-option
     parameters-grouped-by-category
@@ -45,7 +47,7 @@
     common/parameters-view-with-name-and-category-snip
     false))
 
-(defn define-tab-sections-for-parameters-edit 
+(defn define-tab-sections-for-parameters-edit
   [parameters-grouped-by-category]
   (common/tab-sections-with-add-button-option
     parameters-grouped-by-category
@@ -83,22 +85,22 @@
 (html/defsnippet service-catalog-snip service-catalog-template-html service-catalog-sel
   [service-catalogs edit?]
   service-catalog-sel
-  (html/substitute 
+  (html/substitute
     (if edit?
-      (service-catalog-edit-tabs-snip 
+      (service-catalog-edit-tabs-snip
         (flatten-catalog service-catalogs))
-      (service-catalog-view-tabs-snip 
+      (service-catalog-view-tabs-snip
         (flatten-catalog service-catalogs)))))
 
 (html/defsnippet content-snip service-catalog-template-html common/content-sel
   [modules]
-  service-catalog-sel 
+  service-catalog-sel
   (html/substitute
     (service-catalog-snip
       (service-catalog-model/service-catalog-items modules)
       (user-model/super? modules)))
   )
-;  [#{service-catalog-sel service-catalog-header-sel}] 
+;  [#{service-catalog-sel service-catalog-header-sel}]
 ;  (if (configuration-model/metering-enabled? modules)
 ;    identity
 ;    nil))
@@ -114,17 +116,23 @@
     js-scripts-default))
 
 (defn page-legacy [root-projects type]
-  (base/base 
+  (base/base
     {:js-scripts (js-scripts type)
      :title (common/title "Service Catalog")
      :header (module-base/header root-projects type header-snip)
      :content (content-snip root-projects)}))
 
-(defn page [root-projects type]
-  (base/generate
-    {:metadata root-projects
-     :placeholder-page? true
-     :header {:icon icons/config
-              :title "Service Catalog"
-              :subtitle "Provides detailed capability information for each available clouds"}
-     :content nil}))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn page
+  [metadata type]
+  (localization/with-lang-from-metadata
+    (base/generate
+      {:metadata metadata
+       :placeholder-page? true
+       :header {:icon icons/config
+                :title "Service Catalog"
+                :subtitle "Provides detailed capability information for each available clouds"}
+       :content nil})))

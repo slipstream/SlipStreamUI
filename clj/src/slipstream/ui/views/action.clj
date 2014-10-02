@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.action
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.icons :as icons]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.action :as action-model]
             [slipstream.ui.views.base :as base]
@@ -14,8 +16,26 @@
     (html/substitute
       (header/header-titles-snip "Action Confirmation" message "" "Action")))
 
-(defn page [metadata]
+(defn page-legacy [metadata]
   (base/base 
     {:title (common/title "Action Confirmation")
-     :header (header-snip (action-model/message metadata))
+     :header (header-snip (action-model/parse metadata))
      :content nil}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn page
+  [metadata type]
+  (localization/with-lang-from-metadata
+   (base/generate
+      {:metadata metadata
+       :page-type type
+       :placeholder-page? true
+       :header {:icon icons/action-ok
+                :title "Action Confirmation"
+                :subtitle "Your email address has been confirmed"}
+       ; :resource-uri "/run/91aa79a"
+       ; :secondary-menu-actions [action/terminate]
+       :content nil})))

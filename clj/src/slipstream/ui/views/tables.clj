@@ -94,7 +94,7 @@
   (if (cell-type? type)
     type
     (case type
-      "Enum"              :cell/text
+      "Enum"              :cell/enum
       "String"            :cell/text
       "Boolean"           :cell/boolean
       "RestrictedText"    :cell/text
@@ -121,7 +121,7 @@
   (parameters-table
     (p/map->parameter-list user-summary-map
       :username     {:type :cell/text}
-      :first-name   {:type :cell/text}
+      :first-name   {:type :cell/text, :editable-in #{:edit :new}} ;; TODO: working on editable-in metadata
       :last-name    {:type :cell/text}
       :organization {:type :cell/text}
       :email        {:type :cell/email}

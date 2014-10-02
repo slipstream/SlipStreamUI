@@ -5,10 +5,11 @@
 (localization/def-scoped-t)
 
 (defn page
-  [message code metadata]
+  [metadata message code]
   (localization/with-lang-from-metadata
     (base/generate
-      {:page-title (t :page-title)
+      {:metadata metadata
+       :page-title (t :page-title)
        :error-page? true
        :header {:status-code code
                 :title nil

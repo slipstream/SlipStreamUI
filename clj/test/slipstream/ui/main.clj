@@ -1,235 +1,102 @@
 (ns slipstream.ui.main
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.error :as error]
-            [slipstream.ui.views.common :as common]
-            [slipstream.ui.views.byebye :as byebye]
-            [slipstream.ui.views.knockknock :as knockknock] ;; TODO: To remove
-            [slipstream.ui.views.login :as login]
-            [slipstream.ui.views.welcome :as welcome]
-            [slipstream.ui.views.action :as action]
-            [slipstream.ui.views.module :as module]
-            [slipstream.ui.views.versions :as versions]
-            [slipstream.ui.views.users :as users]
-            [slipstream.ui.views.user :as user]
-            [slipstream.ui.views.run :as run]
-            [slipstream.ui.views.runs :as runs]
-            [slipstream.ui.views.vms :as vms]
-            [slipstream.ui.views.reports :as reports]
-            [slipstream.ui.views.service-catalog :as service-catalog]
-            [slipstream.ui.views.dashboard :as dashboard]
-            [slipstream.ui.views.configuration :as configuration]
-            [slipstream.ui.views.documentation :as documentation]
-            [slipstream.ui.views.representation :as representation]
-            [slipstream.ui.models.user :as user-model]
-            [slipstream.ui.utils :as utils]
-            [slipstream.ui.models.version :as version]
-            [slipstream.ui.models.dashboard :as dashboard-model]
-            [slipstream.ui.data.message :as message]
-            [slipstream.ui.data.configuration :as configuration-data]
-            [slipstream.ui.data.run :as run-data]
-            [slipstream.ui.data.reports :as reports-data]
-            [slipstream.ui.data.users :as users-data]
-            [slipstream.ui.data.user :as user-data]
-            [slipstream.ui.data.projects :as projects]
-            [slipstream.ui.models.module.project-test :as project]
-            [slipstream.ui.data.project-new :as project-new]
-            [slipstream.ui.data.project-root :as project-root]
-            [slipstream.ui.data.project-root-new :as project-root-new]
-            [slipstream.ui.models.welcome-test :as welcome-data]
-            [slipstream.ui.models.module.image-test :as image]
-            [slipstream.ui.data.image-new :as image-new]
-            [slipstream.ui.data.versions :as versions-data]
-            [slipstream.ui.data.dashboard :as dashboard-data]
-            [slipstream.ui.data.service-catalog :as service-catalog-data]
-            [slipstream.ui.data.vms :as vms-data]
-            [slipstream.ui.data.runs :as runs-data]
-            [slipstream.ui.data.action :as action-data]
-            [slipstream.ui.data.deployment :as deployment])
+  (:require [slipstream.ui.utils :as utils]
+            [slipstream.ui.views.representation :as representation])
   (:use [net.cgrand.moustache :only [app]]))
 
 ;; =============================================================================
-;; Pages
+;; Local test routes
 ;; =============================================================================
 
-(defn action-page []
-  (action/page action-data/xml-action))
+(def ^:private full-metadata-ns
+  (partial format "slipstream.ui.models.%s-test"))
 
-(defn module-page [module type]
-  (module/page module type))
-
-(defn configuration-page []
-  (configuration/page configuration-data/xml-configuration))
-
-(defn service-catalog-page []
-  (service-catalog/page service-catalog-data/xml-service-catalog "view"))
-
-(defn documentation-page []
-  (documentation/page user-data/xml-user))
-
-(defn reports-page []
-  (reports/page reports-data/xml-reports))
-
-(defn login-page []
-  (login/page nil nil))
-
-(defn login-chooser-page []
-  (login/page projects/xml-projects "chooser"))
-
-(defn knockknock-page []
-  (knockknock/page projects/xml-projects nil))
-
-(defn knockknock-chooser-page []
-  (knockknock/page projects/xml-projects "chooser"))
-
-(defn run-page []
-  (run/page run-data/xml-run))
-
-(defn runs-page []
-  (runs/page runs-data/xml-runs))
-
-(defn vms-page []
-  (vms/page vms-data/xml-vms))
-
-(defn byebye-page []
-  (byebye/page projects/xml-projects))
-
-(defn welcome-page []
-  (welcome/page welcome-data/raw-metadata "view"))
-
-(defn welcome-page-chooser []
-  (welcome/page welcome-data/raw-metadata "chooser"))
-
-(defn dashboard-page []
-  (dashboard/page dashboard-data/xml-dashboard))
-
-(defn users-page []
-  (users/page users-data/xml-users))
-
-(defn user-view-page []
-  (user/page user-data/xml-user "view"))
-
-(defn user-edit-page []
-  (user/page user-data/xml-user "edit"))
-
-(defn error-page [message code]
-  (error/page message code (user-model/user projects/xml-projects)))
-
-(defn module-view [module]
-  (module-page module "view"))
-
-(defn module-edit [module]
-  (module-page module "edit"))
-
-(defn module-new [module]
-  (module-page module "new"))
-
-(defn module-chooser [module]
-  (module-page module "chooser"))
-
-(defn module-projects-view []
-  (module-view projects/xml-projects))
-
-(defn module-projects-edit []
-  (module-edit projects/xml-projects))
-
-(defn module-project-view []
-  (module-view project/raw-metadata))
-
-(defn module-project-edit []
-  (module-edit project/raw-metadata))
-
-(defn module-project-new []
-  (module-new project-new/xml-project))
-
-(defn module-project-root-view []
-  (module-view project-root/xml-project))
-
-(defn module-project-root-edit []
-  (module-edit project-root/xml-project))
-
-(defn module-project-root-new []
-  (module-new project-root-new/xml-project))
-
-(defn module-image-view []
-  (module-view image/raw-metadata))
-
-(defn module-image-edit []
-  (module-edit image/raw-metadata))
-
-(defn module-image-new []
-  (module-new image-new/xml-image))
-
-(defn module-image-chooser []
-  (module-chooser image/raw-metadata))
-
-(defn module-deployment-view []
-  (module-view deployment/xml-deployment))
-
-(defn module-deployment-edit []
-  (module-edit deployment/xml-deployment))
-
-(defn module-deployment-new []
-  (module-new deployment/xml-deployment))
-
-(defn module-versions-view []
-  (versions/page versions-data/xml-versions "view"))
-
-(defn module-versions-chooser []
-  (versions/page versions-data/xml-versions "chooser"))
-
-;; =============================================================================
-;; Routes
-;; =============================================================================
+(defn- raw-metadata
+  [raw-metadata-ns]
+  (when raw-metadata-ns
+    (-> raw-metadata-ns full-metadata-ns symbol require)
+    (if-let [raw-metadata-symbol (-> (full-metadata-ns raw-metadata-ns)
+                                     (symbol "raw-metadata")
+                                     resolve)]
+      (var-get raw-metadata-symbol)
+      (throw (IllegalArgumentException.
+               (format "metadata: var '%s/raw-metadata not found for raw-metadata-ns '%s'"
+                       (full-metadata-ns raw-metadata-ns)
+                       raw-metadata-ns))))))
 
 (defmacro render
-  [page]
-  `(binding [base/*prod?* false]
-     (-> (~page) ring.util.response/response constantly)))
+  [& {:keys [raw-metadata-ns pagename type]}]
+  `(-> (representation/-toHtml ~(raw-metadata raw-metadata-ns) ~pagename ~type)
+        ring.util.response/response
+        constantly))
+
+(defmacro render-error
+  [& {:keys [raw-metadata-ns message code]}]
+  `(-> (representation/-toHtmlError ~(raw-metadata raw-metadata-ns) ~message ~code)
+        ring.util.response/response
+        constantly))
 
 (def routes
   (app
-    ["logout"] (render byebye-page)
-    ["login"] (render login-page)
-    ["login-chooser"] (render login-chooser-page)
-    ["login-legacy"] (render knockknock-page)
-    ["login-chooser-legacy"] (render knockknock-chooser-page)
-    ["service_catalog"] (render service-catalog-page)
-    ["welcome"] (render welcome-page)
-    ["welcome-chooser"] (render welcome-page-chooser)
-    ["project-view"] (render module-project-view)
-    ["project-edit"] (render module-project-edit)
-    ["project-new"] (render module-project-new)
-    ["project-root-view"] (render module-project-root-view)
-    ["project-root-edit"] (render module-project-root-edit)
-    ["project-root-new"] (render module-project-root-new)
-    ["image-view"] (render module-image-view)
-    ["image-edit"] (render module-image-edit)
-    ["image-new"] (render module-image-new)
-    ["image-chooser"] (render module-image-chooser)
-    ["deployment-view"] (render module-deployment-view)
-    ["deployment-edit"] (render module-deployment-edit)
-    ["deployment-new"] (render module-deployment-new)
-    ["versions"] (render module-versions-view)
-    ["versions-chooser"] (render module-versions-chooser)
-    ["dashboard"] (render dashboard-page)
-    ["users"] (render users-page)
-    ["user-view"] (render user-view-page)
-    ["user-edit"] (render user-edit-page)
-    ["run"] (render run-page)
-    ["runs"] (render runs-page)
-    ["vms"] (render vms-page)
-    ["reports"] (render reports-page)
-    ["configuration"] (render configuration-page)
-    ["documentation"] (render documentation-page)
-    ["action"] (render action-page)
-    ["error"] (-> (error-page "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>" 500) ring.util.response/response constantly)
-    [&] (-> (error-page nil 404)
-          ring.util.response/response constantly)))
+    ["login"]                 (render :pagename "login")
+
+    ["login-chooser"]         (render :pagename "login" :type "chooser")
+
+    ["logout"]                (render :pagename "logout")
+
+    ["documentation"]         (render :pagename "documentation")
+
+    ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
+    ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
+
+    ["project-view"]          (render :pagename "module"          :raw-metadata-ns "module.project"     :type "view")
+    ["project-edit"]          (render :pagename "module"          :raw-metadata-ns "module.project"     :type "edit")
+    ["project-new"]           (render :pagename "module"          :raw-metadata-ns "module.project-new" :type "new")
+
+    ; TODO: Project-root was historically used for the now "welcome" page.
+    ;       This note is to flag this pages as stale, to delete (with their corresponding test data) at a later point.
+    ["project-root-view"]     (render :pagename "module"          :raw-metadata-ns "module.project-root"      :type "view")
+    ["project-root-edit"]     (render :pagename "module"          :raw-metadata-ns "module.project-root"      :type "edit")
+    ["project-root-new"]      (render :pagename "module"          :raw-metadata-ns "module.project-root-new"  :type "new")
+
+    ["image-view"]            (render :pagename "module"          :raw-metadata-ns "module.image"     :type "view")
+    ["image-chooser"]         (render :pagename "module"          :raw-metadata-ns "module.image"     :type "chooser")
+    ["image-edit"]            (render :pagename "module"          :raw-metadata-ns "module.image"     :type "edit")
+    ["image-new"]             (render :pagename "module"          :raw-metadata-ns "module.image-new" :type "new")
+
+    ["deployment-view"]       (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "view")
+    ["deployment-edit"]       (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "edit")
+    ["deployment-new"]        (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "new")
+
+    ["versions"]              (render :pagename "versions"        :raw-metadata-ns "versions" :type "view")
+    ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
+
+    ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
+
+    ["user-view"]             (render :pagename "user"            :raw-metadata-ns "user" :type "view")
+    ["user-edit"]             (render :pagename "user"            :raw-metadata-ns "user" :type "edit")
+    ["users"]                 (render :pagename "users"           :raw-metadata-ns "users")
+
+    ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
+    ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
+
+    ["reports"]               (render :pagename "reports"         :raw-metadata-ns "reports")
+
+    ["configuration-view"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "view")
+    ["configuration-edit"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "edit")
+
+    ["service-catalog-view"]  (render :pagename "service_catalog" :raw-metadata-ns "service-catalog"  :type "view")
+    ["service-catalog-edit"]  (render :pagename "service_catalog" :raw-metadata-ns "service-catalog"  :type "edit")
+
+    ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
+
+    ["error"]                 (render-error :raw-metadata-ns "module.project"
+                                            :message "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>"
+                                            :code 500)
+    [&]                       (render-error :raw-metadata-ns "module.project"
+                                            :code 404)))
 
 ;; =============================================================================
-;; The App
+;; Local test app
 ;; =============================================================================
 
 (defonce run-test-server

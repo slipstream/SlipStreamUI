@@ -1,8 +1,10 @@
-(ns slipstream.ui.data.service-catalog
-  (:require [net.cgrand.enlive-html :as html]))
+(ns slipstream.ui.models.service-catalog-test
+  (:use [expectations])
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.service-catalog :as model]))
 
-(def xml-service-catalog
-  (first (html/html-snippet "<serviceCatalogues>
+(def raw-metadata
+  "<serviceCatalogues>
       <serviceCatalog deleted='false' resourceUri='servicecatalog/loco' cloud='loco' creation='2013-11-12 20:21:20.192 CET'>
          <parameters class='org.hibernate.collection.PersistentMap'>
             <entry>
@@ -96,4 +98,8 @@
          </parameters>
       </serviceCatalog>
    <user issuper='true' resourceUri='user/super' name='loco.super'></user>
-   </serviceCatalogues>")))
+   </serviceCatalogues>")
+
+(expect
+  ""
+  (-> raw-metadata u/clojurify-raw-metadata model/parse))

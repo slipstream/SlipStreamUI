@@ -1,7 +1,10 @@
-(ns slipstream.ui.data.versions
-  (:require [net.cgrand.enlive-html :as html]))
+(ns slipstream.ui.models.versions-test
+  (:use [expectations])
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.versions :as model]))
 
-(def xml-versions (first (html/html-snippet "<versionList>
+(def raw-metadata
+  "<versionList>
     <item category='Deployment' lastModified='2014-04-10 12:15:41.121 UTC' name='wordpress' resourceUri='module/examples/tutorials/wordpress/wordpress/180' version='180'>
         <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='true' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='true' publicPut='false'>
             <groupMembers class='java.util.ArrayList'/>
@@ -35,5 +38,8 @@
         </commit>
     </item>
    <user issuper='true' resourceUri='user/super' name='super'></user>
-</versionList>")))
+</versionList>")
 
+(expect
+  "parsed-metadata"
+  (-> raw-metadata u/clojurify-raw-metadata model/parse))

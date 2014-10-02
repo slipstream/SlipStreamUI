@@ -25,3 +25,6 @@
 (defn default-cloud [metadata]
   (-> metadata user attrs :defaultcloud))
 
+(defn parse
+  [metadata]
+  nil)

@@ -40,6 +40,7 @@
 (def action-save        ::floppy-disk)
 (def action-cancel      ::stop)
 (def action-delete      ::trash)
+(def action-ok          ::ok)
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.

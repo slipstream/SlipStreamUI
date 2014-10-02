@@ -13,10 +13,11 @@
    {:title (t :terms-of-service.title)      :basename "terms-of-service"}])
 
 (defn page
-  [metadata]
+  [metadata type]
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata
+       :page-type type
        :header {:icon icons/documentation
                 :title (t :header.title)
                 :subtitle (t :header.subtitle)}

@@ -9,3 +9,13 @@
   (sort-by
     #(:cloud (common-model/attrs %))
     (html/select catalogs [:serviceCatalog])))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn parse
+  [metadata]
+  (sort-by
+    #(:cloud (common-model/attrs %))
+    (html/select metadata [:serviceCatalog])))

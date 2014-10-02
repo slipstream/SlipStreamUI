@@ -1,7 +1,10 @@
-(ns slipstream.ui.data.run
-  (:require [net.cgrand.enlive-html :as html]))
+(ns slipstream.ui.models.run-test
+  (:use [expectations])
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.run :as model]))
 
-(def xml-run (first (html/html-snippet "<run category='Deployment' deleted='false' resourceUri='run/06f207d4-d25b-4597-a23a-f79a07b2f791' uuid='06f207d4-d25b-4597-a23a-f79a07b2f791' type='Orchestration' cloudServiceName='interoute' moduleResourceUri='module/Public/Tutorials/HelloWorld/client_server/11' startTime='2013-06-12 15:39:55.575 CEST' nodeNames='orchestrator-interoute, testclient1.1, apache1.1, ' user='meb' creation='2013-06-12 15:39:55.575 CEST' state='Terminal' status='Done' groups='interoute:testclient1, interoute:apache1, '>
+(def raw-metadata
+  "<run category='Deployment' deleted='false' resourceUri='run/06f207d4-d25b-4597-a23a-f79a07b2f791' uuid='06f207d4-d25b-4597-a23a-f79a07b2f791' type='Orchestration' cloudServiceName='interoute' moduleResourceUri='module/Public/Tutorials/HelloWorld/client_server/11' startTime='2013-06-12 15:39:55.575 CEST' nodeNames='orchestrator-interoute, testclient1.1, apache1.1, ' user='meb' creation='2013-06-12 15:39:55.575 CEST' state='Terminal' status='Done' groups='interoute:testclient1, interoute:apache1, '>
    <parameters class='org.hibernate.collection.PersistentMap'>
       <entry>
          <string><![CDATA[apache1--cloudservice]]></string>
@@ -732,4 +735,8 @@ cp /var/log/apache2/error.log $SLIPSTREAM_REPORT_DIR]]></target>
       </nodes>
    </module>
    <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
-</run>")))
+</run>")
+
+(expect
+  "parsed-metadata"
+  (-> raw-metadata u/clojurify-raw-metadata model/parse))

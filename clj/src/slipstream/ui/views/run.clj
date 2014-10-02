@@ -146,11 +146,16 @@
      :header (header-snip run)
      :content (content-snip run)}))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn page
-  [metadata]
+  [metadata type]
   (localization/with-lang-from-metadata
    (base/generate
       {:metadata metadata
+       :page-type type
        :placeholder-page? true
        :header {:icon icons/run
                 :title "91aac79a is DONE"

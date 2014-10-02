@@ -1,5 +1,6 @@
 (ns slipstream.ui.util.core
-  "Util functions only related to the SlipStream application.")
+  "Util functions only related to the SlipStream application."
+  (:require [net.cgrand.enlive-html :as html]))
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
 (defn chooser?
@@ -25,3 +26,7 @@
     (-> sections-coll
         vec
         (assoc-in [0 :selected?] true))))
+
+(defn clojurify-raw-metadata
+  [raw-metadata]
+  (first (html/html-snippet raw-metadata)))
