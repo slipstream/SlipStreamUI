@@ -49,11 +49,13 @@
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 
     ["project-view"]          (render :pagename "module"          :raw-metadata-ns "module.project"     :type "view")
+    ["project-chooser"]       (render :pagename "module"          :raw-metadata-ns "module.project"     :type "chooser")
     ["project-edit"]          (render :pagename "module"          :raw-metadata-ns "module.project"     :type "edit")
     ["project-new"]           (render :pagename "module"          :raw-metadata-ns "module.project-new" :type "new")
 
     ; TODO: Project-root was historically used for the now "welcome" page.
-    ;       This note is to flag this pages as stale, to delete (with their corresponding test data) at a later point.
+    ;       This note is to flag this project-root-* pages as stale, to delete them
+    ;       and their corresponding test data at a later point.
     ["project-root-view"]     (render :pagename "module"          :raw-metadata-ns "module.project-root"      :type "view")
     ["project-root-edit"]     (render :pagename "module"          :raw-metadata-ns "module.project-root"      :type "edit")
     ["project-root-new"]      (render :pagename "module"          :raw-metadata-ns "module.project-root-new"  :type "new")
@@ -64,6 +66,7 @@
     ["image-new"]             (render :pagename "module"          :raw-metadata-ns "module.image-new" :type "new")
 
     ["deployment-view"]       (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "view")
+    ["deployment-chooser"]    (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "chooser")
     ["deployment-edit"]       (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "edit")
     ["deployment-new"]        (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "new")
 
