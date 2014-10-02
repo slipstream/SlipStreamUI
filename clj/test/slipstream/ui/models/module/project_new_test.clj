@@ -21,6 +21,38 @@
      <user issuper='false' resourceUri='user/super' name='SuperDooper'></user>
   </projectModule>")
 
+(def parsed-metadata
+  {:children ()
+   :authorization {:access-rights {:create-children {:public-access? true
+                                                     :group-access? true
+                                                     :owner-access? true}
+                                   :delete {:owner-access? true
+                                            :public-access? false
+                                            :group-access? false}
+                                   :put {:owner-access? true
+                                         :public-access? false
+                                         :group-access? false}
+                                   :post {:group-access? false
+                                          :owner-access? true
+                                          :public-access? false}
+                                   :get {:group-access? true
+                                         :public-access? true
+                                         :owner-access? true}}
+                   :group-members #{"meb" "other" "konstan" "xxx"}
+                   :inherited-group-members? false}
+   :summary {:deleted? false
+             :creation "2013-05-16 17:04:39.113 CEST"
+             :name "Public/new"
+             :short-name "new"
+             :owner "sixsq"
+             :version nil
+             :uri "module/Public/new"
+             :latest-version? nil
+             :last-modified "2013-05-16 17:04:39.113 CEST"
+             :parent-uri "module/Public"
+             :description "A description..."
+             :category "Project"}})
+
 (expect
-  "parsed-metadata"
+  parsed-metadata
   (-> raw-metadata u/clojurify-raw-metadata model/parse))

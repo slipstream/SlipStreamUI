@@ -14,6 +14,64 @@
     <item firstName='SixSq' lastName='Administrator' name='sixsq' online='false' organization='SixSq' resourceUri='user/sixsq' state='ACTIVE'/>
 </list>")
 
+(def parsed-metadata
+  [{:username "atest"
+    :uri "user/atest"
+    :first-name "A Test"
+    :last-name "User"
+    :organization "ACME"
+    :state "ACTIVE"
+    :online? false
+    :last-online "2014-08-10 22:09:21.705 CEST"}
+   {:username "btest"
+    :uri "user/btest"
+    :first-name "B Test"
+    :last-name "User"
+    :organization "ACME"
+    :state "ACTIVE"
+    :online? false
+    :last-online "2014-08-10 22:09:21.705 CEST"}
+   {:username "ctest"
+    :uri "user/tcest"
+    :first-name "C Test"
+    :last-name "User"
+    :organization "ACME"
+    :state "ACTIVE"
+    :online? false
+    :last-online "2014-08-10 22:09:21.705 CEST"}
+   {:username "dtest"
+    :uri "user/tdest"
+    :first-name "D Test"
+    :last-name "User"
+    :organization "SixSq"
+    :state "ACTIVE"
+    :online? true
+    :last-online "2014-08-10 22:09:21.705 CEST"}
+   {:username "sixsq"
+    :uri "user/sixsq"
+    :first-name "SixSq"
+    :last-name "Administrator"
+    :organization "SixSq"
+    :state "ACTIVE"
+    :online? false
+    :last-online nil}
+   {:username "super"
+    :uri "user/super"
+    :first-name "Super"
+    :last-name "User"
+    :organization "SixSq"
+    :state "ACTIVE"
+    :online? true
+    :last-online "2014-08-14 20:14:20.810 CEST"}
+   {:username "test"
+    :uri "user/test"
+    :first-name "Test"
+    :last-name "User"
+    :organization "ACME"
+    :state "ACTIVE"
+    :online? true
+    :last-online "2014-08-10 22:09:21.705 CEST"}])
+
 (expect
-  "parsed-metadata"
+  parsed-metadata
   (-> raw-metadata u/clojurify-raw-metadata model/parse))

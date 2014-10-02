@@ -40,6 +40,31 @@
    <user issuper='true' resourceUri='user/super' name='super'></user>
 </versionList>")
 
+(def parsed-metadata
+  {:versions [{:version 74
+               :uri "module/examples/tutorials/wordpress/wordpress/74"
+               :commit {:author "sixsq"
+                        :comment nil
+                        :date "2013-12-02 16:57:09.999 UTC"}}
+              {:version 180
+               :uri "module/examples/tutorials/wordpress/wordpress/180"
+               :commit {:author "sixsq"
+                        :comment "Add public view and run"
+                        :date "2014-04-10 12:15:41.121 UTC"}}
+              {:version 318
+               :uri "module/examples/tutorials/wordpress/wordpress/318"
+               :commit {:author "sixsq"
+                        :comment "Added logo"
+                        :date "2014-05-04 12:36:13.579 UTC"}}
+              {:version 478
+               :uri "module/examples/tutorials/wordpress/wordpress/478"
+               :commit {:author "sixsq"
+                        :comment "Add public run"
+                        :date "2014-05-10 14:57:23.511 UTC"}}]
+   :resource-uri "module/examples/tutorials/wordpress/wordpress"
+   :module-name "wordpress"
+   :category "Deployment"})
+
 (expect
-  "parsed-metadata"
+  parsed-metadata
   (-> raw-metadata u/clojurify-raw-metadata model/parse))

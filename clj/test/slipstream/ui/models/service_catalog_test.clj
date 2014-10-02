@@ -100,6 +100,9 @@
    <user issuper='true' resourceUri='user/super' name='loco.super'></user>
    </serviceCatalogues>")
 
+(def parsed-metadata
+  nil)
+
 (expect
-  ""
+  parsed-metadata
   (-> raw-metadata u/clojurify-raw-metadata model/parse))

@@ -20,6 +20,12 @@
     </serviceConfiguration>
   </string>")
 
+(def parsed-metadata
+  "
+    Your email address has been confirmed.
+    You should now be receiving another email with your account details.
+    ")
+
 (expect
-  "parsed-metadata"
+  parsed-metadata
   (-> raw-metadata u/clojurify-raw-metadata model/parse))

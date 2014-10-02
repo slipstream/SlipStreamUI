@@ -699,5 +699,5 @@
 </serviceConfiguration>")
 
 (expect
-  "parsed-metadata"
+  "expectation for parsed-metadata to be completed"
   (-> raw-metadata u/clojurify-raw-metadata model/parse))

@@ -738,5 +738,5 @@ cp /var/log/apache2/error.log $SLIPSTREAM_REPORT_DIR]]></target>
 </run>")
 
 (expect
-  "parsed-metadata"
+  "expectation for parsed-metadata to be completed"
   (-> raw-metadata u/clojurify-raw-metadata model/parse))
