@@ -63,7 +63,8 @@
   [app-thumbnails]
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
-(defn page [metadata type]
+(defn page
+  [metadata]
   (localization/with-lang-from-metadata
     (let [welcome-metadata (mw/parse metadata)]
       (base/generate

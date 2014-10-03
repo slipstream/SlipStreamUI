@@ -4,7 +4,7 @@
             [slipstream.ui.util.icons :as icons]))
 
 (defn page
-  [metadata type]
+  [metadata]
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata

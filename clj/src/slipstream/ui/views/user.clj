@@ -27,7 +27,7 @@
                (t :header.subtitle.not-super))})
 
 (defn page
-  [metadata type]
+  [metadata]
   (localization/with-lang-from-metadata
     (let [user (user/parse metadata)]
       (base/generate

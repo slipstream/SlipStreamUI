@@ -9,7 +9,7 @@
 (localization/def-scoped-t)
 
 (defn page
-  [metadata type]
+  [metadata]
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata

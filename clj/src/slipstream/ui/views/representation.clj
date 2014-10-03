@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.representation
   (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.documentation :as documentation]
@@ -57,10 +57,11 @@
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
   [raw-metadata pagename type]
-  (-> raw-metadata
-      u/clojurify-raw-metadata
-      ((get pages pagename) (uc/keywordize type))
-      render))
+  (page-type/is type
+    (-> raw-metadata
+        u/clojurify-raw-metadata
+        ((get pages pagename))
+        render)))
 
 (defn -toHtmlError
   "Generate an HTML error page"

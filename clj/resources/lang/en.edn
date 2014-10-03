@@ -265,6 +265,42 @@
    :slipstream.ui.models.parameters.login-username.description                  "Login username"
    :slipstream.ui.models.parameters.login-username.help-hint                    "The login is defined by the native image and inherited by all derived images."
 
+   :slipstream.ui.models.parameters.password-new.description                    "New Password"
+   :slipstream.ui.models.parameters.password-new.help-hint                      "Enter the new password if you want to change it."
+
+   :slipstream.ui.models.parameters.password-old.description                    "Old Password"
+   :slipstream.ui.models.parameters.password-old.help-hint                      "Enter your current password to validate the password update."
+
+   :slipstream.ui.models.parameters.image.description                           "Image URL"
+   :slipstream.ui.models.parameters.image.help-hint                             "The URL of the image to use as logo for this module."
+
+
+   ;; Utils.core
+
+   :slipstream.ui.util.core.enum.option.text.centos                             "CentOS"
+   :slipstream.ui.util.core.enum.option.text.debian                             "Debian"
+   :slipstream.ui.util.core.enum.option.text.fedora                             "Fedora"
+   :slipstream.ui.util.core.enum.option.text.opensuse                           "OpenSuse"
+   :slipstream.ui.util.core.enum.option.text.redhat                             "RedHat"
+   :slipstream.ui.util.core.enum.option.text.sles                               "Sles"
+   :slipstream.ui.util.core.enum.option.text.ubuntu                             "Ubuntu"
+   :slipstream.ui.util.core.enum.option.text.windows                            "Windows"
+   :slipstream.ui.util.core.enum.option.text.other                              "Other"
+   :slipstream.ui.util.core.enum.option.text.public                             "Public"
+   :slipstream.ui.util.core.enum.option.text.private                            "Private"
+   :slipstream.ui.util.core.enum.option.text.virtio                             "virtio"
+   :slipstream.ui.util.core.enum.option.text.scsi                               "scsi"
+   :slipstream.ui.util.core.enum.option.text.m1small                            "m1.small"
+   :slipstream.ui.util.core.enum.option.text.m1large                            "m1.large"
+   :slipstream.ui.util.core.enum.option.text.m1xlarge                           "m1.xlarge"
+   :slipstream.ui.util.core.enum.option.text.c1medium                           "c1.medium"
+   :slipstream.ui.util.core.enum.option.text.c1xlarge                           "c1.xlarge"
+   :slipstream.ui.util.core.enum.option.text.t1micro                            "t1.micro"
+   :slipstream.ui.util.core.enum.option.text.standardxsmall                     "standard.xsmall"
+   :slipstream.ui.util.core.enum.option.text.output                             "Output"
+   :slipstream.ui.util.core.enum.option.text.input                              "Input"
+
+   ;; Views
 
    :slipstream.ui.views.welcome.page-title                     "Welcome"
    :slipstream.ui.views.welcome.header.title                   "Welcome to SlipStream"
@@ -332,10 +368,8 @@
    :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe
    :slipstream.ui.views.module.image.section.image-creation.subsection.packages.title   :global.nouns.packages
    :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.title  :global.nouns.pre-recipe
-   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.description
-      "Standard recipe (fires after packages are installed)"
-   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.description
-      "Pre-recipe (fires before SlipStream client install and packages are installed)"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.description     "Standard recipe (fires after packages are installed)"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.description  "Pre-recipe (fires before SlipStream client install and packages are installed)"
    :slipstream.ui.views.module.image.section.deployment.title                           "Deployment Recipes and Coordination Parameters"
    :slipstream.ui.views.module.image.section.deployment.subsection.execute.title        :global.verbs.execute
    :slipstream.ui.views.module.image.section.deployment.subsection.report.title         :global.verbs.report
@@ -343,14 +377,10 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
    :slipstream.ui.views.module.image.section.runs.title                                 "Runs"
-   :slipstream.ui.views.module.image.section.deployment.subsection.execute.description
-      "Standard recipe (fires during Running phase)"
-   :slipstream.ui.views.module.image.section.deployment.subsection.report.description
-      "Gather logs and things for posterity (fires during the Sending Report phase)"
-   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description
-      "Runs when new VM(s) added to the deployment"
-   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description
-      "Runs when VM(s) removed from the deployment"
+   :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Standard recipe (fires during Running phase)"
+   :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
 
    :slipstream.ui.views.module.deployment.section.nodes.title      :global.nouns.nodes
 }

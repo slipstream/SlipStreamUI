@@ -13,7 +13,7 @@
    {:title (t :terms-of-service.title)      :basename "terms-of-service"}])
 
 (defn page
-  [metadata type]
+  [metadata]
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata

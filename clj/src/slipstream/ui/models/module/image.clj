@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.module.image
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.parameters :as parameters]))
 
@@ -25,9 +26,20 @@
 
 ;; Os details section
 
+(def ^:private platforms
+  [:centos
+   :debian
+   :fedora
+   :opensuse
+   :redhat
+   :sles
+   :ubuntu
+   :windows
+   :other])
+
 (defn- os-details
   [metadata]
-  {:platform         (-> metadata :attrs :platform)
+  {:platform         (->> metadata :attrs :platform (u/enum platforms))
    :login-username   (-> metadata :attrs :loginuser)})
 
 

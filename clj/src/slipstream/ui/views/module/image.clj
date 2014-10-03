@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.module.image
   (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.views.code-area :as code-area]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
@@ -68,7 +69,8 @@
 
 (defmethod middle-section-content :runs
   [section-metadata _]
-  (map run-section section-metadata))
+  (when 
+    (map run-section section-metadata)))
 
 ; Other table sections (e.g. cloud-image-details os-details)
 
@@ -92,15 +94,18 @@
     {:title   (->> metadata-key name (format "section.%s.title") keyword t)
      :content (middle-section-content section-metadata metadata-key)}))
 
+(defn- visible-middle-sections
+  []
+  (cond-> [:cloud-image-details
+           :os-details
+           :cloud-configuration
+           :image-creation
+           :deployment]
+   (page-type/view?) (conj :runs)))
+
 (defn middle-sections
   [module]
-  (->> [:cloud-image-details
-        :os-details
-        :cloud-configuration
-        :image-creation
-        :deployment
-        :runs]
-       (map (partial middle-section module))))
+  (map (partial middle-section module) (visible-middle-sections)))
 
 (def actions
   [action/build

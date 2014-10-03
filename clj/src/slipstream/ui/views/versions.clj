@@ -17,7 +17,7 @@
       (t :header.subtitle.multiple-versions num-of-versions category-label))))
 
 (defn page
-  [metadata type]
+  [metadata]
   (localization/with-lang-from-metadata
     (let [{:keys [versions resource-uri module-name category]} (mv/parse metadata)
           icon (icons/icon-for category)]

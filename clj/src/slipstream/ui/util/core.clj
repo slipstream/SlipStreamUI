@@ -1,6 +1,10 @@
 (ns slipstream.ui.util.core
   "Util functions only related to the SlipStream application."
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.localization :as localization]))
+
+(localization/def-scoped-t)
 
 ;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
 (defn chooser?
@@ -30,3 +34,31 @@
 (defn clojurify-raw-metadata
   [raw-metadata]
   (first (html/html-snippet raw-metadata)))
+
+
+;; Enum
+
+(defn- toggle-option
+  [selected-option option]
+  (if (and selected-option
+           (= (:value option) (name selected-option)))
+    (assoc option :selected? true)
+    (dissoc option :selected?)))
+
+(defn enum-select
+  "If the 'selected-option is not available, the first one will be selected."
+  [enum selected-option]
+  (->> enum
+       (map (partial toggle-option (uc/keywordize selected-option)))
+       ensure-one-selected))
+
+(defn- parse-enum-option
+  [option]
+  (localization/with-prefixed-t :enum.option.text
+    {:value (name option), :text (-> option uc/keywordize t)}))
+
+(defn enum
+  [options & [selected-option]]
+  (-> (map parse-enum-option options)
+      (enum-select (or selected-option
+                       (first options)))))

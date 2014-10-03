@@ -286,7 +286,7 @@
 
 
 (defn page
-  [metadata type]
+  [metadata]
   (localization/with-lang-from-metadata
     (let [module (module-model/parse metadata)
           summary (:summary module)]

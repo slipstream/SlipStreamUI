@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.module.project
   (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
 
@@ -7,9 +8,10 @@
 
 (defn middle-sections
   [module]
-  {:title   (t :section.children.title)
-   :content (-> module :children t/project-children-table)
-   :selected? true})
+  (when (page-type/view?)
+    {:title   (t :section.children.title)
+     :content (-> module :children t/project-children-table)
+     :selected? true}))
 
 (def actions
   [action/edit

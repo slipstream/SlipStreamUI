@@ -1,9 +1,11 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
-  (:require [slipstream.ui.views.table :as table]
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
-            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.views.table :as table]
             [slipstream.ui.models.parameters :as p]))
 
 (localization/def-scoped-t)
@@ -102,10 +104,13 @@
       "RestrictedString"  :cell/text)))
 
 (defn- parameter-row
-  [{:keys [type description value help-hint name] :as parameter}]
+  [{:keys [type editable? hidden? description value help-hint name]
+    :or {editable? (page-type/edit-or-new?)}
+    :as parameter}]
   {:style nil
+   :hidden? hidden?
    :cells [{:type :cell/text, :content description}
-           {:type (type->cell-type type), :content value}
+           {:type (type->cell-type type), :content value, :editable? editable?}
            {:type :cell/help-hint, :content help-hint}]})
 
 (defn parameters-table
@@ -120,14 +125,16 @@
   [user-summary-map]
   (parameters-table
     (p/map->parameter-list user-summary-map
-      :username     {:type :cell/text}
-      :first-name   {:type :cell/text, :editable-in #{:edit :new}} ;; TODO: working on editable-in metadata
+      :username     {:type :cell/text, :editable? false}
+      :first-name   {:type :cell/text}
       :last-name    {:type :cell/text}
       :organization {:type :cell/text}
       :email        {:type :cell/email}
       :super?       {:type :cell/boolean}
-      :creation     {:type :cell/timestamp}
-      :state        {:type :cell/text})))
+      :creation     {:type :cell/timestamp, :editable? false}
+      :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?)}
+      :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/view?)}
+      :state        {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -135,14 +142,15 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name          {:type :cell/text}
-      :uri           {:as-parameter :module-version :type :cell/module-version}
+      :name          {:type :cell/text,       :editable? (page-type/new?)}
+      :uri           {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description   {:type :cell/text}
-      :comment       {:type :cell/text}
-      :category      {:type :cell/text}
-      :creation      {:type :cell/timestamp}
-      :last-modified {:type :cell/timestamp}
-      :owner         {:type :cell/username})))
+      :comment       {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
+      :category      {:type :cell/text,       :editable? false, :hidden? (page-type/new?)}
+      :creation      {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
+      :last-modified {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
+      :owner         {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
+      :image         {:type :cell/text,       :hidden? (page-type/view?)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -159,9 +167,9 @@
   [[access-right-name {:keys [owner-access? group-access? public-access?] :as access-rights}]]
   {:style (access-right-row-style access-rights)
    :cells [{:type :cell/text,     :content access-right-name}
-           {:type :cell/boolean,  :content owner-access?}
-           {:type :cell/boolean,  :content group-access?}
-           {:type :cell/boolean,  :content public-access?}]})
+           {:type :cell/boolean,  :content owner-access?,     :editable? (page-type/edit-or-new?)}
+           {:type :cell/boolean,  :content group-access?,     :editable? (page-type/edit-or-new?)}
+           {:type :cell/boolean,  :content public-access?,    :editable? (page-type/edit-or-new?)}]})
 
 (defn- map->sorted-vector
   [module-type access-rights]
@@ -209,7 +217,7 @@
   [os-details]
   (parameters-table
     (p/map->parameter-list os-details
-      :platform         {:type :cell/text}
+      :platform         {:type :cell/enum}
       :login-username   {:type :cell/text})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -233,20 +241,26 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- deployment-parameter-value-cell
+  [{:keys [read-only value type]}]
+  (case type
+     "String" {:type :cell/text
+               :editable? (page-type/edit-or-new?)
+               :content {:text value
+                         :tooltip (when read-only
+                           (t :deployment-parameter.is-read-only))}}))
+
 (defn- deployment-parameter-row
   [{:keys [help-hint read-only order value category description type name]
     :as deployment-parameter}]
-  {:style  (case
+  {:style  (case category
              "Output" :info
              "Input"  :warning)
-   :cells [{:type :cell/text,             :content name}
-           {:type :cell/text,             :content description}
-           {:type :cell/text,             :content category}
-           (case type
-             "String" {:type :cell/text,  :content {:text value
-                                                    :tooltip (when read-only
-                                                               (t :deployment-parameter.is-read-only))}})
-           {:type :cell/help-hint,        :content help-hint}]})
+   :cells [{:type :cell/text,      :content name,         :editable? (page-type/edit-or-new?)}
+           {:type :cell/text,      :content description,  :editable? (page-type/edit-or-new?)}
+           {:type :cell/enum,      :content (u/enum [:output :input] category), :editable? (page-type/edit-or-new?)}
+           (deployment-parameter-value-cell deployment-parameter)
+           {:type :cell/help-hint, :content help-hint}]})
 
 (defn deployment-parameters-table
   [deployment-parameters]
@@ -259,9 +273,9 @@
 (defn- image-creation-package-row
   [{:keys [repository name key] :as image-creation-package}]
   {:style  nil
-   :cells [{:type :cell/text, :content name}
-           {:type :cell/text, :content repository}
-           {:type :cell/text, :content key}]})
+   :cells [{:type :cell/text, :content name,        :editable? (page-type/edit-or-new?)}
+           {:type :cell/text, :content repository,  :editable? (page-type/edit-or-new?)}
+           {:type :cell/text, :content key,         :editable? (page-type/edit-or-new?)}]})
 
 (defn image-creation-packages-table
   [image-creation-packages]

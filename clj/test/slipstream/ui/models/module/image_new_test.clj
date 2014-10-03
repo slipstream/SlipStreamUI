@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.module.image-new-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
 (def raw-metadata
@@ -96,132 +97,146 @@
 
 (def parsed-metadata
   {:runs []
- :deployment {:targets {:on-vm-remove {:code nil
-                                       :run-in-background nil}
-                        :on-vm-add {:code nil
-                                    :run-in-background nil}
-                        :report {:code "report target"
-                                 :run-in-background false}
-                        :execute {:code "execute target"
-                                  :run-in-background false}}
-              :parameters [{:category-type :deployment
-                            :category "Output"
-                            :parameters [{:help-hint nil
-                                          :read-only? false
-                                          :order 2147483647
-                                          :value "123.234.345"
-                                          :category "Output"
-                                          :description "hostname/ip of the image"
-                                          :type "String"
-                                          :name "hostname"}
-                                         {:help-hint nil
-                                          :read-only? false
-                                          :order 2147483647
-                                          :value nil
-                                          :category "Output"
-                                          :description "Cloud instance id"
-                                          :type "String"
-                                          :name "instanceid"}]}]}
- :image-creation {:recipe {:code "some recipe"}
-                  :packages [{:repository "repo"
-                              :name "apache2"
-                              :key "key"}]
-                  :pre-recipe {:code "some pre-recipe"}}
- :cloud-configuration [{:category-type :global
-                        :category "Cloud"
-                        :parameters [{:help-hint nil
-                                      :read-only? false
-                                      :order 2147483647
-                                      :value "12345"
-                                      :category "Cloud"
-                                      :description "Volatile extra disk in GB"
-                                      :type "String"
-                                      :name "extra.disk.volatile"}
-                                     {:value-options ["Public" "Private"]
-                                      :help-hint nil
-                                      :name "network"
-                                      :value-default nil
-                                      :read-only? false
-                                      :type "Enum"
-                                      :order 2147483647
-                                      :value "Public"
-                                      :description "Network type"
-                                      :category "Cloud"}]}
-                       {:category-type :global
-                        :category "stratuslab"
-                        :parameters [{:help-hint nil
-                                      :read-only? false
-                                      :order 2147483647
-                                      :value nil
-                                      :category "stratuslab"
-                                      :description "Requested CPUs"
-                                      :type "String"
-                                      :name "stratuslab.cpu"}
-                                     {:value-options ["virtio" "scsi"]
-                                      :help-hint nil
-                                      :name "stratuslab.disks.bus.type"
-                                      :value-default nil
-                                      :read-only? false
-                                      :type "Enum"
-                                      :order 2147483647
-                                      :value "VIRTIO"
-                                      :description "VM disks bus type"
-                                      :category "stratuslab"}
-                                     {:value-options ["m1.small" "c1.medium" "m1.large" "m1.xlarge" "c1.xlarge" "t1.micro" "standard.xsmall"]
-                                      :help-hint nil
-                                      :name "stratuslab.instance.type"
-                                      :value-default nil
-                                      :read-only? false
-                                      :type "Enum"
-                                      :order 2147483647
-                                      :value "M1_SMALL"
-                                      :description "Cloud instance type"
-                                      :category "stratuslab"}
-                                     {:help-hint nil
-                                      :read-only? false
-                                      :order 2147483647
-                                      :value nil
-                                      :category "stratuslab"
-                                      :description "Requested RAM (in GB)"
-                                      :type "String"
-                                      :name "stratuslab.ram"}]}]
- :os-details {:platform "debian"
-              :login-username "donald"}
- :cloud-image-details {:native-image? true
-                       :cloud-identifiers {"stratuslab" "HZTKYZgX7XzSokCHMB60lS0wsiv"
-                                           "my-cloud" "abc"}
-                       :reference-image nil}
- :authorization {:access-rights {:create-children {:public-access? false
-                                                   :group-access? false
-                                                   :owner-access? true}
-                                 :delete {:owner-access? true
-                                          :public-access? false
-                                          :group-access? false}
-                                 :put {:owner-access? true
-                                       :public-access? false
-                                       :group-access? false}
-                                 :post {:group-access? false
-                                        :owner-access? true
-                                        :public-access? false}
-                                 :get {:group-access? true
-                                       :public-access? true
-                                       :owner-access? true}}
-                 :group-members #{}
-                 :inherited-group-members? true}
- :summary {:deleted? false
-           :creation "2013-03-07 21:03:09.124 CET"
-           :name "Public/BaseImages/Ubuntu/new"
-           :short-name "new"
-           :image nil
-           :owner "sixsq"
-           :version 4
-           :uri "module/Public/BaseImages/Ubuntu/new"
-           :latest-version? nil
-           :last-modified "2013-03-07 21:03:09.337 CET"
-           :parent-uri "module/Public/BaseImages/Ubuntu"
-           :description "Nice Ubuntu distro"
-           :category "Image"}})
+   :deployment {:targets {:on-vm-remove {:code nil
+                                         :run-in-background nil}
+                          :on-vm-add {:code nil
+                                      :run-in-background nil}
+                          :report {:code "report target"
+                                   :run-in-background false}
+                          :execute {:code "execute target"
+                                    :run-in-background false}}
+                :parameters [{:category-type :deployment
+                              :category "Output"
+                              :parameters [{:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value "123.234.345"
+                                            :category "Output"
+                                            :description "hostname/ip of the image"
+                                            :type "String"
+                                            :name "hostname"}
+                                           {:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "Output"
+                                            :description "Cloud instance id"
+                                            :type "String"
+                                            :name "instanceid"}]}]}
+   :image-creation {:recipe {:code "some recipe"}
+                    :packages [{:repository "repo"
+                                :name "apache2"
+                                :key "key"}]
+                    :pre-recipe {:code "some pre-recipe"}}
+   :cloud-configuration [{:category-type :global
+                          :category "Cloud"
+                          :parameters [{:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value "12345"
+                                        :category "Cloud"
+                                        :description "Volatile extra disk in GB"
+                                        :type "String"
+                                        :name "extra.disk.volatile"}
+                                       {:help-hint nil
+                                        :name "network"
+                                        :read-only? false
+                                        :type "Enum"
+                                        :order 2147483647
+                                        :value [{:selected? true, :value "public", :text "Public"}
+                                                {:value "private", :text "Private"}]
+                                        :description "Network type"
+                                        :category "Cloud"}]}
+                         {:category-type :global
+                          :category "stratuslab"
+                          :parameters [{:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "stratuslab"
+                                        :description "Requested CPUs"
+                                        :type "String"
+                                        :name "stratuslab.cpu"}
+                                       {:help-hint nil
+                                        :name "stratuslab.disks.bus.type"
+                                        :read-only? false
+                                        :type "Enum"
+                                        :order 2147483647
+                                        :value [{:selected? true, :value "virtio", :text "virtio"}
+                                                {:value "scsi", :text "scsi"}]
+                                        :description "VM disks bus type"
+                                        :category "stratuslab"}
+                                       {:help-hint nil
+                                        :name "stratuslab.instance.type"
+                                        :read-only? false
+                                        :type "Enum"
+                                        :order 2147483647
+                                        :value [{:selected? true, :value "m1small", :text "m1.small"}
+                                                {:value "c1medium", :text "c1.medium"}
+                                                {:value "m1large", :text "m1.large"}
+                                                {:value "m1xlarge", :text "m1.xlarge"}
+                                                {:value "c1xlarge", :text "c1.xlarge"}
+                                                {:value "t1micro", :text "t1.micro"}
+                                                {:value "standardxsmall", :text "standard.xsmall"}]
+                                        :description "Cloud instance type"
+                                        :category "stratuslab"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "stratuslab"
+                                        :description "Requested RAM (in GB)"
+                                        :type "String"
+                                        :name "stratuslab.ram"}]}]
+   :os-details {:platform [{:value  "centos",   :text   "CentOS"}
+                           {:value  "debian",   :text   "Debian", :selected? true}
+                           {:value  "fedora",   :text   "Fedora"}
+                           {:value  "opensuse", :text   "OpenSuse"}
+                           {:value  "redhat",   :text   "RedHat"}
+                           {:value  "sles",     :text   "Sles"}
+                           {:value  "ubuntu",   :text   "Ubuntu"}
+                           {:value  "windows",  :text   "Windows"}
+                           {:value  "other",    :text   "Other"}]
+                :login-username "donald"}
+   :cloud-image-details {:native-image? true
+                         :cloud-identifiers {"stratuslab" "HZTKYZgX7XzSokCHMB60lS0wsiv"
+                                             "my-cloud" "abc"}
+                         :reference-image nil}
+   :authorization {:access-rights {:create-children {:public-access? false
+                                                     :group-access? false
+                                                     :owner-access? true}
+                                   :delete {:owner-access? true
+                                            :public-access? false
+                                            :group-access? false}
+                                   :put {:owner-access? true
+                                         :public-access? false
+                                         :group-access? false}
+                                   :post {:group-access? false
+                                          :owner-access? true
+                                          :public-access? false}
+                                   :get {:group-access? true
+                                         :public-access? true
+                                         :owner-access? true}}
+                   :group-members #{}
+                   :inherited-group-members? true}
+   :summary {:deleted? false
+             :creation "2013-03-07 21:03:09.124 CET"
+             :name "Public/BaseImages/Ubuntu/new"
+             :short-name "new"
+             :image nil
+             :owner "sixsq"
+             :version 4
+             :uri "module/Public/BaseImages/Ubuntu/new"
+             :latest-version? nil
+             :last-modified "2013-03-07 21:03:09.337 CET"
+             :parent-uri "module/Public/BaseImages/Ubuntu"
+             :description "Nice Ubuntu distro"
+             :category "Image"}})
 
 (expect
   parsed-metadata
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (localization/with-lang :en
+    (-> raw-metadata u/clojurify-raw-metadata model/parse)))
+
+
+

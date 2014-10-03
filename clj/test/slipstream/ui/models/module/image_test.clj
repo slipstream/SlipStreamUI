@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.module.image-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
 (def raw-metadata "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
@@ -116,17 +117,24 @@
                                            "my-cloud" "abc"}
                        :native-image? false}
    :os-details {:login-username "donald"
-                :platform "debian"}
+                :platform [{:value  "centos",   :text   "CentOS"}
+                           {:value  "debian",   :text   "Debian", :selected? true}
+                           {:value  "fedora",   :text   "Fedora"}
+                           {:value  "opensuse", :text   "OpenSuse"}
+                           {:value  "redhat",   :text   "RedHat"}
+                           {:value  "sles",     :text   "Sles"}
+                           {:value  "ubuntu",   :text   "Ubuntu"}
+                           {:value  "windows",  :text   "Windows"}
+                           {:value  "other",    :text   "Other"}]}
    :cloud-configuration [{:category-type :global
                           :category "Cloud"
-                          :parameters [{:value-options ["Public" "Private"]
-                                        :help-hint nil
+                          :parameters [{:help-hint nil
                                         :name "network"
-                                        :value-default nil
                                         :read-only? false
                                         :type "Enum"
                                         :order 2147483647
-                                        :value "Public"
+                                        :value [{:value  "public",  :text   "Public", :selected? true}
+                                                {:value  "private", :text   "Private"}]
                                         :description "Network type"
                                         :category "Cloud"}
                                        {:help-hint "Password..."
@@ -147,24 +155,27 @@
                                         :description "Requested CPUs"
                                         :type "String"
                                         :name "stratuslab.cpu"}
-                                       {:value-options ["virtio" "scsi"]
-                                        :help-hint nil
+                                       {:help-hint nil
                                         :name "stratuslab.disks.bus.type"
-                                        :value-default nil
                                         :read-only? false
                                         :type "Enum"
                                         :order 2147483647
-                                        :value "VIRTIO"
+                                        :value [{:value "virtio", :text "virtio", :selected? true}
+                                                {:value "scsi",   :text "scsi"}]
                                         :description "VM disks bus type"
                                         :category "stratuslab"}
-                                       {:value-options ["m1.small" "c1.medium" "m1.large" "m1.xlarge" "c1.xlarge" "t1.micro" "standard.xsmall"]
-                                        :help-hint nil
+                                       {:help-hint nil
                                         :name "stratuslab.instance.type"
-                                        :value-default nil
                                         :read-only? false
                                         :type "Enum"
                                         :order 2147483647
-                                        :value "M1_SMALL"
+                                        :value [{:value "m1small", :text "m1.small", :selected? true}
+                                                {:value "c1medium", :text "c1.medium"}
+                                                {:value "m1large", :text "m1.large"}
+                                                {:value "m1xlarge", :text "m1.xlarge"}
+                                                {:value "c1xlarge", :text "c1.xlarge"}
+                                                {:value "t1micro", :text "t1.micro"}
+                                                {:value "standardxsmall", :text "standard.xsmall"}]
                                         :description "Cloud instance type"
                                         :category "stratuslab"}
                                        {:help-hint nil
@@ -262,4 +273,5 @@
 
 (expect
   parsed-metadata
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (localization/with-lang :en
+    (-> raw-metadata u/clojurify-raw-metadata model/parse)))

@@ -87,9 +87,13 @@
 
 ;; Set cells
 
-(defn- cell-set-snip
+(defn- cell-set-snip-view
   [set]
   (cell-text-snip-view {:text (uc/join-as-str set)}))
+
+(defn- cell-set-snip-edit
+  [set]
+  (cell-text-snip-edit {:text (uc/join-as-str set)}))
 
 (defn- cell-timestamp-snip
   [timestamp]
@@ -123,13 +127,25 @@
   [cell]
   (cell-link-snip (assoc cell :open-in-new-window? true)))
 
-(defn- cell-email-snip
+(defn- cell-email-snip-view
   [email]
   (cell-link-snip {:text email :href (str "mailto:" email)}))
 
-(defn- cell-url-snip
+(defn- cell-email-snip-edit
+  [email]
+  (cell-text-snip-edit {:text email}))
+
+
+;; URL Cell
+
+(defn- cell-url-snip-view
   [url]
   (cell-link-snip {:text url :href url}))
+
+(defn- cell-url-snip-edit
+  [url]
+  (cell-text-snip-edit {:text url}))
+
 
 (defn- cell-username-snip
   [username]
@@ -171,16 +187,20 @@
     [:cell/password :edit]       cell-password-snip-edit
     [:cell/enum :view]           cell-enum-snip-view
     [:cell/enum :edit]           cell-enum-snip-edit
-    [:cell/set :view]            cell-set-snip
+    [:cell/set :view]            cell-set-snip-view
+    [:cell/set :edit]            cell-set-snip-edit
     [:cell/timestamp :view]      cell-timestamp-snip
     [:cell/boolean :view]        cell-boolean-snip-view
     [:cell/boolean :edit]        cell-boolean-snip-edit
     [:cell/username :view]       cell-username-snip
     [:cell/map :view]            cell-map-snip
+    [:cell/map :edit]            cell-map-snip
     [:cell/link :view]           cell-link-snip
     [:cell/external-link :view]  cell-external-link-snip
-    [:cell/email :view]          cell-email-snip
-    [:cell/url :view]            cell-url-snip
+    [:cell/email :view]          cell-email-snip-view
+    [:cell/email :edit]          cell-email-snip-edit
+    [:cell/url :view]            cell-url-snip-view
+    [:cell/url :edit]            cell-url-snip-edit
     [:cell/icon :view]           cell-icon-snip
     [:cell/module-version :view] cell-module-version-snip
     [:cell/help-hint :view]      cell-help-hint-snip
@@ -217,7 +237,9 @@
 (html/defsnippet ^:private table-snip template-filename table-sel
   [{:keys [headers rows] :as table}]
   table-head-sel (html/content (head-snip headers))
-  table-body-sel (html/content (rows-snip rows)))
+  table-body-sel (html/content (->> rows
+                                    (remove :hidden?)
+                                    rows-snip)))
 
 (defn build
   [table]

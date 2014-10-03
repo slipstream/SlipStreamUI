@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
@@ -131,8 +132,8 @@
     ; (println "   content type:" (type (first content)))
     (base
       (cond-> context
-        (= page-type :edit)   (assoc :secondary-menu-actions edit-page-actions)
-        (= page-type :new)    (assoc :secondary-menu-actions new-page-actions)
+        (page-type/edit?)     (assoc :secondary-menu-actions edit-page-actions)
+        (page-type/new?)      (assoc :secondary-menu-actions new-page-actions)
         :always               (assoc
                                 :user user
                                 ; :beta-page? true
