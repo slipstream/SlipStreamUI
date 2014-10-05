@@ -82,7 +82,6 @@
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata
-       :page-type type
        :placeholder-page? true
        :header {:icon icons/run
                 :title "Runs"

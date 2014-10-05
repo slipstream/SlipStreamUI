@@ -6,107 +6,39 @@
 
 (localization/def-scoped-t)
 
+(defn- action-id
+  [id]
+  (str "ss-secondary-menu-action-" id))
+
 (defn- t-with-ellipsis
   [t-path]
   (str (t t-path) (t :ellipsis)))
 
-(defn new-project
-  []
-  {:name (t :new-project)
-   :uri  "module/new"
-   :icon icons/action-new-project})
+(defmacro ^:private defaction
+  [name & {:keys [disabled? super-only? name-with-ellipsis?] :as options}]
+  `(defn ~name
+     []
+     {:name (~(if name-with-ellipsis? t-with-ellipsis t) (keyword '~name))
+      :id (str "ss-secondary-menu-action-" '~name)
+      :icon ~(symbol "slipstream.ui.util.icons" (str "action-" name))
+      :disabled? ~disabled?
+      :super-only? ~super-only?}))
 
-(defn new-image
-  []
-  {:name (t :new-image)
-   :uri  "module/new"
-   :icon icons/action-new-image})
+(defaction new-project)
+(defaction new-image)
+(defaction new-deployment)
+(defaction import)
+(defaction new-user)
 
-(defn new-deployment
-  []
-  {:name (t :new-deployment)
-   :uri  "module/new"
-   :icon icons/action-new-deployment})
+(defaction run    :name-with-ellipsis? true)
+(defaction build  :name-with-ellipsis? true)
 
-(defn import
-  []
-  {:name (t :import)
-   :uri  "module/new"
-   :icon icons/action-import})
+(defaction copy   :name-with-ellipsis? true)
+(defaction publish :disabled? true)
+(defaction unpublish)
+(defaction terminate)
 
-(defn new-user
-  []
-  {:name (t :new-user)
-   :uri  "user/new"
-   :icon icons/action-new-user})
-
-(defn edit-user
-  []
-  {:name (t :edit-user)
-   :uri  "" ; TODO: provide right URL hele
-   :icon icons/action-edit-user})
-
-(defn run
-  []
-  {:name (t-with-ellipsis :run)
-   :uri  "module/new"
-   :icon icons/action-run})
-
-(defn build
-  []
-  {:name (t-with-ellipsis :build)
-   :uri  "module/build"
-   :icon icons/action-build})
-
-(defn edit
-  []
-  {:name (t :edit)
-   :uri  "module/new"
-   :icon icons/action-edit
-   :super-only? true})
-
-(defn copy
-  []
-  {:name (t-with-ellipsis :copy)
-   :uri  "module/new"
-   :icon icons/action-copy
-   :disabled? false
-   :super-only? true})
-
-(defn publish
-  []
-  {:name (t :publish)
-   :uri  "module/new"
-   :icon icons/action-publish
-   :disabled? true})
-
-(defn unpublish
-  []
-  {:name (t :unpublish)
-   :uri  "module/new"
-   :icon icons/action-unpublish
-   :disabled? true})
-
-(defn terminate
-  []
-  {:name (t :terminate)
-   :uri  "run/terminate"
-   :icon icons/action-terminate})
-
-(defn save
-  []
-  {:name (t :save)
-   :uri  "run/save"
-   :icon icons/action-save})
-
-(defn cancel
-  []
-  {:name (t :cancel)
-   :uri  "run/cancel"
-   :icon icons/action-cancel})
-
-(defn delete
-  []
-  {:name (t :delete)
-   :uri  "run/delete"
-   :icon icons/action-delete})
+(defaction edit)
+(defaction save)
+(defaction cancel)
+(defaction delete)

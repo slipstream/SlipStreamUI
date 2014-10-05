@@ -54,7 +54,6 @@
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata
-       :page-type type
        :placeholder-page? true
        :header nil
        ; :resource-uri "/run/91aa79a"

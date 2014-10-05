@@ -264,3 +264,30 @@
           </td>")
   (cell-html {:type :cell/help-hint, :content rand-str}))
 
+
+;; Reference module cell
+
+(expect
+  (str "<td class=\"ss-table-cell-link\"><a href=\""
+       rand-url
+       "\">"
+       rand-url
+       "</a></td>")
+  (cell-html {:type :cell/reference-module, :content rand-url}))
+
+
+;; Editable reference module cell
+
+(expect
+  (str "<td class=\"ss-table-cell-reference-module-editable\">
+            <div class=\"input-group\">
+              <span class=\"ss-reference-module-name\">
+                <a target=\"_blank\" href=\"" rand-url "\">" rand-url "</a>
+              </span>
+              <span class=\"ss-reference-module-chooser-button\">
+                <button type=\"button\" class=\"btn btn-primary\">Choose reference</button>
+              </span>
+            </div><!-- /input-group -->
+          </td>")
+  (cell-html {:type :cell/reference-module, :content rand-url, :editable? true}))
+

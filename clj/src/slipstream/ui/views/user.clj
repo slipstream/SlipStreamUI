@@ -31,10 +31,9 @@
   (localization/with-lang-from-metadata
     (let [user (user/parse metadata)]
       (base/generate
-        {:page-type (uc/keywordize type)
-         :metadata metadata
+        {:metadata metadata
          :header (header user)
-         :secondary-menu-actions [action/edit-user] ;; TODO: Only if (or (:loggedin? user) (:super? user))
+         :secondary-menu-actions [action/edit] ;; TODO: Only if (or (:loggedin? user) (:super? user))
          :resource-uri (:uri user)
          :content (into [{:title (t :summary)
                           :selected? true

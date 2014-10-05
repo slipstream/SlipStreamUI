@@ -27,20 +27,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(".ss-secondary-extra-actions-toggle").remove();
     }
 
-    $("#ss-secondary-menubar-container").affix({
-        offset: {
-            top: function () {
-                return ($("#header").offset().top + $("#header").outerHeight() - $("#topbar").outerHeight());
-            }
-        }
-    });
-
-    $("#ss-secondary-menubar-container").on("affixed.bs.affix", function () {
-        $("#ss-secondary-menubar-container.affix").css("top",$("#topbar").outerHeight());
-        $("#ss-secondary-menubar-placeholder").show();
-    });
-    $("#ss-secondary-menubar-container").on("affixed-top.bs.affix", function () {
-        $("#ss-secondary-menubar-container.affix-top").css("top",0);
+    if ($("body").hasClass("ss-page-type-chooser")) {
+        // Make secondary-menubar fixed to top directly
         $("#ss-secondary-menubar-placeholder").hide();
-    });
+        $("#ss-secondary-menubar-container").affix({
+            offset: {
+                top: 0
+            }
+        });
+    } else {
+        // Make secondary-menubar fixed to below the topbar after scrolling past the header
+        $("#ss-secondary-menubar-container").affix({
+            offset: {
+                top: function () {
+                    return ($("#header").offset().top + $("#header").outerHeight() - $("#topbar").outerHeight());
+                }
+            }
+        });
+
+        $("#ss-secondary-menubar-container").on("affixed.bs.affix", function () {
+            $("#ss-secondary-menubar-container.affix").css("top",$("#topbar").outerHeight());
+            $("#ss-secondary-menubar-placeholder").show();
+        });
+        $("#ss-secondary-menubar-container").on("affixed-top.bs.affix", function () {
+            $("#ss-secondary-menubar-container.affix-top").css("top",0);
+            $("#ss-secondary-menubar-placeholder").hide();
+        });
+    }
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

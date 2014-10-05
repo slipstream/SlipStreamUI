@@ -23,3 +23,14 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   text-overflow:ellipsis;
   overflow: hidden;
 }
+
+.ss-table-cell-reference-module-editable .input-group {
+  width: 100%;
+}
+.ss-table-cell-reference-module-editable .ss-reference-module-name {
+  float:left;
+  padding: 6px 0px;
+}
+.ss-table-cell-reference-module-editable .ss-reference-module-chooser-button {
+  float:right;
+}

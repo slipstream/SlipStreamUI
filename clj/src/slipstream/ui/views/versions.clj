@@ -23,7 +23,6 @@
           icon (icons/icon-for category)]
       (base/generate
         {:metadata metadata
-         :page-type type
          :header {:icon icon
                   :title (t :header.title module-name)
                   :subtitle (subtitle category versions)}

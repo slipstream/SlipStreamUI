@@ -17,7 +17,6 @@
   (localization/with-lang-from-metadata
     (base/generate
       {:metadata metadata
-       :page-type type
        :header {:icon icons/documentation
                 :title (t :header.title)
                 :subtitle (t :header.subtitle)}

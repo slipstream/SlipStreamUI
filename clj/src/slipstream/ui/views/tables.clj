@@ -142,7 +142,7 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name          {:type :cell/text,       :editable? (page-type/new?)}
+      :name          {:type :cell/module-name,    :editable? (page-type/new?)}
       :uri           {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description   {:type :cell/text}
       :comment       {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
@@ -209,7 +209,7 @@
     (p/map->parameter-list cloud-image-details
       :native-image?      {:type :cell/boolean}
       :cloud-identifiers  {:type :cell/map}
-      :reference-image    {:type :cell/url})))
+      :reference-image    {:type :cell/reference-module})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

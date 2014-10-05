@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.menubar
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.common :as common]))
@@ -42,9 +43,9 @@
 (defmulti menubar
   (fn [{:keys [type user]}]
     (cond
-      (u/chooser? type)   :chooser
-      (nil? user)         :unlogged
-      (:logged-in? user)  :logged-in
+      (page-type/chooser?)  :chooser
+      (nil? user)           :unlogged
+      (:logged-in? user)    :logged-in
       :else :un-logged)))
 
 (defmethod menubar :chooser

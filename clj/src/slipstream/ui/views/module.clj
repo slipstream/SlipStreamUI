@@ -284,15 +284,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defn page
   [metadata]
   (localization/with-lang-from-metadata
     (let [module (module-model/parse metadata)
           summary (:summary module)]
       (base/generate
-        {:page-type (uc/keywordize type)
-         :metadata metadata
+        {:metadata metadata
          :header (header summary)
          :alerts [(-> summary :latest-version? old-version-alert)]
          :resource-uri (:uri summary)

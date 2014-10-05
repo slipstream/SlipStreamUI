@@ -3,6 +3,11 @@ body {
   padding-top: 50px;
 }
 
+/* Except for pages of type chooser */
+body.ss-page-type-chooser {
+  padding-top: 0;
+}
+
 body * {
   border-radius: 0 !important;
 }

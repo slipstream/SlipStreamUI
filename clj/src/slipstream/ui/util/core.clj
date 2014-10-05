@@ -6,11 +6,6 @@
 
 (localization/def-scoped-t)
 
-;; TODO: Look at slipstream.ui.views.module-base/ischooser? and refactor.
-(defn chooser?
-  [type]
-  (= "chooser" type))
-
 ;; TODO: Look at slipstream.ui.views.common/slipstream and refactor.
 (def slipstream "SlipStream")
 

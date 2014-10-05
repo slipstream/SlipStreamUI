@@ -13,13 +13,13 @@
 (def ^:private extra-action-anchor-sel [:a])
 
 (defn- setup-action
-  [{:keys [icon name uri] enabled? ::enabled? :or {enabled? true}}]
+  [{:keys [icon name id] enabled? ::enabled? :or {enabled? true}}]
   (fn [action-node]
     (html/at action-node
-             ue/this           (ue/when-set-onclick enabled? "window.location = '" uri "';")
+             ue/this           (ue/set-id id)
              ue/this           (ue/enable-class (not enabled?) disabled-cls)
-             action-icon-sel  (icons/set icon)
-             action-name-sel  (html/content (str name)))))
+             action-icon-sel   (icons/set icon)
+             action-name-sel   (html/content (str name)))))
 
 (defn- setup-extra-actions
   [actions]

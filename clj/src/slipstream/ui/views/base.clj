@@ -94,19 +94,22 @@
   [:body]               (ue/enable-class error-page? error-page-cls)
   [:body]               (ue/enable-class placeholder-page? placeholder-page-cls)
   [:body]               (ue/enable-class beta-page? beta-page-cls)
+  [:body]               (html/add-class (str "ss-page-type-" (name page-type/*current-page-type*)))
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   base-sel              (ue/when-set-href *prod?* "/")
   menubar-sel           (html/substitute (menubar/menubar context))
-  topbar-sel            (ue/remove-if (and (u/chooser? type) (empty? alerts)))
+  topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
-  secondary-menu-sel    (secondary-menu/transform context)
+  secondary-menu-sel    (when-not (page-type/chooser?)
+                          (secondary-menu/transform context))
   secondary-menubar-sel (ue/remove-if-not (or resource-uri secondary-menu-actions))
   [:#release-version]   (html/content @version/slipstream-release-version)
-  footer-sel            (ue/remove-if (u/chooser? type))
+  footer-sel            (ue/remove-if (page-type/chooser?))
   css-container-sel     (html/append (additional-html css-sel involved-templates))
-  header-sel            (ue/if-enlive-node header
-                          (html/substitute header)
-                          (header/transform header))
+  header-sel            (when-not (page-type/chooser?)
+                          (ue/if-enlive-node header
+                            (html/substitute header)
+                            (header/transform header)))
   content-sel           (ue/if-enlive-node content
                           (html/substitute content)
                           (section/build content))
@@ -117,7 +120,7 @@
   )
 
 (defn generate
-  [{:keys [header metadata template-filename content alerts page-type] :as context}]
+  [{:keys [header metadata template-filename content alerts] :as context}]
   (let [user (user-loggedin/parse metadata)
         involved-templates [alerts/template-filename
                             menubar/template-filename
@@ -127,7 +130,6 @@
                             code-area/template-filename ;; TODO: only if code-areas in body.
                             template-filename]]
     (println "Generating base for" template-filename)
-    (prn :page-type (:page-type context))
     ; (println "   user:" user)
     ; (println "   content type:" (type (first content)))
     (base
