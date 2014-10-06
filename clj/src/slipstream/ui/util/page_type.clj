@@ -37,6 +37,10 @@
   []
   (is? :chooser))
 
+(defn view-or-chooser?
+  []
+  (is? :view :chooser))
+
 (defn edit?
   []
   (is? :edit))

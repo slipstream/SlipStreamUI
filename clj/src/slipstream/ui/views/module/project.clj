@@ -8,7 +8,7 @@
 
 (defn middle-sections
   [module]
-  (when (page-type/view?)
+  (when (page-type/view-or-chooser?)
     {:title   (t :section.children.title)
      :content (-> module :children t/project-children-table)
      :selected? true}))

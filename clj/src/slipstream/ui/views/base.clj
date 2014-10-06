@@ -117,7 +117,9 @@
   alert-container-sel   (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
-  )
+  [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?)
+                                                    (ue/append-to-href "?chooser=true")
+                                                    identity))
 
 (defn generate
   [{:keys [header metadata template-filename content alerts] :as context}]
