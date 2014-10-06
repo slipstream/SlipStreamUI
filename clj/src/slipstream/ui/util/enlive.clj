@@ -106,8 +106,12 @@
         if-set-fn-symbol (symbol (str "if-set-" attr-name))
         when-set-fn-symbol (symbol (str "when-set-" attr-name))
         toggle-fn-symbol (symbol (str "toggle-" attr-name))
+        update-fn-symbol (symbol (str "update-" attr-name))
+        append-to-fn-symbol (symbol (str "append-to-" attr-name))
         ;; NOTE: Not using gemsym higienic symbols, since not needed and it makes the code and (doc) weird.
         parts-symbol (symbol "parts")
+        f-symbol (symbol "f")
+        args-symbol (symbol "args")
         truthy-value-symbol (symbol "value-if-truthy")
         falsey-value-symbol (symbol "value-if-falsey")
         test-symbol (symbol "test")]
@@ -150,7 +154,20 @@
           [~test-symbol & ~parts-symbol]
           (if ~test-symbol
             (~set-fn-symbol (apply str ~parts-symbol))
-            (html/remove-attr ~attr))))))
+            (html/remove-attr ~attr)))
+      (defn ~update-fn-symbol
+          ~(str "Updates the attr '" attr-name "' with update-in semantics."
+                doc-str)
+          [~f-symbol & ~args-symbol]
+          (fn [node#]
+            (apply update-in node# [:attrs ~attr] ~f-symbol ~args-symbol)))
+      (defn ~append-to-fn-symbol
+          ~(str "Adds the parts as string to the attr '" attr-name "'."
+                "\n  If parts are not provided or they are nil, this is a no-op."
+                doc-str)
+          [& ~parts-symbol]
+          (apply ~update-fn-symbol str ~parts-symbol))
+      )))
 
 (defn-set-attr :href)
 (defn-set-attr :onclick)

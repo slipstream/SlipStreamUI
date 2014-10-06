@@ -1,7 +1,8 @@
 (ns slipstream.ui.util.enlive-test
   (:use [expectations]
         [slipstream.ui.util.enlive])
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]))
 
 (def example-html-page
   "<html>
@@ -139,6 +140,24 @@
   (html/sniptest "<a disabled=\"disabled\" href=\"#\"></a>"
                  this (html/content "some text")
                  this (toggle-disabled false "disabled" "-and-more")))
+
+(expect
+  "<a href=\"some/url?query-param=value\">some text</a>"
+  (html/sniptest "<a disabled=\"disabled\" href=\"some/url\"></a>"
+                 this (html/content "some text")
+                 this (toggle-disabled false)
+                 this (append-to-href "?query-param=value")))
+
+(expect
+  "<a href=\"sxmx/xrl?qxxry-pxrxm=vxlxx\">some text</a>"
+  (html/sniptest "<a href=\"some/url\"></a>"
+                 this (html/content "some text")
+                 this (append-to-href "?query-param=value")
+                 this (update-href s/replace #"[aeiou]" "x")))
+(expect
+  "<a href=\"some/url\">some text</a>"
+  (html/sniptest "<a href=\"some/url?query-param=value\">some text</a>"
+                 this (update-href s/replace #"\?.*" "")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
