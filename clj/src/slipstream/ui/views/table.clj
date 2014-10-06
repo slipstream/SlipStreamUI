@@ -108,6 +108,10 @@
   [module-name]
   (cell-text-snip-view {:text module-name, :id "ss-module-name"}))
 
+(defn- cell-module-name-snip-edit
+  [module-name]
+  (cell-text-snip-edit {:text module-name, :id "ss-module-name"}))
+
 
 (defn- map-key-str
   [map-key]
@@ -226,6 +230,7 @@
     [:cell/icon :view]              cell-icon-snip
     [:cell/module-version :view]    cell-module-version-snip
     [:cell/module-name :view]       cell-module-name-snip-view
+    [:cell/module-name :edit]       cell-module-name-snip-edit
     [:cell/help-hint :view]         cell-help-hint-snip
     [:cell/reference-module :view]  cell-reference-module-snip-view
     [:cell/reference-module :edit]  cell-reference-module-snip-edit
