@@ -62,6 +62,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-save").click( function() {
         console.log($(this).attr("id") + " in callback #14");
+        $('#ss-save-dialog').modal('show');
     });
 
 
@@ -82,14 +83,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-delete").click( function() {
         console.log($(this).attr("id") + " in callback #16");
-        $$.Request
-            .delete(extractBaseUrlPath())
-            .onSuccessRedirectURL(extractBaseUrlPath())
-            .onErrorAlert("Unable to delete",
-                "Something wrong happened when trying to delete this resource." +
-                " Maybe the server is unreachable, or the connection is down." +
-                "Please try later again.")
-            .send();
+        $('#ss-delete-dialog').modal('show');
+        // $$.Request
+        //     .delete(extractBaseUrlPath())
+        //     .onSuccessRedirectURL(extractBaseUrlPath())
+        //     .onErrorAlert("Unable to delete",
+        //         "Something wrong happened when trying to delete this resource." +
+        //         " Maybe the server is unreachable, or the connection is down." +
+        //         "Please try later again.")
+        //     .send();
     });
 
 

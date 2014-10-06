@@ -19,6 +19,7 @@
             [slipstream.ui.views.secondary-menu :as secondary-menu]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.code-area :as code-area]
+            [slipstream.ui.views.modal-dialogs :as modal-dialogs]
             ))
 
 (def ^:dynamic *prod?* true)
@@ -44,6 +45,7 @@
 (def secondary-menu-sel [:#ss-secondary-menu])
 (def content-sel [:#ss-content])
 (def footer-sel [:#footer])
+(def modal-dialogs-placeholder-sel [:#ss-modal-dialogs-placeholder])
 
 (def error-page-cls "ss-error-page")
 (def beta-page-cls "ss-beta-page")
@@ -117,6 +119,7 @@
   alert-container-sel   (html/append (alerts/hidden-templates))
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
+  modal-dialogs-placeholder-sel (html/content (modal-dialogs/all))
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?)
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
@@ -130,6 +133,7 @@
                             subsection/template-filename ;; TODO: only if subsections in body.
                             table/template-filename ;; TODO: only if tables in body.
                             code-area/template-filename ;; TODO: only if code-areas in body.
+                            modal-dialogs/template-filename ;; TODO: only if modal-dialogs in body.
                             template-filename]]
     (println "Generating base for" template-filename)
     ; (println "   user:" user)
