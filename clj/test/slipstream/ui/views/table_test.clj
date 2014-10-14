@@ -17,9 +17,107 @@
 
 (defn- cell-html
   [cell]
-  (->> (@#'slipstream.ui.views.table/cell-node cell) ; 'cell-node' is on purpose a private var
+  (->> (@#'slipstream.ui.views.table/cell-snip cell) ; 'cell-node' is on purpose a private var
        html/emit*
        (apply str)))
+
+;; All cell types
+
+(def all-cell-types
+  "Including their accepted content types."
+  {:cell/text             [:content/plain :content/map]
+   :cell/password         [:content/any]
+   :cell/enum             [:content/plain :content/map]
+   :cell/set              [:content/plain]
+   :cell/timestamp        [:content/plain]
+   :cell/boolean          [:content/plain]
+   :cell/map              [:content/map]
+   :cell/link             [:content/map]
+   :cell/external-link    [:content/map]
+   :cell/email            [:content/plain]
+   :cell/url              [:content/plain :content/map]
+   :cell/username         [:content/plain]
+   :cell/icon             [:content/plain]
+   :cell/module-version   [:content/plain]
+   :cell/module-name      [:content/plain]
+   :cell/help-hint        [:content/plain]
+   :cell/reference-module [:content/plain]})
+
+(expect
+  (-> all-cell-types
+      keys
+      set)
+  (->> @#'slipstream.ui.views.table/cell-snip
+       methods
+       keys
+       (filter vector?)
+       (map first)
+       set))
+
+;; Cell types with editable mode variant
+;; (Leaving the cells without :mode/edit outcommented for reference)
+
+(expect
+  #{:cell/text
+    :cell/password
+    :cell/enum
+    :cell/set
+    ; :cell/timestamp
+    :cell/boolean
+    :cell/map
+    ; :cell/link
+    ; :cell/external-link
+    :cell/email
+    :cell/url
+    ; :cell/username
+    ; :cell/icon
+    ; :cell/module-version
+    :cell/module-name
+    ; :cell/help-hint
+    :cell/reference-module}
+  (->> @#'slipstream.ui.views.table/cell-snip
+       methods
+       keys
+       (filter vector?)
+       (filter #(= :mode/edit (second %)))
+       (map first)
+       set))
+
+;; Cell types accepting more than one content type
+
+(expect
+  (-> all-cell-types
+      (select-keys [:cell/text
+                    :cell/url
+                    :cell/enum
+                    :cell/password]))
+  (->> @#'slipstream.ui.views.table/cell-snip
+       methods
+       keys
+       (filter vector?)
+       (map (juxt first last))
+       set
+       (group-by first)
+       vals
+       (filter #(or (-> % count (> 1))
+                    (-> % first second (= :content/any))))
+       (map (juxt ffirst (partial map second)))
+       (into {})))
+
+;; Content types for all cell types
+
+(expect
+  all-cell-types
+  (->> @#'slipstream.ui.views.table/cell-snip
+       methods
+       keys
+       (filter vector?)
+       (map (juxt first last))
+       set
+       (group-by first)
+       vals
+       (map (juxt ffirst (partial map second)))
+       (into {})))
 
 ;; Text cell
 
@@ -35,6 +133,14 @@
 (expect
   (str "<td class=\"ss-table-cell-text\">" rand-str "</td>")
   (cell-html {:type :cell/text, :content {:text rand-str}}))
+
+(expect
+  (str "<td id=\"some-id\" class=\"ss-table-cell-text\">" rand-str "</td>")
+  (cell-html {:type :cell/text, :content {:text rand-str :id "some-id"}}))
+
+(expect
+  (str "<td id=\"some:id.1\" class=\"ss-table-cell-text\">" rand-str "</td>")
+  (cell-html {:type :cell/text, :content {:text rand-str :id "some:id.1"}}))
 
 (expect
   (str "<td style=\"word-wrap: break-word; max-width: 500px;\" class=\"ss-table-cell-text\">" rand-str-long "</td>")
@@ -106,6 +212,10 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text\">***</td>")
+  (cell-html {:type :cell/password, :content rand-str}))
+
+(expect
+  (str "<td class=\"ss-table-cell-text\">***</td>")
   (cell-html {:type :cell/password, :content {:text rand-str}}))
 
 
@@ -120,13 +230,24 @@
 
 ;; Enum cell
 
+(def enum
+  [{:value  "other-choice"
+    :text   "Other choice"}
+   {:value  rand-url
+    :selected? true
+    :text   rand-str}])
+
 (expect
   (str "<td title=\"Possible values: Other choice, " rand-str "\" class=\"ss-table-cell-text\">" rand-str "</td>")
-  (cell-html {:type :cell/enum, :content [{:value  "other-choice"
-                                           :text   "Other choice"}
-                                          {:value  rand-url
-                                           :selected? true
-                                           :text   rand-str}]}))
+  (cell-html {:type :cell/enum, :content enum}))
+
+(expect
+  (str "<td title=\"Possible values: Other choice, " rand-str "\" class=\"ss-table-cell-text\">" rand-str "</td>")
+  (cell-html {:type :cell/enum, :content {:enum enum}}))
+
+(expect
+  (str "<td title=\"Possible values: Other choice, " rand-str "\" id=\"the-id\" class=\"ss-table-cell-text\">" rand-str "</td>")
+  (cell-html {:type :cell/enum, :content {:enum enum, :id "the-id"}}))
 
 
 ;; Editable enum cell
@@ -138,11 +259,25 @@
               <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
             </select>
           </td>")
-  (cell-html {:type :cell/enum, :editable? true :content [{:value  "other-choice"
-                                                           :text   "Other choice"}
-                                                          {:value  rand-url
-                                                           :selected? true
-                                                           :text   rand-str}]}))
+  (cell-html {:type :cell/enum, :editable? true :content enum}))
+
+(expect
+  (str "<td class=\"ss-table-cell-enum-editable\">
+            <select class=\"form-control\">
+              <option value=\"other-choice\">Other choice</option>
+              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+            </select>
+          </td>")
+  (cell-html {:type :cell/enum, :editable? true :content {:enum enum}}))
+
+(expect
+  (str "<td id=\"some-id\" class=\"ss-table-cell-enum-editable\">
+            <select class=\"form-control\">
+              <option value=\"other-choice\">Other choice</option>
+              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+            </select>
+          </td>")
+  (cell-html {:type :cell/enum, :editable? true :content {:enum enum, :id "some-id"}}))
 
 
 ;; Map cell
@@ -181,7 +316,15 @@
   (cell-html {:type :cell/url, :content rand-url}))
 
 (expect
-  "<td class=\"ss-table-cell-link\"><a href=\"/user/testusername\">testusername</a></td>"
+  (str "<td class=\"ss-table-cell-link\"><a href=\"" rand-url "\">" rand-url "</a></td>")
+  (cell-html {:type :cell/url, :content {:url rand-url}}))
+
+(expect
+  (str "<td class=\"ss-table-cell-link\"><a id=\"the-id\" href=\"" rand-url "\">" rand-url "</a></td>")
+  (cell-html {:type :cell/url, :content {:url rand-url, :id "the-id"}}))
+
+(expect
+  "<td class=\"ss-table-cell-link\"><a id=\"username\" href=\"/user/testusername\">testusername</a></td>"
   (cell-html {:type :cell/username, :content "testusername"}))
 
 

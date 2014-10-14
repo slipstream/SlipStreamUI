@@ -26,14 +26,18 @@
   (concat table-body-sel [[:td (ue/first-of-class (str "ss-table-cell-" (name cls) (when (= (first variation) :editable) "-editable")))]]))
 
 
-;; Text cell
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enlive cell snips
+
+; Text cell
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
   [{:keys [text tooltip id]}]
   ue/this (html/content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
-  ue/this (ue/when-set-id    id (str id))
+  ue/this (ue/set-id id)
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
@@ -43,75 +47,35 @@
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
-(defn- cell-plain-text-snip-view
-  [text]
-  (cell-text-snip-view {:text text}))
-
-(defn- cell-plain-text-snip-edit
-  [text]
-  (cell-text-snip-edit {:text text}))
-
-(defn- cell-password-snip-view
-  [pwd]
-  ; (cell-text-snip-view (when pwd "•••")))
-  (cell-text-snip-view {:text (when pwd "***")}))
+; Editable password cell
 
 (html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
   [_]
   identity)
 
-;; Enum cells
+; Boolean cell
 
-(defn- options-str
-  [enum-options & ]
-  (->> enum-options
-    (map :text)
-    uc/join-as-str))
+(html/defsnippet ^:private cell-boolean-snip-view template-filename (sel-for-cell :boolean)
+  [value]
+  ; [:input] (ue/toggle-disabled true)
+  [:input] (ue/toggle-checked value))
 
-(defn- selected-options-str
-  [enum-options]
-  (->> enum-options
-       (filter :selected?)
-       options-str))
+(html/defsnippet ^:private cell-boolean-snip-edit template-filename (sel-for-cell :boolean :editable)
+  [value]
+  ; [:input] (ue/toggle-disabled false)
+  [:input] (ue/toggle-checked value))
 
-(defn- cell-enum-snip-view
-  [enum-options]
-  (cell-text-snip-view {:text (selected-options-str enum-options)
-                        :tooltip (str "Possible values: " (options-str enum-options))}))
+; Enum cell
 
 (html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
-  [enum-options]
-  [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum-options]
+  [{:keys [enum id]}]
+  ue/this   (ue/set-id id)
+  [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum]
                             ue/this (ue/set-value value)
                             ue/this (html/content (str text))
                             ue/this (ue/toggle-selected selected?)))
 
-;; Set cells
-
-(defn- cell-set-snip-view
-  [set]
-  (cell-text-snip-view {:text (uc/join-as-str set)}))
-
-(defn- cell-set-snip-edit
-  [set]
-  (cell-text-snip-edit {:text (uc/join-as-str set)}))
-
-(defn- cell-timestamp-snip
-  [timestamp]
-  (cell-text-snip-view {:text (ut/format :human-readable-long timestamp)
-                        :tooltip timestamp}))
-
-
-;; Module name
-
-(defn- cell-module-name-snip-view
-  [module-name]
-  (cell-text-snip-view {:text module-name, :id "ss-module-name"}))
-
-(defn- cell-module-name-snip-edit
-  [module-name]
-  (cell-text-snip-edit {:text module-name, :id "ss-module-name"}))
-
+; Map cell
 
 (defn- map-key-str
   [map-key]
@@ -126,128 +90,229 @@
   [:dt] (html/content (map-key-str k))
   [:dd] (html/content (str v)))
 
-(html/defsnippet ^:private cell-map-snip template-filename (sel-for-cell :map)
+(html/defsnippet ^:private cell-map-snip-view template-filename (sel-for-cell :map)
   [m]
   [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip))))
 
-(html/defsnippet ^:private cell-link-snip template-filename (sel-for-cell :link)
-  [{:keys [text href open-in-new-window?]}]
+; Link cell
+
+(html/defsnippet ^:private cell-link-snip-view template-filename (sel-for-cell :link)
+  [{:keys [text href open-in-new-window? id]}]
     [:a] (html/content (str text))
     [:a] (ue/set-href href)
+    [:a] (ue/set-id id)
     [:a] (ue/when-set-target open-in-new-window? "_blank"))
 
-(defn- cell-external-link-snip
-  [cell]
-  (cell-link-snip (assoc cell :open-in-new-window? true)))
+; Icon cell
 
-(defn- cell-email-snip-view
-  [email]
-  (cell-link-snip {:text email :href (str "mailto:" email)}))
-
-(defn- cell-email-snip-edit
-  [email]
-  (cell-text-snip-edit {:text email}))
-
-
-;; URL Cell
-
-(defn- cell-url-snip-view
-  [url]
-  (cell-link-snip {:text url :href url}))
-
-(defn- cell-url-snip-edit
-  [url]
-  (cell-text-snip-edit {:text url}))
-
-
-(defn- cell-username-snip
-  [username]
-  (cell-link-snip {:text username :href (str "/user/" username)}))
-
-(html/defsnippet ^:private cell-icon-snip template-filename (sel-for-cell :icon)
+(html/defsnippet ^:private cell-icon-snip-view template-filename (sel-for-cell :icon)
   [icon]
   [:span] (icons/set icon))
 
-(html/defsnippet ^:private cell-boolean-snip-view template-filename (sel-for-cell :boolean)
-  [value]
-  ; [:input] (ue/toggle-disabled true)
-  [:input] (ue/toggle-checked value))
+; Module version cell
 
-(html/defsnippet ^:private cell-boolean-snip-edit template-filename (sel-for-cell :boolean :editable)
-  [value]
-  ; [:input] (ue/toggle-disabled false)
-  [:input] (ue/toggle-checked value))
-
-(html/defsnippet ^:private cell-module-version-snip template-filename (sel-for-cell :module-version)
+(html/defsnippet ^:private cell-module-version-snip-view template-filename (sel-for-cell :module-version)
   [uri]
   [:span] (html/content (uc/last-path-segment uri))
   [:a]    (ue/set-href   (uc/trim-last-path-segment uri)))
 
-(html/defsnippet ^:private cell-help-hint-snip template-filename (sel-for-cell :help-hint)
+; Help hint cell
+
+(html/defsnippet ^:private cell-help-hint-snip-view template-filename (sel-for-cell :help-hint)
   [help-text]
   [:.ss-table-tooltip]  (ue/set-title help-text)
   [:.ss-table-tooltip]  (ue/remove-if-not (not-empty help-text)))
 
-;; Reference module cell snippets
-
-(defn- cell-reference-module-snip-view
-  [reference-module-uri]
-  (cell-url-snip-view reference-module-uri))
+; Reference module cell snippets
 
 (html/defsnippet ^:private cell-reference-module-snip-edit template-filename (sel-for-cell :reference-module :editable)
   [reference-module-uri]
   [:.ss-reference-module-name :a]  (ue/set-href reference-module-uri)
   [:.ss-reference-module-name :a]  (html/content reference-module-uri))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Cell snip dispatching on type, mode and content
+
+(derive :content/map   :content/any)
+(derive :content/plain :content/any)
+
+(derive :mode/view  :mode/any)
+(derive :mode/edit  :mode/any)
+
+(defmulti ^:private cell-snip
+  "See tests for an explicit list of cell types and an overview of their variants."
+  (fn [{:keys [type content editable?] :as cell}]
+    [type
+     (if editable? :mode/edit :mode/view)
+     (if (map? content) :content/map :content/plain)]))
+
+(defmethod cell-snip :default
+  [cell]
+  (throw (IllegalArgumentException.
+    (str "No cell-snip defined for cell: " cell))))
+
+(defmethod cell-snip [:cell/text :mode/view :content/map]
+  [{content :content}]
+  (cell-text-snip-view content))
+
+(defmethod cell-snip [:cell/text :mode/view :content/plain]
+  [{text :content}]
+  (cell-text-snip-view {:text text}))
+
+(defmethod cell-snip [:cell/text :mode/edit :content/map]
+  [{content :content}]
+  (cell-text-snip-edit content))
+
+(defmethod cell-snip [:cell/text :mode/edit :content/plain]
+  [{text :content}]
+  (cell-text-snip-edit {:text text}))
+
+(defmethod cell-snip [:cell/password :mode/view :content/any]
+  [{pwd :content}]
+  ; (cell-text-snip-view (when pwd "•••")))
+  (cell-text-snip-view {:text (when pwd "***")}))
+
+(defmethod cell-snip [:cell/password :mode/edit :content/any]
+  [{pwd :content}]
+  (cell-password-snip-edit pwd))
 
 
-(defn- cell-snip
-  "Get the cell-snip fn corresponding to a given cell type. This is done with a
-  case (instead of e.g. a simple map) to detect unexpected cell types via an
-  IllegalArgumentException."
-  [{:keys [type content editable?] :as cell}]
-  (case [type (if editable? :edit :view)]
-    [:cell/text :view]           (if (map? content) cell-text-snip-view cell-plain-text-snip-view)
-    [:cell/text :edit]           (if (map? content) cell-text-snip-edit cell-plain-text-snip-edit)
-    [:cell/password :view]          cell-password-snip-view
-    [:cell/password :edit]          cell-password-snip-edit
-    [:cell/enum :view]              cell-enum-snip-view
-    [:cell/enum :edit]              cell-enum-snip-edit
-    [:cell/set :view]               cell-set-snip-view
-    [:cell/set :edit]               cell-set-snip-edit
-    [:cell/timestamp :view]         cell-timestamp-snip
-    [:cell/boolean :view]           cell-boolean-snip-view
-    [:cell/boolean :edit]           cell-boolean-snip-edit
-    [:cell/username :view]          cell-username-snip
-    [:cell/map :view]               cell-map-snip
-    [:cell/map :edit]               cell-map-snip
-    [:cell/link :view]              cell-link-snip
-    [:cell/external-link :view]     cell-external-link-snip
-    [:cell/email :view]             cell-email-snip-view
-    [:cell/email :edit]             cell-email-snip-edit
-    [:cell/url :view]               cell-url-snip-view
-    [:cell/url :edit]               cell-url-snip-edit
-    [:cell/icon :view]              cell-icon-snip
-    [:cell/module-version :view]    cell-module-version-snip
-    [:cell/module-name :view]       cell-module-name-snip-view
-    [:cell/module-name :edit]       cell-module-name-snip-edit
-    [:cell/help-hint :view]         cell-help-hint-snip
-    [:cell/reference-module :view]  cell-reference-module-snip-view
-    [:cell/reference-module :edit]  cell-reference-module-snip-edit
-    (throw (IllegalArgumentException.
-      (str "No cell-snip defined for cell: " cell)))))
+(defn- options-str
+  [enum]
+  (->> enum
+    (map :text)
+    uc/join-as-str))
 
-(defn- cell-node
-  [{:keys [content] :as cell}]
-  ((cell-snip cell) content))
+(defn- selected-options-str
+  [enum]
+  (->> enum
+       (filter :selected?)
+       options-str))
 
+(defmethod cell-snip [:cell/enum :mode/view :content/map]
+  [{{:keys [enum id]} :content}]
+  (cell-text-snip-view {:text (selected-options-str enum)
+                        :id id
+                        :tooltip (str "Possible values: " (options-str enum))}))
+
+(defmethod cell-snip [:cell/enum :mode/view :content/plain]
+  [{enum :content :as cell}]
+  (cell-snip (assoc cell :content {:enum enum})))
+
+(defmethod cell-snip [:cell/enum :mode/edit :content/map]
+  [{content :content}]
+  (cell-enum-snip-edit content))
+
+(defmethod cell-snip [:cell/enum :mode/edit :content/plain]
+  [{enum :content}]
+  (cell-enum-snip-edit {:enum enum}))
+
+(defmethod cell-snip [:cell/set :mode/view :content/plain]
+  [{set :content}]
+  (cell-text-snip-view {:text (uc/join-as-str set)}))
+
+(defmethod cell-snip [:cell/set :mode/edit :content/plain]
+  [{set :content}]
+  (cell-text-snip-edit {:text (uc/join-as-str set)}))
+
+(defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-text-snip-view {:text (ut/format :human-readable-long timestamp)
+                        :tooltip timestamp}))
+
+(defmethod cell-snip [:cell/boolean :mode/view :content/plain]
+  [{value :content}]
+  (cell-boolean-snip-view value))
+
+(defmethod cell-snip [:cell/boolean :mode/edit :content/plain]
+  [{value :content}]
+  (cell-boolean-snip-edit value))
+
+(defmethod cell-snip [:cell/map :mode/view :content/map]
+  [{m :content}]
+  (cell-map-snip-view m))
+
+(defmethod cell-snip [:cell/map :mode/edit :content/map]
+  [{m :content}]
+  ; TODO: Unimplemented edit view
+  (cell-map-snip-view m))
+
+(defmethod cell-snip [:cell/link :mode/view :content/map]
+  [{content :content}]
+  (cell-link-snip-view content))
+
+(defmethod cell-snip [:cell/external-link :mode/view :content/map]
+  [{content :content}]
+  (cell-link-snip-view (assoc content :open-in-new-window? true)))
+
+(defmethod cell-snip [:cell/email :mode/view :content/plain]
+  [{email :content}]
+  (cell-link-snip-view {:text email :href (str "mailto:" email)}))
+
+(defmethod cell-snip [:cell/email :mode/edit :content/plain]
+  [{email :content}]
+  (cell-text-snip-edit {:text email}))
+
+(defmethod cell-snip [:cell/url :mode/view :content/map]
+  [{{:keys [url id]} :content}]
+  (cell-link-snip-view {:text url :href url, :id id}))
+
+(defmethod cell-snip [:cell/url :mode/view :content/plain]
+  [{url :content}]
+  (cell-link-snip-view {:text url :href url}))
+
+(defmethod cell-snip [:cell/url :mode/edit :content/map]
+  [{{:keys [url id]} :content}]
+  (cell-text-snip-edit {:text url, :id id}))
+
+(defmethod cell-snip [:cell/url :mode/edit :content/plain]
+  [{url :content}]
+  (cell-text-snip-edit {:text url}))
+
+(defmethod cell-snip [:cell/username :mode/any :content/plain]
+  [{username :content}]
+  (cell-link-snip-view {:text username
+                        :href (str "/user/" username)
+                        :id "username"}))
+
+(defmethod cell-snip [:cell/icon :mode/any :content/plain]
+  [{icon :content}]
+  (cell-icon-snip-view icon))
+
+(defmethod cell-snip [:cell/module-version :mode/any :content/plain]
+  [{uri :content}]
+  (cell-module-version-snip-view uri))
+
+(defmethod cell-snip [:cell/module-name :mode/view :content/plain]
+  [{module-name :content}]
+  (cell-text-snip-view {:text module-name, :id "ss-module-name"}))
+
+(defmethod cell-snip [:cell/module-name :mode/edit :content/plain]
+  [{module-name :content}]
+  (cell-text-snip-edit {:text module-name, :id "ss-module-name"}))
+
+(defmethod cell-snip [:cell/help-hint :mode/view :content/plain]
+  [{help-text :content}]
+  (cell-help-hint-snip-view help-text))
+
+(defmethod cell-snip [:cell/reference-module :mode/view :content/plain]
+  [{reference-module-uri :content}]
+  (cell-link-snip-view {:text reference-module-uri :href reference-module-uri}))
+
+(defmethod cell-snip [:cell/reference-module :mode/edit :content/plain]
+  [{reference-module-uri :content}]
+  (cell-reference-module-snip-edit reference-module-uri))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Row
 
 (html/defsnippet ^:private rows-snip template-filename table-row-sel
   [rows]
   ue/this (html/clone-for [{:keys [style cells]} rows]
-           ue/this (html/content (map cell-node cells))
+           ue/this (html/content (map cell-snip cells))
            ue/this (ue/when-add-class style (name style))))
 
 
