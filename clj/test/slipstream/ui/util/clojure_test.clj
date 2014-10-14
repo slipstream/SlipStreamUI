@@ -295,6 +295,22 @@
   (keywordize "someCamelCaseString"))
 
 (expect
+  :some-camel-case-string-ending-with-an-upper-case-letter
+  (keywordize "someCamelCaseStringEndingWithAnUpperCaseLetteR"))
+
+(expect
+  :some-camel-case-string-begining-with-an-upper-case-letter
+  (keywordize "SomeCamelCaseStringBeginingWithAnUpperCaseLetter"))
+
+(expect
+  :someuppercasestring
+  (keywordize "SOMEUPPERCASESTRING"))
+
+(expect
+  :auca
+  (keywordize "AUCA")) ; An Upper Case Acronym
+
+(expect
   :u-might-want-2-do-that
   (keywordize [\U :might :Want 2 'do "that"]))
 
