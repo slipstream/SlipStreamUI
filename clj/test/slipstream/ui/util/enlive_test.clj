@@ -334,3 +334,34 @@
        html/emit*
        (apply str)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; blank-node
+
+(expect
+  "<div></div>"
+  (->> (blank-node :div)
+       html/emit*
+       (apply str)))
+
+(expect
+  "<blah></blah>"
+  (->> (blank-node :blah)
+       html/emit*
+       (apply str)))
+
+(expect
+  "<div id=\"blah\"></div>"
+  (->> (blank-node :div
+                   :id "blah")
+       html/emit*
+       (apply str)))
+
+(expect
+  "<div class=\"some-class\" id=\"blah\"></div>"
+  (->> (blank-node :div
+                   :id "blah"
+                   :class "some-class")
+       html/emit*
+       (apply str)))
+

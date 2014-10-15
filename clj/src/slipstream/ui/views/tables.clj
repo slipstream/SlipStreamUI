@@ -91,33 +91,52 @@
     (keyword? x)
     (-> x namespace (= "cell"))))
 
-(defn- type->cell-type
-  [type]
-  (if (cell-type? type)
-    type
-    (case type
-      "Enum"              :cell/enum
-      "String"            :cell/text
-      "Boolean"           :cell/boolean
-      "RestrictedText"    :cell/text
-      "Password"          :cell/password
-      "RestrictedString"  :cell/text)))
+(defn- cell-type-for
+  [{:keys [type name] :as parameter}]
+  (cond
+    (cell-type? type) type
+    (re-matches #".*:url\..*" name) :cell/url
+    :else (case type
+            "String"            :cell/text
+            "RestrictedText"    :cell/text
+            "RestrictedString"  :cell/text
+            "Password"          :cell/password
+            "Enum"              :cell/enum
+            "Boolean"           :cell/boolean)))
+
+(defn- value-of
+  [{:keys [name value] :as parameter} cell-type]
+  (case cell-type
+    :cell/text      {:text value, :id name}
+    :cell/enum      {:enum value, :id name}
+    :cell/url       {:url value,  :id name}
+    value))
 
 (defn- parameter-row
-  [{:keys [type editable? hidden? description value help-hint name]
+  [first-col-keyword
+   {:keys [type editable? hidden? help-hint]
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
-  {:style nil
-   :hidden? hidden?
-   :cells [{:type :cell/text, :content description}
-           {:type (type->cell-type type), :content value, :editable? editable?}
-           {:type :cell/help-hint, :content help-hint}]})
+  (let [cell-type (cell-type-for parameter)]
+    {:style nil
+     :hidden? hidden?
+     :cells [{:type :cell/text, :content (get parameter first-col-keyword)}
+             {:type cell-type, :content (value-of parameter cell-type), :editable? editable?}
+             {:type :cell/help-hint, :content help-hint}]}))
+
+(defn build-parameters-table
+  [first-col-keyword parameters]
+  (table/build
+    {:headers [first-col-keyword :value nil]
+     :rows (map (partial parameter-row first-col-keyword) parameters)}))
 
 (defn parameters-table
   [parameters]
-  (table/build
-    {:headers [:description :value nil]
-     :rows (map parameter-row parameters)}))
+  (build-parameters-table :description parameters))
+
+(defn runtime-parameters-table
+  [parameters]
+  (build-parameters-table :name parameters))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -315,3 +334,18 @@
      :rows (map deployment-node-row deployment-nodes)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn run-summary-table
+  [run]
+  (parameters-table
+    (p/map->parameter-list run
+      :module-uri         {:type :cell/url,       :editable? false}
+      :category           {:type :cell/text,      :editable? false}
+      :user               {:type :cell/username,  :editable? false}
+      :start-time         {:type :cell/timestamp, :editable? false}
+      :end-time           {:type :cell/timestamp, :editable? false}
+      :last-state-change  {:type :cell/timestamp, :editable? false}
+      :state              {:type :cell/text,      :editable? false}
+      :type               {:type :cell/text,      :editable? false, :as-parameter :run-type}
+      :uuid               {:type :cell/text,      :editable? false, :as-parameter :run-id}
+      :tags               {:type :cell/text,      :editable? true})))

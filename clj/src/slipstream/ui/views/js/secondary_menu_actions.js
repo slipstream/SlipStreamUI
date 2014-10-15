@@ -53,11 +53,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-terminate").click( function() {
         console.log($(this).attr("id") + " in callback #12");
+        $('#ss-terminate-deployment-dialog').modal('show');
     });
 
     $("#ss-secondary-menu-action-edit").click( function() {
         console.log($(this).attr("id") + " in callback #13");
-        window.location = '?edit=true';
+        // window.location = '?edit=true';
+        window.location.search = 'edit=true';
     });
 
     $("#ss-secondary-menu-action-save").click( function() {

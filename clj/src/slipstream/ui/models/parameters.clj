@@ -14,41 +14,11 @@
       (html/select [:value html/text-node])
       first))
 
-(defn- value
-  [parameter]
-  (-> parameter
-      (html/select [:value html/text-node])
-      first))
-
 (defn- help-hint
   [parameter]
   (-> parameter
       (html/select [:instructions html/text-node])
       first))
-
-(defn- order
-  [parameter]
-  (-> parameter
-      (get-in [:attrs :order])
-      uc/parse-pos-int
-      (or Integer/MAX_VALUE)))
-
-(defn- assoc-enum-details
-  [m parameter]
-  (if-not (-> m :type (= "Enum"))
-    m
-    (let [option-current (:value m)
-          option-default (-> parameter
-                            :attrs
-                            (html/select [:defaultValue html/text-node])
-                            first
-                            uc/keywordize)
-          enum-options (-> parameter
-                           (html/select [:enumValues :string html/text-node])
-                           vec)]
-      (assoc m :value (u/enum
-                        (map uc/keywordize enum-options)
-                        (or option-current option-default))))))
 
 (defn- parse-parameter
   [parameter]
@@ -59,17 +29,16 @@
                     :description
                     :category])
       (assoc        :value (value parameter)
-                    :order (order parameter)
+                    :order (u/order parameter)
                     :read-only? (-> parameter :attrs :readonly uc/parse-boolean)
                     :help-hint (help-hint parameter))
-      (assoc-enum-details parameter)))
+      (u/assoc-enum-details parameter)))
 
 (def ^:private deployment-categories #{"Input" "Output"})
 
 (defn- group
   [parameters]
   (uc/coll-grouped-by :category parameters
-                      :group-keyword :category
                       :group-type-fn #(if (deployment-categories %) :deployment :global)
                       :items-keyword :parameters
                       :items-sort-fn (juxt :order :name)))
@@ -84,7 +53,7 @@
   [metadata]
   (parameter-categories metadata))
 
-;; Parameter util method
+;; Parameter util methods
 
 (defn map->parameter-list
   "Convert a map of keys and values into a parameter list, in the form used above.

@@ -50,6 +50,7 @@
 (def error-page-cls "ss-error-page")
 (def beta-page-cls "ss-beta-page")
 (def placeholder-page-cls "ss-placeholder-page")
+(def in-progress-page-cls "ss-in-progress-page")
 
 (def edit-page-actions
   [action/save
@@ -84,6 +85,7 @@
   [{:keys [error-page?
            beta-page?
            placeholder-page?
+           in-progress-page?
            page-title
            header
            resource-uri
@@ -96,6 +98,7 @@
   [:body]               (ue/enable-class error-page? error-page-cls)
   [:body]               (ue/enable-class placeholder-page? placeholder-page-cls)
   [:body]               (ue/enable-class beta-page? beta-page-cls)
+  [:body]               (ue/enable-class in-progress-page? in-progress-page-cls)
   [:body]               (html/add-class (str "ss-page-type-" (name page-type/*current-page-type*)))
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   base-sel              (ue/when-set-href *prod?* "/")
@@ -134,6 +137,7 @@
                             table/template-filename ;; TODO: only if tables in body.
                             code-area/template-filename ;; TODO: only if code-areas in body.
                             modal-dialogs/template-filename ;; TODO: only if modal-dialogs in body.
+                            ; (common/get-template "run.html") ;; TODO: do not pass the whole template html for only the bottom scripts
                             template-filename]]
     (println "Generating base for" template-filename)
     ; (println "   user:" user)

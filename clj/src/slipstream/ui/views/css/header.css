@@ -120,7 +120,27 @@
   }
 }
 
-/* Beta and placeholder page decoration */
+/* In progress, placeholder and beta page decoration */
+
+body.ss-in-progress-page #header.jumbotron::before {
+  content : "in progress";
+  color: black;
+  background-color: yellow;
+  opacity: 1;
+  z-index: 1000;
+  text-align: center;
+  position: absolute;
+  width: 250px;
+  font-size: 22px;
+  margin-top: 5px;
+  margin-left: -85px;
+  -webkit-transform: rotate(-35deg);
+  -moz-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+  -webkit-box-shadow: 0 0 6px 2px white;
+  -moz-box-shadow: 0 0 6px 2px white;
+  box-shadow: 0 0 6px 2px white;
+}
 
 body.ss-placeholder-page #header.jumbotron::before {
   content : "placeholder";

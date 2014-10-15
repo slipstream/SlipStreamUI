@@ -33,6 +33,7 @@
                     :description    "Description"
                     :documentation  "Documentation"
                     :email          "Email"
+                    :end            "End"
                     :epub           "ePub"
                     :error          "Error"
                     :first-name     "First name"
@@ -46,6 +47,7 @@
                     :node           "Node"
                     :nodes          "Nodes"
                     :organization   "Organization"
+                    :overview       "Overview"
                     :owner          "Owner"
                     :package        "Package"
                     :packages       "Packages"
@@ -62,7 +64,10 @@
                     :publisher      "Publisher"
                     :recipe         "Recipe"
                     :regular-user   "Regular user"
+                    :report         "Report"
+                    :reports        "Reports"
                     :repository     "Repository"
+                    :start          "Start"
                     :state          "State"
                     :success        "Success"
                     :summary        "Summary"
@@ -77,6 +82,9 @@
                     :version        "Version"
                     :versions       "Versions"
                     :warning        "Warning"
+                    }
+            :adjectives {
+                    :global         "Global"
                     }
             :verbs {
                     :build          "Build"
@@ -274,6 +282,29 @@
    :slipstream.ui.models.parameters.image.description                           "Image URL"
    :slipstream.ui.models.parameters.image.help-hint                             "The URL of the image to use as logo for this module."
 
+   :slipstream.ui.models.parameters.module-uri.description                      :global.nouns.module
+   :slipstream.ui.models.parameters.module-uri.help-hint                        ""
+
+   :slipstream.ui.models.parameters.user.description                            :global.nouns.user
+   :slipstream.ui.models.parameters.user.help-hint                              ""
+
+   :slipstream.ui.models.parameters.start-time.description                      :global.nouns.start
+   :slipstream.ui.models.parameters.start-time.help-hint                        ""
+
+   :slipstream.ui.models.parameters.end-time.description                        :global.nouns.end
+   :slipstream.ui.models.parameters.end-time.help-hint                          ""
+
+   :slipstream.ui.models.parameters.run-type.description                        "Run Type"
+   :slipstream.ui.models.parameters.run-type.help-hint                          ""
+
+   :slipstream.ui.models.parameters.run-id.description                          "Run Id"
+   :slipstream.ui.models.parameters.run-id.help-hint                            ""
+
+   :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
+   :slipstream.ui.models.parameters.tags.help-hint                              ""
+
+   :slipstream.ui.models.parameters.last-state-change.description               "Last State changes"
+   :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
 
    ;; Utils.core
 
@@ -299,7 +330,16 @@
    :slipstream.ui.util.core.enum.option.text.standardxsmall                     "standard.xsmall"
    :slipstream.ui.util.core.enum.option.text.output                             "Output"
    :slipstream.ui.util.core.enum.option.text.input                              "Input"
-
+   :slipstream.ui.util.core.enum.option.text.0                                  "0 - Actions"
+   :slipstream.ui.util.core.enum.option.text.1                                  "1 - Steps"
+   :slipstream.ui.util.core.enum.option.text.2                                  "2 - Details data"
+   :slipstream.ui.util.core.enum.option.text.3                                  "3 - Debugging"
+   :slipstream.ui.util.core.enum.option.text.local                              "Local"
+   :slipstream.ui.util.core.enum.option.text.lvs                                "Las Vegas (LVS)"
+   :slipstream.ui.util.core.enum.option.text.zrh                                "Zurich (ZRH)"
+   :slipstream.ui.util.core.enum.option.text.interoute                          "Interoute"
+   :slipstream.ui.util.core.enum.option.text.cloudsigma                         "CloudSigma"
+   :slipstream.ui.util.core.enum.option.text.atos                               "Atos"
    ;; Views
 
    :slipstream.ui.views.welcome.page-title                     "Welcome"
@@ -383,4 +423,30 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
 
    :slipstream.ui.views.module.deployment.section.nodes.title      :global.nouns.nodes
-}
+
+   :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Save module changes"
+   :slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message    "Commit message"
+   :slipstream.ui.views.modal-dialogs.save-dialog.button.cancel                 :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.save-dialog.button.save                   :global.verbs.save
+
+   :slipstream.ui.views.modal-dialogs.delete-dialog.title                       "Delete module"
+   :slipstream.ui.views.modal-dialogs.delete-dialog.question                    "Are you sure you want to delete this version of the image?"
+   :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               :global.verbs.delete
+
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.title               "Choose an image"
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.cancel       :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.save         :global.verbs.save
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.save-exact-version "Select exact version"
+
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.title         "Terminate deployment"
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question      "Are you sure you want to terminate all virtual machines running in this deployment?"
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.cancel :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.terminate :global.verbs.terminate
+
+   :slipstream.ui.views.run.header.title                    "%s is %s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
+   :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
+   :slipstream.ui.views.run.section.global.title            :global.adjectives.global
+   :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
+      }

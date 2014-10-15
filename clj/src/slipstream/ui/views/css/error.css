@@ -6,12 +6,12 @@ body.ss-error-page::after {
   position: absolute;
   top: 0;
   left: 0;
-  /*background-color: #0c113a;*/
-  /*
+  background-color: #0c113a;
+/*
       From http://thienbao.deviantart.com/art/Lost-in-the-Clouds-21423013
       Ask for permission if accepted ;)
-  */
-  /*background-image: url(../images/lost_in_the_clouds.jpg);*/
+*/
+  background-image: url(../images/lost_in_the_clouds.jpg);
   background-size: cover;
   background-repeat:no-repeat;
   background-position: 50% 120px;
@@ -25,8 +25,8 @@ body.ss-error-page::after {
 }
 
 body.ss-error-page p {
-  /*text-shadow: 0 0 8px black;*/
-  color: black;
+  text-shadow: 0 0 8px black;
+  color: white;
 }
 
 

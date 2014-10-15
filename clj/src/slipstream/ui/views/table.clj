@@ -20,11 +20,9 @@
 (def table-body-sel [:.ss-table-body])
 (def table-row-sel (concat table-body-sel [:> [:tr html/first-of-type]]))
 
-
 (defn- sel-for-cell
   [cls & variation]
   (concat table-body-sel [[:td (ue/first-of-class (str "ss-table-cell-" (name cls) (when (= (first variation) :editable) "-editable")))]]))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -42,7 +40,8 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip]}]
+  [{:keys [text tooltip id]}]
+  [:input] (ue/set-id id)
   [:input] (ue/set-value (str text))
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))

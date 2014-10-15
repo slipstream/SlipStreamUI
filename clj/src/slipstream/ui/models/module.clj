@@ -155,7 +155,8 @@
 
 (defn- assoc-authz-setting
   "Assoc into the map 'm' the access rights transforming the original
-  keyword into a path. E.g. will merge ':grouppost true' into {:post {:group-access? true}}"
+  keyword into a path. E.g. will merge ':grouppost true' into {:post {:group-access? true}}.
+  See tests for expectations."
   [m [k v]]
   (if-let [authz-setting-path (parse-keyword k)]
     (assoc-in m authz-setting-path (uc/parse-boolean v))
@@ -194,26 +195,30 @@
   [metadata]
   (deployment/sections metadata))
 
-(defn assoc-category-sections
+(defn- assoc-category-sections
   [module-map metadata]
   (merge-with merge module-map (category-sections metadata)))
+
+(defn- summary
+  [metadata]
+  (let [attrs (:attrs metadata)]
+    {:description     (-> attrs :description)
+     :category        (-> attrs :category)
+     :name            (-> attrs :name)
+     :creation        (-> attrs :creation)
+     :version         (-> attrs :version uc/parse-pos-int)
+     :short-name      (-> attrs :shortname)
+     :last-modified   (-> attrs :lastmodified)
+     :latest-version? (-> attrs :islatestversion uc/parse-boolean)
+     :deleted?        (-> attrs :deleted uc/parse-boolean)
+     :uri             (-> attrs :resourceuri)
+     :parent-uri      (-> attrs :parenturi)
+     :owner           (-> metadata (html/select [:authz]) first :attrs :owner)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."
   [metadata]
-  (let [attrs (:attrs metadata)]
-    (-> {}
-        (assoc-in [:summary :description]     (-> attrs :description))
-        (assoc-in [:summary :category]        (-> attrs :category))
-        (assoc-in [:summary :name]            (-> attrs :name))
-        (assoc-in [:summary :creation]        (-> attrs :creation))
-        (assoc-in [:summary :version]         (-> attrs :version uc/parse-pos-int))
-        (assoc-in [:summary :short-name]      (-> attrs :shortname))
-        (assoc-in [:summary :last-modified]   (-> attrs :lastmodified))
-        (assoc-in [:summary :latest-version?] (-> attrs :islatestversion uc/parse-boolean))
-        (assoc-in [:summary :deleted?]        (-> attrs :deleted uc/parse-boolean))
-        (assoc-in [:summary :uri]             (-> attrs :resourceuri))
-        (assoc-in [:summary :parent-uri]      (-> attrs :parenturi))
-        (assoc-in [:summary :owner]           (-> metadata (html/select [:authz]) first :attrs :owner))
-        (assoc     :authorization             (authorization metadata))
-        (assoc-category-sections metadata))))
+  (-> {}
+      (assoc :summary         (summary metadata))
+      (assoc :authorization   (authorization metadata))
+      (assoc-category-sections metadata)))

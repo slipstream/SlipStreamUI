@@ -47,13 +47,40 @@
        (map (partial toggle-option (uc/keywordize selected-option)))
        ensure-one-selected))
 
-(defn- parse-enum-option
-  [option]
-  (localization/with-prefixed-t :enum.option.text
-    {:value (name option), :text (-> option uc/keywordize t)}))
+(localization/with-prefixed-t :enum.option.text
+  (defn- parse-enum-option
+    [option]
+      {:value (name option), :text (-> option uc/keywordize t)}))
 
 (defn enum
   [options & [selected-option]]
   (-> (map parse-enum-option options)
       (enum-select (or selected-option
                        (first options)))))
+
+(defn assoc-enum-details
+  [m parameter]
+  (if-not (-> m :type (= "Enum"))
+    m
+    (let [option-current (:value m)
+          option-default (-> parameter
+                            :attrs
+                            (html/select [:defaultValue html/text-node])
+                            first
+                            uc/keywordize)
+          enum-options (-> parameter
+                           (html/select [:enumValues :string html/text-node])
+                           vec)]
+      (assoc m :value (enum
+                        (map uc/keywordize enum-options)
+                        (or option-current option-default))))))
+
+
+;; Parameter order
+
+(defn order
+  [parameter]
+  (-> parameter
+      (get-in [:attrs :order])
+      uc/parse-pos-int
+      (or Integer/MAX_VALUE)))

@@ -738,5 +738,67 @@ cp /var/log/apache2/error.log $SLIPSTREAM_REPORT_DIR]]></target>
 </run>")
 
 (expect
-  "expectation for parsed-metadata to be completed"
+  ; {
+  ;  :summary {:status "Done"
+  ;            :deleted? false
+  ;            :state "Terminal"
+  ;            :creation "2013-06-12 15:39:55.575 CEST"
+  ;            :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
+  ;            :owner "sixsq"
+  ;            :start-time "2013-06-12 15:39:55.575 CEST"
+  ;            :uri "run/06f207d4-d25b-4597-a23a-f79a07b2f791"
+  ;            :uuid "06f207d4-d25b-4597-a23a-f79a07b2f791"
+  ;            :user "meb"
+  ;            :category "Deployment"}}
+  {
+   :pending "expectation for parsed-metadata to be completed"
+   :parameters [{:category-type :global
+                 :category "General"
+                 :parameters [{:help-hint nil
+                               :read-only? false
+                               :order 2147483647
+                               :value "interoute"
+                               :category "General"
+                               :description "Cloud Service where the node resides"
+                               :type "String"
+                               :name "apache1--cloudservice"}
+                              {:help-hint nil
+                               :read-only? false
+                               :order 2147483647
+                               :value "1"
+                               :category "General"
+                               :description "Multiplicity number"
+                               :type "String"
+                               :name "apache1--multiplicity"}
+                              {:help-hint nil
+                               :read-only? false
+                               :order 2147483647
+                               :value "interoute"
+                               :category "General"
+                               :description "Cloud Service where the node resides"
+                               :type "String"
+                               :name "testclient1--cloudservice"}
+                              {:help-hint nil
+                               :read-only? false
+                               :order 2147483647
+                               :value "1"
+                               :category "General"
+                               :description "Multiplicity number"
+                               :type "String"
+                               :name "testclient1--multiplicity"}]}]
+   :summary {:end-time nil
+             :status "Done"
+             :deleted? false
+             :state "Terminal"
+             :creation "2013-06-12 15:39:55.575 CEST"
+             :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
+             :owner "sixsq"
+             :start-time "2013-06-12 15:39:55.575 CEST"
+             :uri "run/06f207d4-d25b-4597-a23a-f79a07b2f791"
+             :uuid "06f207d4-d25b-4597-a23a-f79a07b2f791"
+             :user "meb"
+             :type "Deployment"
+             :category "Deployment"}}
   (-> raw-metadata u/clojurify-raw-metadata model/parse))
+
+

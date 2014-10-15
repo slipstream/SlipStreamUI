@@ -1,8 +1,11 @@
 (ns slipstream.ui.views.run
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.header :as header]
                         [slipstream.ui.views.base :as base]
@@ -150,15 +153,59 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(localization/def-scoped-t)
+
+(defn- section-title-for
+  [metadata-key]
+  (->> metadata-key name (format "section.%s.title") keyword t))
+
+(defmulti section (comp second vector))
+
+(defmethod section :overview
+  [run metadata-key]
+  {:title   (section-title-for metadata-key)
+   :content (ue/blank-node :div :id "infovis")})
+
+(defmethod section :summary
+  [run metadata-key]
+  (let [section-metadata (get run metadata-key)]
+    {:title   (section-title-for metadata-key)
+     :content (t/run-summary-table section-metadata)}))
+
+(defn- runtime-parameter-section
+  [parameter-group]
+  {:title   (-> parameter-group :group name)
+   :content (-> parameter-group :runtime-parameters t/runtime-parameters-table)})
+
+(defmethod section :runtime-parameters
+  [run metadata-key]
+  (let [section-metadata (get run metadata-key)]
+    (map runtime-parameter-section section-metadata)))
+
+(defmethod section :default
+  [run metadata-key]
+  (let [section-metadata (get run metadata-key)]
+    {:title   (section-title-for metadata-key)
+     :content "To be done :)"}))
+
 (defn page
   [metadata]
   (localization/with-lang-from-metadata
-   (base/generate
-      {:metadata metadata
-       :placeholder-page? true
-       :header {:icon icons/run
-                :title "91aac79a is DONE"
-                :subtitle "module/examples/tutorials/wordpress/wordpress/478"}
-       :resource-uri "/run/91aa79a"
-       :secondary-menu-actions [action/terminate]
-       :content nil})))
+   (let [run (run-model/parse metadata)]
+     (base/generate
+         {:metadata metadata
+          :in-progress-page? true
+          :header {:icon icons/run
+                   :title (t :header.title
+                             (-> run :summary :uuid (uc/trim-from \-))
+                             (-> run :summary :state))
+                   :subtitle (-> run :summary :module-uri)}
+          :resource-uri (-> run :summary :uri)
+          :secondary-menu-actions [action/terminate]
+          :content (->> [:overview
+                         :summary
+                         :runtime-parameters
+                         :reports]
+                        (map (partial section run))
+                        flatten)}))))
+

@@ -76,10 +76,11 @@
 
 (defn format
   [target-format s]
-  (let [source-format (find-format s)
-        source-timezone (find-timezone s)]
-    (if (= target-format source-format)
-      s
-      (->> s
-           (parse source-format)
-           (f/unparse (formatter target-format source-timezone))))))
+  (when s
+    (let [source-format (find-format s)
+          source-timezone (find-timezone s)]
+      (if (= target-format source-format)
+        s
+        (->> s
+             (parse source-format)
+             (f/unparse (formatter target-format source-timezone)))))))

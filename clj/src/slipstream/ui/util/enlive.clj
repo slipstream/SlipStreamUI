@@ -242,3 +242,15 @@
 
 (def first-of-id (partial first-of-attr :id))
 (def last-of-id (partial last-of-attr :id))
+
+
+;; Blank node generation
+
+(defn blank-node
+  [tag & {:keys [id class]}]
+  (html/html-snippet
+    (format "<%s%s%s></%s>"
+            (name tag)
+            (str (when id (format " id=\"%s\"" id)))
+            (str (when class (format " class=\"%s\"" class)))
+            (name tag))))
