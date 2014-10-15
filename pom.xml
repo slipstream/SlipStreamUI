@@ -114,6 +114,11 @@
             <artifactId>clj-time</artifactId>
         </dependency>
         <dependency>
+            <groupId>clj-json</groupId>
+            <artifactId>clj-json</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>expectations</groupId>
             <artifactId>expectations</artifactId>
             <scope>test</scope>
