@@ -1,6 +1,7 @@
 (ns slipstream.ui.util.core
   "Util functions only related to the SlipStream application."
   (:require [net.cgrand.enlive-html :as html]
+            [clj-json.core :as json]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]))
 
@@ -27,8 +28,11 @@
         (assoc-in [0 :selected?] true))))
 
 (defn clojurify-raw-metadata-str
+  "raw-metadata-str is assumed trimmer. See test for expectations."
   [raw-metadata-str]
-  (first (html/html-snippet raw-metadata-str)))
+  (if (->> raw-metadata-str first (= \{))
+    (json/parse-string raw-metadata-str true)
+    (first (html/html-snippet raw-metadata-str))))
 
 
 ;; Enum

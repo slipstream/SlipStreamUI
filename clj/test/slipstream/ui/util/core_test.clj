@@ -19,6 +19,17 @@
   [{} {:selected? true}]
   (ensure-one-selected [{} {:selected? true}]))
 
+;; Clojurifying raw metadata
+
+(expect
+  {:foo "bar"}
+  (clojurify-raw-metadata-str "{\"foo\":\"bar\"}"))
+
+(expect
+  {:tag :a, :attrs {:href "#"}, :content ["text"]}
+  (clojurify-raw-metadata-str "<a href=\"#\">text</a>"))
+
+
 ;; Enum utils
 
 (def platforms
