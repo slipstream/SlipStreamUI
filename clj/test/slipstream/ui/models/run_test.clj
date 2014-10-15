@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.run :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<run category='Deployment' deleted='false' resourceUri='run/06f207d4-d25b-4597-a23a-f79a07b2f791' uuid='06f207d4-d25b-4597-a23a-f79a07b2f791' type='Orchestration' cloudServiceName='interoute' moduleResourceUri='module/Public/Tutorials/HelloWorld/client_server/11' startTime='2013-06-12 15:39:55.575 CEST' nodeNames='orchestrator-interoute, testclient1.1, apache1.1, ' user='meb' creation='2013-06-12 15:39:55.575 CEST' state='Terminal' status='Done' groups='interoute:testclient1, interoute:apache1, '>
    <parameters class='org.hibernate.collection.PersistentMap'>
       <entry>
@@ -799,6 +799,6 @@ cp /var/log/apache2/error.log $SLIPSTREAM_REPORT_DIR]]></target>
              :user "meb"
              :type "Deployment"
              :category "Deployment"}}
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
 
 

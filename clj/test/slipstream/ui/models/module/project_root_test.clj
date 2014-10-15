@@ -2,7 +2,7 @@
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<projectModule description='A description...' lastModified='2013-05-16 17:04:39.113 CEST' category='Project' deleted='false' resourceUri='module/Public/1' parentUri='module/' name='Public' version='1' creation='2013-05-16 17:04:39.113 CEST' shortName='Public'>
      <parameters class='org.hibernate.collection.PersistentMap'/>
      <authz owner='sixsq' ownerGet='true' ownerPut='true' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='false' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='true' inheritedGroupMembers='false'>

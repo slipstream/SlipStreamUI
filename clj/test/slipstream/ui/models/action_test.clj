@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.action :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<?xml version='1.0' encoding='UTF-8' standalone='no'?><string>
     Your email address has been confirmed.
     You should now be receiving another email with your account details.
@@ -28,4 +28,4 @@
 
 (expect
   parsed-metadata
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

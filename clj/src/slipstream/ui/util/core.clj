@@ -26,9 +26,9 @@
         vec
         (assoc-in [0 :selected?] true))))
 
-(defn clojurify-raw-metadata
-  [raw-metadata]
-  (first (html/html-snippet raw-metadata)))
+(defn clojurify-raw-metadata-str
+  [raw-metadata-str]
+  (first (html/html-snippet raw-metadata-str)))
 
 
 ;; Enum

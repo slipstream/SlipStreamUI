@@ -10,28 +10,28 @@
 (def ^:private full-metadata-ns
   (partial format "slipstream.ui.models.%s-test"))
 
-(defn- raw-metadata
+(defn- raw-metadata-str
   [raw-metadata-ns]
   (when raw-metadata-ns
     (-> raw-metadata-ns full-metadata-ns symbol require)
     (if-let [raw-metadata-symbol (-> (full-metadata-ns raw-metadata-ns)
-                                     (symbol "raw-metadata")
+                                     (symbol "raw-metadata-str")
                                      resolve)]
       (var-get raw-metadata-symbol)
       (throw (IllegalArgumentException.
-               (format "metadata: var '%s/raw-metadata not found for raw-metadata-ns '%s'"
+               (format "metadata: var '%s/raw-metadata-str not found for raw-metadata-ns '%s'"
                        (full-metadata-ns raw-metadata-ns)
                        raw-metadata-ns))))))
 
 (defmacro render
   [& {:keys [raw-metadata-ns pagename type]}]
-  `(-> (representation/-toHtml ~(raw-metadata raw-metadata-ns) ~pagename ~type)
+  `(-> (representation/-toHtml ~(raw-metadata-str raw-metadata-ns) ~pagename ~type)
         ring.util.response/response
         constantly))
 
 (defmacro render-error
   [& {:keys [raw-metadata-ns message code]}]
-  `(-> (representation/-toHtmlError ~(raw-metadata raw-metadata-ns) ~message ~code)
+  `(-> (representation/-toHtmlError ~(raw-metadata-str raw-metadata-ns) ~message ~code)
         ring.util.response/response
         constantly))
 

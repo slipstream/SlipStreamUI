@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.user :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<user deleted='false' resourceUri='user/test' name='test' email='test@example.com' firstName='Test' lastName='Me' organization='Disney' issuper='false' state='ACTIVE' creation='2013-03-06 14:30:59.30 UTC'>
    <parameters class='org.hibernate.collection.PersistentMap'>
       <entry>
@@ -491,4 +491,4 @@
 
 (expect
   "expectation for parsed-metadata to be completed"
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.reports :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<ul>
     <li>
       <a href='parentDir'>..</a>
@@ -18,4 +18,4 @@
 
 (expect
   "expectation for parsed-metadata to be completed"
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

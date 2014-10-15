@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.versions :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<versionList>
     <item category='Deployment' lastModified='2014-04-10 12:15:41.121 UTC' name='wordpress' resourceUri='module/examples/tutorials/wordpress/wordpress/180' version='180'>
         <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='true' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='true' publicPut='false'>
@@ -67,4 +67,4 @@
 
 (expect
   parsed-metadata
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

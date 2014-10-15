@@ -56,18 +56,18 @@
 
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
-  [raw-metadata pagename type]
+  [raw-metadata-str pagename type]
   (page-type/is type
-    (-> raw-metadata
-        u/clojurify-raw-metadata
+    (-> raw-metadata-str
+        u/clojurify-raw-metadata-str
         ((get pages pagename))
         render)))
 
 (defn -toHtmlError
   "Generate an HTML error page"
-  [raw-metadata message code]
-  (-> raw-metadata
-      u/clojurify-raw-metadata
+  [raw-metadata-str message code]
+  (-> raw-metadata-str
+      u/clojurify-raw-metadata-str
       (error/page message code)
       render))
 

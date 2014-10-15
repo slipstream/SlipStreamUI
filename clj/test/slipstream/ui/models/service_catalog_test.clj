@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.service-catalog :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<serviceCatalogues>
       <serviceCatalog deleted='false' resourceUri='servicecatalog/loco' cloud='loco' creation='2013-11-12 20:21:20.192 CET'>
          <parameters class='org.hibernate.collection.PersistentMap'>
@@ -105,4 +105,4 @@
 
 (expect
   parsed-metadata
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

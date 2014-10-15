@@ -4,7 +4,7 @@
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
-(def raw-metadata "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
+(def raw-metadata-str "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
     <commit author='an-author'><comment>this is a comment</comment></commit>
     <parameters class='org.hibernate.collection.PersistentMap'>
     <entry>
@@ -274,4 +274,4 @@
 (expect
   parsed-metadata
   (localization/with-lang :en
-    (-> raw-metadata u/clojurify-raw-metadata model/parse)))
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))

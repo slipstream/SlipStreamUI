@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.welcome :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<welcome>
    <modules>
       <item resourceUri=\"module/EBU_TTF/53\" category=\"Project\" description=\"Global module for TTF relates deployments and tasks\" version=\"53\" name=\"EBU_TTF\">
@@ -146,4 +146,4 @@
 
 (expect
   parsed-metadata
-  (-> raw-metadata u/clojurify-raw-metadata model/parse))
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

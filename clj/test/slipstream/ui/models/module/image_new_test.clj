@@ -4,7 +4,7 @@
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
-(def raw-metadata
+(def raw-metadata-str
   "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' description='Nice Ubuntu distro' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='true' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/Ubuntu/new' parentUri='module/Public/BaseImages/Ubuntu' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/new' shortName='new' version='4'>
       <parameters class='org.hibernate.collection.PersistentMap'>
           <entry>
@@ -236,7 +236,7 @@
 (expect
   parsed-metadata
   (localization/with-lang :en
-    (-> raw-metadata u/clojurify-raw-metadata model/parse)))
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
 
 
 
