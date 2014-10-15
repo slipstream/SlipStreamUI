@@ -12,7 +12,8 @@
   #{:view
     :edit
     :new
-    :chooser})
+    :chooser
+    :reports})
 
 (defmacro is
   [page-type & body]
@@ -25,29 +26,27 @@
   [& page-types]
   (boolean ((set page-types) *current-page-type*)))
 
-; (defn- is-not?
-;   [& page-types]
-;   (not (apply is? page-types)))
-
-(defn view?
+(defmacro defn-page-type-checkers
+  "Defs a 2 top levels vars for each valid-page-type,
+  e.g. page-type/view? and page-type/not-view?"
   []
-  (is? :view))
+  `(do
+   ~@(for [page-type valid-page-types
+           :let [fn-symbol (->> page-type name (format "%s?") symbol)
+                 not-fn-symbol (->> page-type name (format "not-%s?") symbol)]]
+      `(do
+         (defn ~fn-symbol
+           []
+           (is? ~page-type))
+         (defn ~not-fn-symbol
+           []
+           (not (is? ~page-type)))))))
 
-(defn chooser?
-  []
-  (is? :chooser))
+(defn-page-type-checkers)
 
 (defn view-or-chooser?
   []
   (is? :view :chooser))
-
-(defn edit?
-  []
-  (is? :edit))
-
-(defn new?
-  []
-  (is? :new))
 
 (defn edit-or-new?
   []

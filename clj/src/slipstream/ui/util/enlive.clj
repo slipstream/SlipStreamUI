@@ -94,7 +94,7 @@
      ~form-when-false))
 
 (defmacro defn-set-attr
-  "Defines 3 top level functions as a helpers to set attr values.
+  "Defines 6 top level functions as a helpers to set attr values.
   Ex: (defn-set-attr :href) will create 'set-href, 'if-set-href and 'when-set-href
   functions in the current namespace. See doc-str of generated functions
   for details."
