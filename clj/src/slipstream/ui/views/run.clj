@@ -164,7 +164,8 @@
 (defmethod section :overview
   [run metadata-key]
   {:title   (section-title-for metadata-key)
-   :content (ue/blank-node :div :id "infovis")})
+   :content (ue/blank-node :div :id "infovis"
+                                :class "ss-run-overview")})
 
 (defmethod section :summary
   [run metadata-key]
@@ -193,7 +194,8 @@
   (localization/with-lang-from-metadata
    (let [run (run-model/parse metadata)]
      (base/generate
-         {:metadata metadata
+         {:template-filename run-template-html
+          :metadata metadata
           :in-progress-page? true
           :header {:icon icons/run
                    :title (t :header.title

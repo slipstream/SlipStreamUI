@@ -1,0 +1,105 @@
+.ss-run-overview .node {
+    width: 200px;
+    height: 58px;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 3px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    -moz-box-shadow: #555 2px 2px 8px;
+    -webkit-box-shadow: #555 2px 2px 8px;
+    -o-box-shadow: #555 2px 2px 8px;
+    box-shadow: #555 2px 2px 8px;
+    opacity: 0.9;
+    padding-bottom: 30px;
+    padding-right: 8px;
+    font-size: 0.88em;
+}
+
+.ss-run-overview .dashboard-icon i {
+    padding: 6px 10px 10px 2px;
+    position: absolute;
+}
+
+.ss-run-overview .dashboard-icon ul {
+    padding-left: 50px;
+    position: absolute;
+}
+
+.ss-run-overview .dashboard-orchestrator:before,
+.ss-run-overview .dashboard-image:before,
+.ss-run-overview .dashboard-node:before {
+    margin-top: -2px;
+    margin-left: 3px;
+    position: absolute;
+    font-family: "Glyphicons Halflings";
+    /*font-family: "FontAwesome";*/
+    font-size: 2.9em;
+}
+
+.ss-run-overview .dashboard-orchestrator:before,
+.ss-run-overview .dashboard-image:before {
+    /*In FontAwesome: icon-desktop*/
+    /* content: "\f108"; */
+    /*In Glyphicons: glyphicon-th*/
+    content: "\e121";
+}
+
+.ss-run-overview .dashboard-node:before {
+    /*In FontAwesome: icon-th*/
+    /* content: "\f00a"; */
+    /*In Glyphicons: glyphicon-th*/
+    content: "\e011";
+}
+
+.ss-run-overview .dashboard-ok:before {
+    color: green;
+}
+
+.ss-run-overview .dashboard-error:before {
+    color: red;
+}
+
+.ss-run-overview .dashboard-warning:before {
+    color: yellow;
+}
+
+
+.ss-run-overview .vm:before {
+    margin-top: 6px;
+    margin-left: -38px;
+    position: absolute;
+    /*In FontAwesome: icon-off*/
+    /*
+    font-family: FontAwesome;
+    content: "\f011";
+    */
+    /*In Glyphicons: glyphicon-off*/
+    font-family: "Glyphicons Halflings";
+    content: "\e017";
+    font-size: 1.4em;
+}
+
+.ss-run-overview .vm-active:before {
+    text-shadow: 0 0 8px #3f3;
+    color: #0e0;
+}
+
+.ss-run-overview .vm-inactive:before {
+    color: #aaa;
+}
+
+/* NOTE: JIT Tooltips are appended to the body when shown,
+therefore they are not within a .ss-run-overview class.*/
+.tip {
+    padding: 7px;
+    border: 1px solid #ccc;
+    opacity: 0.9;
+    color: #111;
+    background-color: white;
+    -moz-box-shadow: #555 2px 2px 8px;
+    -webkit-box-shadow: #555 2px 2px 8px;
+    -o-box-shadow: #555 2px 2px 8px;
+    box-shadow: #555 2px 2px 8px;
+    font-size: 0.84em;
+}

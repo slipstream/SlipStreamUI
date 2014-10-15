@@ -31,32 +31,32 @@ $(document).ready(function() {
     // Schedule auto-update
     setTimeout("updateDashboard()", 2500);
 
-    $('input[value="Terminate"]').click(function(event){
-        event.preventDefault();
-        SS.hideError();
-        background.fadeOutTopWindow();
-        $('#terminaterundialog').dialog('open');
-        return false;
-    });
+    // $('input[value="Terminate"]').click(function(event){
+    //     event.preventDefault();
+    //     SS.hideError();
+    //     background.fadeOutTopWindow();
+    //     $('#terminaterundialog').dialog('open');
+    //     return false;
+    // });
 
-    $('#terminaterundialog').dialog({
-        autoOpen: false,
-        title: 'Terminate Virtual Machines',
-        buttons: {
-            "Terminate": function() {
-                $(this).dialog("close");
-                background.fadeInTopWindow();
-                showSubmitMessage();
-                $.delete_(window.location.pathname, success=function() {
-                    window.location.href=window.location.href;
-                });
-            },
-            "Cancel": function() {
-                $(this).dialog("close");
-                background.fadeInTopWindow();
-            },
-        }
-    });
+    // $('#terminaterundialog').dialog({
+    //     autoOpen: false,
+    //     title: 'Terminate Virtual Machines',
+    //     buttons: {
+    //         "Terminate": function() {
+    //             $(this).dialog("close");
+    //             background.fadeInTopWindow();
+    //             showSubmitMessage();
+    //             $.delete_(window.location.pathname, success=function() {
+    //                 window.location.href=window.location.href;
+    //             });
+    //         },
+    //         "Cancel": function() {
+    //             $(this).dialog("close");
+    //             background.fadeInTopWindow();
+    //         },
+    //     }
+    // });
 
 });
 
@@ -291,10 +291,10 @@ var dashboardUpdater = {
             if(that.isAbort()) {
                 headerTitle.addClass('dashboard-error');
                 var abort = that.getGlobalRuntimeValue('abort');
-                $$.showError(abort);
+                // $$.showError(abort);
             } else {
                 headerTitle.removeClass('dashboard-error');
-                $$.hideError();
+                // $$.hideError();
             }
 
             if (that.isAbort() && !that.isFinalState(newState)) {
@@ -303,7 +303,7 @@ var dashboardUpdater = {
                 userState = 'Error';
             }
 
-            headerTitle.text(parts[0] + splitValue + userState.toUpperCase());
+            headerTitle.text(parts[0] + splitValue + userState); //.toUpperCase()); TODO
 
             // Update the global deployment link.
             var linkDiv = $('#header-title-link');
@@ -325,7 +325,7 @@ var dashboardUpdater = {
                 that.updateProperty(key, value);
             });
 
-            var nodeNames = $(run).attr('nodeNames');
+            var nodeNames = $(run).attr('nodeNames') || "";
             nodeNames = nodeNames.split(', ');
 
             for (var i in nodeNames) {

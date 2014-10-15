@@ -1,51 +1,16 @@
-/*
- * +=================================================================+
- * SlipStream Server (WAR)
- * =====
- * Copyright (C) 2013 SixSq Sarl (sixsq.com)
- * =====
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * -=================================================================-
- */
-var labelType, useGradients, nativeTextSupport, animate;
+jQuery( function() { ( function( $$, $, undefined ) {
 
-(function() {
-  var ua = navigator.userAgent,
-      iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
-      typeOfCanvas = typeof HTMLCanvasElement,
-      nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
-      textSupport = nativeCanvasSupport
-        && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
-  //I'm setting this based on the fact that ExCanvas provides text support for IE
-  //and that as of today iPhone/iPad current text support is lame
-  labelType = (!nativeCanvasSupport || (textSupport && !iStuff))? 'Native' : 'HTML';
-  nativeTextSupport = labelType == 'Native';
-  useGradients = nativeCanvasSupport;
-  animate = !(iStuff || !nativeCanvasSupport);
-})();
-
-function init(){
     //init data
     var getRuntimeValue = function(nodeName, parameterName) {
-        return dashboardUpdater.getRuntimeValue(nodeName, parameterName);
+        return $$.run.getRuntimeValue(nodeName, parameterName);
     };
 
     var getGlobalRuntimeValue = function(parameterName) {
-        return dashboardUpdater.getGlobalRuntimeValue(parameterName);
+        return $$.run.getGlobalRuntimeValue(parameterName);
     };
 
     var getRuntimeValueFullName = function(parameterName) {
-        return dashboardUpdater.getRuntimeValueFullName(parameterName);
+        return $$.run.getRuntimeValueFullName(parameterName);
     };
 
     var cloudServiceNodesMap = function() {
@@ -100,7 +65,7 @@ function init(){
     }
 
     var getRunType = function() {
-        return $("#runtype").text();
+        return $("#type").text();
     }
 
     var isBuild = function() {
@@ -215,7 +180,7 @@ function init(){
         },
 
         isActive: function(nodeName) {
-            return dashboardUpdater.isActive(nodeName);
+            return $$.run.isActive(nodeName);
         },
 
         vmCssClass: function(nodeName) {
@@ -224,7 +189,7 @@ function init(){
         },
 
         isAbort: function(nodeName) {
-            return dashboardUpdater.isAbort(nodeName);
+            return $$.run.isAbort(nodeName);
         },
 
         nodeCssClass: function(nodeName) {
@@ -234,12 +199,12 @@ function init(){
 
         // Node as in grouping of vms
         nodeNodeCssClass: function(nodeName) {
-            return dashboardUpdater.nodeNodeCssClass(nodeName);
+            return $$.run.nodeNodeCssClass(nodeName);
         },
 
         getTruncatedState: function(nodeName) {
             var state = getRuntimeValue(nodeName, 'state');
-            return dashboardUpdater.truncate(state);
+            return $$.run.truncate(state);
         },
 
         //This method is called on DOM label creation.
@@ -265,7 +230,7 @@ function init(){
                 label.innerHTML = "<div class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "'/> \
                     <ul style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-ratio'>State: " + dashboardUpdater.truncate(getRuntimeValueFullName(node.name + "\\.1\\:state")) + " (?/" + getRuntimeValueFullName(node.name + "\\.1\\:multiplicity") + ")</div> \
+                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(getRuntimeValueFullName(node.name + "\\.1\\:state")) + " (?/" + getRuntimeValueFullName(node.name + "\\.1\\:multiplicity") + ")</div> \
                     </ul></div>";
             }
 
@@ -275,7 +240,7 @@ function init(){
                     <ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
                         <li id='" + idprefix + "-state'>VM is ...</li> \
-                        <li id='" + idprefix + "-statecustom'>" + dashboardUpdater.truncate(getRuntimeValue(node.name, 'statecustom')) + "</li> \
+                        <li id='" + idprefix + "-statecustom'>" + $$.run.truncate(getRuntimeValue(node.name, 'statecustom')) + "</li> \
                     </ul></div>";
             }
 
@@ -283,16 +248,6 @@ function init(){
                 st.onClick(node.id);
             };
 
-            //set label styles
-            var style = label.style;
-            style.width = 180 + 'px';
-            style.height = 23 + 'px';
-            style.cursor = 'pointer';
-            style.color = '#333';
-            style.fontSize = '1em';
-            style.textAlign= 'left';
-            style.paddingLeft = '10px';
-            style.paddingTop = '3px';
         },
 
         //This method is called right before plotting
@@ -320,10 +275,5 @@ function init(){
     //emulate a click on the root node.
     st.onClick(st.root);
     //end
-}
 
-$(document).ready(function() {
-
-    init();
-
-});
+}( window.SlipStream = window.SlipStream || {}, jQuery ));});
