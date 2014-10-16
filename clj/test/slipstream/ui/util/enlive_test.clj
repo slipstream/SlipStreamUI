@@ -365,3 +365,68 @@
        html/emit*
        (apply str)))
 
+;; blank node with parent nodes
+
+(expect
+  "<blah></blah>"
+  (->> (blank-node [:blah])
+       html/emit*
+       (apply str)))
+
+(expect
+  "<div><span><blah></blah></span></div>"
+  (->> (blank-node [:div :span :blah])
+       html/emit*
+       (apply str)))
+
+(expect
+  "<div><blah class=\"test\"></blah></div>"
+  (->> (blank-node [:div :blah] :class "test")
+       html/emit*
+       (apply str)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; blank-snippet
+
+(def some-link
+  {:name "the link name"
+   :uri "http://some.uri.com"})
+
+(def-blank-snippet some-link-snip :a
+  [link]
+  this (html/content (:name link))
+  this (set-href (:uri link))
+  this (set-target "_blank"))
+
+(expect
+  [{:tag :a
+    :attrs {:target "_blank"
+            :href "http://some.uri.com"}
+    :content ["the link name"]}]
+  (some-link-snip some-link))
+
+(expect
+  "<a target=\"_blank\" href=\"http://some.uri.com\">the link name</a>"
+  (->> some-link
+       some-link-snip
+       html/emit*
+       (apply str)))
+
+;; blank-snippet with parent tag(s)
+
+(def-blank-snippet some-link-in-li-and-span-snip [:li :span :a]
+  [link]
+  this    (set-id "top-level-id")
+  [:span] (set-class "some-span-class")
+  [:a]    (html/content (:name link))
+  [:a]    (set-href (:uri link))
+  [:a]    (set-target "_blank"))
+
+(expect
+  "<li id=\"top-level-id\"><span class=\"some-span-class\"><a target=\"_blank\" href=\"http://some.uri.com\">the link name</a></span></li>"
+  (->> some-link
+       some-link-in-li-and-span-snip
+       html/emit*
+       (apply str)))

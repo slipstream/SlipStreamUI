@@ -246,7 +246,15 @@
 
 ;; Blank node generation
 
-(defn blank-node
+(defmulti blank-node
+  "Generate an blank enlive node of the given tag, as a keyword. To generate also
+  the blank parent(s) node(s) provide a vector of tags. See tests for expectations."
+  (fn [tag-or-tags & _]
+    (if (keyword? tag-or-tags)
+      :tag
+      :tag-nesting)))
+
+(defmethod blank-node :tag
   [tag & {:keys [id class]}]
   (html/html-snippet
     (format "<%s%s%s></%s>"
@@ -254,3 +262,20 @@
             (str (when id (format " id=\"%s\"" id)))
             (str (when class (format " class=\"%s\"" class)))
             (name tag))))
+
+(defmethod blank-node :tag-nesting
+  [[tag & nested-tags] & last-tag-args]
+  (if nested-tags
+    (html/at (blank-node tag)
+      this (html/content (apply blank-node nested-tags last-tag-args)))
+    (apply blank-node tag last-tag-args)))
+
+(defmacro def-blank-snippet
+  "Generates a normal enlive snippet fn for a given tag (or tag hierarchy) without
+  providing a template html file. See function slipstream.ui.util.enlive/blank-node
+  and tests for expectations."
+  [name-symbol tag-or-tags args & body]
+  `(def ~name-symbol
+    (html/snippet* (blank-node ~tag-or-tags)
+      ~args
+      ~@body)))
