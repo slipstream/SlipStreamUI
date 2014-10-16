@@ -201,7 +201,6 @@
      (base/generate
          {:template-filename run-template-html
           :metadata metadata
-          :in-progress-page? true
           :header {:icon icons/run
                    :title (t :header.title
                              (-> run :summary :uuid (uc/trim-from \-))
