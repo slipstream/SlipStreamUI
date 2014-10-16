@@ -82,7 +82,7 @@
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
     ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
 
-    ["reports"]               (render :pagename "reports"         :raw-metadata-ns "reports")
+    ["reports" &]             (render :pagename "reports"         :raw-metadata-ns "reports")
 
     ["configuration-view"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "view")
     ["configuration-edit"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "edit")

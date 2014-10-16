@@ -123,7 +123,7 @@
   ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/all))
-  [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?)
+  [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
 

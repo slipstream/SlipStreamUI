@@ -1,61 +1,44 @@
 (ns slipstream.ui.views.reports
-  (:require [slipstream.ui.util.localization :as localization]
-            [clojure.string :as string]
+  (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.common :as common]
-            [slipstream.ui.models.common :as common-model]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.models.reports :as reports]
             [slipstream.ui.views.base :as base]))
 
-(def reports-template-html (common/get-template "reports.html"))
+(localization/def-scoped-t)
 
-(def reports-sel [:#reports])
+(ue/def-blank-snippet report-link-snip [:li :a]
+  [report]
+  [:a] (html/content (:name report))
+  [:a] (ue/set-href (:relative-uri report))
+  [:a] (ue/set-target "_blank"))
 
-(defn extract-vm-name
-  [file-name]
-  (first (clojure.string/split (str file-name) #"_report")))
-
-(defn strip-domain
-  [url]
-  (let [reports "/reports/"]
-    (str reports (last (clojure.string/split url (re-pattern reports))))))
-
-(defn insert-reports
+(ue/def-blank-snippet list-snip [:div :ul]
   [reports]
-  (let 
-    [as (filter #(not= ".." (common-model/content %)) (html/select reports [:a]))]
-    (if (empty? as)
-      (html/content "No reports available yet")
-      (html/clone-for
-        [a as]
-        [:a] (html/do->
-               (html/set-attr :href (strip-domain (:href (common-model/attrs a))))
-               (html/content (extract-vm-name (common-model/content a))))))))
+  ue/this (ue/set-class "ss-reports-list")
+  [:ul]   (html/content (for [report reports]
+                          (report-link-snip report))))
 
+(ue/def-blank-snippet text-snip :div
+  [text & {:keys [css-class]}]
+  ue/this (ue/set-class css-class)
+  ue/this (html/content (str text)))
 
-(html/defsnippet content-snip reports-template-html common/content-sel
+(defn- reports-list
   [reports]
-  [reports-sel :> :ul :> [:li html/last-of-type]] nil
-  [reports-sel :> :ul :> :li]
-  (insert-reports reports))
-  
-(defn page-legacy [reports]
-  (base/base 
-    {:title (common/title "Reports")
-     :header nil
-     :content (content-snip reports)
-     :footer nil}))
+  (if (not-empty reports)
+    (list-snip reports)
+    (text-snip (t :no-reports-yet))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defn- footnote
+  []
+  (text-snip (t :no-need-to-refresh) :css-class "ss-report-footnote"))
 
 (defn page
   [metadata]
   (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :placeholder-page? true
-       :header nil
-       ; :resource-uri "/run/91aa79a"
-       ; :secondary-menu-actions [action/terminate]
-       :content nil})))
+    (let [reports (reports/parse metadata)]
+      (base/generate
+        {:content [(reports-list reports)
+                   (footnote)]}))))

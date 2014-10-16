@@ -54,10 +54,13 @@
    "configuration"    configuration/page
    "action"           action/page})
 
+(def page-types
+  {"reports"          :chooser})
+
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename type]
-  (page-type/is type
+  (page-type/is (get page-types pagename type)
     (-> raw-metadata-str
         u/clojurify-raw-metadata-str
         ((get pages pagename))

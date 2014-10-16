@@ -291,7 +291,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         updateReports: function() {
             // force reload, since reports might have updated since last time
-            var iframe = $('#reports > iframe');
+            var iframe = $(".ss-reports-iframe");
             var url = iframe.attr('src');
             iframe.attr('src',url);
         },

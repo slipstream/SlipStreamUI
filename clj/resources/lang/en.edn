@@ -422,7 +422,10 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
 
-   :slipstream.ui.views.module.deployment.section.nodes.title      :global.nouns.nodes
+  :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
+  :slipstream.ui.views.reports.no-need-to-refresh                               "This section will automatically update when reports appear. No need to refresh."
+
+   :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
 
    :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Save module changes"
    :slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message    "Commit message"

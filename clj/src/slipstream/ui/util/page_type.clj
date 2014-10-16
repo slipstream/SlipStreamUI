@@ -12,8 +12,7 @@
   #{:view
     :edit
     :new
-    :chooser
-    :reports})
+    :chooser})
 
 (defmacro is
   [page-type & body]

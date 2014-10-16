@@ -99,26 +99,5 @@
   (let [runtime-parameters (runtime-parameters/parse metadata)]
     (-> {}
         (assoc :summary (summary metadata))
-        ; (assoc :parameters (parameters/parse metadata))
         (assoc :runtime-parameters runtime-parameters)
-        (assoc-in [:summary :tags] (runtime-parameters/value-for runtime-parameters "ss:tags"))
-        )))
-
-
-; :category     ='Deployment'
-; :deleted      ='false'
-; :creation     ='2013-06-12 15:39:55.575 CEST'
-; :starttime    ='2013-06-12 15:39:55.575 CEST'
-; :resourceuri  ='run/06f207d4-d25b-4597-a23a-f79a07b2f791'
-; :uuid         ='06f207d4-d25b-4597-a23a-f79a07b2f791'
-; :moduleresourceuri     ='module/Public/Tutorials/HelloWorld/client_server/11'
-; :user         ='meb'
-; :state        ='Terminal'
-; :status       ='Done'
-
-
-
-; :type         ='Orchestration'
-; :cloudservicename     ='interoute'
-; :nodenames    ='orchestrator-interoute, testclient1.1, apache1.1, '
-; :groups       ='interoute:testclient1, interoute:apache1, '>
+        (assoc-in [:summary :tags] (runtime-parameters/value-for runtime-parameters "ss:tags")))))

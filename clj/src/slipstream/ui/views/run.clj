@@ -183,11 +183,16 @@
   (let [section-metadata (get run metadata-key)]
     (map runtime-parameter-section section-metadata)))
 
-(defmethod section :default
+(ue/def-blank-snippet reports-iframe-snip :iframe
+  [run]
+  ue/this (ue/set-class "ss-reports-iframe")
+  ue/this (ue/set-src (->> run :summary :uuid (format "/reports/%s/"))))
+
+(defmethod section :reports
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
     {:title   (section-title-for metadata-key)
-     :content "To be done :)"}))
+     :content (reports-iframe-snip nil)}))
 
 (defn page
   [metadata]
