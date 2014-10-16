@@ -3,6 +3,13 @@ body > .navbar {
   background: none;
 }
 
+body.ss-standalone-webapp-mobile > .navbar::before {
+  height: 20px;
+  width: 100%;
+  background-color: #a00
+}
+
+
 body > .navbar-default,
 body > .navbar-default .menubar {
   border: none;

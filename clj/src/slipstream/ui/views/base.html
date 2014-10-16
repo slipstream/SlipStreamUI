@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width">
   <title>SlipStream Base Template</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <!-- Specifics for portable devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Android Devices -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- iOS Devices -->
+  <meta name="apple-mobile-web-app-title" content="SlipStream">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon-iphone-60x60.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/apple-touch-icon-ipad-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/apple-touch-icon-iphone-retina-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/apple-touch-icon-ipad-retina-152x152.png">
+
+  <!-- Startup image for iOS 6 & 7 iPhone 5 -->
+  <link href="images/apple-touch-startup-image-640x1096.png"
+        media="(device-width: 320px) and (device-height: 568px)
+           and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image">
+
+  <!--
+  Future Pointers:
+
+  iOS 7 Web App
+  - https://gist.github.com/tfausak/2222823
+
+  Prevent links in standalone web apps opening Mobile Safari:
+  - https://gist.github.com/kylebarrow/1042026
+
+  Optimizing Mobile Web Apps for iOS | Treehouse Blog:
+  - http://blog.teamtreehouse.com/optimizing-mobile-web-apps-ios
+
+  Remove rubberband scrolling from web apps on mobile safari (iOS)
+  - https://gist.github.com/amolk/1599412
+  -->
+
   <base href="">
+
   <!-- External CSS Stylesheets -->
   <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css" />
   <!-- <link href="external/bootstrap/css/bootstrap-theme.min.css" data-href="external/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" id="bs-theme-stylesheet"> -->

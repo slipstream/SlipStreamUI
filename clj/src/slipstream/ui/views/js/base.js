@@ -17,6 +17,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
     //     postText: " max)"
     // });
 
+    if (window.navigator.standalone) {
+        // The app is running in standalone mode on a mobile device.
+        // Add 20px to the top to accomodate a translucent status bar by css.
+        $("body").addClass("ss-standalone-webapp-mobile");
+    }
+
     // Remove secondary menu if no actions
     $(".ss-secondary-menu-main-action span:last-of-type:empty")
         .closest("#ss-secondary-menu")

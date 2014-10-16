@@ -3,6 +3,31 @@ body {
   padding-top: 50px;
 }
 
+body.ss-standalone-webapp-mobile {
+  padding-top: 70px;
+/*
+  Try to remove rubberband scrolling from web apps on mobile safari (iOS):
+*/
+/*
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+*/
+}
+
+
+/*
+  Try to remove rubberband scrolling from web apps on mobile safari (iOS):
+*/
+/*
+html{
+  margin:0;
+  padding:0;
+  overflow: hidden;
+}
+*/
+
 /* Except for pages of type chooser */
 body.ss-page-type-chooser {
   padding-top: 0;
