@@ -365,6 +365,21 @@
        html/emit*
        (apply str)))
 
+;; Envlive handles the correct rendering of self-closing tags for us
+
+(expect
+  "<br />"
+  (->> (blank-node :br)
+       html/emit*
+       (apply str)))
+
+(expect
+  "<img id=\"some-img-id\" />"
+  (->> (blank-node :img
+                   :id "some-img-id")
+       html/emit*
+       (apply str)))
+
 ;; blank node with parent nodes
 
 (expect
@@ -414,7 +429,7 @@
        html/emit*
        (apply str)))
 
-;; blank-snippet with parent tag(s)
+;; blank-snippet with parent tags
 
 (def-blank-snippet some-link-in-li-and-span-snip [:li :span :a]
   [link]
@@ -425,8 +440,28 @@
   [:a]    (set-target "_blank"))
 
 (expect
-  "<li id=\"top-level-id\"><span class=\"some-span-class\"><a target=\"_blank\" href=\"http://some.uri.com\">the link name</a></span></li>"
+  (str "<li id=\"top-level-id\"><span class=\"some-span-class\"><a target=\"_bla"
+       "nk\" href=\"http://some.uri.com\">the link name</a></span></li>")
   (->> some-link
        some-link-in-li-and-span-snip
+       html/emit*
+       (apply str)))
+
+;; blank-snippet with parent tags and self-closing tag
+
+(def-blank-snippet some-img-in-li-and-span-snip [:li :span :img]
+  [img]
+  this    (set-id "top-level-img-id-for-img-" (-> img :name (s/replace \space \-)))
+  [:span] (set-class "some-span-img-class")
+  [:img]  (set-class "some-img-class")
+  [:img]  (set-title (:name img))
+  [:img]  (set-src (:uri img)))
+
+(expect
+  (str "<li id=\"top-level-img-id-for-img-the-image-name\"><span class=\"some-sp"
+       "an-img-class\"><img title=\"the image name\" class=\"some-img-class\" />"
+       "</span></li>")
+  (->> {:name "the image name", :src "http:/the.image/source.png"}
+       some-img-in-li-and-span-snip
        html/emit*
        (apply str)))
