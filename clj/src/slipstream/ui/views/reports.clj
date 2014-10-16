@@ -33,7 +33,7 @@
 
 (defn- footnote
   []
-  (text-snip (t :no-need-to-refresh) :css-class "ss-report-footnote"))
+  (text-snip (t :no-need-to-refresh) :css-class "ss-report-footnote text-muted"))
 
 (defn page
   [metadata]

@@ -228,7 +228,8 @@
   (html/substitute
     (view-interaction-snip deployment))
   
-  runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud deployment)))
+  ; runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud deployment)))
+  runs/runs-sel (html/content (runs/runs-snip deployment))
 
   authz/authorization-sel (html/substitute (authz/authz-view-snip deployment)))
 

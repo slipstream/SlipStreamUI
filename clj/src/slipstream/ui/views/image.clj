@@ -316,7 +316,8 @@
     (html/substitute
       (view-interaction-snip module))
 
-  runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud module)))
+  runs/runs-sel (html/content (runs/runs-snip module))
+  ; runs/runs-sel (html/content (runs/runs-snip (run-model/group-by-cloud module)))
 
   authz/authorization-sel (html/substitute (authz/authz-view-snip module)))
 

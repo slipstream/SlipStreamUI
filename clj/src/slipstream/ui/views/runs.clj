@@ -38,7 +38,8 @@
                     [[:td (html/nth-of-type 1)] :> :i] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
-                                                         (html/content (run/shorten-runid (:uuid attrs))))
+                                                         (html/content (:uuid attrs)))
+                                                         ; (html/content (run/shorten-runid (:uuid attrs))))
                     [[:td (html/nth-of-type 3)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:moduleresourceuri attrs)))
                                                          (html/content (apply str (drop common/drop-module-slash-no-of-chars (:moduleresourceuri attrs)))))
@@ -71,7 +72,8 @@
      :title (common/title "Runs")
      :header (header-snip runs)
      :content (runs-snip
-                (run-model/group-by-cloud runs))}))
+                runs)}))
+                ; (run-model/group-by-cloud runs))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

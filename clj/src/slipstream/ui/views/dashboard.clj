@@ -51,10 +51,12 @@
                     [run runs
                      :let
                      [attrs (module-model/attrs run)]]
-                    [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (run-model/convert-type (:type attrs))))
+                    [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (:type attrs)))
+                    ; [[:td (html/nth-of-type 1)]] (html/set-attr :class (common/type-to-icon-class (run-model/convert-type (:type attrs))))
                     [[:td (html/nth-of-type 2)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:resourceuri attrs)))
-                                                         (html/content (run/shorten-runid (:uuid attrs))))
+                                                         (html/content (:uuid attrs)))
+                                                         ; (html/content (run/shorten-runid (:uuid attrs))))
                     [[:td (html/nth-of-type 3)] :> :a] (html/do->
                                                          (html/set-attr :href (str "/" (:moduleresourceuri attrs)))
                                                          (html/content (apply str (drop common/drop-module-slash-no-of-chars (:moduleresourceuri attrs)))))

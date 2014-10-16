@@ -137,7 +137,6 @@
                             table/template-filename ;; TODO: only if tables in body.
                             code-area/template-filename ;; TODO: only if code-areas in body.
                             modal-dialogs/template-filename ;; TODO: only if modal-dialogs in body.
-                            ; (common/get-template "run.html") ;; TODO: do not pass the whole template html for only the bottom scripts
                             template-filename]]
     (println "Generating base for" template-filename " - Title" (:title header))
     ; (println "   user:" user)
