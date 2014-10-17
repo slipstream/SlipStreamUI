@@ -69,8 +69,7 @@
 
 (defmethod middle-section-content :runs
   [section-metadata _]
-  (when
-    (map run-section section-metadata)))
+  (map run-section section-metadata))
 
 ; Other table sections (e.g. cloud-image-details os-details)
 
