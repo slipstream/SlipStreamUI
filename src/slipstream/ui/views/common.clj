@@ -442,6 +442,7 @@
            type (:type attrs)
            defaultvalue (:defaultvalue attrs)
            tr-id (tr-id name i)
+           readonly? (= "true" (:readonly attrs))
            value (set-input-value parameter tr-id)
            help (parameter-help parameter)]]
     html/this-node (html/set-attr :id tr-id)
@@ -463,7 +464,10 @@
         (input-name-description tr-id)
         description)
     [[:td (html/nth-of-type 2)] :> :input] 
-      (html/substitute value)
+        (if readonly?
+          (html/do-> (html/substitute value)
+                     (html/set-attr :disabled "disabled"))
+          (html/substitute value))
     [[:td (html/nth-of-type 3)] :> :span] (html/content help)
     [[:td (html/nth-of-type 3)]] (if (empty? help)
                                    (html/content "")
