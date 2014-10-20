@@ -74,6 +74,7 @@
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
 
     ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
+    ["vms"]                   (render :pagename "vms"             :raw-metadata-ns "vms")
 
     ["user-view"]             (render :pagename "user"            :raw-metadata-ns "user" :type "view")
     ["user-edit"]             (render :pagename "user"            :raw-metadata-ns "user" :type "edit")

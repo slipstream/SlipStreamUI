@@ -36,5 +36,46 @@
 </dashboard>")
 
 (expect
-  "expectation for parsed-metadata to be completed"
+  {:runs [{:cloud-name "interoute"
+           :runs [{:cloud-name "interoute"
+                   :uri "run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
+                   :module-uri "module/Mebster/word_press/simple_deployment/410"
+                   :type nil
+                   :start-time "2013-07-04 17:11:56.340 CEST"
+                   :username "mickey"
+                   :uuid "e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
+                   :status "Aborting"
+                   :tags "this is a tag!"}]}
+           {:cloud-name "stratuslab"
+           :runs [{:cloud-name "stratuslab"
+                   :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
+                   :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
+                   :type "Deployment"
+                   :start-time "2013-07-05 17:27:12.471 CEST"
+                   :username "donald"
+                   :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
+                   :status "Aborting"}
+                   {:cloud-name "stratuslab"
+                   :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
+                   :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
+                   :type "Run"
+                   :start-time "2013-07-05 17:27:12.471 CEST"
+                   :username "donald"
+                   :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
+                   :status "Aborting"}
+                   {:cloud-name "stratuslab"
+                   :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
+                   :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
+                   :type "Build"
+                   :start-time "2013-07-05 17:27:12.471 CEST"
+                   :username "donald"
+                   :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
+                   :status "Aborting"}]}]
+   :vms   []
+   :usage [{:cloud "CloudA"
+            :current-usage 0
+            :quota 5}
+           {:cloud "CloudB"
+            :current-usage 13
+            :quota 15}]}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

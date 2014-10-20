@@ -1,7 +1,9 @@
 (ns slipstream.ui.views.dashboard
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.tables :as t]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.models.common :as common-model]
             [slipstream.ui.models.run :as run-model]
@@ -204,14 +206,55 @@
 
 (localization/def-scoped-t)
 
+; The template is only needed to provide the JS requested.
+; TODO: Allow to pass JS filenames when no template needed.
+(def template-file (common/get-template "dashboard.html"))
+
+(defmulti ^:private section (comp second vector))
+
+; Section "runs"
+
+(defn- runs-subsection
+  [{:keys [cloud-name runs]}]
+  {:title cloud-name
+   :content (t/runs-table runs)})
+
+(defmethod section :runs
+  [dashboard metadata-key]
+  (let [section-metadata (get dashboard metadata-key)]
+    {:title   (localization/section-title metadata-key)
+     :content (map runs-subsection section-metadata)}))
+
+(def ^:private vms-div
+  (ue/blank-node :div :id "vms"))
+
+(defmethod section :vms
+  [dashboard metadata-key]
+  {:title   (localization/section-title metadata-key)
+   :content vms-div})
+
+(defmethod section :metering
+  [dashboard metadata-key]
+  {:title   (localization/section-title metadata-key)
+   :content "TBD :)"})
+
+(def ^:private sections
+  [:runs
+   :vms
+   :metering])
+
 (defn page
   [metadata]
   (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :placeholder-page? true
-       :header {:icon icons/dashboard
-                :title (t :header.title)
-                :subtitle (t :header.subtitle)}
-       :content nil})))
+    (let [dashboard (dashboard-model/parse metadata)]
+      (base/generate
+        {:template-filename template-file
+         :metadata metadata
+         :in-progress-page? true
+         :header {:icon icons/dashboard
+                  :title (t :header.title)
+                  :subtitle (t :header.subtitle)}
+         :content (->> sections
+                       (map (partial section dashboard))
+                       flatten)}))))
 

@@ -42,6 +42,7 @@
                     :info           "Information"
                     :key            "Key"
                     :last-name      "Last name"
+                    :metering       "Metering"
                     :module         "Module"
                     :name           "Name"
                     :node           "Node"
@@ -85,6 +86,10 @@
                     }
             :adjectives {
                     :global         "Global"
+                    }
+            :vm-states {
+                    :running         "Running"
+                    :unknown         "Unknown"
                     }
             :verbs {
                     :build          "Build"
@@ -182,10 +187,16 @@
    :slipstream.ui.views.table.header.username                 :global.nouns.username
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
+   :slipstream.ui.views.table.header.slipstream-id            "SlipStream ID"
+   :slipstream.ui.views.table.header.run-id                   "Run Id"
+   :slipstream.ui.views.table.header.cloud-instance-id        "Cloud Instance Id"
 
    :slipstream.ui.views.table.map-cell.key.reference-image    "Reference image"
    :slipstream.ui.views.table.map-cell.key.default-multiplicity "Default multiplicity"
    :slipstream.ui.views.table.map-cell.key.default-cloud      "Default cloud"
+
+   :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
+   :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
 
    :slipstream.ui.views.tables.documentation.open-html        "Open in new page"
    :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF in new page"
@@ -452,4 +463,13 @@
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.run.section.global.title            :global.adjectives.global
    :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
-      }
+
+
+   :slipstream.ui.views.dashboard.section.runs.title                            "Deployments / Runs / Builds"
+   :slipstream.ui.views.dashboard.section.vms.title                             "Virtual Machines"
+   :slipstream.ui.views.dashboard.section.metering.title                        :global.nouns.metering
+
+   :slipstream.ui.views.vms.header.title                                        "Your VMs"
+   :slipstream.ui.views.vms.header.subtitle                                     "This is a sub-view of the dashboard displaying only your VMs and their status."
+   :slipstream.ui.views.vms.section.vms.title                                   "Virtual Machines"
+}

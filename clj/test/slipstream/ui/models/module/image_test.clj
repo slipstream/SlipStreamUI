@@ -231,7 +231,8 @@
                    :username "mickey"
                    :uuid "e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
                    :status "Aborting"
-                   :tags "this is a tag!"}]}
+                   :tags "this is a tag!"
+                   :type nil}]}
           {:cloud-name "stratuslab"
            :runs [{:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
@@ -239,7 +240,8 @@
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
-                   :status "Aborting"}]}]
+                   :status "Aborting"
+                   :type nil}]}]
    :authorization {:access-rights {:create-children {:public-access? false
                                                      :group-access? false
                                                      :owner-access? true}

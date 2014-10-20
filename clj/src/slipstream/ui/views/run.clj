@@ -15,22 +15,18 @@
 ;; Everything else is composed and generated as the other pages with accordions.
 (def run-template-html (common/get-template "run.html"))
 
-(defn- section-title-for
-  [metadata-key]
-  (->> metadata-key name (format "section.%s.title") keyword t))
-
 (defmulti section (comp second vector))
 
 (defmethod section :overview
   [run metadata-key]
-  {:title   (section-title-for metadata-key)
+  {:title   (localization/section-title metadata-key)
    :content (ue/blank-node :div :id "infovis"
                                 :class "ss-run-overview")})
 
 (defmethod section :summary
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
-    {:title   (section-title-for metadata-key)
+    {:title   (localization/section-title metadata-key)
      :content (t/run-summary-table section-metadata)}))
 
 (defn- runtime-parameter-section
@@ -51,8 +47,14 @@
 (defmethod section :reports
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
-    {:title   (section-title-for metadata-key)
+    {:title   (localization/section-title metadata-key)
      :content (reports-iframe-snip nil)}))
+
+(def ^:private sections
+  [:overview
+   :summary
+   :runtime-parameters
+   :reports])
 
 (defn page
   [metadata]
@@ -68,10 +70,7 @@
                    :subtitle (-> run :summary :module-uri)}
           :resource-uri (-> run :summary :uri)
           :secondary-menu-actions [action/terminate]
-          :content (->> [:overview
-                         :summary
-                         :runtime-parameters
-                         :reports]
+          :content (->> sections
                         (map (partial section run))
                         flatten)}))))
 

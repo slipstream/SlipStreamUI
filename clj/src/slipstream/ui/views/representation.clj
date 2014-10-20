@@ -9,6 +9,7 @@
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.versions :as versions]
             [slipstream.ui.views.dashboard :as dashboard]
+            [slipstream.ui.views.vms :as vms]
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.users :as users]
             [slipstream.ui.views.run :as run]
@@ -46,10 +47,11 @@
    "module"           module/page
    "versions"         versions/page
    "dashboard"        dashboard/page
+   "vms"              vms/page
    "user"             user/page
    "users"            users/page
    "run"              run/page
-   "runs"             runs/page
+   "runs"             runs/page ; TODO: Is this page still needed?
    "reports"          reports/page
    "configuration"    configuration/page
    "action"           action/page})

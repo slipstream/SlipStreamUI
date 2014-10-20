@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.models.run-items :as run-items]
             [slipstream.ui.models.parameters :as parameters]))
 
 
@@ -41,33 +42,6 @@
   [metadata]
   {:platform         (->> metadata :attrs :platform (u/enum platforms))
    :login-username   (-> metadata :attrs :loginuser)})
-
-
-;; Runs metadata section
-
-(defn- parse-run
-  [run-metadata]
-  (let [attrs (:attrs run-metadata)]
-    (-> attrs
-        (select-keys [:tags
-                      :status
-                      :uuid
-                      :username])
-        (assoc        :start-time  (:starttime attrs))
-        (assoc        :module-uri  (:moduleresourceuri attrs))
-        (assoc        :uri         (:resourceuri attrs))
-        (assoc        :cloud-name  (:cloudservicename attrs)))))
-
-(defn- group-runs
-  [runs]
-  (uc/coll-grouped-by :cloud-name runs
-                      :items-keyword :runs))
-
-(defn- runs
-  [metadata]
-  (->> (html/select metadata [:runs :item])
-       (map parse-run)
-       group-runs))
 
 
 ;; Image creation metadata section
@@ -132,5 +106,5 @@
      :cloud-configuration  (parameters/categories-of-type parameters :global)
      :image-creation       (image-creation metadata)
      :deployment           (deployment metadata parameters)
-     :runs                 (runs metadata)}))
+     :runs                 (run-items/parse metadata)}))
 

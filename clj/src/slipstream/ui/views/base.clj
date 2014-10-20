@@ -137,7 +137,8 @@
                             table/template-filename ;; TODO: only if tables in body.
                             code-area/template-filename ;; TODO: only if code-areas in body.
                             modal-dialogs/template-filename ;; TODO: only if modal-dialogs in body.
-                            template-filename]]
+                            template-filename
+                            ]]
     (println "Generating base for" template-filename " - Title" (:title header))
     ; (println "   user:" user)
     ; (println "   content type:" (type (first content)))

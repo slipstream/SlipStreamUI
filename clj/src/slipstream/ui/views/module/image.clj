@@ -90,7 +90,7 @@
 (defn- middle-section
   [module metadata-key]
   (let [section-metadata (get module metadata-key)]
-    {:title   (->> metadata-key name (format "section.%s.title") keyword t)
+    {:title   (localization/section-title metadata-key)
      :content (middle-section-content section-metadata metadata-key)}))
 
 (defn- visible-middle-sections

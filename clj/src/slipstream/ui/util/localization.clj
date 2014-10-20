@@ -116,3 +116,13 @@
     (throw (IllegalArgumentException. "with-lang-from-metadata: Unable to find metadata symbol in this context")))
   `(with-lang (lang ~(symbol "metadata"))
     ~@body))
+
+;; Utils
+
+(defmacro section-title
+  "A util macro to use the same localization key for section titles.
+  NB: it must be a macro and not a fn, because the 't fn to be used is the one
+  in the calling namespace (since might be prefixed), instead of the 't defined
+  here."
+  [section-key]
+  `(->> ~section-key name (format "section.%s.title") keyword ~(symbol "t")))

@@ -242,9 +242,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-name uri module-uri start-time username uuid status tags] :as run}]
+  [{:keys [cloud-name uri module-uri start-time username uuid status tags type] :as run}]
   {:style nil
-   :cells [{:type :cell/icon,      :content icons/run}
+   :cells [{:type :cell/icon,      :content (icons/icon-for (or type :run))}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
            {:type :cell/url,       :content module-uri}
            {:type :cell/text,      :content status}
@@ -349,3 +349,22 @@
       :type               {:type :cell/text,      :editable? false, :as-parameter :run-type}
       :uuid               {:type :cell/text,      :editable? false, :as-parameter :run-id}
       :tags               {:type :cell/text,      :editable? true})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- vm-row
+  [{:keys [cloud-name run-uuid cloud-instance-id username state] :as vm}]
+  {:style  nil
+   :cells [{:type :cell/link,     :content {:text (uc/trim-from run-uuid \-), :url (str "/run/" run-uuid)}}
+           {:type :cell/text,     :content (localization/with-prefixed-t :run.state
+                                             (-> (or state :unknown) uc/keywordize t))}
+           {:type :cell/username, :content username}
+           {:type :cell/text,     :content cloud-instance-id}]})
+
+(defn vms-table
+  [vms]
+  (table/build
+    {:headers [:slipstream-id :state :user :cloud-instance-id]
+     :rows (map vm-row vms)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

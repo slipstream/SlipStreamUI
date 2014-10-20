@@ -1,19 +1,23 @@
 (ns slipstream.ui.models.dashboard
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.common :as common]))
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.models.run-items :as run-items]
+            [slipstream.ui.models.vms :as vms]
+            [slipstream.ui.models.common :as common] ;; TODO: remove
+            ))
 
-(defn runs 
+(defn runs
   [dashboard]
   (html/select dashboard [:runs :> :item]))
 
-(defn vms 
+(defn vms
   [dashboard]
   (html/select dashboard [:vms :> :item]))
 
 (defn usages
   [dashboard]
   (html/select dashboard [:usage :> :usageElement]))
-  
+
 (defn attrs
   [dashboard]
   (common/attrs dashboard))
@@ -22,6 +26,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- parse-usage
+  [usage]
+  {:cloud         (-> usage :cloud)
+   :current-usage (-> usage :currentusage uc/parse-pos-int)
+   :quota         (-> usage :quota uc/parse-pos-int)})
+
+(defn usages ; TODO: Make private
+  [dashboard]
+  (->> (html/select dashboard [:usage :> :usageElement])
+       (map :attrs)
+       (map parse-usage)
+       (sort-by :cloud)))
+
 (defn parse
   [metadata]
-  nil)
+  {:runs  (run-items/parse metadata)
+   :vms   (vms/parse metadata)
+   :usage (usages metadata)})

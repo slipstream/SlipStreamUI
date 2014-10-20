@@ -8,7 +8,7 @@
 
 (def ^:private subsection-selected-cls "active")
 
-(def ^:private stacked-sections? true)
+(def ^:private stacked-sections? false)
 
 (def ^:private subsection-group-sel
   (if stacked-sections?
