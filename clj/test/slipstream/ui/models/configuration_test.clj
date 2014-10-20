@@ -36,7 +36,7 @@
          <string><![CDATA[slipstream.mail.debug]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.mail.debug' description='Debug mail sending.' category='SlipStream_Support' mandatory='true' type='Boolean' readonly='false'>
             <instructions><![CDATA[]]></instructions>
-            <value><![CDATA[on]]></value>
+            <value><![CDATA[true]]></value>
          </parameter>
       </entry>
       <entry>
@@ -129,7 +129,7 @@
          <string><![CDATA[slipstream.mail.ssl]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.mail.ssl' description='Use SSL for SMTP server.' category='SlipStream_Support' mandatory='true' type='Boolean' readonly='false'>
             <instructions><![CDATA[]]></instructions>
-            <value><![CDATA[on]]></value>
+            <value><![CDATA[true]]></value>
          </parameter>
       </entry>
       <entry>
@@ -381,7 +381,7 @@
          <string><![CDATA[slipstream.mail.debug]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.mail.debug' description='Debug mail sending.' category='SlipStream_Support' mandatory='true' type='Boolean' readonly='false'>
             <instructions><![CDATA[]]></instructions>
-            <value><![CDATA[on]]></value>
+            <value><![CDATA[true]]></value>
          </parameter>
       </entry>
       <entry>
@@ -474,7 +474,7 @@
          <string><![CDATA[slipstream.mail.ssl]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='slipstream.mail.ssl' description='Use SSL for SMTP server.' category='SlipStream_Support' mandatory='true' type='Boolean' readonly='false'>
             <instructions><![CDATA[]]></instructions>
-            <value><![CDATA[on]]></value>
+            <value><![CDATA[true]]></value>
          </parameter>
       </entry>
       <entry>
