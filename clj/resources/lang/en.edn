@@ -465,6 +465,7 @@
    :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
 
 
+   :slipstream.ui.views.dashboard.section.quota.title                           "Usage"
    :slipstream.ui.views.dashboard.section.runs.title                            "Deployments / Runs / Builds"
    :slipstream.ui.views.dashboard.section.vms.title                             "Virtual Machines"
    :slipstream.ui.views.dashboard.section.metering.title                        :global.nouns.metering

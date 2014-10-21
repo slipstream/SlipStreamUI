@@ -1,6 +1,7 @@
 (ns slipstream.ui.util.core
   "Util functions only related to the SlipStream application."
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [clj-json.core :as json]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]))
@@ -79,6 +80,13 @@
                         (map uc/keywordize enum-options)
                         (or option-current option-default))))))
 
+;; Boolean parameter
+
+(defn normalize-value
+  [m]
+  (if-not (-> m :type (= "Boolean"))
+    m
+    (update-in m [:value] uc/parse-boolean)))
 
 ;; Parameter order
 

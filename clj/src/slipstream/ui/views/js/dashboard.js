@@ -1,12 +1,28 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    fillVms = function(html) {
-        var vmsDiv = $(html).find(".ss-section-content")[0];
-        console.log(vmsDiv);
+    function fillVms(html) {
+        var vmsDiv = $(".ss-section-content", html)[0];
         $("#vms").parent().replaceWith(vmsDiv);
         $$.subsections.reenableSubsections();
-    };
+    }
+
     $.get("/vms", fillVms, "html");
+
+    function drawGauges(panel) {
+        $(".ss-usage-gauge", panel).each(function(idx, elem) {
+            var $elem = $(elem).empty();
+            new JustGage({
+              id: elem.id,
+              value: $elem.data('quota-current'),
+              min: 0,
+              max: $elem.data('quota-max') || 20,
+              title: $elem.data('quota-title'),
+              levelColorsGradient: true
+            });
+        });
+    }
+
+    drawGauges($("#ss-usage-container").newPanel);
 
     function drawHistograms(panel) {
         if (panel === undefined) {
@@ -56,43 +72,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(panel).metrics(options);
     }
 
-    function drawGauges(panel) {
-        $(".gauge", panel).each(function(idx, elem) {
-            var $elem = $(elem).empty();
-            new JustGage({
-              id: elem.id,
-              value: $elem.data('quota-current'),
-              min: 0,
-              max: $elem.data('quota-max') || 20,
-              title: $elem.data('quota-title'),
-              levelColorsGradient: true
-            });
-        });
-    }
-
     $("#metering-selector").change(function() {
         drawHistograms();
     });
 
-	drawGauges($( "#usage" ).newPanel);
-
-    $(".accordion").on("accordionactivate", function(event, ui) {
-        if (ui.newPanel.length) {
-            if (ui.newPanel[0].id == "metering") {
-                drawHistograms();
-            }
-            if (ui.newPanel[0].id == "usage") {
-                drawGauges(ui.newPanel);
-            }
-        }
-    });
-
-    $("#metering").on("tabsactivate", function(event, ui) {
-        drawHistograms(ui.newPanel);
-    });
-
-    $("#usage").on("tabsactivate", function(event, ui) {
-        drawGauges(ui.newPanel);
-    });
+    drawHistograms();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

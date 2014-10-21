@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.configuration
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.common :as common]
             [slipstream.ui.models.user :as user]))
 
@@ -21,17 +22,17 @@
   [metadata name]
   (filter #(= name (:name (:attrs %))) (config-params metadata)))
 
-(defn metering-enabled?
-  [metadata]
-  (common/true-value? (common/value (parameter metadata metering-enable-param))))
+; (defn metering-enabled?
+;   [metadata]
+;   (common/true-value? (common/value (parameter metadata metering-enable-param))))
 
-(defn quota-enabled?
-  [metadata]
-  (common/true-value? (common/value (parameter metadata quota-enable-param))))
+; (defn quota-enabled?
+;   [metadata]
+;   (common/true-value? (common/value (parameter metadata quota-enable-param))))
 
-(defn service-catalog-enabled?
-  [metadata]
-  (common/true-value? (common/value (parameter metadata service-catalog-enable-param))))
+; (defn service-catalog-enabled?
+;   [metadata]
+;   (common/true-value? (common/value (parameter metadata service-catalog-enable-param))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -39,4 +40,24 @@
 
 (defn parse
   [metadata]
-  nil)
+  {:parameters (parameters/parse metadata)})
+
+;; Configuration parameters utils
+
+(defn metering-enabled?
+  [configuration]
+  (-> configuration
+      :parameters
+      (parameters/value-for "slipstream.metering.enable")))
+
+(defn quota-enabled?
+  [configuration]
+  (-> configuration
+      :parameters
+      (parameters/value-for "slipstream.quota.enable")))
+
+(defn service-catalog-enabled?
+  [configuration]
+  (-> configuration
+      :parameters
+      (parameters/value-for "slipstream.service.catalog.enable")))

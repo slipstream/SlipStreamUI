@@ -3,6 +3,7 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.run-items :as run-items]
             [slipstream.ui.models.vms :as vms]
+            [slipstream.ui.models.configuration :as configuration]
             [slipstream.ui.models.common :as common] ;; TODO: remove
             ))
 
@@ -41,6 +42,9 @@
 
 (defn parse
   [metadata]
-  {:runs  (run-items/parse metadata)
-   :vms   (vms/parse metadata)
-   :usage (usages metadata)})
+  (let [configuration (configuration/parse metadata)]
+    {:runs      (run-items/parse metadata)
+     :vms       (vms/parse metadata)
+     :quota     {:enabled? (configuration/quota-enabled? configuration)
+                 :usage    (usages metadata)}
+     :metering  {:enabled? (configuration/metering-enabled? configuration)}}))

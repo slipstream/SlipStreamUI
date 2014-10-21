@@ -1,24 +1,33 @@
 (ns slipstream.ui.models.parameters
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
 
-(def ^:private parameter-sel [html/root :> :parameters :> :entry :> :parameter])
+; (def ^:private parameter-sel [html/root :> :parameters :> :entry :> :parameter])
+(def ^:private parameter-sel [:parameters :entry :parameter])
+
+(defn- trim
+  [s]
+  (when s
+    (s/trim s)))
 
 (defn- value
   [parameter]
   (-> parameter
       (html/select [:value html/text-node])
-      first))
+      first
+      trim))
 
 (defn- help-hint
   [parameter]
   (-> parameter
       (html/select [:instructions html/text-node])
-      first))
+      first
+      trim))
 
 (defn- parse-parameter
   [parameter]
@@ -32,6 +41,7 @@
                     :order (u/order parameter)
                     :read-only? (-> parameter :attrs :readonly uc/parse-boolean)
                     :help-hint (help-hint parameter))
+      u/normalize-value
       (u/assoc-enum-details parameter)))
 
 (def ^:private deployment-categories #{"Input" "Output"})
@@ -72,3 +82,14 @@
 (defn categories-of-type
   [parameters & types]
   (filter #((set types) (get % :category-type)) parameters))
+
+(defn- value-when-named
+  [parameter-name parameter]
+  (when (= parameter-name (:name parameter))
+    (:value parameter)))
+
+(defn value-for
+  [parameters parameter-name]
+  (->> parameters
+       (mapcat :parameters)
+       (some (partial value-when-named parameter-name))))

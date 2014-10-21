@@ -19,10 +19,23 @@
   <serviceConfiguration deleted='false' creation='2013-03-06 14:31:01.390 CET'>
     <parameters class='org.hibernate.collection.PersistentMap'><entry>
       <entry>
+        <string>
+          <![CDATA[ slipstream.metering.enable ]]>
+        </string>
+        <parameter name='slipstream.metering.enable' description='Metering enabled.' category='SlipStream_Advanced' mandatory='true' type='Boolean' readonly='false'>
+          <instructions>
+            <![CDATA[ ]]>
+          </instructions>
+          <value>
+            <![CDATA[ true ]]>
+          </value>
+        </parameter>
+      </entry>
+      <entry>
 	      <string>
-	        <![CDATA[ slipstream.metering.enable ]]>
+	        <![CDATA[ slipstream.quota.enable ]]>
 	      </string>
-	      <parameter name='slipstream.metering.enable' description='Metering enabled.' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
+	      <parameter name='slipstream.quota.enable' description='Quota enabled.' category='SlipStream_Advanced' mandatory='true' type='Boolean' readonly='false'>
 	        <instructions>
 	          <![CDATA[ ]]>
 	        </instructions>
@@ -55,7 +68,7 @@
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :status "Aborting"}
-                   {:cloud-name "stratuslab"
+                  {:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
                    :type "Run"
@@ -63,7 +76,7 @@
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :status "Aborting"}
-                   {:cloud-name "stratuslab"
+                  {:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
                    :type "Build"
@@ -72,10 +85,12 @@
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :status "Aborting"}]}]
    :vms   []
-   :usage [{:cloud "CloudA"
-            :current-usage 0
-            :quota 5}
-           {:cloud "CloudB"
-            :current-usage 13
-            :quota 15}]}
+   :quota {:enabled? true
+           :usage [{:cloud "CloudA"
+                    :current-usage 0
+                    :quota 5}
+                   {:cloud "CloudB"
+                    :current-usage 13
+                    :quota 15}]}
+   :metering {:enabled? true}}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

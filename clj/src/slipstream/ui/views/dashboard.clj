@@ -212,7 +212,21 @@
 
 (defmulti ^:private section (comp second vector))
 
-; Section "runs"
+(ue/def-blank-snippet usage-snip [:div :div]
+  [usage]
+  ue/this (ue/set-class "ss-usage-container")
+  ue/this (ue/content-for [:div :div] [cloud-usage usage]
+              ue/this (ue/set-id "ss-usage-gauge-" (:cloud cloud-usage))
+              ue/this (ue/set-class "ss-usage-gauge")
+              ue/this (html/set-attr :data-quota-title (:cloud cloud-usage))
+              ue/this (html/set-attr :data-quota-max (:quota cloud-usage))
+              ue/this (html/set-attr :data-quota-current (:current-usage cloud-usage))))
+
+(defmethod section :quota
+  [dashboard metadata-key]
+  {:title   (localization/section-title metadata-key)
+   :content (-> dashboard :quota :usage usage-snip)})
+
 
 (defn- runs-subsection
   [{:keys [cloud-name runs]}]
@@ -238,10 +252,13 @@
   {:title   (localization/section-title metadata-key)
    :content "TBD :)"})
 
-(def ^:private sections
-  [:runs
-   :vms
-   :metering])
+(defn- sections
+  [dashboard]
+  (cond-> []
+    (-> dashboard :quota :enabled?)     (conj :quota)
+    :always                             (conj :runs)
+    :always                             (conj :vms)
+    (-> dashboard :metering :enabled?)  (conj :metering)))
 
 (defn page
   [metadata]
@@ -254,7 +271,8 @@
          :header {:icon icons/dashboard
                   :title (t :header.title)
                   :subtitle (t :header.subtitle)}
-         :content (->> sections
+         :content (->> dashboard
+                       sections
                        (map (partial section dashboard))
                        flatten)}))))
 
