@@ -29,7 +29,7 @@
         (assoc-in [0 :selected?] true))))
 
 (defn clojurify-raw-metadata-str
-  "raw-metadata-str is assumed trimmer. See test for expectations."
+  "raw-metadata-str is assumed trimmed. See test for expectations."
   [raw-metadata-str]
   (if (->> raw-metadata-str first (= \{))
     (json/parse-string raw-metadata-str true)

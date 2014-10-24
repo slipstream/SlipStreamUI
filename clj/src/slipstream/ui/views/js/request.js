@@ -5,12 +5,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             intern: {
                 serialization: "queryString",
                 // serialization: "json"
+                onDataTypeParseError: undefined,
                 always: undefined // doesn't belong to the ajax settings but on the returned Promise object
             },
             settings: {
                 type: method, // values: "GET", "POST", "PUT", "DELETE"
                 url: url,
                 data: undefined,
+                dataType: undefined,
                 contentType: undefined, // jQuery defaults to "application/x-www-form-urlencoded; charset=UTF-8"
                 success: undefined, // function (data, textStatus, jqXHR) {}
                 error: undefined    //function (jqXHR, textStatus, errorThrown) {}
@@ -110,14 +112,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 this.settings.data = object;
                 return this;
             },
-            // setDataObjectAsJSON: function (object) {
-            //     this.settings.data = JSON.stringify(object);
-            //     this.settings.contentType = "application/json; charset=UTF-8";
-            // },
-            // setDataObjectAsQueryString: function (object) {
-            //     this.settings.data = $.param(object);
-            //     this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-            // },
+            dataType: function (type) {
+                // The type of data that you're expecting back from the server. If
+                // none is specified, jQuery will try to infer it based on the MIME
+                // type of the response
+                // One among: 'xml', 'json', 'script', or 'html'.
+                this.settings.dataType = type;
+                return this;
+            },
+            onDataTypeParseErrorAlert: function (titleOrMsg, msg){
+                // When a dataType is set, a default error alert is configured
+                // when sending the request (see below).
+                // onDataTypeParseErrorAlert(titleOrMsg, msg) overrides the default
+                // alert.
+                this.intern.onDataTypeParseError = function () {
+                    $$.Alert.showError(titleOrMsg, msg);
+                };
+                return this;
+            },
             serialization: function (serialization) {
                 this.intern.serialization = serialization;
                 return this;
@@ -143,6 +155,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         this.intern.serialization +
                         "' is not supported." +
                         " Try 'json' or 'queryString'.");
+                }
+                if (this.settings.dataType) {
+                    var dataType = this.settings.dataType;
+                    this.onError(
+                        this.intern.onDataTypeParseError ||
+                        function () {
+                            $$.Alert.showError(
+                                "AJAX Request Error",
+                                "Unable to parse the data received from the server as '" + dataType + "'."
+                                );
+                        });
                 }
                 return jQuery.ajax(this.settings);
             },

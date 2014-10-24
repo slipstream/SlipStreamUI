@@ -1,5 +1,8 @@
 (ns slipstream.ui.main
-  (:require [slipstream.ui.utils :as utils]
+  (:require [clojure.string :as s]
+            [ring.util.response :as resp]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.utils :as utils]
             [slipstream.ui.views.representation :as representation])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -23,17 +26,29 @@
                        (full-metadata-ns raw-metadata-ns)
                        raw-metadata-ns))))))
 
-(defmacro render
+(defn- render
   [& {:keys [raw-metadata-ns pagename type]}]
-  `(-> (representation/-toHtml ~(raw-metadata-str raw-metadata-ns) ~pagename ~type)
-        ring.util.response/response
-        constantly))
+  (-> raw-metadata-ns
+      raw-metadata-str
+      (representation/-toHtml pagename type)
+      resp/response
+      constantly))
 
-(defmacro render-error
+(defn- render-error
   [& {:keys [raw-metadata-ns message code]}]
-  `(-> (representation/-toHtmlError ~(raw-metadata-str raw-metadata-ns) ~message ~code)
-        ring.util.response/response
-        constantly))
+  (-> raw-metadata-ns
+      raw-metadata-str
+      (representation/-toHtmlError message code)
+      resp/response
+      constantly))
+
+(defn- render-file
+  [file-data-file]
+  (-> (str "test/slipstream/ui/mockup_data/" file-data-file)
+      slurp
+      resp/response
+      (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
+      constantly))
 
 (def routes
   (app
@@ -75,6 +90,8 @@
 
     ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
     ["vms"]                   (render :pagename "vms"             :raw-metadata-ns "vms")
+    ["metrics" "render"]      (render-file "metrics.json")
+    ; ["metrics" "render"]      (render-file "metrics_2_lots_of_clouds.json")
 
     ["user-view"]             (render :pagename "user"            :raw-metadata-ns "user" :type "view")
     ["user-edit"]             (render :pagename "user"            :raw-metadata-ns "user" :type "edit")

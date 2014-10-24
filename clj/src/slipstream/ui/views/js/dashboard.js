@@ -26,13 +26,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function drawHistograms(panel) {
         if (panel === undefined) {
-            var panel_idx = $("#metering").tabs('option', 'active');
-            panel = $("#metering .ui-tabs-panel").get(panel_idx);
+            panel = $(".ss-metering");
         }
 
-        var from = $("#metering-selector option:selected").val(),
+        var from = $("#ss-metering-selector option:selected").val(),
             options = {
-                'from': "-" + from + 's',
+                'from': "-" + from + 's'
             };
         // Fixes GH-164 (https://github.com/slipstream/SlipStreamServer/issues/164)
         // Smooths the graph dependeing on which period we retrieving data from.
@@ -72,7 +71,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(panel).metrics(options);
     }
 
-    $("#metering-selector").change(function() {
+    $("#ss-metering-selector").change(function() {
         drawHistograms();
     });
 

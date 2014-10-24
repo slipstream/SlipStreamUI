@@ -59,6 +59,12 @@
     border-radius: 4px;
 }
 */
+
+/*.while-processing:empty {*/
+/*.ss-metering {
+    background: url('/images/spinner.gif') 10px no-repeat;
+}
+*/
 .ss-usage-gauge {
     display: inline-block;
     overflow: hidden;

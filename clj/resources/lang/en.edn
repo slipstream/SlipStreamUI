@@ -469,6 +469,11 @@
    :slipstream.ui.views.dashboard.section.runs.title                            "Deployments / Runs / Builds"
    :slipstream.ui.views.dashboard.section.vms.title                             "Virtual Machines"
    :slipstream.ui.views.dashboard.section.metering.title                        :global.nouns.metering
+   :slipstream.ui.views.dashboard.metering-options.last-hour                    "Last hour"
+   :slipstream.ui.views.dashboard.metering-options.last-day                     "Last day"
+   :slipstream.ui.views.dashboard.metering-options.last-7-days                  "Last 7 days"
+   :slipstream.ui.views.dashboard.metering-options.last-30-days                 "Last 30 days"
+   :slipstream.ui.views.dashboard.metering.metric.instance                      "Virtual Machines"
 
    :slipstream.ui.views.vms.header.title                                        "Your VMs"
    :slipstream.ui.views.vms.header.subtitle                                     "This is a sub-view of the dashboard displaying only your VMs and their status."
