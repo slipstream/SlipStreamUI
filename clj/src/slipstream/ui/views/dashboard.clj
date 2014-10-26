@@ -123,6 +123,7 @@
        :header {:icon icons/dashboard
                 :title (t :header.title)
                 :subtitle (t :header.subtitle)}
+       :resource-uri "/dashboard"
        :content (->> dashboard
                      sections
                      (map (partial section dashboard))
