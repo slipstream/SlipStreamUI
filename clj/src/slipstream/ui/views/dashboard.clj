@@ -121,7 +121,6 @@
       (base/generate
         {:template-filename template-file
          :metadata metadata
-         :in-progress-page? true
          :header {:icon icons/dashboard
                   :title (t :header.title)
                   :subtitle (t :header.subtitle)}
