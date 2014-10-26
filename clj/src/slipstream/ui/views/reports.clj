@@ -37,8 +37,7 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (let [reports (reports/parse metadata)]
-      (base/generate
-        {:content [(reports-list reports)
-                   (footnote)]}))))
+  (let [reports (reports/parse metadata)]
+    (base/generate
+      {:content [(reports-list reports)
+                 (footnote)]})))

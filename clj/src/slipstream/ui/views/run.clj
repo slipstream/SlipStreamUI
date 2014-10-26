@@ -58,19 +58,18 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-   (let [run (run/parse metadata)]
-     (base/generate
-         {:template-filename run-template-html
-          :metadata metadata
-          :header {:icon icons/run
-                   :title (t :header.title
-                             (-> run :summary :uuid (uc/trim-from \-))
-                             (-> run :summary :state))
-                   :subtitle (-> run :summary :module-uri)}
-          :resource-uri (-> run :summary :uri)
-          :secondary-menu-actions [action/terminate]
-          :content (->> sections
-                        (map (partial section run))
-                        flatten)}))))
+  (let [run (run/parse metadata)]
+    (base/generate
+        {:template-filename run-template-html
+        :metadata metadata
+        :header {:icon icons/run
+                  :title (t :header.title
+                            (-> run :summary :uuid (uc/trim-from \-))
+                            (-> run :summary :state))
+                  :subtitle (-> run :summary :module-uri)}
+        :resource-uri (-> run :summary :uri)
+        :secondary-menu-actions [action/terminate]
+        :content (->> sections
+                      (map (partial section run))
+                      flatten)})))
 

@@ -14,12 +14,11 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :header {:icon icons/documentation
-                :title (t :header.title)
-                :subtitle (t :header.subtitle)}
-       :resource-uri "/documentation"
-       :content [{:title (t :content.title)
-                  :content (t/docs-table (docs))}]})))
+  (base/generate
+    {:metadata metadata
+     :header {:icon icons/documentation
+              :title (t :header.title)
+              :subtitle (t :header.subtitle)}
+     :resource-uri "/documentation"
+     :content [{:title (t :content.title)
+                :content (t/docs-table (docs))}]}))

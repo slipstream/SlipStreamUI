@@ -81,13 +81,12 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :placeholder-page? true
-       :header {:icon icons/run
-                :title "Runs"
-                :subtitle "View current runs"}
-       ; :resource-uri "/run/91aa79a"
-       ; :secondary-menu-actions [action/terminate]
-       :content nil})))
+  (base/generate
+    {:metadata metadata
+     :placeholder-page? true
+     :header {:icon icons/run
+              :title "Runs"
+              :subtitle "View current runs"}
+     ; :resource-uri "/run/91aa79a"
+     ; :secondary-menu-actions [action/terminate]
+     :content nil}))

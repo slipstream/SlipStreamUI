@@ -128,11 +128,10 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :placeholder-page? true
-       :header {:icon icons/config
-                :title "Service Catalog"
-                :subtitle "Provides detailed capability information for each available clouds"}
-       :content nil})))
+  (base/generate
+    {:metadata metadata
+     :placeholder-page? true
+     :header {:icon icons/config
+              :title "Service Catalog"
+              :subtitle "Provides detailed capability information for each available clouds"}
+     :content nil}))

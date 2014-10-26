@@ -19,13 +19,11 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-   (let [vms (vms/parse metadata)]
-     (base/generate
-       {:metadata metadata
-        :header {:icon icons/vms
-                 :title (t :header.title)
-                 :subtitle (t :header.subtitle)}
-        :resource-uri "/dashboard/vms"
-        :content (section vms)}))))
-
+  (let [vms (vms/parse metadata)]
+  (base/generate
+    {:metadata metadata
+     :header {:icon icons/vms
+              :title (t :header.title)
+              :subtitle (t :header.subtitle)}
+     :resource-uri "/dashboard/vms"
+     :content (section vms)})))

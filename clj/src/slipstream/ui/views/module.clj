@@ -286,13 +286,12 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (let [module (module-model/parse metadata)
-          summary (:summary module)]
-      (base/generate
-        {:metadata metadata
-         :header (header summary)
-         :alerts [(-> summary :latest-version? old-version-alert)]
-         :resource-uri (:uri summary)
-         :secondary-menu-actions (actions module)
-         :content (sections module)}))))
+  (let [module (module-model/parse metadata)
+        summary (:summary module)]
+    (base/generate
+      {:metadata metadata
+       :header (header summary)
+       :alerts [(-> summary :latest-version? old-version-alert)]
+       :resource-uri (:uri summary)
+       :secondary-menu-actions (actions module)
+       :content (sections module)})))

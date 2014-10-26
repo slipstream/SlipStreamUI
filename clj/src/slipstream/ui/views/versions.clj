@@ -18,14 +18,13 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (let [{:keys [versions resource-uri module-name category]} (mv/parse metadata)
-          icon (icons/icon-for category)]
-      (base/generate
-        {:metadata metadata
-         :header {:icon icon
-                  :title (t :header.title module-name)
-                  :subtitle (subtitle category versions)}
-         :resource-uri resource-uri
-         :content [{:title (t :content.title)
-                    :content (t/versions-table icon versions)}]}))))
+  (let [{:keys [versions resource-uri module-name category]} (mv/parse metadata)
+        icon (icons/icon-for category)]
+    (base/generate
+      {:metadata metadata
+       :header {:icon icon
+                :title (t :header.title module-name)
+                :subtitle (subtitle category versions)}
+       :resource-uri resource-uri
+       :content [{:title (t :content.title)
+                  :content (t/versions-table icon versions)}]})))

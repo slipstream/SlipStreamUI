@@ -116,16 +116,14 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (let [dashboard (dashboard/parse metadata)]
-      (base/generate
-        {:template-filename template-file
-         :metadata metadata
-         :header {:icon icons/dashboard
-                  :title (t :header.title)
-                  :subtitle (t :header.subtitle)}
-         :content (->> dashboard
-                       sections
-                       (map (partial section dashboard))
-                       flatten)}))))
-
+  (let [dashboard (dashboard/parse metadata)]
+    (base/generate
+      {:template-filename template-file
+       :metadata metadata
+       :header {:icon icons/dashboard
+                :title (t :header.title)
+                :subtitle (t :header.subtitle)}
+       :content (->> dashboard
+                     sections
+                     (map (partial section dashboard))
+                     flatten)})))

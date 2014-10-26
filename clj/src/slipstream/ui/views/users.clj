@@ -10,13 +10,12 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :header {:icon icons/users
-                :title (t :header.title)
-                :subtitle (t :header.subtitle)}
-       :resource-uri "/users"
-       :secondary-menu-actions [action/new-user]
-       :content [{:title (t :content.title)
-                  :content (t/users-table (users/parse metadata))}]})))
+  (base/generate
+    {:metadata metadata
+     :header {:icon icons/users
+              :title (t :header.title)
+              :subtitle (t :header.subtitle)}
+     :resource-uri "/users"
+     :secondary-menu-actions [action/new-user]
+     :content [{:title (t :content.title)
+                :content (t/users-table (users/parse metadata))}]}))

@@ -28,14 +28,13 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (let [user (user/parse metadata)]
-      (base/generate
-        {:metadata metadata
-         :header (header user)
-         :secondary-menu-actions [action/edit] ;; TODO: Only if (or (:loggedin? user) (:super? user))
-         :resource-uri (:uri user)
-         :content (into [{:title (t :summary)
-                          :selected? true
-                          :content (t/user-summary-table user)}]
-                        (map category-section (parameters/parse metadata)))}))))
+  (let [user (user/parse metadata)]
+    (base/generate
+      {:metadata metadata
+       :header (header user)
+       :secondary-menu-actions [action/edit] ;; TODO: Only if (or (:loggedin? user) (:super? user))
+       :resource-uri (:uri user)
+       :content (into [{:title (t :summary)
+                        :selected? true
+                        :content (t/user-summary-table user)}]
+                      (map category-section (parameters/parse metadata)))})))

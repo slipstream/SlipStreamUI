@@ -34,12 +34,10 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:template-filename template-filename
-       :page-title "Sign up"
-       :header (header-snip)
-       :content (content-snip)
-       :type type
-       :metadata metadata
-       })))
+  (base/generate
+    {:template-filename template-filename
+     :page-title "Sign up"
+     :header (header-snip)
+     :content (content-snip)
+     :type type
+     :metadata metadata}))

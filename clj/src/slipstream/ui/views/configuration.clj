@@ -64,12 +64,10 @@
 
 (defn page
   [metadata]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :placeholder-page? true
-       :header {:icon icons/config
-                :title "System Configuration"
-                :subtitle "Configure the SlipStream service and its cloud connectors"}
-       :content nil})))
-
+  (base/generate
+    {:metadata metadata
+     :placeholder-page? true
+     :header {:icon icons/config
+              :title "System Configuration"
+              :subtitle "Configure the SlipStream service and its cloud connectors"}
+     :content nil}))

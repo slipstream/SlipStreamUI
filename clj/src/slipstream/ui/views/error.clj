@@ -6,11 +6,10 @@
 
 (defn page
   [metadata message code]
-  (localization/with-lang-from-metadata
-    (base/generate
-      {:metadata metadata
-       :page-title (t :page-title)
-       :error-page? true
-       :header {:status-code code
-                :title nil
-                :subtitle message}})))
+  (base/generate
+    {:metadata metadata
+     :page-title (t :page-title)
+     :error-page? true
+     :header {:status-code code
+              :title nil
+              :subtitle message}}))
