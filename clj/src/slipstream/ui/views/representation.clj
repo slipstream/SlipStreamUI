@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.representation
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.documentation :as documentation]
@@ -62,19 +63,22 @@
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename type]
-  (page-type/is (get page-types pagename type)
-    (-> raw-metadata-str
-        u/clojurify-raw-metadata-str
-        ((get pages pagename))
-        render)))
+  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)
+        page-fn (get pages pagename)]
+    (page-type/with-page-type (get page-types pagename type)
+      (current-user/with-user-from-metadata
+        (-> metadata
+            page-fn
+            render)))))
 
 (defn -toHtmlError
   "Generate an HTML error page"
   [raw-metadata-str message code]
-  (-> raw-metadata-str
-      u/clojurify-raw-metadata-str
-      (error/page message code)
-      render))
+  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
+    (current-user/with-user-from-metadata
+      (-> metadata
+          (error/page message code)
+          render))))
 
 (defn -setReleaseVersion
   "Set the application version"

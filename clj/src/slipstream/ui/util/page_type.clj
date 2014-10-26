@@ -3,7 +3,7 @@
 
 (def ^:dynamic *current-page-type*
   "The page-type is configured with a local thread-bound binding with the macro
-  'page-type/is'. The default value of this dynamic var *current-page-type*
+  'page-type/with-page-type'. The default value of this dynamic var *current-page-type*
   is :view. To check the *current-page-type* use the 'page-type? family of fns
   below instead of referencing this var."
   :view)
@@ -14,7 +14,7 @@
     :new
     :chooser})
 
-(defmacro is
+(defmacro with-page-type
   [page-type & body]
   `(if-let [page-type# (-> ~page-type uc/keywordize valid-page-types)]
      (binding [*current-page-type* page-type#]

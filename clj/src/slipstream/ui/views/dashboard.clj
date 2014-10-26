@@ -2,6 +2,7 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.tables :as t]
@@ -82,12 +83,10 @@
    ; :disk
    ])
 
-
 (defn- data-metric-value
   [metric]
   (format "slipstream.%s.usage.%s.*"
-          (s/replace "rob" "." "_") ;; TODO: Retrieve name from current
-          ; (s/replace (user-model/username dashboard) "." "_")
+          (s/replace (current-user/username) "." "_")
           (name metric)))
 
 (ue/def-blank-snippet ^:private metering-subsection-snip :div
