@@ -2,6 +2,7 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.runs :as runs]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
@@ -11,9 +12,9 @@
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]))
 
-(def deployment-view-template-html (common/get-template "deployment-view.html"))
-(def deployment-edit-template-html (common/get-template "deployment-edit.html"))
-(def deployment-new-template-html (common/get-template "deployment-new.html"))
+(def deployment-view-template-html (u/template-path-for "deployment-view.html"))
+(def deployment-edit-template-html (u/template-path-for "deployment-edit.html"))
+(def deployment-new-template-html (u/template-path-for "deployment-new.html"))
 
 (def module-login-sel [:#module-login])
 (def nodes-sel [:#nodes])

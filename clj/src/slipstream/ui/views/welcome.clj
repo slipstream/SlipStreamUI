@@ -2,7 +2,7 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
@@ -12,7 +12,7 @@
 
 (localization/def-scoped-t)
 
-(def template-filename (common/get-template "app_store.html"))
+(def template-filename (u/template-path-for "app_store.html"))
 
 (def app-thumbnail-group-sel [:.ss-app-thumbnail-group])
 (def app-thumbnail-sel [:.ss-app-thumbnail])

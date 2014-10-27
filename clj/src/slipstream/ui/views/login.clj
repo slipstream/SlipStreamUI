@@ -1,13 +1,13 @@
 (ns slipstream.ui.views.login
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.views.base :as base]))
 
 (localization/def-scoped-t)
 
-(def template-filename (common/get-template "login.html"))
+(def template-filename (u/template-path-for "login.html"))
 
 (def ^:private header-title-sel     [:.ss-header-title])
 (def ^:private header-subtitle-sel  [:.ss-header-subtitle])

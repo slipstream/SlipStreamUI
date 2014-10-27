@@ -1,7 +1,9 @@
 (ns slipstream.ui.views.module
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.module.image :as image]
             [slipstream.ui.views.module.project :as project]
@@ -10,7 +12,6 @@
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.modules :as modules-model]
             [slipstream.ui.models.version :as version]
-            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
             [slipstream.ui.views.module-base :as module-base]
@@ -19,9 +20,9 @@
             [slipstream.ui.views.deployment :as deployment-legacy]
             [slipstream.ui.views.project :as project-legacy]))
 
-(def deployment-view-template-html (common/get-template "deployment-view.html"))
-(def deployment-edit-template-html (common/get-template "deployment-edit.html"))
-(def deployment-new-template-html (common/get-template "deployment-new.html"))
+(def deployment-view-template-html (u/template-path-for "deployment-view.html"))
+(def deployment-edit-template-html (u/template-path-for "deployment-edit.html"))
+(def deployment-new-template-html (u/template-path-for "deployment-new.html"))
 
 (defn header
   [module type]

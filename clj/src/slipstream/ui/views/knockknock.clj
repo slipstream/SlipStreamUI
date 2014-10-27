@@ -2,12 +2,13 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.header :as header]
-                        [slipstream.ui.views.module-base :as module-base]
+            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
-(def knockknock-template-html (common/get-template "knockknock.html"))
+(def knockknock-template-html (u/template-path-for "knockknock.html"))
 
 (html/defsnippet header-snip knockknock-template-html header/header-sel
   [metadata]

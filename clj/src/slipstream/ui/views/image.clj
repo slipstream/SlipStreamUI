@@ -2,6 +2,7 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.authz :as authz]
             [slipstream.ui.views.runs :as runs]
@@ -12,9 +13,9 @@
             [slipstream.ui.models.run :as run-model]
             [slipstream.ui.models.image :as image-model]))
 
-(def image-view-template-html (common/get-template "image-view.html"))
-(def image-edit-template-html (common/get-template "image-edit.html"))
-(def image-new-template-html (common/get-template "image-new.html"))
+(def image-view-template-html (u/template-path-for "image-view.html"))
+(def image-edit-template-html (u/template-path-for "image-edit.html"))
+(def image-new-template-html (u/template-path-for "image-new.html"))
 
 (def image-reference-sel [:#module-reference])
 (def image-image-ids-sel [:#module-image-ids])

@@ -4,6 +4,7 @@
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [clojure.xml :as xml]
             [clojure.zip :as zip]
             [clojure.string :as string])
@@ -17,7 +18,7 @@
 ; titles
 (def header-summary-sel [:#titles])
 
-(def header-template-html (common/get-template "header.html"))
+(def header-template-html (u/template-path-for "header.html"))
 
 (def header-top-bar-sel [:.menu_bar])
 

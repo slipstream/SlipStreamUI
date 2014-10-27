@@ -1,10 +1,11 @@
 (ns slipstream.ui.views.authz
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.models.authz :as authz-model]
             [slipstream.ui.models.module :as module-model]))
 
-(def authorization-edit-template-html (common/get-template "authorization-edit.html"))
+(def authorization-edit-template-html (u/template-path-for "authorization-edit.html"))
 
 (def authorization-sel [:#authorization])
 (def authorization-acl-sel [:#authorization-acl-table])

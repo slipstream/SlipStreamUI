@@ -1,10 +1,9 @@
 (ns slipstream.ui.views.subsection
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.util.core :as u]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.util.core :as u]))
 
-(def template-filename (common/get-template "subsection.html"))
+(def template-filename (u/template-path-for "subsection.html"))
 
 (def ^:private subsection-selected-cls "active")
 

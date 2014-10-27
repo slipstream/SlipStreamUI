@@ -5,9 +5,9 @@
             [slipstream.ui.models.action :as action-model]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.util.core :as u]))
 
-(def action-template-html (common/get-template "action.html"))
+(def action-template-html (u/template-path-for "action.html"))
 
 (html/defsnippet header-snip action-template-html header/header-sel
   [message]

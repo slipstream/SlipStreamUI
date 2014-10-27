@@ -1,20 +1,20 @@
 (ns slipstream.ui.views.dashboard
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.current-user :as current-user]
-            [slipstream.ui.util.icons :as icons]
-            [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.views.tables :as t]
-            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.dashboard :as dashboard]
+            [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.base :as base]))
 
 (localization/def-scoped-t)
 
 ; The template is only needed to provide the JS requested.
 ; TODO: Allow to pass JS filenames when no template needed.
-(def template-file (common/get-template "dashboard.html"))
+(def template-file (u/template-path-for "dashboard.html"))
 
 (defmulti ^:private section (comp second vector))
 

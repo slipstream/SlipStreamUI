@@ -1,12 +1,9 @@
 (ns slipstream.ui.views.code-area
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.common :as common]
-            [slipstream.ui.util.enlive :as ue]
-            ))
-            ; [slipstream.ui.util.clojure :as uc]
-            ; [slipstream.ui.views.subcode-area :as subcode-area]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.enlive :as ue]))
 
-(def template-filename (common/get-template "code_area.html"))
+(def template-filename (u/template-path-for "code_area.html"))
 
 (def code-viewer-sel [:pre.ss-code-viewer])
 (def code-editor-sel [:pre.ss-code-viewer])

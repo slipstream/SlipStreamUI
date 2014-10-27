@@ -1,12 +1,12 @@
 (ns slipstream.ui.views.alerts
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.views.common :as common]
-            [slipstream.ui.util.enlive :as ue]))
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
 
-(def template-filename (common/get-template "alerts.html"))
+(def template-filename (u/template-path-for "alerts.html"))
 
 (def alert-class-sel [:.alert])
 (def dismiss-button-sel [:button])

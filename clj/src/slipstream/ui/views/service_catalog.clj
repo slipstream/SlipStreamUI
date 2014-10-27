@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.service-catalog
   (:require [slipstream.ui.util.localization :as localization]
-
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.common :as common-model]
@@ -14,10 +14,10 @@
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header]
-                        [slipstream.ui.views.project :as project]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.views.project :as project]
+            [slipstream.ui.util.core :as u]))
 
-(def service-catalog-template-html (common/get-template "service_catalog.html"))
+(def service-catalog-template-html (u/template-path-for "service_catalog.html"))
 
 (def service-catalog-id "service-catalog")
 (def service-catalog-sel [(keyword (str "#" service-catalog-id))])

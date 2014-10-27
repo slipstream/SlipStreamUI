@@ -1,12 +1,12 @@
 (ns slipstream.ui.views.legacy.footer
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.models.version :as version]))
 
 (def footer-sel [:#footer])
 
-(def footer-template (common/get-template "footer.html"))
+(def footer-template (u/template-path-for "footer.html"))
 
 (html/defsnippet footer-snip footer-template footer-sel
   []

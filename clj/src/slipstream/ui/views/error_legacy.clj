@@ -4,10 +4,10 @@
             [slipstream.ui.views.base :as base]
                         [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user :as user-models]
-            [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.views.header :as header]))
 
-(def error-template-html (common/get-template "error.html"))
+(def error-template-html (u/template-path-for "error.html"))
 
 (html/defsnippet error-titles-snip header/header-template-html header/titles-sel
   [message code]

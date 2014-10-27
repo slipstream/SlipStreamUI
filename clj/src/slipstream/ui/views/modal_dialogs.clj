@@ -1,14 +1,13 @@
 (ns slipstream.ui.views.modal-dialogs
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
 
-(def template-filename (common/get-template "modal_dialogs.html"))
+(def template-filename (u/template-path-for "modal_dialogs.html"))
 
 (def title-sel [:.modal-title])
 (def first-button-sel [:.modal-footer [:button html/first-of-type]])

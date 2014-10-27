@@ -1,12 +1,11 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
-            [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
-            [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.util.core :as u]
-            [slipstream.ui.views.common :as common]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
@@ -19,12 +18,11 @@
             [slipstream.ui.views.secondary-menu :as secondary-menu]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.code-area :as code-area]
-            [slipstream.ui.views.modal-dialogs :as modal-dialogs]
-            ))
+            [slipstream.ui.views.modal-dialogs :as modal-dialogs]))
 
 (def ^:dynamic *prod?* true)
 
-(def base-template-filename (common/get-template "base.html"))
+(def base-template-filename (u/template-path-for "base.html"))
 
 (def head-sel [:head])
 (def page-title-sel (concat head-sel [:> :title]))

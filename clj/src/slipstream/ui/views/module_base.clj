@@ -2,6 +2,7 @@
   (:require [clojure.string :as string]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.views.header :as header]
                         [slipstream.ui.models.user :as user]
             [slipstream.ui.models.module :as module-model]))
@@ -22,9 +23,9 @@
 
 ;; Templates
 
-(def project-view-template-html (common/get-template "project-view.html"))
-(def project-edit-template-html (common/get-template "project-edit.html"))
-(def project-new-template-html (common/get-template "project-new.html"))
+(def project-view-template-html (u/template-path-for "project-view.html"))
+(def project-edit-template-html (u/template-path-for "project-edit.html"))
+(def project-new-template-html (u/template-path-for "project-new.html"))
 
 ;; Utility
 

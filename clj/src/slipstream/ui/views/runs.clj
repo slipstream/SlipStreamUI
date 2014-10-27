@@ -1,17 +1,18 @@
 (ns slipstream.ui.views.runs
-  (:require [slipstream.ui.util.localization :as localization]
-            [net.cgrand.enlive-html :as html]
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.views.common :as common]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.run :as run-model]
             [slipstream.ui.views.header :as header]
-                        [slipstream.ui.views.common :as common]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.run :as run]
             [slipstream.ui.views.module-base :as module-base]))
 
-(def runs-template-html (common/get-template "runs-template.html"))
+(def runs-template-html (u/template-path-for "runs-template.html"))
 
 (def runs-sel [:#runs])
 (def runs-fragment-sel [:#fragment-runs-somecloud])

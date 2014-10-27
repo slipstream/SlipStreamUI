@@ -1,19 +1,19 @@
 (ns slipstream.ui.views.run
-  (:require [slipstream.ui.util.clojure :as uc]
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.common :as common]
             [slipstream.ui.models.run :as run]))
 
 (localization/def-scoped-t)
 
 ;; We only need a template to include the CSS and JS files.
 ;; Everything else is composed and generated as the other pages with accordions.
-(def run-template-html (common/get-template "run.html"))
+(def run-template-html (u/template-path-for "run.html"))
 
 (defmulti section (comp second vector))
 

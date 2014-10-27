@@ -1,14 +1,13 @@
 (ns slipstream.ui.views.menubar
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
 
-(def template-filename (common/get-template "menubar.html"))
+(def template-filename (u/template-path-for "menubar.html"))
 
 (def navbar-sel [:.navbar])
 

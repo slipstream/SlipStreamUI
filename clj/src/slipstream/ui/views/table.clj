@@ -5,12 +5,12 @@
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.time :as ut]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.views.common :as common]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.icons :as icons]))
 
 (localization/def-scoped-t)
 
-(def template-filename (common/get-template "table.html"))
+(def template-filename (u/template-path-for "table.html"))
 
 (def table-cls "ss-table")
 

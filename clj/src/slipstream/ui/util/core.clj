@@ -4,9 +4,14 @@
             [net.cgrand.enlive-html :as html]
             [clj-json.core :as json]
             [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.localization :as localization]))
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.config :as config]))
 
 (localization/def-scoped-t)
+
+(defn template-path-for
+  [name]
+  (str @config/template-namespace "/" name))
 
 ;; TODO: Look at slipstream.ui.views.common/slipstream and refactor.
 (def slipstream "SlipStream")

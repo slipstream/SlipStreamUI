@@ -3,10 +3,9 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.views.subsection :as subsection]
-            [slipstream.ui.views.common :as common]))
+            [slipstream.ui.views.subsection :as subsection]))
 
-(def template-filename (common/get-template "section.html"))
+(def template-filename (u/template-path-for "section.html"))
 
 (def section-id "ss-section")
 (def section-selected-cls "ss-section-selected")
