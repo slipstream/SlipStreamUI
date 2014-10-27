@@ -9,8 +9,7 @@
             [slipstream.ui.models.run :as run-model]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.run :as run]
-            [slipstream.ui.views.module-base :as module-base]))
+            [slipstream.ui.views.run :as run]))
 
 (def runs-template-html (u/template-path-for "runs-template.html"))
 

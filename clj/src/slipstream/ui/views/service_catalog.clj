@@ -5,13 +5,10 @@
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.common :as common-model]
-            [slipstream.ui.models.modules :as modules-model]
-            [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.service-catalog :as service-catalog-model]
             [slipstream.ui.models.configuration :as configuration-model]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.project :as project]
@@ -75,7 +72,8 @@
     (map
       #(hash-map
          (:cloud
-           (module-model/attrs %))
+           ; (module-model/attrs %))
+           identity)
          (common-model/sort-by-category
            (common-model/sort-by-name
              (seq
@@ -119,7 +117,8 @@
   (base/base
     {:js-scripts (js-scripts type)
      :title (common/title "Service Catalog")
-     :header (module-base/header root-projects type header-snip)
+     ; :header (module-base/header root-projects type header-snip)
+     :header ""
      :content (content-snip root-projects)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
