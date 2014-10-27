@@ -1,25 +1,14 @@
 (ns slipstream.ui.views.module
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.user :as user]
+            [slipstream.ui.models.module :as module]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.module.image :as image]
             [slipstream.ui.views.module.project :as project]
             [slipstream.ui.views.module.deployment :as deployment]
-            [slipstream.ui.views.base :as base]
-            [slipstream.ui.models.module :as module]
-            ; [slipstream.ui.models.modules :as modules-model]
-            ; [slipstream.ui.models.version :as version]
-            ; [slipstream.ui.views.common :as common]
-            ; [slipstream.ui.views.module-base :as module-base]
-            ; [slipstream.ui.views.header :as header]
-            ; [slipstream.ui.views.image :as image-legacy]
-            ; [slipstream.ui.views.deployment :as deployment-legacy]
-            ; [slipstream.ui.views.project :as project-legacy]
-            ))
+            [slipstream.ui.views.base :as base]))
 
 (localization/def-scoped-t)
 

@@ -381,7 +381,8 @@
   (html/clone-for
     [parameter parameters
      :let
-     [attrs (module-model/attrs parameter)
+     ; [attrs (module-model/attrs parameter)
+     [attrs nil
       description (:description attrs)
       value (parameter-value parameter)
       help (parameter-help parameter)]]
@@ -401,7 +402,8 @@
   (html/clone-for
     [parameter parameters
      :let
-     [attrs (module-model/attrs parameter)
+     ; [attrs (module-model/attrs parameter)
+     [attrs nil
       description (:description attrs)
       category (:category attrs)
       value (parameter-value parameter)
