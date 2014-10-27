@@ -8,7 +8,6 @@
 (localization/def-scoped-t)
 
 (def ^:private parameter-sel [html/root :> :parameters :> :entry :> :parameter])
-; (def ^:private parameter-sel [:parameters :entry :parameter])
 
 (defn- trim
   [s]
