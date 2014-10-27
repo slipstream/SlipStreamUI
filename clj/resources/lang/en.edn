@@ -478,4 +478,8 @@
    :slipstream.ui.views.vms.header.title                                        "Your VMs"
    :slipstream.ui.views.vms.header.subtitle                                     "This is a sub-view of the dashboard displaying only your VMs and their status."
    :slipstream.ui.views.vms.section.vms.title                                   "Virtual Machines"
+
+   :slipstream.ui.views.configuration.header.title                              "System Configuration"
+   :slipstream.ui.views.configuration.header.subtitle                           "Configure the SlipStream service and its cloud connectors"
 }
+

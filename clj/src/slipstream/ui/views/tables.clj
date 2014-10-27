@@ -98,8 +98,9 @@
     (re-matches #".*:url\..*" name) :cell/url
     :else (case type
             "String"            :cell/text
-            "RestrictedText"    :cell/text
             "RestrictedString"  :cell/text
+            "Text"              :cell/text
+            "RestrictedText"    :cell/text
             "Password"          :cell/password
             "Enum"              :cell/enum
             "Boolean"           :cell/boolean)))
