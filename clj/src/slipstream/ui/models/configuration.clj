@@ -1,9 +1,13 @@
 (ns slipstream.ui.models.configuration
-  (:require [slipstream.ui.models.parameters :as parameters]))
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.parameters :as parameters]))
 
 (defn parse
   [metadata]
-  {:parameters (parameters/parse metadata)})
+  {:parameters (-> metadata
+                   (html/select [:serviceConfiguration])
+                   first
+                   parameters/parse)})
 
 ;; Configuration parameters utils
 

@@ -17,7 +17,7 @@
   </usage>
   <user issuper='true' resourceUri='user/super' name='super'></user>
   <serviceConfiguration deleted='false' creation='2013-03-06 14:31:01.390 CET'>
-    <parameters class='org.hibernate.collection.PersistentMap'><entry>
+    <parameters class='org.hibernate.collection.PersistentMap'>
       <entry>
         <string>
           <![CDATA[ slipstream.metering.enable ]]>
