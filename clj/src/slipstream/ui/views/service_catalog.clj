@@ -11,7 +11,6 @@
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.project :as project]
             [slipstream.ui.util.core :as u]))
 
 (def service-catalog-template-html (u/template-path-for "service_catalog.html"))
@@ -110,7 +109,8 @@
 (defn js-scripts
   [type]
   (if (= "chooser" type)
-    (concat js-scripts-default (module/js-scripts-chooser))
+    ; (concat js-scripts-default (module/js-scripts-chooser))
+    (concat js-scripts-default [])
     js-scripts-default))
 
 (defn page-legacy [root-projects type]
