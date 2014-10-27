@@ -6,8 +6,8 @@
             [slipstream.ui.models.module.image :as image]
             [slipstream.ui.models.module.project :as project]
             [slipstream.ui.models.module.deployment :as deployment]
-            [slipstream.ui.models.user :as user]
-            [slipstream.ui.models.authz :as authz]
+            ; [slipstream.ui.models.user :as user]
+            ; [slipstream.ui.models.authz :as authz]
             ))
 
  (defn- parse-keyword

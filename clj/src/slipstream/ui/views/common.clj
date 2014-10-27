@@ -424,7 +424,8 @@
   (html/clone-for
     [parameter parameters
      :let
-     [attrs (module-model/attrs parameter)
+     ; [attrs (module-model/attrs parameter)
+     [attrs nil
       name (:name attrs)
       description (:description attrs)
       category (:category attrs)
