@@ -20,15 +20,22 @@
 (def service-catalog-header-id "service-catalog-header")
 (def service-catalog-header-sel [(keyword (str "#" service-catalog-header-id))])
 
-(html/defsnippet header-titles-snip service-catalog-template-html header/titles-sel
+; (html/defsnippet header-titles-snip service-catalog-template-html header/titles-sel
+(html/defsnippet header-titles-snip service-catalog-template-html [:head]
   []
   identity)
 
-(html/defsnippet header-snip header/header-template-html header/header-sel
+; (html/defsnippet header-snip header/header-template-html header/header-sel
+;   [metadata]
+;   header/titles-sel (html/substitute (header-titles-snip))
+;   header/header-top-bar-sel (html/substitute
+;                                     (header/header-top-bar-snip
+;                                       (user-model/attrs metadata))))
+(html/defsnippet header-snip service-catalog-template-html [:header]
   [metadata]
-  header/titles-sel (html/substitute (header-titles-snip))
-  header/header-top-bar-sel (html/substitute
-                                    (header/header-top-bar-snip
+  [:header] (html/substitute (header-titles-snip))
+  [:header] (html/substitute
+                                    (identity
                                       (user-model/attrs metadata))))
 
 (defn define-tabs-for-parameters
