@@ -481,5 +481,6 @@
 
    :slipstream.ui.views.configuration.header.title                              "System Configuration"
    :slipstream.ui.views.configuration.header.subtitle                           "Configure the SlipStream service and its cloud connectors"
-}
 
+   :slipstream.ui.views.action.header.title                                     "Action Confirmation"
+}

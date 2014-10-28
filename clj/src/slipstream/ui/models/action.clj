@@ -1,8 +1,21 @@
 (ns slipstream.ui.models.action
-  (:require [net.cgrand.enlive-html :as html]
-            [clojure.string :as string]))
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]))
+
+(defn- parse-action-str
+  [action-str]
+  (let [[_ title message] (re-matches #"(?s)(.*?)\n(.*)" action-str)] ;; (?s) Dot matches all (including newline)
+    {:title (when title (s/trim title))
+     :message (if message
+                (s/trim message)
+                action-str)}))
 
 (defn parse
   [metadata]
-  (first (html/select metadata [html/root :> [html/text-node]])))
+  (-> metadata
+      (html/select [html/text-node])
+      first
+      (or "")
+      s/trim
+      parse-action-str))
 
