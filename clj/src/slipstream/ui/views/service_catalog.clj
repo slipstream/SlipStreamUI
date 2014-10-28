@@ -5,16 +5,12 @@
             [slipstream.ui.models.authz :as authz]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.common :as common-model]
-            [slipstream.ui.models.modules :as modules-model]
-            [slipstream.ui.models.module :as module-model]
             [slipstream.ui.models.user :as user-model]
             [slipstream.ui.models.service-catalog :as service-catalog-model]
             [slipstream.ui.models.configuration :as configuration-model]
             [slipstream.ui.views.base :as base]
-            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.header :as header]
-            [slipstream.ui.views.project :as project]
             [slipstream.ui.util.core :as u]))
 
 (def service-catalog-template-html (u/template-path-for "service_catalog.html"))
@@ -24,15 +20,22 @@
 (def service-catalog-header-id "service-catalog-header")
 (def service-catalog-header-sel [(keyword (str "#" service-catalog-header-id))])
 
-(html/defsnippet header-titles-snip service-catalog-template-html header/titles-sel
+; (html/defsnippet header-titles-snip service-catalog-template-html header/titles-sel
+(html/defsnippet header-titles-snip service-catalog-template-html [:head]
   []
   identity)
 
-(html/defsnippet header-snip header/header-template-html header/header-sel
+; (html/defsnippet header-snip header/header-template-html header/header-sel
+;   [metadata]
+;   header/titles-sel (html/substitute (header-titles-snip))
+;   header/header-top-bar-sel (html/substitute
+;                                     (header/header-top-bar-snip
+;                                       (user-model/attrs metadata))))
+(html/defsnippet header-snip service-catalog-template-html [:header]
   [metadata]
-  header/titles-sel (html/substitute (header-titles-snip))
-  header/header-top-bar-sel (html/substitute
-                                    (header/header-top-bar-snip
+  [:header] (html/substitute (header-titles-snip))
+  [:header] (html/substitute
+                                    (identity
                                       (user-model/attrs metadata))))
 
 (defn define-tabs-for-parameters
@@ -75,7 +78,8 @@
     (map
       #(hash-map
          (:cloud
-           (module-model/attrs %))
+           ; (module-model/attrs %))
+           identity)
          (common-model/sort-by-category
            (common-model/sort-by-name
              (seq
@@ -112,14 +116,16 @@
 (defn js-scripts
   [type]
   (if (= "chooser" type)
-    (concat js-scripts-default (module/js-scripts-chooser))
+    ; (concat js-scripts-default (module/js-scripts-chooser))
+    (concat js-scripts-default [])
     js-scripts-default))
 
 (defn page-legacy [root-projects type]
   (base/base
     {:js-scripts (js-scripts type)
      :title (common/title "Service Catalog")
-     :header (module-base/header root-projects type header-snip)
+     ; :header (module-base/header root-projects type header-snip)
+     :header ""
      :content (content-snip root-projects)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

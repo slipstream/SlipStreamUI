@@ -15,7 +15,6 @@
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.users :as users]
             [slipstream.ui.views.run :as run]
-            [slipstream.ui.views.runs :as runs]
             [slipstream.ui.views.reports :as reports]
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.action :as action]
@@ -53,7 +52,6 @@
    "user"             user/page
    "users"            users/page
    "run"              run/page
-   "runs"             runs/page ; TODO: Is this page still needed?
    "reports"          reports/page
    "configuration"    configuration/page
    "action"           action/page})

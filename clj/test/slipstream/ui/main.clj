@@ -98,7 +98,6 @@
     ["users"]                 (render :pagename "users"           :raw-metadata-ns "users")
 
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
-    ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
 
     ["reports" &]             (render :pagename "reports"         :raw-metadata-ns "reports")
 

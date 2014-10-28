@@ -7,7 +7,6 @@
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
             [slipstream.ui.views.messages :as messages]
-            [slipstream.ui.views.module-base :as module-base]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
             [slipstream.ui.views.section :as section]

@@ -120,7 +120,7 @@
     (base/generate
       {:template-filename template-file
        :metadata metadata
-       :header {:icon icons/dashboard
+       :header {:icon     icons/dashboard
                 :title    (t :header.title)
                 :subtitle (t :header.subtitle)}
        :resource-uri "/dashboard"

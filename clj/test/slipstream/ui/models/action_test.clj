@@ -21,11 +21,44 @@
   </string>")
 
 (def parsed-metadata
-  "
-    Your email address has been confirmed.
-    You should now be receiving another email with your account details.
-    ")
+  {:title   "Your email address has been confirmed."
+   :message "You should now be receiving another email with your account details."})
 
 (expect
   parsed-metadata
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Further message formats
+
+(def raw-metadata-str-one-line
+  "<?xml version='1.0' encoding='UTF-8' standalone='no'?><string>
+    Your email address has been confirmed. You should now be receiving another email with your account details.
+  </string>")
+
+(def parsed-metadata-one-line
+  {:title   nil
+   :message "Your email address has been confirmed. You should now be receiving another email with your account details."})
+
+(expect
+  parsed-metadata-one-line
+  (-> raw-metadata-str-one-line u/clojurify-raw-metadata-str model/parse))
+
+(def raw-metadata-str-more-than-two-lines
+  "<?xml version='1.0' encoding='UTF-8' standalone='no'?><string>
+    Your email address has been confirmed.
+    You should now be receiving another email with your account details.
+    And this should be the 2nd line of the message.
+  </string>")
+
+(def parsed-metadata-more-than-two-lines
+  {:title   "Your email address has been confirmed."
+   :message (str "You should now be receiving another email with your account details."
+                 "\n"
+                 "    And this should be the 2nd line of the message.")})
+
+(expect
+  parsed-metadata-more-than-two-lines
+  (-> raw-metadata-str-more-than-two-lines u/clojurify-raw-metadata-str model/parse))
