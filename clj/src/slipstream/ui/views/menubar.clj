@@ -3,6 +3,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
@@ -40,19 +41,18 @@
     (snip)))
 
 (defmulti menubar
-  (fn [{:keys [type user]}]
+  (fn []
     (cond
-      (page-type/chooser?)  :chooser
-      (nil? user)           :unlogged
-      (:logged-in? user)    :logged-in
-      :else :un-logged)))
+      (page-type/chooser?)      :chooser
+      (current-user/logged-in?) :logged-in
+      :else :unlogged)))
 
 (defmethod menubar :chooser
-  [_]
+  []
   nil)
 
 (defmethod menubar :unlogged
-  [_]
+  []
   (html/at menubar-unlogged-node
             input-username-sel  (ue/set-placeholder (t :unlogged.input.username.placeholder))
             input-password-sel  (ue/set-placeholder (t :unlogged.input.password.placeholder))
@@ -62,11 +62,11 @@
             action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
 
 (defmethod menubar :logged-in
-  [{:keys [user]}]
+  []
   (html/at menubar-logged-in-node
-            super-user-item-sel       (ue/remove-if-not (:super? user))
-            username-sel              (html/content (:username user))
-            user-profile-anchor-sel   (ue/set-href (:uri user))
+            super-user-item-sel       (ue/remove-if-not (current-user/super?))
+            username-sel              (html/content (current-user/username))
+            user-profile-anchor-sel   (ue/set-href (current-user/uri))
             action-dashboard-sel      (html/content (t :logged-in.action.dashboard))
             action-configuration-sel  (html/content (t :logged-in.action.configuration))
             action-system-sel         (html/content (t :logged-in.action.system))

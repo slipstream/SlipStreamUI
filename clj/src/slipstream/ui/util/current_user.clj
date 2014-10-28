@@ -32,3 +32,7 @@
 (defn super?
   []
   (:super? *current-user*))
+
+(defn logged-in?
+  []
+  (:logged-in? *current-user*))
