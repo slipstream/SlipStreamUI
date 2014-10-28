@@ -1,15 +1,27 @@
-[WIP] new: 
-
+# NB: Lines begining with # are not taken into account for the commit message.
 #
-# You might want to use one of this labels to prefix your commit message:
+# You might want to use one of this labels to prefix your commit message.
+# Uncomment (delete the # char) the proper line to directly use it:
 #
-#   fix:
-#   new:
-#   change:
-#   refactor:
+#fix: 
+#new: 
+#change: 
+#refactor: 
+#typo: 
+#
+#
+# If you are doing a partial commit (e.g. the feature is not yet finished,
+# or the code doesn't properly work but you want to save the state of the
+# work) you might want to prefix the message with [WIP]:
+#
+#[WIP] fix: 
+#[WIP] new: 
+#[WIP] change: 
+#[WIP] refactor: 
+#[WIP] typo: 
+#
 #
 # After editing the message, save and quit your editor, e.g. in vim
 # with 'ZZ' or ':wq'. If you exit without modifing the message or
 # with a blank message, the commit is aborted.
-#
 #
