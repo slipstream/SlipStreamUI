@@ -3,6 +3,7 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.views.base :as base]
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.documentation :as documentation]
@@ -35,10 +36,6 @@
                  :doc "Takes: version"}
                 [setReleaseVersion [String] void]]))
 
-(defn- render
-  [t]
-  (apply str t))
-
 (def pages
   {"login"            login/page
    "logout"           byebye/page
@@ -59,17 +56,34 @@
 (def page-types
   {"reports"          :chooser})
 
+(defn- render
+  [pagename metadata]
+  (if-let [render-fn (get pages pagename)]
+    (render-fn metadata)
+    (throw (IllegalStateException.
+             (format "No render-fn found for pagename '%s'."
+                     pagename)))))
+
+(defmacro guard-exceptions
+  [& body]
+  `(if-not base/*prod?*
+    ;; In dev mode let the stacktrace be printed on the browser:
+    ~@body
+    (try
+      ;; In prod render a proper error page reporting the expection:
+      ~@body
+      (catch Throwable t#
+        (error/page-uncaught-exception t#)))))
+
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename type]
-  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)
-        page-fn (get pages pagename)]
+  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (page-type/with-page-type (get page-types pagename type)
       (localization/with-lang-from-metadata
         (current-user/with-user-from-metadata
-              (-> metadata
-                  page-fn
-                  render))))))
+          (guard-exceptions
+            (render pagename metadata)))))))
 
 (defn -toHtmlError
   "Generate an HTML error page"
@@ -77,9 +91,7 @@
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata
       (current-user/with-user-from-metadata
-          (-> metadata
-              (error/page message code)
-              render)))))
+        (error/page metadata message code)))))
 
 (defn -setReleaseVersion
   "Set the application version"

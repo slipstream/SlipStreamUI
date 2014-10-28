@@ -132,7 +132,46 @@
 
 
    :slipstream.ui.views.error.page-title                       :global.nouns.error
+   :slipstream.ui.views.error.header.title                     "Oops!" ; Also set up by default in error.css
+   :slipstream.ui.views.error.header.subtitle                  "How embarrassing. We lost you on the cloud, away from the slip stream.
+                                                                We are surely working on it, but if you land to this page many times,
+                                                                please don't hesitate to [let us know](mailto:support@sixsq.com)." ; Also set up by default in error.css
 
+   :slipstream.ui.views.error.status-code-400.title            "Bad request"
+   :slipstream.ui.views.error.status-code-401.title            "Unauthorized"
+   :slipstream.ui.views.error.status-code-402.title            "Payment required"
+   :slipstream.ui.views.error.status-code-403.title            "Forbidden"
+   :slipstream.ui.views.error.status-code-404.title            "Not found"
+   :slipstream.ui.views.error.status-code-405.title            "Method not allowed"
+   :slipstream.ui.views.error.status-code-406.title            "Not acceptable"
+   :slipstream.ui.views.error.status-code-407.title            "Proxy authentication required"
+   :slipstream.ui.views.error.status-code-408.title            "Request timeout"
+   :slipstream.ui.views.error.status-code-409.title            "Conflict"
+   :slipstream.ui.views.error.status-code-410.title            "Gone"
+   :slipstream.ui.views.error.status-code-411.title            "Length required"
+   :slipstream.ui.views.error.status-code-412.title            "Precondition failed"
+   :slipstream.ui.views.error.status-code-413.title            "Request entity too large"
+   :slipstream.ui.views.error.status-code-414.title            "Request-URI too long"
+   :slipstream.ui.views.error.status-code-415.title            "Unsupported media type"
+   :slipstream.ui.views.error.status-code-416.title            "Requested range not satisfiable"
+   :slipstream.ui.views.error.status-code-417.title            "Expectation failed"
+   :slipstream.ui.views.error.status-code-418.title            "I'm a teapot"
+   :slipstream.ui.views.error.status-code-422.title            "Unprocessable entity"
+   :slipstream.ui.views.error.status-code-423.title            "Locked"
+   :slipstream.ui.views.error.status-code-424.title            "Failed dependency"
+   :slipstream.ui.views.error.status-code-426.title            "Upgrade required"
+
+   :slipstream.ui.views.error.status-code-500.title            "Internal server error"
+   :slipstream.ui.views.error.status-code-501.title            "Not implemented"
+   :slipstream.ui.views.error.status-code-502.title            "Bad gateway"
+   :slipstream.ui.views.error.status-code-503.title            "Service unavailable"
+   :slipstream.ui.views.error.status-code-504.title            "Gateway timeout"
+   :slipstream.ui.views.error.status-code-505.title            "HTTP version not supported"
+   :slipstream.ui.views.error.status-code-506.title            "Variant also negotiates"
+   :slipstream.ui.views.error.status-code-507.title            "Insufficient storage"
+   :slipstream.ui.views.error.status-code-508.title            "Loop detected"
+   :slipstream.ui.views.error.status-code-510.title            "Not extended"
+   :slipstream.ui.views.error.status-code-511.title            "Network authentication required"
 
    :slipstream.ui.views.alerts.success.title                   :global.nouns.success
    :slipstream.ui.views.alerts.info.title                      :global.nouns.info

@@ -29,6 +29,11 @@ body.ss-error-page p {
   color: white;
 }
 
+body.ss-error-page .jumbotron .ss-header a {
+  color: white;
+  text-decoration: underline;
+}
+
 
 body.ss-error-page #header {
   background-color: transparent;

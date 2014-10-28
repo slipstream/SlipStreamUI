@@ -3,6 +3,7 @@
             [ring.util.response :as resp]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.utils :as utils]
+            [slipstream.ui.views.base :as base]
             [slipstream.ui.views.representation :as representation])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -26,29 +27,37 @@
                        (full-metadata-ns raw-metadata-ns)
                        raw-metadata-ns))))))
 
+(defmacro ^:private with-dev-environment
+  [& body]
+  `(binding [base/*prod?* false]
+     ~@body))
+
 (defn- render
   [& {:keys [raw-metadata-ns pagename type]}]
-  (-> raw-metadata-ns
-      raw-metadata-str
-      (representation/-toHtml pagename type)
-      resp/response
-      constantly))
+  (with-dev-environment
+    (-> raw-metadata-ns
+        raw-metadata-str
+        (representation/-toHtml pagename type)
+        resp/response
+        constantly)))
 
 (defn- render-error
   [& {:keys [raw-metadata-ns message code]}]
-  (-> raw-metadata-ns
-      raw-metadata-str
-      (representation/-toHtmlError message code)
-      resp/response
-      constantly))
+  (with-dev-environment
+    (-> raw-metadata-ns
+        raw-metadata-str
+        (representation/-toHtmlError message code)
+        resp/response
+        constantly)))
 
 (defn- render-file
   [file-data-file]
-  (-> (str "test/slipstream/ui/mockup_data/" file-data-file)
-      slurp
-      resp/response
-      (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
-      constantly))
+  (with-dev-environment
+    (-> (str "test/slipstream/ui/mockup_data/" file-data-file)
+        slurp
+        resp/response
+        (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
+        constantly)))
 
 (def routes
   (app
@@ -62,6 +71,8 @@
 
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
+
+    ["service_catalog"]       (render :pagename "servicecatalog" :raw-metadata-ns "service-catalog")
 
     ["project-view"]          (render :pagename "module"          :raw-metadata-ns "module.project"     :type "view")
     ["project-chooser"]       (render :pagename "module"          :raw-metadata-ns "module.project"     :type "chooser")
@@ -112,6 +123,9 @@
     ["error"]                 (render-error :raw-metadata-ns "module.project"
                                             :message "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>"
                                             :code 500)
+    ["error-401"]             (render-error :raw-metadata-ns "module.project"
+                                            :message "Unauthorized."
+                                            :code 401)
     [&]                       (render-error :raw-metadata-ns "module.project"
                                             :code 404)))
 
