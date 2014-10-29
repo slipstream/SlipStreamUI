@@ -104,7 +104,7 @@
   topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
   secondary-menu-sel    (when-not (page-type/chooser?)
-                          (secondary-menu/transform context))
+                          (secondary-menu/transform secondary-menu-actions))
   secondary-menubar-sel (ue/remove-if-not (or resource-uri secondary-menu-actions))
   [:#release-version]   (html/content @version/slipstream-release-version)
   footer-sel            (ue/remove-if (page-type/chooser?))
@@ -127,8 +127,7 @@
 
 (defn generate
   [{:keys [header metadata template-filename content alerts] :as context}]
-  (let [user (user-loggedin/parse metadata)
-        involved-templates [alerts/template-filename
+  (let [involved-templates [alerts/template-filename
                             menubar/template-filename
                             section/template-filename ;; TODO: only if sections in body.
                             subsection/template-filename ;; TODO: only if subsections in body.
@@ -145,6 +144,5 @@
         (page-type/edit?)     (assoc :secondary-menu-actions edit-page-actions)
         (page-type/new?)      (assoc :secondary-menu-actions new-page-actions)
         :always               (assoc
-                                :user user
                                 ; :beta-page? true
                                 :involved-templates involved-templates)))))

@@ -1,7 +1,8 @@
 (ns slipstream.ui.views.secondary-menu
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.util.icons :as icons]))
+            [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.current-user :as current-user]))
 
 (def ^:private disabled-cls "disabled")
 
@@ -27,11 +28,13 @@
        extra-action-anchor-sel (setup-action action)))
 
 (defn- toggle-super-only-action
-  "Enable ':super-only?' actions if user is ':admin?'.
+  "Enable ':super-only?' actions if user is ':super?'.
   Hard-coded ':disabled? true' value wins over ':super-only?' setting.
   Hard-coded ':disabled? false' value loses over ':super-only?' setting."
-  [{:keys [super?] :as user} {:keys [disabled? super-only?] :as action}]
-  (assoc action ::enabled? (if disabled? false (or super? (not super-only?)))))
+  [{:keys [disabled? super-only?] :as action}]
+  (assoc action ::enabled? (if disabled?
+                             false
+                             (or (current-user/super?) (not super-only?)))))
 
 (defn- call-action-fn
   "Actions defined in slipstream.ui.views.secondary-menu-actions are functions
@@ -44,10 +47,10 @@
     (map-or-fn)))
 
 (defn transform
-  [{:keys [secondary-menu-actions user] :as context}]
+  [secondary-menu-actions]
   (let [actions (->> secondary-menu-actions
                      (map call-action-fn)
-                     (map (partial toggle-super-only-action user)))]
+                     (map toggle-super-only-action))]
     (fn [match]
       (html/at match
                main-action-sel              (setup-action (first actions))
