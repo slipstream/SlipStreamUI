@@ -72,7 +72,7 @@
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 
-    ["service_catalog"]       (render :pagename "servicecatalog" :raw-metadata-ns "service-catalog")
+    ["service_catalog"]       (render :pagename "service_catalog" :raw-metadata-ns "service-catalog")
 
     ["project-view"]          (render :pagename "module"          :raw-metadata-ns "module.project"     :type "view")
     ["project-chooser"]       (render :pagename "module"          :raw-metadata-ns "module.project"     :type "chooser")
@@ -115,16 +115,13 @@
     ["configuration-view"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "view")
     ["configuration-edit"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "edit")
 
-    ["service-catalog-view"]  (render :pagename "service_catalog" :raw-metadata-ns "service-catalog"  :type "view")
-    ["service-catalog-edit"]  (render :pagename "service_catalog" :raw-metadata-ns "service-catalog"  :type "edit")
-
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
 
     ["error"]                 (render-error :raw-metadata-ns "module.project"
                                             :message "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>"
                                             :code 500)
     ["error-401"]             (render-error :raw-metadata-ns "module.project"
-                                            :message "Unauthorized."
+                                            :message "I'm afraid you are not allowed to do this."
                                             :code 401)
     [&]                       (render-error :raw-metadata-ns "module.project"
                                             :code 404)))

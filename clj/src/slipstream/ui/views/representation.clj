@@ -54,7 +54,8 @@
    "action"           action/page})
 
 (def page-types
-  {"reports"          :chooser})
+  {"reports"          :chooser
+   "service_catalog"  :edit})
 
 (defn- render
   [pagename metadata]

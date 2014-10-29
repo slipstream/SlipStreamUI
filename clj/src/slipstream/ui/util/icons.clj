@@ -9,21 +9,22 @@
 
 (uc/def-this-ns)
 
-(def unknown        ::question-sign)
+(def unknown          ::question-sign)
 
-(def home           ::home)
-(def project        ::folder-open)
-(def module         project)
-(def user           ::user)
-(def users          user)
-(def dashboard      ::dashboard)
-(def vms            dashboard)
-(def run            ::th)
-(def deployment     ::send)
-(def build          ::tower)
-(def image          ::hdd)
-(def config         ::cog) ; or ::wrench
-(def documentation  ::book)
+(def home             ::home)
+(def project          ::folder-open)
+(def module           project)
+(def user             ::user)
+(def users            user)
+(def dashboard        ::dashboard)
+(def vms              dashboard)
+(def run              ::th)
+(def deployment       ::send)
+(def build            ::tower)
+(def image            ::hdd)
+(def config           ::cog) ; or ::wrench
+(def service-catalog  ::th-list) ; or ::wrench
+(def documentation    ::book)
 
 (def action-new-project project)
 (def action-new-image   image)

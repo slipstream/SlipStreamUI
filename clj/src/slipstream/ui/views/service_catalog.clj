@@ -137,7 +137,7 @@
   (base/generate
     {:metadata metadata
      :placeholder-page? true
-     :header {:icon icons/config
+     :header {:icon icons/service-catalog
               :title "Service Catalog"
               :subtitle "Provides detailed capability information for each available clouds"}
      :content nil}))
