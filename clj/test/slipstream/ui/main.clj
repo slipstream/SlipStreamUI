@@ -29,7 +29,7 @@
 
 (defmacro ^:private with-dev-environment
   [& body]
-  `(binding [base/*prod?* false]
+  `(binding [base/*dev?* true]
      ~@body))
 
 (defn- render

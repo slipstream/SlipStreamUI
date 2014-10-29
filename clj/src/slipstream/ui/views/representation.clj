@@ -66,7 +66,7 @@
 
 (defmacro guard-exceptions
   [& body]
-  `(if-not base/*prod?*
+  `(if base/*dev?*
     ;; In dev mode let the stacktrace be printed on the browser:
     ~@body
     (try
