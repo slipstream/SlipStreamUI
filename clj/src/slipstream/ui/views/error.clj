@@ -13,7 +13,7 @@
      :page-title (t :page-title)
      :error-page? true
      :header {:status-code code
-              :title (->> (or code 500) str (format "status-code-%s.title") keyword t)
+              :title (->> (or code 500) (str "header.title.status-code-") keyword t)
               :subtitle (case code
                           (404 500 nil) (str (t :header.subtitle) "<br><br>" message)
                           message)}}))
