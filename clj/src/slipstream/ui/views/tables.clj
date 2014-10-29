@@ -114,30 +114,36 @@
     value))
 
 (defn- parameter-row
-  [first-col-keyword
+  [first-cols-keywords
    {:keys [type editable? hidden? help-hint]
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
-  (let [cell-type (cell-type-for parameter)]
+  (let [cell-type (cell-type-for parameter)
+        first-cells (mapv #(do {:type :cell/text, :content (get parameter %)}) first-cols-keywords)]
     {:style nil
      :hidden? hidden?
-     :cells [{:type :cell/text, :content (get parameter first-col-keyword)}
-             {:type cell-type, :content (value-of parameter cell-type), :editable? editable?}
-             {:type :cell/help-hint, :content help-hint}]}))
+     :cells (conj first-cells
+                  {:type cell-type, :content (value-of parameter cell-type), :editable? editable?}
+                  {:type :cell/help-hint, :content help-hint})}))
 
 (defn build-parameters-table
-  [first-col-keyword parameters]
+  "The last columns are always value and hint. The first ones might change."
+  [first-cols-keywords parameters]
   (table/build
-    {:headers [first-col-keyword :value nil]
-     :rows (map (partial parameter-row first-col-keyword) parameters)}))
+    {:headers (concat first-cols-keywords [:value nil])
+     :rows (map (partial parameter-row first-cols-keywords) parameters)}))
 
 (defn parameters-table
   [parameters]
-  (build-parameters-table :description parameters))
+  (build-parameters-table [:description] parameters))
 
 (defn runtime-parameters-table
   [parameters]
-  (build-parameters-table :name parameters))
+  (build-parameters-table [:name] parameters))
+
+(defn service-catalog-parameters-table
+  [parameters]
+  (build-parameters-table [:name :description :category] parameters))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

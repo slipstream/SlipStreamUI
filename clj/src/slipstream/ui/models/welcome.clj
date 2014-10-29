@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.welcome
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.models.service-catalog :as service-catalog]))
 
 (def ^:private app-sel [:modules [:item (html/attr-has :published "true")]])
 (def ^:private publisher-sel [:authz])
@@ -40,5 +41,6 @@
 (defn parse
   "See tests for structure of the expected parsed metadata."
   [metadata]
-  {:published-apps (published-apps metadata)
-   :projects (projects metadata)})
+  {:published-apps  (published-apps metadata)
+   :projects        (projects metadata)
+   :service-catalog (service-catalog/parse metadata)})

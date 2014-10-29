@@ -79,6 +79,100 @@
          </authz>
       </item>
    </modules>
+   <serviceCatalogues>
+      <serviceCatalog deleted='false' resourceUri='servicecatalog/cloudstack' cloud='cloudstack' creation='2013-11-12 20:21:20.192 CET'>
+         <parameters class='org.hibernate.collection.PersistentMap'>
+            <entry>
+               <string><![CDATA[cloudstack.support.email]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='cloudstack.support.email' description='Support email adress for this cloud service' category='General' mandatory='false' type='String' readonly='false' catalogCategory='General'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[cloudstack.single.vm.max.cpu]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='cloudstack.single.vm.max.cpu' description='Maximum number of CPUs (cores) for a single VM' category='Single VM Capacity' mandatory='false' type='String' readonly='false' catalogCategory='Single_VM'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[cloudstack.overall.ram]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='cloudstack.overall.ram' description='Overall available RAM' category='Overall Capacity' mandatory='false' type='String' readonly='false' catalogCategory='Overall'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[cloudstack.overall.cpu]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='cloudstack.overall.cpu' description='Overall available CPUs (cores)' category='Overall Capacity' mandatory='false' type='String' readonly='false' catalogCategory='Overall'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[cloudstack.single.vm.max.ram]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='cloudstack.single.vm.max.ram' description='Maximum number of RAM (GB) for a single VM' category='Single VM Capacity' mandatory='false' type='String' readonly='false' catalogCategory='Single_VM'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[cloudstack.general.description]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='cloudstack.general.description' description='General description of the cloud service (including optional further links)' category='General' mandatory='false' type='String' readonly='false' catalogCategory='General'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+         </parameters>
+      </serviceCatalog>
+      <serviceCatalog deleted='false' resourceUri='servicecatalog/stratuslab' cloud='stratuslab' creation='2013-11-12 20:21:20.98 CET'>
+         <parameters class='org.hibernate.collection.PersistentMap'>
+            <entry>
+               <string><![CDATA[stratuslab.support.email]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='stratuslab.support.email' description='Support email adress for this cloud service' category='General' mandatory='false' type='String' readonly='false' catalogCategory='General'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[mickey@disney.com]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[stratuslab.single.vm.max.cpu]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='stratuslab.single.vm.max.cpu' description='Maximum number of CPUs (cores) for a single VM' category='General' mandatory='false' type='String' readonly='false' catalogCategory='Single_VM'>
+                  <instructions><![CDATA[You won't be able to provision more for a single VM]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[stratuslab.overall.ram]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='stratuslab.overall.ram' description='Overall available RAM' category='General' mandatory='false' type='String' readonly='false' catalogCategory='Overall'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[stratuslab.overall.cpu]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='stratuslab.overall.cpu' description='Overall available CPUs (cores)' category='General' mandatory='true' type='String' readonly='false' catalogCategory='Overall'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[stratuslab.single.vm.max.ram]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='stratuslab.single.vm.max.ram' description='Maximum number of RAM (GB) for a single VM' category='General' mandatory='true' type='String' readonly='false' catalogCategory='Single_VM'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+            <entry>
+               <string><![CDATA[stratuslab.general.description]]></string>
+               <parameter class='com.sixsq.slipstream.persistence.ServiceCatalogParameter' name='stratuslab.general.description' description='General description of the cloud service (including optional further links)' category='General' mandatory='false' type='String' readonly='false' catalogCategory='General'>
+                  <instructions><![CDATA[]]></instructions>
+                  <value><![CDATA[]]></value>
+               </parameter>
+            </entry>
+         </parameters>
+      </serviceCatalog>
+   </serviceCatalogues>
    <user issuper='true' resourceUri='user/meb' name='meb'></user>
 </welcome>")
 
@@ -142,7 +236,109 @@
                :name "examples"
                :version "56"
                :description "Examples highlighting SlipStream features.  See User Guide on the documentation page."
-               :category "Project"}]})
+               :category "Project"}]
+   :service-catalog {:items [{:cloud "cloudstack"
+                              :creation "2013-11-12 20:21:20.192 CET"
+                              :uri "servicecatalog/cloudstack"
+                              :parameters [{:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "General"
+                                            :description "General description of the cloud service (including optional further links)"
+                                            :type "String"
+                                            :name "cloudstack.general.description"}
+                                           {:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "General"
+                                            :description "Support email adress for this cloud service"
+                                            :type "String"
+                                            :name "cloudstack.support.email"}
+                                           {:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "Overall Capacity"
+                                            :description "Overall available CPUs (cores)"
+                                            :type "String"
+                                            :name "cloudstack.overall.cpu"}
+                                           {:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "Overall Capacity"
+                                            :description "Overall available RAM"
+                                            :type "String"
+                                            :name "cloudstack.overall.ram"}
+                                           {:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "Single VM Capacity"
+                                            :description "Maximum number of CPUs (cores) for a single VM"
+                                            :type "String"
+                                            :name "cloudstack.single.vm.max.cpu"}
+                                           {:help-hint nil
+                                            :read-only? false
+                                            :order 2147483647
+                                            :value nil
+                                            :category "Single VM Capacity"
+                                            :description "Maximum number of RAM (GB) for a single VM"
+                                            :type "String"
+                                            :name "cloudstack.single.vm.max.ram"}]}
+                           {:cloud "stratuslab"
+                            :creation "2013-11-12 20:21:20.98 CET"
+                            :uri "servicecatalog/stratuslab"
+                            :parameters [{:help-hint nil
+                                          :read-only? false
+                                          :order 2147483647
+                                          :value nil
+                                          :category "General"
+                                          :description "General description of the cloud service (including optional further links)"
+                                          :type "String"
+                                          :name "stratuslab.general.description"}
+                                         {:help-hint nil
+                                          :read-only? false
+                                          :order 2147483647
+                                          :value nil
+                                          :category "General"
+                                          :description "Overall available CPUs (cores)"
+                                          :type "String"
+                                          :name "stratuslab.overall.cpu"}
+                                         {:help-hint nil
+                                          :read-only? false
+                                          :order 2147483647
+                                          :value nil
+                                          :category "General"
+                                          :description "Overall available RAM"
+                                          :type "String"
+                                          :name "stratuslab.overall.ram"}
+                                         {:help-hint "You won't be able to provision more for a single VM"
+                                          :read-only? false
+                                          :order 2147483647
+                                          :value nil
+                                          :category "General"
+                                          :description "Maximum number of CPUs (cores) for a single VM"
+                                          :type "String"
+                                          :name "stratuslab.single.vm.max.cpu"}
+                                         {:help-hint nil
+                                          :read-only? false
+                                          :order 2147483647
+                                          :value nil
+                                          :category "General"
+                                          :description "Maximum number of RAM (GB) for a single VM"
+                                          :type "String"
+                                          :name "stratuslab.single.vm.max.ram"}
+                                         {:help-hint nil
+                                          :read-only? false
+                                          :order 2147483647
+                                          :value "mickey@disney.com"
+                                          :category "General"
+                                          :description "Support email adress for this cloud service"
+                                          :type "String"
+                                          :name "stratuslab.support.email"}]}]}})
 
 (expect
   parsed-metadata

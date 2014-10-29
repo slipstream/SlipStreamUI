@@ -1,4 +1,5 @@
 (ns slipstream.ui.models.parameters
+  (:refer-clojure :exclude [flatten])
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
@@ -59,6 +60,9 @@
        group))
 
 (defn parse
+  "Parameters are always grouped by category. To extract an ungrouped list of
+  parameters apply the fn flatten below to the result of this parsing. See tests
+  for expectations."
   [metadata]
   (parameter-categories metadata))
 
@@ -82,6 +86,12 @@
   [parameters & types]
   (filter #((set types) (get % :category-type)) parameters))
 
+(defn flatten
+  "The parse function returns the parameters grouped by category.
+  This flattens this list. The category is still in each parameters."
+  [parameters-by-category]
+  (mapcat :parameters parameters-by-category))
+
 (defn- value-when-named
   [parameter-name parameter]
   (when (= parameter-name (:name parameter))
@@ -90,5 +100,5 @@
 (defn value-for
   [parameters parameter-name]
   (->> parameters
-       (mapcat :parameters)
+       flatten
        (some (partial value-when-named parameter-name))))

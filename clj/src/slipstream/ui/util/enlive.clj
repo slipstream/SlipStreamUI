@@ -89,7 +89,7 @@
 
 (defmacro if-enlive-node
   [node form-when-true form-when-false]
-  `(if (or (nil? ~node) (ue/enlive-node? ~node))
+  `(if (or (nil? ~node) (enlive-node? ~node))
      ~form-when-true
      ~form-when-false))
 
@@ -279,3 +279,12 @@
     (html/snippet* (blank-node ~tag-or-tags)
       ~args
       ~@body)))
+
+
+;; Generic blank snips
+
+(def-blank-snippet text-div-snip :div
+  [text & {:keys [css-class]}]
+  this (set-class css-class)
+  this (html/content (str text)))
+

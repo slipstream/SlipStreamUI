@@ -405,6 +405,7 @@
    :slipstream.ui.views.welcome.section.app-store.title        "App Store"
    :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
 
+   :slipstream.ui.views.welcome.section.service-catalog.title  :global.nouns.service-catalog
 
    :slipstream.ui.views.secondary-menu-actions.ellipsis        :global.punctuation.ellipsis
    :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
@@ -523,4 +524,7 @@
    :slipstream.ui.views.configuration.header.subtitle                           "Configure the SlipStream service and its cloud connectors"
 
    :slipstream.ui.views.action.header.title                                     "Action Confirmation"
+
+   :slipstream.ui.views.service-catalog.header.title                            :global.nouns.service-catalog
+   :slipstream.ui.views.service-catalog.header.subtitle                         "Provides detailed capability information for each available clouds"
 }

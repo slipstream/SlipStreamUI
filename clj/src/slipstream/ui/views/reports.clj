@@ -20,20 +20,15 @@
   [:ul]   (html/content (for [report reports]
                           (report-link-snip report))))
 
-(ue/def-blank-snippet text-snip :div
-  [text & {:keys [css-class]}]
-  ue/this (ue/set-class css-class)
-  ue/this (html/content (str text)))
-
 (defn- reports-list
   [reports]
   (if (not-empty reports)
     (list-snip reports)
-    (text-snip (t :no-reports-yet))))
+    (ue/text-div-snip (t :no-reports-yet))))
 
 (defn- footnote
   []
-  (text-snip (t :no-need-to-refresh) :css-class "ss-report-footnote text-muted"))
+  (ue/text-div-snip (t :no-need-to-refresh) :css-class "ss-report-footnote text-muted"))
 
 (defn page
   [metadata]

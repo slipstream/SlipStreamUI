@@ -3,6 +3,7 @@
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.core :as u]
+            [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
@@ -63,6 +64,24 @@
   [app-thumbnails]
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
+(defn- app-store-section
+  [welcome-metadata]
+  {:title     (t :section.app-store.title)
+   :content   (app-thumbnails-snip (:published-apps welcome-metadata))
+   :selected? true
+   :type      :default})
+
+(defn- projects-section
+  [welcome-metadata]
+  {:title   (t :section.projects.title)
+   :content (t/welcome-projects-table (:projects welcome-metadata))})
+
+(defn- service-catalog-section
+  [welcome-metadata]
+  (when-let [service-catalog-items (-> welcome-metadata :service-catalog :items)]
+    {:title   (t :section.service-catalog.title)
+     :content (map service-catalog/item-section service-catalog-items)}))
+
 (defn page
   [metadata]
   (let [welcome-metadata (mw/parse metadata)]
@@ -74,12 +93,9 @@
                   :subtitle (t :header.subtitle)}
          ; :alerts [{:msg "aie" :title "Tada!"}]
          :secondary-menu-actions [action/new-project]
-         :content [{:title (t :section.app-store.title)
-                    :content (app-thumbnails-snip (:published-apps welcome-metadata))
-                    :selected? true
-                    :type :default}
-                   {:title (t :section.projects.title)
-                    :content (t/welcome-projects-table (:projects welcome-metadata))}]
+         :content [(app-store-section       welcome-metadata)
+                   (projects-section        welcome-metadata)
+                   (service-catalog-section welcome-metadata)]
          :type type
          :metadata metadata
          })))

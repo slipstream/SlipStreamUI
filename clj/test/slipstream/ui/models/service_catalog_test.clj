@@ -101,7 +101,120 @@
    </serviceCatalogues>")
 
 (def parsed-metadata
-  nil)
+  {:items [{:cloud "loco"
+            :creation "2013-11-12 20:21:20.192 CET"
+            :uri "servicecatalog/loco"
+            :parameters [{:category-type :global
+                          :category "General"
+                          :parameters [{:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "General"
+                                        :description "General description of the cloud service (including optional further links)"
+                                        :type "String"
+                                        :name "loco.general.description"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "General"
+                                        :description "Support email adress for this cloud service"
+                                        :type "String"
+                                        :name "loco.loco.support.email"}]}
+                         {:category-type :global
+                          :category "Overall"
+                          :parameters [{:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Overall"
+                                        :description "Overall available CPUs (cores)"
+                                        :type "String"
+                                        :name "loco.overall.cpu"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Overall"
+                                        :description "Overall available RAM"
+                                        :type "String"
+                                        :name "loco.overall.ram"}]}
+                         {:category-type :global
+                          :category "Single_VM"
+                          :parameters [{:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Single_VM"
+                                        :description "Maximum number of CPUs (cores) for a single VM"
+                                        :type "String"
+                                        :name "loco.single.vm.max.cpu"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Single_VM"
+                                        :description "Maximum number of RAM (GB) for a single VM"
+                                        :type "String"
+                                        :name "loco.single.vm.max.ram"}]}]}
+           {:cloud "toto-tata"
+            :creation "2013-11-12 20:21:20.98 CET"
+            :uri "servicecatalog/toto-tata"
+            :parameters [{:category-type :global
+                          :category "General"
+                          :parameters [{:help-hint "This is an instruction"
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "General"
+                                        :description "General description of the cloud service (including optional further links)"
+                                        :type "String"
+                                        :name "toto-tata.general.description"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value "mickey@disney.com"
+                                        :category "General"
+                                        :description "Support email adress for this cloud service"
+                                        :type "String"
+                                        :name "toto-tata.support.email"}]}
+                         {:category-type :global
+                          :category "Overall"
+                          :parameters [{:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Overall"
+                                        :description "Overall available CPUs (cores)"
+                                        :type "String"
+                                        :name "toto-tata.overall.cpu"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Overall"
+                                        :description "Overall available RAM"
+                                        :type "String"
+                                        :name "toto-tata.overall.ram"}]}
+                         {:category-type :global
+                          :category "Single_VM"
+                          :parameters [{:help-hint "You won't be able to provision more for a single VM"
+                                        :read-only? true
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Single_VM"
+                                        :description "Maximum number of CPUs (cores) for a single VM"
+                                        :type "String"
+                                        :name "toto-tata.single.vm.max.cpu"}
+                                       {:help-hint nil
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value nil
+                                        :category "Single_VM"
+                                        :description "Maximum number of RAM (GB) for a single VM"
+                                        :type "String"
+                                        :name "toto-tata.single.vm.max.ram"}]}]}]})
 
 (expect
   parsed-metadata

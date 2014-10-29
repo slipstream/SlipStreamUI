@@ -69,12 +69,13 @@
 (defmacro guard-exceptions
   [& body]
   `(if base/*dev?*
-    ;; In dev mode let the stacktrace be printed on the browser:
+    ; In dev mode let the stacktrace be printed on the browser:
     ~@body
     (try
-      ;; In prod render a proper error page reporting the expection:
+      ; In prod render a proper error page reporting the expection:
       ~@body
       (catch Throwable t#
+        ; TODO: Log exception
         (error/page-uncaught-exception t#)))))
 
 (defn -toHtml

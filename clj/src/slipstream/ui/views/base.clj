@@ -100,6 +100,7 @@
   [:body]               (html/add-class (str "ss-page-type-" (name page-type/*current-page-type*)))
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   ; base-sel              (ue/when-set-href (not *dev?*) "/") ;; TODO: Is that needed eventually??!
+  base-sel              (ue/set-href "/") ;; TODO: Is that needed eventually??!
   menubar-sel           (html/substitute (menubar/menubar))
   topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
