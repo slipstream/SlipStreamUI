@@ -55,7 +55,8 @@
 
 (def page-types
   {"reports"          :chooser
-   "service_catalog"  :edit})
+   "service_catalog"  :edit
+   "configuration"    :edit})
 
 (defn- render
   [pagename metadata]

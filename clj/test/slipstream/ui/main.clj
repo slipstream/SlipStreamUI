@@ -112,8 +112,7 @@
 
     ["reports" &]             (render :pagename "reports"         :raw-metadata-ns "reports")
 
-    ["configuration-view"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "view")
-    ["configuration-edit"]    (render :pagename "configuration"   :raw-metadata-ns "configuration" :type "edit")
+    ["configuration"]         (render :pagename "configuration"   :raw-metadata-ns "configuration")
 
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
 
