@@ -1,4 +1,4 @@
-jQuery( function() { ( function( $$, Util, $, undefined ) {
+jQuery( function() { ( function( $$, util, $, undefined ) {
 
     // Inspired from: http://stackoverflow.com/a/1186309
     // If more complex form serialization is needed, see https://github.com/macek/jquery-serialize-object
@@ -7,7 +7,7 @@ jQuery( function() { ( function( $$, Util, $, undefined ) {
         var o = {};
         var a = this.serializeArray();
         $.each(a, function() {
-            $$.Util.setOrPush(o, this.name, this.value);
+            $$.util.setOrPush(o, this.name, this.value);
         });
         return o;
     };
@@ -15,7 +15,7 @@ jQuery( function() { ( function( $$, Util, $, undefined ) {
     // TODO: How to extend Objecto to have this function?
     // $.fn.setOrPush = function (key, value) {
     // Object.prototype.setOrPush = function (key, value) {
-    Util.setOrPush = function (object, key, value) {
+    util.setOrPush = function (object, key, value) {
         if (object[key] !== undefined) {
             if (!object[key].push) {
                 object[key] = [object[key]];
@@ -27,7 +27,20 @@ jQuery( function() { ( function( $$, Util, $, undefined ) {
         return object;
     };
 
-    Util.URLQueryParams = {
+    util.url = {
+        // extractBaseUrlPath: function () {
+        getCurrentURLBase: function () {
+            var path = window.location.pathname; // URL without query params
+            var indexOfNewStr = path.lastIndexOf("/new");
+            if (indexOfNewStr == -1) {
+                return path;
+            } else {
+                return path.substring(0, indexOfNewStr);
+            }
+        }
+    };
+
+    util.urlQueryParams = {
         // If the query param key string in not contained in any other key, this is faster:
         getValue: function (param) {
             try {
@@ -51,4 +64,4 @@ jQuery( function() { ( function( $$, Util, $, undefined ) {
         }
     };
 
-}( window.SlipStream = window.SlipStream || {}, window.SlipStream.Util = {}, jQuery ));});
+}( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});

@@ -480,3 +480,33 @@
 (expect
   AssertionError
   (join-as-str 123))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; dashless-str
+
+(expect
+  "940f213110b14fd5acefb13b6de37567"
+  (dashless-str "940f2131-10b1-4fd5-acef-b13b6de37567"))
+
+(expect
+  "940f213110b14fd5acefb13b6de37567"
+  (dashless-str "940f213110b14fd5acefb13b6de37567"))
+
+(expect
+  ""
+  (dashless-str ""))
+
+; Everything other than a string, returns nil.
+
+(expect
+  nil
+  (dashless-str ["asfd" "q-wre" "zx--cv"]))
+
+(expect
+  nil
+  (dashless-str {:some-keyword 1 :some-other-keyword 2}))
+
+(expect
+  nil
+  (dashless-str nil))

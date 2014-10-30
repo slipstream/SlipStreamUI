@@ -172,6 +172,7 @@
 (defn-set-attr :href)
 (defn-set-attr :onclick)
 (defn-set-attr :id)
+(defn-set-attr :name)
 (defn-set-attr :src)
 (defn-set-attr :class)
 (defn-set-attr :style)

@@ -42,6 +42,7 @@
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
   [{:keys [text tooltip id]}]
   [:input] (ue/set-id id)
+  [:input] (ue/set-name id)
   [:input] (ue/set-value (str text))
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
@@ -49,26 +50,29 @@
 ; Editable password cell
 
 (html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
-  [_]
-  identity)
+  [{:keys [id]}]
+  [:input] (ue/set-id id)
+  [:input] (ue/set-name id))
 
 ; Boolean cell
 
 (html/defsnippet ^:private cell-boolean-snip-view template-filename (sel-for-cell :boolean)
-  [value]
+  [{:keys [value id]}]
   ; [:input] (ue/toggle-disabled true)
   [:input] (ue/toggle-checked value))
 
 (html/defsnippet ^:private cell-boolean-snip-edit template-filename (sel-for-cell :boolean :editable)
-  [value]
+  [{:keys [value id]}]
   ; [:input] (ue/toggle-disabled false)
-  [:input] (ue/toggle-checked value))
+  [:input] (ue/toggle-checked value)
+  [:input] (ue/set-name id))
 
 ; Enum cell
 
 (html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
   [{:keys [enum id]}]
-  ue/this   (ue/set-id id)
+  ue/this (ue/set-id id)
+  ue/this (ue/set-name id)
   [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum]
                             ue/this (ue/set-value value)
                             ue/this (html/content (str text))
@@ -172,9 +176,13 @@
   ; (cell-text-snip-view (when pwd "•••")))
   (cell-text-snip-view {:text (when pwd "***")}))
 
-(defmethod cell-snip [:cell/password :mode/edit :content/any]
-  [{pwd :content}]
-  (cell-password-snip-edit pwd))
+(defmethod cell-snip [:cell/password :mode/edit :content/plain]
+  [{password :content}]
+  (cell-password-snip-edit {:password password}))
+
+(defmethod cell-snip [:cell/password :mode/edit :content/map]
+  [{password :content}]
+  (cell-password-snip-edit password))
 
 
 (defn- options-str
@@ -222,9 +230,17 @@
 
 (defmethod cell-snip [:cell/boolean :mode/view :content/plain]
   [{value :content}]
+  (cell-boolean-snip-view {:value value}))
+
+(defmethod cell-snip [:cell/boolean :mode/view :content/map]
+  [{value :content}]
   (cell-boolean-snip-view value))
 
 (defmethod cell-snip [:cell/boolean :mode/edit :content/plain]
+  [{value :content}]
+  (cell-boolean-snip-edit {:value value}))
+
+(defmethod cell-snip [:cell/boolean :mode/edit :content/map]
   [{value :content}]
   (cell-boolean-snip-edit value))
 

@@ -19,7 +19,7 @@
             [slipstream.ui.views.code-area :as code-area]
             [slipstream.ui.views.modal-dialogs :as modal-dialogs]))
 
-;; TODO: Find a better place for this flag
+;; TODO: Find a better place for this flag, and use it for localization.clj:58
 (def ^:dynamic *dev?* false)
 
 (def base-template-filename (u/template-path-for "base.html"))
@@ -79,6 +79,23 @@
        distinct
        (remove (node-from-base-template sel))))
 
+(ue/def-blank-snippet ^:private save-form-snip :form
+  [content-transformation-fn]
+  ue/this (ue/set-id "save-form")
+  ue/this (html/set-attr :accept-charset "utf-8")
+  ; ue/this (html/set-attr :method "post")
+  ue/this (html/set-attr :action "?method=put")
+  ue/this content-transformation-fn)
+
+(defn- transform-content
+  [content]
+  (let [transformation-fn (ue/if-enlive-node content
+                            (html/substitute content)
+                            (section/build content))]
+    (if (page-type/edit?)
+      (html/content (save-form-snip transformation-fn))
+      transformation-fn)))
+
 (deftemplate base base-template-filename
   [{:keys [error-page?
            beta-page?
@@ -114,12 +131,9 @@
                           (ue/if-enlive-node header
                             (html/substitute header)
                             (header/transform header)))
-  content-sel           (ue/if-enlive-node content
-                          (html/substitute content)
-                          (section/build content))
+  content-sel           (transform-content content)
   alert-container-sel   (html/content (map alerts/alert alerts))
   alert-container-sel   (html/append (alerts/hidden-templates))
-  ; [:span html/text-node] (html/replace-vars messages/all-messages)
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/all))
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)

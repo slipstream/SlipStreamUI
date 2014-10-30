@@ -1,7 +1,7 @@
 jQuery( function() { ( function( $$, $, undefined ) {
     $('form#register').bootstrapValidator();
 
-    $$.Request
+    $$.request
         .post()
         .onErrorStatusCodeAlert(500, "Server Error",
             "Sorry, something unexpected happend while processing your registration request.")

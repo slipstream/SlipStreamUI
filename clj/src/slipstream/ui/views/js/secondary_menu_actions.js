@@ -58,7 +58,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-edit").click( function() {
         console.log($(this).attr("id") + " in callback #13");
-        // window.location = '?edit=true';
         window.location.search = 'edit=true';
     });
 
@@ -67,33 +66,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-save-dialog').modal('show');
     });
 
-
-    function extractBaseUrlPath() {
-        var path = window.location.pathname;
-        var indexOfNewStr = path.lastIndexOf("/new");
-        if (indexOfNewStr == -1) {
-            return path;
-        } else {
-            return path.substring(0, indexOfNewStr);
-        }
-    }
-
     $("#ss-secondary-menu-action-cancel").click( function() {
         console.log($(this).attr("id") + " in callback #15");
-        window.location = extractBaseUrlPath();
+        window.location = $$.util.url.getCurrentURLBase();
     });
 
     $("#ss-secondary-menu-action-delete").click( function() {
         console.log($(this).attr("id") + " in callback #16");
         $('#ss-delete-dialog').modal('show');
-        // $$.Request
-        //     .delete(extractBaseUrlPath())
-        //     .onSuccessRedirectURL(extractBaseUrlPath())
-        //     .onErrorAlert("Unable to delete",
-        //         "Something wrong happened when trying to delete this resource." +
-        //         " Maybe the server is unreachable, or the connection is down." +
-        //         "Please try later again.")
-        //     .send();
     });
 
 

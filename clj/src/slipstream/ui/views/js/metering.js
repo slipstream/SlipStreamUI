@@ -143,7 +143,7 @@
 
         return this.each(function() {
             var $this = $(this);
-            $$.Request
+            $$.request
                 .get(settings.url)
                 .dataObject({
                               target: settings.target_func.call(this, $this.data("metric")),

@@ -168,3 +168,10 @@
    :always      (map stringify)
    (set? coll)  sort
    :always      (s/join ", ")))
+
+(defn dashless-str
+  "Returns the string without dashes. Everything other than a string, returns nil.
+  See tests for expectations."
+  [s]
+  (when (string? s)
+    (s/replace s "-" "")))

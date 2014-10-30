@@ -67,4 +67,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     }
 
+    // Set up forms
+    $$.request
+        .put(window.location.pathname + "?method=put")
+        .onErrorAlert("oups")
+        .onSuccessReloadPageWithoutQueryParamsInURL()
+        // .onSuccessAlert("Your changes are saved.")
+        .useToSubmitForm("#save-form");
+
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

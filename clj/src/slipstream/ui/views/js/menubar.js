@@ -1,13 +1,13 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    $$.Request
+    $$.request
         .post()
         .onErrorStatusCodeAlert(401, "Wrong credentials")
         .onSuccessFollowRedirectInURL()
         .useToSubmitForm("#login");
 
     function logout () {
-        $$.Request
+        $$.request
             .delete("/logout")
             .onSuccessRedirectURL("/login")
             .onErrorAlert("Unable to log out",

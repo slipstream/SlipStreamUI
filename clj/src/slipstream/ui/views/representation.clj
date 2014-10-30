@@ -58,12 +58,20 @@
    "service_catalog"  :edit
    "configuration"    :edit})
 
-(defn- render
+(defn- render-html
+  "Enlive templates (used in page-fn's) return a seq of string which must be
+  joined to a valid HTML doc."
+  [page-fn & args]
+  (->> args
+       (apply page-fn)
+       (apply str)))
+
+(defn- render-page
   [pagename metadata]
-  (if-let [render-fn (get pages pagename)]
-    (render-fn metadata)
+  (if-let [page-fn (get pages pagename)]
+    (render-html page-fn metadata)
     (throw (IllegalStateException.
-             (format "No render-fn found for pagename '%s'."
+             (format "No page-fn found for pagename '%s'."
                      pagename)))))
 
 (defmacro guard-exceptions
@@ -75,8 +83,8 @@
       ; In prod render a proper error page reporting the expection:
       ~@body
       (catch Throwable t#
-        ; TODO: Log exception
-        (error/page-uncaught-exception t#)))))
+        (prn t#) ; TODO: Properly log exception
+        (render-html error/page-uncaught-exception t#)))))
 
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
@@ -86,7 +94,7 @@
       (localization/with-lang-from-metadata
         (current-user/with-user-from-metadata
           (guard-exceptions
-            (render pagename metadata)))))))
+            (render-page pagename metadata)))))))
 
 (defn -toHtmlError
   "Generate an HTML error page"
@@ -94,7 +102,7 @@
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata
       (current-user/with-user-from-metadata
-        (error/page metadata message code)))))
+        (render-html error/page metadata message code)))))
 
 (defn -setReleaseVersion
   "Set the application version"

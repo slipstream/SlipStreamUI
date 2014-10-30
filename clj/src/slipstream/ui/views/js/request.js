@@ -3,22 +3,41 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function builder(method, url) {
         return {
             intern: {
-                serialization: "queryString",
-                // serialization: "json"
-                onDataTypeParseError: undefined,
-                always: undefined // doesn't belong to the ajax settings but on the returned Promise object
+                serialization: undefined,           // See .serialization() fn below
+                onDataTypeParseError: undefined,    // See .onDataTypeParseErrorAlert() fn below
+                always: undefined                   // See .always() fn below
             },
             settings: {
-                type: method, // values: "GET", "POST", "PUT", "DELETE"
+                type: method,     // values: "GET", "POST", "PUT", "DELETE"
                 url: url,
                 data: undefined,
-                dataType: undefined,
-                contentType: undefined, // jQuery defaults to "application/x-www-form-urlencoded; charset=UTF-8"
-                success: undefined, // function (data, textStatus, jqXHR) {}
-                error: undefined    //function (jqXHR, textStatus, errorThrown) {}
+                dataType: undefined,    // See .dataType() fn below
+                contentType: undefined, // See .serialization() fn below
+                success: undefined,     // See .onSuccess() fn below
+                error: undefined        // See .onError() fn below
             },
-            url: function (url) {
-                this.settings.url = url;
+            always: function (callback){
+                // An alternative construct to the complete callback
+                // option, the .always() method replaces the deprecated
+                // .complete() method.
+
+                // NB: Callback fn which doesn't belong to the ajax settings but
+                // on the returned Promise object.
+
+                // Callback signature: jqXHR.always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) { });
+                this.intern.always = callback;
+                return this;
+            },
+            dataObject: function (object) {
+                this.settings.data = object;
+                return this;
+            },
+            dataType: function (type) {
+                // The type of data that you're expecting back from the server. If
+                // none is specified, jQuery will try to infer it based on the MIME
+                // type of the response
+                // 'type' must be one among: 'xml', 'json', 'script', or 'html'.
+                this.settings.dataType = type;
                 return this;
             },
             onSuccess: function (callback){
@@ -31,8 +50,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 // Callback signature: function (data, textStatus, jqXHR) {}
 
-                $$.Util.setOrPush(this.settings, "success", callback);
+                $$.util.setOrPush(this.settings, "success", callback);
                 // this.settings.success = callback;
+                return this;
+            },
+            onSuccessReloadPageWithoutQueryParamsInURL: function (){
+                this.onSuccess(function () {
+                    // TODO: Which one if the correct way to redirect?
+                    // window.location = url;
+                    window.location.assign(
+                        $$.util.url.getCurrentURLBase()
+                        );
+                });
                 return this;
             },
             onSuccessRedirectURL: function (url){
@@ -47,7 +76,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 this.onSuccess(function () {
                     // TODO: Which one if the correct way to redirect?
                     // window.location = url;
-                    var redirectURL = $$.Util.URLQueryParams.getValue("redirectURL"),
+                    var redirectURL = $$.util.urlQueryParams.getValue("redirectURL"),
                         rootURL = "/";
                     window.location.assign(redirectURL || rootURL);
                 });
@@ -81,7 +110,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // Server Error."
 
                 // Callback signature: function (jqXHR, textStatus, errorThrown) {}
-                $$.Util.setOrPush(this.settings, "error", callback);
+                $$.util.setOrPush(this.settings, "error", callback);
                 // this.settings.error = callback;
                 return this;
             },
@@ -99,27 +128,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 this.onError(callback);
                 return this;
             },
-            always: function (callback){
-                // An alternative construct to the complete callback
-                // option, the .always() method replaces the deprecated
-                // .complete() method.
-
-                // Callback signature: jqXHR.always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) { });
-                this.intern.always = callback;
-                return this;
-            },
-            dataObject: function (object) {
-                this.settings.data = object;
-                return this;
-            },
-            dataType: function (type) {
-                // The type of data that you're expecting back from the server. If
-                // none is specified, jQuery will try to infer it based on the MIME
-                // type of the response
-                // One among: 'xml', 'json', 'script', or 'html'.
-                this.settings.dataType = type;
-                return this;
-            },
             onDataTypeParseErrorAlert: function (titleOrMsg, msg){
                 // When a dataType is set, a default error alert is configured
                 // when sending the request (see below).
@@ -131,6 +139,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             serialization: function (serialization) {
+                // The 'serialization' is used on the .send() fn below to set the
+                // 'contentType' and to serialize the data object accordingly
+                // jQuery defaults to "application/x-www-form-urlencoded; charset=UTF-8"
+                // 'serialization' must be one among: 'json' or 'queryString'.
                 this.intern.serialization = serialization;
                 return this;
             },
@@ -142,9 +154,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         this.settings.data = JSON.stringify(this.settings.data);
                     }
                     break;
-                case "queryString":
+                case undefined:
                     // jQuery would handle this case per default in the same way,
+                    // setting 'contentType' to "application/x-www-form-urlencoded; charset=UTF-8"
                     // but we do it explicitely to remove black magic.
+                case "queryString":
                     this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
                     if (this.settings.data) {
                         this.settings.data = $.param(this.settings.data);
@@ -169,10 +183,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
                 return jQuery.ajax(this.settings);
             },
+            url: function (url) {
+                this.settings.url = url;
+                return this;
+            },
             useToSubmitForm: function (sel) {
                 var request = this,
                     $form = $("form" + sel),
-                    url = $form.attr("action");
+                    // url = $form.attr("action");
+                    url = request.settings.url || $form.attr("action");
                 // StatusCode 0: No internet connection.
                 request.onErrorStatusCodeAlert(0, "Something strange out there",
                     "Sorry, but we're having trouble connecting to SlipStream. This problem is" +
@@ -181,6 +200,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // .serialization("json")
                     .url(url);
                 $form.off("submit");
+                $form.data("user", "super");
                 $form.submit(function (event) {
                     if ($form.data("submitted") === true) {
                         // Previously submitted - don't submit again
@@ -189,20 +209,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // Mark it so that the next submit can be ignored
                     $form.data("submitted", true);
                     event.preventDefault();
+                    console.log(">>>> Form values to be sent:");
+                    console.log($(this).serializeObject());
+                    console.log("<<<<");
                     request.dataObject($(this).serializeObject())
-                        .send()
                         .always(request.intern.always)
                         .always(function () {
                             // Mark it so that the next submit can be performed
                             $form.data("submitted", false);
-                        });
+                        })
+                        .send();
                     return false;
                 });
             }
         };
     }
 
-    $$.Request = {
+    $$.request = {
         get: function (url) {
             return builder("GET", url);
         },

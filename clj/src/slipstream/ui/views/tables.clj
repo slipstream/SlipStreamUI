@@ -106,15 +106,21 @@
             "Boolean"           :cell/boolean)))
 
 (defn- value-of
-  [{:keys [name value] :as parameter} cell-type]
-  (case cell-type
-    :cell/text      {:text value, :id name}
-    :cell/enum      {:enum value, :id name}
-    :cell/url       {:url value,  :id name}
-    value))
+  [{:keys [name value id-format-fn] :as parameter} cell-type row-index]
+  (let [formated-name (if (fn? id-format-fn)
+                        (id-format-fn name)
+                        (format "parameter-%s--%s--value" name row-index))]
+    (case cell-type
+      :cell/text      {:text value,   :id formated-name}
+      :cell/enum      {:enum value,   :id formated-name}
+      :cell/url       {:url value,    :id formated-name}
+      :cell/boolean   {:value value,  :id formated-name}
+      :cell/password  {:password nil, :id formated-name}
+      value)))
 
 (defn- parameter-row
   [first-cols-keywords
+   row-index
    {:keys [type editable? hidden? help-hint]
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
@@ -123,7 +129,7 @@
     {:style nil
      :hidden? hidden?
      :cells (conj first-cells
-                  {:type cell-type, :content (value-of parameter cell-type), :editable? editable?}
+                  {:type cell-type, :content (value-of parameter cell-type row-index), :editable? editable?}
                   {:type :cell/help-hint, :content help-hint})}))
 
 (defn build-parameters-table
@@ -131,7 +137,7 @@
   [first-cols-keywords parameters]
   (table/build
     {:headers (concat first-cols-keywords [:value nil])
-     :rows (map (partial parameter-row first-cols-keywords) parameters)}))
+     :rows (map-indexed (partial parameter-row first-cols-keywords) parameters)}))
 
 (defn parameters-table
   [parameters]
@@ -158,8 +164,8 @@
       :email        {:type :cell/email}
       :super?       {:type :cell/boolean}
       :creation     {:type :cell/timestamp, :editable? false}
-      :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?)}
-      :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/view?)}
+      :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?), :id-format-fn (constantly "password1")}
+      :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/view?), :id-format-fn (constantly "password2")}
       :state        {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -107,8 +107,8 @@
   (map (partial middle-section module) (visible-middle-sections)))
 
 (def actions
-  [action/build
-   action/run
+  [action/run
+   action/build
    action/edit
    action/copy
    action/publish])
