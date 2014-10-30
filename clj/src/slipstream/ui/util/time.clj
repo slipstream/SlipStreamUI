@@ -76,7 +76,8 @@
 
 (defn format
   [target-format s]
-  (when s
+  {:pre [(or (string? s) (nil? s))]}
+  (when (not-empty s)
     (let [source-format (find-format s)
           source-timezone (find-timezone s)]
       (if (= target-format source-format)

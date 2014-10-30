@@ -252,3 +252,28 @@
   "2013-01-05 01:27:12.471 +01:00"
   (localization/with-lang :en
     (format :ss-timestamp-format "2013-01-05T01:27:12.471+0100")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Wrong formats, empty string and nil
+
+(expect
+  IllegalArgumentException
+  (localization/with-lang :en
+    (format :human-readable-long "2013-07-05T00:27:")))
+
+(expect
+  AssertionError
+  (localization/with-lang :en
+    (format :human-readable-long 123)))
+
+(expect
+  nil
+  (localization/with-lang :en
+    (format :human-readable-long "")))
+
+(expect
+  nil
+  (localization/with-lang :en
+    (format :human-readable-long nil)))
