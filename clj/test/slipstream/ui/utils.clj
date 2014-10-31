@@ -35,7 +35,7 @@
     :index-files? true
     :html-files? true}))
 
-(defn run-server* [app & {:keys [port] :or {port 8080}}]
+(defn run-server* [app & {:keys [port] :or {port 8082}}]
   (let [nses (if-let [m (meta app)]
                [(-> (:ns (meta app)) str symbol)]
                [])]
