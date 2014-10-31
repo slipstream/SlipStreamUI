@@ -7,12 +7,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-delete-dialog .ss-delete-btn").click(function() {
         console.log("saving with commit message: " + $("#ss-commit-message").val());
-        var baseURL = $$.util.url.getCurrentURLBase();
-        // ,
-        //     parentResourceURL ;
         $$.request
-            .delete(baseURL)
-            .onSuccessRedirectURL(baseURL)
+            .delete($$.util.url.getCurrentURLBase())
+            .onSuccessRedirectURL($$.util.url.getParentResourceURL())
             .onErrorAlert("Unable to delete",
                 "Something wrong happened when trying to delete this resource." +
                 " Maybe the server is unreachable, or the connection is down." +

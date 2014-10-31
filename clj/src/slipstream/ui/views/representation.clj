@@ -83,7 +83,11 @@
       ; In prod render a proper error page reporting the expection:
       ~@body
       (catch Throwable t#
-        (prn t#) ; TODO: Properly log exception
+        ; TODO: Properly log exception
+        (println)
+        (println ">>>> Uncaught exception during the UI generation (clj side):")
+        (println)
+        (.printStackTrace t#)
         (render-html error/page-uncaught-exception t#)))))
 
 (defn -toHtml

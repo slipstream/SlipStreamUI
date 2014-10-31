@@ -40,5 +40,6 @@
 
 (defaction edit)
 (defaction save)
+(defaction create) ;; like 'save' action for 'new' pages
 (defaction cancel)
 (defaction delete)

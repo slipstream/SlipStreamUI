@@ -23,7 +23,7 @@
 (def build            ::tower)
 (def image            ::hdd)
 (def config           ::cog) ; or ::wrench
-(def service-catalog  ::th-list) ; or ::wrench
+(def service-catalog  ::th-list)
 (def documentation    ::book)
 
 (def action-new-project project)
@@ -41,6 +41,7 @@
 (def action-new-user    user)
 (def action-edit-user   action-edit)
 (def action-save        ::floppy-disk)
+(def action-create      action-save)
 (def action-cancel      ::stop)
 (def action-delete      ::trash)
 (def action-ok          ::ok)

@@ -3,6 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.table :as table]
@@ -32,13 +33,13 @@
 (defn- user-row
   [{:keys [username first-name last-name organization state last-online online?] :as user}]
   {:style (when online? :success)
-   :cells [{:type :cell/icon,     :content icons/user}
-           {:type :cell/username, :content username}
-           {:type :cell/text,     :content first-name}
-           {:type :cell/text,     :content last-name}
-           {:type :cell/text,     :content organization}
-           {:type :cell/text,     :content state}
-           {:type :cell/text,     :content (or (not-empty last-online) "Unknown")}]})
+   :cells [{:type :cell/icon,       :content icons/user}
+           {:type :cell/username,   :content username}
+           {:type :cell/text,       :content first-name}
+           {:type :cell/text,       :content last-name}
+           {:type :cell/text,       :content organization}
+           {:type :cell/text,       :content state}
+           {:type :cell/timestamp,  :content last-online}]})
 
 (defn users-table
   [users]
@@ -112,6 +113,7 @@
                         (format "parameter-%s--%s--value" name row-index))]
     (case cell-type
       :cell/text      {:text value,   :id formated-name}
+      :cell/email     {:email value,  :id formated-name}
       :cell/enum      {:enum value,   :id formated-name}
       :cell/url       {:url value,    :id formated-name}
       :cell/boolean   {:value value,  :id formated-name}
@@ -157,15 +159,17 @@
   [user-summary-map]
   (parameters-table
     (p/map->parameter-list user-summary-map
-      :username     {:type :cell/text, :editable? false}
+      :username     {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name")}
+      ; :username     {:type :cell/text, :editable? (page-type/new?), :hidden? (page-type/new?)}
+      ; :username     {:type :cell/text, :editable? true,  :hidden? (page-type/not-new?), :id-format-fn (constantly "name")}
       :first-name   {:type :cell/text}
       :last-name    {:type :cell/text}
       :organization {:type :cell/text}
       :email        {:type :cell/email}
-      :super?       {:type :cell/boolean}
+      :super?       {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
       :creation     {:type :cell/timestamp, :editable? false}
       :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?), :id-format-fn (constantly "password1")}
-      :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/view?), :id-format-fn (constantly "password2")}
+      :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/not-edit?), :id-format-fn (constantly "password2")}
       :state        {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

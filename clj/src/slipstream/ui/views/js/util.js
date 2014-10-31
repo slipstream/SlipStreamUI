@@ -28,7 +28,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     };
 
     util.url = {
-        // extractBaseUrlPath: function () {
         getCurrentURLBase: function () {
             var path = window.location.pathname; // URL without query params
             var indexOfNewStr = path.lastIndexOf("/new");
@@ -37,6 +36,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             } else {
                 return path.substring(0, indexOfNewStr);
             }
+        },
+        getParentResourceURL: function () {
+            var path = this.getCurrentURLBase();
+            return path.substring(0, path.lastIndexOf("/"));
+        },
+        redirectTo: function (url) {
+            // TODO: Which one if the correct way to redirect?
+            // window.location = url;
+            window.location.assign(url);
+        },
+        redirectToCurrentURLBase: function () {
+            this.redirectTo(this.getCurrentURLBase());
+        },
+        redirectToParentResourceURL: function () {
+            this.redirectTo(this.getParentResourceURL());
         }
     };
 

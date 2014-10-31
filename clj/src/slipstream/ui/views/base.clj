@@ -55,9 +55,9 @@
    action/cancel
    action/delete])
 
-
 (def new-page-actions
-  (butlast edit-page-actions))
+  [action/create
+   action/cancel])
 
 (defn-memo ^:private node-from-template
   [template-filename sel]
@@ -81,10 +81,12 @@
 
 (ue/def-blank-snippet ^:private save-form-snip :form
   [content-transformation-fn]
-  ue/this (ue/set-id "save-form")
+  ue/this (if (page-type/edit?)
+            (ue/set-id "save-form")
+            (ue/set-id "create-form"))
   ue/this (html/set-attr :accept-charset "utf-8")
   ; ue/this (html/set-attr :method "post")
-  ue/this (html/set-attr :action "?method=put")
+  ; ue/this (html/set-attr :action "?method=put")
   ue/this content-transformation-fn)
 
 (defn- transform-content
@@ -92,7 +94,7 @@
   (let [transformation-fn (ue/if-enlive-node content
                             (html/substitute content)
                             (section/build content))]
-    (if (page-type/edit?)
+    (if (page-type/edit-or-new?)
       (html/content (save-form-snip transformation-fn))
       transformation-fn)))
 

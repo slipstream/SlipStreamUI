@@ -2,7 +2,9 @@
   (:refer-clojure :exclude [format])
   (:use [expectations]
         [slipstream.ui.util.time])
-  (:require [slipstream.ui.util.localization :as localization]))
+  (:require [clj-time.core :as t]
+            [clj-time.format :as f]
+            [slipstream.ui.util.localization :as localization]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -256,6 +258,107 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; relative
+
+(expect
+  String
+  (localization/with-lang :en
+    (format :relative "2013-07-05T00:27:12.471Z")))
+
+(defn- date-periods-ago
+  [units period]
+  (->> units period t/ago
+       (f/unparse (f/formatters :date-time))))
+
+(expect
+  "1 minute ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 60 t/seconds))))
+
+(expect
+  "1 minute and 10 seconds ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 70 t/seconds))))
+
+(expect
+  "5 minutes ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 5 t/minutes))))
+
+(expect
+  "59 minutes ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 59 t/minutes))))
+
+(expect
+  "1 hour ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 60 t/minutes))))
+
+(expect
+  "1 hour and 1 minute ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 61 t/minutes))))
+
+(expect
+  "1 hour and 2 minutes ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 62 t/minutes))))
+
+(expect
+  "1 year and 3 months ago"
+  (localization/with-lang :en
+    (format :relative (date-periods-ago 15 t/months))))
+
+
+(defn- date-periods-from-now
+  [units period]
+  (->> units period t/from-now
+       (f/unparse (f/formatters :date-time))))
+
+(expect
+  "in 1 minute"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 60 t/seconds))))
+
+(expect
+  "in 1 minute and 10 seconds"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 70 t/seconds))))
+
+(expect
+  "in 5 minutes"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 5 t/minutes))))
+
+(expect
+  "in 59 minutes"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 59 t/minutes))))
+
+(expect
+  "in 1 hour"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 60 t/minutes))))
+
+(expect
+  "in 1 hour and 1 minute"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 61 t/minutes))))
+
+(expect
+  "in 1 hour and 2 minutes"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 62 t/minutes))))
+
+(expect
+  "in 1 year and 3 months"
+  (localization/with-lang :en
+    (format :relative (date-periods-from-now 15 t/months))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Wrong formats, empty string and nil
 
 (expect
@@ -277,3 +380,4 @@
   nil
   (localization/with-lang :en
     (format :human-readable-long nil)))
+

@@ -6,7 +6,7 @@
 (def raw-metadata-str
   "<list>
     <item firstName='Super' lastName='User' lastOnline='2014-08-14 20:14:20.810 CEST' name='super' online='true' organization='SixSq' resourceUri='user/super' state='ACTIVE'/>
-    <item firstName='A Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='atest' online='false' organization='ACME' resourceUri='user/atest' state='ACTIVE'/>
+    <item firstName='A Test' lastName='User' lastOnline='2015-08-10 22:09:21.705 CEST' name='atest' online='false' organization='ACME' resourceUri='user/atest' state='ACTIVE'/>
     <item firstName='D Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='dtest' online='true' organization='SixSq' resourceUri='user/tdest' state='ACTIVE'/>
     <item firstName='B Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='btest' online='false' organization='ACME' resourceUri='user/btest' state='ACTIVE'/>
     <item firstName='Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='test' online='true' organization='ACME' resourceUri='user/test' state='ACTIVE'/>

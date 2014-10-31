@@ -25,6 +25,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-new-user").click( function() {
         console.log($(this).attr("id") + " in callback #5");
+        $$.util.url.redirectTo("/user/new");
     });
 
     $("#ss-secondary-menu-action-edit-user").click( function() {
@@ -64,6 +65,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $("#ss-secondary-menu-action-save").click( function() {
         console.log($(this).attr("id") + " in callback #14");
         $('#ss-save-dialog').modal('show');
+    });
+
+    $("#ss-secondary-menu-action-create").click( function() {
+        console.log($(this).attr("id") + " in callback #14 bis");
+        $("#create-form").submit();
     });
 
     $("#ss-secondary-menu-action-cancel").click( function() {

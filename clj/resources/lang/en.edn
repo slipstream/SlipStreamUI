@@ -87,7 +87,25 @@
                     }
             :adjectives {
                     :global         "Global"
+                    :unknown        "_Unknown_" ; Text in this file accepts Markdown formatting :)
                     }
+            :time {
+                    :year             "year"
+                    :years            "years"
+                    :month            "month"
+                    :months           "months"
+                    :week             "week"
+                    :weeks            "weeks"
+                    :day              "day"
+                    :days             "days"
+                    :hour             "hour"
+                    :hours            "hours"
+                    :minute           "minute"
+                    :minutes          "minutes"
+                    :second           "second"
+                    :seconds          "seconds"
+                    :now              "Now"
+                   }
             :vm-states {
                     :running         "Running"
                     :unknown         "Unknown"
@@ -96,6 +114,7 @@
                     :build          "Build"
                     :copy           "Copy"
                     :cancel         "Cancel"
+                    :create         "Create"
                     :delete         "Delete"
                     :deploy         "Deploy"
                     :download       "Download"
@@ -249,6 +268,7 @@
    :slipstream.ui.views.tables.access.run-deployment          "Run deployment"
    :slipstream.ui.views.tables.access.build-or-run-image      "Build or run single image"
 
+   :slipstream.ui.views.table.timestamp.unknown               :global.adjectives.unknown
    ;; Parameters
 
    :slipstream.ui.models.parameters.username.description                        :global.nouns.username
@@ -391,6 +411,30 @@
    :slipstream.ui.util.core.enum.option.text.interoute                          "Interoute"
    :slipstream.ui.util.core.enum.option.text.cloudsigma                         "CloudSigma"
    :slipstream.ui.util.core.enum.option.text.atos                               "Atos"
+
+   ;; Time
+
+   :slipstream.ui.util.time.year                                                :global.time.year
+   :slipstream.ui.util.time.years                                               :global.time.years
+   :slipstream.ui.util.time.month                                               :global.time.month
+   :slipstream.ui.util.time.months                                              :global.time.months
+   :slipstream.ui.util.time.week                                                :global.time.week
+   :slipstream.ui.util.time.weeks                                               :global.time.weeks
+   :slipstream.ui.util.time.day                                                 :global.time.day
+   :slipstream.ui.util.time.days                                                :global.time.days
+   :slipstream.ui.util.time.hour                                                :global.time.hour
+   :slipstream.ui.util.time.hours                                               :global.time.hours
+   :slipstream.ui.util.time.minute                                              :global.time.minute
+   :slipstream.ui.util.time.minutes                                             :global.time.minutes
+   :slipstream.ui.util.time.second                                              :global.time.second
+   :slipstream.ui.util.time.seconds                                             :global.time.seconds
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.zero    :global.time.now
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.one     "%s %s ago"
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.two     "%s %s and %s %s ago"
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.zero  :global.time.now
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.one   "in %s %s"
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.two   "in %s %s and %s %s"
+
    ;; Views
 
    :slipstream.ui.views.welcome.page-title                     "Welcome"
@@ -422,6 +466,7 @@
    :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
    :slipstream.ui.views.secondary-menu-actions.terminate       :global.verbs.terminate
    :slipstream.ui.views.secondary-menu-actions.save            :global.verbs.save
+   :slipstream.ui.views.secondary-menu-actions.create          :global.verbs.create
    :slipstream.ui.views.secondary-menu-actions.cancel          :global.verbs.cancel
    :slipstream.ui.views.secondary-menu-actions.delete          :global.verbs.delete
 

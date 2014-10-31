@@ -32,7 +32,7 @@
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
   [{:keys [text tooltip id]}]
-  ue/this (html/content (str text))
+  ue/this (html/html-content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
   ue/this (ue/set-id id)
@@ -65,6 +65,7 @@
   [{:keys [value id]}]
   ; [:input] (ue/toggle-disabled false)
   [:input] (ue/toggle-checked value)
+  [:input] (ue/set-id id)
   [:input] (ue/set-name id))
 
 ; Enum cell
@@ -225,8 +226,17 @@
 
 (defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
   [{timestamp :content}]
-  (cell-text-snip-view {:text (ut/format :human-readable-long timestamp)
-                        :tooltip timestamp}))
+  (cell-text-snip-view {:text (or
+                                (ut/format :human-readable-long timestamp)
+                                (t :timestamp.unknown))
+                        :tooltip (ut/format :relative timestamp)}))
+
+(defmethod cell-snip [:cell/relative-timestamp :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-text-snip-view {:text (or
+                                (ut/format :relative timestamp)
+                                (t :timestamp.unknown))
+                        :tooltip (ut/format :human-readable-long timestamp)}))
 
 (defmethod cell-snip [:cell/boolean :mode/view :content/plain]
   [{value :content}]
@@ -265,9 +275,17 @@
   [{email :content}]
   (cell-link-snip-view {:text email :href (str "mailto:" email)}))
 
+(defmethod cell-snip [:cell/email :mode/view :content/map]
+  [{{:keys [email] :as content} :content}]
+  (cell-link-snip-view (assoc content :text email :href (str "mailto:" email))))
+
 (defmethod cell-snip [:cell/email :mode/edit :content/plain]
   [{email :content}]
   (cell-text-snip-edit {:text email}))
+
+(defmethod cell-snip [:cell/email :mode/edit :content/map]
+  [{{:keys [email] :as content} :content}]
+  (cell-text-snip-edit (assoc content :text email)))
 
 (defmethod cell-snip [:cell/url :mode/view :content/map]
   [{{:keys [url id]} :content}]

@@ -106,6 +106,7 @@
 
     ["user-view"]             (render :pagename "user"            :raw-metadata-ns "user" :type "view")
     ["user-edit"]             (render :pagename "user"            :raw-metadata-ns "user" :type "edit")
+    ["user-new"]              (render :pagename "user"            :raw-metadata-ns "user" :type "new")
     ["users"]                 (render :pagename "users"           :raw-metadata-ns "users")
 
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")

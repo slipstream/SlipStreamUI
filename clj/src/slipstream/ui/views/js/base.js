@@ -68,12 +68,31 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     // Set up forms
+
+    function includeUsernameToForm(request, $form) {
+        $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "name")
+            .attr("value", $("#name").text())
+            .appendTo($form);
+    }
+
     $$.request
-        .put(window.location.pathname + "?method=put")
-        .onErrorAlert("oups")
+        .put($$.util.url.getCurrentURLBase())
+        .onErrorAlert("Sorry, something went wrong with the update.")
         .onSuccessReloadPageWithoutQueryParamsInURL()
         // .onSuccessAlert("Your changes are saved.")
-        .useToSubmitForm("#save-form");
+        .useToSubmitForm("#save-form", includeUsernameToForm);
+
+    function updateRequestURLWithUsername(request, $form) {
+        request.settings.url = "/user/" + $("#name").val();
+    }
+
+    $$.request
+        .put()
+        .onErrorAlert("Sorry, something went wrong with the update.")
+        .onSuccessFollowRedirectInResponseHeader()
+        .useToSubmitForm("#create-form", updateRequestURLWithUsername);
 
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

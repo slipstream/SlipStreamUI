@@ -56,38 +56,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             onSuccessReloadPageWithoutQueryParamsInURL: function (){
                 this.onSuccess(function () {
-                    // TODO: Which one if the correct way to redirect?
-                    // window.location = url;
-                    window.location.assign(
-                        $$.util.url.getCurrentURLBase()
-                        );
+                    $$.util.url.redirectToCurrentURLBase();
                 });
                 return this;
             },
             onSuccessRedirectURL: function (url){
                 this.onSuccess(function () {
-                    // TODO: Which one if the correct way to redirect?
-                    // window.location = url;
-                    window.location.assign(url);
+                    $$.util.url.redirectTo(url);
                 });
                 return this;
             },
             onSuccessFollowRedirectInURL: function (){
                 this.onSuccess(function () {
-                    // TODO: Which one if the correct way to redirect?
-                    // window.location = url;
                     var redirectURL = $$.util.urlQueryParams.getValue("redirectURL"),
                         rootURL = "/";
-                    window.location.assign(redirectURL || rootURL);
+                    $$.util.url.redirectTo(redirectURL || rootURL);
                 });
                 return this;
             },
             onSuccessFollowRedirectInResponseHeader: function (){
                 this.onSuccess(function (data, textStatus, jqXHR) {
-                    // TODO: Which one if the correct way to redirect?
-                    // window.location = url;
                     console.log(jqXHR.getResponseHeader("Location"));
-                    // window.location.assign(url);
+                    $$.util.url.redirectTo(jqXHR.getResponseHeader("Location"));
                 });
                 return this;
             },
@@ -187,7 +177,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 this.settings.url = url;
                 return this;
             },
-            useToSubmitForm: function (sel) {
+            useToSubmitForm: function (sel, preSubmitCallback) {
                 var request = this,
                     $form = $("form" + sel),
                     // url = $form.attr("action");
@@ -200,7 +190,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // .serialization("json")
                     .url(url);
                 $form.off("submit");
-                $form.data("user", "super");
+
                 $form.submit(function (event) {
                     if ($form.data("submitted") === true) {
                         // Previously submitted - don't submit again
@@ -209,6 +199,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // Mark it so that the next submit can be ignored
                     $form.data("submitted", true);
                     event.preventDefault();
+
+                    // The preSubmitCallback(request, $form) can be used to customise
+                    // the request and the form before it's submitted.
+                    if ( $.isFunction(preSubmitCallback) ) {
+                        preSubmitCallback(request, $form);
+                    }
+
                     console.log(">>>> Form values to be sent:");
                     console.log($(this).serializeObject());
                     console.log("<<<<");
