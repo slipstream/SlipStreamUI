@@ -39,6 +39,7 @@
                     :first-name       "First name"
                     :group            "Group"
                     :html             "HTML"
+                    :image            "Image"
                     :info             "Information"
                     :key              "Key"
                     :last-name        "Last name"
@@ -493,6 +494,7 @@
    :slipstream.ui.views.versions.header.subtitle.multiple-versions "There are %s versions of this %s."
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
    :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
+   :slipstream.ui.views.versions.category.image                :global.nouns.image
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
