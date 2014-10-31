@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.module
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.parameters :as parameters]
@@ -68,7 +69,7 @@
   (let [attrs (:attrs metadata)]
     {:description     (-> attrs :description)
      :category        (-> attrs :category)
-     :name            (-> attrs :name)
+     :name            (-> attrs :name u/not-default-new-name)
      :creation        (-> attrs :creation)
      :version         (-> attrs :version uc/parse-pos-int)
      :short-name      (-> attrs :shortname)

@@ -180,7 +180,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             useToSubmitForm: function (sel, preSubmitCallback) {
                 var request = this,
                     $form = $("form" + sel),
-                    // url = $form.attr("action");
                     url = request.settings.url || $form.attr("action");
                 // StatusCode 0: No internet connection.
                 request.onErrorStatusCodeAlert(0, "Something strange out there",

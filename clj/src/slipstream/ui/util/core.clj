@@ -4,6 +4,7 @@
             [net.cgrand.enlive-html :as html]
             [clj-json.core :as json]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.config :as config]))
 
@@ -101,3 +102,12 @@
       (get-in [:attrs :order])
       uc/parse-pos-int
       (or Integer/MAX_VALUE)))
+
+;; Resource creation
+
+(defn not-default-new-name
+  "When creating a new resource, the server passes a blank metadata object with
+  the resource-name set to '...new', which has to be ignored."
+  [resource-name]
+  (when-not (page-type/new?)
+    resource-name))
