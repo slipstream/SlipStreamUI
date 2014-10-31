@@ -15,7 +15,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var cloudServiceNodesMap = function() {
         var map = {};
-        var nodeGroups = $("#" + "ss\\:groups").text().split(", ");
+        var nodeGroups = $("[id*='ss:groups']").text().split(",");
         for(var index in nodeGroups) {
             var nodeGroup = nodeGroups[index].trim();
             if(!nodeGroup) {
@@ -40,7 +40,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var orchestrator = {name: "orchestrator-" + cloudService, id: "id_" + cloudService, data: {type: "orchestrator"}, children: []};
             var nodes = cloudServiceNodesMap[cloudService];
             for(var index in nodes) {
-                addNode(nodes[index], $("#" + nodes[index] + "\\.1\\:multiplicity").text(), orchestrator);
+                addNode(nodes[index], $("[id*='" + nodes[index] + "\\:multiplicity'").text(), orchestrator);
             }
             root.children.push(orchestrator);
         }
@@ -95,7 +95,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var addNode = function(nodeName, multiplicity, orchestrator) {
         nodeName = nodeName.trim();
         var node = {name: nodeName, id: "id_" + nodeName, data: {type: "node"}, children: []};
-        addVm($("#" + nodeName + "\\.1\\:multiplicity").text(), node);
+        addVm($("[id*='" + nodeName + "\\:multiplicity']").text(), node);
         orchestrator.children.push(node);
     };
 
