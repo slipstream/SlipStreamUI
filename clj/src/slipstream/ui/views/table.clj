@@ -118,7 +118,7 @@
 (html/defsnippet ^:private cell-module-version-snip-view template-filename (sel-for-cell :module-version)
   [uri]
   [:span] (html/content (uc/last-path-segment uri))
-  [:a]    (ue/set-href   (uc/trim-last-path-segment uri)))
+  [:a]    (ue/set-href   (uc/trim-last-path-segment uri) "/" ))
 
 ; Help hint cell
 
