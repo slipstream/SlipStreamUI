@@ -2,6 +2,7 @@ clj/target
 cljs/target
 cljs/out
 /lib
+/target
 /classes
 /checkouts
 README.html
