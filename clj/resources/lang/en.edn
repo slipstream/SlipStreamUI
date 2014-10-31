@@ -109,6 +109,8 @@
             :vm-states {
                     :running         "Running"
                     :unknown         "Unknown"
+                    :stopped         "Stopped"
+                    :terminated      "Terminated"
                     }
             :verbs {
                     :build          "Build"
@@ -256,6 +258,8 @@
 
    :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
    :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
+   :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
+   :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
 
    :slipstream.ui.views.tables.documentation.open-html        "Open in new page"
    :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF in new page"
