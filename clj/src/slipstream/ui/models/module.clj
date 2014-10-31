@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.module
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.module.image :as image]
             [slipstream.ui.models.module.project :as project]
@@ -72,7 +73,7 @@
      :version         (-> attrs :version uc/parse-pos-int)
      :short-name      (-> attrs :shortname)
      :last-modified   (-> attrs :lastmodified)
-     :latest-version? (-> attrs :islatestversion uc/parse-boolean)
+     :latest-version? (or (page-type/new?) (-> attrs :islatestversion uc/parse-boolean))
      :deleted?        (-> attrs :deleted uc/parse-boolean)
      :uri             (-> attrs :resourceuri)
      :parent-uri      (-> attrs :parenturi)
