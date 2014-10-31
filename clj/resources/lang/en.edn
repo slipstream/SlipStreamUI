@@ -495,6 +495,7 @@
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
    :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
    :slipstream.ui.views.versions.category.image                :global.nouns.image
+   :slipstream.ui.views.versions.category.project              :global.nouns.project
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
