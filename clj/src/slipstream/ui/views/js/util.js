@@ -31,11 +31,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         getCurrentURLBase: function () {
             var path = window.location.pathname; // URL without query params
             var indexOfNewStr = path.lastIndexOf("/new");
-            if (indexOfNewStr == -1) {
-                return path;
-            } else {
-                return path.substring(0, indexOfNewStr);
+            if (indexOfNewStr != -1) {
+                path = path.substring(0, indexOfNewStr);
             }
+            var indexOfModuleStr = path.lastIndexOf("/module");
+            if (indexOfModuleStr != -1) {
+                path = path.substring(0, indexOfModuleStr);
+            }
+            return path;
         },
         getParentResourceURL: function () {
             var path = this.getCurrentURLBase();
