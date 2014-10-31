@@ -34,7 +34,7 @@
 (defaction build  :name-with-ellipsis? true)
 
 (defaction copy   :name-with-ellipsis? true)
-(defaction publish :disabled? true)
+(defaction publish :super-only? true)
 (defaction unpublish)
 (defaction terminate)
 
