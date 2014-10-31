@@ -48,7 +48,7 @@
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
     {:title   (localization/section-title metadata-key)
-     :content (reports-iframe-snip nil)}))
+     :content (reports-iframe-snip run)}))
 
 (def ^:private sections
   [:overview
