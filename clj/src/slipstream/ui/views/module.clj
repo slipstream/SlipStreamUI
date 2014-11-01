@@ -1,7 +1,9 @@
 (ns slipstream.ui.views.module
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as module]
             [slipstream.ui.views.tables :as t]
@@ -12,14 +14,20 @@
 
 (localization/def-scoped-t)
 
-(defn- header
-  [summary]
-  {:icon      (-> summary :category icons/icon-for)
-   :title     (t :header.title (:category summary) (:short-name summary))
-   :image     (-> summary :image)
-   :subtitle  (t :header.subtitle (str (:version summary)
-                  (when-let [desc (:description summary)]
-                    (str " - " desc))))})
+(localization/with-prefixed-t :header
+  (defn- header
+    [summary]
+    {:icon      (-> summary :category icons/icon-for)
+     :title     (if (page-type/new?)
+                  (t :title.new (:category summary))
+                  (t :title (:category summary) (:short-name summary)))
+     :image     (-> summary :image)
+     :subtitle  (if (page-type/new?)
+                  (t :subtitle.new (-> summary :category s/lower-case))
+                  (t :subtitle
+                    (str (:version summary)
+                      (when-let [desc (-> summary :description not-empty)]
+                        (str " - " desc)))))}))
 
 (defn- old-version-alert
   [latest-version?]
