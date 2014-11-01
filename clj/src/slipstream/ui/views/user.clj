@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.user
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.clojure :as uc]
@@ -16,15 +17,18 @@
   {:title category
    :content (t/parameters-table parameters)})
 
-(defn- header
-  [user]
-  {:icon icons/user
-   :title (if (:loggedin? user)
-            (t :header.title.loggedin)
-            (t :header.title.not-loggedin (:username user)))
-   :subtitle (if (:super? user)
-               (t :header.subtitle.super)
-               (t :header.subtitle.not-super))})
+(localization/with-prefixed-t :header
+  (defn- header
+    [user]
+    {:icon icons/user
+     :title     (cond
+                  (page-type/new?)  (t :title.new-user)
+                  (:loggedin? user) (t :title.loggedin)
+                  :else             (t :title.not-loggedin (:username user)))
+     :subtitle  (cond
+                  (page-type/new?)  (t :subtitle.new-user)
+                  (:super? user)    (t :subtitle.super)
+                  :else             (t :subtitle.not-super))}))
 
 (defn page
   [metadata]

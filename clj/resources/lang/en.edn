@@ -214,8 +214,10 @@
 
    :slipstream.ui.views.user.header.title.loggedin             "Your profile"
    :slipstream.ui.views.user.header.title.not-loggedin         "%s's user profile"
+   :slipstream.ui.views.user.header.title.new-user             "New user"
    :slipstream.ui.views.user.header.subtitle.super             :global.nouns.super-user
    :slipstream.ui.views.user.header.subtitle.not-super         :global.nouns.regular-user
+   :slipstream.ui.views.user.header.subtitle.new-user          "Add the information to create a new user."
    :slipstream.ui.views.user.summary                           :global.nouns.summary
 
 
