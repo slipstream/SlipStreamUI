@@ -3,7 +3,10 @@
         [slipstream.ui.views.table])
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [clj-time.core :as t]
+            [clj-time.format :as f]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.time :as time]
             [slipstream.ui.util.localization :as localization]))
 
 (def rand-str
@@ -25,23 +28,24 @@
 
 (def all-cell-types
   "Including their accepted content types."
-  {:cell/text             [:content/plain :content/map]
-   :cell/password         [:content/any]
-   :cell/enum             [:content/plain :content/map]
-   :cell/set              [:content/plain]
-   :cell/timestamp        [:content/plain]
-   :cell/boolean          [:content/plain]
-   :cell/map              [:content/map]
-   :cell/link             [:content/map]
-   :cell/external-link    [:content/map]
-   :cell/email            [:content/plain]
-   :cell/url              [:content/plain :content/map]
-   :cell/username         [:content/plain]
-   :cell/icon             [:content/plain]
-   :cell/module-version   [:content/plain]
-   :cell/module-name      [:content/plain]
-   :cell/help-hint        [:content/plain]
-   :cell/reference-module [:content/plain]})
+  {:cell/text               [:content/plain :content/map]
+   :cell/password           [:content/any :content/plain :content/map]
+   :cell/enum               [:content/plain :content/map]
+   :cell/set                [:content/plain]
+   :cell/timestamp          [:content/plain]
+   :cell/relative-timestamp [:content/plain]
+   :cell/boolean            [:content/plain :content/map]
+   :cell/map                [:content/map]
+   :cell/link               [:content/map]
+   :cell/external-link      [:content/map]
+   :cell/email              [:content/plain :content/map]
+   :cell/url                [:content/plain :content/map]
+   :cell/username           [:content/plain]
+   :cell/icon               [:content/plain]
+   :cell/module-version     [:content/plain]
+   :cell/module-name        [:content/plain]
+   :cell/help-hint          [:content/plain]
+   :cell/reference-module   [:content/plain]})
 
 (expect
   (-> all-cell-types
@@ -88,6 +92,8 @@
 (expect
   (-> all-cell-types
       (select-keys [:cell/text
+                    :cell/boolean
+                    :cell/email
                     :cell/url
                     :cell/enum
                     :cell/password]))
@@ -154,13 +160,21 @@
   (str "<td class=\"ss-table-cell-text\">" (s/join ", " ["1" "A" rand-str]) "</td>")
   (cell-html {:type :cell/set, :content #{"A" rand-str "1"}}))
 
-(expect
-  "<td title=\"2013-03-06 14:30:59.30 UTC\" class=\"ss-table-cell-text\">Wednesday, 6 March 2013, 14:30:59 UTC</td>"
-  (localization/with-lang :en
-    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"})))
+(localization/with-lang :en
+  (let [ss-timestamp (->> 1 t/hours t/ago (f/unparse (f/formatters :date-time)))
+        human-readable-long (time/format :human-readable-long ss-timestamp)]
+    (expect
+      (str "<td title=\"1 hour ago\" class=\"ss-table-cell-text\">" human-readable-long "</td>")
+      (localization/with-lang :en
+        (cell-html {:type :cell/timestamp, :content ss-timestamp})))))
 
 (expect
-  "<td title=\"2013-03-06 14:30:59.30 UTC\" class=\"ss-table-cell-text\">mercredi, 6 mars 2013, 14:30:59 UTC</td>"
+  IllegalArgumentException
+  (localization/with-lang :en
+    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"})))
+
+(expect
+  (re-pattern "<td title=\".*\" class=\"ss-table-cell-text\">mercredi, 6 mars 2013, 14:30:59 UTC</td>")
   (localization/with-lang :fr
     (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"})))
 
@@ -271,7 +285,7 @@
   (cell-html {:type :cell/enum, :editable? true :content {:enum enum}}))
 
 (expect
-  (str "<td id=\"some-id\" class=\"ss-table-cell-enum-editable\">
+  (str "<td name=\"some-id\" id=\"some-id\" class=\"ss-table-cell-enum-editable\">
             <select class=\"form-control\">
               <option value=\"other-choice\">Other choice</option>
               <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
@@ -387,7 +401,7 @@
 
 ;; Module version cell
 
-(let [[_ history version] (re-matches #"(.*)/(\d+)" rand-url)]
+(let [[_ history version] (re-matches #"(.*/)(\d+)" rand-url)]
   (expect
     (str "<td class=\"ss-table-cell-module-version\"><span>"
          version
@@ -424,6 +438,7 @@
 (expect
   (str "<td class=\"ss-table-cell-reference-module-editable\">
             <div class=\"input-group\">
+              <input name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
               <span class=\"ss-reference-module-name\">
                 <a target=\"_blank\" href=\"" rand-url "\">" rand-url "</a>
               </span>
