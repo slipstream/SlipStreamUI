@@ -17,7 +17,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
               min: 0,
               max: $elem.data('quota-max') || 20,
               title: $elem.data('quota-title'),
-              levelColorsGradient: true
+              levelColorsGradient: true,
+              showInnerShadow: false
             });
         });
     }
