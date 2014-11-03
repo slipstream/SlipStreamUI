@@ -22,7 +22,7 @@
     :organization "ACME"
     :state "ACTIVE"
     :online? false
-    :last-online "2014-08-10 22:09:21.705 CEST"}
+    :last-online "2015-08-10 22:09:21.705 CEST"}
    {:username "btest"
     :uri "user/btest"
     :first-name "B Test"
