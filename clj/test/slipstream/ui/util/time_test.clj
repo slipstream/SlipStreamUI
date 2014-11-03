@@ -265,10 +265,18 @@
   (localization/with-lang :en
     (format :relative "2013-07-05T00:27:12.471Z")))
 
+(defn- date-in
+  "The compensation-fn adds (or removes, depending on the direction) a bit of
+  time to ensure that the result is expected, even if there is a bit of random
+  delay during test execution."
+  [units period direction]
+  (let [compensation-fn (if (= direction t/ago) t/minus t/plus)]
+    (f/unparse (f/formatters :date-time)
+               (-> units period direction (compensation-fn (t/millis 1))))))
+
 (defn- date-periods-ago
   [units period]
-  (->> units period t/ago
-       (f/unparse (f/formatters :date-time))))
+  (date-in units period t/ago))
 
 (expect
   "1 minute ago"
@@ -313,8 +321,7 @@
 
 (defn- date-periods-from-now
   [units period]
-  (->> units period t/from-now
-       (f/unparse (f/formatters :date-time))))
+  (date-in units period t/from-now))
 
 (expect
   "in 1 minute"

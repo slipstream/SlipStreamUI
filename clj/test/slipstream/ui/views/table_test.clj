@@ -164,7 +164,7 @@
   (let [ss-timestamp (->> 1 t/hours t/ago (f/unparse (f/formatters :date-time)))
         human-readable-long (time/format :human-readable-long ss-timestamp)]
     (expect
-      (str "<td title=\"1 hour ago\" class=\"ss-table-cell-text\">" human-readable-long "</td>")
+      (re-pattern (str "<td title=\"1 hour.* ago\" class=\"ss-table-cell-text\">" human-readable-long "</td>"))
       (localization/with-lang :en
         (cell-html {:type :cell/timestamp, :content ss-timestamp})))))
 
