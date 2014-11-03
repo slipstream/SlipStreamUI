@@ -490,5 +490,15 @@
 
 
 (expect
-  "expectation for parsed-metadata to be completed"
+  {:username "test"
+   :first-name "Test"
+   :last-name "Me"
+   :uri "user/test"
+   :organization "Disney"
+   :email "test@example.com"
+   :state "ACTIVE"
+   :creation "2013-03-06 14:30:59.30 UTC"
+   :deleted? false
+   :loggedin? false
+   :super? false}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

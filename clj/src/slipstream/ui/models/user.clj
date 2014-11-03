@@ -1,30 +1,46 @@
 (ns slipstream.ui.models.user
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [clojure.string :as s]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.current-user :as current-user]))
 
 (def sel-user
-  #{[:tag "user"]})
+  nil)
 
 (defn user [metadata]
-  "Extract user from metadata map (e.g. module, run)"
-  (first (html/select metadata #{[html/root :> :user] [:user]})))
+  nil)
 
 (defn logged-in [metadata]
-  "Extract logged-in user from metadata map (e.g. module, run)"
-  (first (html/select metadata [html/root :> :user])))
+  nil)
 
 (defn attrs [metadata]
-  "Extract user attrs from root map (e.g. module, run)"
-  (-> metadata user :attrs))
+  nil)
 
 (defn super? [metadata]
-  (= "true" (:issuper (attrs metadata))))
+  nil)
 
 (defn username [metadata]
-  (:name (attrs metadata)))
+  nil)
 
 (defn default-cloud [metadata]
-  (-> metadata user attrs :defaultcloud))
+  nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn parse
   [metadata]
-  nil)
+  (let [attrs (:attrs metadata)]
+    (-> attrs
+        (select-keys [:email
+                      :organization
+                      :state
+                      :creation])
+        (assoc        :username   (-> attrs :name u/not-default-new-name)
+                      :first-name (:firstname attrs)
+                      :last-name  (:lastname attrs)
+                      :uri        (:resourceuri attrs)
+                      :super?     (-> attrs :issuper uc/parse-boolean)
+                      :deleted?   (-> attrs :deleted uc/parse-boolean)
+                      :loggedin?  (= (:name attrs) (current-user/username))))))

@@ -6,7 +6,7 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.models.parameters :as parameters]
-            [slipstream.ui.models.user.core :as user]
+            [slipstream.ui.models.user :as user]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.base :as base]))
 
