@@ -1469,55 +1469,127 @@
 </run>")
 
 (expect
-  {
-   :pending "expectation for parsed-metadata to be completed"
-   :parameters [{:category-type :global
-                 :category "General"
-                 :parameters [{:help-hint nil
-                               :read-only? false
-                               :order 2147483647
-                               :value "interoute"
-                               :category "General"
-                               :description "Cloud Service where the node resides"
-                               :type "String"
-                               :name "apache1--cloudservice"}
-                              {:help-hint nil
-                               :read-only? false
-                               :order 2147483647
-                               :value "1"
-                               :category "General"
-                               :description "Multiplicity number"
-                               :type "String"
-                               :name "apache1--multiplicity"}
-                              {:help-hint nil
-                               :read-only? false
-                               :order 2147483647
-                               :value "interoute"
-                               :category "General"
-                               :description "Cloud Service where the node resides"
-                               :type "String"
-                               :name "testclient1--cloudservice"}
-                              {:help-hint nil
-                               :read-only? false
-                               :order 2147483647
-                               :value "1"
-                               :category "General"
-                               :description "Multiplicity number"
-                               :type "String"
-                               :name "testclient1--multiplicity"}]}]
-   :summary {:end-time nil
-             :status "Done"
-             :deleted? false
-             :state "Terminal"
-             :creation "2013-06-12 15:39:55.575 CEST"
-             :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-             :owner "sixsq"
-             :start-time "2013-06-12 15:39:55.575 CEST"
-             :uri "run/06f207d4-d25b-4597-a23a-f79a07b2f791"
-             :uuid "06f207d4-d25b-4597-a23a-f79a07b2f791"
-             :user "meb"
-             :type "Deployment"
-             :category "Deployment"}}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
+  [:runtime-parameters :summary]
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys))
 
+(expect
+  {:end-time "2014-09-24 00:20:06.517 CEST"
+   :status nil
+   :deleted? false
+   :state "Aborted"
+   :creation "2014-09-24 00:12:43.287 CEST"
+   :module-uri "module/examples/tutorials/service-testing/system/72"
+   :owner "super"
+   :start-time "2014-09-24 00:12:43.287 CEST"
+   :uri "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
+   :uuid "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
+   :type "Deployment"
+   :user "super"
+   :category "Deployment"
+   :tags "\n                 \n            "}
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary))
+
+
+; The metadata mockup contains too many runtime parameters to test,
+; so we check only the first category.
+
+(expect
+  {:group "Global"
+   :runtime-parameters [{:group "Global"
+                         :deleted? false
+                         :help-hint "Run abort flag, set when aborting"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:abort"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? true
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                \n                Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed.\n                \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Module category"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:category"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? true
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 Deployment \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Global complete flag, set when run completed"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:complete"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? false
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Comma separated node groups"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:groups"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? true
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 CloudSigma-zrh:apache,CloudSigma-zrh:testclient \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Run abort flag, set when aborting"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:recovery.mode"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? true
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 true \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Global execution state"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:state"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? true
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 Aborted \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Comma separated tag values"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:tags"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? false
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 \n            "}
+                        {:group "Global"
+                         :deleted? false
+                         :help-hint "Optional service URL for the deployment"
+                         :creation "2014-09-24 00:12:43.299 CEST"
+                         :name "ss:url.service"
+                         :mapped-param-names ""
+                         :type "String"
+                         :set? false
+                         :map-others? false
+                         :order 2147483647
+                         :mapped-value? false
+                         :value "\n                 \n            "}]}
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters first))
 
