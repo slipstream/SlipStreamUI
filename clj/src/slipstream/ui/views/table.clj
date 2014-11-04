@@ -197,8 +197,8 @@
 
 (defmethod cell-snip [:cell/password :mode/view :content/any]
   [{pwd :content}]
-  ; (cell-text-snip-view (when pwd "•••")))
-  (cell-text-snip-view {:text (when pwd "***")}))
+  (cell-text-snip-view {:text (when pwd "•••••")}))
+  ; (cell-text-snip-view {:text (when pwd "*****")}))
 
 (defmethod cell-snip [:cell/password :mode/edit :content/plain]
   [{password :content}]

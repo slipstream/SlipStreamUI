@@ -272,11 +272,11 @@
 ;; Password cell
 
 (expect
-  (str "<td class=\"ss-table-cell-text\">***</td>")
+  (str "<td class=\"ss-table-cell-text\">•••••</td>")
   (cell-html {:type :cell/password, :content rand-str}))
 
 (expect
-  (str "<td class=\"ss-table-cell-text\">***</td>")
+  (str "<td class=\"ss-table-cell-text\">•••••</td>")
   (cell-html {:type :cell/password, :content {:text rand-str}}))
 
 
