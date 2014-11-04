@@ -58,25 +58,25 @@
 
 (def all-cell-types
   "Including their accepted content types."
-  {:cell/text               [:content/plain :content/map]
-   :cell/textarea           [:content/map :content/plain]
-   :cell/password           [:content/any :content/plain :content/map]
-   :cell/enum               [:content/plain :content/map]
-   :cell/set                [:content/plain]
-   :cell/timestamp          [:content/plain]
-   :cell/relative-timestamp [:content/plain]
-   :cell/boolean            [:content/plain :content/map]
-   :cell/map                [:content/map]
-   :cell/link               [:content/map]
-   :cell/external-link      [:content/map]
-   :cell/email              [:content/plain :content/map]
-   :cell/url                [:content/plain :content/map]
-   :cell/username           [:content/plain]
-   :cell/icon               [:content/plain]
-   :cell/module-version     [:content/plain]
-   :cell/module-name        [:content/plain]
-   :cell/help-hint          [:content/plain]
-   :cell/reference-module   [:content/plain]})
+  {:cell/text               [             :content/map  :content/plain]
+   :cell/textarea           [             :content/map  :content/plain]
+   :cell/password           [:content/any :content/map  :content/plain]
+   :cell/enum               [             :content/map  :content/plain]
+   :cell/set                [                           :content/plain]
+   :cell/timestamp          [                           :content/plain]
+   :cell/relative-timestamp [                           :content/plain]
+   :cell/boolean            [             :content/map  :content/plain]
+   :cell/map                [             :content/map                ]
+   :cell/link               [             :content/map                ]
+   :cell/external-link      [             :content/map                ]
+   :cell/email              [             :content/map  :content/plain]
+   :cell/url                [             :content/map  :content/plain]
+   :cell/username           [                           :content/plain]
+   :cell/icon               [                           :content/plain]
+   :cell/module-version     [                           :content/plain]
+   :cell/module-name        [                           :content/plain]
+   :cell/help-hint          [                           :content/plain]
+   :cell/reference-module   [                           :content/plain]})
 
 (expect
   (-> all-cell-types
@@ -140,7 +140,7 @@
        vals
        (filter #(or (-> % count (> 1))
                     (-> % first second (= :content/any))))
-       (map (juxt ffirst (partial map second)))
+       (map (juxt ffirst (comp sort (partial map second))))
        (into {})))
 
 ;; Content types for all cell types
@@ -155,7 +155,7 @@
        set
        (group-by first)
        vals
-       (map (juxt ffirst (partial map second)))
+       (map (juxt ffirst (comp sort (partial map second))))
        (into {})))
 
 ;; Text cell
