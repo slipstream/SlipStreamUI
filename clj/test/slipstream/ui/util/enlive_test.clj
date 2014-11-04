@@ -465,3 +465,19 @@
        some-img-in-li-and-span-snip
        html/emit*
        (apply str)))
+
+
+;; Generic blank snippets
+
+(expect
+  "<div>blah</div>"
+  (->> "blah"
+       text-div-snip
+       html/emit*
+       (apply str)))
+
+(expect
+  "<div class=\"ss-some-class\">tada</div>"
+  (->> (text-div-snip "tada" :css-class "ss-some-class")
+       html/emit*
+       (apply str)))

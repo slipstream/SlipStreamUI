@@ -26,12 +26,32 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Hidden inputs for parameter cells in editable mode
+
+(ue/def-blank-snippet ^:private hidden-inputs-for-parameter-snip [:span :input]
+  [parameter row-index]
+  [:input]  (ue/set-type "hidden")
+  ue/this   (ue/content-for [:input] [[k v] (select-keys parameter [:name :category :type :description])]
+                    ue/this (ue/set-value v)
+                    ue/this (->> k
+                                 name
+                                 (str "parameter-" (:name parameter) "--" row-index "--")
+                                 ue/set-name)))
+
+(defn- append-hidden-inputs-when-parameter-in
+  [cell-content]
+  (html/append
+    (when-let [parameter (:parameter cell-content)]
+      (hidden-inputs-for-parameter-snip parameter (:row-index cell-content)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Enlive cell snips
 
 ; Text cell
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
-  [{:keys [text tooltip id]}]
+  [{:keys [text tooltip id] :as cell-content}]
   ue/this (html/html-content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
@@ -40,44 +60,47 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id]}]
-  [:input] (ue/set-id id)
-  [:input] (ue/set-name id)
-  [:input] (ue/set-value (str text))
-  ue/this (ue/when-set-title (not-empty tooltip)
-                             (str tooltip)))
+  [{:keys [text tooltip id] :as cell-content}]
+  [:input]  (ue/set-id id)
+  [:input]  (ue/set-name id)
+  [:input]  (ue/set-value (str text))
+  ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
+  ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Editable password cell
 
 (html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
-  [{:keys [id]}]
-  [:input] (ue/set-id id)
-  [:input] (ue/set-name id))
+  [{:keys [id] :as cell-content}]
+  [:input]  (ue/set-id id)
+  [:input]  (ue/set-name id)
+  ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Boolean cell
 
 (html/defsnippet ^:private cell-boolean-snip-view template-filename (sel-for-cell :boolean)
-  [{:keys [value id]}]
+  [{:keys [value id] :as cell-content}]
   ; [:input] (ue/toggle-disabled true)
   [:input] (ue/toggle-checked value))
 
 (html/defsnippet ^:private cell-boolean-snip-edit template-filename (sel-for-cell :boolean :editable)
-  [{:keys [value id]}]
+  [{:keys [value id] :as cell-content}]
   ; [:input] (ue/toggle-disabled false)
   [:input] (ue/toggle-checked value)
   [:input] (ue/set-id id)
-  [:input] (ue/set-name id))
+  [:input] (ue/set-name id)
+  ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Enum cell
 
 (html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
-  [{:keys [enum id]}]
-  ue/this (ue/set-id id)
-  ue/this (ue/set-name id)
+  [{:keys [enum id] :as cell-content}]
+  [:select] (ue/set-id id)
+  [:select] (ue/set-name id)
   [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum]
                             ue/this (ue/set-value value)
                             ue/this (html/content (str text))
-                            ue/this (ue/toggle-selected selected?)))
+                            ue/this (ue/toggle-selected selected?))
+  ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Map cell
 
@@ -101,7 +124,7 @@
 ; Link cell
 
 (html/defsnippet ^:private cell-link-snip-view template-filename (sel-for-cell :link)
-  [{:keys [text href open-in-new-window? id]}]
+  [{:keys [text href open-in-new-window? id] :as cell-content}]
     [:a] (html/content (str text))
     [:a] (ue/set-href href)
     [:a] (ue/set-id id)

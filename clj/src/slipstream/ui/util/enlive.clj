@@ -173,6 +173,7 @@
 (defn-set-attr :onclick)
 (defn-set-attr :id)
 (defn-set-attr :name)
+(defn-set-attr :type)
 (defn-set-attr :src)
 (defn-set-attr :class)
 (defn-set-attr :style)
@@ -283,9 +284,9 @@
 
 
 ;; Generic blank snips
+;; See tests for expectations
 
 (def-blank-snippet text-div-snip :div
   [text & {:keys [css-class]}]
   this (set-class css-class)
   this (html/content (str text)))
-

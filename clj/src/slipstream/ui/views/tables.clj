@@ -107,17 +107,19 @@
             "Boolean"           :cell/boolean)))
 
 (defn- value-of
-  [{:keys [name value id-format-fn] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map?] :as parameter} cell-type row-index]
   (let [formated-name (if (fn? id-format-fn)
                         (id-format-fn name)
-                        (format "parameter-%s--%s--value" name row-index))]
+                        (format "parameter-%s--%s--value" name row-index))
+        value-base (cond-> {:id formated-name, :row-index row-index}
+                           (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
-      :cell/text      {:text value,   :id formated-name}
-      :cell/email     {:email value,  :id formated-name}
-      :cell/enum      {:enum value,   :id formated-name}
-      :cell/url       {:url value,    :id formated-name}
-      :cell/boolean   {:value value,  :id formated-name}
-      :cell/password  {:password nil, :id formated-name}
+      :cell/text      (assoc value-base :text      value)
+      :cell/email     (assoc value-base :email     value)
+      :cell/enum      (assoc value-base :enum      value)
+      :cell/url       (assoc value-base :url       value)
+      :cell/boolean   (assoc value-base :value     value)
+      :cell/password  (assoc value-base :password  nil)
       value)))
 
 (defn- parameter-row

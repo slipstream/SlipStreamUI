@@ -9,6 +9,36 @@
             [slipstream.ui.util.time :as time]
             [slipstream.ui.util.localization :as localization]))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Test hidden inputs for parameter cells in editable mode
+
+(def ^:private parameter
+  {:help-hint nil
+   :read-only? false
+   :order 2147483647
+   :value nil
+   :category "stratuslab"
+   :description "Requested CPUs"
+   :type "String"
+   :name "stratuslab.cpu"})
+
+(def ^:private row-index 2)
+
+(expect
+  (str "<span>"
+         "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+       "</span>")
+  (->> (@#'slipstream.ui.views.table/hidden-inputs-for-parameter-snip parameter row-index)
+       html/emit*
+       (apply str)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (def rand-str
   (->> 10000000 rand-int (str "random test string to avoid false positive tests ")))
 
@@ -221,6 +251,23 @@
           </td>")
   (cell-html {:type :cell/text, :content rand-str, :editable? true}))
 
+; When a parameter is available in the cell content, we append the hidden
+; input fields in editable mode required by the current form structure.
+
+(expect
+  (str "<td class=\"ss-table-cell-text-editable\">
+            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+          <span>"
+            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+          "</span>"
+        "</td>")
+  (cell-html {:type :cell/text, :editable? true, :content {:text rand-str
+                                                           :parameter parameter
+                                                           :row-index 2}}))
+
 
 ;; Password cell
 
@@ -239,7 +286,25 @@
   "<td class=\"ss-table-cell-password-editable\">
             <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
           </td>"
-  (cell-html {:type :cell/password, :editable? true :content {:text rand-str}}))
+  (cell-html {:type :cell/password, :editable? true, :content {:text rand-str}}))
+
+; When a parameter is available in the cell content, we append the hidden
+; input fields in editable mode required by the current form structure.
+
+(expect
+  (str "<td class=\"ss-table-cell-password-editable\">
+            <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
+          <span>"
+            "<input name=\"parameter-stratuslab.cpu--0--description\" value=\"Requested CPUs\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--type\" value=\"String\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+          "</span>"
+        "</td>")
+  (cell-html {:type :cell/password, :editable? true, :content {:text rand-str
+                                                               :parameter parameter
+                                                               :row-index 0}}))
+
 
 
 ;; Enum cell
@@ -273,7 +338,7 @@
               <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
             </select>
           </td>")
-  (cell-html {:type :cell/enum, :editable? true :content enum}))
+  (cell-html {:type :cell/enum, :editable? true, :content enum}))
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
@@ -282,16 +347,38 @@
               <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
             </select>
           </td>")
-  (cell-html {:type :cell/enum, :editable? true :content {:enum enum}}))
+  (cell-html {:type :cell/enum, :editable? true, :content {:enum enum}}))
 
 (expect
-  (str "<td name=\"some-id\" id=\"some-id\" class=\"ss-table-cell-enum-editable\">
-            <select class=\"form-control\">
+  (str "<td class=\"ss-table-cell-enum-editable\">
+            <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
               <option value=\"other-choice\">Other choice</option>
               <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
             </select>
           </td>")
-  (cell-html {:type :cell/enum, :editable? true :content {:enum enum, :id "some-id"}}))
+  (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id"}}))
+
+
+; When a parameter is available in the cell content, we append the hidden
+; input fields in editable mode required by the current form structure.
+
+(expect
+  (str "<td class=\"ss-table-cell-enum-editable\">
+            <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
+              <option value=\"other-choice\">Other choice</option>
+              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+            </select>
+          <span>"
+            "<input name=\"parameter-stratuslab.cpu--7--description\" value=\"Requested CPUs\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--type\" value=\"String\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+          "</span>"
+        "</td>")
+  (cell-html {:type :cell/enum, :editable? true, :content {:enum enum
+                                                           :id "some-id"
+                                                           :parameter parameter
+                                                           :row-index 7}}))
 
 
 ;; Map cell
@@ -397,6 +484,23 @@
             <input type=\"checkbox\" />
           </td>"
   (cell-html {:type :cell/boolean, :content nil, :editable? true}))
+
+; When a parameter is available in the cell content, we append the hidden
+; input fields in editable mode required by the current form structure.
+
+(expect
+  (str "<td class=\"ss-table-cell-boolean-editable\">
+            <input checked=\"\" type=\"checkbox\" />
+          <span>"
+            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+          "</span>"
+        "</td>")
+  (cell-html {:type :cell/boolean, :editable? true, :content {:value true
+                                                              :parameter parameter
+                                                              :row-index 2}}))
 
 
 ;; Module version cell

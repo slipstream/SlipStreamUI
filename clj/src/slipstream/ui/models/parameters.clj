@@ -79,7 +79,8 @@
              :type type
              :description (or description (-> as-parameter (or k) name (str ".description") keyword t))
              :help-hint (or help-hint (-> as-parameter (or k) name (str ".help-hint") keyword t))
-             :value (get m k)}
+             :value (get m k)
+             :built-from-map? true}
       (contains? hints :editable?) (assoc :editable? editable?)
       (contains? hints :hidden?)   (assoc :hidden? hidden?))))
 
