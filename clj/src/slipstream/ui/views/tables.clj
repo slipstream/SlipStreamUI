@@ -101,7 +101,7 @@
             "String"            :cell/text
             "RestrictedString"  :cell/text
             "Text"              :cell/text
-            "RestrictedText"    :cell/text
+            "RestrictedText"    :cell/textarea
             "Password"          :cell/password
             "Enum"              :cell/enum
             "Boolean"           :cell/boolean)))
@@ -114,6 +114,7 @@
         value-base (cond-> {:id formated-name, :row-index row-index}
                            (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
+      :cell/textarea  (assoc value-base :text      value)
       :cell/text      (assoc value-base :text      value)
       :cell/email     (assoc value-base :email     value)
       :cell/enum      (assoc value-base :enum      value)

@@ -67,6 +67,16 @@
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
+; Editable textarea cell
+
+(html/defsnippet ^:private cell-textarea-snip-edit template-filename (sel-for-cell :text-area :editable)
+  [{:keys [text tooltip id] :as cell-content}]
+  [:textarea]  (ue/set-id id)
+  [:textarea]  (ue/set-name id)
+  [:textarea]  (html/content (str text))
+  ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
+  ue/this   (append-hidden-inputs-when-parameter-in cell-content))
+
 ; Editable password cell
 
 (html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
@@ -194,6 +204,22 @@
 (defmethod cell-snip [:cell/text :mode/edit :content/plain]
   [{text :content}]
   (cell-text-snip-edit {:text text}))
+
+(defmethod cell-snip [:cell/textarea :mode/view :content/map]
+  [{content :content}]
+  (cell-text-snip-view content))
+
+(defmethod cell-snip [:cell/textarea :mode/view :content/plain]
+  [{text :content}]
+  (cell-text-snip-view {:text text}))
+
+(defmethod cell-snip [:cell/textarea :mode/edit :content/map]
+  [{content :content}]
+  (cell-textarea-snip-edit content))
+
+(defmethod cell-snip [:cell/textarea :mode/edit :content/plain]
+  [{text :content}]
+  (cell-textarea-snip-edit {:text text}))
 
 (defmethod cell-snip [:cell/password :mode/view :content/any]
   [{pwd :content}]
