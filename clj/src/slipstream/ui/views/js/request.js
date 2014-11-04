@@ -18,14 +18,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             always: function (callback){
                 // An alternative construct to the complete callback
-                // option, the .always() method replaces the deprecated
-                // .complete() method.
+                // option, the .always() method replaces the
+                // deprecated .complete() method. In response to a
+                // successful request, the function's arguments are
+                // the same as those of .done(): data, textStatus, and
+                // the jqXHR object. For failed requests the arguments
+                // are the same as those of .fail(): the jqXHR object,
+                // textStatus, and errorThrown. Refer to
+                // deferred.always() for implementation details.
 
                 // NB: Callback fn which doesn't belong to the ajax settings but
                 // on the returned Promise object.
 
                 // Callback signature: jqXHR.always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) { });
-                this.intern.always = callback;
+                $$.util.setOrPush(this.intern, "always", callback);
                 return this;
             },
             dataObject: function (object) {
@@ -51,7 +57,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // Callback signature: function (data, textStatus, jqXHR) {}
 
                 $$.util.setOrPush(this.settings, "success", callback);
-                // this.settings.success = callback;
                 return this;
             },
             onSuccessReloadPageWithoutQueryParamsInURL: function (){
@@ -84,7 +89,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             onSuccessAlert: function (titleOrMsg, msg){
                 var showSuccessAlert = function () { $$.Alert.showSuccess(titleOrMsg, msg); };
                 this.onSuccess(showSuccessAlert);
-                // this.settings.success = showSuccessAlert;
                 return this;
             },
             onError: function (callback){
@@ -101,7 +105,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 // Callback signature: function (jqXHR, textStatus, errorThrown) {}
                 $$.util.setOrPush(this.settings, "error", callback);
-                // this.settings.error = callback;
                 return this;
             },
             onErrorAlert: function (titleOrMsg, msg){
@@ -171,7 +174,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 );
                         });
                 }
-                return jQuery.ajax(this.settings);
+                var ajaxRequest = jQuery.ajax(this.settings)
+                                        .always(this.intern.always);
+                return ajaxRequest;
             },
             url: function (url) {
                 this.settings.url = url;
@@ -205,11 +210,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         preSubmitCallback(request, $form);
                     }
 
-                    console.log(">>>> Form values to be sent:");
-                    console.log($(this).serializeObject());
-                    console.log("<<<<");
                     request.dataObject($(this).serializeObject())
-                        .always(request.intern.always)
                         .always(function () {
                             // Mark it so that the next submit can be performed
                             $form.data("submitted", false);
