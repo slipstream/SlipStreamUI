@@ -59,6 +59,7 @@
 (def all-cell-types
   "Including their accepted content types."
   {:cell/text               [:content/plain :content/map]
+   :cell/textarea           [:content/map :content/plain]
    :cell/password           [:content/any :content/plain :content/map]
    :cell/enum               [:content/plain :content/map]
    :cell/set                [:content/plain]
@@ -93,6 +94,7 @@
 
 (expect
   #{:cell/text
+    :cell/textarea
     :cell/password
     :cell/enum
     :cell/set
@@ -122,6 +124,7 @@
 (expect
   (-> all-cell-types
       (select-keys [:cell/text
+                    :cell/textarea
                     :cell/boolean
                     :cell/email
                     :cell/url
