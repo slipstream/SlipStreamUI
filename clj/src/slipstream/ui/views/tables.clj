@@ -374,7 +374,7 @@
 (defn- vm-row
   [{:keys [cloud-name run-uuid cloud-instance-id username state] :as vm}]
   {:style  nil
-   :cells [{:type :cell/link,     :content {:text (uc/trim-from run-uuid \-), :url (str "/run/" run-uuid)}}
+   :cells [{:type :cell/link,     :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
            {:type :cell/text,     :content (localization/with-prefixed-t :run.state
                                              (-> (or state :unknown) uc/keywordize t))}
            {:type :cell/username, :content username}
