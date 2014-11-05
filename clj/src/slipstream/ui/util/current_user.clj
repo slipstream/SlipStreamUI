@@ -33,6 +33,12 @@
   []
   (:super? *current-user*))
 
+(def not-super?
+  (complement super?))
+
 (defn logged-in?
   []
   (:logged-in? *current-user*))
+
+(def not-logged-in?
+  (complement logged-in?))

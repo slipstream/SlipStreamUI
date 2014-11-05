@@ -61,11 +61,11 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id parameter] :as cell-content}]
+  [{:keys [text tooltip id read-only?] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value (str text))
-  [:input]  (ue/when-set-readonly (and (contains? cell-content :parameter) (not (current-user/super?)) (:read-only? parameter)) "readonly")
+  [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 

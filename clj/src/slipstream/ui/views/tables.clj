@@ -107,11 +107,11 @@
             "Boolean"           :cell/boolean)))
 
 (defn- value-of
-  [{:keys [name value id-format-fn built-from-map?] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map? read-only?] :as parameter} cell-type row-index]
   (let [formated-name (if (fn? id-format-fn)
                         (id-format-fn name)
                         (format "parameter-%s--%s--value" name row-index))
-        value-base (cond-> {:id formated-name, :row-index row-index}
+        value-base (cond-> {:id formated-name, :row-index row-index, :read-only? read-only?}
                            (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       :cell/textarea  (assoc value-base :text      value)
