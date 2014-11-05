@@ -36,7 +36,7 @@
     (base/generate
       {:metadata metadata
        :header (header user)
-       :secondary-menu-actions [action/edit] ;; TODO: Only if (or (:loggedin? user) (:super? user))
+       :secondary-menu-actions [action/edit]
        :resource-uri (:uri user)
        :content (into [{:title (t :summary)
                         :selected? true

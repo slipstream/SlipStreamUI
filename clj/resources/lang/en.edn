@@ -11,9 +11,9 @@
    ;       :greeting-alias :example/greeting
    ;       :baz-alias      :example.bar/baz
    ; }
-   ; :missing        "|Missing translation: [%1$s %2$s %3$s]|"
-
-   :missing        "%1$s %3$s"
+   ; :missing        "|Missing translation: [%1$s %2$s %3$s]|" ;; Look at fallback fns instead:
+                                                               ;;   slipstream.ui.util.localization/t-fallback-dev
+                                                               ;;   slipstream.ui.util.localization/t-fallback-prod
 
    :global {:punctuation {
                           :ellipsis "..."

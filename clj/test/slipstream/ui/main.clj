@@ -1,9 +1,8 @@
 (ns slipstream.ui.main
   (:require [clojure.string :as s]
             [ring.util.response :as resp]
-            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.dev :as ud]
             [slipstream.ui.utils :as utils]
-            [slipstream.ui.views.base :as base]
             [slipstream.ui.views.representation :as representation])
   (:use [net.cgrand.moustache :only [app]]))
 
@@ -27,14 +26,9 @@
                        (full-metadata-ns raw-metadata-ns)
                        raw-metadata-ns))))))
 
-(defmacro ^:private with-dev-environment
-  [& body]
-  `(binding [base/*dev?* true]
-     ~@body))
-
 (defn- render
   [& {:keys [raw-metadata-ns pagename type]}]
-  (with-dev-environment
+  (ud/with-dev-environment
     (-> raw-metadata-ns
         raw-metadata-str
         (representation/-toHtml pagename type)
@@ -43,7 +37,7 @@
 
 (defn- render-error
   [& {:keys [raw-metadata-ns message code]}]
-  (with-dev-environment
+  (ud/with-dev-environment
     (-> raw-metadata-ns
         raw-metadata-str
         (representation/-toHtmlError message code)
@@ -52,7 +46,7 @@
 
 (defn- render-file
   [file-data-file]
-  (with-dev-environment
+  (ud/with-dev-environment
     (-> (str "test/slipstream/ui/mockup_data/" file-data-file)
         slurp
         resp/response

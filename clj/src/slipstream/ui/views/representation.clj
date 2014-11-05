@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.representation
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.dev :as ud]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
@@ -76,7 +77,7 @@
 
 (defmacro guard-exceptions
   [& body]
-  `(if base/*dev?*
+  `(if ud/*dev?*
     ; In dev mode let the stacktrace be printed on the browser:
     ~@body
     (try

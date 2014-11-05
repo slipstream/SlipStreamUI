@@ -2,6 +2,7 @@
   "Util functions only related to the string localization."
   (:require [clojure.java.io :as io]
             [taoensso.tower :as tower]
+            [slipstream.ui.util.dev :as ud]
             [slipstream.ui.util.clojure :as uc])
   (:import  java.io.File))
 
@@ -53,20 +54,43 @@
   (throw (IllegalStateException.
            (str "No lang locale files found in: " lang-resources-dir))))
 
-(def ^:private my-tconfig
+(def ^:private tconfig
   {:dictionary lang-locales
-   :dev-mode? true ; Set to true for auto dictionary reloading ; TODO: Set to false on prod
+   :dev-mode? false ; Set to true for auto dictionary reloading
    :fallback-locale :en
    ; :fmt-fn fmt-str ; (fn [loc fmt args])
    :log-missing-translation-fn
    (fn [{:keys [locale ks scope] :as args}]
      (println ">>> Missing translation:" args))})
 
-(def t
+(def t-prod
+  "Localization function for prod. The dictionary is cached for performance."
+  (tower/make-t (assoc tconfig :dev-mode? false)))
+
+(defn t-fallback-prod
+  [locale-or-locales k-or-ks & fmt-args]
+  (-> (if (vector? k-or-ks) (first k-or-ks) k-or-ks)
+      name
+      (uc/trim-up-to-last \.)))
+
+(def t-dev
+  "Localization function for dev. The dictionary is not cached, and it's reloaded
+  when it is updated."
   (if spot-missing-t-calls-mode?
     ; (constantly "XXX")
     (fn [& args] (str (second args)))
-    (tower/make-t my-tconfig))) ; Create translation fn
+    (tower/make-t (assoc tconfig :dev-mode? true))))
+
+(defn t-fallback-dev
+  [& args]
+  args)
+
+(defn t
+  "Main localization function."
+  [& args]
+  (if ud/*dev?*
+    (or (apply t-dev  args) (apply t-fallback-dev  args))
+    (or (apply t-prod args) (apply t-fallback-prod args))))
 
 (defmacro def-scoped-t
   "Defines a top level private var 't' for scoped translation requests.
@@ -84,9 +108,7 @@
        (when-not *lang*
          (throw (IllegalStateException. ~ex-msg)))
        (let [t-path# (keyword (str ~scope-ns (name t-key#)))]
-          (if args#
-            (apply t *lang* t-path# args#)
-            (t *lang* t-path#))))))
+         (apply t *lang* t-path# args#)))))
 
 (defmacro with-prefixed-t
   [prefix & body]

@@ -9,7 +9,7 @@
                  [expectations "2.0.6"]
                  [net.cgrand/moustache "1.1.0"]
                  [org.clojure/core.async "0.1.256.0-1bf8cf-alpha"]
-                 [com.taoensso/tower "2.1.0-RC2"]
+                 [com.taoensso/tower "3.0.2"]
                  ;; Chosing clj-json against cheshire or clojure.data.json for performace.
                  ;; Source: http://stackoverflow.com/a/21528391
                  [clj-json "0.5.3"]
