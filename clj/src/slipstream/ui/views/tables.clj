@@ -100,7 +100,7 @@
     :else (case type
             "String"            :cell/text
             "RestrictedString"  :cell/text
-            "Text"              :cell/text
+            "Text"              :cell/textarea
             "RestrictedText"    :cell/textarea
             "Password"          :cell/password
             "Enum"              :cell/enum
