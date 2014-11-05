@@ -6,7 +6,8 @@
             [slipstream.ui.util.time :as ut]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.icons :as icons]))
+            [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.current-user :as current-user]))
 
 (localization/def-scoped-t)
 
@@ -60,10 +61,11 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id] :as cell-content}]
+  [{:keys [text tooltip id parameter] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value (str text))
+  [:input]  (ue/when-set-readonly (and (contains? cell-content :parameter) (not (current-user/super?)) (:read-only? parameter)) "readonly")
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 

@@ -180,6 +180,7 @@
 (defn-set-attr :target)
 (defn-set-attr :checked)
 (defn-set-attr :disabled)
+(defn-set-attr :readonly)
 (defn-set-attr :selected)
 (defn-set-attr :value)
 (defn-set-attr :title)
