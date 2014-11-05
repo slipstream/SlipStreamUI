@@ -1,8 +1,9 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.request
-        .post()
-        .onErrorStatusCodeAlert(401, "Wrong credentials")
+        .post("/login")
+        .onErrorStatusCodeAlert(401, "Wrong credentials",
+                                     "The provided username doesn't exist or the password is incorrect. Please try again.")
         .onSuccessFollowRedirectInURL()
         .useToSubmitForm("#login");
 

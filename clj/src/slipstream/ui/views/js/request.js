@@ -5,7 +5,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             intern: {
                 serialization: undefined,           // See .serialization() fn below
                 onDataTypeParseError: undefined,    // See .onDataTypeParseErrorAlert() fn below
-                always: undefined                   // See .always() fn below
+                always: undefined,                  // See .always() fn below
+                errorStatusCodeAlerts: {}           // See .onErrorStatusCodeAlert() fn below
             },
             settings: {
                 type: method,     // values: "GET", "POST", "PUT", "DELETE"
@@ -113,12 +114,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             onErrorStatusCodeAlert: function (statusCode, titleOrMsg, msg){
-                var callback = function (jqXHR, textStatus, errorThrown) {
-                    if (statusCode == jqXHR.status) {
-                        $$.Alert.showError(titleOrMsg, msg);
-                    }
-                };
-                this.onError(callback);
+                this.intern.errorStatusCodeAlerts[statusCode] = [titleOrMsg, msg];
                 return this;
             },
             onDataTypeParseErrorAlert: function (titleOrMsg, msg){
@@ -126,8 +122,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // when sending the request (see below).
                 // onDataTypeParseErrorAlert(titleOrMsg, msg) overrides the default
                 // alert.
-                this.intern.onDataTypeParseError = function () {
-                    $$.Alert.showError(titleOrMsg, msg);
+                this.intern.onDataTypeParseError = function (jqXHR, textStatus, errorThrown) {
+                    if (textStatus === "parseerror") {
+                        $$.Alert.showError(titleOrMsg, msg);
+                    }
                 };
                 return this;
             },
@@ -163,15 +161,40 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         "' is not supported." +
                         " Try 'json' or 'queryString'.");
                 }
+
+                // StatusCode 0: No internet connection.
+                this.onErrorStatusCodeAlert(0, "Something strange out there",
+                    "We're having troubles connecting to SlipStream. This problem is " +
+                     "usually the result of a broken Internet connection. You can try " +
+                     "refreshing this page and doing the request again.");
+
+                var errorStatusCodeAlerts = this.intern.errorStatusCodeAlerts;
+                this.onError( function(jqXHR, textStatus, errorThrown){
+                    if (textStatus != "error") {
+                        return;
+                    }
+                    var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
+                    if (statusCodeAlertTitleAndMsg === undefined) {
+                        var responseDetail = jqXHR.responseJSON && jqXHR.responseJSON.detail;
+                        $$.Alert.showError(
+                            "Unexpected AJAX response: " + jqXHR.status + " - " + errorThrown,
+                            responseDetail);
+                    } else {
+                        $$.Alert.showError.apply(this, statusCodeAlertTitleAndMsg);
+                    }
+                });
+
                 if (this.settings.dataType) {
                     var dataType = this.settings.dataType;
                     this.onError(
                         this.intern.onDataTypeParseError ||
-                        function () {
-                            $$.Alert.showError(
-                                "AJAX Request Error",
-                                "Unable to parse the data received from the server as '" + dataType + "'."
+                        function (jqXHR, textStatus, errorThrown) {
+                            if (textStatus === "parsererror") {
+                                $$.Alert.showError(
+                                    "AJAX Request Error",
+                                    "Unable to parse the data received from the server as '" + dataType + "'."
                                 );
+                            }
                         });
                 }
                 var ajaxRequest = jQuery.ajax(this.settings)
@@ -184,15 +207,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             useToSubmitForm: function (sel, preSubmitCallback) {
                 var request = this,
-                    $form = $("form" + sel),
-                    url = request.settings.url || $form.attr("action");
-                // StatusCode 0: No internet connection.
-                request.onErrorStatusCodeAlert(0, "Something strange out there",
-                    "Sorry, but we're having trouble connecting to SlipStream. This problem is" +
-                     "usually the result of a broken Internet connection. You can try" +
-                     "refreshing this page and doing the request again.")
-                    // .serialization("json")
-                    .url(url);
+                    $form = $("form" + sel);
+                request
+                    .url(request.settings.url || $form.attr("action"))
+                    // .serialization("json") // NOTE: Uncomment to send a JSON to the server
+                    // .dataType("json")      // NOTE: Uncomment to request the server a JSON reply
+                    .always(function () {
+                        // Unflag the form as submitted after the request is done
+                        // so that the next submit can be performed
+                        $form.data("submitted", false);
+                    });
                 $form.off("submit");
 
                 $form.submit(function (event) {
@@ -210,11 +234,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         preSubmitCallback(request, $form);
                     }
 
-                    request.dataObject($(this).serializeObject())
-                        .always(function () {
-                            // Mark it so that the next submit can be performed
-                            $form.data("submitted", false);
-                        })
+                    request
+                        .dataObject($(this).serializeObject())
                         .send();
                     return false;
                 });
