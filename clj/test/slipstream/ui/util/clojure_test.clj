@@ -287,6 +287,18 @@
   (keywordize "some-dash-case-string"))
 
 (expect
+  :some------dash-case-string
+  (keywordize "some------dash-case-string"))
+
+(expect
+  :some-dash-case-string-ending-with-a-dash-
+  (keywordize "some-dash-case-string-ending-with-a-dash-"))
+
+(expect
+  :-some-dash-case-string-begining-with-a-dash
+  (keywordize "-some-dash-case-string-begining-with-a-dash"))
+
+(expect
   :some-snake-case-string
   (keywordize "some_snake_case_string"))
 
@@ -301,6 +313,22 @@
 (expect
   :some-camel-case-string-begining-with-an-upper-case-letter
   (keywordize "SomeCamelCaseStringBeginingWithAnUpperCaseLetter"))
+
+(expect
+  :some-point-case-string
+  (keywordize "some.point.case.string"))
+
+(expect
+  :some-point-case-string
+  (keywordize "some.....point.case.string"))
+
+(expect
+  :some-point-case-string-ending-with-a-point-
+  (keywordize "some.point.case.string.ending.with.a.point."))
+
+(expect
+  :-some-point-case-string-begining-with-a-point
+  (keywordize ".some.point.case.string.begining.with.a.point"))
 
 (expect
   :someuppercasestring

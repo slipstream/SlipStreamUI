@@ -123,7 +123,7 @@
     (keyword? x) x
     :else (-> x
               str
-              (s/replace #"[\s_]+" "-")
+              (s/replace #"[\s_\.]+" "-")
               (s/replace #"[^\w-]+" "")
               (s/replace #"(?<!(?:-|^))([A-Z])(?!(?:[A-Z]|$))" "-$1")
               s/lower-case
