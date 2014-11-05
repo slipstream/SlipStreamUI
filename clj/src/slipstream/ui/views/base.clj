@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
             [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.dev :as ud]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
@@ -18,9 +19,6 @@
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.code-area :as code-area]
             [slipstream.ui.views.modal-dialogs :as modal-dialogs]))
-
-;; TODO: Find a better place for this flag, and use it for localization.clj:58
-(def ^:dynamic *dev?* false)
 
 (def base-template-filename (u/template-path-for "base.html"))
 
@@ -46,6 +44,7 @@
 (def modal-dialogs-placeholder-sel [:#ss-modal-dialogs-placeholder])
 
 (def error-page-cls "ss-error-page")
+(def dev-mode-page-cls "ss-dev-mode-page")
 (def beta-page-cls "ss-beta-page")
 (def placeholder-page-cls "ss-placeholder-page")
 (def in-progress-page-cls "ss-in-progress-page")
@@ -113,6 +112,7 @@
            involved-templates]
     :as context}]
   [:body]               (ue/enable-class error-page? error-page-cls)
+  [:body]               (ue/enable-class ud/*dev?* dev-mode-page-cls)
   [:body]               (ue/enable-class placeholder-page? placeholder-page-cls)
   [:body]               (ue/enable-class beta-page? beta-page-cls)
   [:body]               (ue/enable-class in-progress-page? in-progress-page-cls)
@@ -161,5 +161,4 @@
         (page-type/edit?)     (assoc :secondary-menu-actions edit-page-actions)
         (page-type/new?)      (assoc :secondary-menu-actions new-page-actions)
         :always               (assoc
-                                ; :beta-page? true
                                 :involved-templates involved-templates)))))

@@ -120,12 +120,15 @@
   }
 }
 
-/* In progress, placeholder and beta page decoration */
+/* Dev page decorations */
 
-body.ss-in-progress-page #header.jumbotron::before {
-  content : "in progress";
+body.ss-dev-mode-page     #header.jumbotron::before,
+body.ss-in-progress-page  #header.jumbotron::before,
+body.ss-beta-page         #header.jumbotron::before,
+body.ss-placeholder-page  #header.jumbotron::before {
+  content : "...";
   color: black;
-  background-color: yellow;
+  background-color: white;
   opacity: 1;
   z-index: 1000;
   text-align: center;
@@ -140,44 +143,28 @@ body.ss-in-progress-page #header.jumbotron::before {
   -webkit-box-shadow: 0 0 6px 2px white;
   -moz-box-shadow: 0 0 6px 2px white;
   box-shadow: 0 0 6px 2px white;
+}
+
+body.ss-dev-mode-page  #header.jumbotron::before {
+  content : "< DEV MODE >";
+  color: black;
+  background-color: yellow;
+}
+
+body.ss-in-progress-page  #header.jumbotron::before {
+  content : "in progress";
+  color: black;
+  background-color: yellow;
 }
 
 body.ss-placeholder-page #header.jumbotron::before {
   content : "placeholder";
   color: white;
   background-color: #939;
-  opacity: 1;
-  z-index: 1000;
-  text-align: center;
-  position: absolute;
-  width: 250px;
-  font-size: 22px;
-  margin-top: 5px;
-  margin-left: -85px;
-  -webkit-transform: rotate(-35deg);
-  -moz-transform: rotate(-35deg);
-  transform: rotate(-35deg);
-  -webkit-box-shadow: 0 0 6px 2px white;
-  -moz-box-shadow: 0 0 6px 2px white;
-  box-shadow: 0 0 6px 2px white;
 }
 
 body.ss-beta-page #header.jumbotron::before {
   content : "beta version";
   color: black;
   background-color: #ee0;
-  opacity: 1;
-  z-index: 1001;
-  text-align: center;
-  position: absolute;
-  width: 250px;
-  font-size: 22px;
-  margin-top: 5px;
-  margin-left: -85px;
-  -webkit-transform: rotate(-35deg);
-  -moz-transform: rotate(-35deg);
-  transform: rotate(-35deg);
-  -webkit-box-shadow: 0 0 6px 2px white;
-  -moz-box-shadow: 0 0 6px 2px white;
-  box-shadow: 0 0 6px 2px white;
 }
