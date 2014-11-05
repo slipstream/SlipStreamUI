@@ -120,7 +120,7 @@
       :cell/enum      (assoc value-base :enum      value)
       :cell/url       (assoc value-base :url       value)
       :cell/boolean   (assoc value-base :value     value)
-      :cell/password  (assoc value-base :password  nil)
+      :cell/password  (assoc value-base :password  value)
       value)))
 
 (defn- parameter-row

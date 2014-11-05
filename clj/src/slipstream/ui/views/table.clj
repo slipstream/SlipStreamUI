@@ -80,9 +80,10 @@
 ; Editable password cell
 
 (html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
-  [{:keys [id] :as cell-content}]
+  [{:keys [id password] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
+  [:input]  (ue/set-value password)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Boolean cell
