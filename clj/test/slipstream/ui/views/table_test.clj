@@ -62,7 +62,7 @@
    :cell/textarea           [             :content/map  :content/plain]
    :cell/password           [:content/any :content/map  :content/plain]
    :cell/enum               [             :content/map  :content/plain]
-   :cell/set                [                           :content/plain]
+   :cell/set                [             :content/map  :content/plain]
    :cell/timestamp          [                           :content/plain]
    :cell/relative-timestamp [                           :content/plain]
    :cell/boolean            [             :content/map  :content/plain]
@@ -74,7 +74,6 @@
    :cell/username           [                           :content/plain]
    :cell/icon               [                           :content/plain]
    :cell/module-version     [                           :content/plain]
-   :cell/module-name        [                           :content/plain]
    :cell/help-hint          [                           :content/plain]
    :cell/reference-module   [                           :content/plain]})
 
@@ -108,7 +107,6 @@
     ; :cell/username
     ; :cell/icon
     ; :cell/module-version
-    :cell/module-name
     ; :cell/help-hint
     :cell/reference-module}
   (->> @#'slipstream.ui.views.table/cell-snip
@@ -118,30 +116,6 @@
        (filter #(= :mode/edit (second %)))
        (map first)
        set))
-
-;; Cell types accepting more than one content type
-
-(expect
-  (-> all-cell-types
-      (select-keys [:cell/text
-                    :cell/textarea
-                    :cell/boolean
-                    :cell/email
-                    :cell/url
-                    :cell/enum
-                    :cell/password]))
-  (->> @#'slipstream.ui.views.table/cell-snip
-       methods
-       keys
-       (filter vector?)
-       (map (juxt first last))
-       set
-       (group-by first)
-       vals
-       (filter #(or (-> % count (> 1))
-                    (-> % first second (= :content/any))))
-       (map (juxt ffirst (comp sort (partial map second))))
-       (into {})))
 
 ;; Content types for all cell types
 
