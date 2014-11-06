@@ -381,14 +381,6 @@
   [{uri :content}]
   (cell-module-version-snip-view uri))
 
-(defmethod cell-snip [:cell/module-name :mode/view :content/plain]
-  [{module-name :content}]
-  (cell-text-snip-view {:text module-name, :id "ss-module-name"}))
-
-(defmethod cell-snip [:cell/module-name :mode/edit :content/plain]
-  [{module-name :content}]
-  (cell-text-snip-edit {:text module-name, :id "ss-module-name"}))
-
 (defmethod cell-snip [:cell/help-hint :mode/view :content/plain]
   [{help-text :content}]
   (cell-help-hint-snip-view help-text))
