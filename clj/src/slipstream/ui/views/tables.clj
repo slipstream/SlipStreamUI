@@ -114,8 +114,11 @@
         value-base (cond-> {:id formated-name, :row-index row-index, :read-only? read-only?}
                            (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
+      ; TODO: Using the same key for all cell
+      ;       types (e.g. :value) would simplify this code
       :cell/textarea  (assoc value-base :text      value)
       :cell/text      (assoc value-base :text      value)
+      :cell/set       (assoc value-base :set       value)
       :cell/email     (assoc value-base :email     value)
       :cell/enum      (assoc value-base :enum      value)
       :cell/url       (assoc value-base :url       value)
@@ -163,15 +166,13 @@
   (parameters-table
     (p/map->parameter-list user-summary-map
       :username     {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name")}
-      ; :username     {:type :cell/text, :editable? (page-type/new?), :hidden? (page-type/new?)}
-      ; :username     {:type :cell/text, :editable? true,  :hidden? (page-type/not-new?), :id-format-fn (constantly "name")}
       :first-name   {:type :cell/text}
       :last-name    {:type :cell/text}
       :organization {:type :cell/text}
       :email        {:type :cell/email}
       :super?       {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
       :creation     {:type :cell/timestamp, :editable? false}
-      :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?), :id-format-fn (constantly "password1")}
+      :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?),     :id-format-fn (constantly "password1")}
       :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/not-edit?), :id-format-fn (constantly "password2")}
       :state        {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)})))
 

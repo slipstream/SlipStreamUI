@@ -272,9 +272,21 @@
   [{set :content}]
   (cell-text-snip-view {:text (uc/join-as-str set)}))
 
+(defmethod cell-snip [:cell/set :mode/view :content/map]
+  [{content :content}]
+  (cell-text-snip-view (-> content
+                           (assoc :text (-> content :set uc/join-as-str))
+                           (dissoc :set))))
+
 (defmethod cell-snip [:cell/set :mode/edit :content/plain]
   [{set :content}]
   (cell-text-snip-edit {:text (uc/join-as-str set)}))
+
+(defmethod cell-snip [:cell/set :mode/edit :content/map]
+  [{content :content}]
+  (cell-text-snip-edit (-> content
+                           (assoc :text (-> content :set uc/join-as-str))
+                           (dissoc :set))))
 
 (defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
   [{timestamp :content}]
