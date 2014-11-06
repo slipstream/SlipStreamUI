@@ -81,4 +81,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         }
     };
 
+    util.form = {
+        addHiddenField: function ($form, fieldName, fieldValue) {
+            $("<input>")
+                .attr("type", "hidden")
+                .attr("name", fieldName)
+                .attr("value", fieldValue)
+                .appendTo($form);
+        }
+    };
+
 }( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});

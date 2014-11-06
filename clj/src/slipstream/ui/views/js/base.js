@@ -70,11 +70,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Set up forms
 
     function includeUsernameToForm(request, $form) {
-        $("<input>")
-            .attr("type", "hidden")
-            .attr("name", "name")
-            .attr("value", $("#name").text())
-            .appendTo($form);
+        $$.util.form.addHiddenField($form, "name", $("#name").text());
     }
 
     $$.request

@@ -1,12 +1,12 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-save-dialog .ss-save-btn").click(function() {
-        console.log("saving with commit message: " + $("#ss-commit-message").val());
-        $("#save-form").submit();
+        var $saveForm = $("#save-form");
+        $$.util.form.addHiddenField($saveForm, "comment", $("#ss-commit-message").val());
+        $saveForm.submit();
     });
 
     $("#ss-delete-dialog .ss-delete-btn").click(function() {
-        console.log("saving with commit message: " + $("#ss-commit-message").val());
         $$.request
             .delete($$.util.url.getCurrentURLBase())
             .onSuccessRedirectURL($$.util.url.getParentResourceURL())
