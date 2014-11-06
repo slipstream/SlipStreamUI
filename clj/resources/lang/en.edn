@@ -41,6 +41,7 @@
                     :html             "HTML"
                     :image            "Image"
                     :info             "Information"
+                    :input            "Input"
                     :key              "Key"
                     :last-name        "Last name"
                     :metering         "Metering"
@@ -49,6 +50,7 @@
                     :node             "Node"
                     :nodes            "Nodes"
                     :organization     "Organization"
+                    :output           "Output"
                     :overview         "Overview"
                     :owner            "Owner"
                     :package          "Package"
@@ -88,6 +90,9 @@
                     }
             :adjectives {
                     :global         "Global"
+                    :local          "Local"
+                    :public         "Public"
+                    :private        "Private"
                     :unknown        "_Unknown_" ; Text in this file accepts Markdown formatting :)
                     }
             :time {
@@ -386,38 +391,28 @@
 
    ;; Utils.core
 
-   :slipstream.ui.util.core.enum.option.text.centos                             "CentOS"
-   :slipstream.ui.util.core.enum.option.text.debian                             "Debian"
-   :slipstream.ui.util.core.enum.option.text.fedora                             "Fedora"
-   :slipstream.ui.util.core.enum.option.text.opensuse                           "OpenSuse"
-   :slipstream.ui.util.core.enum.option.text.redhat                             "RedHat"
-   :slipstream.ui.util.core.enum.option.text.sles                               "Sles"
-   :slipstream.ui.util.core.enum.option.text.ubuntu                             "Ubuntu"
-   :slipstream.ui.util.core.enum.option.text.windows                            "Windows"
-   :slipstream.ui.util.core.enum.option.text.other                              "Other"
-   :slipstream.ui.util.core.enum.option.text.public                             "Public"
-   :slipstream.ui.util.core.enum.option.text.private                            "Private"
-   :slipstream.ui.util.core.enum.option.text.virtio                             "virtio"
-   :slipstream.ui.util.core.enum.option.text.scsi                               "scsi"
-   :slipstream.ui.util.core.enum.option.text.m1small                            "m1.small"
-   :slipstream.ui.util.core.enum.option.text.m1large                            "m1.large"
-   :slipstream.ui.util.core.enum.option.text.m1xlarge                           "m1.xlarge"
-   :slipstream.ui.util.core.enum.option.text.c1medium                           "c1.medium"
-   :slipstream.ui.util.core.enum.option.text.c1xlarge                           "c1.xlarge"
-   :slipstream.ui.util.core.enum.option.text.t1micro                            "t1.micro"
-   :slipstream.ui.util.core.enum.option.text.standardxsmall                     "standard.xsmall"
-   :slipstream.ui.util.core.enum.option.text.output                             "Output"
-   :slipstream.ui.util.core.enum.option.text.input                              "Input"
-   :slipstream.ui.util.core.enum.option.text.0                                  "0 - Actions"
-   :slipstream.ui.util.core.enum.option.text.1                                  "1 - Steps"
-   :slipstream.ui.util.core.enum.option.text.2                                  "2 - Details data"
-   :slipstream.ui.util.core.enum.option.text.3                                  "3 - Debugging"
-   :slipstream.ui.util.core.enum.option.text.local                              "Local"
-   :slipstream.ui.util.core.enum.option.text.lvs                                "Las Vegas (LVS)"
-   :slipstream.ui.util.core.enum.option.text.zrh                                "Zurich (ZRH)"
-   :slipstream.ui.util.core.enum.option.text.interoute                          "Interoute"
-   :slipstream.ui.util.core.enum.option.text.cloudsigma                         "CloudSigma"
-   :slipstream.ui.util.core.enum.option.text.atos                               "Atos"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.centos             "CentOS"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.debian             "Debian"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.fedora             "Fedora"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.opensuse           "OpenSuse"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.redhat             "RedHat"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.sles               "Sles"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.ubuntu             "Ubuntu"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.windows            "Windows"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.other              "Other"
+   :slipstream.ui.util.core.enum.option.text.network.public                     :global.adjectives.public
+   :slipstream.ui.util.core.enum.option.text.network.private                    :global.adjectives.private
+   :slipstream.ui.util.core.enum.option.text.atos-ip-type.public                :global.adjectives.public
+   :slipstream.ui.util.core.enum.option.text.atos-ip-type.private               :global.adjectives.private
+   :slipstream.ui.util.core.enum.option.text.atos-ip-type.local                 :global.adjectives.local
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.0          "0 - Actions"
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.1          "1 - Steps"
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.2          "2 - Details data"
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.3          "3 - Debugging"
+   :slipstream.ui.util.core.enum.option.text.cloudsigma-location.lvs            "Las Vegas (LVS)"
+   :slipstream.ui.util.core.enum.option.text.cloudsigma-location.zrh            "Zurich (ZRH)"
+   :slipstream.ui.util.core.enum.option.text.deployment-parameter-category.output :global.nouns.output
+   :slipstream.ui.util.core.enum.option.text.deployment-parameter-category.input  :global.nouns.input
 
    ;; Time
 

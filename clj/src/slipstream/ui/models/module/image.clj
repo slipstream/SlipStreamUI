@@ -28,19 +28,19 @@
 ;; Os details section
 
 (def ^:private platforms
-  [:centos
-   :debian
-   :fedora
-   :opensuse
-   :redhat
-   :sles
-   :ubuntu
-   :windows
-   :other])
+  ["centos"
+   "debian"
+   "fedora"
+   "opensuse"
+   "redhat"
+   "sles"
+   "ubuntu"
+   "windows"
+   "other"])
 
 (defn- os-details
   [metadata]
-  {:platform         (->> metadata :attrs :platform (u/enum platforms))
+  {:platform         (->> metadata :attrs :platform (u/enum platforms :cloud-platforms))
    :login-username   (-> metadata :attrs :loginuser)})
 
 

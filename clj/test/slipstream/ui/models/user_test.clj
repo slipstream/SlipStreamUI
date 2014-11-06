@@ -78,7 +78,8 @@
       <entry>
          <string><![CDATA[General.default.cloud.service]]></string>
          <parameter class='com.sixsq.slipstream.persistence.UserParameter' name='General.default.cloud.service' description='Select which cloud you want to use.' category='General' mandatory='true' type='Enum' readonly='false'>
-            <enumValues length='3'>
+            <enumValues length='4'>
+               <string>something.else</string>
                <string>interoute</string>
                <string>cloudsigma</string>
                <string>atos</string>

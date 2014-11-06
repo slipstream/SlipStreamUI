@@ -47,7 +47,7 @@
 (defn- toggle-option
   [selected-option option]
   (if (and selected-option
-           (= (:value option) (name selected-option)))
+           (= (:value option) selected-option))
     (assoc option :selected? true)
     (dissoc option :selected?)))
 
@@ -55,36 +55,52 @@
   "If the 'selected-option is not available, the first one will be selected."
   [enum selected-option]
   (->> enum
-       (map (partial toggle-option (uc/keywordize selected-option)))
+       (map (partial toggle-option selected-option))
        ensure-one-selected))
 
-(localization/with-prefixed-t :enum.option.text
-  (defn- parse-enum-option
-    [option]
-      {:value (name option), :text (-> option uc/keywordize t)}))
+(def ^:private enums-with-localization
+  "By default we display the values itselves in the combobox of a 'select' form
+  input. However, for some known enum parameters we use de localized string."
+  #{:cloud-platforms                ; Values in slipstream.ui.models.module.image/platforms
+    :general-verbosity-level        ; Values: ["0" "1" "2" "3"]
+    :deployment-parameter-category  ; Values  ["Output" "Input"] in slipstream.ui.views.tables/deployment-parameter-row
+    :atos-ip-type                   ; Values: ["public" "local" "private"]
+    :network                        ; Values: ["Public" "Private"]
+    :cloudsigma-location})          ; Values: ["LVS" "ZRH"]
+
+(defn- enum-text
+  [enum-name option]
+  (if-not (enums-with-localization enum-name)
+    option
+    (->> option
+         uc/keywordize
+         name
+         (str "enum.option.text." (name enum-name) ".")
+         keyword
+         t)))
+
+(defn- parse-enum-option
+  [enum-name option]
+  {:value option, :text (enum-text enum-name option)})
 
 (defn enum
-  [options & [selected-option]]
-  (-> (map parse-enum-option options)
-      (enum-select (or selected-option
-                       (first options)))))
+  [options enum-name & [selected-option]]
+  (let [enum-base (map (partial parse-enum-option enum-name) options)]
+    (enum-select enum-base (or selected-option (first options)))))
 
 (defn assoc-enum-details
   [m parameter]
   (if-not (-> m :type (= "Enum"))
     m
-    (let [option-current (:value m)
+    (let [enum-name (-> parameter :attrs :name uc/keywordize)
+          option-current (:value m)
           option-default (-> parameter
-                            :attrs
                             (html/select [:defaultValue html/text-node])
-                            first
-                            uc/keywordize)
+                            first)
           enum-options (-> parameter
                            (html/select [:enumValues :string html/text-node])
                            vec)]
-      (assoc m :value (enum
-                        (map uc/keywordize enum-options)
-                        (or option-current option-default))))))
+      (assoc m :value (enum enum-options enum-name (or option-current option-default))))))
 
 ;; Boolean parameter
 

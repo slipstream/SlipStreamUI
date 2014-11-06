@@ -297,7 +297,7 @@
              "Input"  :warning)
    :cells [{:type :cell/text,      :content name,         :editable? (page-type/edit-or-new?)}
            {:type :cell/text,      :content description,  :editable? (page-type/edit-or-new?)}
-           {:type :cell/enum,      :content (u/enum [:output :input] category), :editable? (page-type/edit-or-new?)}
+           {:type :cell/enum,      :content (u/enum ["Output" "Input"] :deployment-parameter-category category), :editable? (page-type/edit-or-new?)}
            (deployment-parameter-value-cell deployment-parameter)
            {:type :cell/help-hint, :content help-hint}]})
 

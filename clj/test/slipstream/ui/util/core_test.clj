@@ -33,15 +33,15 @@
 ;; Enum utils
 
 (def platforms
-  [:centos
-   :debian
-   :fedora
-   :opensuse
-   :redhat
-   :sles
-   :ubuntu
-   :windows
-   :other])
+  ["centos"
+   "debian"
+   "fedora"
+   "opensuse"
+   "redhat"
+   "sles"
+   "ubuntu"
+   "windows"
+   "other"])
 
 (def expected-enum
   [{:value  "centos",   :text   "CentOS", :selected? true}
@@ -57,7 +57,7 @@
 (expect
   expected-enum
   (localization/with-lang :en
-    (enum platforms)))
+    (enum platforms :cloud-platforms)))
 
 
 (def expected-enum-with-custom-selection
@@ -75,19 +75,19 @@
   expected-enum-with-custom-selection
   (localization/with-lang :en
     (-> platforms
-        enum
-        (enum-select :fedora))))
+        (enum :cloud-platforms)
+        (enum-select "fedora"))))
 
 (expect
   expected-enum-with-custom-selection
   (localization/with-lang :en
     (-> platforms
-        (enum :fedora))))
+        (enum :cloud-platforms "fedora"))))
 
 (expect
   expected-enum
   (localization/with-lang :en
     (-> platforms
-        enum
-        (enum-select :fedora)
-        (enum-select :value-not-available))))
+        (enum :cloud-platforms)
+        (enum-select "fedora")
+        (enum-select "value-not-available"))))

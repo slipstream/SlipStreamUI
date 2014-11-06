@@ -133,8 +133,8 @@
                                         :read-only? false
                                         :type "Enum"
                                         :order 2147483647
-                                        :value [{:value  "public",  :text   "Public", :selected? true}
-                                                {:value  "private", :text   "Private"}]
+                                        :value [{:value  "Public",  :text   "Public", :selected? true}
+                                                {:value  "Private", :text   "Private"}]
                                         :description "Network type"
                                         :category "Cloud"}
                                        {:help-hint "Password..."
@@ -169,13 +169,13 @@
                                         :read-only? false
                                         :type "Enum"
                                         :order 2147483647
-                                        :value [{:value "m1small", :text "m1.small", :selected? true}
-                                                {:value "c1medium", :text "c1.medium"}
-                                                {:value "m1large", :text "m1.large"}
-                                                {:value "m1xlarge", :text "m1.xlarge"}
-                                                {:value "c1xlarge", :text "c1.xlarge"}
-                                                {:value "t1micro", :text "t1.micro"}
-                                                {:value "standardxsmall", :text "standard.xsmall"}]
+                                        :value [{:value "m1.small", :text "m1.small", :selected? true}
+                                                {:value "c1.medium", :text "c1.medium"}
+                                                {:value "m1.large", :text "m1.large"}
+                                                {:value "m1.xlarge", :text "m1.xlarge"}
+                                                {:value "c1.xlarge", :text "c1.xlarge"}
+                                                {:value "t1.micro", :text "t1.micro"}
+                                                {:value "standard.xsmall", :text "standard.xsmall"}]
                                         :description "Cloud instance type"
                                         :category "stratuslab"}
                                        {:help-hint nil
