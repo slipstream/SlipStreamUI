@@ -202,24 +202,33 @@
           [true          true]           :success
           nil)))
 
-(defn- access-right-row
-  [[access-right-name {:keys [owner-access? group-access? public-access?] :as access-rights}]]
-  {:style (access-right-row-style access-rights)
-   :cells [{:type :cell/text,     :content access-right-name}
-           {:type :cell/boolean,  :content owner-access?,     :editable? (page-type/edit-or-new?)}
-           {:type :cell/boolean,  :content group-access?,     :editable? (page-type/edit-or-new?)}
-           {:type :cell/boolean,  :content public-access?,    :editable? (page-type/edit-or-new?)}]})
+(def ^:private access-rights-id-suffix
+  {:get               "Get"
+   :put               "Put"
+   :delete            "Delete"
+   :create-children   "CreateChildren"
+   :post              "Post"})
 
-(defn- map->sorted-vector
-  [module-type access-rights]
+(defn- access-right-row
+  [access-rights [access-right-name access-rights-key]]
+  (let [{:keys [owner-access? group-access? public-access?] :as access-rights} (get access-rights access-rights-key)
+        id-suffix (access-rights-id-suffix access-rights-key)]
+    {:style (when (page-type/view-or-chooser?) (access-right-row-style access-rights))
+     :cells [{:type :cell/text,     :content access-right-name}
+             {:type :cell/boolean,  :content {:value owner-access?,   :id (str "owner"  id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/boolean,  :content {:value group-access?,   :id (str "group"  id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/boolean,  :content {:value public-access?,  :id (str "public" id-suffix)},  :editable? (page-type/edit-or-new?)}]}))
+
+(defn- access-rights-rows
+  [module-type]
   (vector
-    [(t :access.view)            (:get access-rights)]
-    [(t :access.edit)            (:put access-rights)]
-    [(t :access.delete)          (:delete access-rights)]
+    [(t :access.view)   :get]
+    [(t :access.edit)   :put]
+    [(t :access.delete) :delete]
     (case module-type
-      :project    [(t :access.create-children)    (:create-children access-rights)]
-      :image      [(t :access.build-or-run-image) (:post access-rights)]
-      :deployment [(t :access.run-deployment)     (:post access-rights)])))
+      :project    [(t :access.create-children)    :create-children]
+      :image      [(t :access.build-or-run-image) :post]
+      :deployment [(t :access.run-deployment)     :post])))
 
 (defn access-rights-table
   [module]
@@ -227,9 +236,9 @@
         access-rights (-> module :authorization :access-rights)]
     (table/build
       {:headers [:access-right :owner :group :public]
-       :rows (->> access-rights
-                  (map->sorted-vector module-type)
-                  (map access-right-row))})))
+       :rows (->> module-type
+                  access-rights-rows
+                  (map (partial access-right-row access-rights)))})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -237,8 +246,8 @@
   [group-members]
   (parameters-table
     (p/map->parameter-list group-members
-      :inherited-group-members? {:type :cell/boolean}
-      :group-members            {:type :cell/set})))
+      :inherited-group-members? {:type :cell/boolean, :id-format-fn (constantly "inheritedGroupMembers")}
+      :group-members            {:type :cell/set,     :id-format-fn (constantly "groupmembers")})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
