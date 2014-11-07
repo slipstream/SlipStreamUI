@@ -34,9 +34,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             if (indexOfNewStr != -1) {
                 path = path.substring(0, indexOfNewStr);
             }
-            var indexOfModuleStr = path.lastIndexOf("/module");
-            if (indexOfModuleStr != -1) {
-                path = path.substring(0, indexOfModuleStr);
+            if (path === "/module") {
+                return "/";
             }
             return path;
         },
