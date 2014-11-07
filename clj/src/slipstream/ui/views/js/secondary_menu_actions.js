@@ -1,7 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     function newModuleRedirect(category) {
-        window.location = '/module/' + $('#ss-module-name').text() + "/new?category=" + category;
+        var moduleName = $('#ss-module-name').text();
+        window.location = '/module/' + (moduleName && moduleName + "/") + "new?category=" + category;
     }
 
     $("#ss-secondary-menu-action-new-project").click( function() {
