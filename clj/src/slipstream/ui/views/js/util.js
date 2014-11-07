@@ -40,7 +40,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return path;
         },
         getParentResourceURL: function () {
-            var path = this.getCurrentURLBase();
+            var path = window.location.pathname; // URL without query params
             return path.substring(0, path.lastIndexOf("/"));
         },
         redirectTo: function (url) {

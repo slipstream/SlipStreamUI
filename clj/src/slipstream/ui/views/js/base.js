@@ -80,15 +80,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // .onSuccessAlert("Your changes are saved.")
         .useToSubmitForm("#save-form", includeUsernameToForm);
 
-    function updateRequestURLWithUsername(request, $form) {
-        request.settings.url = "/user/" + $("#name").val();
+    function updateRequestURL(request, $form) {
+        request.settings.url = $$.util.url.getParentResourceURL() + "/" + $("#name").val() + "?new=true";
+        // request.settings.url = "/user/" + $("#name").val();
     }
 
     $$.request
         .put()
         .onErrorAlert("Sorry, something went wrong with the update.")
         .onSuccessFollowRedirectInResponseHeader()
-        .useToSubmitForm("#create-form", updateRequestURLWithUsername);
+        .useToSubmitForm("#create-form", updateRequestURL);
 
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
