@@ -8,7 +8,7 @@
 (localization/def-scoped-t)
 
 (defn item-section
-  "NB: Also used by the welcome page."
+  "NB: Also used by the welcome page, as subsection."
   [service-catalog-item]
   {:title (:cloud service-catalog-item)
    :content (t/service-catalog-parameters-table (:parameters service-catalog-item))})
