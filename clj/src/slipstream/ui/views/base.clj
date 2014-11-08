@@ -58,6 +58,36 @@
   [action/create
    action/cancel])
 
+
+;; Bottom scripts snippets
+
+(ue/def-blank-snippet ^:private bottom-scripts-snip :script
+  [filenames]
+  ue/this (html/clone-for [filename filenames]
+            ue/this (ue/set-src filename)))
+
+(defn- bottom-external-scripts-snip
+  [filenames]
+  (->> filenames
+       (map (partial str "external/"))
+       bottom-scripts-snip))
+
+(defn- bottom-internal-scripts-snip
+  [filenames]
+  (->> filenames
+       (map (partial str "js/"))
+       bottom-scripts-snip))
+
+;; Top CSS link snippet
+
+(ue/def-blank-snippet ^:private css-links-snip :link
+  [filenames]
+  ue/this (ue/set-rel   "stylesheet")
+  ue/this (ue/set-type  "text/css")
+  ue/this (html/clone-for [filename filenames]
+            ue/this (ue/set-href "css/" filename)))
+
+
 (defn-memo ^:private node-from-template
   [template-filename sel]
   ((html/snippet template-filename sel [] identity)))
@@ -110,6 +140,7 @@
            page-type
            alerts
            involved-templates]
+    {:keys [css-filenames internal-js-filenames external-js-filenames]} :html-dependencies
     :as context}]
   [:body]               (ue/enable-class error-page? error-page-cls)
   [:body]               (ue/enable-class ud/*dev?* dev-mode-page-cls)
@@ -129,6 +160,7 @@
   [:#release-version]   (html/content @version/slipstream-release-version)
   footer-sel            (ue/remove-if (page-type/chooser?))
   css-container-sel     (html/append (additional-html css-sel involved-templates))
+  css-container-sel     (html/append (css-links-snip css-filenames))
   header-sel            (when-not (page-type/chooser?)
                           (ue/if-enlive-node header
                             (html/substitute header)
@@ -137,13 +169,15 @@
   alert-container-sel   (html/content (map alerts/alert alerts))
   alert-container-sel   (html/append (alerts/hidden-templates))
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
+  bottom-scripts-container-sel  (html/append (bottom-external-scripts-snip external-js-filenames))
+  bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip internal-js-filenames))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/all))
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
 
 (defn generate
-  [{:keys [header metadata template-filename content alerts] :as context}]
+  [{:keys [header template-filename] :as context}]
   (let [involved-templates [alerts/template-filename
                             menubar/template-filename
                             section/template-filename ;; TODO: only if sections in body.
@@ -154,11 +188,8 @@
                             template-filename
                             ]]
     (println "Generating base for" template-filename " - Title" (:title header))
-    ; (println "   user:" user)
-    ; (println "   content type:" (type (first content)))
     (base
       (cond-> context
-        (page-type/edit?)     (assoc :secondary-menu-actions edit-page-actions)
-        (page-type/new?)      (assoc :secondary-menu-actions new-page-actions)
-        :always               (assoc
-                                :involved-templates involved-templates)))))
+        (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
+        (page-type/new?)  (assoc :secondary-menu-actions  new-page-actions)
+        :always           (assoc :involved-templates      involved-templates)))))

@@ -174,6 +174,7 @@
 (defn-set-attr :id)
 (defn-set-attr :name)
 (defn-set-attr :type)
+(defn-set-attr :rel)
 (defn-set-attr :src)
 (defn-set-attr :class)
 (defn-set-attr :style)

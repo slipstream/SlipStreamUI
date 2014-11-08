@@ -11,10 +11,6 @@
 
 (localization/def-scoped-t)
 
-;; We only need a template to include the CSS and JS files.
-;; Everything else is composed and generated as the other pages with accordions.
-(def run-template-html (u/template-path-for "run.html"))
-
 (defmulti section (comp second vector))
 
 (defmethod section :overview
@@ -56,20 +52,25 @@
    :runtime-parameters
    :reports])
 
+(def ^:private html-dependencies
+  {:css-filenames         ["run.css"]
+   :external-js-filenames ["jit/js/jit.js"]
+   :internal-js-filenames ["run.js" "run_overview.js"]})
+
 (defn page
   [metadata]
   (let [run (run/parse metadata)]
     (base/generate
-        {:template-filename run-template-html
-        :metadata metadata
-        :header {:icon icons/run
-                  :title (t :header.title
-                            (-> run :summary :uuid (uc/trim-from \-))
-                            (-> run :summary :state))
-                  :subtitle (-> run :summary :module-uri)}
-        :resource-uri (-> run :summary :uri)
-        :secondary-menu-actions [action/terminate]
-        :content (->> sections
-                      (map (partial section run))
-                      flatten)})))
+      {:html-dependencies html-dependencies
+       :metadata metadata
+       :header {:icon icons/run
+                :title (t :header.title
+                          (-> run :summary :uuid (uc/trim-from \-))
+                          (-> run :summary :state))
+                :subtitle (-> run :summary :module-uri)}
+       :resource-uri (-> run :summary :uri)
+       :secondary-menu-actions [action/terminate]
+       :content (->> sections
+                     (map (partial section run))
+                     flatten)})))
 

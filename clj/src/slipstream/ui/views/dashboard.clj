@@ -12,10 +12,6 @@
 
 (localization/def-scoped-t)
 
-; The template is only needed to provide the JS requested.
-; TODO: Allow to pass JS filenames when no template needed.
-(def template-file (u/template-path-for "dashboard.html"))
-
 (defmulti ^:private section (comp second vector))
 
 ;; Usage section
@@ -114,11 +110,20 @@
     :always                             (conj :vms)
     (-> dashboard :metering :enabled?)  (conj :metering)))
 
+(def ^:private html-dependencies
+  {:css-filenames ["dashboard.css"]
+   :external-js-filenames (concat
+                            (map (partial format "jquery-flot/js/jquery.flot%s.min.js")
+                                 ["" ".pie" ".time" ".stack" ".tooltip" ".resize"])
+                            (map (partial format "justgage/js/%s.min.js")
+                                 ["raphael.2.1.0" "justgage.1.0.1"]))
+   :internal-js-filenames ["metering.js" "dashboard.js"]})
+
 (defn page
   [metadata]
   (let [dashboard (dashboard/parse metadata)]
     (base/generate
-      {:template-filename template-file
+      {:html-dependencies html-dependencies
        :metadata metadata
        :header {:icon     icons/dashboard
                 :title    (t :header.title)
