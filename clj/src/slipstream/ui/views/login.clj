@@ -9,9 +9,9 @@
 
 (def template-filename (u/template-path-for "login.html"))
 
-(def ^:private header-title-sel     [:.ss-header-title])
-(def ^:private header-subtitle-sel  [:.ss-header-subtitle])
-(def ^:private header-last-line-sel [:.ss-header-last-line])
+(def ^:private header-title-sel         [:.ss-header-title])
+(def ^:private header-subtitle-sel      [:.ss-header-subtitle])
+(def ^:private header-last-line-sel     [:.ss-header-last-line])
 
 (def ^:private input-pick-username-sel  [:.ss-input-pick-username])
 (def ^:private input-email-sel          [:.ss-input-email])
@@ -36,8 +36,8 @@
   [metadata]
   (base/generate
     {:template-filename template-filename
-     :page-title "Sign up"
-     :header (header-snip)
+     :page-title (t :page-title)
+     :header  (header-snip)
      :content (content-snip)
      :type type
      :metadata metadata}))

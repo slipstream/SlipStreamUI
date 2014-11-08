@@ -206,6 +206,7 @@
    :slipstream.ui.views.alerts.warning.title                   :global.nouns.warning
    :slipstream.ui.views.alerts.error.title                     :global.nouns.error
 
+   :slipstream.ui.views.login.page-title                       "Sign up"
    :slipstream.ui.views.login.header.title                     "Deploy to every cloud."
    :slipstream.ui.views.login.header.subtitle                  "Your gateway to multi-cloud deployment automation,
                                                                remaining independent from the underlying IaaS
