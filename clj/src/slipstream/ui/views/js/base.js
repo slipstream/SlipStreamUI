@@ -69,27 +69,49 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Set up forms
 
-    function includeUsernameToForm(request, $form) {
-        $$.util.form.addHiddenField($form, "name", $("#name").text());
-    }
-
-    $$.request
-        .put($$.util.url.getCurrentURLBase())
-        .onErrorAlert("Sorry, something went wrong with the update.")
-        .onSuccessReloadPageWithoutQueryParamsInURL()
-        // .onSuccessAlert("Your changes are saved.")
-        .useToSubmitForm("#save-form", includeUsernameToForm);
-
-    function updateRequestURL(request, $form) {
-        request.settings.url = $$.util.url.getParentResourceURL() + "/" + $("#name").val() + "?new=true";
-        // request.settings.url = "/user/" + $("#name").val();
+    function updateRequest(request, $form) {
+        switch ($$.util.meta.getViewName()) {
+            case "user":
+                console.log("in user view");
+                if ($$.util.meta.isPageType("edit")) {
+                    $$.util.form.addHiddenField($form, "name", $("#name").text());
+                }
+                request.settings.url = "/user/" + $("#name").val();
+                break;
+            case "module":
+                console.log("in module view");
+                var moduleName,
+                    category;
+                if ($$.util.meta.isPageType("new")) {
+                    moduleName = $form.find("#ss-module-name").val();
+                    category = $$.util.urlQueryParams.getValue("category");
+                    request.settings.url = $$.util.url.getParentResourceURL() + "/" + moduleName + "?new=true";
+                    var moduleParent = $$.util.url.getCurrentURLBase().substring("/module/".length);
+                    $$.util.form.addHiddenField($form, "name", moduleParent + "/" + moduleName);
+                } else {
+                    moduleName = $("#ss-module-name").text();
+                    category = $("#category").text();
+                    request.settings.url = "/module/" + moduleName;
+                    $$.util.form.addHiddenField($form, "name", moduleName);
+                }
+                $$.util.form.addHiddenField($form, "category", category);
+                break;
+            default:
+                console.log("in some other view");
+                // nothing to do
+                break;
+        }
     }
 
     $$.request
         .put()
-        .onErrorAlert("Sorry, something went wrong with the update.")
         .onSuccessFollowRedirectInResponseHeader()
-        .useToSubmitForm("#create-form", updateRequestURL);
+        .useToSubmitForm("#save-form", updateRequest);
+
+    $$.request
+        .put()
+        .onSuccessFollowRedirectInResponseHeader()
+        .useToSubmitForm("#create-form", updateRequest);
 
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

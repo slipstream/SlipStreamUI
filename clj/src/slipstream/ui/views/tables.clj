@@ -182,7 +182,7 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name          {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly (if (page-type/view-or-chooser?) "ss-module-name" "name"))}
+      :name          {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly "ss-module-name")}
       :uri           {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description   {:type :cell/text}
       :comment       {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
