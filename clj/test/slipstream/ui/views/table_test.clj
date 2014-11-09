@@ -9,6 +9,13 @@
             [slipstream.ui.util.time :as time]
             [slipstream.ui.util.localization :as localization]))
 
+;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:
+;;
+;;       @#'foo.bar/x
+;;
+;; Source: https://github.com/bbatsov/clojure-style-guide#access-private-var
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Test hidden inputs for parameter cells in editable mode

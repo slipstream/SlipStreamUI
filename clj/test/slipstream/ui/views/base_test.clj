@@ -6,6 +6,9 @@
 ;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:
 ;;
 ;;       @#'foo.bar/x
+;;
+;; Source: https://github.com/bbatsov/clojure-style-guide#access-private-var
+
 
 ;; bottom-external-scripts-snip
 
