@@ -169,23 +169,24 @@
           (apply ~update-fn-symbol str ~parts-symbol))
       )))
 
+(defn-set-attr :checked)
+(defn-set-attr :class)
+(defn-set-attr :content)
+(defn-set-attr :disabled)
 (defn-set-attr :href)
-(defn-set-attr :onclick)
 (defn-set-attr :id)
 (defn-set-attr :name)
-(defn-set-attr :type)
+(defn-set-attr :onclick)
+(defn-set-attr :placeholder)
+(defn-set-attr :readonly)
 (defn-set-attr :rel)
+(defn-set-attr :selected)
 (defn-set-attr :src)
-(defn-set-attr :class)
 (defn-set-attr :style)
 (defn-set-attr :target)
-(defn-set-attr :checked)
-(defn-set-attr :disabled)
-(defn-set-attr :readonly)
-(defn-set-attr :selected)
-(defn-set-attr :value)
 (defn-set-attr :title)
-(defn-set-attr :placeholder)
+(defn-set-attr :type)
+(defn-set-attr :value)
 
 (defmacro content-for
   "Replaces the content of the matched node with clones of the child matching
@@ -292,3 +293,10 @@
   [text & {:keys [css-class]}]
   this (set-class css-class)
   this (html/content (str text)))
+
+(def-blank-snippet map->meta-tag-snip :meta
+  [m & {:keys [name-prefix]}]
+  this (html/clone-for [[k v] m]
+         this (set-name (name k))
+         this (->> k name (str name-prefix) set-name)
+         this (-> v str  set-content)))

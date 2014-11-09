@@ -469,6 +469,22 @@
 
 ;; Generic blank snippets
 
+; text-div-snip
+
+(expect
+  "<div></div>"
+  (->> nil
+       text-div-snip
+       html/emit*
+       (apply str)))
+
+(expect
+  "<div></div>"
+  (->> ""
+       text-div-snip
+       html/emit*
+       (apply str)))
+
 (expect
   "<div>blah</div>"
   (->> "blah"
@@ -479,5 +495,74 @@
 (expect
   "<div class=\"ss-some-class\">tada</div>"
   (->> (text-div-snip "tada" :css-class "ss-some-class")
+       html/emit*
+       (apply str)))
+
+
+; map->meta-tag-snip
+
+(expect
+  ""
+  (->> (map->meta-tag-snip nil)
+       html/emit*
+       (apply str)))
+
+(expect
+  ""
+  (->> (map->meta-tag-snip {})
+       html/emit*
+       (apply str)))
+
+(expect
+  "<meta content=\"1\" name=\"a\" />"
+  (->> (map->meta-tag-snip {:a 1})
+       html/emit*
+       (apply str)))
+
+(expect
+  "<meta content=\"1\" name=\"a\" /><meta content=\"the string value\" name=\"some-string\" />"
+  (->> (map->meta-tag-snip {:a 1, :some-string "the string value"})
+       html/emit*
+       (apply str)))
+
+(expect
+  (str "<meta content=\"false\" name=\"boolean-value\" />"
+       "<meta content=\":some-keyword\" name=\"keyword-value\" />"
+       "<meta content=\"\" name=\"blank-string-value\" />"
+       "<meta content=\"\" name=\"nil-value\" />")
+  (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword})
+       html/emit*
+       (apply str)))
+
+(expect
+  ""
+  (->> (map->meta-tag-snip nil :name-prefix "ss-")
+       html/emit*
+       (apply str)))
+
+(expect
+  ""
+  (->> (map->meta-tag-snip {} :name-prefix "ss-")
+       html/emit*
+       (apply str)))
+
+(expect
+  "<meta content=\"1\" name=\"ss-a\" />"
+  (->> (map->meta-tag-snip {:a 1} :name-prefix "ss-")
+       html/emit*
+       (apply str)))
+
+(expect
+  "<meta content=\"1\" name=\"ss-a\" /><meta content=\"the string value\" name=\"ss-some-string\" />"
+  (->> (map->meta-tag-snip {:a 1, :some-string "the string value"} :name-prefix "ss-")
+       html/emit*
+       (apply str)))
+
+(expect
+  (str "<meta content=\"false\" name=\"ss-boolean-value\" />"
+       "<meta content=\":some-keyword\" name=\"ss-keyword-value\" />"
+       "<meta content=\"\" name=\"ss-blank-string-value\" />"
+       "<meta content=\"\" name=\"ss-nil-value\" />")
+  (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword} :name-prefix "ss-")
        html/emit*
        (apply str)))
