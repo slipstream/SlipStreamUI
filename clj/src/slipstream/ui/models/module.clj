@@ -69,6 +69,7 @@
   (let [attrs (:attrs metadata)]
     {:description     (-> attrs :description)
      :category        (-> attrs :category)
+     :comment         (-> metadata (html/select [:comment html/text]) first)
      :name            (-> attrs :name u/not-default-new-name)
      :creation        (-> attrs :creation)
      :version         (-> attrs :version uc/parse-pos-int)

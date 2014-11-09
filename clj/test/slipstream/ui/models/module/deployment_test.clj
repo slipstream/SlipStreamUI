@@ -193,6 +193,7 @@
              :default-multiplicity 1
              :default-cloud "stratuslab"}]
     :summary {:deleted? false
+              :comment nil
               :creation "2013-03-08 22:37:40.773 CET"
               :name "Public/Tutorials/HelloWorld/client_server"
               :short-name "client_server"

@@ -111,6 +111,7 @@
                :uri "module/Public/OtherProject/slave-centos/80"}]
    :summary {:deleted? false
              :creation "2013-05-16 17:04:39.113 CEST"
+             :comment "ccc"
              :name "Public/OtherProject"
              :short-name "OtherProject"
              :owner "sixsq"

@@ -41,6 +41,7 @@
                    :group-members #{"meb" "other" "konstan" "xxx"}
                    :inherited-group-members? false}
    :summary {:deleted? false
+             :comment nil
              :creation "2013-05-16 17:04:39.113 CEST"
              :name "Public/new"
              :short-name "new"

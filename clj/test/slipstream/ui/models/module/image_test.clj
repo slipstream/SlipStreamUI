@@ -260,6 +260,7 @@
                    :group-members #{}
                    :inherited-group-members? true}
    :summary {:deleted? false
+             :comment "this is a comment"
              :creation "2013-03-07 21:03:09.124 CET"
              :name "Public/BaseImages/with-a-very-long-name/Ubuntu/12.04"
              :short-name "12.04"

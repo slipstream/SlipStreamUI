@@ -220,6 +220,7 @@
                    :group-members #{}
                    :inherited-group-members? true}
    :summary {:deleted? false
+             :comment nil
              :creation "2013-03-07 21:03:09.124 CET"
              :name "Public/BaseImages/Ubuntu/new"
              :short-name "new"
