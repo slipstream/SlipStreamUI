@@ -83,7 +83,7 @@
 
 (defn t-fallback-dev
   [& args]
-  args)
+  (str args))
 
 (defn t
   "Main localization function."

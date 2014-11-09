@@ -14,15 +14,11 @@
   [name]
   (str @config/template-namespace "/html/" name))
 
-;; TODO: Look at slipstream.ui.views.common/slipstream and refactor.
-(def slipstream "SlipStream")
-
-;; TODO: Look at slipstream.ui.views.common/title and refactor.
 (defn page-title
   [s]
-  (if s
-    (str slipstream " | " s)
-    slipstream))
+  (if (not-empty s)
+    (str (t :page-title.application-name) " | " s)
+    (t :page-title.application-name)))
 
 (defn ensure-one-selected
   "If no section in the section-coll is selected, this will ensure that at least
