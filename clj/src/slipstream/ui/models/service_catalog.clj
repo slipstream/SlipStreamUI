@@ -1,9 +1,6 @@
 (ns slipstream.ui.models.service-catalog
   (:require [net.cgrand.enlive-html :as html]
-            [clojure.string :as string]
-            [slipstream.ui.models.parameters :as parameters]
-            [slipstream.ui.models.common :as common-model]
-            [slipstream.ui.models.user :as user-model]))
+            [slipstream.ui.models.parameters :as parameters]))
 
 (defn- parse-service-catalog
   [service-catalog]

@@ -1,33 +1,7 @@
 (ns slipstream.ui.models.user
-  (:require [clojure.string :as s]
-            [slipstream.ui.util.core :as u]
+  (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.current-user :as current-user]))
-
-(def sel-user
-  nil)
-
-(defn user [metadata]
-  nil)
-
-(defn logged-in [metadata]
-  nil)
-
-(defn attrs [metadata]
-  nil)
-
-(defn super? [metadata]
-  nil)
-
-(defn username [metadata]
-  nil)
-
-(defn default-cloud [metadata]
-  nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn parse
   [metadata]
