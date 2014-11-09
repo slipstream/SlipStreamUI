@@ -82,11 +82,41 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.form = {
         addHiddenField: function ($form, fieldName, fieldValue) {
+            // Clean up hidden field with the same name before adding it.
+            $form.children("input:hidden[name=" + fieldName + "]").remove();
             $("<input>")
                 .attr("type", "hidden")
                 .attr("name", fieldName)
                 .attr("value", fieldValue)
                 .appendTo($form);
+        },
+        setField: function ($form, fieldName, fieldValue) {
+            // If the field doesn't exists already in the form, this is a no-op.
+            $form.find("input[name=" + fieldName + "]").val(fieldValue);
+        }
+    };
+
+    util.meta = {
+        getMetaValue: function (name) {
+            return $("meta[name=" + name + "]").attr("content");
+        },
+        getPageType: function () {
+            return this.getMetaValue("ss-page-type");
+        },
+        isPageType: function (pageType) {
+            return this.getPageType() === pageType;
+        },
+        getUserType: function () {
+            return this.getMetaValue("ss-user-type");
+        },
+        isSuperUserLoggegIn: function () {
+            return this.getUserType() === "super";
+        },
+        getViewName: function () {
+            return this.getMetaValue("ss-view-name");
+        },
+        isView: function (viewName) {
+            return this.getViewName() === viewName;
         }
     };
 
