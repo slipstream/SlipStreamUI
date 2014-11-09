@@ -5,6 +5,7 @@
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
             [slipstream.ui.views.messages :as messages]
@@ -49,12 +50,12 @@
 (def placeholder-page-cls "ss-placeholder-page")
 (def in-progress-page-cls "ss-in-progress-page")
 
-(def edit-page-actions
+(def ^:private edit-page-actions
   [action/save
    action/cancel
    action/delete])
 
-(def new-page-actions
+(def ^:private new-page-actions
   [action/create
    action/cancel])
 
@@ -127,6 +128,15 @@
       (html/content (save-form-snip transformation-fn))
       transformation-fn)))
 
+(defn- prepend-ss-meta-info
+  [context]
+  (-> context
+      (select-keys [:view-ns :view-name])
+      (assoc :page-type (name page-type/*current-page-type*)
+             :user-type (current-user/type-name))
+      (ue/map->meta-tag-snip :name-prefix "ss-")
+      html/prepend))
+
 (deftemplate base base-template-filename
   [{:keys [error-page?
            beta-page?
@@ -142,6 +152,7 @@
            involved-templates]
     {:keys [css-filenames internal-js-filenames external-js-filenames]} :html-dependencies
     :as context}]
+  [:head]               (prepend-ss-meta-info context)
   [:body]               (ue/enable-class error-page? error-page-cls)
   [:body]               (ue/enable-class ud/*dev?* dev-mode-page-cls)
   [:body]               (ue/enable-class placeholder-page? placeholder-page-cls)
@@ -176,20 +187,31 @@
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
 
-(defn generate
+(def ^:private templates-base
+  [alerts/template-filename
+   menubar/template-filename
+   section/template-filename          ;; TODO: only if body has sections.
+   subsection/template-filename       ;; TODO: only if body has subsections.
+   table/template-filename            ;; TODO: only if body has tables.
+   code-area/template-filename        ;; TODO: only if body has code-areas.
+   modal-dialogs/template-filename])  ;; TODO: only if body has modal-dialogs.
+
+(defn- generate-with-ns
   [{:keys [header template-filename] :as context}]
-  (let [involved-templates [alerts/template-filename
-                            menubar/template-filename
-                            section/template-filename ;; TODO: only if sections in body.
-                            subsection/template-filename ;; TODO: only if subsections in body.
-                            table/template-filename ;; TODO: only if tables in body.
-                            code-area/template-filename ;; TODO: only if code-areas in body.
-                            modal-dialogs/template-filename ;; TODO: only if modal-dialogs in body.
-                            template-filename
-                            ]]
-    (println "Generating base for" template-filename " - Title" (:title header))
-    (base
-      (cond-> context
-        (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
-        (page-type/new?)  (assoc :secondary-menu-actions  new-page-actions)
-        :always           (assoc :involved-templates      involved-templates)))))
+  (println "Generating base from ns" (:view-ns context)
+           "- View name" (:view-name context)
+           "- Title" (:title header)
+           "- Template: " template-filename)
+  (base
+    (cond-> context
+      (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
+      (page-type/new?)  (assoc :secondary-menu-actions  new-page-actions)
+      :always           (assoc :involved-templates      (conj templates-base template-filename)))))
+
+(defmacro generate
+  "This macro includes the caller ns into the 'context' map argument."
+  [context]
+  (let [view-ns   (str *ns*)
+        view-name (->> view-ns (re-matches #"slipstream\.ui\.views\.(.*)") second)]
+    `(~generate-with-ns (assoc ~context :view-ns   ~view-ns
+                                        :view-name ~view-name))))

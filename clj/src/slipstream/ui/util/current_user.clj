@@ -36,6 +36,10 @@
 (def not-super?
   (complement super?))
 
+(defn type-name
+  []
+  (if (super?) "super" "regular"))
+
 (defn logged-in?
   []
   (:logged-in? *current-user*))
