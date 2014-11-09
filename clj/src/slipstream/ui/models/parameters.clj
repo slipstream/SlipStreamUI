@@ -72,7 +72,7 @@
   "Convert a map of keys and values into a parameter list, in the form used above.
    E.g. [{:name name, :type type, :description description :value value} ... ]"
   [m & conversion-hints]
-  (for [[k {:keys [description help-hint type as-parameter editable? hidden? id-format-fn] :as hints}]
+  (for [[k {:keys [description help-hint type as-parameter id-format-fn] :as hints}]
         (partition 2 conversion-hints)]
     (cond-> {:name (name k)
              :id-format-fn (or id-format-fn uc/dashless-str)
@@ -81,8 +81,9 @@
              :help-hint (or help-hint (-> as-parameter (or k) name (str ".help-hint") keyword t))
              :value (get m k)
              :built-from-map? true}
-      (contains? hints :editable?) (assoc :editable? editable?)
-      (contains? hints :hidden?)   (assoc :hidden? hidden?))))
+      (contains? hints :editable?)  (assoc :editable?   (:editable?   hints))
+      (contains? hints :read-only?) (assoc :read-only?  (:read-only?  hints))
+      (contains? hints :hidden?)    (assoc :hidden?     (:hidden?     hints)))))
 
 (defn categories-of-type
   [parameters & types]
