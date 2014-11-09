@@ -12,7 +12,7 @@
 
 (defn template-path-for
   [name]
-  (str @config/template-namespace "/" name))
+  (str @config/template-namespace "/html/" name))
 
 ;; TODO: Look at slipstream.ui.views.common/slipstream and refactor.
 (def slipstream "SlipStream")
