@@ -176,8 +176,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
                     if (statusCodeAlertTitleAndMsg === undefined) {
                         var responseDetail = jqXHR.responseJSON && jqXHR.responseJSON.detail;
+                        if (responseDetail === undefined) {
+                            // If the response is not a JSON, it is a complete valid HTML error page.
+                            // In that case, we retrieve the details from the header subtitle.
+                            responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
+                        }
                         $$.Alert.showError(
-                            "Unexpected AJAX response: " + jqXHR.status + " - " + errorThrown,
+                            "Error " + jqXHR.status + " - " + errorThrown,
                             responseDetail);
                     } else {
                         $$.Alert.showError.apply(this, statusCodeAlertTitleAndMsg);
@@ -212,6 +217,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .url(request.settings.url || $form.attr("action"))
                     // .serialization("json") // NOTE: Uncomment to send a JSON to the server
                     // .dataType("json")      // NOTE: Uncomment to request the server a JSON reply
+                    // .dataType("xml")       // NOTE: Uncomment to request the server a XML reply
+                    // .dataType("html")      // NOTE: Uncomment to request the server a HTML reply
                     .always(function () {
                         // Unflag the form as submitted after the request is done
                         // so that the next submit can be performed
