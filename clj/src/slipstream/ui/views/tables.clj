@@ -72,11 +72,11 @@
 (defn- version-row
   [icon {:keys [version uri commit] :as version}]
   {:style nil
-   :cells [{:type :cell/icon, :content icon}
-           {:type :cell/link, :content {:text version :href uri}}
-           {:type :cell/text, :content (:comment commit)}
-           {:type :cell/text, :content (:author commit)}
-           {:type :cell/text, :content (:date commit)}]})
+   :cells [{:type :cell/icon,       :content icon}
+           {:type :cell/link,       :content {:text version :href uri}}
+           {:type :cell/text,       :content (:comment commit)}
+           {:type :cell/text,       :content (:author commit)}
+           {:type :cell/timestamp,  :content (:date commit)}]})
 
 (defn versions-table
   [icon versions]
