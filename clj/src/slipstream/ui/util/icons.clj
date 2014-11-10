@@ -9,6 +9,8 @@
 
 (uc/def-this-ns)
 
+;; TODO: Take into account the html/icon-list.html template to retrieve icons.
+
 (def unknown          ::question-sign)
 
 (def home             ::home)

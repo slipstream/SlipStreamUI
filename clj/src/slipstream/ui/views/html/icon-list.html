@@ -8,180 +8,259 @@
     <title>SlipStream Icons</title>
 
     <link rel="stylesheet" type="text/css" href="external/icon-font/css/font-awesome.min.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
   </head>
 
   <body>
+    <div class="container">
 
-    <table>
-      <thead>
-        <th>Glyph</th>
-        <th>Name</th>
-        <th>Comment</th>
-      </thead>
+      <h1>Icon list</h1>
 
-      <tr>
-        <td><i class="icon-info-sign icon-2x"></i></td>
-        <td>icon-info-sign</td>
-        <td>links to documentation page</td>
-      </tr>
+      <p>
+        The icons that are used dynamically are defined in <code>slipstream.ui.util.icons</code>.
+        Some other icons (e.g. logout icon) are only hard-coded in the HTML template.
+      </p>
 
-      <tr>
-        <td><i class="icon-home icon-2x"></i></td>
-        <td>icon-home</td>
-        <td>links to welcome page; marks welcome resource</td>
-      </tr>
+      <p class="text-muted">
+        Note: This list is for documentation purposes only and the icons here are not (yet!) taken into account.
+        <!-- TODO: Make <code>slipstream.ui.util.icons</code> retrieve icons from this template. -->
+      </p>
 
-      <tr>
-        <td><i class="icon-user icon-2x"></i></td>
-        <td>icon-user</td>
-        <td>links to user's profile/settings resource</td>
-      </tr>
+      <table class="table table-striped table-hover table-responsive">
+        <thead>
+          <th>Icon legacy</th>
+          <th>Name legacy</th>
+          <th>Icon new</th>
+          <th>Name new</th>
+          <th>Usage description</th>
+        </thead>
 
-      <tr>
-        <td><i class="icon-group icon-2x"></i></td>
-        <td>icon-group</td>
-        <td>links to user management resource; super user only</td>
-      </tr>
+        <tr>
+          <td><i class="icon-info-sign icon-2x"></i></td>
+          <td><code>icon-info-sign</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-book"></i></td>
+          <td><code>glyphicon-book</code></td>
+          <td>links to documentation page</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-signout icon-2x"></i></td>
-        <td>icon-signout</td>
-        <td>link to logout</td>
-      </tr>
+        <tr>
+          <td><i class="icon-home icon-2x"></i></td>
+          <td><code>icon-home</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-home"></i></td>
+          <td><code>glyphicon-home</code></td>
+          <td>links to welcome page; marks welcome resource</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-folder-open icon-2x"></i></td>
-        <td>icon-folder-open</td>
-        <td>icon for projects; use in buttons and banners for projects</td>
-      </tr>
+        <tr>
+          <td><i class="icon-user icon-2x"></i></td>
+          <td><code>icon-user</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-user"></i></td>
+          <td><code>glyphicon-user</code></td>
+          <td>links to user's profile/settings resource</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-cloud-upload icon-2x"></i></td>
-        <td>icon-cloud-upload</td>
-        <td>icon for deployments; use in buttons and banners for deployments</td>
-      </tr>
+        <tr>
+          <td><i class="icon-group icon-2x"></i></td>
+          <td><code>icon-group</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-user"></i></td>
+          <td><code>glyphicon-user</code></td>
+          <td>links to user management resource; super user only</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-desktop icon-2x"></i></td>
-        <td>icon-desktop</td>
-        <td>icon for machine images; use in buttons and banners for images</td>
-      </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td class="h3"><i class="glyphicon glyphicon-log-in"></i></td>
+          <td><code>glyphicon-log-in</code></td>
+          <td>link to login</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-edit icon-2x"></i></td>
-        <td>icon-edit</td>
-        <td>image for edit function; use in buttons</td>
-      </tr>
 
-      <tr>
-        <td><i class="icon-chevron-up icon-2x"></i></td>
-        <td>icon-chevron-up</td>
-        <td>image for open accordian sections; 'click to close'</td>
-      </tr>
+        <tr>
+          <td><i class="icon-signout icon-2x"></i></td>
+          <td><code>icon-signout</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-log-out"></i></td>
+          <td><code>glyphicon-log-out</code></td>
+          <td>link to logout</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-chevron-down icon-2x"></i></td>
-        <td>icon-chevron-down</td>
-        <td>image for closed accordian sections; 'click to open'</td>
-      </tr>
+        <tr>
+          <td><i class="icon-folder-open icon-2x"></i></td>
+          <td><code>icon-folder-open</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-folder-open"></i></td>
+          <td><code>glyphicon-folder-open</code></td>
+          <td>icon for projects; use in buttons and banners for projects</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-save icon-2x"></i></td>
-        <td>icon-save</td>
-        <td>image for save action; use in buttons</td>
-      </tr>
+        <tr>
+          <td><i class="icon-cloud-upload icon-2x"></i></td>
+          <td><code>icon-cloud-upload</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-send"></i></td>
+          <td><code>glyphicon-send</code></td>
+          <td>icon for deployments; use in buttons and banners for deployments</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-stop icon-2x"></i></td>
-        <td>icon-stop</td>
-        <td>image for cancel action; use in buttons</td>
-      </tr>
+        <tr>
+          <td><i class="icon-desktop icon-2x"></i></td>
+          <td><code>icon-desktop</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-hdd"></i></td>
+          <td><code>glyphicon-hdd</code></td>
+          <td>icon for machine images; use in buttons and banners for images</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-trash icon-2x"></i></td>
-        <td>icon-trash</td>
-        <td>image for delete action; use in buttons</td>
-      </tr>
+        <tr>
+          <td><i class="icon-edit icon-2x"></i></td>
+          <td><code>icon-edit</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-pencil"></i></td>
+          <td><code>glyphicon-pencil</code></td>
+          <td>image for edit function; use in buttons</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-remove-circle icon-2x"></i></td>
-        <td>icon-remove-circle</td>
-        <td>icon for removing property, etc.; use as button</td>
-      </tr>
+        <tr>
+          <td><i class="icon-chevron-up icon-2x"></i></td>
+          <td><code>icon-chevron-up</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-chevron-up"></i></td>
+          <td><code>glyphicon-chevron-up</code></td>
+          <td>image for open accordian sections; 'click to close'</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-wrench icon-2x"></i></td>
-        <td>icon-wrench</td>
-        <td>link to configuration resource</td>
-      </tr>
+        <tr>
+          <td><i class="icon-chevron-down icon-2x"></i></td>
+          <td><code>icon-chevron-down</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-chevron-down"></i></td>
+          <td><code>glyphicon-chevron-down</code></td>
+          <td>image for closed accordian sections; 'click to open'</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-question-sign icon-2x"></i></td>
-        <td>icon-question-sign</td>
-        <td>tooltip/more info links</td>
-      </tr>
+        <tr>
+          <td><i class="icon-save icon-2x"></i></td>
+          <td><code>icon-save</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-floppy-disk"></i></td>
+          <td><code>glyphicon-floppy-disk</code></td>
+          <td>image for save action; use in buttons</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-plus icon-2x"></i></td>
-        <td>icon-plus</td>
-        <td>icon for "add ..." buttons</td>
-      </tr>
+        <tr>
+          <td><i class="icon-stop icon-2x"></i></td>
+          <td><code>icon-stop</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-stop"></i></td>
+          <td><code>glyphicon-stop</code></td>
+          <td>image for cancel action; use in buttons</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-cog icon-2x"></i></td>
-        <td>icon-cog</td>
-        <td>icon for run buttons</td>
-      </tr>
+        <tr>
+          <td><i class="icon-trash icon-2x"></i></td>
+          <td><code>icon-trash</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-trash"></i></td>
+          <td><code>glyphicon-trash</code></td>
+          <td>image for delete action; use in buttons</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-dashboard icon-2x"></i></td>
-        <td>icon-dashboard</td>
-        <td>link to dashboard resource</td>
-      </tr>
+        <tr>
+          <td><i class="icon-remove-circle icon-2x"></i></td>
+          <td><code>icon-remove-circle</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-remove"></i></td>
+          <td><code>glyphicon-remove</code></td>
+          <td>icon for removing property, etc.; use as button</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-refresh icon-2x"></i></td>
-        <td>icon-refresh</td>
-        <td>icon for reloading configuration file; use in button</td>
-      </tr>
+        <tr>
+          <td><i class="icon-wrench icon-2x"></i></td>
+          <td><code>icon-wrench</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-cog"></i></td>
+          <td><code>glyphicon-cog</code></td>
+          <td>link to configuration resource</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-warning-sign icon-2x"></i></td>
-        <td>icon-warning-sign</td>
-        <td>icon for errors; use in flash messages and in banners</td>
-      </tr>
+        <tr>
+          <td><i class="icon-question-sign icon-2x"></i></td>
+          <td><code>icon-question-sign</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-question-sign"></i></td>
+          <td><code>glyphicon-question-sign</code></td>
+          <td>tooltip/more info links</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-copy icon-2x"></i></td>
-        <td>icon-copy</td>
-        <td>icon for copy; use in button</td>
-      </tr>
+        <tr>
+          <td><i class="icon-plus icon-2x"></i></td>
+          <td><code>icon-plus</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-plus"></i></td>
+          <td><code>glyphicon-plus</code></td>
+          <td>icon for "add ..." buttons</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-legal icon-2x"></i></td>
-        <td>icon-legal</td>
-        <td>icon for build; use in button</td>
-      </tr>
+        <tr>
+          <td><i class="icon-cog icon-2x"></i></td>
+          <td><code>icon-cog</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-send"></i></td>
+          <td><code>glyphicon-send</code></td>
+          <td>icon for run buttons</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-globe icon-2x"></i></td>
-        <td>icon-globe</td>
-        <td>icon for publish; use in button</td>
-      </tr>
+        <tr>
+          <td><i class="icon-dashboard icon-2x"></i></td>
+          <td><code>icon-dashboard</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-dashboard"></i></td>
+          <td><code>glyphicon-dashboard</code></td>
+          <td>link to dashboard resource</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-ban-circle icon-2x"></i></td>
-        <td>icon-ban-circle</td>
-        <td>icon for terminate; use in button</td>
-      </tr>
+        <tr>
+          <td><i class="icon-refresh icon-2x"></i></td>
+          <td><code>icon-refresh</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-refresh"></i></td>
+          <td><code>glyphicon-refresh</code></td>
+          <td>icon for reloading configuration file; use in button</td>
+        </tr>
 
-      <tr>
-        <td><i class="icon-bar-chart icon-2x"></i></td>
-        <td>icon-bar-chart</td>
-        <td>icon for resource utilization resource</td>
-      </tr>
+        <tr>
+          <td><i class="icon-warning-sign icon-2x"></i></td>
+          <td><code>icon-warning-sign</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-exclamation-sign"></i></td>
+          <td><code>glyphicon-exclamation-sign</code></td>
+          <td>icon for errors; use in flash messages and in banners</td>
+        </tr>
 
-    </table>
+        <tr>
+          <td><i class="icon-copy icon-2x"></i></td>
+          <td><code>icon-copy</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-repeat"></i></td>
+          <td><code>glyphicon-repeat</code></td>
+          <td>icon for copy; use in button</td>
+        </tr>
 
+        <tr>
+          <td><i class="icon-legal icon-2x"></i></td>
+          <td><code>icon-legal</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-briefcase"></i></td>
+          <td><code>glyphicon-briefcase</code></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td><i class="icon-globe icon-2x"></i></td>
+          <td><code>icon-globe</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-eye-open"></i></td>
+          <td><code>glyphicon-eye-open</code></td>
+          <td>icon for publish; use in button</td>
+        </tr>
+
+        <tr>
+          <td><i class="icon-ban-circle icon-2x"></i></td>
+          <td><code>icon-ban-circle</code></td>
+          <td class="h3"><i class="glyphicon glyphicon-ban-circle"></i></td>
+          <td><code>glyphicon-ban-circle</code></td>
+          <td>icon for terminate; use in button</td>
+        </tr>
+
+        <tr>
+          <td><i class="icon-bar-chart icon-2x"></i></td>
+          <td><code>icon-bar-chart</code></td>
+          <td>-</td>
+          <td>-</td>
+          <td>icon for resource utilization resource</td>
+        </tr>
+
+      </table>
+    </div> <!-- /.container -->
   </body>
 </html>
