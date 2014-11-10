@@ -190,7 +190,7 @@
       :creation      {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
       :last-modified {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
       :owner         {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
-      :image         {:type :cell/text,       :hidden? (page-type/view?)})))
+      :image         {:type :cell/text,       :hidden? (or (page-type/view?) (-> module :category (not= "Image"))), :id-format-fn (constantly "logoLink")})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
