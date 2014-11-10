@@ -14,7 +14,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var viewer = ace.edit(thisId);
         // viewer.setTheme("ace/theme/solarized_light");
         viewer.setTheme("ace/theme/tomorrow");
-        viewer.getSession().setMode("ace/mode/sh");
+        viewer.getSession().setMode("ace/mode/sh"); // TODO: Make auto-detect the lang
         viewer.setReadOnly(true);
         viewer.setHighlightActiveLine(false);
         viewer.setHighlightGutterLine(false);
@@ -28,7 +28,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var editor = ace.edit(thisId);
         // editor.setTheme("ace/theme/solarized_dark");
         editor.setTheme("ace/theme/tomorrow_night");
-        editor.getSession().setMode("ace/mode/sh");
+        editor.getSession().setMode("ace/mode/sh"); // TODO: Make auto-detect the lang
         editor.setReadOnly(false);
         editor.setHighlightActiveLine(true);
         editor.setHighlightGutterLine(true);
