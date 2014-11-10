@@ -63,9 +63,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
         window.location.search = 'edit=true';
     });
 
-    $("#ss-secondary-menu-action-save").click( function() {
+    $("#ss-secondary-menu-action-save").click( function(event) {
         console.log($(this).attr("id") + " in callback #14");
-        $('#ss-save-dialog').modal('show');
+        if ($$.util.meta.isViewName("user")) {
+            // No commit message needed.
+            $('#save-form').submit();
+        } else {
+            $('#ss-save-dialog').modal('show');
+        }
     });
 
     $("#ss-secondary-menu-action-create").click( function() {
