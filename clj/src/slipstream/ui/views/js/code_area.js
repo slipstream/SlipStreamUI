@@ -19,6 +19,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         viewer.setHighlightActiveLine(false);
         viewer.setHighlightGutterLine(false);
         viewer.setShowInvisibles(false);
+        viewer.setOption("minLines", 10);
+        viewer.setOption("maxLines", 100);
     });
 
     $("pre.ss-code-editor").each(function (){
@@ -31,6 +33,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
         editor.setHighlightActiveLine(true);
         editor.setHighlightGutterLine(true);
         editor.setShowInvisibles(true);
+        editor.setOption("minLines", 40);
+        editor.setOption("maxLines", 100);
     });
+
+    $$.codeArea = {
+        getCode: function (id) {
+            var editor = ace.edit(id);
+            var code = editor.getSession().getValue();
+            return code;
+        }
+    };
 
 }( window.SlipStream = window.SlipStream || {}, jQuery )); });

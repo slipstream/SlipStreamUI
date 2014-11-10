@@ -69,6 +69,33 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Set up forms
 
+    function updateRequestForModule(request, $form) {
+        var moduleName,
+            category;
+        if ($$.util.meta.isPageType("new")) {
+            moduleName = $form.find("#ss-module-name").val();
+            category = $$.util.urlQueryParams.getValue("category");
+            request.settings.url = $$.util.url.getParentResourceURL() + "/" + moduleName + "?new=true";
+            var moduleParent = $$.util.url.getCurrentURLBase().substring("/module/".length);
+            $$.util.form.addHiddenField($form, "name", moduleParent + "/" + moduleName);
+        } else {
+            moduleName = $("#ss-module-name").text();
+            category = $("#category").text();
+            request.settings.url = "/module/" + moduleName;
+            $$.util.form.addHiddenField($form, "name", moduleName);
+        }
+        $$.util.form.addHiddenField($form, "category", category);
+
+        // Add scripts as hidden form fields
+        $("pre.ss-code-editor").each(function (){
+            var thisId = $(this).attr("id"),
+                code = $$.codeArea.getCode(thisId);
+            $$.util.form.addHiddenField($form, thisId + "--script", code);
+        });
+
+        return;
+    }
+
     function updateRequest(request, $form) {
         switch ($$.util.meta.getViewName()) {
             case "user":
@@ -85,21 +112,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 break;
             case "module":
                 console.log("in module view");
-                var moduleName,
-                    category;
-                if ($$.util.meta.isPageType("new")) {
-                    moduleName = $form.find("#ss-module-name").val();
-                    category = $$.util.urlQueryParams.getValue("category");
-                    request.settings.url = $$.util.url.getParentResourceURL() + "/" + moduleName + "?new=true";
-                    var moduleParent = $$.util.url.getCurrentURLBase().substring("/module/".length);
-                    $$.util.form.addHiddenField($form, "name", moduleParent + "/" + moduleName);
-                } else {
-                    moduleName = $("#ss-module-name").text();
-                    category = $("#category").text();
-                    request.settings.url = "/module/" + moduleName;
-                    $$.util.form.addHiddenField($form, "name", moduleName);
-                }
-                $$.util.form.addHiddenField($form, "category", category);
+                updateRequestForModule(request, $form);
                 break;
             default:
                 console.log("in some other view");

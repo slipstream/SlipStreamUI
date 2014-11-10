@@ -10,6 +10,12 @@
 (defmulti middle-section-content
   (fn [section-metadata metadata-key] metadata-key))
 
+(defn- code-area
+  [code id]
+  (code-area/build code
+                   :id id
+                   :editable? (page-type/edit-or-new?)))
+
 ; Section "cloud-configuration"
 
 (defn- category-section
@@ -28,12 +34,12 @@
   (localization/with-prefixed-t :section.image-creation.subsection
     [{:title    (t :recipe.title)
       :content [(t :recipe.description)
-                (-> section-metadata :recipe :code (code-area/build false))]}
+                (-> section-metadata :recipe :code (code-area "recipe"))]}
      {:title    (t :packages.title)
       :content (-> section-metadata :packages t/image-creation-packages-table)}
      {:title    (t :prerecipe.title)
       :content [(t :prerecipe.description)
-                (-> section-metadata :pre-recipe :code (code-area/build false))]}]))
+                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}]))
 
 ; Section "deployment recipes"
 
@@ -47,18 +53,18 @@
   (localization/with-prefixed-t :section.deployment.subsection
     [{:title    (t :execute.title)
       :content [(t :execute.description)
-                (-> section-metadata :targets :execute :code (code-area/build false))]}
+                (-> section-metadata :targets :execute :code (code-area "execute"))]}
      {:title    (t :report.title)
       :content [(t :report.description)
-                (-> section-metadata :targets :report :code (code-area/build false))]}
+                (-> section-metadata :targets :report :code (code-area "report"))]}
      {:title    (t :parameters.title)
       :content (-> section-metadata :parameters merge-in-out-params t/deployment-parameters-table)}
      {:title    (t :on-vm-add.title)
       :content [(t :on-vm-add.description)
-                (-> section-metadata :targets :on-vm-add :code (code-area/build false))]}
+                (-> section-metadata :targets :on-vm-add :code (code-area "onvmadd"))]}
      {:title    (t :on-vm-remove.title)
       :content [(t :on-vm-remove.description)
-                (-> section-metadata :targets :on-vm-remove :code (code-area/build false))]}]))
+                (-> section-metadata :targets :on-vm-remove :code (code-area "onvmremove"))]}]))
 
 ; Section "runs"
 

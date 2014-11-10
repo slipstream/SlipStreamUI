@@ -6,18 +6,20 @@
 (def template-filename (u/template-path-for "code_area.html"))
 
 (def code-viewer-sel [:pre.ss-code-viewer])
-(def code-editor-sel [:pre.ss-code-viewer])
+(def code-editor-sel [:pre.ss-code-editor])
 
 (html/defsnippet code-viewer-snip template-filename code-viewer-sel
-  [code]
-  ue/this (html/content (str code)))
+  [code & {:keys [id]}]
+  ue/this (html/content (str code))
+  ue/this (ue/set-id id))
 
 (html/defsnippet code-editor-snip template-filename code-editor-sel
-  [code]
-  ue/this (html/content (str code)))
+  [code & {:keys [id]}]
+  ue/this (html/content (str code))
+  ue/this (ue/set-id id))
 
 (defn build
-  [code editable?]
+  [code & {:keys [editable? id]}]
   (if editable?
-    (code-editor-snip code)
-    (code-viewer-snip code)))
+    (code-editor-snip code :id id)
+    (code-viewer-snip code :id id)))
