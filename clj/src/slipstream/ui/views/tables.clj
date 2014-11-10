@@ -162,19 +162,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn user-summary-table
-  [user-summary-map]
+  [{:keys [username] :as user-summary-map}]
   (parameters-table
-    (p/map->parameter-list user-summary-map
-      :username     {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name")}
-      :first-name   {:type :cell/text}
-      :last-name    {:type :cell/text}
-      :organization {:type :cell/text}
-      :email        {:type :cell/email}
-      :super?       {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
-      :creation     {:type :cell/timestamp, :editable? false}
-      :password-new {:type :cell/password,  :editable? true,  :hidden? (page-type/view?),     :id-format-fn (constantly "password1")}
-      :password-old {:type :cell/password,  :editable? true,  :hidden? (page-type/not-edit?), :id-format-fn (constantly "password2")}
-      :state        {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)})))
+    (let [require-old-password? (and (page-type/edit?) (current-user/is? username))]
+      (p/map->parameter-list user-summary-map
+        :username       {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name")}
+        :first-name     {:type :cell/text}
+        :last-name      {:type :cell/text}
+        :organization   {:type :cell/text}
+        :email          {:type :cell/email}
+        :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
+        :creation       {:type :cell/timestamp, :editable? false}
+        :password-new-1 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password1")}
+        :password-new-2 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password2")}
+        :password-old   {:type :cell/password,  :editable? true,  :hidden? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
+        :state          {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)}))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

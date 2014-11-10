@@ -360,8 +360,11 @@
    :slipstream.ui.models.parameters.login-username.description                  "Login username"
    :slipstream.ui.models.parameters.login-username.help-hint                    "The login is defined by the native image and inherited by all derived images."
 
-   :slipstream.ui.models.parameters.password-new.description                    "New Password"
-   :slipstream.ui.models.parameters.password-new.help-hint                      "Enter the new password if you want to change it."
+   :slipstream.ui.models.parameters.password-new-1.description                  "New Password"
+   :slipstream.ui.models.parameters.password-new-1.help-hint                    "Enter the new password if you want to change it."
+
+   :slipstream.ui.models.parameters.password-new-2.description                  "Confirm New Password"
+   :slipstream.ui.models.parameters.password-new-2.help-hint                    "Enter again the new password to make sure it is not mistyped."
 
    :slipstream.ui.models.parameters.password-old.description                    "Old Password"
    :slipstream.ui.models.parameters.password-old.help-hint                      "Enter your current password to validate the password update."
