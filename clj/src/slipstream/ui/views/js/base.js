@@ -96,26 +96,27 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return;
     }
 
+    function updateRequestForUser(request, $form) {
+        if ($$.util.meta.isPageType("edit")) {
+            $$.util.form.addHiddenField($form, "name", $("#name").text());
+        }
+        request.settings.url = "/user/";
+        if ($$.util.meta.isPageType("new")) {
+            request.settings.url += $("#name").val();
+        } else {
+            request.settings.url += $("#name").text();
+        }
+    }
+
     function updateRequest(request, $form) {
         switch ($$.util.meta.getViewName()) {
             case "user":
-                console.log("in user view");
-                if ($$.util.meta.isPageType("edit")) {
-                    $$.util.form.addHiddenField($form, "name", $("#name").text());
-                }
-                request.settings.url = "/user/";
-                if ($$.util.meta.isPageType("new")) {
-                    request.settings.url += $("#name").val();
-                } else {
-                    request.settings.url += $("#name").text();
-                }
+                updateRequestForUser(request, $form);
                 break;
             case "module":
-                console.log("in module view");
                 updateRequestForModule(request, $form);
                 break;
             default:
-                console.log("in some other view");
                 // nothing to do
                 break;
         }
