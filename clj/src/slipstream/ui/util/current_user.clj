@@ -25,6 +25,13 @@
   []
   (:username *current-user*))
 
+(defn is?
+  [username]
+  (-> *current-user* :username (= username)))
+
+(def not-is?
+  (complement is?))
+
 (defn uri
   []
   (:uri *current-user*))
