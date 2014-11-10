@@ -8,3 +8,7 @@ span.row span {
   margin: 0;
   padding: 0;
 }
+
+.ss-section {
+  cursor: pointer;
+}
