@@ -65,7 +65,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-save").click( function(event) {
         console.log($(this).attr("id") + " in callback #14");
-        if ($$.util.meta.isViewName("user")) {
+        if ($$.util.meta.isViewName("user") || event.altKey) {
             // No commit message needed.
             $('#save-form').submit();
         } else {
