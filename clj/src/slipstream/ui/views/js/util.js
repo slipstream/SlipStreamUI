@@ -115,7 +115,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         getViewName: function () {
             return this.getMetaValue("ss-view-name");
         },
-        isView: function (viewName) {
+        isViewName: function (viewName) {
             return this.getViewName() === viewName;
         }
     };
