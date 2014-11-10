@@ -76,7 +76,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 if ($$.util.meta.isPageType("edit")) {
                     $$.util.form.addHiddenField($form, "name", $("#name").text());
                 }
-                request.settings.url = "/user/" + $("#name").val();
+                request.settings.url = "/user/";
+                if ($$.util.meta.isPageType("new")) {
+                    request.settings.url += $("#name").val();
+                } else {
+                    request.settings.url += $("#name").text();
+                }
                 break;
             case "module":
                 console.log("in module view");
