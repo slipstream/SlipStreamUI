@@ -76,8 +76,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             moduleName = $form.find("#ss-module-name").val();
             category = $$.util.urlQueryParams.getValue("category");
             request.settings.url = $$.util.url.getParentResourceURL() + "/" + moduleName + "?new=true";
-            var moduleParent = $$.util.url.getCurrentURLBase().substring("/module/".length);
-            $$.util.form.addHiddenField($form, "name", moduleParent + "/" + moduleName);
+            var moduleParent = $$.util.url.getCurrentURLBase().removeLeadingSlash().trimPrefix("module/");
+            if (moduleParent) {
+                moduleParent += "/";
+            }
+            $$.util.form.addHiddenField($form, "name", moduleParent + moduleName);
         } else {
             moduleName = $("#ss-module-name").text();
             category = $("#category").text();

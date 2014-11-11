@@ -32,7 +32,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             if (firstIndexOfStr !== 0) {
                 return this.toString();
             } else {
-                return this.substring(firstIndexOfStr + 1, this.length);
+                return this.substring(prefix.length, this.length);
             }
         },
 
