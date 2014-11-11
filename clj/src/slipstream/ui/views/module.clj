@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.module
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.page-type :as page-type]
@@ -30,10 +31,10 @@
                         (str " - " desc)))))}))
 
 (defn- old-version-alert
-  [latest-version?]
+  [{:keys [category latest-version?]}]
   (when-not latest-version?
     {:type :warning
-     :msg (t :alert.old-version.msg)}))
+     :msg (t :alert.old-version.msg (u/t-module-category category s/lower-case))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -79,8 +80,9 @@
         summary (:summary module)]
     (base/generate
       {:metadata metadata
+       :parsed-metadata module
        :header (header summary)
-       :alerts [(-> summary :latest-version? old-version-alert)]
+       :alerts [(old-version-alert summary)]
        :resource-uri (:uri summary)
        :secondary-menu-actions (actions module)
        :content (sections module)})))

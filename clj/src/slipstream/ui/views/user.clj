@@ -35,6 +35,7 @@
   (let [user (user/parse metadata)]
     (base/generate
       {:metadata metadata
+       :parsed-metadata user
        :header (header user)
        :secondary-menu-actions [action/edit]
        :resource-uri (:uri user)

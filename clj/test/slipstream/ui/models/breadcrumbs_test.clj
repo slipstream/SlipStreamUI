@@ -3,11 +3,15 @@
         [slipstream.ui.models.breadcrumbs]))
 
 (expect
-   [{:text "a" :uri "a"}
-    {:text "b" :uri "a/b"}
-    {:text "c" :uri "a/b/c"}
-    {:text "d" :uri "a/b/c/d"}
-    {:text "e", :uri nil}]
+  []
+  (parse nil))
+
+(expect
+  [{:text "a" :uri "a"}
+   {:text "b" :uri "a/b"}
+   {:text "c" :uri "a/b/c"}
+   {:text "d" :uri "a/b/c/d"}
+   {:text "e", :uri nil}]
   (parse "a/b/c/d/e"))
 
 (expect

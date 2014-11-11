@@ -182,7 +182,7 @@
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   bottom-scripts-container-sel  (html/append (bottom-external-scripts-snip external-js-filenames))
   bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip internal-js-filenames))
-  modal-dialogs-placeholder-sel (html/content (modal-dialogs/all))
+  modal-dialogs-placeholder-sel (html/content (modal-dialogs/required context))
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
@@ -209,7 +209,7 @@
       :always           (assoc :involved-templates      (conj templates-base template-filename)))))
 
 (defmacro generate
-  "This macro includes the caller ns into the 'context' map argument."
+  "This macro includes info about the caller into the 'context' map argument."
   [context]
   (let [view-ns   (str *ns*)
         view-name (->> view-ns (re-matches #"slipstream\.ui\.views\.(.*)") second)]

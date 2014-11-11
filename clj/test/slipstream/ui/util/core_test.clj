@@ -1,7 +1,8 @@
 (ns slipstream.ui.util.core-test
   (:use [expectations]
         [slipstream.ui.util.core])
-  (:require [slipstream.ui.util.localization :as localization]))
+  (:require [clojure.string :as s]
+            [slipstream.ui.util.localization :as localization]))
 
 (expect
   [{:selected? true} {}]
@@ -91,3 +92,51 @@
         (enum :cloud-platforms)
         (enum-select "fedora")
         (enum-select "value-not-available"))))
+
+
+;; t-module-category
+
+(expect
+  nil
+  (localization/with-lang :en
+    (t-module-category nil)))
+
+(expect
+  nil
+  (localization/with-lang :en
+    (t-module-category "")))
+
+(expect
+  "Image"
+  (localization/with-lang :en
+    (t-module-category "Image")))
+
+(expect
+  "image"
+  (localization/with-lang :en
+    (t-module-category "Image" s/lower-case)))
+
+(expect
+  "IMAGE"
+  (localization/with-lang :en
+    (t-module-category "Image" s/upper-case)))
+
+(expect
+  "THE IMAGES"
+  (localization/with-lang :en
+    (t-module-category "Image" (comp s/upper-case (partial format "the %ss")))))
+
+(expect
+  "Image"
+  (localization/with-lang :en
+    (t-module-category :image)))
+
+(expect
+  "image"
+  (localization/with-lang :en
+    (t-module-category :image s/lower-case)))
+
+(expect
+  "IMAGE"
+  (localization/with-lang :en
+    (t-module-category :image s/upper-case)))

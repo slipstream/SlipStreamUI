@@ -4,7 +4,7 @@
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
-(def raw-metadata-str "<imageModule logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
+(def raw-metadata-str "<imageModule moduleReferenceUri='module/examples/images/ubuntu-12.04' logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
     <commit author='an-author'><comment>this is a comment</comment></commit>
     <parameters class='org.hibernate.collection.PersistentMap'>
     <entry>
@@ -112,7 +112,7 @@
 </imageModule>")
 
 (def parsed-metadata
-  {:cloud-image-details {:reference-image nil
+  {:cloud-image-details {:reference-image "examples/images/ubuntu-12.04"
                        :cloud-identifiers {"stratuslab" "HZTKYZgX7XzSokCHMB60lS0wsiv"
                                            "my-cloud" "abc"}
                        :native-image? false}

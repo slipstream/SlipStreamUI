@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.welcome
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.views.service-catalog :as service-catalog]
@@ -82,6 +83,13 @@
     {:title   (t :section.service-catalog.title)
      :content (map service-catalog/item-section service-catalog-items)}))
 
+(defn- sections
+  [welcome-metadata]
+  (cond-> []
+    (page-type/not-chooser?)  (conj (app-store-section       welcome-metadata))
+    :always                   (conj (projects-section        welcome-metadata))
+    (page-type/not-chooser?)  (conj (service-catalog-section welcome-metadata))))
+
 (defn page
   [metadata]
   (let [welcome-metadata (mw/parse metadata)]
@@ -93,9 +101,5 @@
                   :subtitle (t :header.subtitle)}
          ; :alerts [{:msg "aie" :title "Tada!"}]
          :secondary-menu-actions [action/new-project]
-         :content [(app-store-section       welcome-metadata)
-                   (projects-section        welcome-metadata)
-                   (service-catalog-section welcome-metadata)]
-         :type type
-         :metadata metadata
-         })))
+         :content (sections welcome-metadata)
+         :metadata metadata})))

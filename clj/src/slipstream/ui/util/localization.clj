@@ -88,9 +88,26 @@
 (defn t
   "Main localization function."
   [& args]
+  (when-not *lang*
+    (throw (IllegalStateException.
+             "Running global localization fn 't' (i.e. not scoped) outside the context of one 'with-lang...' macro.")))
   (if ud/*dev?*
-    (or (apply t-dev  args) (apply t-fallback-dev  args))
-    (or (apply t-prod args) (apply t-fallback-prod args))))
+    (or (apply t-dev  *lang* args) (apply t-fallback-dev  *lang* args))
+    (or (apply t-prod *lang* args) (apply t-fallback-prod *lang* args))))
+
+(defn- replace-nil-args-with-blank-str
+  "If we pass nil to the 't' fn as an argument, it will be displayed as 'null',
+  since the clojure.core/format fn is used in the background.
+  So we replace all nil arguments with the blank string to not show 'nul' in the
+  interface."
+  [args]
+  (when (not-empty args)
+    (map #(if (nil? %) "" %) args)))
+
+(def ^:private nil-t-path
+  "If the keyword path provided to t is nil, we have a NPE. Replacing a nil t-path
+  with a default t-path makes it easier to trace."
+  :nil-t-path)
 
 (defmacro def-scoped-t
   "Defines a top level private var 't' for scoped translation requests.
@@ -107,17 +124,19 @@
        [t-key# & args#]
        (when-not *lang*
          (throw (IllegalStateException. ~ex-msg)))
-       (let [t-path# (keyword (str ~scope-ns (name t-key#)))]
-         (apply t *lang* t-path# args#)))))
+       (let [t-path# (keyword (str ~scope-ns (name (or t-key# ~nil-t-path))))]
+         (apply t t-path# (~replace-nil-args-with-blank-str args#))))))
 
 (defmacro with-prefixed-t
   [prefix & body]
-  (if-let [scoped-t (-> "t" symbol resolve)]
-   `(let [~(symbol "t") (fn [t-path# & args#]
-                          (when t-path#
-                            (apply ~scoped-t (keyword (str (name ~prefix) "." (name t-path#))) args#)))]
-      ~@body)
-   (throw (IllegalStateException. (str "Scopped t function not found for namespace" *ns*)))))
+  (let [scoped-t (-> "t" symbol resolve)
+        prefix-str (name prefix)]
+   (if scoped-t
+     `(let [~(symbol "t") (fn [t-path# & args#]
+                             (when t-path#
+                               (apply ~scoped-t (keyword (str ~prefix-str "." (name (or t-path# ~nil-t-path)))) args#)))]
+         ~@body)
+      (throw (IllegalStateException. (str "Scopped t function not found for namespace" *ns*))))))
 
 (defn lang
   "Get iso language code from the server's metadata. "

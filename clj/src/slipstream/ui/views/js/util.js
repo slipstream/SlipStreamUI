@@ -1,18 +1,102 @@
 jQuery( function() { ( function( $$, util, $, undefined ) {
 
-    // Inspired from: http://stackoverflow.com/a/1186309
-    // If more complex form serialization is needed, see https://github.com/macek/jquery-serialize-object
-    // TODO: Rather use extend? $.fn.extend({
-    $.fn.serializeObject = function () {
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function() {
-            $$.util.setOrPush(o, this.name, this.value);
-        });
-        return o;
-    };
+    // String object prototype extensions
 
-    // TODO: How to extend Objecto to have this function?
+    $.extend(String.prototype, {
+        trimFromLastIndexOf: function(str) {
+            var lastIndexOfStr = this.lastIndexOf(str);
+            if (lastIndexOfStr === -1) {
+                return this.toString();
+            } else {
+                return this.substring(0, lastIndexOfStr);
+            }
+        },
+
+        trimLastURLSegment: function() {
+            return this.trimFromLastIndexOf("/");
+        },
+
+        trimUpToFirstIndexOf: function(str) {
+            // Remove all chars from 'this' up to and including 'str'.
+            var firstIndexOfStr = this.indexOf(str);
+            if (firstIndexOfStr === -1) {
+                return this.toString();
+            } else {
+                return this.substring(firstIndexOfStr + 1);
+            }
+        },
+
+        trimPrefix: function(prefix) {
+            // Remove 'prefix' string from the begining of 'this' string.
+            var firstIndexOfStr = this.indexOf(prefix);
+            if (firstIndexOfStr !== 0) {
+                return this.toString();
+            } else {
+                return this.substring(firstIndexOfStr + 1, this.length);
+            }
+        },
+
+        removeLeadingSlash: function() {
+            return this.trimPrefix("/")
+        },
+
+        trimSuffix: function(suffix) {
+            // Remove 'suffix' string from the end of 'this' string.
+            var lastIndexOfStr = this.lastIndexOf(suffix)
+                newLength = this.length - suffix.length;
+            if (lastIndexOfStr !== newLength) {
+                return this.toString();
+            } else {
+                return this.substring(0, newLength);
+            }
+        }
+    });
+
+
+    // jQuery extensions
+
+    $.fn.extend({
+        // Toggle disabled status of buttons, inputs and anchors
+        // Inspired from: http://stackoverflow.com/a/16788240
+        disable: function(state) {
+            return this.each(function() {
+                var $this = $(this);
+                if($this.is('input, button'))
+                  this.disabled = state;
+                else
+                  $this.toggleClass('disabled', state);
+            });
+        },
+        enable: function(state) {
+            this.disable(!state);
+        },
+
+        // Inspired from: http://stackoverflow.com/a/1186309
+        // If more complex form serialization is needed, see https://github.com/macek/jquery-serialize-object
+        serializeObject: function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                $$.util.setOrPush(o, this.name, this.value);
+            });
+            return o;
+        },
+
+        onAltEnterPress: function (callback) {
+            if ($.isFunction(callback)) {
+                $(this).keypress(function (e) {
+                    if (e.altKey && e.keyCode === 13) {
+                        e.preventDefault();
+                        callback();
+                      }
+                });
+            }
+            return;
+        }
+
+    });
+
+    // TODO: How to extend Object to have this function?
     // $.fn.setOrPush = function (key, value) {
     // Object.prototype.setOrPush = function (key, value) {
     util.setOrPush = function (object, key, value) {
@@ -41,7 +125,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
         getParentResourceURL: function () {
             var path = window.location.pathname; // URL without query params
-            return path.substring(0, path.lastIndexOf("/"));
+            return path.trimLastURLSegment();
         },
         redirectTo: function (url) {
             // TODO: Which one if the correct way to redirect?

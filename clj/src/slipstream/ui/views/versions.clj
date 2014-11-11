@@ -1,16 +1,17 @@
 (ns slipstream.ui.views.versions
   (:require [clojure.string :as s]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.models.versions :as mv]))
 
 (localization/def-scoped-t)
 
 (defn- subtitle
   [category versions]
-  (let [category-label (->> category s/lower-case (str "category.") keyword t s/lower-case)
+  (let [category-label (u/t-module-category category s/lower-case)
         num-of-versions (count versions)]
     (if (= 1 num-of-versions)
       (t :header.subtitle.one-version category-label)

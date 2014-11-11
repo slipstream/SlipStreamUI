@@ -1,11 +1,12 @@
 (ns slipstream.ui.views.table
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.time :as ut]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.current-user :as current-user]))
 
@@ -166,9 +167,11 @@
 ; Reference module cell snippets
 
 (html/defsnippet ^:private cell-reference-module-snip-edit template-filename (sel-for-cell :reference-module :editable)
-  [reference-module-uri]
-  [:.ss-reference-module-name :a]  (ue/set-href reference-module-uri)
-  [:.ss-reference-module-name :a]  (html/content reference-module-uri))
+  [reference-module]
+  [:#module-reference]              (ue/set-value reference-module)
+  [:.ss-reference-module-chooser-button :button] (html/content (t :reference-module-cell.chooser-button.label))
+  [:.ss-reference-module-name :a]   (ue/set-href (u/module-uri reference-module))
+  [:.ss-reference-module-name :a]   (html/content reference-module))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -369,9 +372,10 @@
 
 (defmethod cell-snip [:cell/username :mode/any :content/plain]
   [{username :content}]
-  (cell-link-snip-view {:text username
-                        :href (str "/user/" username)
-                        :id "username"}))
+  (let [content-base {:text username, :id "username"}]
+    (if (page-type/chooser?)
+      (cell-text-snip-view content-base) ; We don't want to be able to link outside of the chooser scope
+      (cell-link-snip-view (assoc content-base :href (u/user-uri username))))))
 
 (defmethod cell-snip [:cell/icon :mode/any :content/plain]
   [{icon :content}]
@@ -386,12 +390,12 @@
   (cell-help-hint-snip-view help-text))
 
 (defmethod cell-snip [:cell/reference-module :mode/view :content/plain]
-  [{reference-module-uri :content}]
-  (cell-link-snip-view {:text reference-module-uri :href reference-module-uri}))
+  [{reference-module :content}]
+  (cell-link-snip-view {:text reference-module :href (u/module-uri reference-module)}))
 
 (defmethod cell-snip [:cell/reference-module :mode/edit :content/plain]
-  [{reference-module-uri :content}]
-  (cell-reference-module-snip-edit reference-module-uri))
+  [{reference-module :content}]
+  (cell-reference-module-snip-edit reference-module))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

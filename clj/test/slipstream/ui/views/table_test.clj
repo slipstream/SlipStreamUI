@@ -180,17 +180,16 @@
     (expect
       (re-pattern (str "<td title=\"1 hour.* ago\" class=\"ss-table-cell-text\">" human-readable-long "</td>"))
       (localization/with-lang :en
-        (cell-html {:type :cell/timestamp, :content ss-timestamp})))))
+        (cell-html {:type :cell/timestamp, :content ss-timestamp}))))
 
 (expect
   IllegalArgumentException
-  (localization/with-lang :en
-    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"})))
+  (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"}))
 
 (expect
   (re-pattern "<td title=\".*\" class=\"ss-table-cell-text\">mercredi, 6 mars 2013, 14:30:59 UTC</td>")
   (localization/with-lang :fr
-    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"})))
+    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"}))))
 
 
 ;; Editable text cell
@@ -513,7 +512,7 @@
 ;; Reference module cell
 
 (expect
-  (str "<td class=\"ss-table-cell-link\"><a href=\""
+  (str "<td class=\"ss-table-cell-link\"><a href=\"/module"
        rand-url
        "\">"
        rand-url
@@ -526,14 +525,15 @@
 (expect
   (str "<td class=\"ss-table-cell-reference-module-editable\">
             <div class=\"input-group\">
-              <input name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
+              <input value=\"" rand-url "\" name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
               <span class=\"ss-reference-module-name\">
-                <a target=\"_blank\" href=\"" rand-url "\">" rand-url "</a>
+                <a target=\"_blank\" href=\"/module" rand-url "\">" rand-url "</a>
               </span>
               <span class=\"ss-reference-module-chooser-button\">
                 <button type=\"button\" class=\"btn btn-primary\">Choose reference</button>
               </span>
             </div><!-- /input-group -->
           </td>")
-  (cell-html {:type :cell/reference-module, :content rand-url, :editable? true}))
+  (localization/with-lang :en
+    (cell-html {:type :cell/reference-module, :content rand-url, :editable? true})))
 

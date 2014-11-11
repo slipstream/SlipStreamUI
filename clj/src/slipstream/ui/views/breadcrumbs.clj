@@ -1,8 +1,10 @@
 (ns slipstream.ui.views.breadcrumbs
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.breadcrumbs :as breadcrumbs]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.util.icons :as icons]))
+            [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.models.breadcrumbs :as breadcrumbs]
+            ))
 
 (def ^:private disabled-cls "disabled")
 
@@ -16,7 +18,7 @@
 
 (defn transform
   [{:keys [resource-uri] :as context}]
-  (when resource-uri
+  (when (or (page-type/chooser?) resource-uri)
     (let [breadcrumbs (cons initial-breadcrumb (breadcrumbs/parse resource-uri))]
       (ue/content-for item-sel [{:keys [text uri icon]} breadcrumbs]
                      ue/this     (ue/enable-class (empty? uri) disabled-cls)

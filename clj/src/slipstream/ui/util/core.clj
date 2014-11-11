@@ -123,3 +123,22 @@
   [resource-name]
   (when-not (page-type/new?)
     resource-name))
+
+;; Resource URIs for a give resource name
+
+(defn user-uri
+  [username]
+  (str "/user/" username))
+
+(defn module-uri
+  [module]
+  (-> module
+      (uc/trim-prefix   "/")
+      (uc/ensure-prefix "/module/")))
+
+;; Module categories names
+
+(uc/defn-memo t-module-category
+  [category & [format-fn]]
+  (when-let [category-name (some->> category name not-empty s/lower-case (str "module-category.") keyword t)]
+    ((or format-fn identity) category-name)))

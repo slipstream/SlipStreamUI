@@ -139,6 +139,7 @@
                     :report         "Report"
                     :terminate      "Terminate"
                     :save           "Save"
+                    :select         "Select"
                     :unpublish      "Un-publish"
                     :view           "View"
                     }
@@ -267,6 +268,8 @@
    :slipstream.ui.views.table.map-cell.key.reference-image    "Reference image"
    :slipstream.ui.views.table.map-cell.key.default-multiplicity "Default multiplicity"
    :slipstream.ui.views.table.map-cell.key.default-cloud      "Default cloud"
+
+   :slipstream.ui.views.table.reference-module-cell.chooser-button.label "Choose reference"
 
    :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
    :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
@@ -400,6 +403,10 @@
 
    :slipstream.ui.util.core.page-title.application-name                         :global.application.name
 
+   :slipstream.ui.util.core.module-category.project                             :global.nouns.project
+   :slipstream.ui.util.core.module-category.image                               :global.nouns.image
+   :slipstream.ui.util.core.module-category.deployment                          :global.nouns.deployment
+
    :slipstream.ui.util.core.enum.option.text.cloud-platforms.centos             "CentOS"
    :slipstream.ui.util.core.enum.option.text.cloud-platforms.debian             "Debian"
    :slipstream.ui.util.core.enum.option.text.cloud-platforms.fedora             "Fedora"
@@ -508,15 +515,12 @@
    :slipstream.ui.views.versions.header.subtitle.one-version   "There is one version of this %s."
    :slipstream.ui.views.versions.header.subtitle.multiple-versions "There are %s versions of this %s."
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
-   :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
-   :slipstream.ui.views.versions.category.image                :global.nouns.image
-   :slipstream.ui.views.versions.category.project              :global.nouns.project
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "New %1$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
    :slipstream.ui.views.module.header.subtitle.new             "Add the information to create a new %1$s."
-   :slipstream.ui.views.module.alert.old-version.msg           "You are not on the latest version of this module."
+   :slipstream.ui.views.module.alert.old-version.msg           "This is not on the latest version of this %1$s." ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
@@ -548,27 +552,30 @@
 
    :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
 
-   :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Save module changes"
-   :slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message    "Commit message"
-   :slipstream.ui.views.modal-dialogs.save-dialog.button.cancel                 :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.save-dialog.button.save                   :global.verbs.save
+   :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 
-   :slipstream.ui.views.modal-dialogs.delete-dialog.title                       "Delete module"
-   :slipstream.ui.views.modal-dialogs.delete-dialog.question                    "Are you sure you want to delete this version of the image?"
+   :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Save %1$s changes" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message    "Commit message"
+   :slipstream.ui.views.modal-dialogs.save-dialog.footnote                      "Hold down `ALT` when saving to skip this confirmation and the commit message." ; Note that strings are parsed as markdown :)
+   :slipstream.ui.views.modal-dialogs.save-dialog.button.cancel                 :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.save-dialog.button.save                   "Save %1$s" ;  %1$s: module category
+
+   :slipstream.ui.views.modal-dialogs.delete-dialog.title                       "Delete %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.delete-dialog.question                    "Are you sure you want to delete the %1$s `%2$s`?"  ;  %1$s: module category ;  %2$s: module name
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               :global.verbs.delete
+   :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               "Delete %1$s" ;  %1$s: module category
 
    :slipstream.ui.views.modal-dialogs.module-chooser-dialog.title               "Choose an image"
    :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.cancel       :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.save         :global.verbs.save
-   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.save-exact-version "Select exact version"
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.select       :global.verbs.select
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.select-exact-version "Select exact version"
 
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.title         "Terminate deployment"
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question      "Are you sure you want to terminate all virtual machines running in this deployment?"
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.cancel :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.terminate :global.verbs.terminate
 
-   :slipstream.ui.views.run.header.title                    "%s is %s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.header.title                    "%1$s is %2$s" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.run.section.global.title            :global.adjectives.global

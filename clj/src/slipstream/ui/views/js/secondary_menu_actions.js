@@ -84,8 +84,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-delete").click( function() {
-        console.log($(this).attr("id") + " in callback #16");
-        $('#ss-delete-dialog').modal('show');
+        $('#ss-delete-dialog').modal("show");
     });
 
 

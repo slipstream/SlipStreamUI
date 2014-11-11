@@ -22,7 +22,7 @@
                            (map :attrs)
                            (map (juxt :cloudservicename :cloudimageidentifier))
                            (into {}))
-   :reference-image   (-> metadata :attrs :modulereferenceuri)})
+   :reference-image   (-> metadata :attrs :modulereferenceuri (uc/trim-prefix "module/"))})
 
 
 ;; Os details section
