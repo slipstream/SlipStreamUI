@@ -1,9 +1,10 @@
 (ns slipstream.ui.views.user
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.user :as user]
@@ -38,7 +39,7 @@
        :parsed-metadata user
        :header (header user)
        :secondary-menu-actions [action/edit]
-       :resource-uri (:uri user)
+       :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
        :content (into [{:title (t :summary)
                         :selected? true
                         :content (t/user-summary-table user)}]
