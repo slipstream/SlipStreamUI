@@ -60,6 +60,67 @@
   "/some/path/or/url"
   (ensure-prefix "/some/path/or/url" \/))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; trim-prefix
+
+(expect
+  nil
+  (trim-prefix nil nil))
+
+(expect
+  nil
+  (trim-prefix nil "some prefix"))
+
+(expect
+  "some string"
+  (trim-prefix "some string" nil))
+
+(expect
+  "some string"
+  (trim-prefix "some string" ""))
+
+(expect
+  "ing"
+  (trim-prefix "prefix some string" "prefix some str"))
+
+(expect
+  ""
+  (trim-prefix "prefix some string" "prefix some string"))
+
+(expect
+  "prefix some string"
+  (trim-prefix "prefix some string" "prefix some string longer"))
+
+(expect
+  ""
+  (trim-prefix "" "prefix some string"))
+
+(expect
+  "some string"
+  (trim-prefix "prefix some string" "prefix "))
+
+(expect
+  "some string"
+  (trim-prefix "some string" "prefix "))
+
+(expect
+  "some/path/or/url"
+  (trim-prefix "some/path/or/url" "/"))
+
+(expect
+  "some/path/or/url"
+  (trim-prefix "/some/path/or/url" "/"))
+
+(expect
+  "some/path/or/url"
+  (trim-prefix "some/path/or/url" \/))
+
+(expect
+  "some/path/or/url"
+  (trim-prefix "/some/path/or/url" \/))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; parse-pos-int

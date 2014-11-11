@@ -34,12 +34,22 @@
       (and (integer? x) (pos? x)) x)))
 
 (defn ensure-prefix
+  "See tests for expectations."
   [s prefix]
   {:pre [(or (nil? s) (string? s))]}
   (when s
     (if (-> prefix (str ".*") re-pattern (re-matches s))
       s
       (str prefix s))))
+
+(defn trim-prefix
+  "See tests for expectations."
+  [s prefix]
+  {:pre [(or (nil? s) (string? s))]}
+  (when s
+    (if-let [[_ s-without-prefix] (-> prefix (str "(.*)") re-pattern (re-matches s))]
+      s-without-prefix
+      s)))
 
 (defn trim-from
   "Returns the input string without the characters appearing after the first instance of the char passed,
