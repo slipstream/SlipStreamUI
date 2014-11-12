@@ -51,6 +51,27 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
+    function focusFirstInputInElem($elem) {
+        var $firstElem = $elem.find("input[type=text], textarea").first();
+        if ($firstElem.length === 0) {
+            return;
+        }
+        var strLength= $firstElem.val().length * 2; // x 2 to ensure cursor always ends up at the end
+        $firstElem.focus();
+        $firstElem[0].setSelectionRange(strLength, strLength);
+    }
+
+    if ($$.util.meta.isPageType("edit") || $$.util.meta.isPageType("new")) {
+        // For pages in edit mode, bring the focus to the first textfield of the first open section
+        focusFirstInputInElem($(".panel .panel-collapse.collapse.in"));
+
+        $(".panel-collapse.collapse").on("shown.bs.collapse", function (e) {
+            // And ensure the focus each time when a section is open.
+            focusFirstInputInElem($(this));
+        });
+    }
+
+
 
     // Update .ss-panel-{info,danger,warning,success} to Bootstrap classes
 
