@@ -67,7 +67,7 @@
 (defn- chooser-required?
   [{:keys [view-name parsed-metadata]}]
   (and
-    (page-type/edit?)
+    (page-type/edit-or-new?)
     (= "module" view-name)
     (-> parsed-metadata :summary :category uc/keywordize (= :image))))
 
