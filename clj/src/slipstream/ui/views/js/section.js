@@ -5,15 +5,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     if (hash) {
         // Try to open panel from url hash
-        var sectionId = hash.toString().trimPrefix("#").prefixWith(sectionIdPrefix);
+        var sectionId = hash.trimPrefix("#").prefixWith(sectionIdPrefix);
             $panel = $('.panel #' + sectionId);
-            console.log(hash);
         if (hash != "#" && $panel.length === 1) {
             $panel.addClass("in");
         } else {
-            // There is no section with the give id (or more than one).
-            // We reload the page without the hash:
-            window.location = window.location.href.split('#')[0];
+            // There is no section with the give id (or more than one), so we clean it.
+            $$.util.url.reloadPageWithoutHashInURL();
         }
     } else {
         // Open panel of section by default
@@ -35,7 +33,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .addClass("glyphicon-chevron-down");
 
 
-    // Ensure correct chevrons when opening/closing the sections
+    // Ensure correct chevrons and hash when opening/closing the sections
 
     $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
         var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
@@ -47,7 +45,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
         var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-        if (window.location.hash == "#" + e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
+        if (window.location.hash.trimPrefix("#") == e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
+            // Remove the hash from URL if it contains still the hash of the closing section
             window.location.hash = "";
         }
     });

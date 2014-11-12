@@ -144,13 +144,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         redirectTo: function (url) {
             // TODO: Which one if the correct way to redirect?
             // window.location = url;
-            window.location.assign(url);
+            return window.location.assign(url);
+        },
+        reloadPageWithoutHashInURL: function () {
+            return this.redirectTo(window.location.href.split('#')[0]);
         },
         redirectToCurrentURLBase: function () {
-            this.redirectTo(this.getCurrentURLBase());
+            return this.redirectTo(this.getCurrentURLBase());
         },
         redirectToParentResourceURL: function () {
-            this.redirectTo(this.getParentResourceURL());
+            return this.redirectTo(this.getParentResourceURL());
         }
     };
 
