@@ -36,6 +36,20 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
         },
 
+        ensurePrefix: function(prefix) {
+            // Ensure that 'this' string begins with the 'prefix' string.
+            var firstIndexOfStr = this.indexOf(prefix);
+            if (firstIndexOfStr === 0) {
+                return this.toString();
+            } else {
+                return prefix + this;
+            }
+        },
+
+        prefixWith: function(prefix) {
+            return prefix + this;
+        },
+
         removeLeadingSlash: function() {
             return this.trimPrefix("/")
         },

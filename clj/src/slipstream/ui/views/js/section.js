@@ -1,8 +1,24 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // Open panel of selected section
+    var hash = document.location.hash,
+        sectionIdPrefix = "ss-section-";
 
-    $(".panel.ss-section-selected .panel-collapse.collapse").addClass("in");
+    if (hash) {
+        // Try to open panel from url hash
+        var sectionId = hash.toString().trimPrefix("#").prefixWith(sectionIdPrefix);
+            $panel = $('.panel #' + sectionId);
+            console.log(hash);
+        if (hash != "#" && $panel.length === 1) {
+            $panel.addClass("in");
+        } else {
+            // There is no section with the give id (or more than one).
+            // We reload the page without the hash:
+            window.location = window.location.href.split('#')[0];
+        }
+    } else {
+        // Open panel of section by default
+        $(".panel.ss-section-selected .panel-collapse.collapse").addClass("in");
+    }
 
     // Ensure correct chevrons at page load depending on open/close state
 
@@ -18,17 +34,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .removeClass("glyphicon-chevron-up")
         .addClass("glyphicon-chevron-down");
 
+
     // Ensure correct chevrons when opening/closing the sections
 
     $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
         var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        // Update hash in URL
+        window.location.hash = e.delegateTarget.id.trimPrefix(sectionIdPrefix);
     });
 
     $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
         var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        if (window.location.hash == "#" + e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
+            window.location.hash = "";
+        }
     });
+
 
     // Update .ss-panel-{info,danger,warning,success} to Bootstrap classes
 

@@ -21,7 +21,7 @@
 (html/defsnippet section-group-snip template-filename section-group-sel
   [sections]
   ue/this (ue/content-for section-sel [{:keys [title selected? content type] :as section} sections
-                   :let [section-uid (gensym section-id)
+                   :let [section-uid (->> title uc/keywordize name (str "ss-section-"))
                          unique-section? (-> sections count (= 1))
                          collapsible?    (not unique-section?)]]
     section-sel         (ue/enable-class (uc/first-not-nil selected? unique-section?) section-selected-cls)
