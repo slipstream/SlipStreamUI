@@ -27,9 +27,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Configure delete dialog
 
     $("#ss-delete-dialog .ss-delete-btn").click(function() {
-        $$.request
-            .delete($$.util.url.getCurrentURLBase())
-            .onSuccessRedirectURL($$.util.url.getParentResourceURL())
+        var request = $$.request.delete($$.util.url.getCurrentURLBase());
+        if ($$.model.getModule().isRootModule()){
+            // There is a (known but untracked) bug on the server which returns
+            // a wrong redirect header when deleting root projects.
+            request.onSuccessRedirectURL("/");
+        } else {
+            request.onSuccessFollowRedirectInResponseHeader();
+        }
+        request
             .onErrorAlert("Unable to delete",
                 "Something wrong happened when trying to delete this resource." +
                 " Maybe the server is unreachable, or the connection is down." +
@@ -45,17 +51,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $("#ss-module-chooser-dialog iframe").bind('load', function(e) {
         var $iframe = $(this),
             $iframeContents = $iframe.contents(),
-            currentPathname = $iframe.get(0).contentWindow.location.pathname,
-            currentImageName = $iframeContents.find("#ss-module-name").text(),
-            currentImageVersion = $iframeContents.find(".ss-table-cell-module-version span").text(),
-            currentViewName = $iframeContents.find("meta[name=ss-view-name]").attr("content").toLowerCase(),
-            currentModuleCategory = $iframeContents.find("#category").text().toLowerCase();
+            module = $iframe.contents().getSlipStreamModel().module;
         $moduleChooserDialog
-            .data("currentPathname", currentPathname)
-            .data("currentImageName", currentImageName)
-            .data("currentExactVersionImageName", currentImageName + "/" + currentImageVersion)
+            .data("currentModule", module)
             .find(".ss-select-btn, .ss-select-exact-version-btn")
-            .enable(currentViewName === "module" && currentModuleCategory === "image");
+            .enable(module.isOfCategory("image"));
     });
 
     function updateReferenceModuleCell(imageName) {
@@ -69,11 +69,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     $("#ss-module-chooser-dialog .ss-select-btn").click(function() {
-        updateReferenceModuleCell($moduleChooserDialog.data("currentImageName"));
+        updateReferenceModuleCell($moduleChooserDialog.data("currentModule").getFullName());
     });
 
     $("#ss-module-chooser-dialog .ss-select-exact-version-btn").click(function() {
-        updateReferenceModuleCell($moduleChooserDialog.data("currentExactVersionImageName"));
+        updateReferenceModuleCell($moduleChooserDialog.data("currentModule").getFullNameWithVersion());
     });
 
 

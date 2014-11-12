@@ -26,6 +26,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
         },
 
+        trimUpToLastIndexOf: function(str) {
+            // Remove all chars from 'this' up to and including 'str'.
+            var lastIndexOfStr = this.lastIndexOf(str);
+            if (lastIndexOfStr === this.length) {
+                return this.toString();
+            } else {
+                return this.substring(lastIndexOfStr + 1, this.length);
+            }
+        },
+
         trimPrefix: function(prefix) {
             // Remove 'prefix' string from the begining of 'this' string.
             var firstIndexOfStr = this.indexOf(prefix);
@@ -51,12 +61,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         removeLeadingSlash: function() {
-            return this.trimPrefix("/")
+            return this.trimPrefix("/");
         },
 
         trimSuffix: function(suffix) {
             // Remove 'suffix' string from the end of 'this' string.
-            var lastIndexOfStr = this.lastIndexOf(suffix)
+            var lastIndexOfStr = this.lastIndexOf(suffix),
                 newLength = this.length - suffix.length;
             if (lastIndexOfStr !== newLength) {
                 return this.toString();
@@ -106,9 +116,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 });
             }
             return;
-        }
+        },
 
     });
+
+    util.string = {
+        caseInsensitiveEqual: function (str1, str2) {
+            if ($.type(str1) !== "string" || $.type(str2) !== "string") {
+                return undefined;
+            }
+            return str1.toUpperCase() ===  str2.toUpperCase();
+        }
+    };
 
     // TODO: How to extend Object to have this function?
     // $.fn.setOrPush = function (key, value) {
@@ -198,26 +217,37 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     };
 
     util.meta = {
-        getMetaValue: function (name) {
-            return $("meta[name=" + name + "]").attr("content");
+        getMetaValue: function (name, $elem) {
+            if ($elem) {
+                return $elem.find("meta[name=" + name + "]").attr("content");
+            } else {
+                return $("meta[name=" + name + "]").attr("content");
+            }
         },
-        getPageType: function () {
-            return this.getMetaValue("ss-page-type");
+        getPageType: function ($elem) {
+            // Page type is one of 'view', 'edit', 'new', 'chooser', etc...
+            // as in the slipstream.ui.util.page-type Clojure namespace.
+            return this.getMetaValue("ss-page-type", $elem);
         },
-        isPageType: function (pageType) {
-            return this.getPageType() === pageType;
+        isPageType: function (pageType, $elem) {
+            return util.string.caseInsensitiveEqual(this.getPageType($elem), pageType);
         },
-        getUserType: function () {
-            return this.getMetaValue("ss-user-type");
+        getUserType: function ($elem) {
+            // User type is one of 'super' or 'regular',
+            // as in the slipstream.ui.util.curent-user/type-name Clojure fn.
+            return this.getMetaValue("ss-user-type", $elem);
         },
-        isSuperUserLoggegIn: function () {
-            return this.getUserType() === "super";
+        isSuperUserLoggegIn: function ($elem) {
+            return util.string.caseInsensitiveEqual(this.getUserType($elem), "super");
         },
-        getViewName: function () {
-            return this.getMetaValue("ss-view-name");
+        getViewName: function ($elem) {
+            // View name is one of 'user', 'module', 'dashboard', etc...
+            // Technically it is the last segment of the view's Clojure namespace.
+            // See clj/src/slipstream/ui/views/base.clj:215 or nearby ;)
+            return this.getMetaValue("ss-view-name", $elem);
         },
-        isViewName: function (viewName) {
-            return this.getViewName() === viewName;
+        isViewName: function (viewName, $elem) {
+            return util.string.caseInsensitiveEqual(this.getViewName($elem), viewName);
         }
     };
 

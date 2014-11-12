@@ -70,31 +70,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Set up forms
 
     function updateRequestForModule(request, $form) {
-        var moduleName,
-            category;
+        var module = $form.getSlipStreamModel().module;
         if ($$.util.meta.isPageType("new")) {
-            moduleName = $form.find("#ss-module-name").val();
-            category = $$.util.urlQueryParams.getValue("category");
-            request.settings.url = $$.util.url.getParentResourceURL() + "/" + moduleName + "?new=true";
-            var moduleParent = $$.util.url.getCurrentURLBase().removeLeadingSlash().trimPrefix("module/");
-            if (moduleParent) {
-                moduleParent += "/";
-            }
-            $$.util.form.addHiddenField($form, "name", moduleParent + moduleName);
+            request.url(module.getURI() + "?new=true");
         } else {
-            moduleName = $("#ss-module-name").text();
-            category = $("#category").text();
-            request.settings.url = "/module/" + moduleName;
-            $$.util.form.addHiddenField($form, "name", moduleName);
+            request.url(module.getURI());
         }
-        $$.util.form.addHiddenField($form, "category", category);
+        $$.util.form.addHiddenField($form, "name", module.getFullName());
+        $$.util.form.addHiddenField($form, "category", module.getCategoryName());
 
-        // Add scripts as hidden form fields
-        $("pre.ss-code-editor").each(function (){
-            var thisId = $(this).attr("id"),
-                code = $$.codeArea.getCode(thisId);
-            $$.util.form.addHiddenField($form, thisId + "--script", code);
-        });
+        if (module.isOfCategory("image")) {
+            // Add scripts as hidden form fields
+            $("pre.ss-code-editor").each(function (){
+                var thisId = $(this).attr("id"),
+                    code = $$.codeArea.getCode(thisId);
+                $$.util.form.addHiddenField($form, thisId + "--script", code);
+            });
+        }
 
         return;
     }
@@ -103,7 +95,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if ($$.util.meta.isPageType("edit")) {
             $$.util.form.addHiddenField($form, "name", $("#name").text());
         }
-        request.settings.url = "/user/";
+        request.url("/user/");
         if ($$.util.meta.isPageType("new")) {
             request.settings.url += $("#name").val();
         } else {
@@ -135,5 +127,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .onSuccessFollowRedirectInResponseHeader()
         .useToSubmitForm("#create-form", updateRequest);
 
+    // $("body").getSlipStreamModel().module.dump();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

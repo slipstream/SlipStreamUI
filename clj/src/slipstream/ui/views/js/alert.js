@@ -68,7 +68,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     }
 
-    $$.Alert = {
+    $$.alert = {
         showError: function (titleOrMsg, msg) {
             return showOfType("error", titleOrMsg, msg);
         },

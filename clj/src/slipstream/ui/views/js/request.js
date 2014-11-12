@@ -88,7 +88,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             onSuccessAlert: function (titleOrMsg, msg){
-                var showSuccessAlert = function () { $$.Alert.showSuccess(titleOrMsg, msg); };
+                var showSuccessAlert = function () { $$.alert.showSuccess(titleOrMsg, msg); };
                 this.onSuccess(showSuccessAlert);
                 return this;
             },
@@ -109,7 +109,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             onErrorAlert: function (titleOrMsg, msg){
-                var showErrorAlert = function () { $$.Alert.showError(titleOrMsg, msg); };
+                var showErrorAlert = function () { $$.alert.showError(titleOrMsg, msg); };
                 this.onError(showErrorAlert);
                 return this;
             },
@@ -124,7 +124,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // alert.
                 this.intern.onDataTypeParseError = function (jqXHR, textStatus, errorThrown) {
                     if (textStatus === "parseerror") {
-                        $$.Alert.showError(titleOrMsg, msg);
+                        $$.alert.showError(titleOrMsg, msg);
                     }
                 };
                 return this;
@@ -181,11 +181,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             // In that case, we retrieve the details from the header subtitle.
                             responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
                         }
-                        $$.Alert.showError(
+                        $$.alert.showError(
                             "Error " + jqXHR.status + " - " + errorThrown,
                             responseDetail);
                     } else {
-                        $$.Alert.showError.apply(this, statusCodeAlertTitleAndMsg);
+                        $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
                     }
                 });
 
@@ -195,7 +195,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         this.intern.onDataTypeParseError ||
                         function (jqXHR, textStatus, errorThrown) {
                             if (textStatus === "parsererror") {
-                                $$.Alert.showError(
+                                $$.alert.showError(
                                     "AJAX Request Error",
                                     "Unable to parse the data received from the server as '" + dataType + "'."
                                 );
