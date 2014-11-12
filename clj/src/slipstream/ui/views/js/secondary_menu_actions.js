@@ -83,7 +83,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $$.alert.showError("Invalid " + module.getCategoryName() + " name",
                                 "'new' is not a valid "  + module.getCategoryName().toLowerCase() + " name.");
         } else {
-            $("#create-form").submit();
+            $createForm = $("#create-form");
+            $$.util.form.addHiddenField($createForm, "comment", "Initial version of this " + module.getCategoryName().toLowerCase() + ".");
+            $createForm.submit();
         }
     });
 
