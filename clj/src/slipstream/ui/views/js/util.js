@@ -73,6 +73,28 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             } else {
                 return this.substring(0, newLength);
             }
+        },
+
+        mightBeAnEmailAddress: function() {
+            // As mentioned in http://stackoverflow.com/a/202528 the RFC of the
+            // format of email address is so complex, that the only real way to
+            // validate it is to send it an email ;)
+            // How ever we can perform a basic validation to catch basic things:
+            return this.match(".+\\@.+\\..+") ? true : false;
+        }
+    });
+
+
+    // String object prototype extensions
+
+    $.extend(Array.prototype, {
+        call: function(thisArg, arg1, arg2, arg3, arg4) {
+            // Equivalent to Function.prototype.call() on an Array of fns.
+            this.forEach(function(f){
+                if ($.isFunction(f)) {
+                    f.call(thisArg, arg1, arg2, arg3, arg4);
+                }
+            });
         }
     });
 

@@ -6,7 +6,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 serialization: undefined,           // See .serialization() fn below
                 onDataTypeParseError: undefined,    // See .onDataTypeParseErrorAlert() fn below
                 always: undefined,                  // See .always() fn below
-                errorStatusCodeAlerts: {}           // See .onErrorStatusCodeAlert() fn below
+                errorStatusCodeAlerts: {},          // See .onErrorStatusCodeAlert() fn below
+                validationCallback: undefined       // See .validationCallback() fn below
             },
             settings: {
                 type: method,     // values: "GET", "POST", "PUT", "DELETE"
@@ -138,6 +139,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             send: function () {
+                var request = this;
+                if ($.isFunction(this.intern.validationCallback) && ! this.intern.validationCallback.call(request)) {
+                    // Ensure this.intern.always fn (or fns) are called
+                    this.intern.always.call(request);
+                    return false;
+                }
                 switch (this.intern.serialization) {
                 case "json":
                     this.settings.contentType = "application/json; charset=UTF-8";
@@ -246,6 +253,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         .send();
                     return false;
                 });
+            },
+            validationCallback: function (callback) {
+                // Return true if the request might be send and false to stop it.
+                // This request object will be passed as the 'this' argument to
+                // the validationCallback fn.
+                // In contrast to other callbacks of this request object (like
+                // onSuccess... or onError...) there can only be one validationCallback.
+                // Calling it a second time will override the previous one.
+                // Note that this.intern.always fn (or fns) will be called anyway.
+                this.intern.validationCallback = callback;
+                return this;
             }
         };
     }

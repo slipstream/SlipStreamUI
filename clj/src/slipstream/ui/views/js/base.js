@@ -117,6 +117,37 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     }
 
+    function checkCreationForm() {
+        var $createForm = $("#create-form"),
+            resourceName,
+            suggestedName,
+            isEmailMissing;
+        if ($$.util.meta.isViewName("module")) {
+            var module = $$.model.getModule();
+            suggestedName = module.getBaseName();
+            resourceName = module.getCategoryName();
+        } else {
+            // User is the only resource beyond module that can be created
+            suggestedName = $createForm.find("#name").val();
+            resourceName = "User";
+            isEmailMissing = $createForm.find("#name").val().mightBeAnEmailAddress();
+        }
+        if (! suggestedName) {
+            $$.alert.showError(resourceName + " name missing",
+                "Please provide a name for the new " + resourceName.toLowerCase() + ".");
+            return false;
+        } else if ($$.util.string.caseInsensitiveEqual(suggestedName, "new")) {
+            $$.alert.showError("Invalid " + resourceName + " name",
+                "'new' is not a valid "  + resourceName.toLowerCase() + " name.");
+            return false;
+        } else if (isEmailMissing) {
+            $$.alert.showError("Email missing",
+                "Please provide a valid email address for the new " + resourceName.toLowerCase() + ".");
+            return false;
+        }
+        return true;
+    }
+
     $$.request
         .put()
         .onSuccessFollowRedirectInResponseHeader()
@@ -125,6 +156,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.request
         .put()
         .onSuccessFollowRedirectInResponseHeader()
+        .validationCallback(checkCreationForm)
         .useToSubmitForm("#create-form", updateRequest);
 
     // $("body").getSlipStreamModel().module.dump();

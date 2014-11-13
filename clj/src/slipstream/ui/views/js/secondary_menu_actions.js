@@ -74,19 +74,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-create").click( function() {
-        var module = $$.model.getModule(),
-            suggestedName = module.getBaseName();
-        if (! suggestedName) {
-            $$.alert.showError(module.getCategoryName() + " name missing",
-                                "Please provide a name for the new " + module.getCategoryName().toLowerCase() + ".");
-        } else if ($$.util.string.caseInsensitiveEqual(suggestedName, "new")) {
-            $$.alert.showError("Invalid " + module.getCategoryName() + " name",
-                                "'new' is not a valid "  + module.getCategoryName().toLowerCase() + " name.");
-        } else {
-            $createForm = $("#create-form");
-            $$.util.form.addHiddenField($createForm, "comment", "Initial version of this " + module.getCategoryName().toLowerCase() + ".");
-            $createForm.submit();
-        }
+        $("#create-form").submit();
     });
 
     $("#ss-secondary-menu-action-cancel").click( function() {
