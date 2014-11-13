@@ -7,14 +7,13 @@
 
 (def template-filename (u/template-path-for "section.html"))
 
-(def section-id "ss-section")
 (def section-selected-cls "ss-section-selected")
 
 (def section-group-sel [:#ss-section-group])
 (def section-sel [[:.ss-section (ue/first-of-class "ss-section")]])
 (def section-anchor-sel (concat section-sel [:.ss-section-activator]))
 (def chevron-sel (concat section-anchor-sel [:span [:span (html/nth-child 2)]]))
-(def section-id-sel [(html/id= section-id)])
+(def section-panel-sel [[:.panel-collapse :.collapse]])
 (def section-title-sel [:.ss-section-title])
 (def section-content-sel [:.ss-section-content])
 
@@ -34,7 +33,7 @@
                                        (str "#" section-uid)
                                        nil)
     chevron-sel         (ue/remove-if-not collapsible?)
-    section-id-sel      (ue/set-id section-uid)))
+    section-panel-sel   (ue/set-id section-uid)))
 
 (defn build
   [sections]
