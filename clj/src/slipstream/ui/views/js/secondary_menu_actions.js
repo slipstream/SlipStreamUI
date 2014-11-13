@@ -1,8 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     function newModuleRedirect(category) {
-        var moduleName = $('#ss-module-name').text();
-        window.location = '/module/' + (moduleName && moduleName + "/") + "new?category=" + category;
+        var moduleURI = $$.model.getModule().getURI() || "/module";
+        $$.util.url.redirectTo(moduleURI + "/new?category=" + category + "#summary");
     }
 
     $("#ss-secondary-menu-action-new-project").click( function() {
@@ -25,7 +25,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-new-user").click( function() {
-        console.log($(this).attr("id") + " in callback #5");
         $$.util.url.redirectTo("/user/new");
     });
 
@@ -64,7 +63,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-save").click( function(event) {
-        console.log($(this).attr("id") + " in callback #14");
         if ($$.util.meta.isViewName("user") || event.altKey) {
             // No commit message needed.
             $('#save-form').submit();
@@ -78,7 +76,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-cancel").click( function() {
-        console.log($(this).attr("id") + " in callback #15");
         window.location = $$.util.url.getCurrentURLBase();
     });
 
