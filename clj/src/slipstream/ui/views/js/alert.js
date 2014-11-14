@@ -1,5 +1,15 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    // Auto dismiss alters already present on page load
+    $("#alert-container div[role=alert]:not(.hidden)").each(function(){
+        var $alertElem = $(this);
+        setTimeout(function(){
+            $alertElem.hide("slow", function() {
+                $alertElem.remove();
+            });
+        }, 5000);
+    })
+
     var alertDefaultOptions = {
       type: "info",
       title: undefined,
