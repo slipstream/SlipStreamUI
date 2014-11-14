@@ -83,8 +83,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             onSuccessFollowRedirectInResponseHeader: function (){
                 this.onSuccess(function (data, textStatus, jqXHR) {
-                    console.log(jqXHR.getResponseHeader("Location"));
-                    $$.util.url.redirectTo(jqXHR.getResponseHeader("Location"));
+                    try {
+                        var locationHeader = jqXHR.getResponseHeader("Location");
+                        if (! locationHeader) {
+                            throw "No Location Header found in response of request: " +
+                                    this.type + " '" + this.url + "' => Redirecting to '/' instead";
+                        }
+                        $$.util.url.redirectTo(locationHeader);
+                    }
+                    catch (e) {
+                        console.error(e);
+                        $$.util.url.redirectTo("/");
+                    }
                 });
                 return this;
             },
