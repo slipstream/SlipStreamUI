@@ -90,23 +90,23 @@
     "module"  (-> parsed-metadata :summary :name)
     ""))
 
-(defn- image-module?
-  [{:keys [view-name parsed-metadata]}]
+(defn- module-category?
+  [{:keys [view-name parsed-metadata]} & categories]
   (and
     (= "module" view-name)
-    (-> parsed-metadata :summary :category uc/keywordize (= :image))))
+    (-> parsed-metadata :summary :category uc/keywordize hash-set (some categories))))
 
 (defn- chooser-required?
   [context]
   (and
     (page-type/edit-or-new?)
-    (image-module? context)))
+    (module-category? context :image)))
 
 (defn- publish-required?
   [context]
   (and
     (page-type/view?)
-    (image-module? context)))
+    (module-category? context :image :deployment)))
 
 (defn- terminate-required?
   [{:keys [view-name]}]
