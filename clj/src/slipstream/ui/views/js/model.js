@@ -26,6 +26,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                             if (! moduleName) {
                                 fullName = undefined;
                             } else {
+                                moduleName = moduleName.trim();
                                 moduleParent = $$.util.url.getCurrentURLBase().removeLeadingSlash().trimPrefix("module/");
                                 if (moduleParent) {
                                     fullName = moduleParent + "/" + moduleName;
