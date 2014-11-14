@@ -31,7 +31,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if ($$.model.getModule().isRootModule()){
             // There is a (known but untracked) bug on the server which returns
             // a wrong redirect header when deleting root projects.
-            request.onSuccessRedirectURL("/");
+            request.onSuccessRedirectTo("/");
+        } else if ($$.util.meta.isViewName("user")) {
+            // There is a (known but untracked) bug on the server which returns
+            // a wrong redirect header when deleting users.
+            request.onSuccessRedirectTo("/user");
         } else {
             request.onSuccessFollowRedirectInResponseHeader();
         }

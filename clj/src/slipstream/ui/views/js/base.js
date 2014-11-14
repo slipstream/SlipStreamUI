@@ -94,14 +94,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function updateRequestForUser(request, $form) {
         if ($$.util.meta.isPageType("edit")) {
-            $$.util.form.addFormHiddenField($form, "name", $("#name").text());
+            $form.addFormHiddenField("name", $("#name").text());
         }
-        request.url("/user/");
+        var username;
         if ($$.util.meta.isPageType("new")) {
-            request.settings.url += $("#name").val();
+            username = $("#name").val();
         } else {
-            request.settings.url += $("#name").text();
+            username = $("#name").text();
         }
+        request.url("/user/" + username);
     }
 
     function updateRequest(request, $form) {

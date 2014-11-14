@@ -67,7 +67,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 });
                 return this;
             },
-            onSuccessRedirectURL: function (url){
+            onSuccessRedirectTo: function (url){
                 this.onSuccess(function () {
                     $$.util.url.redirectTo(url);
                 });
