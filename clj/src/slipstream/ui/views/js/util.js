@@ -218,14 +218,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.url = {
         getCurrentURLBase: function () {
-            var path = window.location.pathname; // URL without query params
-            var indexOfNewStr = path.lastIndexOf("/new");
-            if (indexOfNewStr != -1) {
-                path = path.substring(0, indexOfNewStr);
-            }
-            if (path === "/module") {
-                return "/";
-            }
+            var path = window
+                        .location
+                        .pathname  // URL without query params
+                        .trimSuffix("/new")
+                        .trimSuffix("/module");
             return path;
         },
         getParentResourceURL: function () {
