@@ -105,12 +105,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Terminate action
 
     $("#ss-secondary-menu-action-terminate").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #12");
-        $('#ss-terminate-deployment-dialog').modal('show');
+        $('#ss-terminate-deployment-dialog').askConfirmation(function(){
+            console.log($(this).attr("id") + " in callback #12 after confirmation");
+        });
     });
 
     $("#ss-secondary-menu-action-edit").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #13");
         window.location.search = 'edit=true';
     });
 
@@ -121,7 +121,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             // No commit message needed.
             $('#save-form').submit();
         } else {
-            $('#ss-save-dialog').modal('show');
+            $('#ss-save-dialog').askConfirmation(function(){
+                $("#save-form")
+                    .addFormHiddenField("comment", $("#ss-commit-message").val())
+                    .submit();
+            });
         }
     });
 
@@ -138,7 +142,26 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-delete").clickWhenEnabled( function() {
-        $('#ss-delete-dialog').modal("show");
+        $('#ss-delete-dialog').askConfirmation(function () {
+            var request = $$.request.delete($$.util.url.getCurrentURLBase());
+            if ($$.model.getModule().isRootModule()){
+                // There is a (known but untracked) bug on the server which returns
+                // a wrong redirect header when deleting root projects.
+                request.onSuccessRedirectTo("/");
+            } else if ($$.util.meta.isViewName("user")) {
+                // There is a (known but untracked) bug on the server which returns
+                // a wrong redirect header when deleting users.
+                request.onSuccessRedirectTo("/user");
+            } else {
+                request.onSuccessFollowRedirectInResponseHeader();
+            }
+            request
+                .onErrorAlert("Unable to delete",
+                    "Something wrong happened when trying to delete this resource." +
+                    " Maybe the server is unreachable, or the connection is down." +
+                    "Please try later again.")
+                .send();
+        });
     });
 
 

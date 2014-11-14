@@ -125,7 +125,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             });
         },
         enable: function(state) {
-            this.disable(!state);
+            return this.disable(!state);
         },
 
         // Inspired from: http://stackoverflow.com/a/1186309
@@ -144,11 +144,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 $(this).keypress(function (e) {
                     if (e.altKey && e.keyCode === 13) {
                         e.preventDefault();
-                        callback();
+                        callback.call(this);
                       }
                 });
             }
-            return;
+            return this;
         },
 
         clickWhenEnabled: function (callback) {
@@ -164,7 +164,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     $$.alert.showWarning("Your must be have administrator access to perform this action.");
                 }
             });
-            return;
+            return this;
         },
 
         addFormHiddenField: function (fieldName, fieldValue) {
@@ -187,6 +187,35 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // If the field doesn't exists already in the form, this is a no-op.
                 $form.find("input[name=" + fieldName + "]").val(fieldValue);
             });
+            return this;
+        },
+
+        focusFirstInput: function() {
+            var $firstElem = $(this).find("input[type=text], textarea").first();
+            if ($firstElem.length === 0) {
+                return this;
+            }
+            var strLength= $firstElem.val().length * 2; // x 2 to ensure cursor always ends up at the end
+            $firstElem.focus();
+            $firstElem[0].setSelectionRange(strLength, strLength);
+            return this;
+        },
+
+        askConfirmation: function (callbackOnOKButtonPress) {
+            var $modalDialog = $(this).filter("div.modal");
+            if ($modalDialog.length === 0) {
+                throw "No modal dialog in jQuery selection.";
+            }
+            if ($modalDialog.length !== 1) {
+                throw "More than one modal dialog in jQuery selection. Please select only one.";
+            }
+            if (callbackOnOKButtonPress &&
+                $modalDialog.data("callbackOnOKButtonPress") + "" !== callbackOnOKButtonPress + "") {
+                // Add the callbackOnOKButtonPress only once, not on every askConfirmation event
+                $modalDialog.find(".ss-ok-btn").on("click", callbackOnOKButtonPress);
+                $modalDialog.data("callbackOnOKButtonPress", callbackOnOKButtonPress);
+            }
+            $modalDialog.modal("show");
             return this;
         }
 

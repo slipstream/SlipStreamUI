@@ -85,7 +85,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $("pre.ss-code-editor").each(function (){
                 var thisId = $(this).attr("id"),
                     code = $$.codeArea.getCode(thisId);
-                $form.addFormHiddenField($form, thisId + "--script", code);
+                $form.addFormHiddenField(thisId + "--script", code);
             });
         }
 

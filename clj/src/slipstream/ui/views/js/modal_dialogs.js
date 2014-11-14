@@ -1,50 +1,15 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // Configure save dialog
 
-    var $saveDialog = $("#ss-save-dialog");
+    var $modalDialogs = $("div.modal");
 
-    $saveDialog.on("shown.bs.modal", function (e) {
-        $("#ss-save-dialog #ss-commit-message").focus();
+    $modalDialogs.onAltEnterPress(function () {
+        // Enable ALT-ENTER shortcut for ss-save-btn buttons
+        $(this).find(".ss-save-btn").click();
     });
 
-    function hideSaveDialogAndSubmitSaveForm(){
-        $("#save-form")
-            .addFormHiddenField("comment", $("#ss-commit-message").val())
-            .submit();
-        $saveDialog.modal("hide");
-    }
-
-    $saveDialog.onAltEnterPress(function () {
-        hideSaveDialogAndSubmitSaveForm();
-    });
-
-    $saveDialog.find(".ss-save-btn").click(function() {
-        hideSaveDialogAndSubmitSaveForm();
-    });
-
-
-    // Configure delete dialog
-
-    $("#ss-delete-dialog .ss-delete-btn").click(function() {
-        var request = $$.request.delete($$.util.url.getCurrentURLBase());
-        if ($$.model.getModule().isRootModule()){
-            // There is a (known but untracked) bug on the server which returns
-            // a wrong redirect header when deleting root projects.
-            request.onSuccessRedirectTo("/");
-        } else if ($$.util.meta.isViewName("user")) {
-            // There is a (known but untracked) bug on the server which returns
-            // a wrong redirect header when deleting users.
-            request.onSuccessRedirectTo("/user");
-        } else {
-            request.onSuccessFollowRedirectInResponseHeader();
-        }
-        request
-            .onErrorAlert("Unable to delete",
-                "Something wrong happened when trying to delete this resource." +
-                " Maybe the server is unreachable, or the connection is down." +
-                "Please try later again.")
-            .send();
+    $modalDialogs.on("shown.bs.modal", function (e) {
+        $(this).focusFirstInput();
     });
 
 
