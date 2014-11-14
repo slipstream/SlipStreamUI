@@ -116,7 +116,7 @@
              :short-name "OtherProject"
              :owner "sixsq"
              :published? false
-             :publication-date nil
+             :publication nil
              :version 1
              :uri "module/Public/OtherProject/1"
              :latest-version? true

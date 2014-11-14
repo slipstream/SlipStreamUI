@@ -270,7 +270,7 @@
              :version 4
              :uri "module/Public/BaseImages/Ubuntu/12.04"
              :published? true
-             :publication-date "2014-06-03 23:58:16.837 CEST"
+             :publication "2014-06-03 23:58:16.837 CEST"
              :latest-version? nil
              :last-modified "2013-03-07 21:03:09.337 CET"
              :parent-uri "module/Public/BaseImages/Ubuntu/toto"

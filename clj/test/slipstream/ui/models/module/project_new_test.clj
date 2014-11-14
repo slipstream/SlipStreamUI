@@ -47,6 +47,8 @@
              :short-name "new"
              :owner "sixsq"
              :version nil
+             :published? false
+             :publication nil
              :uri "module/Public/new"
              :latest-version? nil
              :last-modified "2013-05-16 17:04:39.113 CEST"

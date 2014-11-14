@@ -224,6 +224,8 @@
              :creation "2013-03-07 21:03:09.124 CET"
              :name "Public/BaseImages/Ubuntu/new"
              :short-name "new"
+             :published? false
+             :publication nil
              :image nil
              :owner "sixsq"
              :version 4
