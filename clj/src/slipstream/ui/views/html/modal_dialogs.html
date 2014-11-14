@@ -87,7 +87,7 @@
           <div class="modal-body">
             <textarea id="ss-commit-message" class="form-control" placeholder="Commit message" rows="3"></textarea>
             <br>
-            <div class="ss-save-dialog-footnote text-muted">
+            <div class="ss-dialog-footnote text-muted">
               Hold down <code>ALT</code> when saving to skip this confirmation and the commit message.
             </div> <!-- /.ss-save-dialog-footnote -->
           </div>
@@ -178,6 +178,70 @@
       </div>
     </div>
 
+
+    <h2><code>#ss-publish-module-confirmation-dialog</code></h2>
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-publish-module-confirmation-dialog">
+      Launch demo <code>#ss-publish-module-confirmation-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ss-publish-module-confirmation-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-publish-module-confirmation-dialog-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content panel-primary">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="ss-publish-module-confirmation-dialog-label">Publish module</h4>
+          </div>
+          <div class="modal-body">
+            <div class="ss-dialog-body-text">
+              Published modules appear in the App Store.
+            </div> <!-- /.ss-dialog-body-text -->
+            <br>
+            <div class="ss-dialog-footnote text-muted">
+              Please note that the access rights still apply for published modules.
+            </div> <!-- /.ss-save-dialog-footnote -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary ss-ok-btn ss-publish-btn" data-dismiss="modal">Publish module</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2><code>#ss-unpublish-module-confirmation-dialog</code></h2>
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-unpublish-module-confirmation-dialog">
+      Launch demo <code>#ss-unpublish-module-confirmation-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ss-unpublish-module-confirmation-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-unpublish-module-confirmation-dialog-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="ss-unpublish-module-confirmation-dialog-label">Unpublish module</h4>
+          </div>
+          <div class="modal-body">
+            <div class="ss-dialog-body-text">
+              If you unpublish this module it will not be available anymore on the App Store.
+            </div> <!-- /.ss-dialog-body-text -->
+            <br>
+            <div class="ss-dialog-footnote text-muted">
+              Please note that the access rights still apply for published modules.
+            </div> <!-- /.ss-save-dialog-footnote -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger ss-ok-btn ss-unpublish-btn" data-dismiss="modal">Unpublish module</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div> <!-- /.container -->
 

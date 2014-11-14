@@ -12,6 +12,9 @@
 (def template-filename (u/template-path-for "modal_dialogs.html"))
 
 (def title-sel [:.modal-title])
+(def body-sel [:.modal-body])
+(def body-text-sel [:.ss-dialog-body-text])
+(def footnote-sel [:.ss-dialog-footnote])
 (def first-button-sel [:.modal-footer [:button html/first-of-type]])
 (def second-button-sel [:.modal-footer [:button (html/nth-of-type 2)]])
 (def last-button-sel [:.modal-footer [:button html/last-of-type]])
@@ -21,7 +24,7 @@
     [resource-name]
     title-sel                   (html/content       (t :title resource-name))
     [:.modal-body :textarea]    (ue/set-placeholder (t :placeholder.commit-message))
-    [:.ss-save-dialog-footnote] (html/html-content  (t :footnote))
+    footnote-sel                (html/html-content  (t :footnote))
     first-button-sel            (html/content       (t :button.cancel))
     last-button-sel             (html/content       (t :button.save resource-name))))
 
@@ -29,7 +32,7 @@
   (html/defsnippet ^:private delete-dialog template-filename [:#ss-delete-dialog]
     [resource-name resource-id]
     title-sel                 (html/content       (t :title resource-name))
-    [:.modal-body]            (html/html-content  (t :question resource-name resource-id))
+    body-sel                  (html/html-content  (t :question resource-name resource-id))
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.delete resource-name))))
 
@@ -46,9 +49,28 @@
   (html/defsnippet ^:private terminate-deployment-dialog template-filename [:#ss-terminate-deployment-dialog]
     []
     title-sel                 (html/content (t :title))
-    [:.modal-body]            (html/content (t :question))
+    body-sel                  (html/content (t :question))
     first-button-sel          (html/content (t :button.cancel))
     last-button-sel           (html/content (t :button.terminate))))
+
+(localization/with-prefixed-t :publish-module-confirmation-dialog
+  (html/defsnippet ^:private publish-module-confirmation-dialog template-filename [:#ss-publish-module-confirmation-dialog]
+    [resource-name resource-id module-version]
+    title-sel                 (html/content       (t :title resource-name))
+    body-text-sel             (html/html-content  (t :question resource-name resource-id module-version))
+    footnote-sel              (html/html-content  (t :footnote resource-name))
+    [:code]                   (html/add-class     "text-primary")
+    first-button-sel          (html/content       (t :button.cancel))
+    last-button-sel           (html/content       (t :button.publish resource-name))))
+
+(localization/with-prefixed-t :unpublish-module-confirmation-dialog
+  (html/defsnippet ^:private unpublish-module-confirmation-dialog template-filename [:#ss-unpublish-module-confirmation-dialog]
+    [resource-name resource-id module-version]
+    title-sel                 (html/content       (t :title resource-name))
+    body-text-sel             (html/html-content  (t :question resource-name resource-id module-version))
+    footnote-sel              (html/html-content  (t :footnote resource-name))
+    first-button-sel          (html/content       (t :button.cancel))
+    last-button-sel           (html/content       (t :button.unpublish resource-name))))
 
 (localization/with-prefixed-t :resource-name
   (defn- resource-name
@@ -57,6 +79,10 @@
       "module" (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
       (-> view-name uc/keywordize t s/lower-case))))
 
+(defn- module-version
+  [{:keys [parsed-metadata]}]
+  (-> parsed-metadata :summary :version))
+
 (defn- resource-id
   [{:keys [view-name parsed-metadata]}]
   (case view-name
@@ -64,12 +90,23 @@
     "module"  (-> parsed-metadata :summary :name)
     ""))
 
-(defn- chooser-required?
+(defn- image-module?
   [{:keys [view-name parsed-metadata]}]
   (and
-    (page-type/edit-or-new?)
     (= "module" view-name)
     (-> parsed-metadata :summary :category uc/keywordize (= :image))))
+
+(defn- chooser-required?
+  [context]
+  (and
+    (page-type/edit-or-new?)
+    (image-module? context)))
+
+(defn- publish-required?
+  [context]
+  (and
+    (page-type/view?)
+    (image-module? context)))
 
 (defn- terminate-required?
   [{:keys [view-name]}]
@@ -78,9 +115,12 @@
 (defn required
   [context]
   (let [resource-name (resource-name context)
-        resource-id (resource-id context)]
+        resource-id (resource-id context)
+        module-version (module-version context)]
     (cond-> []
-      (page-type/edit?)             (conj (save-dialog resource-name))
-      (page-type/edit?)             (conj (delete-dialog resource-name resource-id))
+      (page-type/edit?)             (conj (save-dialog resource-name)
+                                          (delete-dialog resource-name resource-id))
       (chooser-required? context)   (conj (-> context :parsed-metadata :cloud-image-details :reference-image module-chooser-dialog))
-      (terminate-required? context) (conj (terminate-deployment-dialog)))))
+      (terminate-required? context) (conj (terminate-deployment-dialog))
+      (publish-required? context)   (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
+                                          (unpublish-module-confirmation-dialog resource-name resource-id module-version)))))

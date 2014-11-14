@@ -113,7 +113,6 @@
                         (format "parameter-%s--%s--value" name row-index))
         value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?}
                            (not built-from-map?) (assoc :parameter parameter))]
-    (prn "cell name: " name " - formatted name: " formatted-name)
     (case cell-type
       ; TODO: Using the same key for all cell
       ;       types (e.g. :value) would simplify this code

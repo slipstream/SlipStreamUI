@@ -75,30 +75,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function publishActionAlertMessage(isPublished) {
         return "The " + module.getCategoryName().toLowerCase() +
-               " <code class='text-success'>" + module.getBaseName() + "</code>" +
+               " <code class='text-success'>" + module.getFullName() + "</code>" +
                " (v " + module.getVersion() + ") was successfully " +
                (isPublished ? "published in" : "removed from") +
                " the public <a href='/#app-store' class='text-success'>App Store</a>.";
     }
 
     $("#ss-secondary-menu-action-publish").clickWhenEnabled( function() {
-        $$.request
-            .put(module.getURIWithVersion() + "/publish")
-            .onSuccess(togglePublishButton)
-            .onSuccess(togglePublicationDateRow)
-            .onSuccessAlert(module.getCategoryName() + " published",
-                publishActionAlertMessage(true))
-            .send();
+        $('#ss-publish-module-confirmation-dialog').askConfirmation(function () {
+            $$.request
+                .put(module.getURIWithVersion() + "/publish")
+                .onSuccess(togglePublishButton)
+                .onSuccess(togglePublicationDateRow)
+                .onSuccessAlert(module.getCategoryName() + " published",
+                    publishActionAlertMessage(true))
+                .send();
+            });
     });
 
     $("#ss-secondary-menu-action-unpublish").clickWhenEnabled( function() {
-        $$.request
-            .delete(module.getURIWithVersion() + "/publish")
-            .onSuccess(togglePublishButton)
-            .onSuccess(togglePublicationDateRow)
-            .onSuccessAlert(module.getCategoryName() + " unpublished",
-                publishActionAlertMessage(false))
-            .send();
+        $('#ss-unpublish-module-confirmation-dialog').askConfirmation(function () {
+            $$.request
+                .delete(module.getURIWithVersion() + "/publish")
+                .onSuccess(togglePublishButton)
+                .onSuccess(togglePublicationDateRow)
+                .onSuccessAlert(module.getCategoryName() + " unpublished",
+                    publishActionAlertMessage(false))
+                .send();
+            });
     });
 
 
