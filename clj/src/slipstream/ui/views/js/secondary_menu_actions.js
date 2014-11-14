@@ -115,7 +115,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("#ss-secondary-menu-action-save").clickWhenEnabled( function(event) {
-        if ($$.util.meta.isViewName("user") || event.altKey) {
+        if (event.altKey ||
+            $$.util.meta.isViewName("user") ||
+            $$.util.meta.isViewName("configuration")) {
             // No commit message needed.
             $('#save-form').submit();
         } else {
