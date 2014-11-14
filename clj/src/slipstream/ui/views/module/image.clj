@@ -112,9 +112,11 @@
   [module]
   (map (partial middle-section module) (visible-middle-sections)))
 
-(def actions
+(defn actions
+  [module]
   [action/run
    action/build
    action/edit
    action/copy
-   action/publish])
+   (action/publish    :hidden? (-> module :summary :published?))
+   (action/unpublish  :hidden? (-> module :summary :published? not))])

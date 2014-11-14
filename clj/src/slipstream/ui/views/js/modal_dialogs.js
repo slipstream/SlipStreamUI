@@ -9,9 +9,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     function hideSaveDialogAndSubmitSaveForm(){
-        var $saveForm = $("#save-form");
-        $$.util.form.addHiddenField($saveForm, "comment", $saveDialog.find("#ss-commit-message").val());
-        $saveForm.submit();
+        $("#save-form")
+            .addFormHiddenField("comment", $("#ss-commit-message").val())
+            .submit();
         $saveDialog.modal("hide");
     }
 

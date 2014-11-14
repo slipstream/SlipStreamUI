@@ -49,6 +49,10 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     return fullName;
                 },
 
+                getVersion: function () {
+                    return this.getFullName() && version;
+                },
+
                 getFullNameWithVersion: function () {
                     if (this.getFullName() && version) {
                         return (fullName + "/" + version);
@@ -122,7 +126,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
         };
 
 
-    // jQuery extensions related to the SlipStream application
+    // jQuery extensions related to the SlipStream application model
 
     $.fn.extend({
         getSlipStreamModel: function() {

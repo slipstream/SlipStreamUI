@@ -6,6 +6,7 @@
 
 (def raw-metadata-str "<imageModule moduleReferenceUri='module/examples/images/ubuntu-12.04' logoLink='http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png' category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/with-a-very-long-name/Ubuntu/12.04' parentUri='module/Public/BaseImages/Ubuntu/toto' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/12.04' shortName='12.04' version='4' description='Nice Ubuntu distro'>
     <commit author='an-author'><comment>this is a comment</comment></commit>
+    <published publicationDate='2014-06-03 23:58:16.837 CEST'/>
     <parameters class='org.hibernate.collection.PersistentMap'>
     <entry>
         <string>password</string>
@@ -268,6 +269,8 @@
              :owner "sixsq"
              :version 4
              :uri "module/Public/BaseImages/Ubuntu/12.04"
+             :published? true
+             :publication-date "2014-06-03 23:58:16.837 CEST"
              :latest-version? nil
              :last-modified "2013-03-07 21:03:09.337 CET"
              :parent-uri "module/Public/BaseImages/Ubuntu/toto"

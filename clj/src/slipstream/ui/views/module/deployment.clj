@@ -11,8 +11,10 @@
    :content (-> module :nodes t/deployment-nodes-table)
    :selected? true})
 
-(def actions
+(defn actions
+  [module]
   [action/run
    action/edit
    action/copy
-   action/publish])
+   (action/publish    :hidden? (-> module :summary :published?))
+   (action/unpublish  :hidden? (-> module :summary :published? not))])

@@ -4,8 +4,6 @@
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.current-user :as current-user]))
 
-(def ^:private disabled-cls "disabled")
-
 (def ^:private main-action-sel [:.ss-secondary-menu-main-action])
 (def ^:private extra-actions-container-sel [:#ss-secondary-menu :> :div :> :ul])
 (def ^:private extra-action-sel [[:.ss-secondary-menu-extra-action (ue/first-of-class "ss-secondary-menu-extra-action")]])
@@ -14,11 +12,13 @@
 (def ^:private extra-action-anchor-sel [:a])
 
 (defn- setup-action
-  [{:keys [icon name id] enabled? ::enabled? :or {enabled? true}}]
+  [{:keys [icon name id hidden? super-only?] enabled? ::enabled? :or {enabled? true}}]
   (fn [action-node]
     (html/at action-node
              ue/this           (ue/set-id id)
-             ue/this           (ue/enable-class (not enabled?) disabled-cls)
+             ue/this           (ue/enable-class hidden? "hidden")
+             ue/this           (ue/enable-class (not enabled?) "disabled")
+             ue/this           (ue/when-set-disabled-reason (and (not enabled?) super-only?) "ss-super-only-action")
              action-icon-sel   (icons/set icon)
              action-name-sel   (html/content (str name)))))
 

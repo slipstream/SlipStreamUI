@@ -13,7 +13,8 @@
      :content (-> module :children t/project-children-table)
      :selected? true}))
 
-(def actions
+(defn actions
+  [module]
   [action/edit
    action/new-project
    action/new-image

@@ -15,14 +15,18 @@
   (str (t t-path) (t :ellipsis)))
 
 (defmacro ^:private defaction
-  [name & {:keys [disabled? super-only? name-with-ellipsis?] :as options}]
+  [name & {:keys [option-defaults name-with-ellipsis?]}]
   `(defn ~name
-     []
-     {:name (~(if name-with-ellipsis? t-with-ellipsis t) (keyword '~name))
-      :id (str "ss-secondary-menu-action-" '~name)
-      :icon ~(symbol "slipstream.ui.util.icons" (str "action-" name))
-      :disabled? ~disabled?
-      :super-only? ~super-only?}))
+     [& {:as options#}]
+     (merge
+        {:name        (~(if name-with-ellipsis? t-with-ellipsis t) (keyword '~name))
+         :id          (str "ss-secondary-menu-action-" '~name)
+         :icon        ~(symbol "slipstream.ui.util.icons" (str "action-" name))
+         :disabled?   false
+         :hidden?     false
+         :super-only? false}
+        ~option-defaults
+        (select-keys options# [:disabled? :hidden? :super-only?]))))
 
 (defaction new-project)
 (defaction new-image)
@@ -30,12 +34,12 @@
 (defaction import)
 (defaction new-user)
 
-(defaction run    :name-with-ellipsis? true)
-(defaction build  :name-with-ellipsis? true)
+(defaction run        :name-with-ellipsis? true)
+(defaction build      :name-with-ellipsis? true)
 
-(defaction copy   :name-with-ellipsis? true)
-(defaction publish :super-only? true)
-(defaction unpublish)
+(defaction copy       :name-with-ellipsis? true)
+(defaction publish    :option-defaults {:super-only? true})
+(defaction unpublish  :option-defaults {:super-only? true})
 (defaction terminate)
 
 (defaction edit)

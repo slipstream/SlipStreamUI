@@ -68,9 +68,9 @@
 (defn- actions
   [module]
   (case (-> module :summary :category uc/keywordize)
-    :project     project/actions
-    :image       image/actions
-    :deployment  deployment/actions))
+    :project     (project/actions module)
+    :image       (image/actions module)
+    :deployment  (deployment/actions module)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

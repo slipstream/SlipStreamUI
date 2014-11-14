@@ -66,20 +66,23 @@
 
 (defn- summary
   [metadata]
-  (let [attrs (:attrs metadata)]
-    {:description     (-> attrs :description)
-     :category        (-> attrs :category)
-     :comment         (-> metadata (html/select [:comment html/text]) first)
-     :name            (-> attrs :name u/not-default-new-name)
-     :creation        (-> attrs :creation)
-     :version         (-> attrs :version uc/parse-pos-int)
-     :short-name      (-> attrs :shortname)
-     :last-modified   (-> attrs :lastmodified)
-     :latest-version? (or (page-type/new?) (-> attrs :islatestversion uc/parse-boolean))
-     :deleted?        (-> attrs :deleted uc/parse-boolean)
-     :uri             (-> attrs :resourceuri)
-     :parent-uri      (-> attrs :parenturi)
-     :owner           (-> metadata (html/select [:authz]) first :attrs :owner)}))
+  (let [attrs (:attrs metadata)
+        publication-date (-> metadata (html/select [:published]) first :attrs :publicationdate)]
+    {:description       (-> attrs :description)
+     :category          (-> attrs :category)
+     :comment           (-> metadata (html/select [:comment html/text]) first)
+     :publication-date  publication-date
+     :published?        (boolean publication-date)
+     :name              (-> attrs :name u/not-default-new-name)
+     :creation          (-> attrs :creation)
+     :version           (-> attrs :version uc/parse-pos-int)
+     :short-name        (-> attrs :shortname)
+     :last-modified     (-> attrs :lastmodified)
+     :latest-version?   (or (page-type/new?) (-> attrs :islatestversion uc/parse-boolean))
+     :deleted?          (-> attrs :deleted uc/parse-boolean)
+     :uri               (-> attrs :resourceuri)
+     :parent-uri        (-> attrs :parenturi)
+     :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."

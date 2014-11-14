@@ -163,7 +163,7 @@
         </node>
       </entry>
     </nodes>
-    <user issuper='true' resourceUri='user/super' name='super'></user>
+    <user issuper='false' resourceUri='user/toto' name='Toto'></user>
   </deploymentModule>")
 
 (def parsed-metadata
@@ -199,6 +199,8 @@
               :short-name "client_server"
               :owner "sixsq"
               :version 11
+              :published? false
+              :publication-date nil
               :uri "module/Public/Tutorials/HelloWorld/client_server/11"
               :latest-version? nil
               :last-modified "2013-03-08 22:37:40.774 CET"

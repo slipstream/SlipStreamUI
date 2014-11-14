@@ -76,15 +76,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
         } else {
             request.url(module.getURI());
         }
-        $$.util.form.addHiddenField($form, "name", module.getFullName());
-        $$.util.form.addHiddenField($form, "category", module.getCategoryName());
+        $form
+            .addFormHiddenField("name", module.getFullName())
+            .addFormHiddenField("category", module.getCategoryName());
 
         if (module.isOfCategory("image")) {
             // Add scripts as hidden form fields
             $("pre.ss-code-editor").each(function (){
                 var thisId = $(this).attr("id"),
                     code = $$.codeArea.getCode(thisId);
-                $$.util.form.addHiddenField($form, thisId + "--script", code);
+                $form.addFormHiddenField($form, thisId + "--script", code);
             });
         }
 
@@ -93,7 +94,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function updateRequestForUser(request, $form) {
         if ($$.util.meta.isPageType("edit")) {
-            $$.util.form.addHiddenField($form, "name", $("#name").text());
+            $$.util.form.addFormHiddenField($form, "name", $("#name").text());
         }
         request.url("/user/");
         if ($$.util.meta.isPageType("new")) {
@@ -130,7 +131,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             // User is the only resource beyond module that can be created
             suggestedName = $createForm.find("#name").val();
             resourceName = "User";
-            isEmailMissing = $createForm.find("#name").val().mightBeAnEmailAddress();
+            isEmailMissing = $createForm.find("#email").val().mightBeAnEmailAddress().not();
         }
         if (! suggestedName) {
             $$.alert.showError(resourceName + " name missing",

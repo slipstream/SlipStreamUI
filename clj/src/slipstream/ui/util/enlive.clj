@@ -173,6 +173,7 @@
 (defn-set-attr :class)
 (defn-set-attr :content)
 (defn-set-attr :disabled)
+(defn-set-attr :disabled-reason)
 (defn-set-attr :href)
 (defn-set-attr :id)
 (defn-set-attr :name)

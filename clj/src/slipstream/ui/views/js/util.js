@@ -85,7 +85,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     });
 
 
-    // String object prototype extensions
+    // Array object prototype extensions
 
     $.extend(Array.prototype, {
         call: function(thisArg, arg1, arg2, arg3, arg4) {
@@ -95,6 +95,17 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     f.call(thisArg, arg1, arg2, arg3, arg4);
                 }
             });
+        }
+    });
+
+
+    // Boolean object prototype extensions
+
+    $.extend(Boolean.prototype, {
+        not: function() {
+            // Might be more clear to use in long jQuery chined API calls than
+            // a mere '!' at the very begining of the call.
+            return ! this.valueOf();
         }
     });
 
@@ -139,6 +150,45 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             return;
         },
+
+        clickWhenEnabled: function (callback) {
+            // <a> tags do not honor the 'disabled' property. Therefore, Bootstrap
+            // offers the helper class 'disabled', to make them look like so.
+            // However they are still clickable (the .click() callback will still
+            // be called), and therefor we have to disable it manually here.
+            var $this = $(this);
+            $this.click( function (event) {
+                if (! $this.hasClass("disabled") && $.isFunction(callback)) {
+                    callback.call($this, event);
+                } else if ($this.attr("disabled-reason") === "ss-super-only-action") {
+                    $$.alert.showWarning("Your must be have administrator access to perform this action.");
+                }
+            });
+            return;
+        },
+
+        addFormHiddenField: function (fieldName, fieldValue) {
+            $(this).filter("form").each(function () {
+                var $form = $(this);
+                // Clean up hidden field with the same name before adding it.
+                $form.children("input:hidden[name=" + fieldName + "]").remove();
+                $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", fieldName)
+                    .attr("value", fieldValue)
+                    .appendTo($form);
+            });
+            return this;
+        },
+
+        setFormField: function ($form, fieldName, fieldValue) {
+            $(this).filter("form").each(function () {
+                var $form = $(this);
+                // If the field doesn't exists already in the form, this is a no-op.
+                $form.find("input[name=" + fieldName + "]").val(fieldValue);
+            });
+            return this;
+        }
 
     });
 
@@ -219,22 +269,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     return keyVal[1];
                 }
             }
-        }
-    };
-
-    util.form = {
-        addHiddenField: function ($form, fieldName, fieldValue) {
-            // Clean up hidden field with the same name before adding it.
-            $form.children("input:hidden[name=" + fieldName + "]").remove();
-            $("<input>")
-                .attr("type", "hidden")
-                .attr("name", fieldName)
-                .attr("value", fieldValue)
-                .appendTo($form);
-        },
-        setField: function ($form, fieldName, fieldValue) {
-            // If the field doesn't exists already in the form, this is a no-op.
-            $form.find("input[name=" + fieldName + "]").val(fieldValue);
         }
     };
 
