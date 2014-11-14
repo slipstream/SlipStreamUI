@@ -43,19 +43,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $alertElem.find(".alert-title").html(settings.title);
         }
 
-        $lastAlertElem = $("#alert-container div.alert").first();
-        if ( $alertElem.html() == $lastAlertElem.html() ){
-            // Highlight the last alert instead of adding the same again.
-            // Happy to learn a nicer way to highlight it ;)
-            $lastAlertElem.fadeTo(80, 0.3,
-                function (){
-                    $lastAlertElem.fadeTo(120, 1);
-                });
-            return true;
-        }
-
         $alertContainer.prepend($alertElem);
         $alertElem.show("fast");
+
+        setTimeout(function(){
+            $alertElem.hide("slow", function() {
+                $alertElem.remove();
+            });
+        }, 5000);
 
         return true;
     }
