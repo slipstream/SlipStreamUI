@@ -291,19 +291,31 @@
                            (assoc :text (-> content :set uc/join-as-str))
                            (dissoc :set))))
 
+
+(defn- cell-timestamp-snip-view
+  [{:keys [timestamp] :as content} text-format tooltip-format]
+  (cell-text-snip-view (-> content
+                           (dissoc :timestamp)
+                           (assoc :text (or
+                                          (ut/format text-format timestamp)
+                                          (t :timestamp.unknown))
+                                  :tooltip (ut/format tooltip-format timestamp)))))
+
+(defmethod cell-snip [:cell/timestamp :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :human-readable-long :relative))
+
+(defmethod cell-snip [:cell/relative-timestamp :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :relative :human-readable-long))
+
 (defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
   [{timestamp :content}]
-  (cell-text-snip-view {:text (or
-                                (ut/format :human-readable-long timestamp)
-                                (t :timestamp.unknown))
-                        :tooltip (ut/format :relative timestamp)}))
+  (cell-timestamp-snip-view {:timestamp timestamp} :human-readable-long :relative))
 
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/plain]
   [{timestamp :content}]
-  (cell-text-snip-view {:text (or
-                                (ut/format :relative timestamp)
-                                (t :timestamp.unknown))
-                        :tooltip (ut/format :human-readable-long timestamp)}))
+  (cell-timestamp-snip-view {:timestamp timestamp} :relative :human-readable-long))
 
 (defmethod cell-snip [:cell/boolean :mode/view :content/plain]
   [{value :content}]

@@ -108,16 +108,18 @@
 
 (defn- value-of
   [{:keys [name value id-format-fn built-from-map? read-only?] :as parameter} cell-type row-index]
-  (let [formated-name (if (fn? id-format-fn)
+  (let [formatted-name (if (fn? id-format-fn)
                         (id-format-fn name)
                         (format "parameter-%s--%s--value" name row-index))
-        value-base (cond-> {:id formated-name, :row-index row-index, :read-only? read-only?}
+        value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?}
                            (not built-from-map?) (assoc :parameter parameter))]
+    (prn "cell name: " name " - formatted name: " formatted-name)
     (case cell-type
       ; TODO: Using the same key for all cell
       ;       types (e.g. :value) would simplify this code
       :cell/textarea  (assoc value-base :text      value)
       :cell/text      (assoc value-base :text      value)
+      :cell/timestamp (assoc value-base :timestamp value)
       :cell/set       (assoc value-base :set       value)
       :cell/email     (assoc value-base :email     value)
       :cell/enum      (assoc value-base :enum      value)
@@ -184,15 +186,16 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name          {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly "ss-module-name")}
-      :uri           {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
-      :description   {:type :cell/text}
-      :comment       {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
-      :category      {:type :cell/text,       :editable? false, :hidden? (page-type/new?)}
-      :creation      {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
-      :last-modified {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
-      :owner         {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
-      :image         {:type :cell/text,       :hidden? (or (page-type/view?) (-> module :category (not= "Image"))), :id-format-fn (constantly "logoLink")})))
+      :name           {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly "ss-module-name")}
+      :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
+      :description    {:type :cell/text}
+      :comment        {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
+      :category       {:type :cell/text,       :editable? false, :hidden? (page-type/new?)}
+      :creation       {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
+      :publication    {:type :cell/timestamp,  :editable? false, :hidden? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
+      :last-modified  {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
+      :owner          {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
+      :image          {:type :cell/text,       :hidden? (or (page-type/view?) (-> module :category (not= "Image"))), :id-format-fn (constantly "logoLink")})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

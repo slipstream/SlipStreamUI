@@ -311,6 +311,9 @@
    :slipstream.ui.models.parameters.creation.description                        "Date of creation"
    :slipstream.ui.models.parameters.creation.help-hint                          ""
 
+   :slipstream.ui.models.parameters.publication.description                     "Date of publication"
+   :slipstream.ui.models.parameters.publication.help-hint                       "This is the date when this version of the module was published on the SlipStream AppStore."
+
    :slipstream.ui.models.parameters.state.description                           :global.nouns.state
    :slipstream.ui.models.parameters.state.help-hint                             ""
 
@@ -398,6 +401,7 @@
 
    :slipstream.ui.models.parameters.last-state-change.description               "Last State changes"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
+
 
    ;; Utils.core
 

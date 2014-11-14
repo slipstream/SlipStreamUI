@@ -50,6 +50,29 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return;
     }
 
+    function togglePublicationDateRow() {
+        var $dateCell = $("#ss-publication-date"),
+            $dateRow = $dateCell.closest("tr");
+            isDateRowInactive = $dateRow.data("ss-date-row-inactive");
+        if (! $dateRow.length){
+            // If the module was originally unpublished, the row will not be there.
+            // The user will see the publication dat row on page reload only.
+            return;
+        }
+        if (isDateRowInactive) {
+            // If the module was originally published, and the users re-publishes it
+            // after unpublishing it, we can toggle this row back in without reloading
+            // the page.
+            $dateCell.text("Now");
+            $dateRow.fadeTo(200, 1);
+            $dateRow.data("ss-date-row-inactive", false);
+        } else {
+            $dateRow.fadeTo(200, 0.3);
+            $dateRow.data("ss-date-row-inactive", true);
+        }
+        return;
+    }
+
     function publishActionAlertMessage(isPublished) {
         return "The " + module.getCategoryName().toLowerCase() +
                " <code class='text-success'>" + module.getBaseName() + "</code>" +
@@ -62,6 +85,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.request
             .put(module.getURIWithVersion() + "/publish")
             .onSuccess(togglePublishButton)
+            .onSuccess(togglePublicationDateRow)
             .onSuccessAlert(module.getCategoryName() + " published",
                 publishActionAlertMessage(true))
             .send();
@@ -71,6 +95,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.request
             .delete(module.getURIWithVersion() + "/publish")
             .onSuccess(togglePublishButton)
+            .onSuccess(togglePublicationDateRow)
             .onSuccessAlert(module.getCategoryName() + " unpublished",
                 publishActionAlertMessage(false))
             .send();

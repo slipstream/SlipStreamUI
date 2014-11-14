@@ -71,7 +71,7 @@
     {:description       (-> attrs :description)
      :category          (-> attrs :category)
      :comment           (-> metadata (html/select [:comment html/text]) first)
-     :publication-date  publication-date
+     :publication       publication-date
      :published?        (boolean publication-date)
      :name              (-> attrs :name u/not-default-new-name)
      :creation          (-> attrs :creation)
