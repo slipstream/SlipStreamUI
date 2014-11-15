@@ -7,6 +7,7 @@
             [clj-time.format :as f]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.time :as time]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]))
 
 ;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:
@@ -409,7 +410,13 @@
 
 (expect
   "<td class=\"ss-table-cell-link\"><a id=\"username\" href=\"/user/testusername\">testusername</a></td>"
-  (cell-html {:type :cell/username, :content "testusername"}))
+  (current-user/with-user {:super? true}
+    (cell-html {:type :cell/username, :content "testusername"})))
+
+(expect
+  "<td id=\"username\" class=\"ss-table-cell-text\">testusername</td>"
+  (current-user/with-user {:super? false}
+    (cell-html {:type :cell/username, :content "testusername"})))
 
 
 ;; Icon cell
