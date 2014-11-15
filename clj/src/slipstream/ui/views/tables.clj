@@ -107,11 +107,11 @@
             "Boolean"           :cell/boolean)))
 
 (defn- value-of
-  [{:keys [name value id-format-fn built-from-map? read-only?] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map? read-only? required?] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
                         (id-format-fn name)
                         (format "parameter-%s--%s--value" name row-index))
-        value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?}
+        value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?, :placeholder (when required? (t :required-parameter.placeholder))}
                            (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       ; TODO: Using the same key for all cell
@@ -167,11 +167,11 @@
   (parameters-table
     (let [require-old-password? (and (page-type/edit?) (current-user/is? username))]
       (p/map->parameter-list user-summary-map
-        :username       {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name")}
+        :username       {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name"), :required? true}
         :first-name     {:type :cell/text}
         :last-name      {:type :cell/text}
         :organization   {:type :cell/text}
-        :email          {:type :cell/email}
+        :email          {:type :cell/email, :required? true}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
         :creation       {:type :cell/timestamp, :editable? false}
         :password-new-1 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password1")}
@@ -185,7 +185,7 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name           {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly "ss-module-name")}
+      :name           {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly "ss-module-name"), :required? true}
       :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description    {:type :cell/text}
       :comment        {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}

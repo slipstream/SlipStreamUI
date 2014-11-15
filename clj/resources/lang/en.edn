@@ -96,6 +96,7 @@
                     :local          "Local"
                     :public         "Public"
                     :private        "Private"
+                    :required       "Required"
                     :unknown        "_Unknown_" ; Text in this file accepts Markdown formatting :)
                     }
             :time {
@@ -275,6 +276,8 @@
    :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
    :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
    :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
+
+   :slipstream.ui.views.tables.required-parameter.placeholder :global.adjectives.required
 
    :slipstream.ui.views.tables.documentation.open-html        "Open in new page"
    :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF in new page"

@@ -62,10 +62,11 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id read-only?] :as cell-content}]
+  [{:keys [text tooltip id read-only? placeholder] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value (str text))
+  [:input]  (ue/set-placeholder placeholder)
   [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
@@ -73,9 +74,10 @@
 ; Editable textarea cell
 
 (html/defsnippet ^:private cell-textarea-snip-edit template-filename (sel-for-cell :text-area :editable)
-  [{:keys [text tooltip id] :as cell-content}]
+  [{:keys [text tooltip id placeholder] :as cell-content}]
   [:textarea]  (ue/set-id id)
   [:textarea]  (ue/set-name id)
+  [:textarea]  (ue/set-placeholder placeholder)
   [:textarea]  (html/content (str text))
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
