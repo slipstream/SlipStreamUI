@@ -204,7 +204,6 @@
     :content ["\n            "
               {:tag :input
                :attrs {:value rand-str
-                       :placeholder "Text"
                        :class "form-control"
                        :type "text"}
                   :content []}
@@ -213,25 +212,31 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str}, :editable? true}))
 
 (expect
+  (str "<td class=\"ss-table-cell-text-editable\">
+            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+          </td>")
+  (cell-html {:type :cell/text, :content {:text rand-str, :placeholder "Text"}, :editable? true}))
+
+(expect
   "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            <input value=\"\" class=\"form-control\" type=\"text\" />
           </td>"
   (cell-html {:type :cell/text, :content {:text ""}, :editable? true}))
 
 (expect
   "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            <input value=\"\" class=\"form-control\" type=\"text\" />
           </td>"
   (cell-html {:type :cell/text, :content {:text nil}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content rand-str, :editable? true}))
 
@@ -240,7 +245,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           <span>"
             "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
