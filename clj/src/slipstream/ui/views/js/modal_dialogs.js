@@ -52,6 +52,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var $copyModuleDialog = $("#ss-copy-module-dialog"),
         $moduleCopyTargetName = $copyModuleDialog.find("#ss-module-copy-target-name");
 
+    $copyModuleDialog.data("isProject", false);
+
     $$.request
         .post()
         .onSuccessFollowRedirectInResponseHeader()
@@ -63,17 +65,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function toggleFormValidation() {
         // BootstrapValidator needs now a comercial licence :(
         // Source: http://bootstrapvalidator.com/download/
-        var isTargetNamePresent = $moduleCopyTargetName.val() ? true : false,
-            isValidForm = isTargetNamePresent && $copyModuleDialog.data("isProject");
-        $copyModuleDialog
-            .find(".ss-ok-btn")
-            .enable(isValidForm);
+        var isValidForm;
+        if(! $copyModuleDialog.data("isProject")) {
+            isValidForm = false;
+        } else {
+            var targetName = $moduleCopyTargetName.val();
+            isValidForm = targetName && (targetName.match("^[\\w-]+$") ? true : false);
+        }
         $moduleCopyTargetName
             .toggleFormInputValidationState(isValidForm);
     }
 
-    $moduleCopyTargetName.keyup(function(e) {
-        // Backspace does not trigger 'keypress'.
+    $moduleCopyTargetName.onTextInputChange(function(e) {
         toggleFormValidation();
     });
 

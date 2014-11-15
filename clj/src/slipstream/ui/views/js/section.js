@@ -7,7 +7,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // Try to open panel from url hash
         var sectionId = hash.trimPrefix("#").prefixWith(sectionIdPrefix);
             $panel = $('.panel #' + sectionId);
-        if (hash != "#" && $panel.length === 1) {
+        if (hash != "#" && $panel.foundOne()) {
             $panel.addClass("in");
         } else {
             // There is no section with the give id (or more than one), so we clean it.

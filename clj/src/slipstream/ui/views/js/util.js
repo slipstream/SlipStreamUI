@@ -113,6 +113,26 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     // jQuery extensions
 
     $.fn.extend({
+        foundNothing: function() {
+            // A more idiomatic way to check if a jQuery selection has no matches.
+            return this.length === 0;
+        },
+
+        foundAny: function() {
+            // A more idiomatic way to check if a jQuery selection has any matches.
+            return this.length !== 0;
+        },
+
+        foundOne: function() {
+            // A more idiomatic way to check if a jQuery selection has one match.
+            return this.length === 1;
+        },
+
+        foundMany: function() {
+            // A more idiomatic way to check if a jQuery selection has more than one match.
+            return this.length > 1;
+        },
+
         // Toggle disabled status of buttons, inputs and anchors
         // Inspired from: http://stackoverflow.com/a/16788240
         disable: function(state) {
@@ -191,12 +211,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         toggleFormInputValidationState: function (state) {
-            var $formGroup = $(this).closest(".form-group");
-            if ($formGroup.length === 0) {
+            var $this = $(this),
+                $formGroup = $this.closest(".form-group");
+            if ($formGroup.foundNothing()) {
                 throw "No .form-group element can be found from jQuery selection.";
-            }
-            if ($formGroup.length !== 1) {
-                throw "More than one .form-group element can be found from jQuery selection. Please select only one.";
             }
             if ($.type(state) === "boolean") {
                 $formGroup
@@ -208,12 +226,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .toggleClass("has-success")
                     .toggleClass("has-error");
             }
+            // Do the same with the submit button, if no .has-error in form
+            var hasErrors = $this.closest("form").find(".has-error").foundAny();
+            $this
+                .closest("form")
+                .find("button[type=submit]")
+                .disable(hasErrors);
             return this;
         },
 
         focusFirstInput: function() {
             var $firstElem = $(this).find("input[type=text], textarea").first();
-            if ($firstElem.length === 0) {
+            if ($firstElem.foundNothing()) {
                 return this;
             }
             var strLength= $firstElem.val().length * 2; // x 2 to ensure cursor always ends up at the end
@@ -222,9 +246,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        onTextInputChange: function(callback) {
+            var $textInputFields = $(this).filter("input[type=text], textarea");
+            if ($textInputFields.foundNothing()) {
+                return this;
+            }
+            // Inspired from: http://stackoverflow.com/a/6458946
+            $textInputFields.on('input', callback);
+            return this;
+        },
+
         askConfirmation: function (callbackOnOKButtonPress) {
             var $modalDialog = $(this).filter("div.modal");
-            if ($modalDialog.length === 0) {
+            if ($modalDialog.foundNothing()) {
                 throw "No modal dialog in jQuery selection.";
             }
             if ($modalDialog.length !== 1) {
