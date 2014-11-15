@@ -40,36 +40,13 @@
     <p>
       From: <a href="http://getbootstrap.com/javascript/#modals">http://getbootstrap.com/javascript/#modals</a>
     </p>
+    <p>
+      Note that all labels and wording appearing here is only as placeholder and everything is overriden with in the Cloujure generation with localized strings.
+    </p>
 
     <hr>
 
-    <h2><code>#demoModal</code></h2>
-
-    <!-- Button trigger modal -->
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#demoModal">
-      Launch demo modal
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-          <div class="modal-body">
-            Here comes the text.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <h2><code>#ss-save-dialog</code></h2>
+    <p>
 
     <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-save-dialog">
@@ -99,7 +76,7 @@
       </div>
     </div>
 
-    <h2><code>#ss-delete-dialog</code></h2>
+    <p>
 
     <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-delete-dialog">
@@ -125,7 +102,7 @@
       </div>
     </div>
 
-    <h2><code>#ss-module-chooser-dialog</code></h2>
+    <p>
 
     <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-module-chooser-dialog">
@@ -152,7 +129,7 @@
       </div>
     </div>
 
-    <h2><code>#ss-terminate-deployment-dialog</code></h2>
+    <p>
 
     <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-terminate-deployment-dialog">
@@ -179,7 +156,7 @@
     </div>
 
 
-    <h2><code>#ss-publish-module-confirmation-dialog</code></h2>
+    <p>
 
     <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-publish-module-confirmation-dialog">
@@ -211,7 +188,7 @@
       </div>
     </div>
 
-    <h2><code>#ss-unpublish-module-confirmation-dialog</code></h2>
+    <p>
 
     <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-unpublish-module-confirmation-dialog">
@@ -243,6 +220,49 @@
       </div>
     </div>
 
+
+    <p>
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-copy-module-dialog">
+      Launch demo <code>#ss-copy-module-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ss-copy-module-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-copy-module-dialog-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <form class="form" role="form" id="ss-module-copy-form">
+          <div class="modal-content panel-primary">
+            <div class="modal-header panel-heading">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="ss-copy-module-dialog-label">Copy module</h4>
+            </div>
+            <div class="modal-body">
+              <iframe src="/?chooser=true" style="zoom:0.60" width="100%" height="600px" frameborder="0"></iframe>
+              <div class="ss-copy-module-dialog-form-container">
+                  <input type="hidden" class="form-control" id="ss-module-copy-source-uri" name="source_uri" value="module/the/source/module/uri/123">
+                  <div class="form-group">
+                    <label id="ss-module-copy-target-name-label" for="ss-module-copy-target-name">New module name</label>
+                    <div class="input-group">
+                      <div class="input-group-addon"><strong id="ss-module-copy-target-project">module</strong></div>
+                      <input type="text" class="form-control" id="ss-module-copy-target-name" name="target_name" placeholder="Required">
+                    </div>
+                  </div>
+                <div class="ss-dialog-footnote text-muted">
+                  Please note that the access rights still apply for copied modules.
+                </div> <!-- /.ss-save-dialog-footnote -->
+              </div> <!-- /.ss-copy-module-dialog-form-container -->
+            </div> <!-- /.modal-body -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary ss-ok-btn ss-copy-btn">Copy module</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
   </div> <!-- /.container -->
 
   <div id="bottom-scripts">
@@ -251,6 +271,7 @@
     <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
     <script src="external/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/request.js"></script>
     <script src="js/modal_dialogs.js"></script>
   </div>
 

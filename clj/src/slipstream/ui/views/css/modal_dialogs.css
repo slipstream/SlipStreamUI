@@ -1,5 +1,14 @@
-#ss-module-chooser-dialog .modal-body {
+#ss-module-chooser-dialog .modal-body,
+#ss-copy-module-dialog .modal-body {
     padding: 0;
+}
+
+#ss-copy-module-dialog .ss-copy-module-dialog-form-container {
+    padding: 15px;
+}
+
+#ss-module-copy-target-project::after {
+    content: "/";
 }
 
 .ss-dialog-footnote {

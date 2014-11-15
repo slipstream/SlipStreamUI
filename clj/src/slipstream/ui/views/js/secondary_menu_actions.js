@@ -7,40 +7,65 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.util.url.redirectTo(moduleURI + "/new?category=" + category + "#summary");
     }
 
+
+    // New-project action
+
     $("#ss-secondary-menu-action-new-project").clickWhenEnabled( function() {
         console.log($(this).attr("id") + " in callback #1");
         newModuleRedirect("Project");
     });
+
+
+    // New-image action
 
     $("#ss-secondary-menu-action-new-image").clickWhenEnabled( function() {
         console.log($(this).attr("id") + " in callback #2");
         newModuleRedirect("Image");
     });
 
+
+    // New-deployment action
+
     $("#ss-secondary-menu-action-new-deployment").clickWhenEnabled( function() {
         console.log($(this).attr("id") + " in callback #3");
         newModuleRedirect("Deployment");
     });
 
+
+    // Import action
+
     $("#ss-secondary-menu-action-import").clickWhenEnabled( function() {
         console.log($(this).attr("id") + " in callback #4");
     });
+
+
+    // New-user action
 
     $("#ss-secondary-menu-action-new-user").clickWhenEnabled( function() {
         $$.util.url.redirectTo("/user/new");
     });
 
+
+    // Run action
+
     $("#ss-secondary-menu-action-run").clickWhenEnabled( function() {
         console.log($(this).attr("id") + " in callback #7");
     });
+
+
+    // Build action
 
     $("#ss-secondary-menu-action-build").clickWhenEnabled( function() {
         console.log($(this).attr("id") + " in callback #8");
     });
 
+
+    // Copy action
+
     $("#ss-secondary-menu-action-copy").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #9");
+        $('#ss-copy-module-dialog').modal("show");
     });
+
 
     // Publish and unpublish actions
 
@@ -114,9 +139,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     });
 
+
+    // Edit action
+
     $("#ss-secondary-menu-action-edit").clickWhenEnabled( function() {
         window.location.search = 'edit=true';
     });
+
+
+    // Save action
 
     $("#ss-secondary-menu-action-save").clickWhenEnabled( function(event) {
         if (event.altKey ||
@@ -133,6 +164,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
+
+    // Create action
+
     $("#ss-secondary-menu-action-create").clickWhenEnabled( function() {
         var $form = $("#create-form");
         if ($$.util.meta.isViewName("module")) {
@@ -141,9 +175,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $form.submit();
     });
 
+
+    // Cancel action
+
     $("#ss-secondary-menu-action-cancel").clickWhenEnabled( function() {
         window.location = $$.util.url.getCurrentURLBase();
     });
+
+
+    // Delete action
 
     $("#ss-secondary-menu-action-delete").clickWhenEnabled( function() {
         $('#ss-delete-dialog').askConfirmation(function () {

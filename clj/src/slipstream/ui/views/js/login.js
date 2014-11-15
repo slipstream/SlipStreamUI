@@ -1,5 +1,5 @@
 jQuery( function() { ( function( $$, $, undefined ) {
-    $('form#register').bootstrapValidator();
+    $('form#register').bootstrapValidator(); // TODO: Configure the validator via JS instead as inline in the HTML.
 
     $$.request
         .post()

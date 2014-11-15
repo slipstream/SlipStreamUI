@@ -594,6 +594,14 @@
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.cancel      :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.unpublish   "Unpublish %1$s" ;  %1$s: module category
 
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.title                                "Copy %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.button.cancel                        :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.button.copy                          "Copy %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.label                "New %1$s name" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.placeholder          :global.adjectives.required
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.default-suffix       "-v%1$s-copy" ;  %1$s: module version
+   :slipstream.ui.views.modal-dialogs.copy-module-dialog.footnote                             "Choose the target project to copy this %1$s to." ;  %1$s: module category
+
    :slipstream.ui.views.run.header.title                    "%1$s is %2$s" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary

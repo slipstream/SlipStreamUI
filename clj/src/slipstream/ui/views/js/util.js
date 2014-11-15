@@ -181,12 +181,33 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        setFormField: function ($form, fieldName, fieldValue) {
+        setFormField: function (fieldName, fieldValue) {
             $(this).filter("form").each(function () {
                 var $form = $(this);
                 // If the field doesn't exists already in the form, this is a no-op.
                 $form.find("input[name=" + fieldName + "]").val(fieldValue);
             });
+            return this;
+        },
+
+        toggleFormInputValidationState: function (state) {
+            var $formGroup = $(this).closest(".form-group");
+            if ($formGroup.length === 0) {
+                throw "No .form-group element can be found from jQuery selection.";
+            }
+            if ($formGroup.length !== 1) {
+                throw "More than one .form-group element can be found from jQuery selection. Please select only one.";
+            }
+            if ($.type(state) === "boolean") {
+                $formGroup
+                    .toggleClass("has-success", state)
+                    .toggleClass("has-error",  !state);
+            } else {
+                // If the 'state' is not a boolean, we toggle the current state
+                $formGroup
+                    .toggleClass("has-success")
+                    .toggleClass("has-error");
+            }
             return this;
         },
 
@@ -224,7 +245,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     util.string = {
         caseInsensitiveEqual: function (str1, str2) {
             if ($.type(str1) !== "string" || $.type(str2) !== "string") {
-                return undefined;
+                return false;
             }
             return str1.toUpperCase() ===  str2.toUpperCase();
         }

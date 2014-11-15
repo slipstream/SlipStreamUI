@@ -231,7 +231,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 var request = this,
                     $form = $("form" + sel);
                 request
-                    .url(request.settings.url || $form.attr("action"))
                     // .serialization("json") // NOTE: Uncomment to send a JSON to the server
                     // .dataType("json")      // NOTE: Uncomment to request the server a JSON reply
                     // .dataType("xml")       // NOTE: Uncomment to request the server a XML reply
@@ -259,6 +258,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     }
 
                     request
+                        .url(request.settings.url || $form.attr("action"))
                         .dataObject($(this).serializeObject())
                         .send();
                     return false;

@@ -72,6 +72,19 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.unpublish resource-name))))
 
+(localization/with-prefixed-t :copy-module-dialog
+  (html/defsnippet ^:private copy-module-dialog template-filename [:#ss-copy-module-dialog]
+    [resource-name resource-id module-version]
+    title-sel                 (html/content       (t :title resource-name))
+    [:iframe]                 (ue/when-set-src (not-empty resource-id) (-> resource-id u/module-uri uc/trim-last-path-segment) "?chooser=true")
+    [:#ss-module-copy-source-uri] (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
+    [:#ss-module-copy-target-name-label] (html/content (t :new-module-name.label resource-name))
+    [:#ss-module-copy-target-name] (ue/set-value (-> resource-id uc/last-path-segment (str (t :new-module-name.default-suffix module-version))))
+    [:#ss-module-copy-target-name] (ue/set-placeholder (t :new-module-name.placeholder))
+    footnote-sel              (html/html-content  (t :footnote resource-name))
+    first-button-sel          (html/content       (t :button.cancel))
+    last-button-sel           (html/content       (t :button.copy resource-name))))
+
 (localization/with-prefixed-t :resource-name
   (defn- resource-name
     [{:keys [view-name parsed-metadata]}]
@@ -108,6 +121,9 @@
     (page-type/view?)
     (module-category? context :image :deployment)))
 
+(def ^:private copy-required?
+  publish-required?)
+
 (defn- terminate-required?
   [{:keys [view-name]}]
   (= "run" view-name))
@@ -118,9 +134,10 @@
         resource-id (resource-id context)
         module-version (module-version context)]
     (cond-> []
-      (page-type/edit?)             (conj (save-dialog resource-name)
-                                          (delete-dialog resource-name resource-id))
-      (chooser-required? context)   (conj (-> context :parsed-metadata :cloud-image-details :reference-image module-chooser-dialog))
-      (terminate-required? context) (conj (terminate-deployment-dialog))
-      (publish-required? context)   (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
-                                          (unpublish-module-confirmation-dialog resource-name resource-id module-version)))))
+      (page-type/edit?)               (conj (save-dialog resource-name)
+                                            (delete-dialog resource-name resource-id))
+      (chooser-required? context)     (conj (-> context :parsed-metadata :cloud-image-details :reference-image module-chooser-dialog))
+      (terminate-required? context)   (conj (terminate-deployment-dialog))
+      (publish-required? context)     (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
+                                            (unpublish-module-confirmation-dialog resource-name resource-id module-version))
+      (copy-required? context)        (conj (copy-module-dialog resource-name resource-id module-version)))))

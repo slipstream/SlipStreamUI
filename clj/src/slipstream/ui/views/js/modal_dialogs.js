@@ -4,8 +4,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var $modalDialogs = $("div.modal");
 
     $modalDialogs.onAltEnterPress(function () {
-        // Enable ALT-ENTER shortcut for ss-save-btn buttons
-        $(this).find(".ss-save-btn").click();
+        // Enable ALT-ENTER shortcut for all OK buttons (.ss-ok-btn)
+        // If there is more than one OK button, we enable the shurtcut for the first one.
+        $(this).find(".ss-ok-btn").first().click();
     });
 
     $modalDialogs.on("shown.bs.modal", function (e) {
@@ -45,6 +46,53 @@ jQuery( function() { ( function( $$, $, undefined ) {
         updateReferenceModuleCell($moduleChooserDialog.data("currentModule").getFullNameWithVersion());
     });
 
+
+    // Configure copy module dialog
+
+    var $copyModuleDialog = $("#ss-copy-module-dialog"),
+        $moduleCopyTargetName = $copyModuleDialog.find("#ss-module-copy-target-name");
+
+    $$.request
+        .post()
+        .onSuccessFollowRedirectInResponseHeader()
+        .always(function (){
+            $copyModuleDialog.modal("hide");
+        })
+        .useToSubmitForm("#ss-module-copy-form");
+
+    function toggleFormValidation() {
+        // BootstrapValidator needs now a comercial licence :(
+        // Source: http://bootstrapvalidator.com/download/
+        var isTargetNamePresent = $moduleCopyTargetName.val() ? true : false,
+            isValidForm = isTargetNamePresent && $copyModuleDialog.data("isProject");
+        $copyModuleDialog
+            .find(".ss-ok-btn")
+            .enable(isValidForm);
+        $moduleCopyTargetName
+            .toggleFormInputValidationState(isValidForm);
+    }
+
+    $moduleCopyTargetName.keyup(function(e) {
+        // Backspace does not trigger 'keypress'.
+        toggleFormValidation();
+    });
+
+    $copyModuleDialog.find("iframe").bind('load', function(e) {
+        var module = $(this).contents().getSlipStreamModel().module,
+            isProject = module.isOfCategory("project"),
+            targetProject = isProject ? module.getFullName() : undefined;
+        $copyModuleDialog
+            .data("isProject", isProject)
+            .find("form")
+            .attr("action", "/module/" + targetProject)
+            .find("input")
+            .toggleFormInputValidationState(isProject)
+            .enable(isProject);
+        $copyModuleDialog
+            .find("#ss-module-copy-target-project")
+            .text(targetProject);
+        toggleFormValidation();
+    });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
 
