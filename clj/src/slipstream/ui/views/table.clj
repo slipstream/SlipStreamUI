@@ -385,8 +385,10 @@
 (defmethod cell-snip [:cell/username :mode/any :content/plain]
   [{username :content}]
   (let [content-base {:text username, :id "username"}]
-    (if (page-type/chooser?)
-      (cell-text-snip-view content-base) ; We don't want to be able to link outside of the chooser scope
+    (if (or
+          (current-user/not-super?) ; Regular users do not have access to profiles other than their own.
+          (page-type/chooser?))     ; We don't want to be able to link outside of the chooser scope.
+      (cell-text-snip-view content-base)
       (cell-link-snip-view (assoc content-base :href (u/user-uri username))))))
 
 (defmethod cell-snip [:cell/icon :mode/any :content/plain]
