@@ -69,7 +69,7 @@ body.ss-error-page .jumbotron .ss-header .ss-header-title:empty::before {
 }
 
 body.ss-error-page .jumbotron .ss-header .ss-header-subtitle:empty::before {
-  content: "How embarrassing. We lost you on the cloud, away from the slip stream. We are surely working on it, but if you land to this page many times, please don't hesitate to let us know.";
+  content: "How embarrassing. We lost you on the cloud, away from the slipstream. We are surely working on it, but if you land to this page many times, please don't hesitate to let us know.";
 }
 
 

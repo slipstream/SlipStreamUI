@@ -165,7 +165,7 @@
 
 
    :slipstream.ui.views.error.page-title                       :global.nouns.error
-   :slipstream.ui.views.error.header.subtitle                  "How embarrassing. We lost you on the cloud, away from the slip stream.
+   :slipstream.ui.views.error.header.subtitle                  "How embarrassing. We lost you on the cloud, away from the slipstream.
                                                                 We are surely working on it, but if you land to this page many times,
                                                                 please don't hesitate to [let us know](mailto:support@sixsq.com)." ; Also set up by default in error.css
 
