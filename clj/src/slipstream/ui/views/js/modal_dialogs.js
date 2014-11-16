@@ -63,8 +63,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .useToSubmitForm("#ss-module-copy-form");
 
     function toggleFormValidation() {
-        // BootstrapValidator needs now a comercial licence :(
+        // BootstrapValidator needs now a comercial licence from version 0.5.3 :(
         // Source: http://bootstrapvalidator.com/download/
+        //         https://github.com/nghuuphuoc/bootstrapvalidator/releases
         var isValidForm;
         if(! $copyModuleDialog.data("isProject")) {
             isValidForm = false;
