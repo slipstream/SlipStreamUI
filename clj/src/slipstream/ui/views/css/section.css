@@ -9,6 +9,6 @@ span.row span {
   padding: 0;
 }
 
-.ss-section {
+.ss-section .ss-section-activator {
   cursor: pointer;
 }
