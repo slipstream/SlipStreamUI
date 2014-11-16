@@ -1,5 +1,11 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    $(".ss-secondary-extra-actions-toggle").mouseenter(function () {
+        // Auto-open secondary actions menu dropdown on 'mouseenter' event.
+        // The click action is still needed for touch devices.
+        $(this).click();
+    });
+
     var module = $$.model.getModule();
 
     function newModuleRedirect(category) {
