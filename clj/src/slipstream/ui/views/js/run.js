@@ -268,7 +268,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 var nodeNames = $(run).attr('nodeNames') || "";
                 nodeNames = nodeNames.split(', ');
 
-                for (var i in nodeNames) {
+                for (var i = 0; i < nodeNames.length; i++) {
                     var vmname = nodeNames[i].trim();
                     if(vmname === "") {
                         continue;

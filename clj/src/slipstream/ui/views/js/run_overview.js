@@ -14,10 +14,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     };
 
     var cloudServiceNodesMap = function() {
-        var map = {};
-        var nodeGroups = $("[id*='ss:groups']").text().split(",");
-        for(var index in nodeGroups) {
-            var nodeGroup = nodeGroups[index].trim();
+        var map = {},
+            nodeGroups = $("[id*='ss:groups']").text().split(",");
+        for (var i = 0; i < nodeGroups.length; i++) {
+            var nodeGroup = nodeGroups[i].trim();
             if(!nodeGroup) {
                 continue;
             }
@@ -39,8 +39,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         for(var cloudService in cloudServiceNodesMap) {
             var orchestrator = {name: "orchestrator-" + cloudService, id: "id_" + cloudService, data: {type: "orchestrator"}, children: []};
             var nodes = cloudServiceNodesMap[cloudService];
-            for(var index in nodes) {
-                addNode(nodes[index], $("[id*='" + nodes[index] + "\\:multiplicity'").text(), orchestrator);
+            for (var i = 0; i < nodes.length; i++) {
+                addNode(nodes[i], $("[id*='" + nodes[i] + "\\:multiplicity'").text(), orchestrator);
             }
             root.children.push(orchestrator);
         }

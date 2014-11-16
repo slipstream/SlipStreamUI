@@ -3,6 +3,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     // String object prototype extensions
 
     $.extend(String.prototype, {
+
+        startsWith: function(str) {
+            return (this.match("^" + str) == str);
+        },
+
+        endsWith: function(str) {
+            return (this.match(str + "$") == str);
+        },
+
         trimFromLastIndexOf: function(str) {
             var lastIndexOfStr = this.lastIndexOf(str);
             if (lastIndexOfStr === -1) {
