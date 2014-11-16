@@ -1,14 +1,7 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // Auto dismiss alters already present on page load
-    $("#alert-container div[role=alert]:not(.hidden)").each(function(){
-        var $alertElem = $(this);
-        setTimeout(function(){
-            $alertElem.hide("slow", function() {
-                $alertElem.remove();
-            });
-        }, 5000);
-    })
+    // Auto dismiss alerts already present on page load
+    $("#alert-container div[role=alert]:not(.hidden)").scheduleAlertDismiss();
 
     var alertDefaultOptions = {
       type: "info",
@@ -56,11 +49,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $alertContainer.prepend($alertElem);
         $alertElem.show("fast");
 
-        setTimeout(function(){
-            $alertElem.hide("slow", function() {
-                $alertElem.remove();
-            });
-        }, 5000);
+        $alertElem.scheduleAlertDismiss();
 
         return true;
     }

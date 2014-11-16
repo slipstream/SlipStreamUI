@@ -272,6 +272,28 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             $modalDialog.modal("show");
             return this;
+        },
+
+        scheduleAlertDismiss: function(millis){
+            var $alertElem = $(this).filter("div[role=alert]:not(.hidden)");
+            $alertElem.data("dismissTimeout", setTimeout(function(){
+                $alertElem.hide("slow", function() {
+                    $alertElem.remove();
+                });
+            }, millis || 5000));
+            if (! $alertElem.data("mouseHandlersAlreadySetup")) {
+                // Schedule mouse handlers only once
+                $alertElem.mouseenter(function() {
+                    // Cancelling alert dismiss
+                    clearTimeout($alertElem.data("dismissTimeout"));
+                });
+                $alertElem.mouseleave(function() {
+                    // Scheduling new dismiss
+                    $alertElem.scheduleAlertDismiss(millis);
+                });
+                $alertElem.data("mouseHandlersAlreadySetup", true);
+            }
+            return this;
         }
 
     });
