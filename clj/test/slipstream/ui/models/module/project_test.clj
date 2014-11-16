@@ -109,6 +109,8 @@
                :owner "rob"
                :version 80
                :uri "module/Public/OtherProject/slave-centos/80"}]
+   :available-clouds [{:selected? true, :value "stratuslab", :text "stratuslab"}
+                      {:value "default", :text "default"}]
    :summary {:deleted? false
              :creation "2013-05-16 17:04:39.113 CEST"
              :comment "ccc"

@@ -97,6 +97,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
         toggleFormValidation();
     });
 
+
+    // Configure build module dialog
+    var $buildModuleDialog = $("#ss-build-module-dialog");
+
+    $$.request
+        .post("/run")
+        .onSuccessFollowRedirectInResponseHeader()
+        .always(function (){
+            $buildModuleDialog.modal("hide");
+        })
+        .useToSubmitForm("#ss-build-module-form");
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
-
-

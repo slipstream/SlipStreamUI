@@ -84,10 +84,18 @@
      :parent-uri        (-> attrs :parenturi)
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 
+(defn- available-clouds
+  [metadata]
+  (let [cloud-default (-> metadata (html/select [:user]) first :attrs :defaultcloud)]
+    (-> metadata
+        (html/select [:cloudNames :string html/text-node])
+        (u/enum :available-clouds)
+        (u/enum-select cloud-default))))
+
 (defn parse
   "See tests for structure of the expected parsed metadata."
   [metadata]
-  (-> {}
-      (assoc :summary         (summary metadata))
-      (assoc :authorization   (authorization metadata))
+  (-> {:summary           (summary metadata)
+       :available-clouds  (available-clouds metadata)
+       :authorization     (authorization metadata)}
       (assoc-category-sections metadata)))

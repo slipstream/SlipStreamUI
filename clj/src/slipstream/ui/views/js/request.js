@@ -185,26 +185,29 @@ jQuery( function() { ( function( $$, $, undefined ) {
                      "usually the result of a broken Internet connection. You can try " +
                      "refreshing this page and doing the request again.");
 
-                var errorStatusCodeAlerts = this.intern.errorStatusCodeAlerts;
-                this.onError( function(jqXHR, textStatus, errorThrown){
-                    if (textStatus != "error") {
-                        return;
-                    }
-                    var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
-                    if (statusCodeAlertTitleAndMsg === undefined) {
-                        var responseDetail = jqXHR.responseJSON && jqXHR.responseJSON.detail;
-                        if (responseDetail === undefined) {
-                            // If the response is not a JSON, it is a complete valid HTML error page.
-                            // In that case, we retrieve the details from the header subtitle.
-                            responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
+                if (!this.intern.defaultErrorHandlerAlreadySetup) {
+                    var errorStatusCodeAlerts = this.intern.errorStatusCodeAlerts;
+                    this.onError( function(jqXHR, textStatus, errorThrown){
+                        if (textStatus != "error") {
+                            return;
                         }
-                        $$.alert.showError(
-                            "Error " + jqXHR.status + " - " + errorThrown,
-                            responseDetail);
-                    } else {
-                        $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
-                    }
-                });
+                        var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
+                        if (statusCodeAlertTitleAndMsg === undefined) {
+                            var responseDetail = jqXHR.responseJSON && jqXHR.responseJSON.detail;
+                            if (responseDetail === undefined) {
+                                // If the response is not a JSON, it is a complete valid HTML error page.
+                                // In that case, we retrieve the details from the header subtitle.
+                                responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
+                            }
+                            $$.alert.showError(
+                                "Error " + jqXHR.status + " - " + errorThrown,
+                                responseDetail);
+                        } else {
+                            $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
+                        }
+                    });
+                    this.intern.defaultErrorHandlerAlreadySetup = true;
+                }
 
                 if (this.settings.dataType) {
                     var dataType = this.settings.dataType;

@@ -56,7 +56,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Build action
 
     $("#ss-secondary-menu-action-build").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #8");
+        $('#ss-build-module-dialog').modal("show");
     });
 
 

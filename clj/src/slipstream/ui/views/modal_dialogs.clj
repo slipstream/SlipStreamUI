@@ -85,6 +85,20 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.copy resource-name))))
 
+(localization/with-prefixed-t :build-module-dialog
+  (html/defsnippet ^:private build-module-dialog template-filename [:#ss-build-module-dialog]
+    [resource-name resource-id module-version available-clouds]
+    title-sel                 (html/content       (t :title resource-name))
+    [:#ss-build-module-cloud-label] (html/content (t :cloud-service.label))
+    [:select]                 (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} available-clouds]
+                                              ue/this (ue/set-value value)
+                                              ue/this (ue/set-selected selected?)
+                                              ue/this (html/content text))
+    footnote-sel              (html/html-content  (t :footnote resource-name))
+    [:#ss-build-module-id]    (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
+    first-button-sel          (html/content       (t :button.cancel))
+    last-button-sel           (html/content       (t :button.build resource-name))))
+
 (localization/with-prefixed-t :resource-name
   (defn- resource-name
     [{:keys [view-name parsed-metadata]}]
@@ -115,6 +129,10 @@
     (page-type/edit-or-new?)
     (module-category? context :image)))
 
+(defn- terminate-required?
+  [{:keys [view-name]}]
+  (= "run" view-name))
+
 (defn- publish-required?
   [context]
   (and
@@ -124,9 +142,11 @@
 (def ^:private copy-required?
   publish-required?)
 
-(defn- terminate-required?
-  [{:keys [view-name]}]
-  (= "run" view-name))
+(defn- build-required?
+  [context]
+  (and
+    (page-type/view?)
+    (module-category? context :image)))
 
 (defn required
   [context]
@@ -140,4 +160,5 @@
       (terminate-required? context)   (conj (terminate-deployment-dialog))
       (publish-required? context)     (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
                                             (unpublish-module-confirmation-dialog resource-name resource-id module-version))
-      (copy-required? context)        (conj (copy-module-dialog resource-name resource-id module-version)))))
+      (copy-required? context)        (conj (copy-module-dialog resource-name resource-id module-version))
+      (build-required? context)       (conj (build-module-dialog resource-name resource-id module-version (-> context :parsed-metadata :available-clouds))))))

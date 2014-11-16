@@ -219,6 +219,8 @@
                                          :owner-access? true}}
                    :group-members #{}
                    :inherited-group-members? true}
+   :available-clouds [{:selected? true, :value "stratuslab", :text "stratuslab"}
+                      {:value "default", :text "default"}]
    :summary {:deleted? false
              :comment nil
              :creation "2013-03-07 21:03:09.124 CET"
