@@ -126,15 +126,32 @@
 
 ;; Resource URIs for a give resource name
 
+(defn- parse-query-param
+  [[k v]]
+  (str (name k) "=" (if (keyword? v) (name v) v)))
+
+(defn uri
+  [pathname & {:as query-params}]
+  (if-not query-params
+    pathname
+    (str pathname "?" (->> query-params
+                           (map parse-query-param)
+                           sort
+                           (s/join "&")))))
+
 (defn user-uri
-  [username]
-  (str "/user/" username))
+  [username & query-params]
+  (apply uri
+         (str "/user/" username)
+         query-params))
 
 (defn module-uri
-  [module]
-  (-> module
-      (uc/trim-prefix   "/")
-      (uc/ensure-prefix "/module/")))
+  [module & query-params]
+  (apply uri
+         (-> module
+             (uc/trim-prefix   "/")
+             (uc/ensure-prefix "/module/"))
+         query-params))
 
 ;; Module categories names
 

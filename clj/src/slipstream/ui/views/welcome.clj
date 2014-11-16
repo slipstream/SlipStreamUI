@@ -50,7 +50,7 @@
     app-image-container-sel        (ue/enable-class updated? app-updated-cls)
     app-image-container-sel        (ue/enable-class new? app-new-cls)
     app-name-deploy-btn-sel        (html/content (t :app.label.deploy))
-    app-name-deploy-btn-sel        (ue/set-onclick "location = '" uri "?action=run'; return false;")
+    app-name-deploy-btn-sel        (ue/set-onclick "location = '" (u/uri uri :action "run") "'; return false;")
     app-name-container-sel         (ue/set-href uri)
     app-name-sel                   (html/content (str name))
     app-version-sel                (html/content version)

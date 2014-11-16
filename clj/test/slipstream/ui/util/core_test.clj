@@ -94,6 +94,73 @@
         (enum-select "value-not-available"))))
 
 
+;; uri
+
+(expect
+  "/user/foo"
+  (user-uri "foo"))
+
+(expect
+  "/user/foo?edit=true"
+  (user-uri "foo" :edit true))
+
+(expect
+  "/user/foo?edit=true"
+  (user-uri "foo" :edit "true"))
+
+(expect
+  "/user/foo?edit=true"
+  (user-uri "foo" "edit" "true"))
+
+(expect
+  "/user/foo?action=delete&edit=true"
+  (user-uri "foo" :action :delete :edit true))
+
+(expect
+  "/user/foo?action=delete&edit=true"
+  (user-uri "foo" :edit true :action :delete))
+
+(expect
+  "/user/foo?action=delete&edit=true"
+  (user-uri "foo" :edit "true" :action "delete"))
+
+(expect
+  "/user/foo?action=delete&edit=true"
+  (user-uri "foo" "edit" "true" "action" "delete"))
+
+(expect
+  "/module/foo"
+  (module-uri "foo"))
+
+(expect
+  "/module/foo?edit=true"
+  (module-uri "foo" :edit true))
+
+(expect
+  "/module/foo?edit=true"
+  (module-uri "foo" :edit "true"))
+
+(expect
+  "/module/foo?edit=true"
+  (module-uri "foo" "edit" "true"))
+
+(expect
+  "/module/foo?action=run&edit=true"
+  (module-uri "foo" :action :run :edit true))
+
+(expect
+  "/module/foo?action=run&edit=true"
+  (module-uri "foo" :edit true :action :run))
+
+(expect
+  "/module/foo?action=run&edit=true"
+  (module-uri "foo" :edit "true" :action "run"))
+
+(expect
+  "/module/foo?action=run&edit=true"
+  (module-uri "foo" "edit" "true" "action" "run"))
+
+
 ;; t-module-category
 
 (expect
