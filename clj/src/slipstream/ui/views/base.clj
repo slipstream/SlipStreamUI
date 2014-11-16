@@ -115,8 +115,6 @@
             (ue/set-id "save-form")
             (ue/set-id "create-form"))
   ue/this (html/set-attr :accept-charset "utf-8")
-  ; ue/this (html/set-attr :method "post")
-  ; ue/this (html/set-attr :action "?method=put")
   ue/this content-transformation-fn)
 
 (defn- transform-content

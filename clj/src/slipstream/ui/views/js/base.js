@@ -23,16 +23,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $("body").addClass("ss-standalone-webapp-mobile");
     }
 
-    // Remove secondary menu if no actions
-    $(".ss-secondary-menu-main-action span:last-of-type:empty")
-        .closest("#ss-secondary-menu")
-        .remove();
-
-    // Remove secondary menu dropdown caret if no extra actions
-    if ( ! $(".ss-secondary-menu-extra-actions-container .ss-secondary-menu-extra-action:first-child a").length) {
-        $(".ss-secondary-extra-actions-toggle").remove();
-    }
-
     if ($("body").hasClass("ss-page-type-chooser")) {
         // Make secondary-menubar fixed to top directly
         $("#ss-secondary-menubar-container").affix({

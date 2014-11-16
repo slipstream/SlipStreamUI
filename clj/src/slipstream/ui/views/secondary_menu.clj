@@ -6,6 +6,7 @@
 
 (def ^:private main-action-sel [:.ss-secondary-menu-main-action])
 (def ^:private extra-actions-container-sel [:#ss-secondary-menu :> :div :> :ul])
+(def ^:private extra-actions-toggle-sel [:.ss-secondary-extra-actions-toggle])
 (def ^:private extra-action-sel [[:.ss-secondary-menu-extra-action (ue/first-of-class "ss-secondary-menu-extra-action")]])
 (def ^:private action-icon-sel [[:span (html/nth-of-type 1)]])
 (def ^:private action-name-sel [[:span html/last-of-type]])
@@ -23,9 +24,10 @@
              action-name-sel   (html/content (str name)))))
 
 (defn- setup-extra-actions
-  [actions]
-  (ue/content-for extra-action-sel [action actions]
-       extra-action-anchor-sel (setup-action action)))
+  [extra-actions]
+  (when extra-actions
+    (ue/content-for extra-action-sel [extra-action extra-actions]
+         extra-action-anchor-sel (setup-action extra-action))))
 
 (defn- toggle-super-only-action
   "Enable ':super-only?' actions if user is ':super?'.
@@ -50,8 +52,11 @@
   [secondary-menu-actions]
   (let [actions (->> secondary-menu-actions
                      (map call-action-fn)
-                     (map toggle-super-only-action))]
-    (fn [match]
-      (html/at match
-               main-action-sel              (setup-action (first actions))
-               extra-actions-container-sel  (setup-extra-actions (rest actions))))))
+                     (map toggle-super-only-action)
+                     not-empty)]
+    (when actions
+      (fn [match]
+          (html/at match
+                   main-action-sel              (setup-action (first actions))
+                   extra-actions-toggle-sel     (ue/remove-if-not (next actions))
+                   extra-actions-container-sel  (setup-extra-actions (next actions)))))))
