@@ -75,7 +75,7 @@
    :cell/relative-timestamp [             :content/map  :content/plain]
    :cell/boolean            [             :content/map  :content/plain]
    :cell/map                [             :content/map                ]
-   :cell/link               [             :content/map                ]
+   :cell/link               [:content/any                             ]
    :cell/external-link      [             :content/map                ]
    :cell/email              [             :content/map  :content/plain]
    :cell/url                [             :content/map  :content/plain]

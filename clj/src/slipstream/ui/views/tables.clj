@@ -39,12 +39,13 @@
            {:type :cell/text,       :content last-name}
            {:type :cell/text,       :content organization}
            {:type :cell/text,       :content state}
-           {:type :cell/timestamp,  :content last-online}]})
+           {:type :cell/timestamp,  :content last-online}
+           {:type :cell/link,  :content (when (current-user/not-is? username) {:href (u/user-uri username :edit true :action "delete"), :text (t :action.delete)})}]})
 
 (defn users-table
   [users]
   (table/build
-    {:headers [nil :username :first-name :last-name :organization :state :last-online]
+    {:headers [nil :username :first-name :last-name :organization :state :last-online :action]
      :rows (map user-row users)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

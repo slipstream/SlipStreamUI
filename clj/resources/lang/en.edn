@@ -22,6 +22,7 @@
                           :ellipsis "..."
                           }
             :nouns {
+                    :action           "Action"
                     :author           "Author"
                     :authorization    "Authorization"
                     :authorizations   "Authorizations"
@@ -235,12 +236,14 @@
    :slipstream.ui.views.table.header.access-right             "Access Right"
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
+   :slipstream.ui.views.table.header.cloud-instance-id        "Cloud Instance Id"
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
    :slipstream.ui.views.table.header.date                     :global.nouns.date
    :slipstream.ui.views.table.header.description              :global.nouns.description
    :slipstream.ui.views.table.header.epub                     :global.nouns.epub
    :slipstream.ui.views.table.header.first-name               :global.nouns.first-name
    :slipstream.ui.views.table.header.group                    :global.nouns.group
+   :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.html                     :global.nouns.html
    :slipstream.ui.views.table.header.id                       "Run Id"
    :slipstream.ui.views.table.header.image-link               "Image-link"
@@ -254,6 +257,8 @@
    :slipstream.ui.views.table.header.pdf                      :global.nouns.pdf
    :slipstream.ui.views.table.header.public                   :global.nouns.public
    :slipstream.ui.views.table.header.repository               :global.nouns.repository
+   :slipstream.ui.views.table.header.run-id                   "Run Id"
+   :slipstream.ui.views.table.header.slipstream-id            "SlipStream ID"
    :slipstream.ui.views.table.header.start-time               "Start Time"
    :slipstream.ui.views.table.header.state                    :global.nouns.state
    :slipstream.ui.views.table.header.status                   :global.nouns.state
@@ -262,9 +267,6 @@
    :slipstream.ui.views.table.header.username                 :global.nouns.username
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
-   :slipstream.ui.views.table.header.slipstream-id            "SlipStream ID"
-   :slipstream.ui.views.table.header.run-id                   "Run Id"
-   :slipstream.ui.views.table.header.cloud-instance-id        "Cloud Instance Id"
 
    :slipstream.ui.views.table.map-cell.key.reference-image    "Reference image"
    :slipstream.ui.views.table.map-cell.key.default-multiplicity "Default multiplicity"
@@ -289,6 +291,8 @@
    :slipstream.ui.views.tables.access.create-children         "Create children"
    :slipstream.ui.views.tables.access.run-deployment          "Run deployment"
    :slipstream.ui.views.tables.access.build-or-run-image      "Build or run single image"
+
+   :slipstream.ui.views.tables.action.delete                  "Delete..."
 
    :slipstream.ui.views.table.timestamp.unknown               :global.adjectives.unknown
    ;; Parameters

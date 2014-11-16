@@ -344,7 +344,7 @@
   ; TODO: Unimplemented edit view
   (cell-map-snip-view m))
 
-(defmethod cell-snip [:cell/link :mode/view :content/map]
+(defmethod cell-snip [:cell/link :mode/view :content/any]
   [{content :content}]
   (cell-link-snip-view content))
 
