@@ -36,6 +36,14 @@
     {:type :warning
      :msg (t :alert.old-version.msg (u/t-module-category category s/lower-case))}))
 
+(defn- edit-published-alert
+  [{:keys [category published?]}]
+  (when (and (page-type/edit?) published?)
+    (let [category-name (u/t-module-category category s/lower-case)]
+      {:type  :info
+       :title (t :alert.edit-published.title  category-name)
+       :msg   (t :alert.edit-published.msg    category-name)})))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmulti middle-sections (comp uc/keywordize :category :summary))
@@ -82,7 +90,8 @@
       {:metadata metadata
        :parsed-metadata module
        :header (header summary)
-       :alerts [(old-version-alert summary)]
+       :alerts [(old-version-alert summary)
+                (edit-published-alert summary)]
        :resource-uri (:uri summary)
        :secondary-menu-actions (actions module)
        :content (sections module)})))

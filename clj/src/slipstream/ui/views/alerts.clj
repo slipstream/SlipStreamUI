@@ -48,7 +48,7 @@
            title-sel (ue/if-content (not-empty title)
                                     title
                                     (-> type name (str ".title") keyword t))
-           msg-sel (html/content msg)))
+           msg-sel (html/html-content msg)))
 
 (defn hidden-templates
   []
