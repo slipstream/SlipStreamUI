@@ -602,12 +602,15 @@
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.default-suffix       "-v%1$s-copy" ;  %1$s: module version
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.footnote                             "Choose the target project to copy this %1$s to." ;  %1$s: module category
 
-   :slipstream.ui.views.modal-dialogs.build-module-dialog.title                               "Build %1$s" ;  %1$s: module category
-   :slipstream.ui.views.modal-dialogs.build-module-dialog.button.cancel                       :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.build-module-dialog.button.build                        "Build %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.build.title                            "Build image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.build.footnote                         "Build a new native image from `%1$s` (v %2$s) on the selected cloud service.\n\nAt the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)." ; %1$s: module id ;  %2$s: module version
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.build.button                           "Build image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.run.title                              "Run image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.run.footnote                           "Run image `%1$s` (v %2$s) on the selected cloud service." ; %1$s: module id ;  %2$s: module version
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.run.button                             "Run image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.cloud-service.label                    "Cloud service"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.button.cancel                          :global.verbs.cancel
 
-   :slipstream.ui.views.modal-dialogs.build-module-dialog.cloud-service.label                 "Cloud service"
-   :slipstream.ui.views.modal-dialogs.build-module-dialog.footnote                            "Build a new native image on the chosen cloud service. At the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)."
 
    :slipstream.ui.views.run.header.title                    "%1$s is %2$s" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview

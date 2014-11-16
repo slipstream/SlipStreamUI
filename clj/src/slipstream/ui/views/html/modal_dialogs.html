@@ -265,47 +265,41 @@
     <p>
 
     <!-- Button trigger modal -->
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-build-module-dialog">
-      Launch demo <code>#ss-build-module-dialog</code> modal
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-run-image-dialog">
+      Launch demo <code>#ss-run-image-dialog</code> modal
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="ss-build-module-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-build-module-dialog-label" aria-hidden="true">
+    <div class="modal fade ss-run-image-dialog" id="ss-run-image-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-run-image-dialog-label" aria-hidden="true">
       <div class="modal-dialog">
-        <form class="form-horizontal" role="form" id="ss-build-module-form" action="/run">
-          <input type="hidden" class="form-control" id="ss-build-module-id" name="refqname" value="module/the/source/module/uri/123">
-          <input type="hidden" class="form-control" id="ss-build-module-type" name="type" value="Machine">
+        <form class="form-horizontal ss-run-image-form" role="form">
+          <input type="hidden" class="form-control" id="ss-run-image-id" name="refqname" value="module/the/source/module/uri/123">
+          <input type="hidden" class="form-control" id="ss-run-image-type" name="type" value="Machine">
           <div class="modal-content panel-primary">
             <div class="modal-header panel-heading">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="ss-build-module-dialog-label">Build module</h4>
+              <h4 class="modal-title" id="ss-run-image-dialog-label"><!-- <span class="glyphicon glyphicon-picture"></span>  -->Build or run image</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
-                  <!--
-                  POST on /run
-                  refqname:module/EBU_TTF/Tooling/Jenkins/slave-centos-copy-2/588
-                  type:Machine
-                  parameter--cloudservice:ec2-eu-west
-                   -->
-                <label id="ss-build-module-cloud-label" for="parameter--cloudservice" class="col-sm-3 control-label">Cloud service</label>
+                <label id="ss-run-image-cloud-label" for="parameter--cloudservice" class="col-sm-3 control-label">Cloud service</label>
                 <div class="col-sm-9">
                   <select class="form-control" id="parameter--cloudservice" name="parameter--cloudservice">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>cloud-1</option>
+                    <option>cloud-2</option>
+                    <option>cloud-3</option>
+                    <option>cloud-4</option>
+                    <option>cloud-5</option>
                   </select>
                 </div>
               </div>
               <div class="ss-dialog-footnote text-muted">
-                Build a new native image on the chosen cloud service. At the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module).
+                This dialog is used for both build and run actions for images.
               </div> <!-- /.ss-save-dialog-footnote -->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary ss-ok-btn ss-build-btn">Build module</button>
+              <button type="submit" class="btn btn-primary ss-ok-btn ss-build-btn">Build or run image</button>
             </div>
           </div>
         </form>
@@ -321,6 +315,7 @@
     <script src="external/jquery/js/jquery-1.11.1.min.js"></script>
     <script src="external/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/alert.js"></script>
     <script src="js/request.js"></script>
     <script src="js/modal_dialogs.js"></script>
   </div>

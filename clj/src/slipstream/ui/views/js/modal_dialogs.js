@@ -99,15 +99,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
 
-    // Configure build module dialog
-    var $buildModuleDialog = $("#ss-build-module-dialog");
+    // Configure image build and run dialogs
 
+    // Configure the request for both build and run actions on images
+    // (therefore we use .classes in the selectors instead of #ids)
     $$.request
         .post("/run")
         .onSuccessFollowRedirectInResponseHeader()
         .always(function (){
-            $buildModuleDialog.modal("hide");
+            $(".ss-run-image-dialog").modal("hide");
         })
-        .useToSubmitForm("#ss-build-module-form");
+        .useToSubmitForm(".ss-run-image-form");
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

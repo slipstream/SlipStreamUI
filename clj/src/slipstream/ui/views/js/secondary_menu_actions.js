@@ -55,7 +55,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Run action
 
     $("#ss-secondary-menu-action-run").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #7");
+        $('#ss-run-module-dialog').modal("show");
     });
 
 
