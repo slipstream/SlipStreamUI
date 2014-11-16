@@ -54,12 +54,12 @@
     app-name-container-sel         (ue/set-href uri)
     app-name-sel                   (html/content (str name))
     app-version-sel                (html/content version)
-    app-description-sel            (html/content description)
-    app-description-label-sel      (html/content (t :app.label.description))
+    app-description-sel            (ue/when-content description)
+    app-description-label-sel      (ue/when-content (not-empty description) (t :app.label.description))
     app-publisher-sel              (html/content publisher)
     app-publisher-label-sel        (html/content (t :app.label.publisher))
-    app-publication-date-sel       (html/content publication-date)
-    app-publication-date-label-sel (html/content (t :app.label.publication-date))))
+    app-publication-date-sel       (ue/when-content publication-date)
+    app-publication-date-label-sel (ue/when-content (not-empty publication-date) (t :app.label.publication-date))))
 
 (html/defsnippet app-thumbnails-snip template-filename app-thumbnail-group-sel
   [app-thumbnails]

@@ -42,6 +42,13 @@
     (html/content (str ~content-if-truthy))
     (html/content (str ~content-if-falsey))))
 
+(defmacro when-content
+  ([content]
+   `(when-content (not-empty ~content) ~content))
+  ([test content-if-truthy]
+   `(when ~test
+     (html/content (str ~content-if-truthy)))))
+
 (defn html-content-when-not-nil
   [html-content]
   (if (nil? html-content)
