@@ -214,6 +214,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     });
 
+    // Check if URL asks to trigger an action on pageload
+    var actionNameToTrigger = $$.util.urlQueryParams.getValue("trigger-action");
+    $("#ss-secondary-menu-action-" + actionNameToTrigger).first().click();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
 
