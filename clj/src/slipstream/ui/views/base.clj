@@ -145,6 +145,7 @@
            header
            resource-uri
            secondary-menu-actions
+           configuration
            content
            page-type
            alerts
@@ -161,7 +162,7 @@
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   ; base-sel              (ue/when-set-href (not *dev?*) "/") ;; TODO: Is that needed eventually??!
   base-sel              (ue/set-href "/") ;; TODO: Is that needed eventually??!
-  menubar-sel           (html/substitute (menubar/menubar))
+  menubar-sel           (html/substitute (menubar/menubar configuration))
   topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
   secondary-menu-sel    (when-not (page-type/chooser?)
@@ -210,6 +211,7 @@
     (cond-> context
       (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
       (page-type/new?)  (assoc :secondary-menu-actions  new-page-actions)
+      :always           (assoc :configuration           (-> context :metadata configuration/parse))
       :always           (assoc :involved-templates      (conj templates-base template-filename)))))
 
 (defmacro generate

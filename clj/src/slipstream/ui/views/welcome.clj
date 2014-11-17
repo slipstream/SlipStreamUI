@@ -79,7 +79,7 @@
 
 (defn- service-catalog-section
   [welcome-metadata]
-  (when-let [service-catalog-items (-> welcome-metadata :service-catalog :items)]
+  (when-let [service-catalog-items (-> welcome-metadata :service-catalog :items not-empty)]
     {:title   (t :section.service-catalog.title)
      :content (map service-catalog/item-section service-catalog-items)}))
 

@@ -4,7 +4,8 @@
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
-            [slipstream.ui.util.localization :as localization]))
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.models.configuration :as configuration]))
 
 (localization/def-scoped-t)
 
@@ -22,6 +23,7 @@
 (def action-contact-us-sel [:.ss-action-contact-us])
 (def action-dashboard-sel [:.ss-action-dashboard])
 (def action-configuration-sel [:.ss-action-configuration])
+(def action-service-catalog-menu-item-sel [:.ss-action-service-catalog-menu-item])
 (def action-service-catalog-sel [:.ss-action-service-catalog])
 (def action-system-sel [:.ss-action-system])
 (def action-users-sel [:.ss-action-users])
@@ -42,18 +44,18 @@
     (snip)))
 
 (defmulti menubar
-  (fn []
+  (fn [_]
     (cond
       (page-type/chooser?)      :chooser
       (current-user/logged-in?) :logged-in
       :else :unlogged)))
 
 (defmethod menubar :chooser
-  []
+  [_]
   nil)
 
 (defmethod menubar :unlogged
-  []
+  [_]
   (html/at menubar-unlogged-node
             input-username-sel  (ue/set-placeholder (t :unlogged.input.username.placeholder))
             input-password-sel  (ue/set-placeholder (t :unlogged.input.password.placeholder))
@@ -63,7 +65,7 @@
             action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
 
 (defmethod menubar :logged-in
-  []
+  [configuration]
   (html/at menubar-logged-in-node
             super-user-item-sel         (ue/remove-if-not (current-user/super?))
             username-sel                (html/content (current-user/username))
@@ -71,6 +73,7 @@
             action-dashboard-sel        (html/content (t :logged-in.action.dashboard))
             action-configuration-sel    (html/content (t :logged-in.action.configuration))
             action-system-sel           (html/content (t :logged-in.action.system))
+            action-service-catalog-menu-item-sel (ue/remove-if-not (configuration/service-catalog-enabled? configuration))
             action-service-catalog-sel  (html/content (t :logged-in.action.service-catalog))
             action-users-sel            (html/content (t :logged-in.action.users))
             action-profile-sel          (html/content (t :logged-in.action.profile))
