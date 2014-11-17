@@ -1,6 +1,5 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-
     function selectFromCombobox(e) {
         var $combobox = $(e),
             targetTab = $combobox.children("option:selected").attr("value");
@@ -34,7 +33,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(".ss-subsection-activator-group a").click(function (e) {
             var $tabAnchor  = $(this),
                 targetTab   = $tabAnchor.attr("href"),
-                $combobox   = $tabAnchor.closest("div").find("select");
+                $combobox   = $tabAnchor.closest("div").find(".ss-subsection-activator-xs-group");
             e.preventDefault();
             $combobox.val(targetTab);
             $tabAnchor.tab('show');
