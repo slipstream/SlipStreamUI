@@ -62,12 +62,13 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id read-only? placeholder] :as cell-content}]
+  [{:keys [text tooltip id read-only? disabled? placeholder] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value (str text))
   [:input]  (ue/set-placeholder placeholder)
   [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
+  [:input]  (ue/toggle-disabled disabled?)
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
@@ -108,10 +109,22 @@
 
 ; Enum cell
 
+(ue/def-blank-snippet ^:private hidden-input-for-disabled-select-snip [:input]
+  [selected-option id]
+  [:input]  (ue/set-type "hidden")
+  [:input]  (ue/set-value (:value selected-option))
+  [:input]  (ue/set-id id)
+  [:input]  (ue/set-name id))
+
 (html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
-  [{:keys [enum id] :as cell-content}]
+  [{:keys [enum id read-only? disabled?] :as cell-content}]
   [:select] (ue/set-id id)
   [:select] (ue/set-name id)
+  ; NOTE: <select> tags do not have a readonly attribute
+  ;       so we disable it and add a hidden input field instead,
+  ;       since disabled fields are NOT submitted with the form.
+  [:select] (ue/toggle-disabled (or disabled? read-only?))
+  ue/this   (ue/when-append read-only? (hidden-input-for-disabled-select-snip (u/enum-selection enum) id))
   [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum]
                             ue/this (ue/set-value value)
                             ue/this (html/content (str text))

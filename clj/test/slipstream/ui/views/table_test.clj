@@ -218,6 +218,12 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
+            <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+          </td>")
+  (cell-html {:type :cell/text, :content {:text rand-str, :disabled? true}, :editable? true}))
+
+(expect
+  (str "<td class=\"ss-table-cell-text-editable\">
             <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :placeholder "Text"}, :editable? true}))
@@ -346,6 +352,24 @@
             </select>
           </td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id"}}))
+
+(expect
+  (str "<td class=\"ss-table-cell-enum-editable\">
+            <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
+              <option value=\"other-choice\">Other choice</option>
+              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+            </select>
+          <input name=\"some-id\" id=\"some-id\" value=\"" rand-url "\" type=\"hidden\" /></td>")
+  (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id", :read-only? true}}))
+
+(expect
+  (str "<td class=\"ss-table-cell-enum-editable\">
+            <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
+              <option value=\"other-choice\">Other choice</option>
+              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+            </select>
+          </td>")
+  (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id", :disabled? true}}))
 
 
 ; When a parameter is available in the cell content, we append the hidden

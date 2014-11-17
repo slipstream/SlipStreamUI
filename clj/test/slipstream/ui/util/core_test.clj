@@ -93,6 +93,36 @@
         (enum-select "fedora")
         (enum-select "value-not-available"))))
 
+(expect
+  {:value  "fedora",   :text   "Fedora", :selected? true}
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms "fedora")
+        enum-selection)))
+
+(expect
+ "centos"
+  (localization/with-lang :en
+    (-> expected-enum
+        enum-selection
+        :value)))
+
+(expect
+  :enum
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms)
+        type)))
+
+(expect
+  :enum
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms)
+        (enum-select "fedora")
+        (enum-select "value-not-available")
+        type)))
+
 
 ;; uri
 

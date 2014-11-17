@@ -47,12 +47,24 @@
     (assoc option :selected? true)
     (dissoc option :selected?)))
 
+(defn enum-selection
+  "Returns the selected enum option. See tests for expectations."
+  [enum]
+  (->> enum
+       (filter :selected?)
+       first))
+
+(defn- type-enum
+  [enum]
+  (with-meta enum {:type :enum}))
+
 (defn enum-select
   "If the 'selected-option is not available, the first one will be selected."
   [enum selected-option]
   (->> enum
        (map (partial toggle-option selected-option))
-       ensure-one-selected))
+       ensure-one-selected
+       type-enum))
 
 (def ^:private enums-with-localization
   "By default we display the values itselves in the combobox of a 'select' form
@@ -82,7 +94,8 @@
 (defn enum
   [options enum-name & [selected-option]]
   (let [enum-base (map (partial parse-enum-option enum-name) options)]
-    (enum-select enum-base (or selected-option (first options)))))
+    (-> enum-base
+        (enum-select (or selected-option (first options))))))
 
 (defn assoc-enum-details
   [m parameter]

@@ -39,15 +39,23 @@
 (defmacro if-content
   [test content-if-truthy content-if-falsey]
   `(if ~test
-    (html/content (str ~content-if-truthy))
-    (html/content (str ~content-if-falsey))))
+    (html/content ~content-if-truthy)
+    (html/content ~content-if-falsey)))
 
 (defmacro when-content
   ([content]
    `(when-content (not-empty ~content) ~content))
   ([test content-if-truthy]
    `(when ~test
-     (html/content (str ~content-if-truthy)))))
+     (html/content ~content-if-truthy))))
+
+(defmacro when-append
+  ([content]
+   `(when-append (not-empty ~content) ~content))
+  ([test content-if-truthy]
+   `(if ~test
+      (html/append ~content-if-truthy)
+      identity)))
 
 (defn html-content-when-not-nil
   [html-content]
