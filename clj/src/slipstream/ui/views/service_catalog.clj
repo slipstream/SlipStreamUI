@@ -17,8 +17,7 @@
   [metadata]
   (let [service-catalog (service-catalog/parse metadata)]
     (base/generate
-      {:metadata metadata
-       :header {:icon     icons/service-catalog
+      {:header {:icon     icons/service-catalog
                 :title    (t :header.title)
                 :subtitle (t :header.subtitle)}
        :content (map item-section (:items service-catalog))})))

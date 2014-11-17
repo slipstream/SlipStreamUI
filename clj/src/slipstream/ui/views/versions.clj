@@ -22,8 +22,7 @@
   (let [{:keys [versions resource-uri module-name category]} (mv/parse metadata)
         icon (icons/icon-for category)]
     (base/generate
-      {:metadata metadata
-       :header {:icon icon
+      {:header {:icon icon
                 :title (t :header.title module-name)
                 :subtitle (subtitle category versions)}
        :resource-uri resource-uri

@@ -35,8 +35,7 @@
   [metadata]
   (let [user (user/parse metadata)]
     (base/generate
-      {:metadata metadata
-       :parsed-metadata user
+      {:parsed-metadata user
        :header (header user)
        :secondary-menu-actions [action/edit]
        :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))

@@ -21,8 +21,7 @@
   [metadata]
   (let [vms (vms/parse metadata)]
   (base/generate
-    {:metadata metadata
-     :header {:icon icons/vms
+    {:header {:icon icons/vms
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
      :resource-uri "/dashboard/vms"

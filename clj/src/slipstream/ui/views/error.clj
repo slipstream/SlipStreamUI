@@ -9,8 +9,7 @@
 (defn page
   [metadata message code]
   (base/generate
-    {:metadata metadata
-     :page-title (t :page-title)
+    {:page-title (t :page-title)
      :error-page? true
      :header {:status-code code
               :title (->> (or code 500) (str "header.title.status-code-") keyword t)

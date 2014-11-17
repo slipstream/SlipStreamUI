@@ -87,8 +87,7 @@
   (let [module (module/parse metadata)
         summary (:summary module)]
     (base/generate
-      {:metadata metadata
-       :parsed-metadata module
+      {:parsed-metadata module
        :header (header summary)
        :alerts [(old-version-alert summary)
                 (edit-published-alert summary)]

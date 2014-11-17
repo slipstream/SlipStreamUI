@@ -124,7 +124,6 @@
   (let [dashboard (dashboard/parse metadata)]
     (base/generate
       {:html-dependencies html-dependencies
-       :metadata metadata
        :header {:icon     icons/dashboard
                 :title    (t :header.title)
                 :subtitle (t :header.subtitle)}

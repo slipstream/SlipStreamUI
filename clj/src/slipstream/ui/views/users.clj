@@ -11,8 +11,7 @@
 (defn page
   [metadata]
   (base/generate
-    {:metadata metadata
-     :header {:icon icons/users
+    {:header {:icon icons/users
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
      :resource-uri "/user"

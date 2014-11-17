@@ -10,8 +10,7 @@
   [metadata]
   (let [action (action/parse metadata)]
     (base/generate
-      {:metadata metadata
-       :header {:icon     icons/action-ok
+      {:header {:icon     icons/action-ok
                 :title    (or (:title action) (t :header.title))
                 :subtitle (:message action)}
        :content nil})))

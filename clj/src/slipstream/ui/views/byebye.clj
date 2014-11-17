@@ -5,8 +5,7 @@
 (defn page
   [metadata]
   (base/generate
-    {:metadata metadata
-     :placeholder-page? true
+    {:placeholder-page? true
      :header {:icon icons/action-log-out
               :title "Leaving? We hope to see you back soon..."
               :subtitle "Your gateway to multi-cloud automation"}

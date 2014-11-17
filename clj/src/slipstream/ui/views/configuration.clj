@@ -18,8 +18,7 @@
   [metadata]
   (base/generate
     (let [config-params (-> metadata configuration/parse :parameters)]
-      {:metadata metadata
-       :header {:icon     icons/config
+      {:header {:icon     icons/config
                 :title    (t :header.title)
                 :subtitle (t :header.subtitle)}
        :resource-uri "/configuration"

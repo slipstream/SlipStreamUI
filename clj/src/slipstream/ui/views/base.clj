@@ -8,6 +8,7 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
+            [slipstream.ui.models.configuration :as configuration]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.header :as header]
             [slipstream.ui.views.alerts :as alerts]
@@ -195,11 +196,16 @@
    modal-dialogs/template-filename])  ;; TODO: only if body has modal-dialogs.
 
 (defn- generate-with-ns
-  [{:keys [header template-filename] :as context}]
+  [{:keys [template-filename] :as context}]
   (println "Generating base from ns" (:view-ns context)
            "- View name" (:view-name context)
-           "- Title" (:title header)
-           "- Template: " template-filename)
+           "- Title" (-> context :header :title)
+           "- Template:" template-filename
+           "- Metadata available?" (-> context :metadata boolean)
+           "- Service Catalogue enabled?" (-> context
+                                              :metadata
+                                              configuration/parse
+                                              configuration/service-catalog-enabled?))
   (base
     (cond-> context
       (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
@@ -211,5 +217,6 @@
   [context]
   (let [view-ns   (str *ns*)
         view-name (->> view-ns (re-matches #"slipstream\.ui\.views\.(.*)") second)]
-    `(~generate-with-ns (assoc ~context :view-ns   ~view-ns
+    `(~generate-with-ns (assoc ~context :metadata  ~(symbol "metadata")
+                                        :view-ns   ~view-ns
                                         :view-name ~view-name))))
