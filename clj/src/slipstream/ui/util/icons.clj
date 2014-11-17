@@ -47,6 +47,7 @@
 (def action-cancel      ::stop)
 (def action-delete      ::trash)
 (def action-ok          ::ok)
+(def action-export      ::download)
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.

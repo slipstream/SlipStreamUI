@@ -47,3 +47,5 @@
 (defaction create) ;; like 'save' action for 'new' pages
 (defaction cancel)
 (defaction delete)
+
+(defaction export)
