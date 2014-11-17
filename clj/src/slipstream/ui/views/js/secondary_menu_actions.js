@@ -11,7 +11,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // New-project action
 
     $("#ss-secondary-menu-action-new-project").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #1");
         newModuleRedirect("Project");
     });
 
@@ -19,7 +18,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // New-image action
 
     $("#ss-secondary-menu-action-new-image").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #2");
         newModuleRedirect("Image");
     });
 
@@ -27,7 +25,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // New-deployment action
 
     $("#ss-secondary-menu-action-new-deployment").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #3");
         newModuleRedirect("Deployment");
     });
 
@@ -35,7 +32,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Import action
 
     $("#ss-secondary-menu-action-import").clickWhenEnabled( function() {
-        console.log($(this).attr("id") + " in callback #4");
+        console.error("not yet implemented");
     });
 
 
@@ -135,7 +132,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-terminate").clickWhenEnabled( function() {
         $('#ss-terminate-deployment-dialog').askConfirmation(function(){
-            console.log($(this).attr("id") + " in callback #12 after confirmation");
+            console.error("not yet implemented");
         });
     });
 
