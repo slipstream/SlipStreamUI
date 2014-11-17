@@ -142,6 +142,24 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.length > 1;
         },
 
+        findClosest: function(selector) {
+            // Like closest() but downwards, i.e. like find() but including itself. ;)
+            return this.is(selector) ? this.filter(selector).first() : this.find(selector).first();
+        },
+
+        toggleData: function(key, value) {
+            // Toggle data boolean value with the same semantics than toggleClass()
+            if ($.type(value) === "boolean") {
+                return this.data(key, value);
+            }
+            var currentValue = this.data(key);
+            if (currentValue && $.type(currentValue) !== "boolean") {
+                console.warn("Toggling to false a data key '" + key + "' which " +
+                    " already contains a non-boolean value: " + currentValue);
+            }
+            return this.data(key, ! currentValue);
+        },
+
         // Toggle disabled status of buttons, inputs and anchors
         // Inspired from: http://stackoverflow.com/a/16788240
         disable: function(state) {
@@ -302,6 +320,76 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 });
                 $alertElem.data("mouseHandlersAlreadySetup", true);
             }
+            return this;
+        },
+
+
+        // jQuery extensions related to Bootstrap components are prefixed by 'bs'
+
+        bsEnableDropdownToggle: function(enable) {
+            if (enable === false) {
+                this.findClosest(".dropdown-toggle").removeAttr("data-toggle");
+            } else {
+                this.findClosest(".dropdown-toggle").attr("data-toggle", "dropdown");
+            }
+            return this;
+        },
+
+        bsFlickDropdownToggle: function() {
+            // Disables for a short moment the functionality of the .dropdown-toggle
+            var $this = this;
+            $this.bsEnableDropdownToggle(false);
+            setTimeout(function(){
+                $this.bsEnableDropdownToggle(true);
+            }, 400);
+            return $this;
+        },
+
+        bsCloseDropdown: function() {
+            this
+                .closest(".btn-group.open, .dropdown.open")
+                .find(".dropdown-toggle")
+                .dropdown("toggle");
+            return this;
+        },
+
+        bsOpenDropdownOnMouseOver: function() {
+            var $dropdownToggles = this.find(".dropdown-toggle");
+            $dropdownToggles.each(function() {
+                // Since we handle each dropdown individually, this can be called
+                // on $("body") to enable at once mouseover reactivity on all dropdowns.
+                var $dropdownToggle = $(this),
+                    $dropdown = $dropdownToggle.closest(".btn-group, .dropdown");
+                $dropdown.mouseleave(function(){
+                    // Schedule to close the dropdown a short moment after having left it.
+                    $dropdown.data("closeTimer",
+                        setTimeout(function(){
+                            $dropdown.bsCloseDropdown();
+                        }, 600));
+                });
+                $dropdown.mouseenter(function(){
+                    // Cancel the scheduled dropdown closing if entering again.
+                    clearTimeout($dropdown.data("closeTimer"));
+                });
+                $dropdownToggle.mouseenter(function () {
+                    // The click action is still available for touch devices.
+                    var $closedDropdown = $dropdownToggle.closest(".btn-group:not(.open), .dropdown:not(.open)");
+                    if ($closedDropdown.foundOne()) {
+                        $dropdownToggle.dropdown("toggle");
+                        // Disable the dropdown toggle for a short moment to avoid the
+                        // user closing involuntarily the dropdown that was just opened by
+                        // the 'mouseover' event by clicking by reflex on the dropdown
+                        // toggle after having 'mouseenter'ed it.
+                        $dropdownToggle.bsFlickDropdownToggle();
+                    }
+                });
+                $dropdownToggle.mouseleave(function () {
+                    // Ensure that the dropdown toggle is enabled always when
+                    // exiting it for the case that the timeout to reenable it has
+                    // not yet fired.
+                    $dropdownToggle.bsEnableDropdownToggle(true);
+                });
+            });
             return this;
         }
 

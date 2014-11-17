@@ -151,6 +151,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .validationCallback(checkCreationForm)
         .useToSubmitForm("#create-form", updateRequest);
 
+    // Auto-open all dropdowns on mouseover.
+    // The click action is still available for touch devices.
+    $("body").bsOpenDropdownOnMouseOver();
+
     // $("body").getSlipStreamModel().module.dump();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
