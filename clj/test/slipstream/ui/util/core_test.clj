@@ -101,8 +101,16 @@
   (user-uri "foo"))
 
 (expect
+  "/user/foo#summary"
+  (user-uri "foo" :hash "summary"))
+
+(expect
   "/user/foo?edit=true"
   (user-uri "foo" :edit true))
+
+(expect
+  "/user/foo?edit=true#summary"
+  (user-uri "foo" :edit true :hash "summary"))
 
 (expect
   "/user/foo?edit=true"
@@ -121,6 +129,10 @@
   (user-uri "foo" :edit true :action :delete))
 
 (expect
+  "/user/foo?action=delete&edit=true#summary"
+  (user-uri "foo" :hash "summary" :edit true :action :delete))
+
+(expect
   "/user/foo?action=delete&edit=true"
   (user-uri "foo" :edit "true" :action "delete"))
 
@@ -133,8 +145,16 @@
   (module-uri "foo"))
 
 (expect
+  "/module/foo#summary"
+  (module-uri "foo" :hash "summary"))
+
+(expect
   "/module/foo?edit=true"
   (module-uri "foo" :edit true))
+
+(expect
+  "/module/foo?edit=true#summary"
+  (module-uri "foo" :edit true :hash "summary"))
 
 (expect
   "/module/foo?edit=true"
@@ -149,8 +169,8 @@
   (module-uri "foo" :action :run :edit true))
 
 (expect
-  "/module/foo?action=run&edit=true"
-  (module-uri "foo" :edit true :action :run))
+  "/module/foo?action=run&edit=true#summary"
+  (module-uri "foo" :hash "summary" :edit true :action :run))
 
 (expect
   "/module/foo?action=run&edit=true"

@@ -27,7 +27,9 @@
     section-sel         (ue/when-add-class type (str "ss-section-" (name type)))
     section-title-sel   (html/content (str title))
     section-content-sel (ue/if-enlive-node content
-                          (html/content content)
+                          (if (string? content)
+                            (html/html-content content)
+                            (html/content content))
                           (subsection/build content))
     section-anchor-sel  (ue/if-set-href collapsible?
                                        (str "#" section-uid)

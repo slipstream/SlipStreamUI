@@ -131,13 +131,19 @@
   (str (name k) "=" (if (keyword? v) (name v) v)))
 
 (defn uri
-  [pathname & {:as query-params}]
+  "See tests for expectations."
+  [pathname & {hash-parameter :hash :as query-params}]
   (if-not query-params
     pathname
-    (str pathname "?" (->> query-params
-                           (map parse-query-param)
-                           sort
-                           (s/join "&")))))
+    (let [hash-parameter  (some->> hash-parameter
+                                   (str "#"))
+          query-string    (some->> (dissoc query-params :hash)
+                                   not-empty
+                                   (map parse-query-param)
+                                   sort
+                                   (s/join "&")
+                                   (str "?"))]
+      (str pathname query-string hash-parameter))))
 
 (defn user-uri
   [username & query-params]
