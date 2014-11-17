@@ -52,6 +52,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
 
+    // User-export action
+
+    $("#ss-secondary-menu-action-export").clickWhenEnabled( function() {
+        $$.util.url.redirectTo("/user?media=csv");
+    });
+
+
     // Run action
 
     $("#ss-secondary-menu-action-run").clickWhenEnabled( function() {
