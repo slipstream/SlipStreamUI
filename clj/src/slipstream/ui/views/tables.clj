@@ -296,20 +296,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- deployment-parameter-value-cell
-  [{:keys [read-only value type]}]
-  (case type
+  [{cell-value :value, cell-type :type, disabled? :disabled}]
+  (case cell-type
      "String" {:type :cell/text
+               :disabled? disabled?
                :editable? (page-type/edit-or-new?)
-               :content {:text value
-                         :tooltip (when read-only
-                           (t :deployment-parameter.is-read-only))}}))
+               :content {:text cell-value}}))
 
 (defn- deployment-parameter-row
-  [{:keys [help-hint read-only order value category description type name]
+  [{:keys [help-hint read-only? order value category description type name]
     :as deployment-parameter}]
-  {:style  (case category
-             "Output" :info
-             "Input"  :warning)
+  {:style  (when (page-type/view-or-chooser?)
+             (case category
+               "Output" :info
+               "Input"  :warning))
    :cells [{:type :cell/text,      :content name,         :editable? (page-type/edit-or-new?)}
            {:type :cell/text,      :content description,  :editable? (page-type/edit-or-new?)}
            {:type :cell/enum,      :content (u/enum ["Output" "Input"] :deployment-parameter-category category), :editable? (page-type/edit-or-new?)}
