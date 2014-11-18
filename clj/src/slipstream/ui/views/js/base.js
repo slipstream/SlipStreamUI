@@ -77,6 +77,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     code = $$.codeArea.getCode(thisId);
                 $form.addFormHiddenField(thisId + "--script", code);
             });
+            // Disable deployment parameters without name to prevent
+            // to be sent with the form request.
+            $(".ss-table-with-blank-last-row tbody tr td:first-child input:first-child")
+                .not(":disabled")
+                .blankInputs()
+                .closest("tr")
+                .find("select, input")
+                .disable();
         }
 
         return;

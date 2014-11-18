@@ -467,6 +467,7 @@
 
 (html/defsnippet ^:private table-snip template-filename table-sel
   [{:keys [headers rows] :as table}]
+  ue/this        (html/add-class (:class table))
   table-head-sel (html/content (head-snip headers))
   table-body-sel (html/content (->> rows
                                     (remove :hidden?)

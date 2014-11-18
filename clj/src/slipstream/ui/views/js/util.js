@@ -143,8 +143,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         findClosest: function(selector) {
-            // Like closest() but downwards, i.e. like find() but including itself. ;)
+            // Like closest() but downwards, i.e. like find().first() but including itself. ;)
             return this.is(selector) ? this.filter(selector).first() : this.find(selector).first();
+        },
+
+        findIncludingItself: function(selector) {
+            var $selection = this.find(selector);
+            if (this.is(selector)) {
+                return $selection.add(this);
+            }
+            return $selection;
         },
 
         toggleData: function(key, value) {
@@ -162,13 +170,17 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         // Toggle disabled status of buttons, inputs and anchors
         // Inspired from: http://stackoverflow.com/a/16788240
-        disable: function(state) {
+        disable: function(disable) {
+            var flagAsDisabled = disable;
+            if ($.type(flagAsDisabled) !== "boolean") {
+                flagAsDisabled = true;
+            }
             return this.each(function() {
                 var $this = $(this);
-                if($this.is('input, button'))
-                  this.disabled = state;
+                if($this.is('input, button, select'))
+                  this.disabled = flagAsDisabled;
                 else
-                  $this.toggleClass('disabled', state);
+                  $this.toggleClass('disabled', flagAsDisabled);
             });
         },
         enable: function(state) {
@@ -273,13 +285,33 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        blankInputs: function() {
+            var $inputs = this.findIncludingItself("input[type=text], textarea");
+            if ($inputs.foundNothing()) {
+                return this;
+            }
+            return $inputs
+                .filter(function(){
+                    return $(this).val() === "";
+                });
+        },
+
         onTextInputChange: function(callback) {
-            var $textInputFields = $(this).filter("input[type=text], textarea");
+            var $textInputFields = $(this).findIncludingItself("input[type=text], textarea");
             if ($textInputFields.foundNothing()) {
                 return this;
             }
             // Inspired from: http://stackoverflow.com/a/6458946
             $textInputFields.on('input', callback);
+            return this;
+        },
+
+        offTextInputChange: function(callback) {
+            var $textInputFields = $(this).findIncludingItself("input[type=text], textarea");
+            if ($textInputFields.foundNothing()) {
+                return this;
+            }
+            $textInputFields.off('input', callback);
             return this;
         },
 
@@ -401,6 +433,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 return false;
             }
             return str1.toUpperCase() ===  str2.toUpperCase();
+        },
+        randomInt: function (length) {
+            var numberOfDigits = length;
+            if ($.type(length) !== "number" || length < 1 || length > 20) {
+                numberOfDigits = 6; // default lenght
+            }
+            var number = Math.round(Math.random() * Math.pow(10, numberOfDigits)),
+                padding = "00000000000000000000";
+            return (padding + number).slice(-1 * numberOfDigits);
         }
     };
 

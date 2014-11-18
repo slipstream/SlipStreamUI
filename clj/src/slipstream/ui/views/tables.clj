@@ -300,48 +300,50 @@
   (->> field name (format "deployment.blank-parameter.%s.placeholder") t))
 
 (defn- deployment-parameter-cell-id
-  [field]
-  (->> field name (format "parameter--entry--1003--%s")))
+  [row-index field]
+  (format "parameter--entry--100%s--%s"
+          row-index
+          (name field)))
 
-(defmulti deployment-parameter-cell (comp second vector))
+(defmulti deployment-parameter-cell (comp last vector))
 
 (defmethod deployment-parameter-cell :type
-  [{:keys [disabled? placeholder category] :as param} field]
+  [{:keys [disabled? placeholder category] :as param} row-index field]
   {:type      :cell/hidden-input
-   :content {:id    (deployment-parameter-cell-id field)
-             :value (get param field)}})
+   :content {:id    (when-not disabled? (deployment-parameter-cell-id row-index field))
+             :value "String"}})
 
 (defmethod deployment-parameter-cell :category
-  [{:keys [disabled? placeholder category] :as param} field]
+  [{:keys [disabled? placeholder category] :as param} row-index field]
   {:type      :cell/enum
    :editable? (page-type/edit-or-new?)
    :content {:disabled? disabled?
-             :id (deployment-parameter-cell-id field)
+             :id (when-not disabled? (deployment-parameter-cell-id row-index field))
              :enum (u/enum ["Output" "Input"] :deployment-parameter-category category)}})
 
 (defmethod deployment-parameter-cell :default
-  [{:keys [disabled? placeholder category] :as param} field]
+  [{:keys [disabled? placeholder category] :as param} row-index field]
   {:type :cell/text
    :editable? (page-type/edit-or-new?)
    :content {:disabled? disabled?
-             :id (deployment-parameter-cell-id field)
+             :id (when-not disabled? (deployment-parameter-cell-id row-index field))
              :placeholder (or
                             placeholder
                             (deployment-parameter-cell-placeholder field))
              :text (get param field)}})
 
 (defn- deployment-parameter-row
-  [{:keys [category help-hint] :as param}]
+  [row-index {:keys [category help-hint] :as param}]
   {:style  (when (page-type/view-or-chooser?)
              (case category
                "Output" :info
                "Input"  :warning
                nil))
-   :cells [(deployment-parameter-cell param :name)
-           (deployment-parameter-cell param :description)
-           (deployment-parameter-cell param :category)
-           (deployment-parameter-cell param :value)
-           (deployment-parameter-cell param :type)
+   :cells [(deployment-parameter-cell param row-index :name)
+           (deployment-parameter-cell param row-index :description)
+           (deployment-parameter-cell param row-index :category)
+           (deployment-parameter-cell param row-index :value)
+           (deployment-parameter-cell param row-index :type)
            {:type :cell/help-hint, :content help-hint}]})
 
 (defn- append-blank-row-in-edit-mode
@@ -353,10 +355,11 @@
 (defn deployment-parameters-table
   [deployment-parameters]
   (table/build
-    {:headers [:name :description :category :value nil]
+    {:class "ss-table-with-blank-last-row"
+     :headers [:name :description :category :value nil]
      :rows (->> deployment-parameters
                 append-blank-row-in-edit-mode
-                (map deployment-parameter-row))}))
+                (map-indexed deployment-parameter-row))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
