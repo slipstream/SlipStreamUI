@@ -114,7 +114,8 @@
   (defn- resource-name
     [{:keys [view-name parsed-metadata]}]
     (case view-name
-      "module" (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
+      "error"    nil
+      "module"  (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
       (-> view-name uc/keywordize t s/lower-case))))
 
 (defn- module-version

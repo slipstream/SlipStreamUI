@@ -111,6 +111,7 @@
                               :description "Cloud instance id"
                               :value nil
                               :order 1
+                              :placeholder "Provided at runtime by SlipStream"
                               :read-only? false
                               :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
                               :disabled? true}
@@ -118,6 +119,7 @@
                               :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
                               :read-only? false
                               :order 2
+                              :placeholder "Provided at runtime by SlipStream"
                               :value "123.234.345"
                               :category "Output"
                               :description "Hostname or ip address of the image"

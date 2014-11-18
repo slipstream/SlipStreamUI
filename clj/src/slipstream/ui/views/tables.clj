@@ -295,36 +295,68 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- dep-param-value-cell
-  [{cell-value :value, cell-type :type, disabled? :disabled?}]
-  (case cell-type
-     "String" {:type :cell/text
-               :editable? (page-type/edit-or-new?)
-               :content {:text cell-value
-                         :disabled? disabled?}}))
+(defn- deployment-parameter-cell-placeholder
+  [field]
+  (->> field name (format "deployment.blank-parameter.%s.placeholder") t))
 
-(defn- dep-param-category-enum
-  [category]
-  (u/enum ["Output" "Input"] :deployment-parameter-category category))
+(defn- deployment-parameter-cell-id
+  [field]
+  (->> field name (format "parameter--entry--1003--%s")))
+
+(defmulti deployment-parameter-cell (comp second vector))
+
+(defmethod deployment-parameter-cell :type
+  [{:keys [disabled? placeholder category] :as param} field]
+  {:type      :cell/hidden-input
+   :content {:id    (deployment-parameter-cell-id field)
+             :value (get param field)}})
+
+(defmethod deployment-parameter-cell :category
+  [{:keys [disabled? placeholder category] :as param} field]
+  {:type      :cell/enum
+   :editable? (page-type/edit-or-new?)
+   :content {:disabled? disabled?
+             :id (deployment-parameter-cell-id field)
+             :enum (u/enum ["Output" "Input"] :deployment-parameter-category category)}})
+
+(defmethod deployment-parameter-cell :default
+  [{:keys [disabled? placeholder category] :as param} field]
+  {:type :cell/text
+   :editable? (page-type/edit-or-new?)
+   :content {:disabled? disabled?
+             :id (deployment-parameter-cell-id field)
+             :placeholder (or
+                            placeholder
+                            (deployment-parameter-cell-placeholder field))
+             :text (get param field)}})
 
 (defn- deployment-parameter-row
-  [{:keys [help-hint disabled? order value category description type name]
-    :as deployment-parameter}]
+  [{:keys [category help-hint] :as param}]
   {:style  (when (page-type/view-or-chooser?)
              (case category
                "Output" :info
-               "Input"  :warning))
-   :cells [{:type :cell/text,      :content {:text name, :disabled? disabled?},                               :editable? (page-type/edit-or-new?)}
-           {:type :cell/text,      :content {:text description, :disabled? disabled?},                        :editable? (page-type/edit-or-new?)}
-           {:type :cell/enum,      :content {:enum (dep-param-category-enum category) :disabled? disabled?},  :editable? (page-type/edit-or-new?)}
-           (dep-param-value-cell deployment-parameter)
+               "Input"  :warning
+               nil))
+   :cells [(deployment-parameter-cell param :name)
+           (deployment-parameter-cell param :description)
+           (deployment-parameter-cell param :category)
+           (deployment-parameter-cell param :value)
+           (deployment-parameter-cell param :type)
            {:type :cell/help-hint, :content help-hint}]})
+
+(defn- append-blank-row-in-edit-mode
+  [params]
+  (if (page-type/edit-or-new?)
+    (conj params {})
+    params))
 
 (defn deployment-parameters-table
   [deployment-parameters]
   (table/build
     {:headers [:name :description :category :value nil]
-     :rows (map deployment-parameter-row deployment-parameters)}))
+     :rows (->> deployment-parameters
+                append-blank-row-in-edit-mode
+                (map deployment-parameter-row))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

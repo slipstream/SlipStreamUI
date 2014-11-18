@@ -83,7 +83,8 @@
    :cell/icon               [                           :content/plain]
    :cell/module-version     [                           :content/plain]
    :cell/help-hint          [                           :content/plain]
-   :cell/reference-module   [                           :content/plain]})
+   :cell/reference-module   [                           :content/plain]
+   :cell/hidden-input       [             :content/map                ]})
 
 (expect
   (-> all-cell-types
@@ -572,4 +573,11 @@
           </td>")
   (localization/with-lang :en
     (cell-html {:type :cell/reference-module, :content rand-url, :editable? true})))
+
+
+;; Hidden form input cell
+
+(expect
+  (str "<input name=\"ss-some-field-name\" id=\"ss-some-field-name\" value=\"" rand-str "\" type=\"hidden\" />")
+  (cell-html {:type :cell/hidden-input, :content {:value rand-str, :id "ss-some-field-name"}}))
 

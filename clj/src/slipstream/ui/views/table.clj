@@ -188,6 +188,15 @@
   [:.ss-reference-module-name :a]   (ue/set-href (u/module-uri reference-module))
   [:.ss-reference-module-name :a]   (html/content reference-module))
 
+; Hidden form input cell
+
+(ue/def-blank-snippet ^:private cell-hidden-input-snip-edit [:input]
+  [{:keys [value id]}]
+  [:input]  (ue/set-type "hidden")
+  [:input]  (ue/set-value value)
+  [:input]  (ue/set-id id)
+  [:input]  (ue/set-name id))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Cell snip dispatching on type, mode and content
@@ -425,6 +434,11 @@
 (defmethod cell-snip [:cell/reference-module :mode/edit :content/plain]
   [{reference-module :content}]
   (cell-reference-module-snip-edit reference-module))
+
+(defmethod cell-snip [:cell/hidden-input :mode/any :content/map]
+  [{content :content}]
+  ; This is not a real cell, but a hidden input fiel in the row (<tr> tag) as requested by some form.
+  (cell-hidden-input-snip-edit content))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

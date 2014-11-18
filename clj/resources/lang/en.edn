@@ -414,8 +414,14 @@
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or ip address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Provided at runtime by SlipStream"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance id"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
+
+   :slipstream.ui.views.tables.deployment.blank-parameter.name.placeholder                  "New parameter name"
+   :slipstream.ui.views.tables.deployment.blank-parameter.description.placeholder           "Description"
+   :slipstream.ui.views.tables.deployment.blank-parameter.value.placeholder                 "Value"
 
    ;; Utils.core
 

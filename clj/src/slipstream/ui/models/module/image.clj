@@ -98,6 +98,7 @@
       :order new-order
       :disabled? true
       :description  (->> parameter :name (format "deployment.default-parameter.%s.description") t)
+      :placeholder  (->> parameter :name (format "deployment.default-parameter.%s.placeholder") t)
       :help-hint    (->> parameter :name (format "deployment.default-parameter.%s.help-hint") t))
     parameter))
 
