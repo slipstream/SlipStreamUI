@@ -94,31 +94,25 @@
     (-> x namespace (= "cell"))))
 
 (defn- cell-type-for
-  [{cell-type :type, cell-value :value, cell-name :name, :as parameter}]
+  [{:keys [type name] :as parameter}]
   (cond
-    (cell-type? cell-type) cell-type
-    (re-matches #".*:url\..*" cell-name) :cell/url
-    :else (case (type cell-value)
-            :enum                   :cell/enum
-            (case cell-type
-                "String"            :cell/text
-                "RestrictedString"  :cell/text
-                "Text"              :cell/textarea
-                "RestrictedText"    :cell/textarea
-                "Password"          :cell/password
-                "Enum"              :cell/enum
-                "Boolean"           :cell/boolean))))
+    (cell-type? type) type
+    (re-matches #".*:url\..*" name) :cell/url
+    :else (case type
+            "String"            :cell/text
+            "RestrictedString"  :cell/text
+            "Text"              :cell/textarea
+            "RestrictedText"    :cell/textarea
+            "Password"          :cell/password
+            "Enum"              :cell/enum
+            "Boolean"           :cell/boolean)))
 
 (defn- value-of
-  [{:keys [name value id-format-fn built-from-map? disabled? read-only? required?] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map? read-only? required?] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
                         (id-format-fn name)
                         (format "parameter-%s--%s--value" name row-index))
-        value-base (cond-> {:id formatted-name
-                            :row-index row-index
-                            :disabled? disabled?
-                            :read-only? read-only?
-                            :placeholder (when required? (t :required-parameter.placeholder))}
+        value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?, :placeholder (when required? (t :required-parameter.placeholder))}
                            (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       ; TODO: Using the same key for all cell
@@ -134,28 +128,14 @@
       :cell/password  (assoc value-base :password  value)
       value)))
 
-(defn- parse-first-cells
-  [parameter editable-ks k]
-  (let [cell-type (case (-> parameter k type)
-                    :enum :cell/enum
-                    :cell/text)
-        cell-value (get parameter k)
-        cell-content-base  (select-keys parameter [:read-only? :disabled?])]
-    {:type cell-type
-     :editable? (editable-ks k)
-     :content (case cell-type
-                :cell/text (assoc cell-content-base :text cell-value)
-                :cell/enum (assoc cell-content-base :enum cell-value))}))
-
 (defn- parameter-row
   [first-cols-keywords
-   editable-first-cols-keywords
    row-index
-   {:keys [editable? hidden? help-hint]
+   {:keys [type editable? hidden? help-hint]
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
   (let [cell-type (cell-type-for parameter)
-        first-cells (mapv (partial parse-first-cells parameter editable-first-cols-keywords) first-cols-keywords)]
+        first-cells (mapv #(do {:type :cell/text, :content (get parameter %)}) first-cols-keywords)]
     {:style nil
      :hidden? hidden?
      :cells (conj first-cells
@@ -164,12 +144,10 @@
 
 (defn build-parameters-table
   "The last columns are always value and hint. The first ones might change."
-  ([first-cols-keywords parameters]
-   (build-parameters-table first-cols-keywords nil parameters))
-  ([first-cols-keywords editable-first-cols-keywords parameters]
-   (table/build
-     {:headers (concat first-cols-keywords [:value nil])
-     :rows (map-indexed (partial parameter-row first-cols-keywords (set editable-first-cols-keywords)) parameters)})))
+  [first-cols-keywords parameters]
+  (table/build
+    {:headers (concat first-cols-keywords [:value nil])
+     :rows (map-indexed (partial parameter-row first-cols-keywords) parameters)}))
 
 (defn parameters-table
   [parameters]
@@ -182,14 +160,6 @@
 (defn service-catalog-parameters-table
   [parameters]
   (build-parameters-table [:name :description :category] parameters))
-
-(defn deployment-parameters-table
-  [deployment-parameters]
-  (->> deployment-parameters
-       (map #(assoc % :category (u/enum ["Output" "Input"] :deployment-parameter-category (:category %))))
-       (build-parameters-table [:name :description :category]
-                               (when (page-type/edit-or-new?)
-                                 [:name :description :category]))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -322,6 +292,35 @@
   (table/build
     {:headers [nil :id :module :status :start-time :user :tags]
      :rows (map run-row docs)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- deployment-parameter-value-cell
+  [{:keys [read-only value type]}]
+  (case type
+     "String" {:type :cell/text
+               :editable? (page-type/edit-or-new?)
+               :content {:text value
+                         :tooltip (when read-only
+                           (t :deployment-parameter.is-read-only))}}))
+
+(defn- deployment-parameter-row
+  [{:keys [help-hint read-only order value category description type name]
+    :as deployment-parameter}]
+  {:style  (case category
+             "Output" :info
+             "Input"  :warning)
+   :cells [{:type :cell/text,      :content name,         :editable? (page-type/edit-or-new?)}
+           {:type :cell/text,      :content description,  :editable? (page-type/edit-or-new?)}
+           {:type :cell/enum,      :content (u/enum ["Output" "Input"] :deployment-parameter-category category), :editable? (page-type/edit-or-new?)}
+           (deployment-parameter-value-cell deployment-parameter)
+           {:type :cell/help-hint, :content help-hint}]})
+
+(defn deployment-parameters-table
+  [deployment-parameters]
+  (table/build
+    {:headers [:name :description :category :value nil]
+     :rows (map deployment-parameter-row deployment-parameters)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
