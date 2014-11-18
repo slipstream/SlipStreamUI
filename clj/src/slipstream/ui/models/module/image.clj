@@ -2,9 +2,11 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.run-items :as run-items]
             [slipstream.ui.models.parameters :as parameters]))
 
+(localization/def-scoped-t)
 
 ;; Logo image info
 
@@ -85,10 +87,31 @@
         {:code              (-> target-metadata (html/select [html/text-node]) first)
          :run-in-background (-> target-metadata :attrs :runinbackground uc/parse-boolean)})))
 
+(def ^:private default-parameters-order
+  {"instanceid" 1
+   "hostname"   2})
+
+(defn- transform-default-parameters
+  [parameter]
+  (if-let [new-order (-> parameter :name default-parameters-order)]
+    (assoc parameter
+      :order new-order
+      :disabled? true
+      :description  (->> parameter :name (format "deployment.default-parameter.%s.description") t)
+      :help-hint    (->> parameter :name (format "deployment.default-parameter.%s.help-hint") t))
+    parameter))
+
+(defn- deployment-parameters
+  [parameters]
+  (->> (parameters/categories-of-type parameters :deployment)
+       parameters/flatten
+       (map transform-default-parameters)
+       (sort-by (juxt :order :category :name))
+       vec))
 
 (defn- deployment
   [metadata parameters]
-  (-> {:parameters (parameters/categories-of-type parameters :deployment)}
+  (-> {:parameters (deployment-parameters parameters)}
       (assoc-target :execute metadata)
       (assoc-target :report metadata)
       (assoc-target :on-vm-add metadata)

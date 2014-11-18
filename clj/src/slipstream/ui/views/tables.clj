@@ -295,25 +295,29 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- deployment-parameter-value-cell
-  [{cell-value :value, cell-type :type, disabled? :disabled}]
+(defn- dep-param-value-cell
+  [{cell-value :value, cell-type :type, disabled? :disabled?}]
   (case cell-type
      "String" {:type :cell/text
-               :disabled? disabled?
                :editable? (page-type/edit-or-new?)
-               :content {:text cell-value}}))
+               :content {:text cell-value
+                         :disabled? disabled?}}))
+
+(defn- dep-param-category-enum
+  [category]
+  (u/enum ["Output" "Input"] :deployment-parameter-category category))
 
 (defn- deployment-parameter-row
-  [{:keys [help-hint read-only? order value category description type name]
+  [{:keys [help-hint disabled? order value category description type name]
     :as deployment-parameter}]
   {:style  (when (page-type/view-or-chooser?)
              (case category
                "Output" :info
                "Input"  :warning))
-   :cells [{:type :cell/text,      :content name,         :editable? (page-type/edit-or-new?)}
-           {:type :cell/text,      :content description,  :editable? (page-type/edit-or-new?)}
-           {:type :cell/enum,      :content (u/enum ["Output" "Input"] :deployment-parameter-category category), :editable? (page-type/edit-or-new?)}
-           (deployment-parameter-value-cell deployment-parameter)
+   :cells [{:type :cell/text,      :content {:text name, :disabled? disabled?},                               :editable? (page-type/edit-or-new?)}
+           {:type :cell/text,      :content {:text description, :disabled? disabled?},                        :editable? (page-type/edit-or-new?)}
+           {:type :cell/enum,      :content {:enum (dep-param-category-enum category) :disabled? disabled?},  :editable? (page-type/edit-or-new?)}
+           (dep-param-value-cell deployment-parameter)
            {:type :cell/help-hint, :content help-hint}]})
 
 (defn deployment-parameters-table

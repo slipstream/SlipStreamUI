@@ -294,6 +294,9 @@
 
    :slipstream.ui.views.tables.action.delete                  "Delete..."
 
+   :slipstream.ui.views.tables.parameter.name.placeholder          "New parameter name"
+   :slipstream.ui.views.tables.parameter.description.placeholder   "New parameter description"
+
    :slipstream.ui.views.table.timestamp.unknown               :global.adjectives.unknown
    ;; Parameters
 
@@ -409,6 +412,10 @@
    :slipstream.ui.models.parameters.last-state-change.description               "Last State changes"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
 
+   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or ip address of the image"
+   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance id"
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
 
    ;; Utils.core
 
@@ -561,8 +568,8 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
 
-  :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
-  :slipstream.ui.views.reports.no-need-to-refresh                               "This section will automatically update when reports appear. No need to refresh."
+   :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
+   :slipstream.ui.views.reports.no-need-to-refresh                               "This section will automatically update when reports appear. No need to refresh."
 
    :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
 

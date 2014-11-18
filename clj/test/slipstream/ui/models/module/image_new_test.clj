@@ -105,24 +105,24 @@
                                    :run-in-background false}
                           :execute {:code "execute target"
                                     :run-in-background false}}
-                :parameters [{:category-type :deployment
+                :parameters [{:name "instanceid"
                               :category "Output"
-                              :parameters [{:help-hint nil
-                                            :read-only? false
-                                            :order 2147483647
-                                            :value "123.234.345"
-                                            :category "Output"
-                                            :description "hostname/ip of the image"
-                                            :type "String"
-                                            :name "hostname"}
-                                           {:help-hint nil
-                                            :read-only? false
-                                            :order 2147483647
-                                            :value nil
-                                            :category "Output"
-                                            :description "Cloud instance id"
-                                            :type "String"
-                                            :name "instanceid"}]}]}
+                              :type "String"
+                              :description "Cloud instance id"
+                              :value nil
+                              :order 1
+                              :read-only? false
+                              :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+                              :disabled? true}
+                             {:disabled? true
+                              :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+                              :read-only? false
+                              :order 2
+                              :value "123.234.345"
+                              :category "Output"
+                              :description "Hostname or ip address of the image"
+                              :type "String"
+                              :name "hostname"}]}
    :image-creation {:recipe {:code "some recipe"}
                     :packages [{:repository "repo"
                                 :name "apache2"

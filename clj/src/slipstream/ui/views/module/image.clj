@@ -43,11 +43,6 @@
 
 ; Section "deployment recipes"
 
-(defn- merge-in-out-params
-  [parameters]
-  (concat (some #(and (= "Input"  (:category %)) (:parameters %)) parameters)
-          (some #(and (= "Output" (:category %)) (:parameters %)) parameters)))
-
 (defmethod middle-section-content :deployment
   [section-metadata _]
   (localization/with-prefixed-t :section.deployment.subsection
@@ -58,7 +53,7 @@
       :content [(t :report.description)
                 (-> section-metadata :targets :report :code (code-area "report"))]}
      {:title    (t :parameters.title)
-      :content (-> section-metadata :parameters merge-in-out-params t/deployment-parameters-table)}
+      :content (-> section-metadata :parameters t/deployment-parameters-table)}
      {:title    (t :on-vm-add.title)
       :content [(t :on-vm-add.description)
                 (-> section-metadata :targets :on-vm-add :code (code-area "onvmadd"))]}

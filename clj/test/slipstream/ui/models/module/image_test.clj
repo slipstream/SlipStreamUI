@@ -68,6 +68,14 @@
     <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance id' isSet='false' mandatory='true' name='instanceid' readonly='false' type='String'></parameter>
 </entry>
 <entry>
+    <string>someotheroutputparam</string>
+    <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance id' isSet='false' mandatory='true' name='someotheroutputparam' readonly='false' type='String'></parameter>
+</entry>
+<entry>
+    <string>someotherintputparam</string>
+    <parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance id' isSet='false' mandatory='true' name='someotherintputparam' readonly='false' type='String'></parameter>
+</entry>
+<entry>
     <string>network</string>
     <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Network type' isSet='true' mandatory='true' name='network' readonly='false' type='Enum'>
     <enumValues length='2'>
@@ -206,24 +214,41 @@
                                    :run-in-background false}
                           :execute {:code "execute target"
                                     :run-in-background false}}
-                :parameters [{:category-type :deployment
+                :parameters [{:name "instanceid"
                               :category "Output"
-                              :parameters [{:help-hint "Some help :-)"
-                                            :read-only? false
-                                            :order 2147483647
-                                            :value "123.234.345"
-                                            :category "Output"
-                                            :description "hostname/ip of the image"
-                                            :type "String"
-                                            :name "hostname"}
-                                           {:help-hint nil
-                                            :read-only? false
-                                            :order 2147483647
-                                            :value nil
-                                            :category "Output"
-                                            :description "Cloud instance id"
-                                            :type "String"
-                                            :name "instanceid"}]}]}
+                              :type "String"
+                              :description "Cloud instance id"
+                              :value nil
+                              :order 1
+                              :read-only? false
+                              :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+                              :disabled? true}
+                             {:disabled? true
+                              :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+                              :read-only? false
+                              :order 2
+                              :value "123.234.345"
+                              :category "Output"
+                              :description "Hostname or ip address of the image"
+                              :type "String"
+                              :name "hostname"}
+                             {:help-hint nil
+                              :read-only? false
+                              :order 2147483647
+                              :value nil
+                              :category "Input"
+                              :description "Cloud instance id"
+                              :type "String"
+                              :name "someotherintputparam"}
+                             {:help-hint nil
+                              :read-only? false
+                              :order 2147483647
+                              :value nil
+                              :category "Output"
+                              :description "Cloud instance id"
+                              :type "String"
+                              :name "someotheroutputparam"}]}
+
    :runs [{:cloud-name "interoute"
            :runs [{:cloud-name "interoute"
                    :uri "run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
