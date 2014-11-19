@@ -15,6 +15,6 @@
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
      :resource-uri "/user"
-     :secondary-menu-actions [action/new-user action/export]
+     :secondary-menu-actions [action/new-user action/export-users]
      :content [{:title (t :content.title)
                 :content (t/users-table (users/parse metadata))}]}))

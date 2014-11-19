@@ -45,7 +45,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // User-export action
 
-    $("#ss-secondary-menu-action-export").clickWhenEnabled( function() {
+    $("#ss-secondary-menu-action-export-users").clickWhenEnabled( function() {
         $$.util.url.redirectTo("/user?media=csv");
     });
 
