@@ -383,6 +383,20 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return $this;
         },
 
+        bsOpenDropdown: function() {
+            var $closedDropdown = this.closest(".btn-group:not(.open), .dropdown:not(.open)"),
+                $dropdownToggle = $closedDropdown.find(".dropdown-toggle");
+            if ($closedDropdown.foundOne()) {
+                $dropdownToggle.dropdown("toggle");
+                // Disable the dropdown toggle for a short moment to avoid the
+                // user closing involuntarily the dropdown that was just opened by
+                // the 'mouseover' event by clicking by reflex on the dropdown
+                // toggle after having 'mouseenter'ed it.
+                $dropdownToggle.bsFlickDropdownToggle();
+            }
+            return this;
+        },
+
         bsCloseDropdown: function() {
             this
                 .closest(".btn-group.open, .dropdown.open")
@@ -392,40 +406,37 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         bsOpenDropdownOnMouseOver: function() {
-            var $dropdownToggles = this.find(".dropdown-toggle");
+            var $dropdownToggles = this.find(".dropdown-toggle"),
+                openDelay = 175,
+                closeDelay = 400;
             $dropdownToggles.each(function() {
                 // Since we handle each dropdown individually, this can be called
                 // on $("body") to enable at once mouseover reactivity on all dropdowns.
                 var $dropdownToggle = $(this),
                     $dropdown = $dropdownToggle.closest(".btn-group, .dropdown");
                 $dropdown.mouseleave(function(){
+                    // Cancel the scheduled dropdown opening if leaving.
+                    clearTimeout($dropdown.data("openTimer"));
                     // Schedule to close the dropdown a short moment after having left it.
                     $dropdown.data("closeTimer",
                         setTimeout(function(){
                             $dropdown.bsCloseDropdown();
-                        }, 600));
-                });
-                $dropdown.mouseenter(function(){
-                    // Cancel the scheduled dropdown closing if entering again.
-                    clearTimeout($dropdown.data("closeTimer"));
-                });
-                $dropdownToggle.mouseenter(function () {
-                    // The click action is still available for touch devices.
-                    var $closedDropdown = $dropdownToggle.closest(".btn-group:not(.open), .dropdown:not(.open)");
-                    if ($closedDropdown.foundOne()) {
-                        $dropdownToggle.dropdown("toggle");
-                        // Disable the dropdown toggle for a short moment to avoid the
-                        // user closing involuntarily the dropdown that was just opened by
-                        // the 'mouseover' event by clicking by reflex on the dropdown
-                        // toggle after having 'mouseenter'ed it.
-                        $dropdownToggle.bsFlickDropdownToggle();
-                    }
-                });
-                $dropdownToggle.mouseleave(function () {
+                        }, closeDelay));
                     // Ensure that the dropdown toggle is enabled always when
                     // exiting it for the case that the timeout to reenable it has
                     // not yet fired.
                     $dropdownToggle.bsEnableDropdownToggle(true);
+                });
+                $dropdown.mouseenter(function(){
+                    // Cancel the scheduled dropdown closing if entering again.
+                    clearTimeout($dropdown.data("closeTimer"));
+                    // Note that the click action is still available for touch devices.
+                    // Schedule to open the dropdown a very short moment after having entered the toggle button.
+                    // This avoids opening menus when "flying" over the screen with the mouse.
+                    $dropdown.data("openTimer",
+                        setTimeout(function(){
+                            $dropdown.bsOpenDropdown();
+                        }, openDelay));
                 });
             });
             return this;
