@@ -120,11 +120,21 @@
             "Enum"              :cell/enum
             "Boolean"           :cell/boolean)))
 
+(defn- ids-for-map-keys
+  "For cell where the value is a map itself, we apply the id-format-fn to each key,
+  and attach this as metadata of the value itself."
+  [m id-format-fn]
+  (into {:class (when (fn? id-format-fn) (id-format-fn ""))}
+        (for [[k _] m :let [k-name (name k)]]
+          [k (if (fn? id-format-fn)
+               (id-format-fn k-name)
+               k-name)])))
+
 (defn- value-of
   [{:keys [name value id-format-fn built-from-map? read-only? required?] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
-                        (id-format-fn name)
-                        (format "parameter-%s--%s--value" name row-index))
+                         (id-format-fn name)
+                         (format "parameter-%s--%s--value" name row-index))
         value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?, :placeholder (when required? (t :required-parameter.placeholder))}
                            (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
@@ -139,6 +149,7 @@
       :cell/url       (assoc value-base :url       value)
       :cell/boolean   (assoc value-base :value     value)
       :cell/password  (assoc value-base :password  value)
+      :cell/map       (with-meta value {:ids (ids-for-map-keys value id-format-fn)})
       value)))
 
 (defn- parameter-row
@@ -275,7 +286,7 @@
   (parameters-table
     (p/map->parameter-list cloud-image-details
       :native-image?      {:type :cell/boolean, :id-format-fn (constantly "isbase")}
-      :cloud-identifiers  {:type :cell/map} ; TODO: ids are cloudimageid_imageid_atos, cloudimageid_imageid_stratuslab...
+      :cloud-identifiers  {:type :cell/map,     :id-format-fn (partial format "cloudimageid_imageid_%s")}
       :reference-image    {:type :cell/reference-module})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

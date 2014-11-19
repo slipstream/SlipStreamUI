@@ -139,16 +139,35 @@
     (->> map-key name (str "map-cell.key.") keyword t)
     (str map-key)))
 
-(def cell-map-entry-sel (concat (sel-for-cell :map) [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
+(defn- cell-map-entry-sel
+  [& [variation]]
+  (concat (sel-for-cell :map variation) [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
 
-(html/defsnippet ^:private term-dict-entry-snip template-filename cell-map-entry-sel
+(html/defsnippet ^:private term-dict-entry-snip-view template-filename (cell-map-entry-sel)
   [[k v]]
   [:dt] (html/content (map-key-str k))
   [:dd] (html/content (str v)))
 
 (html/defsnippet ^:private cell-map-snip-view template-filename (sel-for-cell :map)
   [m]
-  [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip))))
+  [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip-view))))
+
+; Editable map cell
+
+(html/defsnippet ^:private term-dict-entry-snip-edit template-filename (cell-map-entry-sel :editable)
+  [ids [k v]]
+  [:dt]         (html/content       (map-key-str k))
+  [:dd :input]  (ue/set-placeholder nil)
+  [:dd :input]  (ue/set-name        (or (get ids k) (name k)))
+  [:dd :input]  (ue/set-id          (or (get ids k) (name k)))
+  [:dd :input]  (ue/when-add-class  (:class ids))
+  [:dd :input]  (ue/set-value       v))
+
+(html/defsnippet ^:private cell-map-snip-edit template-filename (sel-for-cell :map)
+  [m]
+  [:dl] (html/content (->> m
+                           (into (sorted-map))
+                           (mapcat (partial term-dict-entry-snip-edit (-> m meta :ids))))))
 
 ; Link cell
 
@@ -373,14 +392,14 @@
   [{value :content}]
   (cell-boolean-snip-edit value))
 
-(defmethod cell-snip [:cell/map :mode/view :content/map]
+(defmethod cell-snip [:cell/map :mode/view :content/any]
   [{m :content}]
   (cell-map-snip-view m))
 
-(defmethod cell-snip [:cell/map :mode/edit :content/map]
+(defmethod cell-snip [:cell/map :mode/edit :content/any]
   [{m :content}]
   ; TODO: Unimplemented edit view
-  (cell-map-snip-view m))
+  (cell-map-snip-edit m))
 
 (defmethod cell-snip [:cell/link :mode/view :content/any]
   [{content :content}]
