@@ -274,8 +274,8 @@
   [cloud-image-details]
   (parameters-table
     (p/map->parameter-list cloud-image-details
-      :native-image?      {:type :cell/boolean}
-      :cloud-identifiers  {:type :cell/map}
+      :native-image?      {:type :cell/boolean, :id-format-fn (constantly "isbase")}
+      :cloud-identifiers  {:type :cell/map} ; TODO: ids are cloudimageid_imageid_atos, cloudimageid_imageid_stratuslab...
       :reference-image    {:type :cell/reference-module})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -284,8 +284,8 @@
   [os-details]
   (parameters-table
     (p/map->parameter-list os-details
-      :platform         {:type :cell/enum}
-      :login-username   {:type :cell/text})))
+      :platform         {:type :cell/enum, :id-format-fn (constantly "platform")}
+      :login-username   {:type :cell/text, :id-format-fn (constantly "loginUser")})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
