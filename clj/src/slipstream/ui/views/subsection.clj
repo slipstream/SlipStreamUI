@@ -1,7 +1,8 @@
 (ns slipstream.ui.views.subsection
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.util.core :as u]))
+            [slipstream.ui.util.clojure :as uc]))
 
 (def template-filename (u/template-path-for "subsection.html"))
 
@@ -49,7 +50,7 @@
 
 (defn- assoc-id
   [subsection]
-  (assoc subsection :id (gensym "ss-subsection")))
+  (assoc subsection :id (->> subsection :title uc/keywordize name (str "ss-subsection-"))))
 
 (defn build
   [subsections]

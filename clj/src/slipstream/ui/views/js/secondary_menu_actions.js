@@ -183,7 +183,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Cancel action
 
     $("#ss-secondary-menu-action-cancel").clickWhenEnabled( function() {
-        window.location = $$.util.url.getCurrentURLBase();
+        $$.util.url.redirectToCurrentURLBase(true);
     });
 
 

@@ -4,11 +4,22 @@ jQuery( function() { ( function( $$, $, undefined ) {
         sectionIdPrefix = "ss-section-";
 
     if (hash) {
-        // Try to open panel from url hash
-        var sectionId = hash.trimPrefix("#").prefixWith(sectionIdPrefix);
-            $panel = $('.panel #' + sectionId);
-        if (hash != "#" && $panel.foundOne()) {
-            $panel.addClass("in");
+        // Try to open section from url hash
+        var hashSegments = hash.trimPrefix("#")
+                                .split($$.util.url.hash.segmentSeparator)
+                                .filter($$.util.string.notEmpty),
+            sectionTitle = hashSegments[0],
+            subSectionTitle = hashSegments[1];
+            $section = $('.panel #' + sectionIdPrefix + sectionTitle);
+        if ($section.foundOne()) {
+            $section.addClass("in");
+            if (subSectionTitle) {
+                // Try to open a subsection
+                if (! $$.subsections.showByTitle($section, subSectionTitle)) {
+                    // There is no subsection with the give title, so we clean it.
+                    document.location.hash = sectionTitle;
+                }
+            }
         } else {
             // There is no section with the give id (or more than one), so we clean it.
             $$.util.url.reloadPageWithoutHashInURL();

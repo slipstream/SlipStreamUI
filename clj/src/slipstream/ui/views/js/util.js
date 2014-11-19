@@ -84,6 +84,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
         },
 
+        suffixWith: function(suffix) {
+            return this + suffix;
+        },
+
         mightBeAnEmailAddress: function() {
             // As mentioned in http://stackoverflow.com/a/202528 the RFC of the
             // format of email address is so complex, that the only real way to
@@ -474,6 +478,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             return str1.toUpperCase() ===  str2.toUpperCase();
         },
+
         randomInt: function (length) {
             var numberOfDigits = length;
             if ($.type(length) !== "number" || length < 1 || length > 20) {
@@ -482,7 +487,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var number = Math.round(Math.random() * Math.pow(10, numberOfDigits)),
                 padding = "00000000000000000000";
             return (padding + number).slice(-1 * numberOfDigits);
+        },
+
+        notEmpty: function(str) {
+            return str ? str : undefined;
         }
+
     };
 
     // TODO: How to extend Object to have this function?
@@ -501,12 +511,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     };
 
     util.url = {
-        getCurrentURLBase: function () {
+        hash: {
+            segmentSeparator: "+"
+        },
+
+        getCurrentURLBase: function (withHash) {
             var path = window
                         .location
                         .pathname  // URL without query params
                         .trimSuffix("/new")
                         .trimSuffix("/module");
+            if (withHash === true) {
+                return path + document.location.hash;
+            }
             return path;
         },
         getParentResourceURL: function () {
@@ -521,8 +538,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         reloadPageWithoutHashInURL: function () {
             return this.redirectTo(window.location.href.split('#')[0]);
         },
-        redirectToCurrentURLBase: function () {
-            return this.redirectTo(this.getCurrentURLBase());
+        redirectToCurrentURLBase: function (withHash) {
+            return this.redirectTo(this.getCurrentURLBase(withHash));
         },
         redirectToParentResourceURL: function () {
             return this.redirectTo(this.getParentResourceURL());

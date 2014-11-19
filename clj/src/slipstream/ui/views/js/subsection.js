@@ -36,7 +36,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $combobox   = $tabAnchor.closest("div").find(".ss-subsection-activator-xs-group");
             e.preventDefault();
             $combobox.val(targetTab);
-            $tabAnchor.tab('show');
+            $tabAnchor.tab("show");
         });
 
         // Enable ss-subsection-activator-xs-group
@@ -47,8 +47,30 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     enableSubsections();
 
+    var subsectionIdPrefix = "ss-subsection-",
+        sep = $$.util.url.hash.segmentSeparator;
+
+
+    // Ensure correct hash when opening subsections
+
+    $(".ss-subsection-activator-group a[role=tab]").on("shown.bs.tab", function (e) {
+        var subsectionTitle = $(this)
+                                    .attr("href")
+                                    .trimPrefix("#" + subsectionIdPrefix);
+        window.location.hash = window.location.hash
+                                    .trimFromLastIndexOf(sep) + sep + subsectionTitle;
+    });
+
     $$.subsections = {
-        reenableSubsections: enableSubsections
+        reenableSubsections: enableSubsections,
+
+        showByTitle: function($section, title) {
+            return $section
+                       .find(".ss-subsection-activator-group")
+                           .find("a[href=#" + subsectionIdPrefix + title + "]")
+                           .click()
+                           .foundOne();
+        }
     };
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

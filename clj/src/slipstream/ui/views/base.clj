@@ -190,8 +190,8 @@
 (def ^:private templates-base
   [alerts/template-filename
    menubar/template-filename
-   section/template-filename          ;; TODO: only if body has sections.
    subsection/template-filename       ;; TODO: only if body has subsections.
+   section/template-filename          ;; TODO: only if body has sections.
    table/template-filename            ;; TODO: only if body has tables.
    code-area/template-filename        ;; TODO: only if body has code-areas.
    modal-dialogs/template-filename])  ;; TODO: only if body has modal-dialogs.
