@@ -203,8 +203,8 @@
   [{:keys [action-type id text-pressed text class]}]
   [:button]   (html/content   (str text))
   [:button]   (html/set-attr   :data-active-text (str (or text-pressed text)))
-  [:button]   (html/add-class (str "btn-" (name (or action-type :primary)))
-                              class)
+  [:button]   (html/add-class (str "btn-" (name (or action-type :primary))))
+  [:button]   (ue/when-add-class class)
   [:button]   (ue/set-id      id))
 
 ; Blank cell

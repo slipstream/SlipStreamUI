@@ -66,10 +66,12 @@
 (defmacro when-add-class
   "Consider using (enable-class enable? cls) function below, instead of this one,
   since it will also ensure it's not present if enabled? is falsey."
-  [test & classes]
-  `(if ~test
-    (html/add-class ~@classes)
-    identity))
+  ([cls]
+    `(when-add-class (not-empty ~cls) ~cls))
+  ([test & classes]
+    `(if ~test
+      (html/add-class ~@classes)
+      identity)))
 
 (defn replace-class
   [class-to-remove class-to-add]

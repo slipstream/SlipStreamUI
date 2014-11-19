@@ -85,7 +85,9 @@
    :cell/help-hint          [                           :content/plain]
    :cell/reference-module   [                           :content/plain]
    :cell/hidden-input       [             :content/map                ]
-   :cell/toggle-button      [             :content/map                ]})
+   :cell/toggle-button      [             :content/map                ]
+   :cell/remove-row-button  [:content/any                             ]
+   :cell/blank              [:content/any                             ]})
 
 (expect
   (-> all-cell-types
