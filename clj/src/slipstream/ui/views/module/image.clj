@@ -1,5 +1,7 @@
 (ns slipstream.ui.views.module.image
-  (:require [slipstream.ui.util.localization :as localization]
+  (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.views.code-area :as code-area]
             [slipstream.ui.views.secondary-menu-actions :as action]
@@ -8,7 +10,7 @@
 (localization/def-scoped-t)
 
 (defmulti middle-section-content
-  (fn [section-metadata metadata-key] metadata-key))
+  (fn [module section-title section-metadata metadata-key] metadata-key))
 
 (defn- code-area
   [code id]
@@ -24,28 +26,46 @@
    :content (t/parameters-table parameters)})
 
 (defmethod middle-section-content :cloud-configuration
-  [section-metadata _]
+  [_ _ section-metadata _]
   (map category-section section-metadata))
 
 ; Section "image creation recipes"
 
-(defmethod middle-section-content :image-creation
-  [section-metadata _]
-  (localization/with-prefixed-t :section.image-creation.subsection
+(localization/with-prefixed-t :section.image-creation.subsection
+
+  (defn- no-packages-hint
+    [module-name section-title]
+    (t :packages.empty-content
+       (u/module-uri module-name
+                     :edit true
+                     :hash [(-> section-title uc/keywordize name)
+                            (-> :packages.title t uc/keywordize name)])))
+
+  (defn- packages-subsection
+    [packages]
+    (when (or (page-type/edit-or-new?) (not-empty packages))
+       (t/image-creation-packages-table packages)))
+
+  (defmethod middle-section-content :image-creation
+    [module section-title section-metadata _]
     [{:title    (t :recipe.title)
       :content [(t :recipe.description)
                 (-> section-metadata :recipe :code (code-area "recipe"))]}
      {:title    (t :packages.title)
-      :content (-> section-metadata :packages t/image-creation-packages-table)}
+      :content  (or
+                  (packages-subsection (:packages section-metadata))
+                  (no-packages-hint (-> module :summary :name) section-title))}
      {:title    (t :prerecipe.title)
       :content [(t :prerecipe.description)
-                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}]))
+                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}])
+
+) ; End of prefixed-t scope
 
 ; Section "deployment recipes"
 
-(defmethod middle-section-content :deployment
-  [section-metadata _]
-  (localization/with-prefixed-t :section.deployment.subsection
+(localization/with-prefixed-t :section.deployment.subsection
+  (defmethod middle-section-content :deployment
+    [_ _ section-metadata _]
     [{:title    (t :execute.title)
       :content [(t :execute.description)
                 (-> section-metadata :targets :execute :code (code-area "execute"))]}
@@ -69,7 +89,7 @@
    :content (t/runs-table runs)})
 
 (defmethod middle-section-content :runs
-  [section-metadata _]
+  [_ _ section-metadata _]
   (map run-section section-metadata))
 
 ; Other table sections (e.g. cloud-image-details os-details)
@@ -83,16 +103,17 @@
        resolve))
 
 (defmethod middle-section-content :default
-  [section-metadata metadata-key]
+  [_ _ section-metadata metadata-key]
   (if-let [table-fn (table-fn-for metadata-key)]
     (table-fn section-metadata)
     (throw (IllegalArgumentException. (str "No table defined for " metadata-key)))))
 
 (defn- middle-section
   [module metadata-key]
-  (let [section-metadata (get module metadata-key)]
-    {:title   (localization/section-title metadata-key)
-     :content (middle-section-content section-metadata metadata-key)}))
+  (let [section-title (localization/section-title metadata-key)
+        section-metadata (get module metadata-key)]
+    {:title   section-title
+     :content (middle-section-content module section-title section-metadata metadata-key)}))
 
 (defn- visible-middle-sections
   []

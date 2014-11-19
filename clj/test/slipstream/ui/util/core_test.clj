@@ -179,6 +179,14 @@
   (module-uri "foo" :hash "summary"))
 
 (expect
+  "/module/foo#summary"
+  (module-uri "foo" :hash ["summary"]))
+
+(expect
+  "/module/foo#image-configuration+packages"
+  (module-uri "foo" :hash ["image-configuration" "packages"]))
+
+(expect
   "/module/foo?edit=true"
   (module-uri "foo" :edit true))
 
@@ -201,6 +209,14 @@
 (expect
   "/module/foo?action=run&edit=true#summary"
   (module-uri "foo" :hash "summary" :edit true :action :run))
+
+(expect
+  "/module/foo?action=run&edit=true#summary"
+  (module-uri "foo" :hash ["summary"] :edit true :action :run))
+
+(expect
+  "/module/foo?action=run&edit=true#image-configuration+packages"
+  (module-uri "foo" :hash ["image-configuration" "packages"] :edit true :action :run))
 
 (expect
   "/module/foo?action=run&edit=true"

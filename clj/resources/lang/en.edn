@@ -560,7 +560,7 @@
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
    :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
-   :slipstream.ui.views.module.project.section.children.empty-content  "This project doesn't have any children. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the edit button on the right." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.project.section.children.empty-content  "This project doesn't have any children. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
@@ -582,6 +582,7 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content "There are no packages set up yet. You can [add some](%1$s) by editing this image with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
    :slipstream.ui.views.reports.no-need-to-refresh                               "This section will automatically update when reports appear. No need to refresh."

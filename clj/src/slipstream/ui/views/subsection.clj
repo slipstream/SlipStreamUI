@@ -40,7 +40,9 @@
   (ue/content-for content-sel [{:keys [content selected? id]} subsections]
                   ue/this  (ue/enable-class selected? subsection-selected-cls)
                   ue/this  (ue/set-id id)
-                  ue/this  (html/content content)))
+                  ue/this  (if (string? content)
+                            (html/html-content content)
+                            (html/content content))))
 
 (html/defsnippet subsection-group-snip template-filename subsection-group-sel
   [subsections]

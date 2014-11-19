@@ -6,3 +6,6 @@ body.ss-error-page #ss-content {
   padding-top: 30px;
 }
 
+code {
+  color: #4499ce;
+}

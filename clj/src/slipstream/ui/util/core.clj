@@ -148,7 +148,9 @@
   [pathname & {hash-parameter :hash :as query-params}]
   (if-not query-params
     pathname
-    (let [hash-parameter  (some->> hash-parameter
+    (let [hash-parameter  (some->> (if (vector? hash-parameter)
+                                     (s/join "+" hash-parameter)
+                                     hash-parameter)
                                    (str "#"))
           query-string    (some->> (dissoc query-params :hash)
                                    not-empty
