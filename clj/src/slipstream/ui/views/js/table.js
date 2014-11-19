@@ -48,8 +48,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .fadeIn();
     }
 
+    if ($$.util.meta.isPageType("edit") || $$.util.meta.isPageType("new")) {
+        $lastBlankRow
+            .addClass(lastBlankRowClass);
+    }
     $lastBlankRow
-        .addClass(lastBlankRowClass)
         .onTextInputChange(cloneParameterRow)
         .find(removeRowButtonSelector)
             .hide();

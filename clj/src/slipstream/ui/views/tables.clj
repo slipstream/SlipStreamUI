@@ -13,6 +13,19 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- remove-button-cell
+  []
+  (when (page-type/edit-or-new?)
+    {:type :cell/remove-row-button}))
+
+(defn- append-blank-row-in-edit-mode
+  [rows]
+  (if (page-type/edit-or-new?)
+    (conj (vec rows) {})
+    rows))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- welcome-project-row
   [{:keys [name uri description owner version] :as welcome-project}]
   {:style nil
@@ -336,8 +349,8 @@
 
   (defn- deployment-parameter-remove-button-cell
     [param]
-    (when (and (page-type/edit-or-new?) (-> param :disabled? not))
-      {:type :cell/remove-row-button}))
+    (when-not (:disabled? param)
+      (remove-button-cell)))
 
   (defn- deployment-parameter-row
     [row-index {:keys [category help-hint] :as param}]
@@ -354,12 +367,6 @@
              (deployment-parameter-remove-button-cell param)
              {:type :cell/help-hint, :content help-hint}]})
 
-  (defn- append-blank-row-in-edit-mode
-    [params]
-    (if (page-type/edit-or-new?)
-      (conj params {})
-      params))
-
   (defn deployment-parameters-table
     [deployment-parameters]
     (table/build
@@ -373,18 +380,44 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- image-creation-package-row
-  [{:keys [repository name key] :as image-creation-package}]
-  {:style  nil
-   :cells [{:type :cell/text, :content name,        :editable? (page-type/edit-or-new?)}
-           {:type :cell/text, :content repository,  :editable? (page-type/edit-or-new?)}
-           {:type :cell/text, :content key,         :editable? (page-type/edit-or-new?)}]})
+(localization/with-prefixed-t :image-creation-packages-table
 
-(defn image-creation-packages-table
-  [image-creation-packages]
-  (table/build
-    {:headers [:name :repository :key]
-     :rows (map image-creation-package-row image-creation-packages)}))
+  (defn- image-creation-package-cell-placeholder
+    [field]
+    (->> field name (format "blank-parameter.%s.placeholder") t))
+
+  (defn- image-creation-package-cell-id
+    [row-index field]
+    (format "package--%s--%s"
+            row-index
+            (name field)))
+
+  (defn- image-creation-package-cell
+    [row-index package field]
+    {:type :cell/text
+     :content {:text (get package field)
+               :placeholder (image-creation-package-cell-placeholder field)
+               :id (image-creation-package-cell-id row-index field)}
+     :editable? (page-type/edit-or-new?)})
+
+  (defn- image-creation-package-row
+    [row-index package]
+    {:style  nil
+     :cells [(image-creation-package-cell row-index package :name)
+             (image-creation-package-cell row-index package :repository)
+             (image-creation-package-cell row-index package :key)
+             (remove-button-cell)]})
+
+  (defn image-creation-packages-table
+    [image-creation-packages]
+    (table/build
+      {:class "ss-table-with-blank-last-row"
+       :headers [:name :repository :key nil]
+       :rows (->> image-creation-packages
+                  append-blank-row-in-edit-mode
+                  (map-indexed image-creation-package-row))}))
+
+) ;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

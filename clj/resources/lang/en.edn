@@ -300,9 +300,6 @@
 
    :slipstream.ui.views.tables.action.delete                  "Delete..."
 
-   :slipstream.ui.views.tables.parameter.name.placeholder          "New parameter name"
-   :slipstream.ui.views.tables.parameter.description.placeholder   "New parameter description"
-
    :slipstream.ui.views.table.timestamp.unknown               :global.adjectives.unknown
    ;; Parameters
 
@@ -428,6 +425,11 @@
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "New parameter name"
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.description.placeholder   :global.nouns.description
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.value.placeholder         :global.nouns.value
+
+   :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.name.placeholder         "New package name"
+   :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.repository.placeholder   :global.nouns.repository
+   :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.key.placeholder          :global.nouns.key
+
 
    ;; Utils.core
 
