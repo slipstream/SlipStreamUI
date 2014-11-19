@@ -36,3 +36,8 @@ body.ss-page-type-chooser {
 body * {
   border-radius: 0 !important;
 }
+
+
+.ss-alert-offset-placeholder {
+  height: 50px;
+}
