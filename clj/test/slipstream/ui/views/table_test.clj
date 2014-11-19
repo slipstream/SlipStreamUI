@@ -84,7 +84,8 @@
    :cell/module-version     [                           :content/plain]
    :cell/help-hint          [                           :content/plain]
    :cell/reference-module   [                           :content/plain]
-   :cell/hidden-input       [             :content/map                ]})
+   :cell/hidden-input       [             :content/map                ]
+   :cell/toggle-button      [             :content/map                ]})
 
 (expect
   (-> all-cell-types
@@ -580,4 +581,19 @@
 (expect
   (str "<input name=\"ss-some-field-name\" id=\"ss-some-field-name\" value=\"" rand-str "\" type=\"hidden\" />")
   (cell-html {:type :cell/hidden-input, :content {:value rand-str, :id "ss-some-field-name"}}))
+
+
+;; Toggle button cell
+
+(expect
+  (str  "<td class=\"ss-table-cell-toggle-button-editable\">
+            <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"" rand-str "\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">" rand-str "</button>
+          </td>")
+  (cell-html {:type :cell/toggle-button, :content {:text rand-str, :id "ss-some-button-id"}}))
+
+(expect
+  (str  "<td class=\"ss-table-cell-toggle-button-editable\">
+            <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"Will be removed\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">Remove</button>
+          </td>")
+  (cell-html {:type :cell/toggle-button, :content {:text "Remove", :text-pressed "Will be removed" :id "ss-some-button-id"}}))
 

@@ -34,3 +34,7 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-table-cell-reference-module-editable .ss-reference-module-chooser-button {
   float:right;
 }
+
+.ss-table-cell-toggle-button-editable {
+  width: 140px;
+}

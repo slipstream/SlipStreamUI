@@ -124,26 +124,28 @@
                     :terminated      "Terminated"
                     }
             :verbs {
-                    :build          "Build"
-                    :copy           "Copy"
-                    :cancel         "Cancel"
-                    :create         "Create"
-                    :delete         "Delete"
-                    :deploy         "Deploy"
-                    :download       "Download"
-                    :edit           "Edit"
-                    :execute        "Execute"
-                    :import         "Import"
-                    :login          "Log in"
-                    :logout         "Log out"
-                    :publish        "Publish"
-                    :run            "Run"
-                    :report         "Report"
-                    :terminate      "Terminate"
-                    :save           "Save"
-                    :select         "Select"
-                    :unpublish      "Un-publish"
-                    :view           "View"
+                    :build            "Build"
+                    :cancel           "Cancel"
+                    :copy             "Copy"
+                    :create           "Create"
+                    :delete           "Delete"
+                    :deploy           "Deploy"
+                    :download         "Download"
+                    :edit             "Edit"
+                    :execute          "Execute"
+                    :import           "Import"
+                    :login            "Log in"
+                    :logout           "Log out"
+                    :publish          "Publish"
+                    :remove           "Remove"
+                    :removed-will-be  "Will be removed"
+                    :report           "Report"
+                    :run              "Run"
+                    :save             "Save"
+                    :select           "Select"
+                    :terminate        "Terminate"
+                    :unpublish        "Un-publish"
+                    :view             "View"
                     }
             }
 
@@ -268,11 +270,15 @@
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
 
+
    :slipstream.ui.views.table.map-cell.key.reference-image    "Reference image"
    :slipstream.ui.views.table.map-cell.key.default-multiplicity "Default multiplicity"
    :slipstream.ui.views.table.map-cell.key.default-cloud      "Default cloud"
 
    :slipstream.ui.views.table.reference-module-cell.chooser-button.label "Choose reference"
+
+   :slipstream.ui.views.table.remove-row-button.text              :global.verbs.remove
+   :slipstream.ui.views.table.remove-row-button.text-pressed      :global.verbs.removed-will-be
 
    :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
    :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
@@ -419,9 +425,9 @@
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
 
-   :slipstream.ui.views.tables.deployment.blank-parameter.name.placeholder                  "New parameter name"
-   :slipstream.ui.views.tables.deployment.blank-parameter.description.placeholder           "Description"
-   :slipstream.ui.views.tables.deployment.blank-parameter.value.placeholder                 "Value"
+   :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "New parameter name"
+   :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.description.placeholder   :global.nouns.description
+   :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.value.placeholder         :global.nouns.value
 
    ;; Utils.core
 

@@ -184,7 +184,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             });
         },
         enable: function(state) {
-            return this.disable(!state);
+            return this.disable(state === false);
         },
 
         // Inspired from: http://stackoverflow.com/a/1186309
@@ -215,13 +215,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // offers the helper class 'disabled', to make them look like so.
             // However they are still clickable (the .click() callback will still
             // be called), and therefor we have to disable it manually here.
-            var $this = $(this);
-            $this.click( function (event) {
-                if (! $this.hasClass("disabled") && $.isFunction(callback)) {
-                    callback.call($this, event);
-                } else if ($this.attr("disabled-reason") === "ss-super-only-action") {
-                    $$.alert.showWarning("Your must be have administrator access to perform this action.");
-                }
+            this.each(function () {
+                var $this = $(this);
+                $this.click( function (event) {
+                    var $thisIntern = $(this);
+                    if (! $thisIntern.hasClass("disabled") && $.isFunction(callback)) {
+                        callback.call($thisIntern, event);
+                    } else if ($thisIntern.attr("disabled-reason") === "ss-super-only-action") {
+                        $$.alert.showWarning("Your must be have administrator access to perform this action.");
+                    }
+                });
             });
             return this;
         },
@@ -355,7 +358,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-
         // jQuery extensions related to Bootstrap components are prefixed by 'bs'
 
         bsEnableDropdownToggle: function(enable) {
@@ -422,6 +424,44 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     $dropdownToggle.bsEnableDropdownToggle(true);
                 });
             });
+            return this;
+        },
+
+        bsOnToggleButtonPressed: function(callback){
+            this.filter("button.btn[data-toggle=button][data-active-text]")
+                .each(function () {
+                    $(this).data("callbackOnToggleButtonUnpressed", callback);
+                });
+            return this;
+
+        },
+
+        bsOnToggleButtonUnpressed: function(callback){
+            this.filter("button.btn[data-toggle=button][data-active-text]")
+                .each(function () {
+                    $(this).data("callbackOnToggleButtonPressed", callback);
+                });
+            return this;
+        },
+
+        bsEnableToggleButton: function(){
+            this.filter("button.btn[data-toggle=button][data-active-text]")
+                .clickWhenEnabled(function () {
+                    var callback;
+                    if (this.hasClass("active")) {
+                        callback = this.data("callbackOnToggleButtonPressed");
+                        if ($.isFunction(callback)) {
+                            callback.call(this);
+                        }
+                        this.button("reset");
+                    } else {
+                        callback = this.data("callbackOnToggleButtonUnpressed");
+                        if ($.isFunction(callback)) {
+                            callback.call(this);
+                        }
+                        this.button("active");
+                    }
+                });
             return this;
         }
 

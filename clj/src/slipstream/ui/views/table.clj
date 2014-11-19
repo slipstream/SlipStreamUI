@@ -179,7 +179,7 @@
   [:.ss-table-tooltip]  (ue/set-title help-text)
   [:.ss-table-tooltip]  (ue/remove-if-not (not-empty help-text)))
 
-; Reference module cell snippets
+; Reference module cell
 
 (html/defsnippet ^:private cell-reference-module-snip-edit template-filename (sel-for-cell :reference-module :editable)
   [reference-module]
@@ -197,6 +197,22 @@
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id))
 
+; Toggle button cell
+
+(html/defsnippet ^:private cell-toggle-button-snip-edit template-filename (sel-for-cell :toggle-button :editable)
+  [{:keys [action-type id text-pressed text class]}]
+  [:button]   (html/content   (str text))
+  [:button]   (html/set-attr   :data-active-text (str (or text-pressed text)))
+  [:button]   (html/add-class (str "btn-" (name (or action-type :primary)))
+                              class)
+  [:button]   (ue/set-id      id))
+
+; Blank cell
+
+(ue/def-blank-snippet ^:private cell-toggle-blank-snip [:td]
+  []
+  identity)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Cell snip dispatching on type, mode and content
@@ -210,7 +226,7 @@
 (defmulti ^:private cell-snip
   "See tests for an explicit list of cell types and an overview of their variants."
   (fn [{:keys [type content editable?] :as cell}]
-    [type
+    [(or type :cell/blank)
      (if editable? :mode/edit :mode/view)
      (if (map? content) :content/map :content/plain)]))
 
@@ -439,6 +455,21 @@
   [{content :content}]
   ; This is not a real cell, but a hidden input fiel in the row (<tr> tag) as requested by some form.
   (cell-hidden-input-snip-edit content))
+
+(defmethod cell-snip [:cell/toggle-button :mode/any :content/map]
+  [{content :content}]
+  (cell-toggle-button-snip-edit content))
+
+(defmethod cell-snip [:cell/remove-row-button :mode/any :content/any]
+  [_]
+  (cell-toggle-button-snip-edit {:class        "ss-remove-row-btn"
+                                 :action-type  :danger
+                                 :text         (t :remove-row-button.text)
+                                 :text-pressed (t :remove-row-button.text-pressed)}))
+
+(defmethod cell-snip [:cell/blank :mode/any :content/any]
+  [_]
+  (cell-toggle-blank-snip))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -3,8 +3,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $(".ss-table-tooltip").tooltip();
 
     $(".ss-reference-module-chooser-button button").click( function() {
-        $('#ss-module-chooser-dialog').modal('show');
+        $("#ss-module-chooser-dialog").modal("show");
     });
+
+
+    // Activate last blank row to create new ones on input change
+
+    var $lastBlankRow = $(".ss-table-with-blank-last-row tbody tr:last-of-type"),
+        lastBlankRowClass = "info",
+        removeRowButtonSelector = ".ss-remove-row-btn",
+        $removeRowButton = $(removeRowButtonSelector);
 
     function updateNameAndId(inputElem, id){
         var $this = $(inputElem),
@@ -17,25 +25,61 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function cloneParameterRow() {
         var $editedRow = $(this).closest("tr"),
-            $clonedRow = $editedRow.clone(true),
+            $newBlankRow = $editedRow.clone(true), // Boolean means 'withDataAndEvents'
             newRandomId = $$.util.string.randomInt(4);
-        $clonedRow
-            .find("input[type=text]")
-            .val("");
-        $clonedRow
+        $newBlankRow
+            .hide() // Will be faded in later on,  after being appended to the table.
+                .find("input[type=text]")
+                .val("");
+        $newBlankRow
             .find("input, select")
-            .each(function(){
-                updateNameAndId(this, newRandomId);
-            });
+                .each(function(){
+                    updateNameAndId(this, newRandomId);
+                });
         $editedRow
-            .removeClass("info")
+            .find(removeRowButtonSelector)
+                .fadeIn();
+        $editedRow
+            .removeClass(lastBlankRowClass)
             .offTextInputChange(cloneParameterRow)
             .closest("tbody")
-            .append($clonedRow);
+                .append($newBlankRow);
+        $newBlankRow
+            .fadeIn();
     }
 
-    $(".ss-table-with-blank-last-row tbody tr:last-of-type")
-        .addClass("info")
-        .onTextInputChange(cloneParameterRow);
+    $lastBlankRow
+        .addClass(lastBlankRowClass)
+        .onTextInputChange(cloneParameterRow)
+        .find(removeRowButtonSelector)
+            .hide();
+
+
+    // Enable button to remove rows
+
+    function toggleRowState($row, state) {
+        if (state === true) {
+            $row
+                .fadeTo(200, 1)
+                .find("select, input")
+                    .enable();
+        } else {
+            $row
+                .fadeTo(200, 0.3)
+                .find("select, input")
+                    .disable();
+        }
+    }
+
+    $removeRowButton.bsOnToggleButtonPressed(function () {
+        toggleRowState(this.closest("tr"), false);
+    });
+
+    $removeRowButton.bsOnToggleButtonUnpressed(function () {
+        toggleRowState(this.closest("tr"), true);
+    });
+
+    $(".ss-toggle-btn").bsEnableToggleButton();
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
