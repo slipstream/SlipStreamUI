@@ -46,6 +46,18 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defmulti html-dependencies (comp uc/keywordize :category :summary))
+
+(defmethod html-dependencies :default
+  [module]
+  nil)
+
+(defmethod html-dependencies :image
+  [module]
+  image/html-dependencies)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defmulti middle-sections (comp uc/keywordize :category :summary))
 
 (defmethod middle-sections :project
@@ -92,5 +104,6 @@
        :alerts [(old-version-alert summary)
                 (edit-published-alert summary)]
        :resource-uri (:uri summary)
+       :html-dependencies (html-dependencies module)
        :secondary-menu-actions (actions module)
        :content (sections module)})))

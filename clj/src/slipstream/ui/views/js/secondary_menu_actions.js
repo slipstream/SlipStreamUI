@@ -93,10 +93,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
             // after unpublishing it, we can toggle this row back in without reloading
             // the page.
             $dateCell.text("Now");
-            $dateRow.fadeTo(200, 1);
+            $dateRow.enableRow();
             $dateRow.data("ss-date-row-inactive", false);
         } else {
-            $dateRow.fadeTo(200, 0.3);
+            $dateRow.disableRow();
             $dateRow.data("ss-date-row-inactive", true);
         }
         return;

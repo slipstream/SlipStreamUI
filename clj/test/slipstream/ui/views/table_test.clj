@@ -567,7 +567,7 @@
             <div class=\"input-group\">
               <input value=\"" rand-url "\" name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
               <span class=\"ss-reference-module-name\">
-                <a target=\"_blank\" href=\"/module" rand-url "\">" rand-url "</a>
+                <a target=\"_blank\" class=\"btn btn-link\" href=\"/module" rand-url "\">" rand-url "</a>
               </span>
               <span class=\"ss-reference-module-chooser-button\">
                 <button type=\"button\" class=\"btn btn-primary\">Choose reference</button>

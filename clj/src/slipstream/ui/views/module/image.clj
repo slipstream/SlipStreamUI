@@ -128,6 +128,9 @@
   [module]
   (map (partial middle-section module) (visible-middle-sections)))
 
+(def html-dependencies
+  {:internal-js-filenames ["image.js"]})
+
 (defn actions
   [module]
   [action/run

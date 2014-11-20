@@ -27,9 +27,9 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-table-cell-reference-module-editable .input-group {
   width: 100%;
 }
-.ss-table-cell-reference-module-editable .ss-reference-module-name {
+.ss-table-cell-reference-module-editable .ss-reference-module-name a {
   float:left;
-  padding: 6px 0px;
+  padding-left: 0;
 }
 .ss-table-cell-reference-module-editable .ss-reference-module-chooser-button {
   float:right;

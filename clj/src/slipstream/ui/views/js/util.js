@@ -181,14 +181,65 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             return this.each(function() {
                 var $this = $(this);
-                if($this.is('input, button, select'))
-                  this.disabled = flagAsDisabled;
-                else
-                  $this.toggleClass('disabled', flagAsDisabled);
+                if($this.is("input, button, select")) {
+                    this.disabled = flagAsDisabled;
+                } else if ($this.is("a")) {
+                    // In Bootstrap links of class ".btn.btn-link" handle the
+                    // disabled state as expected with ".disabled".
+                    $this.toggleClass("disabled", flagAsDisabled);
+                    if (! $this.hasClass("btn")) {
+                        // If the <a> doesn't have the Bootstrap class ".btn" we
+                        // have to remove the href to prevent clicking.
+                        var hrefOffAttr = "href-disabled",
+                            hrefAttr = "href",
+                            offStyle = "text-decoration: none !important;";
+                        if (flagAsDisabled) {
+                            $this
+                                .attr(hrefOffAttr, $this.attr(hrefAttr))
+                                .removeAttr(hrefAttr)
+                                .attr("style", offStyle);
+                        } else {
+                            $this
+                                .attr(hrefAttr, $this.attr(hrefOffAttr))
+                                .removeAttr(hrefOffAttr)
+                                .removeAttr("style");
+                        }
+                    }
+                } else {
+                    $this.toggleClass("disabled", flagAsDisabled);
+                }
             });
         },
-        enable: function(state) {
-            return this.disable(state === false);
+
+        enable: function(enable) {
+            return this.disable(enable === false);
+        },
+
+        disableRow: function(disable, optionsArg) {
+            // Fades the table row to 0.3 opacity and disables all form inputs inside,
+            // except the ones matching 'options.exceptElemSel' (useful to not disable
+            // the "Remove row" button).
+            // A 'options.disableReason' string can be passed to be displayed as tooltip
+            // on the whole row when it is disabled.
+            var options = optionsArg || {},
+                flagAsDisabled = disable,
+                $selectedRows = this.filter("tr");
+            if ($.type(flagAsDisabled) !== "boolean") {
+                flagAsDisabled = true;
+            }
+            $selectedRows.each(function () {
+                $(this)
+                    .fadeTo(200, flagAsDisabled ? 0.3 : 1)
+                    .attr("title", flagAsDisabled ? options.disableReason : "") // Tooltip
+                    .find("input, button, select, a")
+                        .not(options.exceptElemSel)
+                        .disable(flagAsDisabled);
+            });
+            return this;
+        },
+
+        enableRow: function(enable, options) {
+            return this.disableRow((enable === false), options);
         },
 
         // Inspired from: http://stackoverflow.com/a/1186309

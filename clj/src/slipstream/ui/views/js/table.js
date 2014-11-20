@@ -60,29 +60,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Enable button to remove rows
 
-    function toggleRowState($row, state) {
-        if (state === true) {
-            $row
-                .fadeTo(200, 1)
-                .find("select, input")
-                    .enable();
-        } else {
-            $row
-                .fadeTo(200, 0.3)
-                .find("select, input")
-                    .disable();
-        }
-    }
-
     $removeRowButton.bsOnToggleButtonPressed(function () {
-        toggleRowState(this.closest("tr"), false);
+        this.closest("tr").enableRow(false,
+            {exceptElemSel: removeRowButtonSelector,
+             disableReason: "This attribute will be removed when saving."});
     });
 
     $removeRowButton.bsOnToggleButtonUnpressed(function () {
-        toggleRowState(this.closest("tr"), true);
+        this.closest("tr").enableRow(true);
     });
 
     $(".ss-toggle-btn").bsEnableToggleButton();
-
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

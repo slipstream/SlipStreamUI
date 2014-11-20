@@ -133,7 +133,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
         getSlipStreamModel: function() {
             // We capture the jQuery object so that it can be accessed further down.
             // We could instead refer directly always to the whole DOM, doing $("#someId")
-            // instead of $elem.find("#someId"), but doing so allows us to reus this
+            // instead of $elem.find("#someId"), but doing so allows us to reuse this
             // fns if the $elem is an iframe content, for example.
             var $elem = $(this);
             return {
