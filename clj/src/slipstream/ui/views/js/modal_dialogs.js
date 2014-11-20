@@ -28,25 +28,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .enable(module.isOfCategory("image"));
     });
 
-    function updateReferenceModuleCell(imageName) {
-        $(".ss-table-cell-reference-module-editable #module-reference")
-            .val(imageName);                        // The form field value
-        $(".ss-table-cell-reference-module-editable .ss-reference-module-name a")
-            .attr("href", "/module/" + imageName)   // The link to the image module
-            .text(imageName);                       // The string to display
-        $moduleChooserDialog.modal("hide");
-        return;
-    }
-
-    $("#ss-module-chooser-dialog .ss-select-btn").click(function() {
-        updateReferenceModuleCell($moduleChooserDialog.data("currentModule").getFullName());
-    });
-
-    $("#ss-module-chooser-dialog .ss-select-exact-version-btn").click(function() {
-        updateReferenceModuleCell($moduleChooserDialog.data("currentModule").getFullNameWithVersion());
-    });
-
-
     // Configure copy module dialog
 
     var $copyModuleDialog = $("#ss-copy-module-dialog"),
@@ -110,5 +91,26 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $(".ss-run-image-dialog").modal("hide");
         })
         .useToSubmitForm(".ss-run-image-form");
+
+
+    // Public functions
+
+    $$.modalDialogs = {
+        askForImageModule: function (callback){
+            $moduleChooserDialog.askConfirmation(function(){
+                var chosenModule = $moduleChooserDialog.data("currentModule"),
+                    $this = $(this);
+                if ($this.hasClass("ss-select-exact-version-btn")) {
+                    callback.call(this, chosenModule.getFullNameWithVersion());
+                    return;
+                }
+                if ($this.hasClass("ss-select-btn")) {
+                    callback.call(this, chosenModule.getFullName());
+                    return;
+                }
+                throw "Unexpected button pressed!";
+            });
+        }
+    };
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

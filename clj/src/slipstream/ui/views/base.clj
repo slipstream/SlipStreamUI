@@ -192,9 +192,9 @@
    menubar/template-filename
    subsection/template-filename       ;; TODO: only if body has subsections.
    section/template-filename          ;; TODO: only if body has sections.
+   modal-dialogs/template-filename    ;; TODO: only if body has modal-dialogs.
    table/template-filename            ;; TODO: only if body has tables.
-   code-area/template-filename        ;; TODO: only if body has code-areas.
-   modal-dialogs/template-filename])  ;; TODO: only if body has modal-dialogs.
+   code-area/template-filename])      ;; TODO: only if body has code-areas.
 
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]

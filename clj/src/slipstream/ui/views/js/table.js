@@ -2,10 +2,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $(".ss-table-tooltip").tooltip();
 
-    $(".ss-reference-module-chooser-button button").click( function() {
-        $("#ss-module-chooser-dialog").modal("show");
-    });
+    // Choose image button
 
+    function updateReferenceModuleCell(imageName) {
+        $(".ss-table-cell-reference-module-editable #module-reference")
+            .val(imageName);                        // The form field value
+        $(".ss-table-cell-reference-module-editable .ss-reference-module-name a")
+            .attr("href", "/module/" + imageName)   // The link to the image module
+            .text(imageName);                       // The string to display
+        return;
+    }
+
+    $(".ss-reference-module-chooser-button button").click( function() {
+        $$.modalDialogs.askForImageModule(updateReferenceModuleCell);
+    });
 
     // Activate last blank row to create new ones on input change
 

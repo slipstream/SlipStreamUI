@@ -61,6 +61,10 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     return undefined;
                 },
 
+                toString: function() {
+                    return this.getFullNameWithVersion() || this.getFullName();
+                },
+
                 getBaseName: function () {
                     // AKA Short module name, i.e. without the parent path.
                     return this.getFullName() && fullName.trimUpToLastIndexOf("/");
