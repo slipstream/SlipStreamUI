@@ -1,0 +1,585 @@
+{
+   ; :example {
+   ;       :foo           ":en :example/foo text"
+   ;       :foo_comment   "Hello translator, please do x"
+   ;       ; :bar {:baz ":en :example.bar/baz text"}
+   ;       :greeting "Hello %s, how are you?"
+   ;       :inline-markdown "<tag>**strong**</tag>"
+   ;       :block-markdown* "<tag>**strong**</tag>"
+   ;       :with-exclaim!   "<tag>**strong**</tag>"
+   ;       :with-arguments  "Num %d = %s"
+   ;       :greeting-alias :example/greeting
+   ;       :baz-alias      :example.bar/baz
+   ; }
+   ; :missing        "|Missing translation: [%1$s %2$s %3$s]|" ;; Look at fallback fns instead:
+                                                               ;;   slipstream.ui.util.localization/t-fallback-dev
+                                                               ;;   slipstream.ui.util.localization/t-fallback-prod
+
+   :global {:application {
+                          :name     "SlipStream"
+                          }
+            :punctuation {
+                          :ellipsis "..."
+                          }
+            :nouns {
+                    :author           "Auteur"
+                    :authorization    "Autorisation"
+                    :authorizations   "Autorisations"
+                    :category         "Catégorie"
+                    :child            "Enfant"
+                    :children         "Enfants"
+                    :comment          "Commentaire"
+                    :configuration    "Configuration"
+                    :dashboard        "Tableau de bord"
+                    :date             "Date"
+                    :deployment       "Déploiement"
+                    :description      "Description"
+                    :documentation    "Documentation"
+                    :email            "Courriel"
+                    :end              "Fin"
+                    :epub             "ePub"
+                    :error            "Erreur"
+                    :first-name       "Prénom"
+                    :group            "Groupe"
+                    :html             "HTML"
+                    :image            "Image"
+                    :info             "Information"
+                    :input            "Entrée"
+                    :key              "Clé"
+                    :last-name        "Nom"
+                    :metering         "Mesures"
+                    :module           "Module"
+                    :name             "Nom"
+                    :node             "Noeud"
+                    :nodes            "Noeuds"
+                    :organization     "Organisation"
+                    :output           "Sortie"
+                    :overview         "Aperçu"
+                    :owner            "Propriétaire"
+                    :package          "Paquet"
+                    :packages         "Paquets"
+                    :parameter        "Paramètre"
+                    :parameters       "Paramètres"
+                    :password         "Mot de passe"
+                    :pdf              "PDF"
+                    :platform         "Platforme"
+                    :pre-recipe       "Pré-recette"
+                    :profile          "Profile"
+                    :project          "Projet"
+                    :projects         "Projets"
+                    :public           "Public"
+                    :publisher        "Editeur"
+                    :recipe           "Recette"
+                    :regular-user     "Utilisateur standard"
+                    :report           "Rapport"
+                    :reports          "Reports"
+                    :repository       "Dépôt"
+                    :service-catalog  "Catalogue de services"
+                    :start            "Départ"
+                    :state            "Etat"
+                    :success          "Réussite"
+                    :summary          "Résumé"
+                    :super-user       "Administrateur"
+                    :system           "Système"
+                    :tag              "Etiquette"
+                    :tags             "Etiquettes"
+                    :user             "Utilisateur"
+                    :username         "Nom d'utilisateur"
+                    :users            "Utilisateurs"
+                    :value            "Valeur"
+                    :version          "Version"
+                    :versions         "Versions"
+                    :warning          "Avertissement"
+                    }
+            :adjectives {
+                    :global         "Global"
+                    :local          "Local"
+                    :public         "Publique"
+                    :private        "Privé"
+                    :unknown        "_Inconnu_" ; Text in this file accepts Markdown formatting :)
+                    }
+            :time {
+                    :year             "année"
+                    :years            "années"
+                    :month            "mois"
+                    :months           "mois"
+                    :week             "semaine"
+                    :weeks            "semaines"
+                    :day              "jour"
+                    :days             "jurs"
+                    :hour             "heure"
+                    :hours            "heures"
+                    :minute           "minute"
+                    :minutes          "minutes"
+                    :second           "seconde"
+                    :seconds          "secondes"
+                    :now              "maintenant"
+                   }
+            :vm-states {
+                    :running         "En fonction"
+                    :unknown         "Inconnu"
+                    :stopped         "Arrêté"
+                    :terminated      "Terminé"
+                    }
+            :verbs {
+                    :build          "Construire"
+                    :copy           "Copier"
+                    :cancel         "Annuler"
+                    :create         "Créer"
+                    :delete         "Supprimer"
+                    :deploy         "Déployer"
+                    :download       "Télécharger"
+                    :edit           "Editer"
+                    :execute        "Exécuter"
+                    :import         "Importer"
+                    :login          "Connexion"
+                    :logout         "Déconnexion"
+                    :publish        "Publier"
+                    :run            "Exécuter"
+                    :report         "Rapport"
+                    :terminate      "Terminer"
+                    :save           "Sauver"
+                    :unpublish      "Dépublier"
+                    :view           "Vue"
+                    }
+            }
+
+
+   :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
+   :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
+   :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
+   :slipstream.ui.views.menubar.unlogged.action.reset-password       "Réinitialiser le mot de passe"
+   :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
+   :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contactez-nous"
+
+   :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
+   :slipstream.ui.views.menubar.logged-in.action.configuration       :global.nouns.configuration
+   :slipstream.ui.views.menubar.logged-in.action.service-catalog     :global.nouns.service-catalog
+   :slipstream.ui.views.menubar.logged-in.action.system              :global.nouns.system
+   :slipstream.ui.views.menubar.logged-in.action.users               :global.nouns.users
+   :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
+   :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
+   :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contactez-nous"
+   :slipstream.ui.views.menubar.logged-in.action.logout              :global.verbs.logout
+
+
+   :slipstream.ui.views.error.page-title                       :global.nouns.error
+   :slipstream.ui.views.error.header.subtitle                  "Humm, c'est embarassant. On vous a perdu dans le Cloud, loin de SlipStream.
+                                                                Nous travaillons sans doute dessus, mais si vous atterrissez sur cette page plusieurs fois
+                                                                n'hésitez pas à nous [le faire savoir](mailto:support@sixsq.com)." ; Also set up by default in error.css
+
+   :slipstream.ui.views.error.header.title.status-code-400     "Mauvaise requête"
+   :slipstream.ui.views.error.header.title.status-code-401     "Vous devez vous identifier"
+   :slipstream.ui.views.error.header.title.status-code-402     "Paiement requis"
+   :slipstream.ui.views.error.header.title.status-code-403     "Interdit"
+   :slipstream.ui.views.error.header.title.status-code-404     "Non trouvé"
+   :slipstream.ui.views.error.header.title.status-code-405     "Méthode pas autorisée"
+   :slipstream.ui.views.error.header.title.status-code-406     "Format pas acceptable"
+   :slipstream.ui.views.error.header.title.status-code-407     "Proxy authentication required"
+   :slipstream.ui.views.error.header.title.status-code-408     "Request timeout"
+   :slipstream.ui.views.error.header.title.status-code-409     "Conflit"
+   :slipstream.ui.views.error.header.title.status-code-410     "Gone"
+   :slipstream.ui.views.error.header.title.status-code-411     "Length required"
+   :slipstream.ui.views.error.header.title.status-code-412     "Precondition failed"
+   :slipstream.ui.views.error.header.title.status-code-413     "Request entity too large"
+   :slipstream.ui.views.error.header.title.status-code-414     "Request-URI too long"
+   :slipstream.ui.views.error.header.title.status-code-415     "Unsupported media type"
+   :slipstream.ui.views.error.header.title.status-code-416     "Requested range not satisfiable"
+   :slipstream.ui.views.error.header.title.status-code-417     "Expectation failed"
+   :slipstream.ui.views.error.header.title.status-code-418     "I'm a teapot"
+   :slipstream.ui.views.error.header.title.status-code-422     "Unprocessable entity"
+   :slipstream.ui.views.error.header.title.status-code-423     "Locked"
+   :slipstream.ui.views.error.header.title.status-code-424     "Failed dependency"
+   :slipstream.ui.views.error.header.title.status-code-426     "Upgrade required"
+
+   :slipstream.ui.views.error.header.title.status-code-500     "Erreur interne au serveur"
+   :slipstream.ui.views.error.header.title.status-code-501     "Not implemented"
+   :slipstream.ui.views.error.header.title.status-code-502     "Bad gateway"
+   :slipstream.ui.views.error.header.title.status-code-503     "Service non disponible"
+   :slipstream.ui.views.error.header.title.status-code-504     "Gateway timeout"
+   :slipstream.ui.views.error.header.title.status-code-505     "HTTP version not supported"
+   :slipstream.ui.views.error.header.title.status-code-506     "Variant also negotiates"
+   :slipstream.ui.views.error.header.title.status-code-507     "Insufficient storage"
+   :slipstream.ui.views.error.header.title.status-code-508     "Loop detected"
+   :slipstream.ui.views.error.header.title.status-code-510     "Not extended"
+   :slipstream.ui.views.error.header.title.status-code-511     "Network authentication required"
+
+   :slipstream.ui.views.alerts.success.title                   :global.nouns.success
+   :slipstream.ui.views.alerts.info.title                      :global.nouns.info
+   :slipstream.ui.views.alerts.warning.title                   :global.nouns.warning
+   :slipstream.ui.views.alerts.error.title                     :global.nouns.error
+
+   :slipstream.ui.views.login.page-title                       "Créer un compte"
+   :slipstream.ui.views.login.header.title                     "Déployer sur n'importe quel Cloud."
+   :slipstream.ui.views.login.header.subtitle                  "Votre passerelle vers l'automatisation de déploiements multi-Cloud,
+                                                               indépendant de la plateforme IaaS sous-jacente.
+                                                               Voir les cas d'utilisation ci-dessous pour plus d'informations."
+   :slipstream.ui.views.login.header.last-line                 "**Essayez-le gratuitement!** Pas de carte de crédit nécessaire."
+   :slipstream.ui.views.login.input.pick-username.placeholder  "Sélectionner un nom d'utilisateur"
+   :slipstream.ui.views.login.input.email.placeholder          "Enter votre adresse de courriel"
+   :slipstream.ui.views.login.signup.button.label              "Créer un compte sur SlipStream"
+   :slipstream.ui.views.login.signup.terms-hint                "En cliquant sur 'Créer un compte sur SlipStream', vous acceptez nos
+                                                               [conditions d'utilisation](https://slipstream.sixsq.com/html/terms-of-service.html)."
+
+   :slipstream.ui.views.user.header.title.loggedin             "Votre profile"
+   :slipstream.ui.views.user.header.title.not-loggedin         "Profil utilisateur de %s"
+   :slipstream.ui.views.user.header.title.new-user             "Nouvel utilisateur"
+   :slipstream.ui.views.user.header.subtitle.super             :global.nouns.super-user
+   :slipstream.ui.views.user.header.subtitle.not-super         :global.nouns.regular-user
+   :slipstream.ui.views.user.header.subtitle.new-user          "Ajouter les informations du nouvel utilisateur."
+   :slipstream.ui.views.user.summary                           :global.nouns.summary
+
+
+   :slipstream.ui.views.table.header.access-right             "Autorisations d'accès"
+   :slipstream.ui.views.table.header.author                   :global.nouns.author
+   :slipstream.ui.views.table.header.category                 :global.nouns.category
+   :slipstream.ui.views.table.header.comment                  :global.nouns.comment
+   :slipstream.ui.views.table.header.date                     :global.nouns.date
+   :slipstream.ui.views.table.header.description              :global.nouns.description
+   :slipstream.ui.views.table.header.epub                     :global.nouns.epub
+   :slipstream.ui.views.table.header.first-name               :global.nouns.first-name
+   :slipstream.ui.views.table.header.group                    :global.nouns.group
+   :slipstream.ui.views.table.header.html                     :global.nouns.html
+   :slipstream.ui.views.table.header.id                       "Id du Run"
+   :slipstream.ui.views.table.header.image-link               "Lien vers l'image"
+   :slipstream.ui.views.table.header.key                      :global.nouns.key
+   :slipstream.ui.views.table.header.last-name                :global.nouns.last-name
+   :slipstream.ui.views.table.header.last-online              "Dernière fois conncté"
+   :slipstream.ui.views.table.header.module                   :global.nouns.module
+   :slipstream.ui.views.table.header.name                     :global.nouns.name
+   :slipstream.ui.views.table.header.organization             :global.nouns.organization
+   :slipstream.ui.views.table.header.owner                    :global.nouns.owner
+   :slipstream.ui.views.table.header.pdf                      :global.nouns.pdf
+   :slipstream.ui.views.table.header.public                   :global.nouns.public
+   :slipstream.ui.views.table.header.repository               :global.nouns.repository
+   :slipstream.ui.views.table.header.start-time               "Date de début"
+   :slipstream.ui.views.table.header.state                    :global.nouns.state
+   :slipstream.ui.views.table.header.status                   :global.nouns.state
+   :slipstream.ui.views.table.header.tags                     :global.nouns.tags
+   :slipstream.ui.views.table.header.user                     :global.nouns.user
+   :slipstream.ui.views.table.header.username                 :global.nouns.username
+   :slipstream.ui.views.table.header.value                    :global.nouns.value
+   :slipstream.ui.views.table.header.version                  :global.nouns.version
+   :slipstream.ui.views.table.header.slipstream-id            "Id du Run"
+   :slipstream.ui.views.table.header.run-id                   "Id du Run"
+   :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
+
+   :slipstream.ui.views.table.map-cell.key.reference-image    "Image de référence"
+   :slipstream.ui.views.table.map-cell.key.default-multiplicity "Multiplicité par défaut"
+   :slipstream.ui.views.table.map-cell.key.default-cloud      "Cloud par défaut"
+
+   :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
+   :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
+   :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
+   :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
+
+   :slipstream.ui.views.tables.documentation.open-html        "Ouvrir dans une nouvelle page"
+   :slipstream.ui.views.tables.documentation.open-pdf         "Ouvrir le PDF dans une nouvelle page"
+   :slipstream.ui.views.tables.documentation.open-epub        :global.verbs.download
+
+   :slipstream.ui.views.tables.access.view                    :global.verbs.view
+   :slipstream.ui.views.tables.access.edit                    :global.verbs.edit
+   :slipstream.ui.views.tables.access.delete                  :global.verbs.delete
+   :slipstream.ui.views.tables.access.create-children         "Créer un enfant"
+   :slipstream.ui.views.tables.access.run-deployment          "Exécuter le déploiement"
+   :slipstream.ui.views.tables.access.build-or-run-image      "Construire ou exécuter une image"
+
+   :slipstream.ui.views.table.timestamp.unknown               :global.adjectives.unknown
+   ;; Parameters
+
+   :slipstream.ui.models.parameters.username.description                        :global.nouns.username
+   :slipstream.ui.models.parameters.username.help-hint                          ""
+
+   :slipstream.ui.models.parameters.first-name.description                      :global.nouns.first-name
+   :slipstream.ui.models.parameters.first-name.help-hint                        ""
+
+   :slipstream.ui.models.parameters.last-name.description                       :global.nouns.last-name
+   :slipstream.ui.models.parameters.last-name.help-hint                         ""
+
+   :slipstream.ui.models.parameters.organization.description                    :global.nouns.organization
+   :slipstream.ui.models.parameters.organization.help-hint                      ""
+
+   :slipstream.ui.models.parameters.email.description                           :global.nouns.email
+   :slipstream.ui.models.parameters.email.help-hint                             ""
+
+   :slipstream.ui.models.parameters.super?.description                          "Est un administrateur ?"
+   :slipstream.ui.models.parameters.super?.help-hint                            ""
+
+   :slipstream.ui.models.parameters.creation.description                        "Date de création"
+   :slipstream.ui.models.parameters.creation.help-hint                          ""
+
+   :slipstream.ui.models.parameters.state.description                           :global.nouns.state
+   :slipstream.ui.models.parameters.state.help-hint                             ""
+
+   :slipstream.ui.models.parameters.name.description                            :global.nouns.name
+   :slipstream.ui.models.parameters.name.help-hint                              ""
+
+   :slipstream.ui.models.parameters.module-version.description                  :global.nouns.version
+   :slipstream.ui.models.parameters.module-version.help-hint                    ""
+
+   :slipstream.ui.models.parameters.description.description                     :global.nouns.description
+   :slipstream.ui.models.parameters.description.help-hint                       ""
+
+   :slipstream.ui.models.parameters.comment.description                         :global.nouns.comment
+   :slipstream.ui.models.parameters.comment.help-hint                           ""
+
+   :slipstream.ui.models.parameters.category.description                        :global.nouns.category
+   :slipstream.ui.models.parameters.category.help-hint                          ""
+
+   :slipstream.ui.models.parameters.last-modified.description                   "Dernière modification"
+   :slipstream.ui.models.parameters.last-modified.help-hint                     ""
+
+   :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
+   :slipstream.ui.models.parameters.owner.help-hint                             ""
+
+   :slipstream.ui.models.parameters.inherited-group-members?.description        "Hériter les membres du groupe du module parent."
+   :slipstream.ui.models.parameters.inherited-group-members?.help-hint          ""
+
+   :slipstream.ui.models.parameters.group-members.description                   "Membres du groupe"
+   :slipstream.ui.models.parameters.group-members.help-hint                     ""
+
+   :slipstream.ui.models.parameters.native-image?.description                   "Image native"
+   :slipstream.ui.models.parameters.native-image?.help-hint                     "Cette image est associée à une image Cloud, qui n'a pas été créée par SlipStream.
+                                                                                 Pour les images natives, vous devez fournir les identifiants de l'image Cloud pour
+                                                                                 chaque Cloud que vous désirez utiliser.
+                                                                                 Pour les images non-natives, vous devez fournir une image de référence
+                                                                                 qui peut être chainée jusqu'à une image native."
+
+   :slipstream.ui.models.parameters.cloud-identifiers.description               "Ids de l'image Cloud"
+   :slipstream.ui.models.parameters.cloud-identifiers.help-hint                 "Contient l'identifiant unique de l'image Cloud
+                                                                                 (ex: ami-xxxxxx pour Amazon EC2)."
+
+   :slipstream.ui.models.parameters.reference-image.description                 "Cette image est basée sur"
+   :slipstream.ui.models.parameters.reference-image.help-hint                   "L'image parente."
+
+   :slipstream.ui.models.parameters.platform.description                        :global.nouns.platform
+   :slipstream.ui.models.parameters.platform.help-hint                          "La plateforme est définie par l'image native et héritée par
+                                                                                 toutes les images dérivées."
+
+   :slipstream.ui.models.parameters.login-username.description                  "Nom d'utilisateur de connexion"
+   :slipstream.ui.models.parameters.login-username.help-hint                    "Le nom d'utilisateur est défini par l'image native et héritée par toutes les images dérivées."
+
+   :slipstream.ui.models.parameters.password-new-1.description                  "Nouveau mot de passe"
+   :slipstream.ui.models.parameters.password-new-1.help-hint                    "Entrez le nouveau mot de passe si vous souhaitez le changer."
+
+   :slipstream.ui.models.parameters.password-new-2.description                  "Confirmer le nouveau mot de passe"
+   :slipstream.ui.models.parameters.password-new-2.help-hint                    "Entrez à nouveau le nouveau mot de passe pour vérifier la saisie."
+
+   :slipstream.ui.models.parameters.password-old.description                    "Mot de passe actuel"
+   :slipstream.ui.models.parameters.password-old.help-hint                      "Entez le mot de passe actuel pour autoriser le changement."
+
+   :slipstream.ui.models.parameters.image.description                           "URL de l'image"
+   :slipstream.ui.models.parameters.image.help-hint                             "L'URL de l'image à utiliser en tant que logo pour ce module."
+
+   :slipstream.ui.models.parameters.module-uri.description                      :global.nouns.module
+   :slipstream.ui.models.parameters.module-uri.help-hint                        ""
+
+   :slipstream.ui.models.parameters.user.description                            :global.nouns.user
+   :slipstream.ui.models.parameters.user.help-hint                              ""
+
+   :slipstream.ui.models.parameters.start-time.description                      :global.nouns.start
+   :slipstream.ui.models.parameters.start-time.help-hint                        ""
+
+   :slipstream.ui.models.parameters.end-time.description                        :global.nouns.end
+   :slipstream.ui.models.parameters.end-time.help-hint                          ""
+
+   :slipstream.ui.models.parameters.run-type.description                        "Type de Run"
+   :slipstream.ui.models.parameters.run-type.help-hint                          ""
+
+   :slipstream.ui.models.parameters.run-id.description                          "Id du Run"
+   :slipstream.ui.models.parameters.run-id.help-hint                            ""
+
+   :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
+   :slipstream.ui.models.parameters.tags.help-hint                              ""
+
+   :slipstream.ui.models.parameters.last-state-change.description               "Dernier changement d'état"
+   :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
+
+   ;; Utils.core
+
+   :slipstream.ui.util.core.page-title.application-name                         :global.application.name
+
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.centos             "CentOS"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.debian             "Debian"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.fedora             "Fedora"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.opensuse           "OpenSuse"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.redhat             "RedHat"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.sles               "Sles"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.ubuntu             "Ubuntu"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.windows            "Windows"
+   :slipstream.ui.util.core.enum.option.text.cloud-platforms.other              "Autre"
+   :slipstream.ui.util.core.enum.option.text.network.public                     :global.adjectives.public
+   :slipstream.ui.util.core.enum.option.text.network.private                    :global.adjectives.private
+   :slipstream.ui.util.core.enum.option.text.atos-ip-type.public                :global.adjectives.public
+   :slipstream.ui.util.core.enum.option.text.atos-ip-type.private               :global.adjectives.private
+   :slipstream.ui.util.core.enum.option.text.atos-ip-type.local                 :global.adjectives.local
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.0          "0 - Actions"
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.1          "1 - Etapes"
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.2          "2 - Données détaillées"
+   :slipstream.ui.util.core.enum.option.text.general-verbosity-level.3          "3 - Debogage"
+   :slipstream.ui.util.core.enum.option.text.cloudsigma-location.lvs            "Las Vegas (LVS)"
+   :slipstream.ui.util.core.enum.option.text.cloudsigma-location.zrh            "Zurich (ZRH)"
+   :slipstream.ui.util.core.enum.option.text.deployment-parameter-category.output :global.nouns.output
+   :slipstream.ui.util.core.enum.option.text.deployment-parameter-category.input  :global.nouns.input
+
+   ;; Time
+
+   :slipstream.ui.util.time.year                                                :global.time.year
+   :slipstream.ui.util.time.years                                               :global.time.years
+   :slipstream.ui.util.time.month                                               :global.time.month
+   :slipstream.ui.util.time.months                                              :global.time.months
+   :slipstream.ui.util.time.week                                                :global.time.week
+   :slipstream.ui.util.time.weeks                                               :global.time.weeks
+   :slipstream.ui.util.time.day                                                 :global.time.day
+   :slipstream.ui.util.time.days                                                :global.time.days
+   :slipstream.ui.util.time.hour                                                :global.time.hour
+   :slipstream.ui.util.time.hours                                               :global.time.hours
+   :slipstream.ui.util.time.minute                                              :global.time.minute
+   :slipstream.ui.util.time.minutes                                             :global.time.minutes
+   :slipstream.ui.util.time.second                                              :global.time.second
+   :slipstream.ui.util.time.seconds                                             :global.time.seconds
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.zero    :global.time.now
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.one     "il y a %s %s"
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.two     "il y a %s %s et %s %s"
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.zero  :global.time.now
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.one   "dans %s %s"
+   :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.two   "dams %s %s et %s %s"
+
+   ;; Views
+
+   :slipstream.ui.views.welcome.page-title                     "Bienvenue"
+   :slipstream.ui.views.welcome.header.title                   "Bienvenue sur SlipStream"
+   :slipstream.ui.views.welcome.header.subtitle                "La page d'accueil contient tous les modules publiés et tous les modules racines dont vous avez accès."
+   :slipstream.ui.views.welcome.app.label.description          :global.nouns.description
+   :slipstream.ui.views.welcome.app.label.publisher            :global.nouns.publisher
+   :slipstream.ui.views.welcome.app.label.publication-date     :global.nouns.date
+   :slipstream.ui.views.welcome.app.label.deploy               :global.verbs.deploy
+   :slipstream.ui.views.welcome.section.app-store.title        "Boutique d'applications"
+   :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
+
+   :slipstream.ui.views.welcome.section.service-catalog.title  :global.nouns.service-catalog
+
+   :slipstream.ui.views.secondary-menu-actions.ellipsis        :global.punctuation.ellipsis
+   :slipstream.ui.views.secondary-menu-actions.new-project     "Nouveau projet"
+   :slipstream.ui.views.secondary-menu-actions.new-image       "Nouvelle image"
+   :slipstream.ui.views.secondary-menu-actions.new-deployment  "Nouveau déploiement"
+   :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
+   :slipstream.ui.views.secondary-menu-actions.new-user        "Nouvel utilisateur"
+   :slipstream.ui.views.secondary-menu-actions.edit-user       "Editer l'utilisateur"
+   :slipstream.ui.views.secondary-menu-actions.run             :global.verbs.run
+   :slipstream.ui.views.secondary-menu-actions.build           :global.verbs.build
+   :slipstream.ui.views.secondary-menu-actions.edit            :global.verbs.edit
+   :slipstream.ui.views.secondary-menu-actions.copy            :global.verbs.copy
+   :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
+   :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
+   :slipstream.ui.views.secondary-menu-actions.terminate       :global.verbs.terminate
+   :slipstream.ui.views.secondary-menu-actions.save            :global.verbs.save
+   :slipstream.ui.views.secondary-menu-actions.create          :global.verbs.create
+   :slipstream.ui.views.secondary-menu-actions.cancel          :global.verbs.cancel
+   :slipstream.ui.views.secondary-menu-actions.delete          :global.verbs.delete
+
+   :slipstream.ui.views.users.header.title                     :global.nouns.users
+   :slipstream.ui.views.users.header.subtitle                  "Configurer les utilisateurs de SlipStream."
+   :slipstream.ui.views.users.content.title                    :global.nouns.users
+
+   :slipstream.ui.views.documentation.header.title             :global.nouns.documentation
+   :slipstream.ui.views.documentation.header.subtitle          "Documentation technique sur SlipStream en un coup d'oeil"
+   :slipstream.ui.views.documentation.content.title            :global.nouns.documentation
+   :slipstream.ui.views.documentation.tutorial.title           "Guide utilisateur et tutoriel"
+   :slipstream.ui.views.documentation.administrator-manual.title  "Manuel de l'administrateur"
+   :slipstream.ui.views.documentation.terms-of-service.title   "Conditions d'utilisation"
+
+   :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
+   :slipstream.ui.views.dashboard.header.subtitle                 "Controller et surveiller votre activité sur le Cloud"
+   :slipstream.ui.views.dashboard.section.quota.title             "Utilisation des ressources Cloud"
+   :slipstream.ui.views.dashboard.section.runs.title              "Runs (Déploiements / Exécutions / Constructions)"
+   :slipstream.ui.views.dashboard.section.vms.title               "Machines virtuelles"
+   :slipstream.ui.views.dashboard.section.metering.title          :global.nouns.metering
+   :slipstream.ui.views.dashboard.metering-options.last-hour      "La dernière heure"
+   :slipstream.ui.views.dashboard.metering-options.last-day       "Le dernier jour"
+   :slipstream.ui.views.dashboard.metering-options.last-7-days    "Les derniers 7 jours"
+   :slipstream.ui.views.dashboard.metering-options.last-30-days   "Les derniers 30 jours"
+   :slipstream.ui.views.dashboard.metering.metric.instance        "Machines virtuelles"
+
+   :slipstream.ui.views.versions.header.title                  "Historique de '%s'"
+   :slipstream.ui.views.versions.header.subtitle.one-version   "Il y a une version de ce module (%s)."
+   :slipstream.ui.views.versions.header.subtitle.multiple-versions "Il y a %s versions de ce module (%s)."
+   :slipstream.ui.views.versions.content.title                 :global.nouns.versions
+   :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
+   :slipstream.ui.views.versions.category.image                :global.nouns.image
+   :slipstream.ui.views.versions.category.project              :global.nouns.project
+
+   :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
+   :slipstream.ui.views.module.header.title.new                "Nouveau %1$s"
+   :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
+   :slipstream.ui.views.module.header.subtitle.new             "Ajouter les informations pour créer un nouveau module de type '%1$s'."
+   :slipstream.ui.views.module.alert.old-version.msg           "Vous n'êtes pas sur la dernière version de ce module."
+   :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
+   :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
+
+   :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
+
+   :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Identifiant d'image Cloud et hierarchie d'image"
+   :slipstream.ui.views.module.image.section.os-details.title                           "Détails sur le système d'exploitation"
+   :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Configuration Cloud"
+   :slipstream.ui.views.module.image.section.image-creation.title                       "Recette de création d'image"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe
+   :slipstream.ui.views.module.image.section.image-creation.subsection.packages.title   :global.nouns.packages
+   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.title  :global.nouns.pre-recipe
+   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.description     "Recette standard (lancée après l'installation des paquets)"
+   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.description  "Pré-recette (lancée avant l'installation des paquets)"
+   :slipstream.ui.views.module.image.section.deployment.title                           "Recettes de déploiement et paramètres de coordination"
+   :slipstream.ui.views.module.image.section.deployment.subsection.execute.title        :global.verbs.execute
+   :slipstream.ui.views.module.image.section.deployment.subsection.report.title         :global.verbs.report
+   :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "Lors de l'ajout de VMs"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "Lors de la suppression de VMs"
+   :slipstream.ui.views.module.image.section.runs.title                                 "Runs"
+   :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Recette standard (lancée durant la phase 'Exécution')"
+   :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Recueille les journaux et d'autre éléments pour analyse ultérieure (lancé durant la phase 'Envoi des rapports')"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Lancée quand des VMs sont ajoutées au déploiement"
+   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Lancée quand des VMs sont supprimées du déploiement"
+
+  :slipstream.ui.views.reports.no-reports-yet                                   "Il n'y a pas encore de rapports disponibles."
+  :slipstream.ui.views.reports.no-need-to-refresh                               "Cette section sera mise à jour automatiquement quand les rpports arriveront. Pas besoin de refraîchir la page."
+
+   :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
+
+   :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Save module changes"
+   :slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message    "Message de commit"
+   :slipstream.ui.views.modal-dialogs.save-dialog.button.cancel                 :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.save-dialog.button.save                   :global.verbs.save
+
+   :slipstream.ui.views.modal-dialogs.delete-dialog.title                       "Supprimer le module"
+   :slipstream.ui.views.modal-dialogs.delete-dialog.question                    "Etes-vous sur de vouloir supprimer cette version de ce module ?"
+   :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               :global.verbs.delete
+
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.title               "Choisir une image"
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.cancel       :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.save         :global.verbs.save
+   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.save-exact-version "Sélectionner cette version"
+
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.title         "Terminer le déploiement"
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question      "Etes-vous sur de vouloir terminer toutes les machines virtuelles en cours d'exécution de ce déploiement ?"
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.cancel :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.terminate :global.verbs.terminate
+
+   :slipstream.ui.views.run.header.title                    "%s est %s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
+   :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
+   :slipstream.ui.views.run.section.global.title            :global.adjectives.global
+   :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
+
+   :slipstream.ui.views.vms.header.title                                        "Vos machines virtuelles"
+   :slipstream.ui.views.vms.header.subtitle                                     "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les VMs s'exécutants sur votre compte Cloud."
+   :slipstream.ui.views.vms.section.vms.title                                   "Machines Virtuelles"
+
+   :slipstream.ui.views.configuration.header.title                              "Configuration système"
+   :slipstream.ui.views.configuration.header.subtitle                           "Configure le service SlipStream et ses connecteurs."
+
+   :slipstream.ui.views.action.header.title                                     "Confirmation de l'action"
+
+   :slipstream.ui.views.service-catalog.header.title                            :global.nouns.service-catalog
+   :slipstream.ui.views.service-catalog.header.subtitle                         "Fournit des informations détaillées sur les capacités de chaque Cloud disponible"
+}

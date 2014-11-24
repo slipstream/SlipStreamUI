@@ -12,7 +12,7 @@
   However, this doesn't work (i.e. it's much more complicated) from within the
   packajed jar, so that known resources must be directly loaded.
   For one possible solution see: http://stackoverflow.com/a/22363700"
-  #{:en :ja})
+  #{:en :ja :fr})
 
 (def ^:private lang-resources-dir "lang/")
 
