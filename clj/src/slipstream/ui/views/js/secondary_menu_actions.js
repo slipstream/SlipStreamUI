@@ -141,7 +141,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-terminate-deployment-dialog').askConfirmation(function(){
             $$.request
                 .delete($$.util.url.getCurrentURLBase())
-                .onSuccessFollowRedirectInResponseHeader()
+                .onSuccessAlert("The request to terminate the run was successfully received. You can stay on this page, the Run state will be updated automatically.")
                 .send();
         });
     });
