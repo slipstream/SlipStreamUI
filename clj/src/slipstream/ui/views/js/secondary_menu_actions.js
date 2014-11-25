@@ -139,7 +139,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-terminate").clickWhenEnabled( function() {
         $('#ss-terminate-deployment-dialog').askConfirmation(function(){
-            console.error("not yet implemented");
+            $$.request
+                .delete($$.util.url.getCurrentURLBase())
+                .onSuccessFollowRedirectInResponseHeader()
+                .send();
         });
     });
 
