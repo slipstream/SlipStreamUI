@@ -36,7 +36,6 @@
 
 (defmethod alert :pre-defined
   [pre-built-alert-id]
-  (prn pre-built-alert-id)
   (html/at (html/select alerts [pre-built-alert-id])
            [:> :div] (html/remove-attr :id)))
 

@@ -6,17 +6,27 @@
   'page-type/with-page-type'. The default value of this dynamic var *current-page-type*
   is :view. To check the *current-page-type* use the 'page-type? family of fns
   below instead of referencing this var."
-  :view)
+  :page-type/view)
+
+(defn current
+  "Same as *current-page-type* but as a variadic fn, useful as multimethod dispatch fn."
+  [& _]
+  *current-page-type*)
+
+(derive :page-type/view     :page-mode/read-only)
+(derive :page-type/chooser  :page-mode/read-only)
+(derive :page-type/edit     :page-mode/editable)
+(derive :page-type/new      :page-mode/editable)
 
 (def valid-page-types
-  #{:view
-    :edit
-    :new
-    :chooser})
+  #{:page-type/view
+    :page-type/edit
+    :page-type/new
+    :page-type/chooser})
 
 (defmacro with-page-type
   [page-type & body]
-  `(if-let [page-type# (-> ~page-type uc/keywordize valid-page-types)]
+  `(if-let [page-type# (->> (or ~page-type "view") (keyword "page-type") valid-page-types)]
      (binding [*current-page-type* page-type#]
        ~@body)
      ~@body))
@@ -45,8 +55,8 @@
 
 (defn view-or-chooser?
   []
-  (is? :view :chooser))
+  (is? :page-type/view :page-type/chooser))
 
 (defn edit-or-new?
   []
-  (is? :edit :new))
+  (is? :page-type/edit :page-type/new))

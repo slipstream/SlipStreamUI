@@ -19,42 +19,44 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Activate last blank row to create new ones on input change
 
-    var $lastBlankRow = $(".ss-table-with-blank-last-row tbody tr:last-of-type"),
+    var $lastBlankRow = $(".ss-table-with-blank-last-row > tbody > tr:last-of-type"),
         lastBlankRowClass = "info",
         removeRowButtonSelector = ".ss-remove-row-btn",
         $removeRowButton = $(removeRowButtonSelector);
 
-    function updateNameAndId(inputElem, id){
-        var $this = $(inputElem),
-            currentName = $this.attr("name"),
-            newName = currentName.replace(/\d+/, id);
-        $this
-            .attr("name", newName)
-            .attr("id", newName);
+    function incrementFirstInteger(currentName){
+        return currentName.incrementFirstInteger();
     }
 
-    function cloneParameterRow() {
-        var $editedRow = $(this).closest("tr"),
-            $newBlankRow = $editedRow.clone(true), // Boolean means 'withDataAndEvents'
-            newRandomId = $$.util.string.randomInt(4);
-        $newBlankRow
-            .hide() // Will be faded in later on,  after being appended to the table.
+    function cloneLastRow() {
+        var $originalLastRow = $(this).closest("tr"),
+            callbackBeforeCloningLastRow = $originalLastRow.data("callbackBeforeCloningLastRow"),
+            callbackAfterCloningLastRow = $originalLastRow.data("callbackAfterCloningLastRow"),
+            $newLastRow;
+        if($.isFunction(callbackBeforeCloningLastRow)) {
+            callbackBeforeCloningLastRow.call($originalLastRow);
+        }
+        $newLastRow = $originalLastRow.clone(true); // Boolean means 'withDataAndEvents'
+        if($.isFunction(callbackAfterCloningLastRow)) {
+            callbackAfterCloningLastRow.call($originalLastRow, $newLastRow);
+        }
+        $newLastRow
+            .hide() // Will be faded in later on, after being appended to the table.
                 .find("input[type=text]")
                 .val("");
-        $newBlankRow
+        $newLastRow
             .find("input, select")
-                .each(function(){
-                    updateNameAndId(this, newRandomId);
-                });
-        $editedRow
+                .updateAttr("name", incrementFirstInteger)
+                .updateAttr("id", incrementFirstInteger);
+        $originalLastRow
             .find(removeRowButtonSelector)
                 .fadeIn();
-        $editedRow
+        $originalLastRow
             .removeClass(lastBlankRowClass)
-            .offTextInputChange(cloneParameterRow)
+            .offTextInputChange(cloneLastRow)
             .closest("tbody")
-                .append($newBlankRow);
-        $newBlankRow
+                .append($newLastRow);
+        $newLastRow
             .fadeIn();
     }
 
@@ -63,7 +65,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addClass(lastBlankRowClass);
     }
     $lastBlankRow
-        .onTextInputChange(cloneParameterRow)
+        .onTextInputChange(cloneLastRow)
         .find(removeRowButtonSelector)
             .hide();
 
@@ -72,7 +74,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $removeRowButton.bsOnToggleButtonPressed(function () {
         this.closest("tr").enableRow(false,
-            {exceptElemSel: removeRowButtonSelector,
+            {exceptElem:    this,
              disableReason: "This attribute will be removed when saving."});
     });
 

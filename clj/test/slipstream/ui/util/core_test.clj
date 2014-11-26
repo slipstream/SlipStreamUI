@@ -175,6 +175,18 @@
   (module-uri "foo"))
 
 (expect
+  "/module/foo"
+  (module-uri "/foo"))
+
+(expect
+  "/module/foo"
+  (module-uri "module/foo"))
+
+(expect
+  "/module/foo"
+  (module-uri "/module/foo"))
+
+(expect
   "/module/foo#summary"
   (module-uri "foo" :hash "summary"))
 

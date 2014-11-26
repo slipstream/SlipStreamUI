@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.table
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [clj-json.core :as json]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
@@ -13,6 +14,9 @@
 (localization/def-scoped-t)
 
 (def template-filename (u/template-path-for "table.html"))
+
+(declare build)
+(declare cell-snip)
 
 (def table-cls "ss-table")
 
@@ -53,24 +57,45 @@
 ; Text cell
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
-  [{:keys [text tooltip id] :as cell-content}]
+  [{:keys [text tooltip id class colspan] :as cell-content}]
   ue/this (html/html-content (str text))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
   ue/this (ue/set-id id)
+  ue/this (ue/when-add-class class)
+  ue/this (ue/set-colspan colspan)
   ue/this (ue/when-set-title (not-empty tooltip)
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id read-only? disabled? placeholder] :as cell-content}]
+  [{:keys [text tooltip id read-only? disabled? placeholder class error-help-hint data] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value (str text))
   [:input]  (ue/set-placeholder placeholder)
   [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
   [:input]  (ue/toggle-disabled disabled?)
+  [:.ss-error-help-hint] (ue/when-content error-help-hint)
+  [:.ss-error-help-hint] (html/add-class "hidden")
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
+  ue/this   (ue/when-add-class class)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
+
+
+; Positive integer cell
+
+(html/defsnippet ^:private cell-positive-integer-snip-edit template-filename (sel-for-cell :positive-integer :editable)
+  [{:keys [value tooltip id read-only? disabled? placeholder max-value min-value] :as cell-content}]
+  [:input]  (ue/set-id id)
+  [:input]  (ue/set-name id)
+  [:input]  (ue/set-value value)
+  [:input]  (ue/when-set-min min-value)
+  [:input]  (ue/when-set-max max-value)
+  [:input]  (ue/set-placeholder placeholder)
+  [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
+  [:input]  (ue/toggle-disabled disabled?)
+  ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip)))
+
 
 ; Editable textarea cell
 
@@ -117,9 +142,10 @@
   [:input]  (ue/set-name id))
 
 (html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
-  [{:keys [enum id read-only? disabled?] :as cell-content}]
+  [{:keys [enum id read-only? disabled? class] :as cell-content}]
   [:select] (ue/set-id id)
   [:select] (ue/set-name id)
+  [:select] (ue/when-add-class class)
   ; NOTE: <select> tags do not have a readonly attribute
   ;       so we disable it and add a hidden input field instead,
   ;       since disabled fields are NOT submitted with the form.
@@ -172,10 +198,11 @@
 ; Link cell
 
 (html/defsnippet ^:private cell-link-snip-view template-filename (sel-for-cell :link)
-  [{:keys [text href open-in-new-window? id] :as cell-content}]
+  [{:keys [text href open-in-new-window? id colspan] :as cell-content}]
     [:a] (html/content (str text))
     [:a] (ue/set-href href)
     [:a] (ue/set-id id)
+    ue/this (ue/set-colspan colspan)
     [:a] (ue/when-set-target open-in-new-window? "_blank"))
 
 ; Icon cell
@@ -201,11 +228,12 @@
 ; Reference module cell
 
 (html/defsnippet ^:private cell-reference-module-snip-edit template-filename (sel-for-cell :reference-module :editable)
-  [reference-module]
-  [:#module-reference]              (ue/set-value reference-module)
+  [{:keys [value colspan] :as reference-module}]
+  ue/this                           (ue/set-colspan colspan)
+  [:#module-reference]              (ue/set-value value)
   [:.ss-reference-module-chooser-button :button] (html/content (t :reference-module-cell.chooser-button.label))
-  [:.ss-reference-module-name :a]   (ue/set-href (u/module-uri reference-module))
-  [:.ss-reference-module-name :a]   (html/content reference-module))
+  [:.ss-reference-module-name :a]   (ue/set-href (u/module-uri value))
+  [:.ss-reference-module-name :a]   (html/content (u/module-name value)))
 
 ; Hidden form input cell
 
@@ -219,12 +247,42 @@
 ; Toggle button cell
 
 (html/defsnippet ^:private cell-toggle-button-snip-edit template-filename (sel-for-cell :toggle-button :editable)
-  [{:keys [action-type id text-pressed text class]}]
+  [{:keys [action-type id text-pressed text class size]}]
   [:button]   (html/content   (str text))
   [:button]   (html/set-attr   :data-active-text (str (or text-pressed text)))
   [:button]   (html/add-class (str "btn-" (name (or action-type :primary))))
+  [:button]   (ue/when-add-class size (str "btn-" (name size)))
+  [:td]       (ue/when-add-class size "ss-vertical-align")
   [:button]   (ue/when-add-class class)
   [:button]   (ue/set-id      id))
+
+; Action button cell
+
+(html/defsnippet ^:private cell-action-button-snip-edit template-filename (sel-for-cell :action-button :editable)
+  [{:keys [action-type id text class size]}]
+  [:button]   (html/content   (str text))
+  [:button]   (html/add-class (str "btn-" (name (or action-type :primary))))
+  [:button]   (ue/when-add-class size (str "btn-" (name size)))
+  [:td]       (ue/when-add-class size "ss-vertical-align")
+  [:button]   (ue/when-add-class class)
+  [:button]   (ue/set-id      id))
+
+; Inner table cell
+
+(html/defsnippet ^:private cell-inner-table-snip-view template-filename (sel-for-cell :inner-table)
+  [table]
+  [:tbody]    (html/substitute   (html/select (build table) [:tbody])))
+
+; Multi content cell
+
+(defn- cell-multi-snip
+  "This allows to group several cells together and toggle between them."
+  [cell-group-id visible-cell-index cell-index cell]
+  (html/at (cell-snip cell)
+    ue/this (html/add-class "ss-table-cell-multi")
+    ue/this (html/set-attr  :data-cell-multi-group cell-group-id)
+    ue/this (html/set-attr  :data-cell-multi-index cell-index)
+    ue/this (ue/when-add-class (-> visible-cell-index (or 0) (not= cell-index)) "hidden")))
 
 ; Blank cell
 
@@ -269,6 +327,14 @@
 (defmethod cell-snip [:cell/text :mode/edit :content/plain]
   [{text :content}]
   (cell-text-snip-edit {:text text}))
+
+(defmethod cell-snip [:cell/positive-number :mode/view :content/map]
+  [{{:keys [value] :as content} :content}]
+  (cell-text-snip-view (assoc content :text value)))
+
+(defmethod cell-snip [:cell/positive-number :mode/edit :content/map]
+  [{content :content}]
+  (cell-positive-integer-snip-edit content))
 
 (defmethod cell-snip [:cell/textarea :mode/view :content/map]
   [{content :content}]
@@ -464,9 +530,17 @@
 
 (defmethod cell-snip [:cell/reference-module :mode/view :content/plain]
   [{reference-module :content}]
-  (cell-link-snip-view {:text reference-module :href (u/module-uri reference-module)}))
+  (cell-link-snip-view {:text (u/module-name reference-module) :href (u/module-uri reference-module)}))
 
 (defmethod cell-snip [:cell/reference-module :mode/edit :content/plain]
+  [{reference-module :content}]
+  (cell-reference-module-snip-edit {:value reference-module}))
+
+(defmethod cell-snip [:cell/reference-module :mode/view :content/map]
+  [{{:keys [value] :as reference-module} :content}]
+  (cell-link-snip-view (assoc reference-module :text (u/module-name value) :href (u/module-uri value))))
+
+(defmethod cell-snip [:cell/reference-module :mode/edit :content/map]
   [{reference-module :content}]
   (cell-reference-module-snip-edit reference-module))
 
@@ -479,12 +553,30 @@
   [{content :content}]
   (cell-toggle-button-snip-edit content))
 
-(defmethod cell-snip [:cell/remove-row-button :mode/any :content/any]
-  [_]
-  (cell-toggle-button-snip-edit {:class        "ss-remove-row-btn"
-                                 :action-type  :danger
-                                 :text         (t :remove-row-button.text)
-                                 :text-pressed (t :remove-row-button.text-pressed)}))
+(defmethod cell-snip [:cell/remove-row-button :mode/any :content/map]
+  [{{:keys [item-name size]} :content}]
+  (cell-toggle-button-snip-edit {:class         "ss-remove-row-btn"
+                                 :action-type   :danger
+                                 :text          (if (not-empty item-name)
+                                                  (t :remove-row-button.text-custom item-name)
+                                                  (t :remove-row-button.text))
+                                 :size          size
+                                 :text-pressed  (t :remove-row-button.text-pressed)}))
+
+(defmethod cell-snip [:cell/action-button :mode/any :content/map]
+  [{content :content}]
+  (cell-action-button-snip-edit content))
+
+(defmethod cell-snip [:cell/inner-table :mode/any :content/any]
+  [{table :content}]
+  (cell-inner-table-snip-view table))
+
+(defmethod cell-snip [:cell/multi :mode/any :content/any]
+  [{cells :content visible-cell-index :visible-cell-index}]
+  (let [cell-group-id (gensym "ss-table-cell-multi-group-")]
+    (-> cell-multi-snip
+        (partial cell-group-id visible-cell-index)
+        (map-indexed cells))))
 
 (defmethod cell-snip [:cell/blank :mode/any :content/any]
   [_]
@@ -497,9 +589,11 @@
 
 (html/defsnippet ^:private rows-snip template-filename table-row-sel
   [rows]
-  ue/this (html/clone-for [{:keys [style cells]} rows]
+  ue/this (html/clone-for [{:keys [style cells class data]} rows]
            ue/this (html/content (map cell-snip cells))
-           ue/this (ue/when-add-class style (name style))))
+           ue/this (ue/when-set-data-from-server (not-empty data) (json/generate-string data))
+           ue/this (ue/when-add-class style (name style))
+           ue/this (ue/when-add-class class)))
 
 
 ;; Headers

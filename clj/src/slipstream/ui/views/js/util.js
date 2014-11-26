@@ -88,12 +88,61 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this + suffix;
         },
 
+        ensureSuffix: function(suffix) {
+            // Ensure that 'this' string ends with the 'suffix' string.
+            var lastIndexOfStr = this.lastIndexOf(suffix);
+            if (lastIndexOfStr === this.length - suffix.length) {
+                return this.toString();
+            } else {
+                return this + suffix;
+            }
+        },
+
         mightBeAnEmailAddress: function() {
             // As mentioned in http://stackoverflow.com/a/202528 the RFC of the
             // format of email address is so complex, that the only real way to
             // validate it is to send it an email ;)
             // How ever we can perform a basic validation to catch basic things:
             return this.match(".+\\@.+\\..+") ? true : false;
+        },
+
+        incrementFirstInteger: function() {
+            return this.replace(/\d+/, function(match){
+                return parseInt(match, 10) + 1;
+            });
+        },
+
+        incrementLastInteger: function() {
+            var lastIntMatch = this.match(/(?:.+?(\d+))+.*/),
+                lastInt,
+                increasedInt,
+                lastIndexOfInt;
+            if (lastIntMatch) {
+                lastInt = lastIntMatch[1];
+                increasedInt = parseInt(lastInt, 10) + 1;
+                lastIndexOfInt = this.lastIndexOf(lastInt);
+                return this.substring(0, lastIndexOfInt) + increasedInt + this.substring(lastIndexOfInt + lastInt.length);
+            }
+            return this.toString();
+        },
+
+        ensureSingleQuoted: function() {
+            if (this.length === 0) {
+                return "''";
+            }
+            return this.ensurePrefix("'").ensureSuffix("'");
+        },
+
+        isSingleQuoted: function() {
+            return this.match(/^'.*'$/) ? true : false;
+        },
+
+        isDoubleQuoted: function() {
+            return this.match(/^".*"$/) ? true : false;
+        },
+
+        isQuoted: function() {
+            return this.isSingleQuoted() || this.isDoubleQuoted();
         }
     });
 
@@ -108,7 +157,27 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     f.call(thisArg, arg1, arg2, arg3, arg4);
                 }
             });
-        }
+        },
+
+        sortObjectsByKey: function(key) {
+            if ($.type(key) !== "string") {
+                throw "Key must be a string.";
+            }
+            this.forEach(function(o){
+                if ($.type(o) !== "object") {
+                    throw "Array contains items that are not objects.";
+                }
+            });
+            this.sort(function (a, b) {
+                if (a[key] > b[key]) {
+                    return 1;
+                }
+                if (a[key] < b[key]) {
+                    return -1;
+                }
+                return 0;
+                });
+        },
     });
 
 
@@ -123,9 +192,39 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     });
 
 
+    // Function object prototype extensions
+
+    $.extend(Function.prototype, {
+
+        // TODO: Contribute back this implementation of .partial() here:
+        //       http://stackoverflow.com/questions/7282158/function-prototype-bind
+        partial: function() {
+            // Takes fewer than the normal arguments to 'this' fn, and
+            // returns a fn that, when called, calls f with args + additional args.
+            // The returned fn doesn't change the 'this' context, so that it is still
+            // compatible with .call() and .apply(), i.e. .partial() is similar to
+            // .bind(), but without locking the 'this' context override.
+            // Ex: function f(a,b){return a + b;}; var f2 = f.partial(2); f2(3) === 5;
+            var fn = this,
+                firstArgs = Array.prototype.slice.call(arguments);
+            return function() {
+                var restArgs = Array.prototype.slice.call(arguments),
+                    args = firstArgs.concat(restArgs);
+                return fn.apply(this, args);
+            };
+        }
+
+    });
+
+
     // jQuery extensions
 
     $.fn.extend({
+        id: function() {
+            // Value of the 'id' attribute of the first element in the set of matched elements.
+            return this.attr("id");
+        },
+
         foundNothing: function() {
             // A more idiomatic way to check if a jQuery selection has no matches.
             return this.length === 0;
@@ -181,7 +280,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             return this.each(function() {
                 var $this = $(this);
-                if($this.is("input, button, select")) {
+                if($this.is("input, button, select, optgroup")) {
                     this.disabled = flagAsDisabled;
                 } else if ($this.is("a")) {
                     // In Bootstrap links of class ".btn.btn-link" handle the
@@ -228,18 +327,74 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 flagAsDisabled = true;
             }
             $selectedRows.each(function () {
-                $(this)
+                var $this = $(this),
+                    callbackAfterRowStateChange = $this.data("callbackAfterRowStateChange");
+                $this
+                    .toggleClass("ss-disabled-row", flagAsDisabled)
                     .fadeTo(200, flagAsDisabled ? 0.3 : 1)
-                    .attr("title", flagAsDisabled ? options.disableReason : "") // Tooltip
+                    .attr("title", flagAsDisabled ? options.disableReason : "") // Simple tooltip
                     .find("input, button, select, a")
                         .not(options.exceptElemSel)
+                        .not(options.exceptElem)
                         .disable(flagAsDisabled);
+                    if (callbackAfterRowStateChange) {
+                        callbackAfterRowStateChange.call($this, !flagAsDisabled);
+                    }
             });
             return this;
         },
 
+        isDisabledRow: function() {
+            return this.hasClass("ss-disabled-row");
+        },
+
+        getDisabledRows: function() {
+            return this.filter(".ss-disabled-row");
+        },
+
         enableRow: function(enable, options) {
             return this.disableRow((enable === false), options);
+        },
+
+        isEnabledRow: function() {
+            return ! this.hasClass("ss-disabled-row");
+        },
+
+        onRowStateChange: function(callbackAfterRowStateChange) {
+            this.each(function() {
+                var $this = $(this),
+                    callbacks = $this.data("callbackAfterRowStateChange") || [];
+                callbacks.push(callbackAfterRowStateChange);
+                $this.data("callbackAfterRowStateChange", callbacks);
+            });
+            return this;
+        },
+
+        updateAttr: function(attrName, strModifierFn) {
+            this
+                .filter("[" + attrName + "]")
+                    .each(function(){
+                        var $this = $(this),
+                            newAttrValue = strModifierFn.call(this, $this.attr(attrName));
+                        $this.attr(attrName, newAttrValue);
+                    });
+            return this;
+        },
+
+        fade: function(shouldFadeIn, duration, easing, complete) {
+            // If shouldFadeIn is true it fades the element in, i.e. shows it.
+            // If shouldFadeIn is false it fades the element out, i.e. hides it.
+            // If shouldFadeIn is not a boolean it toggles the fades state.
+            // Like .toggle(), but with no arguments, .toggle() shows or hides the
+            // element without fading.
+            if (shouldFadeIn === true) {
+                this.fadeIn(duration, easing, complete);
+            } else if (shouldFadeIn === false) {
+                this.fadeOut(duration, easing, complete);
+            } else {
+                this.fadeToggle(duration, easing, complete);
+            }
+            return this;
         },
 
         // Inspired from: http://stackoverflow.com/a/1186309
@@ -284,17 +439,30 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        formHiddenFieldCls: "ss-form-hidden-field-added-with-addFormHiddenField-fn",
+
         addFormHiddenField: function (fieldName, fieldValue) {
-            $(this).filter("form").each(function () {
-                var $form = $(this);
-                // Clean up hidden field with the same name before adding it.
-                $form.children("input:hidden[name=" + fieldName + "]").remove();
-                $("<input>")
-                    .attr("type", "hidden")
-                    .attr("name", fieldName)
-                    .attr("value", fieldValue)
-                    .appendTo($form);
-            });
+            this
+                .filter("form")
+                    .each(function () {
+                        var $form = $(this);
+                        // Clean up hidden field with the same name before adding it.
+                        $form.children("input:hidden[name=" + fieldName + "]").remove();
+                        $("<input>")
+                            .addClass($form.formHiddenFieldCls)
+                            .attr("type", "hidden")
+                            .attr("name", fieldName)
+                            .attr("value", fieldValue)
+                            .appendTo($form);
+                    });
+            return this;
+        },
+
+        cleanFormHiddenFields: function () {
+            // Only the ones added via the function .addFormHiddenField()
+            this
+                .find("input." + this.formHiddenFieldCls)
+                    .remove();
             return this;
         },
 
@@ -316,12 +484,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             if ($.type(state) === "boolean") {
                 $formGroup
                     .toggleClass("has-success", state)
-                    .toggleClass("has-error",  !state);
+                    .toggleClass("has-error",  !state)
+                    .find(".ss-error-help-hint")
+                        .toggleClass("hidden", state);
             } else {
                 // If the 'state' is not a boolean, we toggle the current state
                 $formGroup
                     .toggleClass("has-success")
-                    .toggleClass("has-error");
+                    .toggleClass("has-error")
+                    .find(".ss-error-help-hint")
+                        .toggleClass("hidden");
             }
             // Do the same with the submit button, if no .has-error in form
             var hasErrors = $this.closest("form").find(".has-error").foundAny();
@@ -330,6 +502,32 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .find("button[type=submit]")
                 .disable(hasErrors);
             return this;
+        },
+
+        cleanFormInputValidationState: function () {
+            var $this = $(this),
+                $formGroup = $this.closest(".form-group");
+            if ($formGroup.foundNothing()) {
+                throw "No .form-group element can be found from jQuery selection.";
+            }
+            $formGroup
+                .removeClass("has-success")
+                .removeClass("has-error")
+                .find(".ss-error-help-hint")
+                    .addClass("hidden");
+            // Do the same with the submit button, if no .has-error in form
+            var hasErrors = $this.closest("form").find(".has-error").foundAny();
+            $this
+                .closest("form")
+                .find("button[type=submit]")
+                .disable(hasErrors);
+            return this;
+        },
+
+        getSelectedOptionText: function() {
+            // For <select> tags, val() returns the value only if it was clicked
+            // This returns always the displayed text.
+            return this.find("option:selected").text();
         },
 
         focusFirstInput: function() {
@@ -381,11 +579,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             if ($modalDialog.length !== 1) {
                 throw "More than one modal dialog in jQuery selection. Please select only one.";
             }
-            if (callbackOnOKButtonPress &&
-                $modalDialog.data("callbackOnOKButtonPress") + "" !== callbackOnOKButtonPress + "") {
-                // Add the callbackOnOKButtonPress only once, not on every askConfirmation event
-                $modalDialog.find(".ss-ok-btn").on("click", callbackOnOKButtonPress);
-                $modalDialog.data("callbackOnOKButtonPress", callbackOnOKButtonPress);
+            // Update the callback called by the event hanlder on every askConfirmation event
+            $modalDialog.data("callbackOnOKButtonPress", callbackOnOKButtonPress);
+            if (! $modalDialog.data("eventHandlerOnOKButtonPressSetUp")) {
+                // Add the 'on' event handler only once, not on every askConfirmation event
+                $modalDialog.find(".ss-ok-btn").on("click", function() {
+                    $modalDialog.data("callbackOnOKButtonPress").call(this);
+                });
+                $modalDialog.data("eventHandlerOnOKButtonPressSetUp", true);
             }
             $modalDialog.modal("show");
             return this;

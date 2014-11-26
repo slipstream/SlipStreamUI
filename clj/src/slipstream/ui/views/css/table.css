@@ -11,19 +11,39 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   margin: 0;
 }
 
-.ss-table-cell-map dt {
+.ss-table-cell-map dt,
+.ss-table-cell-map-editable dt,
+.ss-table-cell-deployment-node dt {
   width: 130px;
   text-align: left;
   clear: left;
   float: left;
 }
 
-.ss-table-cell-map dd {
+.ss-table-cell-map dd,
+.ss-table-cell-map-editable dd {
   margin-left: 135px;
   text-overflow:ellipsis;
   overflow: hidden;
 }
 
+
+/*.ss-table-cell-deployment-node .dl-horizontal {
+  margin-bottom: 10px;
+}
+*/
+/*.ss-table-cell-deployment-node .ss-node-parameter-mappings-label {
+  margin-bottom: 10px;
+}
+*/
+/*.ss-table-cell-deployment-node dt {
+  width: 150px;
+}
+*/
+/*.ss-table-cell-deployment-node dd {
+  margin-left: 160px;
+}
+*/
 .ss-table-cell-reference-module-editable .input-group {
   width: 100%;
 }
@@ -37,4 +57,48 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 
 .ss-table-cell-toggle-button-editable {
   width: 140px;
+}
+
+.ss-table-cell-inner-table .ss-inner-table tbody tr td {
+  border: none;
+}
+
+.ss-table-cell-inner-table .ss-inner-table {
+  background: none;
+  background-color: transparent;
+}
+
+.table tbody>tr>td.ss-vertical-align {
+  vertical-align: middle;
+}
+
+.table tbody>tr>td.ss-align-middle-right {
+  vertical-align: middle;
+  text-align: right;
+}
+
+.table tbody>tr.ss-deployment-node-reference-image-row>td:first-child,
+.table tbody>tr .ss-deployment-node-parameter-mapping-row {
+  width: 250px;
+}
+
+/* Width of second column in deployment node details table-in-cell, only for edit and view pages */
+.ss-page-type-edit .table tbody>tr.ss-deployment-node-reference-image-row>td:nth-child(2),
+.ss-page-type-edit .table tbody>tr.ss-deployment-node-default-multiplicity-row>td:nth-child(2),
+.ss-page-type-edit .table tbody>tr.ss-deployment-node-default-cloud-row>td:nth-child(2),
+.ss-page-type-edit .table tbody>tr.ss-deployment-node-separator-row>td:nth-child(2),
+.ss-page-type-edit .table tbody>tr.ss-deployment-node-parameter-mappings-label-row>td:nth-child(2),
+.ss-page-type-edit .table tbody>tr.ss-deployment-node-parameter-mapping-row>td:nth-child(2),
+
+.ss-page-type-new  .table tbody>tr.ss-deployment-node-reference-image-row>td:nth-child(2),
+.ss-page-type-new  .table tbody>tr.ss-deployment-node-default-multiplicity-row>td:nth-child(2),
+.ss-page-type-new  .table tbody>tr.ss-deployment-node-default-cloud-row>td:nth-child(2),
+.ss-page-type-new  .table tbody>tr.ss-deployment-node-separator-row>td:nth-child(2),
+.ss-page-type-new  .table tbody>tr.ss-deployment-node-parameter-mappings-label-row>td:nth-child(2),
+.ss-page-type-new  .table tbody>tr.ss-deployment-node-parameter-mapping-row>td:nth-child(2) {
+  width: 240px;
+}
+
+.ss-table .form-group{
+  margin-bottom: 0;
 }

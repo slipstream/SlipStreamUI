@@ -35,6 +35,7 @@
                     :date             "Date"
                     :deployment       "Deployment"
                     :description      "Description"
+                    :details          "Details"
                     :documentation    "Documentation"
                     :email            "Email"
                     :end              "End"
@@ -48,6 +49,7 @@
                     :input            "Input"
                     :key              "Key"
                     :last-name        "Last name"
+                    :mapping          "Mapping"
                     :metering         "Metering"
                     :module           "Module"
                     :name             "Name"
@@ -236,19 +238,20 @@
 
 
    :slipstream.ui.views.table.header.access-right             "Access Right"
+   :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
    :slipstream.ui.views.table.header.cloud-instance-id        "Cloud Instance Id"
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
    :slipstream.ui.views.table.header.date                     :global.nouns.date
+   :slipstream.ui.views.table.header.default-configuration    "Default configuration"
    :slipstream.ui.views.table.header.description              :global.nouns.description
+   :slipstream.ui.views.table.header.details                  :global.nouns.details
    :slipstream.ui.views.table.header.epub                     :global.nouns.epub
    :slipstream.ui.views.table.header.first-name               :global.nouns.first-name
    :slipstream.ui.views.table.header.group                    :global.nouns.group
-   :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.html                     :global.nouns.html
    :slipstream.ui.views.table.header.id                       "Run Id"
-   :slipstream.ui.views.table.header.image-link               "Image-link"
    :slipstream.ui.views.table.header.key                      :global.nouns.key
    :slipstream.ui.views.table.header.last-name                :global.nouns.last-name
    :slipstream.ui.views.table.header.last-online              "Last online"
@@ -271,14 +274,31 @@
    :slipstream.ui.views.table.header.version                  :global.nouns.version
 
 
-   :slipstream.ui.views.table.map-cell.key.reference-image    "Reference image"
-   :slipstream.ui.views.table.map-cell.key.default-multiplicity "Default multiplicity"
-   :slipstream.ui.views.table.map-cell.key.default-cloud      "Default cloud"
+   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label       "Reference image"
+   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label  "Default multiplicity"
+   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label         "Default cloud"
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label    "Parameter mappings"
+
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.input             "Input `%1$s`"          ; %1$s = input parameter name
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output   "is mapped to output `%1$s`." ; %1$s = input parameter value
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value    "is defaulted to value `%1$s`."  ; %1$s = input parameter value
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty  "has no default value."
+   :slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint  "Enter an alphanumeric unique node name."
+   :slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference "Choose image reference for this node"
+   :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Map to output of another node"
+   :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Default to value"
+
+
+   :slipstream.ui.views.tables.deployment-nodes-table.new-parameter-mapping.placeholder.value   "No value"
 
    :slipstream.ui.views.table.reference-module-cell.chooser-button.label "Choose reference"
 
    :slipstream.ui.views.table.remove-row-button.text              :global.verbs.remove
+   :slipstream.ui.views.table.remove-row-button.text-custom       "Remove %1$s" ; %1$s = name of the item to be removed
    :slipstream.ui.views.table.remove-row-button.text-pressed      :global.verbs.removed-will-be
+
+   :slipstream.ui.views.tables.deployment-nodes-table.mapping     :global.nouns.mapping
+   :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
 
    :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
    :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
@@ -430,6 +450,8 @@
    :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.repository.placeholder   :global.nouns.repository
    :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.key.placeholder          :global.nouns.key
 
+   :slipstream.ui.views.tables.deployment-nodes-table.node.name.placeholder                 "Node name"
+   :slipstream.ui.views.tables.deployment-nodes-table.template-node.name.placeholder        "New node name"
 
    ;; Utils.core
 
@@ -560,7 +582,8 @@
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
    :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
-   :slipstream.ui.views.module.project.section.children.empty-content  "This project doesn't have any children. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.project.section.children.empty-content-hint  "This project doesn't have any children set up yet. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint  "This deployment doesn't have any nodes set up yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
@@ -582,7 +605,7 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
-   :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content "There are no packages set up yet. You can [add some](%1$s) by editing this image with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
+   :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content-hint "There are no packages set up yet. You can [add some](%1$s) by editing this image with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
    :slipstream.ui.views.reports.no-need-to-refresh                               "This section will automatically update when reports appear. No need to refresh."
@@ -602,10 +625,10 @@
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               "Delete %1$s" ;  %1$s: module category
 
-   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.title               "Choose an image"
-   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.cancel       :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.select       :global.verbs.select
-   :slipstream.ui.views.modal-dialogs.module-chooser-dialog.button.select-exact-version "Select exact version"
+   :slipstream.ui.views.modal-dialogs.image-chooser-dialog.title                "Choose an image"
+   :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.cancel        :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select        :global.verbs.select
+   :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select-exact-version "Select exact version"
 
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.title         "Terminate deployment"
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question      "Are you sure you want to terminate all virtual machines running in this deployment?"

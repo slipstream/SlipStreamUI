@@ -35,7 +35,7 @@
 
   (defn- no-packages-hint
     [module-name section-title]
-    (t :packages.empty-content
+    (t :packages.empty-content-hint
        (u/module-uri module-name
                      :edit true
                      :hash [(-> section-title uc/keywordize name)

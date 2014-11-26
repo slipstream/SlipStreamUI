@@ -20,7 +20,7 @@
       {:title   (t :title)
        :content (if-let [children (-> module :children not-empty)]
                   (t/project-children-table children)
-                  (apply t :empty-content (new-submodules-hrefs module)))
+                  (apply t :empty-content-hint (new-submodules-hrefs module)))
        :selected? true})))
 
 (defn actions

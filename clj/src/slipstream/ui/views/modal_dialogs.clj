@@ -37,8 +37,8 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.delete resource-name))))
 
-(localization/with-prefixed-t :module-chooser-dialog
-  (html/defsnippet ^:private module-chooser-dialog template-filename [:#ss-module-chooser-dialog]
+(localization/with-prefixed-t :image-chooser-dialog
+  (html/defsnippet ^:private image-chooser-dialog template-filename [:#ss-image-chooser-dialog]
     [reference-image]
     title-sel                 (html/content (t :title))
     [:iframe]                 (ue/when-set-src (not-empty reference-image) (u/module-uri reference-image) "?chooser=true")
@@ -139,7 +139,7 @@
   [context]
   (and
     (page-type/edit-or-new?)
-    (module-category? context :image)))
+    (module-category? context :image :deployment)))
 
 (defn- terminate-required?
   [{:keys [view-name]}]
@@ -168,7 +168,10 @@
     (cond-> []
       (page-type/edit?)               (conj (save-dialog resource-name)
                                             (delete-dialog resource-name resource-id))
-      (chooser-required? context)     (conj (-> context :parsed-metadata :cloud-image-details :reference-image module-chooser-dialog))
+      (chooser-required? context)     (conj (image-chooser-dialog
+                                              (or
+                                                (-> context :parsed-metadata :cloud-image-details :reference-image)
+                                                (-> context :parsed-metadata :summary :parent-uri))))
       (terminate-required? context)   (conj (terminate-deployment-dialog))
       (publish-required? context)     (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
                                             (unpublish-module-confirmation-dialog resource-name resource-id module-version))

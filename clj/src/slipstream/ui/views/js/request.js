@@ -7,11 +7,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 onDataTypeParseError: undefined,    // See .onDataTypeParseErrorAlert() fn below
                 always: undefined,                  // See .always() fn below
                 errorStatusCodeAlerts: {},          // See .onErrorStatusCodeAlert() fn below
-                validationCallback: undefined       // See .validationCallback() fn below
+                validation: undefined               // See .validation() fn below
             },
             settings: {
                 type: method,     // values: "GET", "POST", "PUT", "DELETE"
                 url: url,
+                async: true,            // See .async(enable) fn below
                 data: undefined,
                 dataType: undefined,    // See .dataType() fn below
                 contentType: undefined, // See .serialization() fn below
@@ -34,6 +35,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 // Callback signature: jqXHR.always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) { });
                 $$.util.setOrPush(this.intern, "always", callback);
+                return this;
+            },
+            async: function (enable) {
+                if ($.type(enable) === "boolean") {
+                    this.settings.async = enable;
+                } else {
+                    this.settings.async = true;
+                }
                 return this;
             },
             dataObject: function (object) {
@@ -150,9 +159,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             send: function () {
                 var request = this;
-                if ($.isFunction(this.intern.validationCallback) && ! this.intern.validationCallback.call(request)) {
+                if ($.isFunction(this.intern.validation) && ! this.intern.validation.call(request)) {
                     // Ensure this.intern.always fn (or fns) are called
-                    this.intern.always.call(request);
+                    // if ($.isFunction(this.intern.always) || $.type(this.intern.always) === "array") {
+                    if (this.intern.always) {
+                        this.intern.always.call(request);
+                    }
                     return false;
                 }
                 switch (this.intern.serialization) {
@@ -267,15 +279,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     return false;
                 });
             },
-            validationCallback: function (callback) {
+            validation: function (callback) {
                 // Return true if the request might be send and false to stop it.
                 // This request object will be passed as the 'this' argument to
-                // the validationCallback fn.
+                // the validation callback fn.
                 // In contrast to other callbacks of this request object (like
-                // onSuccess... or onError...) there can only be one validationCallback.
-                // Calling it a second time will override the previous one.
+                // onSuccess... or onError...) there can only be one validation.
+                // Calling validation() a second time will override the previous one.
                 // Note that this.intern.always fn (or fns) will be called anyway.
-                this.intern.validationCallback = callback;
+                this.intern.validation = callback;
                 return this;
             }
         };

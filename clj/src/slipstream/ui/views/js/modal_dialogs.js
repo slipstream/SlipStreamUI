@@ -16,16 +16,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Configure chooser dialog
 
-    var $moduleChooserDialog = $("#ss-module-chooser-dialog");
+    var $imageChooserDialog = $("#ss-image-chooser-dialog");
 
-    $("#ss-module-chooser-dialog iframe").bind('load', function(e) {
+    $("#ss-image-chooser-dialog iframe").bind('load', function(e) {
         var $iframe = $(this),
             $iframeContents = $iframe.contents(),
-            module = $iframe.contents().getSlipStreamModel().module;
-        $moduleChooserDialog
-            .data("currentModule", module)
+            module = $iframe.contents().getSlipStreamModel().module,
+            isImage = module.isOfCategory("image");
+        $imageChooserDialog
+            .data("currentImageModule", isImage ? module : undefined)
             .find(".ss-select-btn, .ss-select-exact-version-btn")
-            .enable(module.isOfCategory("image"));
+            .enable(isImage);
     });
 
     // Configure copy module dialog
@@ -97,18 +98,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.modalDialogs = {
         askForImageModule: function (callback){
-            $moduleChooserDialog.askConfirmation(function(){
-                var chosenModule = $moduleChooserDialog.data("currentModule"),
-                    $this = $(this);
-                if ($this.hasClass("ss-select-exact-version-btn")) {
-                    callback.call(this, chosenModule.getFullNameWithVersion());
-                    return;
+            $imageChooserDialog.askConfirmation(function(){
+                var $buttonPressed = $(this),
+                    chosenImageModule = $imageChooserDialog.data("currentImageModule"),
+                    chosenImage;
+                if ($buttonPressed.hasClass("ss-select-exact-version-btn")) {
+                    chosenImage = chosenImageModule.asExactVersionImage();
+                } else if ($buttonPressed.hasClass("ss-select-btn")) {
+                    chosenImage = chosenImageModule.asImage();
+                } else {
+                    throw "Unexpected button pressed";
                 }
-                if ($this.hasClass("ss-select-btn")) {
-                    callback.call(this, chosenModule.getFullName());
-                    return;
-                }
-                throw "Unexpected button pressed!";
+                callback.call(chosenImage, chosenImage.toString());
             });
         }
     };

@@ -51,6 +51,16 @@
       s-without-prefix
       s)))
 
+(defn ensure-unquoted
+  "See tests for expectations."
+  [s]
+  {:pre [(or (nil? s) (string? s))]}
+  (when s
+    (-> "^['\"]?(.*?)['\"]?$"
+        re-pattern
+        (re-matches s)
+        last)))
+
 (defn trim-from
   "Returns the input string without the characters appearing after the first instance of the char passed,
   and without the char, e.g. '(trim-from 'a.b.c.d' \\.) => 'a'. See tests for expectations."

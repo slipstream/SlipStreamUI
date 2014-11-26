@@ -317,6 +317,34 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ensure-unquoted
+
+(expect
+  nil
+  (ensure-unquoted nil))
+
+(expect
+  "foo"
+  (ensure-unquoted "foo"))
+
+(expect
+  "foo"
+  (ensure-unquoted "'foo'"))
+
+(expect
+  "foo"
+  (ensure-unquoted "\"foo\""))
+
+(expect
+  "foo"
+  (ensure-unquoted "\"foo"))
+
+(expect
+  "foo"
+  (ensure-unquoted "foo\""))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; keywordize
 
 (expect

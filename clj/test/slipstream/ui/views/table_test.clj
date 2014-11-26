@@ -83,11 +83,16 @@
    :cell/icon               [                           :content/plain]
    :cell/module-version     [                           :content/plain]
    :cell/help-hint          [                           :content/plain]
-   :cell/reference-module   [                           :content/plain]
+   :cell/reference-module   [             :content/map  :content/plain]
    :cell/hidden-input       [             :content/map                ]
    :cell/toggle-button      [             :content/map                ]
-   :cell/remove-row-button  [:content/any                             ]
+   :cell/remove-row-button  [             :content/map                ]
+   :cell/positive-number    [             :content/map                ]
+   :cell/inner-table        [:content/any                             ]
+   :cell/multi              [:content/any                             ]
+   :cell/action-button      [             :content/map                ]
    :cell/blank              [:content/any                             ]})
+
 
 (expect
   (-> all-cell-types
@@ -101,7 +106,6 @@
        set))
 
 ;; Cell types with editable mode variant
-;; (Leaving the cells without :mode/edit outcommented for reference)
 
 (expect
   #{:cell/text
@@ -109,18 +113,12 @@
     :cell/password
     :cell/enum
     :cell/set
-    ; :cell/timestamp
     :cell/boolean
     :cell/map
-    ; :cell/link
-    ; :cell/external-link
     :cell/email
     :cell/url
-    ; :cell/username
-    ; :cell/icon
-    ; :cell/module-version
-    ; :cell/help-hint
-    :cell/reference-module}
+    :cell/reference-module
+    :cell/positive-number}
   (->> @#'slipstream.ui.views.table/cell-snip
        methods
        keys
@@ -206,47 +204,69 @@
   [{:tag :td
     :attrs {:class "ss-table-cell-text-editable"}
     :content ["\n            "
-              {:tag :input
-               :attrs {:value rand-str
-                       :class "form-control"
-                       :type "text"}
-                  :content []}
+              {:tag :div, :attrs {:class "form-group"}, :content
+               ["\n              "
+                {:tag :input
+                 :attrs {:value rand-str
+                         :class "form-control"
+                         :type "text"}
+                         :content []}
+                "\n              "
+                "\n            "]}
               "\n          "]}]
   (@#'slipstream.ui.views.table/cell-text-snip-edit {:text rand-str}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            <div class=\"form-group\">
+              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            <div class=\"form-group\">
+              <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :disabled? true}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            <div class=\"form-group\">
+              <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :placeholder "Text"}, :editable? true}))
 
 (expect
-  "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"\" class=\"form-control\" type=\"text\" />
-          </td>"
+  (str "<td class=\"ss-table-cell-text-editable\">
+            <div class=\"form-group\">
+              <input value=\"\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
+          </td>")
   (cell-html {:type :cell/text, :content {:text ""}, :editable? true}))
 
 (expect
-  "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"\" class=\"form-control\" type=\"text\" />
-          </td>"
+  (str "<td class=\"ss-table-cell-text-editable\">
+            <div class=\"form-group\">
+              <input value=\"\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
+          </td>")
   (cell-html {:type :cell/text, :content {:text nil}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            <div class=\"form-group\">
+              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
           </td>")
   (cell-html {:type :cell/text, :content rand-str, :editable? true}))
 
@@ -255,7 +275,10 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            <div class=\"form-group\">
+              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+              ""
+            </div>
           <span>"
             "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
@@ -551,11 +574,15 @@
 
 ;; Reference module cell
 
+(defn- remove-first-char
+  [s]
+  (->> s rest (apply str)))
+
 (expect
   (str "<td class=\"ss-table-cell-link\"><a href=\"/module"
        rand-url
        "\">"
-       rand-url
+       (remove-first-char rand-url)
        "</a></td>")
   (cell-html {:type :cell/reference-module, :content rand-url}))
 
@@ -567,7 +594,7 @@
             <div class=\"input-group\">
               <input value=\"" rand-url "\" name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
               <span class=\"ss-reference-module-name\">
-                <a target=\"_blank\" class=\"btn btn-link\" href=\"/module" rand-url "\">" rand-url "</a>
+                <a target=\"_blank\" class=\"btn btn-link\" href=\"/module" rand-url "\">" (remove-first-char rand-url) "</a>
               </span>
               <span class=\"ss-reference-module-chooser-button\">
                 <button type=\"button\" class=\"btn btn-primary\">Choose reference</button>

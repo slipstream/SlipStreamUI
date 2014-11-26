@@ -1,5 +1,90 @@
 jQuery( function() { ( function( $$, model, $, undefined ) {
 
+        function asImage(exactVersion) {
+
+            var imageXML,
+                request,
+                outputParameters = [],
+                outputParameterNames = [],
+                inputParameters = [],
+                inputParameterNames = [];
+
+            function param(paramElem) {
+                var $paramElem = $(paramElem);
+                return {
+                    name:           $paramElem.attr("name"),
+                    description:    $paramElem.attr("description"),
+                    value:          $paramElem.find("value").text()
+                };
+            }
+
+            function processImageXML(data, textStatus, jqXHR) {
+                    imageXML = data;
+                    // Extract Output Parameters
+                    $(imageXML).find("parameter[category=Output][type!=Dummy]").each(function(index, outputParamElem) {
+                        outputParameters.push(param(outputParamElem));
+                        outputParameterNames.push($(outputParamElem).attr("name"));
+                    });
+                    outputParameters.sortObjectsByKey("name");
+
+                    // Extract Input Parameters
+                    $(imageXML).find("parameter[category=Input][type!=Dummy]").each(function(index, inputParamElem) {
+                        inputParameters.push(param(inputParamElem));
+                        inputParameterNames.push($(inputParamElem).attr("name"));
+                    });
+                    inputParameters.sortObjectsByKey("name");
+            }
+
+            request = $$.request
+                                .get()
+                                .async(false)
+                                .dataType("xml")
+                                .validation(function(){
+                                    // Prevent sending the request more than once
+                                    return imageXML === undefined;
+                                })
+                                .onSuccess(processImageXML);
+
+            if (exactVersion === true) {
+                request.url(this.getURIWithVersion());
+            } else {
+                request.url(this.getURI());
+            }
+            if (! this.isOfCategory("image")) {
+                throw "Module " + this + " is not an image, but a " + this.getCategoryName();
+            }
+            // return a *copy* of the module object (i.e. without modifying the original object) extended with image API
+            return $.extend({}, this, {
+                getOutputParameters: function() {
+                    request.send();
+                    return outputParameters;
+                },
+
+                getOutputParameterNames: function() {
+                    request.send();
+                    return outputParameterNames;
+                },
+
+                getInputParameters: function() {
+                    request.send();
+                    return inputParameters;
+                },
+
+                getInputParameterNames: function() {
+                    request.send();
+                    return inputParameterNames;
+                },
+
+                toString: function() {
+                    if (exactVersion === true) {
+                        return this.getFullNameWithVersion();
+                    } else {
+                        return this.getFullName();
+                    }
+                }
+            });
+        }
+
         model.getModule = function($elem) {
             if ($elem === undefined) {
                 $elem = $(":root");
@@ -12,7 +97,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 fullName = 0,
                 version = 0;
             return {
-                getFullName: function () {
+                getFullName: function() {
                     // Module name including the parent path.
                     // We need a central way to retrieve it since it is retrieven
                     // differently depending on the page mode ('view', 'edit' or 'new').
@@ -50,11 +135,11 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     return fullName;
                 },
 
-                getVersion: function () {
+                getVersion: function() {
                     return this.getFullName() && version;
                 },
 
-                getFullNameWithVersion: function () {
+                getFullNameWithVersion: function() {
                     if (this.getFullName() && version) {
                         return (fullName + "/" + version);
                     }
@@ -65,12 +150,12 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     return this.getFullNameWithVersion() || this.getFullName();
                 },
 
-                getBaseName: function () {
+                getBaseName: function() {
                     // AKA Short module name, i.e. without the parent path.
                     return this.getFullName() && fullName.trimUpToLastIndexOf("/");
                 },
 
-                getParentName: function () {
+                getParentName: function() {
                     if (! this.getFullName()) {
                         return undefined;
                     }
@@ -81,11 +166,11 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     }
                 },
 
-                isRootModule: function () {
+                isRootModule: function() {
                     return this.getFullName() && (this.getParentName() ? false : true);
                 },
 
-                getCategoryName: function () {
+                getCategoryName: function() {
                     if (! $$.util.meta.isViewName("module") ){
                         return undefined;
                     }
@@ -103,11 +188,19 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     return $$.util.string.caseInsensitiveEqual(this.getCategoryName(), category);
                 },
 
-                getURI: function () {
+                asImage: function (exactVersion) {
+                    return asImage.call(this, exactVersion);
+                },
+
+                asExactVersionImage: function() {
+                    return this.asImage(true);
+                },
+
+                getURI: function() {
                     return this.getFullName() && ("/module/" + fullName);
                 },
 
-                getURIWithVersion: function () {
+                getURIWithVersion: function() {
                     if (this.getURI() && version) {
                         return this.getURI() + "/" + version;
                     }

@@ -59,6 +59,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Set up forms
 
+    var discardedFormInputCls = "ss-discarded-form-input";
+
     function updateRequestForModule(request, $form) {
         var module = $form.getSlipStreamModel().module;
         if ($$.util.meta.isPageType("new")) {
@@ -71,23 +73,60 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addFormHiddenField("category", module.getCategoryName());
 
         if (module.isOfCategory("image")) {
+            // Disable deployment parameters without name to prevent
+            // to be sent with the form request.
+            $(".ss-table-with-blank-last-row tbody tr td:first-child input:first-child")
+                .not(":disabled")
+                    .blankInputs()
+                        .closest("tr")
+                            .find("select, input")
+                                .addClass(discardedFormInputCls)
+                                .disable();
             // Add scripts as hidden form fields
             $("pre.ss-code-editor").each(function (){
                 var thisId = $(this).attr("id"),
                     code = $$.codeArea.getCode(thisId);
                 $form.addFormHiddenField(thisId + "--script", code);
             });
-            // Disable deployment parameters without name to prevent
-            // to be sent with the form request.
-            $(".ss-table-with-blank-last-row tbody tr td:first-child input:first-child")
+        } else if (module.isOfCategory("deployment")) {
+            // Disable deployment nodes without name or image or nodes flagges
+            // to be removed to prevent to be sent with the form request.
+            $("tr.ss-deployment-template-row")
+                .add("tr.ss-deployment-node-unfinished-row")
+                .add("tr.ss-disabled-row")
+                    .find("select, input")
+                        .addClass(discardedFormInputCls)
+                        .disable();
+            $(".ss-mapping-value input[type=text], .ss-mapping-value select")
+                .filter(":visible")
                 .not(":disabled")
-                .blankInputs()
-                .closest("tr")
-                .find("select, input")
-                .disable();
+                .not("." + discardedFormInputCls)
+                    .each(function (){
+                        var $this = $(this),
+                            rawValue = $this.val() || "",
+                            fieldName = $this.id(); // These fields have the same attr for 'id' and 'name'.
+                        // We disable the fields by removing the 'name' attr, so that
+                        // they are not sent in the form:
+                        $this.removeAttr("name");
+                        if($this.is("input[type=text]")) {
+                            // We add a hidden field with the quoted valued:
+                            $form.addFormHiddenField(fieldName, rawValue.ensureSingleQuoted());
+                        } else if($this.is("select")) {
+                            // We add a hidden field with the quoted valued:
+                            $form.addFormHiddenField(fieldName, rawValue);
+                        }
+                    });
         }
+    }
 
-        return;
+    function resetForm(){
+        console.log("resetting form");
+        // reenable discarded text fields
+        $("." + discardedFormInputCls)
+            .removeClass(discardedFormInputCls)
+            .enable();
+        // Clean up the hidden fields that we added before submit
+        $("form").cleanFormHiddenFields();
     }
 
     function updateRequestForUser(request, $form) {
@@ -117,7 +156,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     }
 
-    function checkCreationForm() {
+    function checkForm() {
         var $createForm = $("#create-form"),
             resourceName,
             suggestedName,
@@ -126,6 +165,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var module = $$.model.getModule();
             suggestedName = module.getBaseName();
             resourceName = module.getCategoryName();
+            if (module.isOfCategory("deployment") &&
+                $(".ss-deployment-node-unfinished-row").not(".ss-disabled-row").foundAny()) {
+                $$.alert.showError("Unfinished deployment configuration",
+                    "There are still some nodes without a reference image. Setup them correctly or remove them before saving.");
+                return false;
+            }
         } else {
             // User is the only resource beyond module that can be created
             suggestedName = $createForm.find("#name").val();
@@ -148,20 +193,29 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return true;
     }
 
+
+    // TODO: Merge both save and creation forms, since the config is the same.
+
     $$.request
         .put()
         .onSuccessFollowRedirectInResponseHeader()
+        .always(resetForm)
+        .validation(checkForm)
         .useToSubmitForm("#save-form", updateRequest);
 
     $$.request
         .put()
         .onSuccessFollowRedirectInResponseHeader()
-        .validationCallback(checkCreationForm)
+        .always(resetForm)
+        .validation(checkForm)
         .useToSubmitForm("#create-form", updateRequest);
 
     // Auto-open all dropdowns on mouseover.
     // The click action is still available for touch devices.
     $("body").bsOpenDropdownOnMouseOver();
+
+    // Enable popovers
+    $("[data-toggle='popover']").popover();
 
     // $("body").getSlipStreamModel().module.dump();
 

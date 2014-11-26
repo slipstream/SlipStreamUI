@@ -52,6 +52,10 @@
   [module]
   nil)
 
+(defmethod html-dependencies :deployment
+  [module]
+  deployment/html-dependencies)
+
 (defmethod html-dependencies :image
   [module]
   image/html-dependencies)

@@ -109,7 +109,17 @@
           <td><code>.ss-table-cell-text-editable</code></td>
           <td>Editable text cell</td>
           <td class="ss-table-cell-text-editable">
-            <input type="text" class="form-control" placeholder="Text" value="">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Text" value="">
+              <span class="help-block ss-error-help-hint">A block of help text that appears when there is an error with the inpu validation.</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-positive-integer-editable</code></td>
+          <td>Editable number cell for positive integers (by default including 0)</td>
+          <td class="ss-table-cell-positive-integer-editable">
+            <input type="number" class="form-control" placeholder="Number" value="99" min="0">
           </td>
         </tr>
         <tr>
@@ -226,12 +236,45 @@
           </td>
         </tr>
         <tr>
+          <td><code>.ss-table-cell-inner-table</code></td>
+          <td>Cell with inner rows</td>
+          <td class="ss-table-cell-inner-table">
+            <table class="table table-responsive table-condensed ss-inner-table">
+              <tbody>
+                <tr>
+                  <td>First column</td>
+                  <td>Second column</td>
+                </tr>
+                <tr>
+                  <td>First column</td>
+                  <td>Second column</td>
+                </tr>
+                <tr>
+                  <td>First column</td>
+                  <td>Second column</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
           <td><code>.ss-table-cell-toggle-button-editable</code></td>
           <td>Toggle button to switch between two states.</td>
           <td class="ss-table-cell-toggle-button-editable">
             <button type="button" class="btn btn-primary ss-toggle-btn" data-toggle="button" data-active-text="Selected" aria-pressed="false" autocomplete="off">
               Select
             </button>
+          </td>
+        </tr>
+        <tr>
+          <td><code>.ss-table-cell-action-button-editable</code></td>
+          <td>Button to launch an action</td>
+          <td class="ss-table-cell-action-button-editable">
+            <div class="input-group">
+              <span class="ss-action-button">
+                <button class="btn btn-primary" type="button">Trigger action</button>
+              </span>
+            </div><!-- /input-group -->
           </td>
         </tr>
       </tbody>

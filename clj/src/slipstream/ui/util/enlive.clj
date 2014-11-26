@@ -158,10 +158,12 @@
                 "\n  Note that if parts are nil, attr '" attr-name "' will be removed, instead of setting a"
                 "\n  blank string as value, as done by default by enlive."
                 doc-str)
-          [~test-symbol & ~parts-symbol]
-          (if ~test-symbol
-            (apply ~set-fn-symbol ~parts-symbol)
-            identity))
+          ([~test-symbol]
+            (~when-set-fn-symbol (-> ~test-symbol str not-empty) ~test-symbol))
+          ([~test-symbol & ~parts-symbol]
+                    (if ~test-symbol
+                      (apply ~set-fn-symbol ~parts-symbol)
+                      identity)))
       (defn ~toggle-fn-symbol
           ~(str "Sets the attr '" attr-name "' if test is truthy, and removes it otherwise. Note the difference"
                 "\n  with '" (name when-set-fn-symbol) "'. If parts are not provided or they are nil,"
@@ -188,11 +190,15 @@
 
 (defn-set-attr :checked)
 (defn-set-attr :class)
+(defn-set-attr :colspan)
 (defn-set-attr :content)
+(defn-set-attr :data-from-server)
 (defn-set-attr :disabled)
 (defn-set-attr :disabled-reason)
 (defn-set-attr :href)
 (defn-set-attr :id)
+(defn-set-attr :max)
+(defn-set-attr :min)
 (defn-set-attr :name)
 (defn-set-attr :onclick)
 (defn-set-attr :placeholder)

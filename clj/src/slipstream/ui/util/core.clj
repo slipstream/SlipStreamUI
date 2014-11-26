@@ -58,20 +58,13 @@
   [enum]
   (with-meta enum {:type :enum}))
 
-(defn enum-select
-  "If the 'selected-option is not available, the first one will be selected."
-  [enum selected-option]
-  (->> enum
-       (map (partial toggle-option selected-option))
-       ensure-one-selected
-       type-enum))
-
 (def ^:private enums-with-localization
   "By default we display the values itselves in the combobox of a 'select' form
   input. However, for some known enum parameters we use de localized string."
   #{:cloud-platforms                ; Values in slipstream.ui.models.module.image/platforms
     :general-verbosity-level        ; Values: ["0" "1" "2" "3"]
-    :deployment-parameter-category  ; Values  ["Output" "Input"] in slipstream.ui.views.tables/deployment-parameter-row
+    :deployment-parameter-category  ; Values: ["Output" "Input"] in slipstream.ui.views.tables/deployment-parameter-row
+    :mapping-options                ; Values: [:parameter.bind-to-output :parameter.bind-to-value]
     :atos-ip-type                   ; Values: ["public" "local" "private"]
     :network                        ; Values: ["Public" "Private"]
     :cloudsigma-location})          ; Values: ["LVS" "ZRH"]
@@ -87,9 +80,26 @@
          keyword
          t)))
 
+(defn- enum-value
+  [option]
+  (when option
+    (if (string? option)
+      option
+      (-> option
+          uc/keywordize
+          name))))
+
+(defn enum-select
+  "If the 'selected-option is not available, the first one will be selected."
+  [enum selected-option]
+  (->> enum
+       (map (partial toggle-option (enum-value selected-option)))
+       ensure-one-selected
+       type-enum))
+
 (defn- parse-enum-option
   [enum-name option]
-  {:value option, :text (enum-text enum-name option)})
+  {:value (enum-value option), :text (enum-text enum-name option)})
 
 (defn enum
   [options enum-name & [selected-option]]
@@ -170,9 +180,15 @@
   [module & query-params]
   (apply uri
          (-> module
-             (uc/trim-prefix   "/")
-             (uc/ensure-prefix "/module/"))
+             (uc/ensure-prefix "/")
+             (uc/ensure-prefix "/module"))
          query-params))
+
+(defn module-name
+  [module-uri]
+  (-> module-uri
+   (uc/trim-prefix "/")
+   (uc/trim-prefix "module/")))
 
 ;; Module categories names
 

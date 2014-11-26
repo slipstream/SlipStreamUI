@@ -80,7 +80,7 @@
      :last-modified     (-> attrs :lastmodified)
      :latest-version?   (or (page-type/new?) (-> attrs :islatestversion uc/parse-boolean))
      :deleted?          (-> attrs :deleted uc/parse-boolean)
-     :uri               (-> attrs :resourceuri)
+     :uri               (or (-> attrs :resourceuri) (str (:parenturi attrs) "/" (:shortname attrs)))
      :parent-uri        (-> attrs :parenturi)
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 

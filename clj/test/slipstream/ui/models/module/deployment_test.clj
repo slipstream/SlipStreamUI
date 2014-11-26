@@ -1,173 +1,373 @@
 (ns slipstream.ui.models.module.deployment-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.module :as model]))
+            [slipstream.ui.models.module :as model]
+            [slipstream.ui.util.page-type :as page-type]))
 
 (def raw-metadata-str
-  "<deploymentModule category='Deployment' creation='2013-03-08 22:37:40.773 CET' deleted='false' lastModified='2013-03-08 22:37:40.774 CET' name='Public/Tutorials/HelloWorld/client_server' parentUri='module/Public/Tutorials/HelloWorld' resourceUri='module/Public/Tutorials/HelloWorld/client_server/11' shortName='client_server' version='11'>
-  <parameters class='org.hibernate.collection.PersistentMap'></parameters>
-  <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='true' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='false' publicPut='false'>
-    <groupMembers class='java.util.ArrayList'></groupMembers>
-  </authz>
-  <cloudNames length='1'>
-    <string>stratuslab</string>
-  </cloudNames>
-  <nodes class='org.hibernate.collection.PersistentMap'>
-    <entry>
-      <string>testclient1</string>
-      <node cloudService='default' creation='2013-03-08 22:37:40.773 CET' deleted='false' imageUri='module/Public/Tutorials/HelloWorld/testclient' multiplicity='5' name='testclient1' network='Public'>
-        <parameters class='org.hibernate.collection.PersistentMap'>
-          <entry>
-            <string>webserver.port</string>
-            <parameter category='General' class='com.sixsq.slipstream.persistence.NodeParameter' description='' isMappedValue='true' mandatory='false' name='webserver.port' readonly='false' type='String'>
-              <value>apache1:port_of_something</value>
-            </parameter>
-          </entry>
-          <entry>
-            <string>webserver.ready</string>
-            <parameter category='General' class='com.sixsq.slipstream.persistence.NodeParameter' description='' isMappedValue='true' mandatory='false' name='webserver.ready' readonly='false' type='String'>
-              <value>apache1:ready</value>
-            </parameter>
-          </entry>
-          <entry>
-            <string>webserver.hostname</string>
-            <parameter category='General' class='com.sixsq.slipstream.persistence.NodeParameter' description='' isMappedValue='true' mandatory='false' name='webserver.hostname' readonly='false' type='String'>
-              <value>apache1:hostname</value>
-            </parameter>
-          </entry>
-        </parameters>
-        <parameterMappings class='org.hibernate.collection.PersistentMap'>
-          <entry>
-            <string>webserver.port</string>
-            <nodeParameter category='General' description='' isMappedValue='true' mandatory='false' name='webserver.port' readonly='false' type='String'>
-              <value>'something'</value>
-            </nodeParameter>
-          </entry>
-          <entry>
-            <string>webserver.ready</string>
-            <nodeParameter category='General' description='' isMappedValue='true' mandatory='false' name='webserver.ready' readonly='false' type='String'>
-              <value>apache1:ready</value>
-            </nodeParameter>
-          </entry>
-          <entry>
-            <string>webserver.hostname</string>
-            <nodeParameter category='General' description='' isMappedValue='true' mandatory='false' name='webserver.hostname' readonly='false' type='String'>
-              <value>apache1:hostname</value>
-            </nodeParameter>
-          </entry>
-        </parameterMappings>
-        <image category='Image' creation='2013-03-08 22:37:40.730 CET' deleted='false' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='false' lastModified='2013-03-08 22:37:40.734 CET' loginUser='root' moduleReferenceUri='module/Public/BaseImages/Ubuntu/12.04' name='Public/Tutorials/HelloWorld/testclient' parentUri='module/Public/Tutorials/HelloWorld' platform='debian' resourceUri='module/Public/Tutorials/HelloWorld/testclient/10' shortName='testclient' version='10'>
-          <parameters class='org.hibernate.collection.PersistentMap'>
-            <entry>
-              <string>extra.disk.volatile</string>
-              <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Volatile extra disk in GB' isSet='false' mandatory='true' name='extra.disk.volatile' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>webserver.port</string>
-              <parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Port on which the web server listens' isSet='false' mandatory='false' name='webserver.port' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>stratuslab.disks.bus.type</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='VM disks bus type' isSet='true' mandatory='true' name='stratuslab.disks.bus.type' readonly='false' type='Enum'>
-                <enumValues length='2'>
-                  <string>virtio</string>
-                  <string>scsi</string>
-                </enumValues>
-                <value>VIRTIO</value>
-                <defaultValue>VIRTIO</defaultValue>
-              </parameter>
-            </entry>
-            <entry>
-              <string>webserver.ready</string>
-              <parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Server ready to recieve connections' isSet='false' mandatory='false' name='webserver.ready' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>stratuslab.instance.type</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance type' isSet='true' mandatory='true' name='stratuslab.instance.type' readonly='false' type='Enum'>
-                <enumValues length='7'>
-                  <string>m1.small</string>
-                  <string>c1.medium</string>
-                  <string>m1.large</string>
-                  <string>m1.xlarge</string>
-                  <string>c1.xlarge</string>
-                  <string>t1.micro</string>
-                  <string>standard.xsmall</string>
-                </enumValues>
-                <value>M1_SMALL</value>
-                <defaultValue>M1_SMALL</defaultValue>
-              </parameter>
-            </entry>
-            <entry>
-              <string>hostname</string>
-              <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='hostname/ip of the image' isSet='false' mandatory='true' name='hostname' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>stratuslab.cpu</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested CPUs' isSet='false' mandatory='true' name='stratuslab.cpu' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>stratuslab.ram</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested RAM (in GB)' isSet='false' mandatory='true' name='stratuslab.ram' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>instanceid</string>
-              <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance id' isSet='false' mandatory='true' name='instanceid' readonly='false' type='String'></parameter>
-            </entry>
-            <entry>
-              <string>network</string>
-              <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Network type' isSet='true' mandatory='true' name='network' readonly='false' type='Enum'>
-                <enumValues length='2'>
-                  <string>Public</string>
-                  <string>Private</string>
-                </enumValues>
-                <value>Public</value>
-                <defaultValue>Public</defaultValue>
-              </parameter>
-            </entry>
-            <entry>
-              <string>webserver.hostname</string>
-              <parameter category='Input' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Server hostname' isSet='false' mandatory='false' name='webserver.hostname' readonly='false' type='String'></parameter>
-            </entry>
-          </parameters>
-          <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='false' publicPut='false'>
-            <groupMembers class='java.util.ArrayList'></groupMembers>
-          </authz>
-          <targets class='org.hibernate.collection.PersistentBag'>
-            <target name='execute' runInBackground='false'>#!/bin/sh -xe
-              # Wait for the metadata to be resolved
-              web_server_ip=$(ss-get --timeout 360 webserver.hostname)
-              web_server_port=$(ss-get --timeout 360 webserver.port)
-              ss-get --timeout 360 webserver.ready
-
-              # Execute the test
-              ENDPOINT=http://${web_server_ip}:${web_server_port}/data.txt
-              wget -t 2 -O /tmp/data.txt ${ENDPOINT}
-              [ '$?' = '0' ] &amp; ss-set statecustom 'OK: $(cat /tmp/data.txt)' || ss-abort 'Could not get the test file: ${ENDPOINT}'
-            </target>
-            <target name='report' runInBackground='false'>#!/bin/sh -x
-              cp /tmp/data.txt $SLIPSTREAM_REPORT_DIR</target>
-            </targets>
-            <packages class='org.hibernate.collection.PersistentBag'></packages>
-            <prerecipe></prerecipe>
-            <recipe></recipe>
-            <cloudImageIdentifiers class='org.hibernate.collection.PersistentBag'></cloudImageIdentifiers>
-            <extraDisks class='org.hibernate.collection.PersistentBag'></extraDisks>
-          </image>
-        </node>
-      </entry>
-      <entry>
-        <string>apache1</string>
-        <node cloudService='stratuslab' creation='2013-03-08 22:37:40.773 CET' deleted='false' imageUri='module/Public/Tutorials/HelloWorld/apache' multiplicity='1' name='apache1' network='Public'>
-          <parameters class='org.hibernate.collection.PersistentMap'></parameters>
-          <parameterMappings class='org.hibernate.collection.PersistentMap'></parameterMappings>
-        </node>
-      </entry>
+  "<deploymentModule category=\"Deployment\" creation=\"2014-11-21 15:59:48.282 UTC\" deleted=\"false\" description=\"Testing how to create a deployment\" isLatestVersion=\"true\" lastModified=\"2014-11-24 15:57:48.882 UTC\" logoLink=\"\" parentUri=\"module/EBU_TTF/test-ui\" shortName=\"deployment-test\" version=\"612\">
+    <authz groupCreateChildren=\"false\" groupDelete=\"false\" groupGet=\"false\" groupPost=\"false\" groupPut=\"false\" inheritedGroupMembers=\"true\" owner=\"rob\" ownerCreateChildren=\"true\" ownerDelete=\"true\" ownerGet=\"true\" ownerPost=\"true\" ownerPut=\"true\" publicCreateChildren=\"false\" publicDelete=\"false\" publicGet=\"false\" publicPost=\"false\" publicPut=\"false\">
+        <groupMembers/>
+    </authz>
+    <commit author=\"rob\">
+        <comment/>
+    </commit>
+    <cloudNames length=\"3\">
+        <string>exoscale-ch-gva</string>
+        <string>ec2-eu-west</string>
+        <string>default</string>
+    </cloudNames>
+    <runs/>
+    <nodes>
+        <entry>
+            <string>node1</string>
+            <node cloudService=\"exoscale-ch-gva\" creation=\"2014-11-24 15:57:48.865 UTC\" deleted=\"false\" imageUri=\"module/EBU_TTF/test-ui/vm1\" multiplicity=\"1\" name=\"node1\" network=\"Public\">
+                <parameterMappings>
+                    <entry>
+                        <string>my-input-param-2</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"true\" mandatory=\"false\" name=\"my-input-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>node2:my-vm2-output-param-2</value>
+                        </parameter>
+                    </entry>
+                    <entry>
+                        <string>my-input-param-1</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"false\" mandatory=\"false\" name=\"my-input-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>'some-value-for-input-1'</value>
+                        </parameter>
+                    </entry>
+                </parameterMappings>
+                <parameters>
+                    <entry>
+                        <string>my-input-param-2</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"true\" mandatory=\"false\" name=\"my-input-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>node2:my-vm2-output-param-2</value>
+                        </parameter>
+                    </entry>
+                    <entry>
+                        <string>my-input-param-1</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"false\" mandatory=\"false\" name=\"my-input-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>'some-value-for-input-1'</value>
+                        </parameter>
+                    </entry>
+                </parameters>
+                <image category=\"Image\" creation=\"2014-11-21 15:53:18.452 UTC\" deleted=\"false\" description=\"\" isBase=\"false\" isLatestVersion=\"true\" lastModified=\"2014-11-21 15:53:18.486 UTC\" loginUser=\"root\" logoLink=\"\" moduleReferenceUri=\"module/examples/images/centos-6/544\" name=\"EBU_TTF/test-ui/vm1\" parentUri=\"module/EBU_TTF/test-ui\" platform=\"centos\" shortName=\"vm1\" version=\"608\">
+                    <authz groupCreateChildren=\"false\" groupDelete=\"false\" groupGet=\"false\" groupPost=\"false\" groupPut=\"false\" inheritedGroupMembers=\"true\" owner=\"rob\" ownerCreateChildren=\"true\" ownerDelete=\"true\" ownerGet=\"true\" ownerPost=\"true\" ownerPut=\"true\" publicCreateChildren=\"false\" publicDelete=\"false\" publicGet=\"false\" publicPost=\"false\" publicPut=\"false\">
+                        <groupMembers/>
+                    </authz>
+                    <commit author=\"rob\">
+                        <comment/>
+                    </commit>
+                    <targets>
+                        <target name=\"report\"/>
+                        <target name=\"onvmremove\"/>
+                        <target name=\"onvmadd\"/>
+                        <target name=\"execute\"/>
+                    </targets>
+                    <packages/>
+                    <prerecipe/>
+                    <recipe/>
+                    <cloudImageIdentifiers/>
+                    <parameters>
+                        <entry>
+                            <string>instanceid</string>
+                            <parameter category=\"Output\" description=\"Cloud instance id\" isSet=\"false\" mandatory=\"true\" name=\"instanceid\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\"/>
+                        </entry>
+                        <entry>
+                            <string>my-output-param-1</string>
+                            <parameter category=\"Output\" description=\"This is my first output param\" isSet=\"true\" mandatory=\"false\" name=\"my-output-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-output-1</value>
+                                <defaultValue>some-value-for-output-1</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>ec2-eu-west.security.groups</string>
+                            <parameter category=\"ec2-eu-west\" description=\"Security groups (comma separated list)\" isSet=\"true\" mandatory=\"true\" name=\"ec2-eu-west.security.groups\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>default</value>
+                                <defaultValue>default</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>extra.disk.volatile</string>
+                            <parameter category=\"Cloud\" description=\"Volatile extra disk in GB\" isSet=\"false\" mandatory=\"true\" name=\"extra.disk.volatile\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\"/>
+                        </entry>
+                        <entry>
+                            <string>ec2-eu-west.instance.type</string>
+                            <parameter category=\"ec2-eu-west\" description=\"Cloud instance type\" isSet=\"true\" mandatory=\"true\" name=\"ec2-eu-west.instance.type\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"Enum\">
+                                <enumValues length=\"10\">
+                                    <string>m1.small</string>
+                                    <string>m1.large</string>
+                                    <string>m1.xlarge</string>
+                                    <string>c1.medium</string>
+                                    <string>c1.xlarge</string>
+                                    <string>m2.xlarge</string>
+                                    <string>m2.2xlarge</string>
+                                    <string>m2.4xlarge</string>
+                                    <string>cc1.4xlarge</string>
+                                    <string>t1.micro</string>
+                                </enumValues>
+                                <value>m1.small</value>
+                                <defaultValue>m1.small</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>my-input-param-2</string>
+                            <parameter category=\"Input\" description=\"This is my second input param\" isSet=\"true\" mandatory=\"false\" name=\"my-input-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-input-2</value>
+                                <defaultValue>some-value-for-input-2</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>exoscale-ch-gva.security.groups</string>
+                            <parameter category=\"exoscale-ch-gva\" description=\"Security Groups (comma separated list)\" isSet=\"true\" mandatory=\"true\" name=\"exoscale-ch-gva.security.groups\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>default</value>
+                                <defaultValue>default</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>network</string>
+                            <parameter category=\"Cloud\" description=\"Network type\" isSet=\"true\" mandatory=\"true\" name=\"network\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"Enum\">
+                                <enumValues length=\"2\">
+                                    <string>Public</string>
+                                    <string>Private</string>
+                                </enumValues>
+                                <value>Public</value>
+                                <defaultValue>Public</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>exoscale-ch-gva.instance.type</string>
+                            <parameter category=\"exoscale-ch-gva\" description=\"Instance type (flavor)\" isSet=\"true\" mandatory=\"true\" name=\"exoscale-ch-gva.instance.type\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>Small</value>
+                                <defaultValue>Small</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>hostname</string>
+                            <parameter category=\"Output\" description=\"hostname/ip of the image\" isSet=\"false\" mandatory=\"true\" name=\"hostname\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\"/>
+                        </entry>
+                        <entry>
+                            <string>my-input-param-1</string>
+                            <parameter category=\"Input\" description=\"This is my first input param\" isSet=\"true\" mandatory=\"false\" name=\"my-input-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-input-1</value>
+                                <defaultValue>some-value-for-input-1</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>my-output-param-2</string>
+                            <parameter category=\"Output\" description=\"This is my second output param\" isSet=\"true\" mandatory=\"false\" name=\"my-output-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-output-2</value>
+                                <defaultValue>some-value-for-output-2</defaultValue>
+                            </parameter>
+                        </entry>
+                    </parameters>
+                </image>
+            </node>
+        </entry>
+        <entry>
+            <string>node2</string>
+            <node cloudService=\"exoscale-ch-gva\" creation=\"2014-11-24 15:57:48.865 UTC\" deleted=\"false\" imageUri=\"module/EBU_TTF/test-ui/vm2/610\" multiplicity=\"1\" name=\"node2\" network=\"Public\">
+                <parameterMappings>
+                    <entry>
+                        <string>my-vm2-input-param-2</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"false\" mandatory=\"false\" name=\"my-vm2-input-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>'some-value-for-vm2-input-2'</value>
+                        </parameter>
+                    </entry>
+                    <entry>
+                        <string>my-vm2-input-param-1</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"true\" mandatory=\"false\" name=\"my-vm2-input-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>node1:my-output-param-1</value>
+                        </parameter>
+                    </entry>
+                </parameterMappings>
+                <parameters>
+                    <entry>
+                        <string>my-vm2-input-param-2</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"false\" mandatory=\"false\" name=\"my-vm2-input-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>'some-value-for-vm2-input-2'</value>
+                        </parameter>
+                    </entry>
+                    <entry>
+                        <string>my-vm2-input-param-1</string>
+                        <parameter category=\"General\" description=\"\" isMappedValue=\"true\" mandatory=\"false\" name=\"my-vm2-input-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                            <value>node1:my-output-param-1</value>
+                        </parameter>
+                    </entry>
+                </parameters>
+                <image category=\"Image\" creation=\"2014-11-21 15:53:18.452 UTC\" deleted=\"false\" description=\"\" isBase=\"false\" isLatestVersion=\"true\" lastModified=\"2014-11-21 15:56:06.887 UTC\" loginUser=\"root\" logoLink=\"\" moduleReferenceUri=\"module/examples/images/centos-6/544\" name=\"EBU_TTF/test-ui/vm2\" parentUri=\"module/EBU_TTF/test-ui\" platform=\"centos\" shortName=\"vm2\" version=\"610\">
+                    <authz groupCreateChildren=\"false\" groupDelete=\"false\" groupGet=\"false\" groupPost=\"false\" groupPut=\"false\" inheritedGroupMembers=\"true\" owner=\"rob\" ownerCreateChildren=\"true\" ownerDelete=\"true\" ownerGet=\"true\" ownerPost=\"true\" ownerPut=\"true\" publicCreateChildren=\"false\" publicDelete=\"false\" publicGet=\"false\" publicPost=\"false\" publicPut=\"false\">
+                        <groupMembers/>
+                    </authz>
+                    <commit author=\"rob\">
+                        <comment/>
+                    </commit>
+                    <targets>
+                        <target name=\"onvmremove\"/>
+                        <target name=\"execute\"/>
+                        <target name=\"onvmadd\"/>
+                        <target name=\"report\"/>
+                    </targets>
+                    <packages/>
+                    <prerecipe/>
+                    <recipe/>
+                    <cloudImageIdentifiers/>
+                    <parameters>
+                        <entry>
+                            <string>instanceid</string>
+                            <parameter category=\"Output\" description=\"Cloud instance id\" isSet=\"false\" mandatory=\"true\" name=\"instanceid\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\"/>
+                        </entry>
+                        <entry>
+                            <string>ec2-eu-west.security.groups</string>
+                            <parameter category=\"ec2-eu-west\" description=\"Security groups (comma separated list)\" isSet=\"true\" mandatory=\"true\" name=\"ec2-eu-west.security.groups\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>default</value>
+                                <defaultValue>default</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>extra.disk.volatile</string>
+                            <parameter category=\"Cloud\" description=\"Volatile extra disk in GB\" isSet=\"false\" mandatory=\"true\" name=\"extra.disk.volatile\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\"/>
+                        </entry>
+                        <entry>
+                            <string>ec2-eu-west.instance.type</string>
+                            <parameter category=\"ec2-eu-west\" description=\"Cloud instance type\" isSet=\"true\" mandatory=\"true\" name=\"ec2-eu-west.instance.type\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"Enum\">
+                                <enumValues length=\"10\">
+                                    <string>m1.small</string>
+                                    <string>m1.large</string>
+                                    <string>m1.xlarge</string>
+                                    <string>c1.medium</string>
+                                    <string>c1.xlarge</string>
+                                    <string>m2.xlarge</string>
+                                    <string>m2.2xlarge</string>
+                                    <string>m2.4xlarge</string>
+                                    <string>cc1.4xlarge</string>
+                                    <string>t1.micro</string>
+                                </enumValues>
+                                <value>m1.small</value>
+                                <defaultValue>m1.small</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>my-vm2-input-param-2</string>
+                            <parameter category=\"Input\" description=\"This is my second input-vm2 param\" isSet=\"true\" mandatory=\"false\" name=\"my-vm2-input-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-vm2-input-2</value>
+                                <defaultValue>some-value-for-vm2-input-2</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>exoscale-ch-gva.security.groups</string>
+                            <parameter category=\"exoscale-ch-gva\" description=\"Security Groups (comma separated list)\" isSet=\"true\" mandatory=\"true\" name=\"exoscale-ch-gva.security.groups\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>default</value>
+                                <defaultValue>default</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>my-vm2-output-param-2</string>
+                            <parameter category=\"Output\" description=\"This is my second output-vm2 param\" isSet=\"true\" mandatory=\"false\" name=\"my-vm2-output-param-2\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-vm2-output-2</value>
+                                <defaultValue>some-value-for-vm2-output-2</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>my-vm2-input-param-1</string>
+                            <parameter category=\"Input\" description=\"This is my first input-vm2 param\" isSet=\"true\" mandatory=\"false\" name=\"my-vm2-input-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-vm2-input-1</value>
+                                <defaultValue>some-value-for-vm2-input-1</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>network</string>
+                            <parameter category=\"Cloud\" description=\"Network type\" isSet=\"true\" mandatory=\"true\" name=\"network\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"Enum\">
+                                <enumValues length=\"2\">
+                                    <string>Public</string>
+                                    <string>Private</string>
+                                </enumValues>
+                                <value>Public</value>
+                                <defaultValue>Public</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>exoscale-ch-gva.instance.type</string>
+                            <parameter category=\"exoscale-ch-gva\" description=\"Instance type (flavor)\" isSet=\"true\" mandatory=\"true\" name=\"exoscale-ch-gva.instance.type\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>Small</value>
+                                <defaultValue>Small</defaultValue>
+                            </parameter>
+                        </entry>
+                        <entry>
+                            <string>hostname</string>
+                            <parameter category=\"Output\" description=\"hostname/ip of the image\" isSet=\"false\" mandatory=\"true\" name=\"hostname\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\"/>
+                        </entry>
+                        <entry>
+                            <string>my-vm2-output-param-1</string>
+                            <parameter category=\"Output\" description=\"This is my first output-vm2 param\" isSet=\"true\" mandatory=\"false\" name=\"my-vm2-output-param-1\" order=\"0\" order_=\"0\" readonly=\"false\" type=\"String\">
+                                <value>some-value-for-vm2-output-1</value>
+                                <defaultValue>some-value-for-vm2-output-1</defaultValue>
+                            </parameter>
+                        </entry>
+                    </parameters>
+                </image>
+            </node>
+        </entry>
     </nodes>
-    <user issuper='false' resourceUri='user/toto' name='Toto'></user>
-  </deploymentModule>")
+    <parameters/>
+    <user issuper='true' resourceUri='user/super' name='super' defaultCloud='sky'></user>
+</deploymentModule>")
 
 (def parsed-metadata
-   {:authorization {:access-rights {:create-children {:public-access? false
+   {:nodes [{:name "node1"
+             :template-node? nil
+             :reference-image "EBU_TTF/test-ui/vm1"
+             :default-multiplicity 1
+             :default-cloud [{:value "exoscale-ch-gva"
+                              :text "exoscale-ch-gva"}
+                             {:value "ec2-eu-west"
+                              :text "ec2-eu-west"}
+                             {:selected? true
+                              :value "default"
+                              :text "default"}]
+             :output-parameters ["hostname" "instanceid" "my-output-param-1" "my-output-param-2"]
+             :mappings [{:name "my-input-param-1"
+                         :mapped-value? false
+                         :value "'some-value-for-input-1'"}
+                        {:name "my-input-param-2"
+                         :mapped-value? true
+                         :value "node2:my-vm2-output-param-2"}]}
+            {:name "node2"
+             :template-node? nil
+             :reference-image "EBU_TTF/test-ui/vm2/610"
+             :default-multiplicity 1
+             :default-cloud [{:value "exoscale-ch-gva"
+                              :text "exoscale-ch-gva"}
+                             {:value "ec2-eu-west"
+                              :text "ec2-eu-west"}
+                             {:selected? true
+                              :value "default"
+                              :text "default"}]
+             :output-parameters ["hostname" "instanceid" "my-vm2-output-param-1" "my-vm2-output-param-2"]
+             :mappings [{:name "my-vm2-input-param-1"
+                         :mapped-value? true
+                         :value "node1:my-output-param-1"}
+                        {:name "my-vm2-input-param-2"
+                         :mapped-value? false
+                         :value "'some-value-for-vm2-input-2'"}]}]
+    :summary {:publication nil
+              :deleted? false
+              :published? false
+              :comment nil
+              :creation "2014-11-21 15:59:48.282 UTC"
+              :name nil
+              :short-name "deployment-test"
+              :owner "rob"
+              :version 612
+              :uri "module/EBU_TTF/test-ui/deployment-test"
+              :latest-version? true
+              :last-modified "2014-11-24 15:57:48.882 UTC"
+              :parent-uri "module/EBU_TTF/test-ui"
+              :description "Testing how to create a deployment"
+              :category "Deployment"}
+    :available-clouds [{:value "exoscale-ch-gva", :text "exoscale-ch-gva", :selected? true}
+                       {:value "ec2-eu-west", :text "ec2-eu-west"}
+                       {:value "default", :text "default"}]
+    :authorization {:access-rights {:create-children {:public-access? false
                                                       :group-access? false
                                                       :owner-access? true}
                                     :delete {:owner-access? true
@@ -176,39 +376,42 @@
                                     :put {:owner-access? true
                                           :public-access? false
                                           :group-access? false}
-                                    :post {:group-access? true
+                                    :post {:group-access? false
                                            :owner-access? true
                                            :public-access? false}
-                                    :get {:group-access? true
-                                          :public-access? true
+                                    :get {:group-access? false
+                                          :public-access? false
                                           :owner-access? true}}
                     :group-members #{}
-                    :inherited-group-members? true}
-    :nodes [{:name "testclient1"
-             :reference-image "module/Public/Tutorials/HelloWorld/testclient"
-             :default-multiplicity 5
-             :default-cloud "default"}
-            {:name "apache1"
-             :reference-image "module/Public/Tutorials/HelloWorld/apache"
-             :default-multiplicity 1
-             :default-cloud "stratuslab"}]
-    :available-clouds [{:selected? true, :value "stratuslab", :text "stratuslab"}]
-    :summary {:deleted? false
-              :comment nil
-              :creation "2013-03-08 22:37:40.773 CET"
-              :name "Public/Tutorials/HelloWorld/client_server"
-              :short-name "client_server"
-              :owner "sixsq"
-              :version 11
-              :published? false
-              :publication nil
-              :uri "module/Public/Tutorials/HelloWorld/client_server/11"
-              :latest-version? nil
-              :last-modified "2013-03-08 22:37:40.774 CET"
-              :parent-uri "module/Public/Tutorials/HelloWorld"
-              :description nil
-              :category "Deployment"}})
+                    :inherited-group-members? true}})
 
 (expect
   parsed-metadata
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
+
+(expect
+  parsed-metadata
+  (page-type/with-page-type "view"
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
+
+(def ^:private blank-node-template
+  {:name nil
+   :template-node? true
+   :reference-image "new"
+   :default-multiplicity 1
+   :default-cloud [{:value "exoscale-ch-gva"
+                    :text "exoscale-ch-gva"}
+                   {:value "ec2-eu-west"
+                    :text "ec2-eu-west"}
+                   {:selected? true
+                    :value "default"
+                    :text "default"}]
+   :output-parameters ()
+   :mappings [{:name nil
+               :mapped-value? nil
+               :value nil}]})
+
+(expect
+  (update-in parsed-metadata [:nodes] conj blank-node-template)
+  (page-type/with-page-type "edit"
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))

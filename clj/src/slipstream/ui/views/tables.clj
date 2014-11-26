@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
-  (:require [slipstream.ui.util.core :as u]
+  (:require [clojure.string :as s]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
@@ -14,15 +15,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- remove-button-cell
-  []
+  [& {:keys [item-name size]}]
   (when (page-type/edit-or-new?)
-    {:type :cell/remove-row-button}))
+    {:type :cell/remove-row-button
+     :content {:item-name item-name
+               :size size}}))
 
 (defn- append-blank-row-in-edit-mode
-  [rows]
-  (if (page-type/edit-or-new?)
-    (conj (vec rows) {})
-    rows))
+  ([rows]
+   (append-blank-row-in-edit-mode nil rows))
+  ([blank-row rows]
+   (if (page-type/edit-or-new?)
+     (conj (vec rows) (assoc (or blank-row {}) :blank-row? true))
+     rows)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -449,17 +454,123 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- deployment-node-row
-  [{:keys [name reference-image default-multiplicity default-cloud] :as deployment-node}]
-  {:style  nil
-   :cells [{:type :cell/text, :content name}
-           {:type :cell/map,  :content (dissoc deployment-node :name)}]})
+;; TODO: The deployment nodes tables has grown a bit more complex than other tables.
+;;       Consider refactoring.
 
-(defn deployment-nodes-table
-  [deployment-nodes]
-  (table/build
-    {:headers [:name :image-link]
-     :rows (map deployment-node-row deployment-nodes)}))
+(localization/with-prefixed-t :deployment-nodes-table
+
+  (defmulti deployment-node-cell-inner-table-mapping-row page-type/current)
+
+  (defn- deployment-node-cell-mapping-value
+    [mapping]
+    (let [value (-> mapping :value uc/ensure-unquoted)]
+      (cond
+          (:mapped-value? mapping)  (t :parameter.bound-to-output value)
+          (not-empty value)         (t :parameter.bound-to-value value)
+          :else                     (t :parameter.bound-to-value.empty))))
+
+  (defmethod deployment-node-cell-inner-table-mapping-row :page-mode/read-only
+    [node-index mapping-index mapping]
+    {:cells [{:type :cell/text, :content {:class "ss-align-middle-right ss-label-cell"
+                                          :text (t :parameter.input (:name mapping))}}
+             {:type :cell/text, :content (deployment-node-cell-mapping-value mapping)}]})
+
+  (defn- deployment-node-cell-mapping-options-enum
+    [mapping]
+    (let [selected (if (:mapped-value? mapping) :parameter.bind-to-output :parameter.bind-to-value)]
+      (u/enum [:parameter.bind-to-output :parameter.bind-to-value] :mapping-options selected)))
+
+  (defmethod deployment-node-cell-inner-table-mapping-row :page-mode/editable
+    [node-index mapping-index mapping]
+    {:class "ss-deployment-node-parameter-mapping-row"
+     :cells [{:type :cell/text, :editable? false, :content {:class  "ss-align-middle-right ss-label-cell"
+                                                            :text   (t :parameter.input (:name mapping))}}
+             {:type :cell/hidden-input,           :content {:value  (:name mapping)
+                                                            :id     (format "node--%s--mappingtable--%s--input" node-index mapping-index)}}
+             {:type :cell/enum, :editable? true,  :content {:enum   (deployment-node-cell-mapping-options-enum mapping)
+                                                            :class  "ss-mapping-options"}}
+             {:type :cell/text, :editable? true,  :content {:text   (-> mapping :value uc/ensure-unquoted)
+                                                            :class  "ss-mapping-value"
+                                                            :id     (format "node--%s--mappingtable--%s--output" node-index mapping-index)
+                                                            :placeholder (t :new-parameter-mapping.placeholder.value)}}]})
+
+  (defn- deployment-node-cell-inner-table-mappings
+    [deployment-node node-index]
+    (->> deployment-node
+         :mappings
+         (map-indexed (partial deployment-node-cell-inner-table-mapping-row node-index))))
+
+  (defn- deployment-node-cell-inner-table-first-rows
+    [deployment-node node-index]
+    [{:class "ss-deployment-node-reference-image-row"
+      :cells [{:type :cell/text,              :content (t :reference-image.label)}
+              {:type :cell/reference-module,  :content {:value (:reference-image deployment-node)
+                                                        :colspan 2}, :editable? false}
+              {:type :cell/hidden-input,      :content {:value (-> deployment-node :reference-image u/module-uri (uc/trim-prefix "/"))
+                                                        :id (format "node--%s--imagelink" node-index)}}]}
+     {:class "ss-deployment-node-default-multiplicity-row"
+      :cells [{:type :cell/text,             :content (t :default-multiplicity.label)}
+              {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
+                                                       :min-value 1
+                                                       :id (format "node--%s--multiplicity--value" node-index)}, :editable? (page-type/edit-or-new?)}
+              {:type :cell/blank} ; Two blank cells to maintain the layout
+              {:type :cell/blank}]}
+     {:class "ss-deployment-node-default-cloud-row"
+      :cells [{:type :cell/text,             :content (t :default-cloud.label)}
+              {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
+                                                       :id (format "node--%s--cloudservice--value" node-index)}, :editable? (page-type/edit-or-new?)}]}])
+
+  (defn- deployment-node-cell-inner-table-mapping-header
+    [deployment-node node-index]
+    [{:class "ss-deployment-node-separator-row"
+      :cells [{:type :cell/blank}]}
+     {:class "ss-deployment-node-parameter-mappings-label-row"
+      :cells [{:type :cell/text,             :content (t :parameter-mappings.label)}]}])
+
+  (defn- deployment-node-cell-inner-table
+    [node-index deployment-node]
+    (let [mappgings? (-> deployment-node :mappings not-empty)]
+      {:rows (cond-> deployment-node
+          :always    (deployment-node-cell-inner-table-first-rows node-index)
+          mappgings? (into (deployment-node-cell-inner-table-mapping-header deployment-node node-index))
+          mappgings? (into (deployment-node-cell-inner-table-mappings       deployment-node node-index)))}))
+
+  (defmulti deployment-node-row page-type/current)
+
+  (defmethod deployment-node-row :page-mode/read-only
+    [node-index {:keys [name reference-image] :as deployment-node}]
+    {:style  nil
+     :class (str "ss-deployment-node-row")
+     :cells [{:type :cell/icon, :content icons/image}
+             {:type :cell/text, :content {:text name, :class "ss-node-shortname"}}
+             {:type :cell/inner-table, :content (deployment-node-cell-inner-table node-index deployment-node)}]})
+
+  (defmethod deployment-node-row :page-mode/editable
+    [node-index {:keys [name reference-image template-node?] :as deployment-node}]
+    {:style  nil
+     :class (str "ss-deployment-node-row" (when template-node? " ss-deployment-template-row"))
+     :data  (when name (assoc-in {} ["outputParams" name] (:output-parameters deployment-node)))
+     :cells [{:type :cell/text, :editable? true, :content {:text name
+                                                           :class "ss-node-shortname"
+                                                           :error-help-hint (t :node-name-unique.error-help-hint)
+                                                           :id (format "node--%s--shortname" node-index)
+                                                           :placeholder (t (if template-node? :template-node.name.placeholder :node.name.placeholder))}}
+            {:type :cell/multi, :visible-cell-index (if template-node? 1 0), :content [
+              {:type :cell/inner-table,   :content (deployment-node-cell-inner-table node-index deployment-node)}
+              {:type :cell/action-button, :content {:text (t :button-label.choose-reference), :class "ss-choose-node-reference-image-btn"}}]}
+            (remove-button-cell :item-name (-> :node t s/lower-case))]})
+
+  (defn deployment-nodes-table
+    [deployment-nodes]
+    (table/build
+      {:class "ss-table-with-blank-last-row"
+       :headers (if (page-type/view-or-chooser?)
+                  [nil :name :default-configuration nil]  ;; Add a 1st column for the icon in view mode.
+                  [:name :default-configuration nil])
+       :rows (->> deployment-nodes
+                  (map-indexed deployment-node-row))}))
+
+) ;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
