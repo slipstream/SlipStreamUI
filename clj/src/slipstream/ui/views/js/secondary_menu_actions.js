@@ -175,7 +175,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Create action
 
     $("#ss-secondary-menu-action-create").clickWhenEnabled( function() {
-        var $form = $("#create-form");
+        var $form = $("#save-form");
         if ($$.util.meta.isViewName("module")) {
             $form.addFormHiddenField("comment", "Initial version of this " + module.getCategoryName().toLowerCase() + ".");
         }

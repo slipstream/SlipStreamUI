@@ -112,9 +112,7 @@
 
 (ue/def-blank-snippet ^:private save-form-snip :form
   [content-transformation-fn]
-  ue/this (if (page-type/edit?)
-            (ue/set-id "save-form")
-            (ue/set-id "create-form"))
+  ue/this (ue/set-id "save-form")
   ue/this (html/set-attr :accept-charset "utf-8")
   ue/this content-transformation-fn)
 

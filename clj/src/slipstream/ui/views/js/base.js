@@ -129,16 +129,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $("form").cleanFormHiddenFields();
     }
 
-    function updateRequestForUser(request, $form) {
-        if ($$.util.meta.isPageType("edit")) {
-            $form.addFormHiddenField("name", $("#name").text());
-        }
+    function usernameFromForm($form) {
         var username;
         if ($$.util.meta.isPageType("new")) {
             username = $("#name").val();
         } else {
             username = $("#name").text();
         }
+        return username;
+    }
+
+    function updateRequestForUser(request, $form) {
+        if ($$.util.meta.isPageType("edit")) {
+            $form.addFormHiddenField("name", $("#name").text());
+        }
+        var username = usernameFromForm($form);
         request.url("/user/" + username);
     }
 
@@ -157,7 +162,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function checkForm() {
-        var $createForm = $("#create-form"),
+        var $saveForm = $("#save-form"),
             resourceName,
             suggestedName,
             isEmailMissing;
@@ -173,9 +178,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         } else {
             // User is the only resource beyond module that can be created
-            suggestedName = $createForm.find("#name").val();
+            suggestedName = usernameFromForm($saveForm);
             resourceName = "User";
-            isEmailMissing = $createForm.find("#email").val().mightBeAnEmailAddress().not();
+            isEmailMissing = $saveForm.find("#email").val().mightBeAnEmailAddress().not();
         }
         if (! suggestedName) {
             $$.alert.showError(resourceName + " name missing",
@@ -193,22 +198,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return true;
     }
 
-
-    // TODO: Merge both save and creation forms, since the config is the same.
-
     $$.request
         .put()
         .onSuccessFollowRedirectInResponseHeader()
         .always(resetForm)
         .validation(checkForm)
         .useToSubmitForm("#save-form", updateRequest);
-
-    $$.request
-        .put()
-        .onSuccessFollowRedirectInResponseHeader()
-        .always(resetForm)
-        .validation(checkForm)
-        .useToSubmitForm("#create-form", updateRequest);
 
     // Auto-open all dropdowns on mouseover.
     // The click action is still available for touch devices.
