@@ -300,8 +300,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             console.log("Updating run page...");
             run.updateParameters();
             run.updateReports();
-            setTimeout("SlipStream.run.autoupdateRunPage()", 60000);
-            // setTimeout("SlipStream.run.autoupdateRunPage()", 10000);
+            setTimeout("SlipStream.run.autoupdateRunPage()", 10000);
         }
     };
 
