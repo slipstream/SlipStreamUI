@@ -55,9 +55,9 @@
    "action"           action/page})
 
 (def page-types
-  {"reports"          :chooser
-   "service_catalog"  :edit
-   "configuration"    :edit})
+  {"reports"          "chooser"
+   "service_catalog"  "edit"
+   "configuration"    "edit"})
 
 (defn- render-html
   "Enlive templates (used in page-fn's) return a seq of string which must be
@@ -95,9 +95,9 @@
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename type]
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
-    (page-type/with-page-type (get page-types pagename type)
-      (localization/with-lang-from-metadata
-        (current-user/with-user-from-metadata
+    (localization/with-lang-from-metadata
+      (current-user/with-user-from-metadata
+        (page-type/with-page-type (get page-types pagename type)
           (guard-exceptions
             (render-page pagename metadata)))))))
 
