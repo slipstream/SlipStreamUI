@@ -270,9 +270,9 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade ss-run-image-dialog" id="ss-run-image-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-run-image-dialog-label" aria-hidden="true">
+    <div class="modal fade ss-run-module-dialog" id="ss-run-image-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-run-image-dialog-label" aria-hidden="true">
       <div class="modal-dialog">
-        <form class="form-horizontal ss-run-image-form" role="form">
+        <form class="form-horizontal ss-run-module-form" role="form">
           <input type="hidden" class="form-control" id="ss-run-image-id" name="refqname" value="module/the/source/module/uri/123">
           <input type="hidden" class="form-control" id="ss-run-image-type" name="type" value="Machine">
           <div class="modal-content panel-primary">
@@ -300,6 +300,52 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary ss-ok-btn ss-build-btn">Build or run image</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <p>
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-run-deployment-dialog">
+      Launch demo <code>#ss-run-deployment-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade ss-run-module-dialog" id="ss-run-deployment-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-run-deployment-dialog-label" aria-hidden="true">
+      <!-- <div class="modal-dialog modal-lg"> -->
+      <div class="modal-dialog">
+        <form class="ss-run-module-form" role="form">
+          <input type="hidden" class="form-control" id="ss-run-deployment-id" name="refqname" value="module/the/source/module/uri/123">
+          <div class="modal-content panel-primary">
+            <div class="modal-header panel-heading">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="ss-run-deployment-dialog-label"><!-- <span class="glyphicon glyphicon-picture"></span>  -->Run deployment</h4>
+            </div>
+            <div class="modal-body">
+              <h4 class="ss-run-deployment-global-section-title">Global deployment parameters</h4>
+                <table class="ss-table table-condensed table table-responsive table-hover">
+                  <tbody>
+                    <tr class="ss-run-deployment-mutable-checkbox-row">
+                      <td><span class="ss-run-deployment-mutable-checkbox-label">Launch a mutable deployment</span></td>
+                      <td><input id="mutable" name="mutable" type="checkbox"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              <hr>
+              <h4 class="ss-run-deployment-nodes-section-title">Node parameters</h4>
+              <div class="ss-run-deployment-nodes-section-content">
+                Here comes the table with the parameters for each node.
+              </div>
+              <div class="ss-dialog-footnote text-muted">
+                This dialog is used to launch deployment and here we might display some contextual help.
+              </div> <!-- /.ss-save-dialog-footnote -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary ss-ok-btn ss-build-btn">Run deployment</button>
             </div>
           </div>
         </form>

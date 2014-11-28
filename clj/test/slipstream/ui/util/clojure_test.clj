@@ -627,3 +627,92 @@
 (expect
   nil
   (dashless-str nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; map-in
+
+(expect
+  [{:a [2 3 4]} {:a [12 13 14]}]
+  (map-in [:a] inc [{:a [1 2 3]} {:a [11 12 13]}]))
+
+(def some-sequence
+  [{:name "foo" :b [{:a [1 2 3]}
+                    {:a [11 12 13]}]}
+   {:name "bar" :b [{:a [0 2 4]}
+                    {:a [9 11 13]}]}])
+
+(expect
+  [{:name "foo" :b [{:a [2 3 4]}
+                    {:a [12 13 14]}]}
+   {:name "bar" :b [{:a [1 3 5]}
+                    {:a [10 12 14]}]}]
+  (map-in [:b :a] inc some-sequence))
+
+(expect
+  [{:name "foo" :b [{:a [20 30 40]}
+                    {:a [120 130 140]}]}
+   {:name "bar" :b [{:a [10 30 50]}
+                    {:a [100 120 140]}]}]
+  (->> some-sequence
+       (map-in [:b :a] inc)
+       (map-in [:b :a] #(* % 10))))
+
+(expect
+  [{:name ["f" "o" "o"] :b [{:a [10 20 30]}
+                            {:a [110 120 130]}]}
+   {:name ["b" "a" "r"] :b [{:a [0 20 40]}
+                            {:a [90 110 130]}]}]
+  (->> some-sequence
+       (mapv-in [:name] str)
+       (mapv-in [:b :a] #(* % 10))))
+
+(expect
+  [{:name ["f" "o" "o"] :b [[10 20 30]
+                            [110 120 130]]}
+   {:name ["b" "a" "r"] :b [[0 20 40]
+                            [90 110 130]]}]
+  (->> some-sequence
+       (mapv-in [:name] str)
+       (mapv-in [:b :a] #(* % 10))
+       (mapv-in [:b] :a)))
+
+(expect
+  [[[10 20 30]
+    [110 120 130]]
+   [[0 20 40]
+    [90 110 130]]]
+  (->> some-sequence
+       (mapv-in [:name] str)
+       (mapv-in [:b :a] #(* % 10))
+       (mapv-in [:b] :a)
+       (mapv :b)))
+
+(expect
+  [[[11 21 31]
+    [110 120 130]]
+   [[1 21 41]
+    [90 110 130]]]
+  (->> some-sequence
+       (mapv-in [:name] str)
+       (mapv-in [:b :a] #(* % 10))
+       (mapv-in [:b] :a)
+       (mapv :b)
+       (mapv-in [0] inc)))
+
+(expect
+  [{:name "foo" :b [{:a :foo, :b :bar}
+                    {:a :foo, :b :bar}]}
+   {:name "bar" :b [{:a :foo, :b :bar}
+                    {:a :foo, :b :bar}]}]
+  (->> some-sequence
+       (mapv-in [:b] #(assoc % :a :foo :b :bar))))
+
+(expect
+  [{:name "foo" :b [{:a :foo, :aa [0 1 2]}
+                    {:a :foo, :aa [0 1 2]}]}
+   {:name "bar" :b [{:a :foo, :aa [0 1 2]}
+                    {:a :foo, :aa [0 1 2]}]}]
+  (->> some-sequence
+       (mapv-in [:b] #(assoc % :a :foo :aa (range 3)))))
+

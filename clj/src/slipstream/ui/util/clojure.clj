@@ -195,3 +195,17 @@
   [s]
   (when (string? s)
     (s/replace s "-" "")))
+
+(defn- map-fn-in
+  "Map f on s with update-in semantics. See tests for expectations."
+  [map-fn ks f s]
+  (if-let [k (first ks)]
+    (map-fn
+      (fn [m]
+        (update-in m [k]
+          #(map-fn-in map-fn (rest ks) f %)))
+      s)
+    (map-fn f s)))
+
+(def map-in   (partial map-fn-in map))
+(def mapv-in  (partial map-fn-in mapv))

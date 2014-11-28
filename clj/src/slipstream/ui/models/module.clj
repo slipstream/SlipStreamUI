@@ -67,20 +67,27 @@
 (defn- summary
   [metadata]
   (let [attrs (:attrs metadata)
+        alternative-uri (str (:parenturi attrs) "/" (:shortname attrs))
         publication-date (-> metadata (html/select [:published]) first :attrs :publicationdate)]
     {:description       (-> attrs :description)
      :category          (-> attrs :category)
      :comment           (-> metadata (html/select [:comment html/text]) first)
      :publication       publication-date
      :published?        (boolean publication-date)
-     :name              (-> attrs :name u/not-default-new-name)
+     :name              (or
+                          (-> attrs :name u/not-default-new-name)
+                          (u/module-name alternative-uri))
      :creation          (-> attrs :creation)
      :version           (-> attrs :version uc/parse-pos-int)
      :short-name        (-> attrs :shortname)
      :last-modified     (-> attrs :lastmodified)
-     :latest-version?   (or (page-type/new?) (-> attrs :islatestversion uc/parse-boolean))
+     :latest-version?   (or
+                          (page-type/new?)
+                          (-> attrs :islatestversion uc/parse-boolean))
      :deleted?          (-> attrs :deleted uc/parse-boolean)
-     :uri               (or (-> attrs :resourceuri) (str (:parenturi attrs) "/" (:shortname attrs)))
+     :uri               (or
+                          (-> attrs :resourceuri)
+                          alternative-uri)
      :parent-uri        (-> attrs :parenturi)
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 

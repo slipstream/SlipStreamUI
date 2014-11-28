@@ -5,7 +5,8 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.util.localization :as localization]))
+            [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.views.tables :as t]))
 
 (localization/def-scoped-t)
 
@@ -110,6 +111,20 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (-> run-type name (str ".button") keyword t))))
 
+(localization/with-prefixed-t :run-deployment-dialog
+  (html/defsnippet ^:private run-deployment-dialog template-filename [:#ss-run-deployment-dialog]
+    [deployment-metadata resource-id module-version]
+    ue/this                                       (-> :run dialog-id ue/set-id)
+    title-sel                                     (html/content       (t :title))
+    [:#ss-run-deployment-id]                      (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
+    [:.ss-run-deployment-global-section-title]    (html/html-content  (t :global-section.title))
+    [:.ss-run-deployment-mutable-checkbox-label]  (html/html-content  (t :mutable-checkbox.label))
+    [:.ss-run-deployment-nodes-section-title]     (html/html-content  (t :nodes-section.title))
+    [:.ss-run-deployment-nodes-section-content]   (html/content       (-> deployment-metadata :nodes t/run-deployment-node-parameters-table))
+    footnote-sel                                  (html/html-content  (t :footnote))
+    first-button-sel                              (html/content       (t :button.cancel))
+    last-button-sel                               (html/content       (t :button.run))))
+
 (localization/with-prefixed-t :resource-name
   (defn- resource-name
     [{:keys [view-name parsed-metadata]}]
@@ -160,21 +175,28 @@
     (page-type/view?)
     (module-category? context :image)))
 
+(defn- run-deployment-required?
+  [context]
+  (and
+    (page-type/view?)
+    (module-category? context :deployment)))
+
 (defn required
   [context]
   (let [resource-name (resource-name context)
         resource-id (resource-id context)
         module-version (module-version context)]
     (cond-> []
-      (page-type/edit?)               (conj (save-dialog resource-name)
-                                            (delete-dialog resource-name resource-id))
-      (chooser-required? context)     (conj (image-chooser-dialog
-                                              (or
-                                                (-> context :parsed-metadata :cloud-image-details :reference-image)
-                                                (-> context :parsed-metadata :summary :parent-uri))))
-      (terminate-required? context)   (conj (terminate-deployment-dialog))
-      (publish-required? context)     (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
-                                            (unpublish-module-confirmation-dialog resource-name resource-id module-version))
-      (copy-required? context)        (conj (copy-module-dialog resource-name resource-id module-version))
-      (run-image-required? context)   (conj (run-image-dialog :run    resource-id module-version (-> context :parsed-metadata :available-clouds))
-                                            (run-image-dialog :build  resource-id module-version (-> context :parsed-metadata :available-clouds))))))
+      (page-type/edit?)                   (conj (save-dialog resource-name)
+                                                (delete-dialog resource-name resource-id))
+      (chooser-required? context)         (conj (image-chooser-dialog
+                                                  (or
+                                                    (-> context :parsed-metadata :cloud-image-details :reference-image)
+                                                    (-> context :parsed-metadata :summary :parent-uri))))
+      (terminate-required? context)       (conj (terminate-deployment-dialog))
+      (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
+                                                (unpublish-module-confirmation-dialog resource-name resource-id module-version))
+      (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
+      (run-image-required? context)       (conj (run-image-dialog :run    resource-id module-version (-> context :parsed-metadata :available-clouds))
+                                                (run-image-dialog :build  resource-id module-version (-> context :parsed-metadata :available-clouds)))
+      (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version )))))

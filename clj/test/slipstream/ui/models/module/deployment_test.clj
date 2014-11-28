@@ -354,7 +354,7 @@
               :published? false
               :comment nil
               :creation "2014-11-21 15:59:48.282 UTC"
-              :name nil
+              :name "EBU_TTF/test-ui/deployment-test"
               :short-name "deployment-test"
               :owner "rob"
               :version 612

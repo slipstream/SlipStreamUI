@@ -459,7 +459,7 @@
 
 (localization/with-prefixed-t :deployment-nodes-table
 
-  (defmulti deployment-node-cell-inner-table-mapping-row page-type/current)
+  (defmulti deployment-node-cell-inner-table-mapping-row (comp :target last vector))
 
   (defn- deployment-node-cell-mapping-value
     [mapping]
@@ -469,8 +469,8 @@
           (not-empty value)         (t :parameter.bound-to-value value)
           :else                     (t :parameter.bound-to-value.empty))))
 
-  (defmethod deployment-node-cell-inner-table-mapping-row :page-mode/read-only
-    [node-index mapping-index mapping]
+  (defmethod deployment-node-cell-inner-table-mapping-row :page-type-category/read-only
+    [node-index _ mapping-index mapping]
     {:cells [{:type :cell/text, :content {:class "ss-align-middle-right ss-label-cell"
                                           :text (t :parameter.input (:name mapping))}}
              {:type :cell/text, :content (deployment-node-cell-mapping-value mapping)}]})
@@ -480,8 +480,8 @@
     (let [selected (if (:mapped-value? mapping) :parameter.bind-to-output :parameter.bind-to-value)]
       (u/enum [:parameter.bind-to-output :parameter.bind-to-value] :mapping-options selected)))
 
-  (defmethod deployment-node-cell-inner-table-mapping-row :page-mode/editable
-    [node-index mapping-index mapping]
+  (defmethod deployment-node-cell-inner-table-mapping-row :page-type-category/editable
+    [node-index _ mapping-index mapping]
     {:class "ss-deployment-node-parameter-mapping-row"
      :cells [{:type :cell/text, :editable? false, :content {:class  "ss-align-middle-right ss-label-cell"
                                                             :text   (t :parameter.input (:name mapping))}}
@@ -494,13 +494,24 @@
                                                             :id     (format "node--%s--mappingtable--%s--output" node-index mapping-index)
                                                             :placeholder (t :new-parameter-mapping.placeholder.value)}}]})
 
+  (defmethod deployment-node-cell-inner-table-mapping-row :deployment-run-dialog
+    [_ node-name _ mapping]
+    (when-not (:mapped-value? mapping)
+      {:cells [{:type :cell/text, :editable? false, :content {:text   (t :parameter.input (:name mapping))}}
+               {:type :cell/text, :editable? true,  :content {:text   (-> mapping :value uc/ensure-unquoted)
+                                                              :id     (format "parameter--node--%s--%s" node-name (:name mapping))
+                                                              :placeholder (t :new-parameter-mapping.placeholder.value)}}]}))
+
   (defn- deployment-node-cell-inner-table-mappings
     [deployment-node node-index]
     (->> deployment-node
          :mappings
-         (map-indexed (partial deployment-node-cell-inner-table-mapping-row node-index))))
+         (map #(assoc % :target (:target deployment-node)))
+         (map-indexed (partial deployment-node-cell-inner-table-mapping-row node-index (:name deployment-node)))))
 
-  (defn- deployment-node-cell-inner-table-first-rows
+  (defmulti deployment-node-cell-inner-table-first-rows (comp :target first vector))
+
+  (defmethod deployment-node-cell-inner-table-first-rows :page-type/any
     [deployment-node node-index]
     [{:class "ss-deployment-node-reference-image-row"
       :cells [{:type :cell/text,              :content (t :reference-image.label)}
@@ -520,6 +531,16 @@
               {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
                                                        :id (format "node--%s--cloudservice--value" node-index)}, :editable? (page-type/edit-or-new?)}]}])
 
+  (defmethod deployment-node-cell-inner-table-first-rows :deployment-run-dialog
+    [deployment-node _]
+    [{:cells [{:type :cell/text,             :content (t :default-multiplicity.label)}
+              {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
+                                                       :min-value 1
+                                                       :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
+     {:cells [{:type :cell/text,             :content (t :default-cloud.label)}
+              {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
+                                                       :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
+
   (defn- deployment-node-cell-inner-table-mapping-header
     [deployment-node node-index]
     [{:class "ss-deployment-node-separator-row"
@@ -529,15 +550,16 @@
 
   (defn- deployment-node-cell-inner-table
     [node-index deployment-node]
-    (let [mappgings? (-> deployment-node :mappings not-empty)]
+    (let [mappgings? (-> deployment-node :mappings not-empty)
+          mappgings-header? (and mappgings? (-> deployment-node :target (isa? :page-type/any)))]
       {:rows (cond-> deployment-node
-          :always    (deployment-node-cell-inner-table-first-rows node-index)
-          mappgings? (into (deployment-node-cell-inner-table-mapping-header deployment-node node-index))
-          mappgings? (into (deployment-node-cell-inner-table-mappings       deployment-node node-index)))}))
+          :always           (deployment-node-cell-inner-table-first-rows node-index)
+          mappgings-header? (into (deployment-node-cell-inner-table-mapping-header deployment-node node-index))
+          mappgings?        (into (deployment-node-cell-inner-table-mappings       deployment-node node-index)))}))
 
   (defmulti deployment-node-row page-type/current)
 
-  (defmethod deployment-node-row :page-mode/read-only
+  (defmethod deployment-node-row :page-type-category/read-only
     [node-index {:keys [name reference-image] :as deployment-node}]
     {:style  nil
      :class (str "ss-deployment-node-row")
@@ -545,7 +567,7 @@
              {:type :cell/text, :content {:text name, :class "ss-node-shortname"}}
              {:type :cell/inner-table, :content (deployment-node-cell-inner-table node-index deployment-node)}]})
 
-  (defmethod deployment-node-row :page-mode/editable
+  (defmethod deployment-node-row :page-type-category/editable
     [node-index {:keys [name reference-image template-node?] :as deployment-node}]
     {:style  nil
      :class (str "ss-deployment-node-row" (when template-node? " ss-deployment-template-row"))
@@ -568,6 +590,19 @@
                   [nil :name :default-configuration nil]  ;; Add a 1st column for the icon in view mode.
                   [:name :default-configuration nil])
        :rows (->> deployment-nodes
+                  (map #(assoc % :target (page-type/current)))
+                  ; (uc/map-in [:mappings] #(assoc % :target (page-type/current)))
+                  (map-indexed deployment-node-row))}))
+
+
+  ;; Similar table for the 'Run Deployment' dialog
+
+  (defn run-deployment-node-parameters-table
+    [deployment-nodes]
+    (table/build
+      {:rows (->> deployment-nodes
+                  (map #(assoc % :target :deployment-run-dialog))
+                  ; (uc/map-in [:mappings] #(assoc % :target :deployment-run-dialog))
                   (map-indexed deployment-node-row))}))
 
 ) ;; End of prefixed t scope

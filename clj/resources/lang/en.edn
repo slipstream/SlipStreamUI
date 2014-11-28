@@ -664,6 +664,13 @@
    :slipstream.ui.views.modal-dialogs.run-image-dialog.cloud-service.label                    "Cloud service"
    :slipstream.ui.views.modal-dialogs.run-image-dialog.button.cancel                          :global.verbs.cancel
 
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.title                             "Run deployment"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote                          "Choose the cloud where each node will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Run deployment"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            "Mutable deployment"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
    :slipstream.ui.views.run.header.title                    "%1$s is %2$s" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview

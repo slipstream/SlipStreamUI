@@ -81,7 +81,37 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
 
-    // Configure image build and run dialogs
+    // Configure image build, image run and deployment run dialogs
+
+    // Tweak vertical alingment of the 'mutable' checkbox label on 'modal show'
+    // TODO: Doesn't work when the modal is not shown, and on the 'shown' event, we see the label springing :(
+    //       Doing it in table.css, but is not exact.
+    // $(".ss-run-module-dialog").on("shown.bs.modal", function (e) {
+    //     var leftOffset =  $(".ss-run-module-dialog .ss-inner-table tr td:first-of-type").position().left;
+    //     $(".ss-run-module-dialog tr.ss-run-deployment-mutable-checkbox-row td:first-of-type")
+    //         .css("padding-left", leftOffset);
+    // });
+
+    function updateRequestForRunDeployment(request, $form) {
+        $("#ss-run-module-dialog input[type=text]")
+            .each(function (){
+                // TODO: Extract this function to $.fn.extend since it's also used in creation and save forms.
+                var $this = $(this),
+                    $form = $this.closest("form"),
+                    rawValue = $this.val() || "",
+                    fieldName = $this.id(); // These fields have the same attr for 'id' and 'name'.
+                // We disable the fields by removing the 'name' attr, so that
+                // they are not sent in the form:
+                $this.removeAttr("name");
+                if($this.is("input[type=text]")) { // TODO: Use a class like 'ss-value-must-be-single-quoted'
+                    // We add a hidden field with the quoted valued:
+                    $form.addFormHiddenField(fieldName, rawValue.ensureSingleQuoted());
+                } else if($this.is("select")) {
+                    // We add a hidden field with the quoted valued:
+                    $form.addFormHiddenField(fieldName, rawValue);
+                }
+            });
+    }
 
     // Configure the request for both build and run actions on images
     // (therefore we use .classes in the selectors instead of #ids)
@@ -89,9 +119,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .post("/run")
         .onSuccessFollowRedirectInResponseHeader()
         .always(function (){
-            $(".ss-run-image-dialog").modal("hide");
+            $(".ss-run-module-dialog").modal("hide");
         })
-        .useToSubmitForm(".ss-run-image-form");
+        .useToSubmitForm(".ss-run-module-form", updateRequestForRunDeployment);
 
 
     // Public functions

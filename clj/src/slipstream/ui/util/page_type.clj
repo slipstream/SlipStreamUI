@@ -13,10 +13,13 @@
   [& _]
   *current-page-type*)
 
-(derive :page-type/view     :page-mode/read-only)
-(derive :page-type/chooser  :page-mode/read-only)
-(derive :page-type/edit     :page-mode/editable)
-(derive :page-type/new      :page-mode/editable)
+(derive :page-type-category/read-only  :page-type/any)
+(derive :page-type-category/editable   :page-type/any)
+
+(derive :page-type/view     :page-type-category/read-only)
+(derive :page-type/chooser  :page-type-category/read-only)
+(derive :page-type/edit     :page-type-category/editable)
+(derive :page-type/new      :page-type-category/editable)
 
 (def valid-page-types
   #{:page-type/view

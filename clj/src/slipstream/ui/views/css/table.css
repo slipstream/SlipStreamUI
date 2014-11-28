@@ -27,23 +27,6 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   overflow: hidden;
 }
 
-
-/*.ss-table-cell-deployment-node .dl-horizontal {
-  margin-bottom: 10px;
-}
-*/
-/*.ss-table-cell-deployment-node .ss-node-parameter-mappings-label {
-  margin-bottom: 10px;
-}
-*/
-/*.ss-table-cell-deployment-node dt {
-  width: 150px;
-}
-*/
-/*.ss-table-cell-deployment-node dd {
-  margin-left: 160px;
-}
-*/
 .ss-table-cell-reference-module-editable .input-group {
   width: 100%;
 }
@@ -101,4 +84,24 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 
 .ss-table .form-group{
   margin-bottom: 0;
+}
+
+.ss-run-module-dialog .ss-inner-table tr td:last-of-type,
+.ss-run-module-dialog tr.ss-run-deployment-mutable-checkbox-row td:last-of-type {
+  width: 250px;
+}
+
+/*
+  TODO: Do this in Javascript, since the lenght is unknown in advance
+*/
+.ss-run-module-dialog tr.ss-run-deployment-mutable-checkbox-row td:first-of-type {
+  padding-left: 70px;
+}
+.ss-run-module-dialog .ss-inner-table tr td:first-of-type,
+.ss-run-module-dialog tr.ss-run-deployment-mutable-checkbox-row td:first-of-type {
+  vertical-align: middle;
+}
+
+.ss-page-type-view .ss-deployment-node-row .ss-node-shortname {
+  font-weight: bold;
 }
