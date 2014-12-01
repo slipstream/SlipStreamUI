@@ -434,6 +434,150 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ->camelCaseString
+
+(expect
+  nil
+  (->camelCaseString nil))
+
+(expect
+  "someCamelCaseString"
+  (->camelCaseString "someCamelCaseString"))
+
+(expect
+  "someCamelCaseKeyword"
+  (->camelCaseString :someCamelCaseKeyword))
+
+(expect
+  "someDashCaseString"
+  (->camelCaseString "some-dash-case-string"))
+
+(expect
+  "someDashCaseKeyword"
+  (->camelCaseString :some-dash-case-keyword))
+
+(expect
+  "someStringWithDots"
+  (->camelCaseString "some.string.with.dots"))
+
+(expect
+  "someKeywordWithDots"
+  (->camelCaseString :some.keyword.with.dots))
+
+(expect
+  "someStringWithSpaces"
+  (->camelCaseString "some string with spaces"))
+
+(expect
+  "uMightWant2DoThat"
+  (->camelCaseString [\U :might :Want 2 'do "that"]))
+
+(expect
+  "a1B2"
+  (->camelCaseString {:a 1, :b 2}))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; key?->isKey (private fn)
+
+(expect
+  nil
+  (@#'slipstream.ui.util.clojure/key?->isKey nil))
+
+(expect
+  "is-key"
+  (@#'slipstream.ui.util.clojure/key?->isKey :key?))
+
+(expect
+  :key
+  (@#'slipstream.ui.util.clojure/key?->isKey :key))
+
+(expect
+  "is-some-key"
+  (@#'slipstream.ui.util.clojure/key?->isKey :some-key?))
+
+(expect
+  "key?"
+  (@#'slipstream.ui.util.clojure/key?->isKey "key?"))
+
+(expect
+  1
+  (@#'slipstream.ui.util.clojure/key?->isKey 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; ->json
+
+(expect
+  nil
+  (->json nil))
+
+(expect
+  "1"
+  (->json 1))
+
+(expect
+  "\"\""
+  (->json ""))
+
+(expect
+  "{\"oneKey\":\"foo\",\"isSomeOtherKey\":true}"
+  (->json {:one-key "foo", :some-other-key? true}))
+
+(expect
+  "[{\"oneKey\":\"foo\",\"isSomeOtherKey\":true},{\"oneKey\":\"foo\",\"isSomeOtherKey\":true},{\"oneKey\":\"foo\",\"isSomeOtherKey\":true}]"
+  (->json [{:one-key "foo", :some-other-key? true}
+           {:one-key "foo", :some-other-key? true}
+           {:one-key "foo", :some-other-key? true}]))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; update-map-keys
+
+(expect
+  nil
+  (update-map-keys nil name))
+
+(expect
+  1
+  (update-map-keys 1 name))
+
+(expect
+  {"a" 1}
+  (update-map-keys {:a 1} name))
+
+(expect
+  [{"a" 1}]
+  (update-map-keys [{:a 1}] name))
+
+(expect
+  '({"a" 1} {"b" 2})
+  (update-map-keys (list {:a 1} {:b 2}) name))
+
+(expect
+  [[[{"a" 1}]]]
+  (update-map-keys [[[{:a 1}]]] name))
+
+(expect
+  [[[{"a" 1}]{"b" 1}]]
+  (update-map-keys [[[{:a 1}]{:b 1}]] name))
+
+(expect
+  [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar"}}}]]
+  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] name))
+
+(expect
+  [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar" "b-two-two" #{{"even-here" "the key is updated"}}}}}]]
+  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] name))
+
+(expect
+  [[[{"a" 1}]{"b" {"bOne" "foo" "bTwo" {"bTwoOne" "bar" "bTwoTwo" #{{"evenHere" "the key is updated"}}}}}]]
+  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] ->camelCaseString))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; coll-grouped-by
 
 (def personas

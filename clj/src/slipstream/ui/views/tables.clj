@@ -3,6 +3,7 @@
   (:require [clojure.string :as s]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.pattern :as pattern]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
@@ -136,12 +137,17 @@
                k-name)])))
 
 (defn- value-of
-  [{:keys [name value id-format-fn built-from-map? read-only? required?] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map? read-only? required? generic-error-help-hint requirements] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
                          (id-format-fn name)
                          (format "parameter-%s--%s--value" name row-index))
-        value-base (cond-> {:id formatted-name, :row-index row-index, :read-only? read-only?, :placeholder (when required? (t :required-parameter.placeholder))}
-                           (not built-from-map?) (assoc :parameter parameter))]
+        value-base (cond-> {:id formatted-name
+                            :row-index row-index
+                            :read-only? read-only?
+                            :required? required?
+                            :requirements requirements
+                            :generic-error-help-hint generic-error-help-hint}
+                      (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       ; TODO: Using the same key for all cell
       ;       types (e.g. :value) would simplify this code
@@ -197,15 +203,19 @@
   (parameters-table
     (let [require-old-password? (and (page-type/edit?) (current-user/is? username))]
       (p/map->parameter-list user-summary-map
-        :username       {:type :cell/text, :editable? (page-type/new?), :id-format-fn (constantly "name"), :required? true}
-        :first-name     {:type :cell/text}
-        :last-name      {:type :cell/text}
+        :username       {:type :cell/text
+                         :editable? (page-type/new?)
+                         :id-format-fn (constantly "name")
+                         :required? true
+                         :requirements (pattern/requirements :username)}
+        :first-name     {:type :cell/text, :required? true, :requirements (pattern/requirements :first-name)}
+        :last-name      {:type :cell/text, :required? true, :requirements (pattern/requirements :last-name)}
         :organization   {:type :cell/text}
-        :email          {:type :cell/email, :required? true}
+        :email          {:type :cell/email, :required? true, :requirements (pattern/requirements :email)}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
         :creation       {:type :cell/timestamp, :editable? false}
-        :password-new-1 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password1")}
-        :password-new-2 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password2")}
+        :password-new-1 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password1"), :required? (page-type/new?)}
+        :password-new-2 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password2"), :required? (page-type/new?)}
         :password-old   {:type :cell/password,  :editable? true,  :hidden? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
         :state          {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)}))))
 
@@ -215,7 +225,11 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name           {:type :cell/text,       :editable? (page-type/new?), :id-format-fn (constantly "ss-module-name"), :required? true}
+      :name           {:type :cell/text
+                       :editable? (page-type/new?)
+                       :id-format-fn (constantly "ss-module-name")
+                       :required? true
+                       :requirements (pattern/requirements :module-name)}
       :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description    {:type :cell/text}
       :comment        {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
@@ -224,7 +238,11 @@
       :publication    {:type :cell/timestamp,  :editable? false, :hidden? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
       :last-modified  {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
       :owner          {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
-      :image          {:type :cell/text,       :hidden? (or (page-type/view?) (-> module :category (not= "Image"))), :id-format-fn (constantly "logoLink")})))
+      :image          {:type :cell/text
+                       :hidden? (or (page-type/view?) (-> module :category (= "Project")))
+                       :id-format-fn (constantly "logoLink")
+                       :required? false
+                       :requirements (pattern/requirements :picture-url)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -574,8 +592,10 @@
      :data  (when name (assoc-in {} ["outputParams" name] (:output-parameters deployment-node)))
      :cells [{:type :cell/text, :editable? true, :content {:text name
                                                            :class "ss-node-shortname"
-                                                           :error-help-hint (t :node-name-unique.error-help-hint)
-                                                           :id (format "node--%s--shortname" node-index)
+                                                           :generic-error-help-hint (t :node-name-unique.error-help-hint)
+                                                           :id (format "node--%s--shortname" node-index),
+                                                           :required? true
+                                                           :requirements (pattern/requirements :node-name)
                                                            :placeholder (t (if template-node? :template-node.name.placeholder :node.name.placeholder))}}
             {:type :cell/multi, :visible-cell-index (if template-node? 1 0), :content [
               {:type :cell/inner-table,   :content (deployment-node-cell-inner-table node-index deployment-node)}
@@ -591,7 +611,6 @@
                   [:name :default-configuration nil])
        :rows (->> deployment-nodes
                   (map #(assoc % :target (page-type/current)))
-                  ; (uc/map-in [:mappings] #(assoc % :target (page-type/current)))
                   (map-indexed deployment-node-row))}))
 
 
@@ -602,7 +621,6 @@
     (table/build
       {:rows (->> deployment-nodes
                   (map #(assoc % :target :deployment-run-dialog))
-                  ; (uc/map-in [:mappings] #(assoc % :target :deployment-run-dialog))
                   (map-indexed deployment-node-row))}))
 
 ) ;; End of prefixed t scope

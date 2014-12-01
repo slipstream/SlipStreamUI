@@ -120,7 +120,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function resetForm(){
-        console.log("resetting form");
         // reenable discarded text fields
         $("." + discardedFormInputCls)
             .removeClass(discardedFormInputCls)

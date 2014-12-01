@@ -6,6 +6,7 @@
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.version :as version]
             [slipstream.ui.models.user.loggedin :as user-loggedin]
             [slipstream.ui.models.configuration :as configuration]
@@ -21,6 +22,8 @@
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.code-area :as code-area]
             [slipstream.ui.views.modal-dialogs :as modal-dialogs]))
+
+(localization/def-scoped-t)
 
 (def base-template-filename (u/template-path-for "base.html"))
 
@@ -114,6 +117,7 @@
   [content-transformation-fn]
   ue/this (ue/set-id "save-form")
   ue/this (html/set-attr :accept-charset "utf-8")
+  ue/this (ue/set-data :generic-form-error-message (t :generic-form-error-message))
   ue/this content-transformation-fn)
 
 (defn- transform-content

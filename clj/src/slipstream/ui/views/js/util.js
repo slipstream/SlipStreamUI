@@ -102,7 +102,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // As mentioned in http://stackoverflow.com/a/202528 the RFC of the
             // format of email address is so complex, that the only real way to
             // validate it is to send it an email ;)
-            // How ever we can perform a basic validation to catch basic things:
+            // However we can perform a basic validation to catch basic things:
             return this.match(".+\\@.+\\..+") ? true : false;
         },
 
@@ -143,6 +143,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         isQuoted: function() {
             return this.isSingleQuoted() || this.isDoubleQuoted();
+        },
+
+        asSel: function() {
+            // Helper function to use a CSS class as a jQuery selector.
+            return "." + this;
         }
     });
 
@@ -152,11 +157,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     $.extend(Array.prototype, {
         call: function(thisArg, arg1, arg2, arg3, arg4) {
             // Equivalent to Function.prototype.call() on an Array of fns.
-            this.forEach(function(f){
+            var lastResult;
+            $.each(this, function(index, f){
                 if ($.isFunction(f)) {
-                    f.call(thisArg, arg1, arg2, arg3, arg4);
+                    // If 'f' returns 'false' (not a falsey value), '$.each()'
+                    // will break the loop and return 'false'.
+                    // Else, we return the last return value.
+                    lastResult = f.call(thisArg, arg1, arg2, arg3, arg4);
+                    return lastResult;
                 }
+                return true;
             });
+            return lastResult;
         },
 
         sortObjectsByKey: function(key) {
@@ -245,6 +257,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.length > 1;
         },
 
+        filterOfClass: function(cls) {
+            // Helper to filter elements by class, to make it equivalent to hasClass(), addClass()...
+            return this.filter(cls.asSel());
+        },
+
+        findOfClass: function(cls) {
+            // Helper to find elements by class, to make it equivalent to hasClass(), addClass()...
+            return this.find(cls.asSel());
+        },
+
         findClosest: function(selector) {
             // Like closest() but downwards, i.e. like find().first() but including itself. ;)
             return this.is(selector) ? this.filter(selector).first() : this.find(selector).first();
@@ -314,6 +336,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.disable(enable === false);
         },
 
+        disabledRowCls: "ss-disabled-row",
+
         disableRow: function(disable, optionsArg) {
             // Fades the table row to 0.3 opacity and disables all form inputs inside,
             // except the ones matching 'options.exceptElemSel' (useful to not disable
@@ -330,7 +354,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 var $this = $(this),
                     callbackAfterRowStateChange = $this.data("callbackAfterRowStateChange");
                 $this
-                    .toggleClass("ss-disabled-row", flagAsDisabled)
+                    .toggleClass(this.disabledRowCls, flagAsDisabled)
                     .fadeTo(200, flagAsDisabled ? 0.3 : 1)
                     .attr("title", flagAsDisabled ? options.disableReason : "") // Simple tooltip
                     .find("input, button, select, a")
@@ -345,11 +369,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         isDisabledRow: function() {
-            return this.hasClass("ss-disabled-row");
+            return this.hasClass(this.disabledRowCls);
         },
 
         getDisabledRows: function() {
-            return this.filter(".ss-disabled-row");
+            return this.filterOfClass(this.disabledRowCls);
         },
 
         enableRow: function(enable, options) {
@@ -357,7 +381,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         isEnabledRow: function() {
-            return ! this.hasClass("ss-disabled-row");
+            return ! this.hasClass(this.disabledRowCls);
         },
 
         onRowStateChange: function(callbackAfterRowStateChange) {
@@ -475,32 +499,131 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        toggleFormInputValidationState: function (state) {
-            var $this = $(this),
-                $formGroup = $this.closest(".form-group");
-            if ($formGroup.foundNothing()) {
-                throw "No .form-group element can be found from jQuery selection.";
+        formHasErrorsCls: "ss-form-has-errors",
+        formFieldToValidateCls: "ss-input-to-validate",
+        requiredFormFieldCls: "ss-required-input",
+        formFieldHasRequirementsCls: "ss-input-has-requirements",
+
+        validateFormFields: function() {
+
+            function getRequirements($fieldToValidate){
+                var compiledRequirements = $fieldToValidate.data("input-compiled-requirements");
+                if (compiledRequirements) {
+                    return compiledRequirements;
+                }
+                // lazily compile regexp only once
+                compiledRequirements = [];
+                var requirements = $fieldToValidate.data("input-requirements") || [];
+                if (requirements.length === 0 && $fieldToValidate.hasClass($fieldToValidate.requiredFormFieldCls)) {
+                    requirements = [{"pattern": "\\w+"}];
+                }
+                $.each(requirements, function(i, requirement){
+                    compiledRequirements.push($.extend({}, requirement, {
+                        "re": new RegExp(requirement.pattern)
+                    }));
+                });
+                $fieldToValidate.data("input-compiled-requirements", compiledRequirements);
+                return compiledRequirements;
             }
-            if ($.type(state) === "boolean") {
-                $formGroup
-                    .toggleClass("has-success", state)
-                    .toggleClass("has-error",  !state)
-                    .find(".ss-error-help-hint")
-                        .toggleClass("hidden", state);
-            } else {
-                // If the 'state' is not a boolean, we toggle the current state
-                $formGroup
-                    .toggleClass("has-success")
-                    .toggleClass("has-error")
-                    .find(".ss-error-help-hint")
-                        .toggleClass("hidden");
-            }
-            // Do the same with the submit button, if no .has-error in form
-            var hasErrors = $this.closest("form").find(".has-error").foundAny();
-            $this
+
+            this
+                .filterOfClass(this.formFieldToValidateCls)
+                    .each(function() {
+                        var $fieldToValidate  = $(this),
+                            fieldValue      = $fieldToValidate.val() || "",
+                            requirements    = getRequirements($fieldToValidate),
+                            isRequired      = $fieldToValidate.hasClass($fieldToValidate.requiredFormFieldCls),
+                            isValidField    = true,
+                            errorHelpHint;
+                        if (fieldValue || isRequired) {
+                            $.each(requirements, function(i, requirement){
+                                if (! requirement.re.test(fieldValue)){
+                                    isValidField = false;
+                                    errorHelpHint = requirement.errorHelpHint;
+                                    return false; // break 'for' loop
+                                }
+                            });
+                        }
+                        $fieldToValidate.toggleFormInputValidationState(isValidField, errorHelpHint);
+                    });
+            return this;
+        },
+
+        enableLiveFormValidation: function() {
+            this
+                .findOfClass(this.formFieldToValidateCls)
+                .onTextInputChange(function() {
+                    $(this).validateFormFields();
+                })
+                .focusout(function() {
+                    $(this)
+                        .data("lost-focus-already-once", true)
+                        .validateFormFields();
+                })
+                ;
+            return this;
+        },
+
+        validateForm: function() {
+            this
                 .closest("form")
-                .find("button[type=submit]")
-                .disable(hasErrors);
+                    .findOfClass(this.formFieldToValidateCls)
+                        .validateFormFields();
+            return this;
+        },
+
+        isValidForm: function() {
+            var $form = this.closest("form");
+            return $form
+                        .validateForm()
+                        .hasClass(this.formHasErrorsCls)
+                        .not();
+        },
+
+        showGenericErrorFormAlert: function() {
+            var $form = this.closest("form");
+            $$.alert.showError($form.data("generic-form-error-message") ||
+                "Please check the fields flagged in red before sending this form.");
+            return $form;
+        },
+
+        toggleFormInputValidationState: function (state, customErrorHelpHint) {
+
+            this
+                .filterOfClass(this.formFieldToValidateCls)
+                    .each(function() {
+                        var $this = $(this),
+                            errorHelpHint = customErrorHelpHint || $this.data("generic-error-help-hint"),
+                            lostFocusAlreadyOnce = $this.data("lost-focus-already-once") || false, // A real boolean
+                            $formGroup = $this.closest(".form-group");
+                        if ($formGroup.foundNothing()) {
+                            throw "No .form-group element could be found from jQuery selection.";
+                        }
+                        if ($.type(state) === "boolean") {
+                            $formGroup
+                                .toggleClass("has-success", state)
+                                .toggleClass("has-error",  !state)
+                                .find(".ss-error-help-hint")
+                                    .html(errorHelpHint)
+                                    .toggleClass("hidden", (lostFocusAlreadyOnce && errorHelpHint) ? state : true);
+                        } else {
+                            // If the 'state' is not a boolean, we toggle the current state
+                            $formGroup
+                                .toggleClass("has-success")
+                                .toggleClass("has-error")
+                                .find(".ss-error-help-hint")
+                                    .html(errorHelpHint)
+                                    .toggleClass("hidden");
+                        }
+                        var hasErrors = $this.closest("form").find(".has-error").foundAny();
+                        $this
+                            .closest("form")
+                                // Flag the form as having errors if needed
+                                .toggleClass($this.formHasErrorsCls, hasErrors)
+                                // Enable or disable the submit button accordingly
+                                .find("button[type=submit]")
+                                    .disable(hasErrors);
+                    });
             return this;
         },
 

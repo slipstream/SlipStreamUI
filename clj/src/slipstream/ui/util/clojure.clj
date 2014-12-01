@@ -1,5 +1,6 @@
 (ns slipstream.ui.util.clojure
-  (:require [clojure.string :as s]))
+  (:require [clojure.string :as s]
+            [clj-json.core :as json]))
 
 (defmacro def-this-ns
   "Defines a private top level var with the namespace string of the current file."
@@ -134,6 +135,14 @@
       :else (throw (IllegalArgumentException.
                      (str "Cannot parse boolean from string: " s))))))
 
+(defn update-map-keys
+  [x f]
+  (cond
+    (map? x)    (into (empty x) (for [[k v] x] [(f k) (update-map-keys v f)]))
+    (list? x)   (into (empty x) (for [item (reverse x)] (update-map-keys item f)))
+    (coll? x)   (into (empty x) (for [item x] (update-map-keys item f)))
+    :else x))
+
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
   idiomatic Clojure keyword. See tests for expectations."
@@ -148,6 +157,36 @@
               (s/replace #"(?<!(?:-|^))([A-Z])(?!(?:[A-Z]|$))" "-$1")
               s/lower-case
               keyword)))
+
+(defn ->camelCaseString
+  "Takes anything and returns a camelCase'd string. See tests for expectations."
+  [x]
+  (when x
+    (-> x
+        str
+        keywordize
+        name
+        (s/replace #"-\w" (comp s/upper-case last)))))
+
+(defn- key?->isKey
+  "Transfors a Clojure boolean ':key?' into a 'is-key' string."
+  [x]
+  (if-let [[_ name-without-?] (when (keyword? x) (re-matches #"(.*)\?" (name x)))]
+    (str "is-" name-without-?)
+    x))
+
+(defn ->json
+  "Takes a clojure data structure and returns a json data structure. The thing is
+  that here we camelCase map keys transforming also :key? into 'isKey', so that the
+  new keys are idiomatic in JSON and, in Javascript, they can be accessed with
+  point notation (i.e. object.key) instead of object['key-string'].
+  See tests for expectations."
+  [x]
+  (when x
+    (-> x
+        (update-map-keys key?->isKey)
+        (update-map-keys ->camelCaseString)
+        json/generate-string)))
 
 (defn coll-grouped-by
   "Primary intended to 'better' group a coll of maps sorting the result by the

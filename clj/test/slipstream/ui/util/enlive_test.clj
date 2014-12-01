@@ -4,6 +4,17 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]))
 
+(defn- replace-quotes
+  "For readability only."
+  [s]
+  (s/replace s "&quot;" "'"))
+
+(defmacro sniptest-quoted
+  [& args]
+  `(replace-quotes (html/sniptest ~@args))) ;; NOTE: Only for test readability
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (def example-html-page
   "<html>
        <head>
@@ -42,6 +53,103 @@
 (expect
   "viewport"
   (-> parsed-example-html-page (html/select [:html :head :meta]) first :attrs :name))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Data fn family
+
+(def input-html "<input data-test=\"foo\" class=\"some-class\" type=\"text\" />")
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server nil)))
+
+(expect
+  "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server 1)))
+
+(expect
+  "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" data-test=\"1\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server 1)
+                   this (set-data :test 1)))
+
+(expect
+  "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server 1)
+                   this (set-data :test nil)))
+
+(expect
+  "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server "1")))
+
+(expect
+  "<input data-from-server=\"blah\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server "blah")))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server [])))
+
+(expect
+  "<input data-from-server=\"['a','b','c']\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server [:a :b "c"])))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server {})))
+
+(expect
+  "<input data-from-server=\"{'a':1}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server {:a 1})))
+
+;; NOTE: Map keys are camelCase'd, including the idiomatic transformation of Clojure :is-some-boolean? keys.
+
+(expect
+  "<input data-from-server=\"{'someText':'foo bar','isFooBar':false}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server {:some-text "foo bar", :foo-bar? false})))
+
+;; NOTE: Clojure sets are transformed into JSON vectors.
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server #{})))
+
+(expect
+  "<input data-from-server=\"['a','b']\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server #{:a :b})))
+
+;; NOTE: Clojure re-patterns cannot be transformed into JSON. Use string instead.
+
+(expect
+  java.lang.Exception
+  (sniptest-quoted input-html
+                   this (set-data :from-server {:uncompiled-pattern #"\w+"})))
+
+(expect
+  "<input data-from-server=\"{'uncompiledPattern':'\\\\w+'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server {:uncompiled-pattern (str #"\w+")})))
+
+;; NOTE: That the map keys are camelCase'd. This allows to use dot notation on Javascript
+;;       when retrieving the data with jQuery.fn.data()
+
+(expect
+  "<input data-from-server=\"{'someKey':'some-value'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server {:some-key "some-value"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -466,6 +574,47 @@
        html/emit*
        (apply str)))
 
+;; blank-snippet with parent tags and cloning
+
+(def-blank-snippet link-list-snip [:ul :li :span :a]
+  [links]
+  this    (set-id "list-id")
+  [:li]   (set-class "list-item-class")
+  [:span] (set-class "some-span-class")
+  this    (content-for [:li] [link links]
+              [:a]    (html/content (:name link))
+              [:a]    (set-href (:uri link))
+              [:a]    (set-target "_blank")))
+
+(expect
+  (str "<ul id=\"list-id\">"
+           "<li class=\"list-item-class\">"
+               "<span class=\"some-span-class\">"
+                  "<a target=\"_blank\" href=\"http://some.uri.com\">the link name</a>"
+               "</span>"
+           "</li>"
+           "<li class=\"list-item-class\">"
+               "<span class=\"some-span-class\">"
+                  "<a target=\"_blank\" href=\"http://some.uri.com\">the link name</a>"
+               "</span>"
+           "</li>"
+           "<li class=\"list-item-class\">"
+               "<span class=\"some-span-class\">"
+                  "<a target=\"_blank\" href=\"http://some.uri.com\">the link name</a>"
+               "</span>"
+           "</li>"
+           "<li class=\"list-item-class\">"
+               "<span class=\"some-span-class\">"
+                  "<a target=\"_blank\" href=\"http://some.uri.com\">the link name</a>"
+               "</span>"
+           "</li>"
+       "</ul>"
+       )
+  (->> [some-link some-link some-link some-link]
+       link-list-snip
+       html/emit*
+       (apply str)))
+
 
 ;; Generic blank snippets
 
@@ -566,3 +715,54 @@
   (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword} :name-prefix "ss-")
        html/emit*
        (apply str)))
+
+
+;; Required input tweaking
+
+(def-blank-snippet input-list-snip [:ul :li :input]
+  [inputs]
+  this    (set-id "input-list-id")
+  [:li]   (set-class "input-list-item-class")
+  this    (content-for [:li] [input inputs]
+              [:input]    (add-requirements input)
+              [:input]    (set-value (:value input))))
+
+(expect
+  (str "<ul id=\"input-list-id\">"
+           "<li class=\"input-list-item-class\">"
+               "<input value=\"foo\" />" ; NOTE: This one is not wrapped into a div.form-group because is not 'required?'.
+           "</li>"
+           "<li class=\"input-list-item-class\">"
+               "<div class=\"form-group\">"
+                   "<input value=\"bar\" class=\"ss-required-input ss-input-to-validate\" />"
+                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+               "</div>"
+           "</li>"
+           "<li class=\"input-list-item-class\">"
+               "<div class=\"form-group\">"
+                   "<input value=\"baz\" class=\"ss-input-has-requirements ss-input-to-validate\" data-input-requirements=\"[{'somePattern':'.+'}]\" />"
+                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+               "</div>"
+           "</li>"
+           "<li class=\"input-list-item-class\">"
+               "<div class=\"form-group\">"
+                   "<input value=\"foobar\" class=\"ss-required-input ss-input-has-requirements ss-input-to-validate\" data-input-requirements=\"[{'somePattern':'\\\\d+'}]\" />"
+                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+               "</div>"
+           "</li>"
+           "<li class=\"input-list-item-class\">"
+               "<div class=\"form-group\">"
+                   "<input value=\"foobar\" data-generic-error-help-hint=\"foo bar\" class=\"ss-required-input ss-input-has-requirements ss-input-to-validate\" data-input-requirements=\"[{'somePattern':'\\\\w+'}]\" />"
+                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+               "</div>"
+           "</li>"
+       "</ul>")
+  (->> [{:value "foo", :required? false}
+        {:value "bar", :required? true}
+        {:value "baz", :required? false :requirements [{:some-pattern ".+"}]}
+        {:value "foobar", :required? true :requirements [{:some-pattern "\\d+"}]}
+        {:value "foobar", :required? true :requirements [{:some-pattern "\\w+"}], :generic-error-help-hint "foo bar"}]
+       input-list-snip
+       html/emit*
+       (apply str)
+       replace-quotes))

@@ -1,7 +1,6 @@
 (ns slipstream.ui.views.table
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
-            [clj-json.core :as json]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
@@ -68,15 +67,16 @@
                              (str tooltip)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
-  [{:keys [text tooltip id read-only? disabled? placeholder class error-help-hint data] :as cell-content}]
+  [{:keys [text tooltip id read-only? disabled? placeholder class data required?] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value (str text))
-  [:input]  (ue/set-placeholder placeholder)
+  [:input]  (ue/set-placeholder (or
+                                  placeholder
+                                  (when required? (t :input-text.placeholder.required))))
   [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
   [:input]  (ue/toggle-disabled disabled?)
-  [:.ss-error-help-hint] (ue/when-content error-help-hint)
-  [:.ss-error-help-hint] (html/add-class "hidden")
+  [:input]  (ue/add-requirements cell-content)
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (ue/when-add-class class)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
@@ -85,11 +85,12 @@
 ; Positive integer cell
 
 (html/defsnippet ^:private cell-positive-integer-snip-edit template-filename (sel-for-cell :positive-integer :editable)
-  [{:keys [value tooltip id read-only? disabled? placeholder max-value min-value] :as cell-content}]
+  [{:keys [value tooltip id read-only? disabled? placeholder max-value min-value required?] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value value)
   [:input]  (ue/when-set-min min-value)
+  [:input]  (ue/add-requirements cell-content)
   [:input]  (ue/when-set-max max-value)
   [:input]  (ue/set-placeholder placeholder)
   [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
@@ -104,6 +105,7 @@
   [:textarea]  (ue/set-id id)
   [:textarea]  (ue/set-name id)
   [:textarea]  (ue/set-placeholder placeholder)
+  [:textarea]  (ue/add-requirements cell-content)
   [:textarea]  (html/content (str text))
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
@@ -111,10 +113,11 @@
 ; Editable password cell
 
 (html/defsnippet ^:private cell-password-snip-edit template-filename (sel-for-cell :password :editable)
-  [{:keys [id password] :as cell-content}]
+  [{:keys [id password required?] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value password)
+  [:input]  (ue/add-requirements cell-content)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Boolean cell
@@ -591,7 +594,7 @@
   [rows]
   ue/this (html/clone-for [{:keys [style cells class data]} rows]
            ue/this (html/content (map cell-snip cells))
-           ue/this (ue/when-set-data-from-server (not-empty data) (json/generate-string data))
+           ue/this (ue/set-data :from-server data)
            ue/this (ue/when-add-class style (name style))
            ue/this (ue/when-add-class class)))
 

@@ -1,7 +1,8 @@
 (ns slipstream.ui.util.enlive
   (:require [clojure.zip :as z]
             [net.cgrand.enlive-html :as html]
-            [net.cgrand.xml :as xml]))
+            [net.cgrand.xml :as xml]
+            [slipstream.ui.util.clojure :as uc]))
 
 (def this
   "Selector to match the whole node within a transformation snippet.
@@ -110,6 +111,26 @@
      ~form-when-true
      ~form-when-false))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Data fn family
+
+(defn set-data
+  "See tests for expectations."
+  [k v]
+  (let [k-data (->> k name (str "data-") keyword)
+        v-json (cond
+                 (string? v)  v
+                 (coll? v)    (uc/->json (not-empty v))
+                 :else        (uc/->json v))]
+    (if (not-empty v-json)
+      (html/set-attr k-data v-json)
+      (html/remove-attr k-data))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; defn-set-attr familiy
+
 (defmacro defn-set-attr
   "Defines 6 top level functions as a helpers to set attr values.
   Ex: (defn-set-attr :href) will create 'set-href, 'if-set-href and 'when-set-href
@@ -192,7 +213,6 @@
 (defn-set-attr :class)
 (defn-set-attr :colspan)
 (defn-set-attr :content)
-(defn-set-attr :data-from-server)
 (defn-set-attr :disabled)
 (defn-set-attr :disabled-reason)
 (defn-set-attr :href)
@@ -324,3 +344,28 @@
          this (set-name (name k))
          this (->> k name (str name-prefix) set-name)
          this (-> v str  set-content)))
+
+
+;; Add input validation to form input fields.
+
+(def input-to-validate-cls "ss-input-to-validate")
+(def required-input-cls "ss-required-input")
+(def input-has-requirements-cls "ss-input-has-requirements")
+
+(defn add-requirements
+  "See tests for expectations."
+  [{:keys [required? requirements generic-error-help-hint]}]
+  (if (or required? (not-empty requirements))
+    (fn [match]
+      (html/at match
+        ;; NOTE: We target the [:input] specifically since 'this' (i.e. 'match') might select
+        ;;       a div.input-group containing itself an input. However, what we need to wrap
+        ;;       within a div.form-group is the top level tag, either input or div.input-group.
+        [:input]  (set-data :input-requirements requirements)
+        [:input]  (html/add-class input-to-validate-cls)
+        [:input]  (enable-class required? required-input-cls)
+        [:input]  (enable-class (not-empty requirements) input-has-requirements-cls)
+        [:input]  (set-data :generic-error-help-hint generic-error-help-hint)
+        this      (html/wrap :div {:class "form-group"}) ; NOTE: Bootstrap required this to be able to flag the input as non valid.
+        this      (html/append (blank-node :span :class "ss-error-help-hint help-block hidden"))))
+    identity))

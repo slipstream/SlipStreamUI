@@ -156,15 +156,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Save action
 
+    var $saveForm = $("#save-form");
+
     $("#ss-secondary-menu-action-save").clickWhenEnabled( function(event) {
-        if (event.altKey ||
+        if (! $saveForm.isValidForm()) {
+            $saveForm.showGenericErrorFormAlert();
+        } else if (event.altKey ||
             $$.util.meta.isViewName("user") ||
             $$.util.meta.isViewName("configuration")) {
             // No commit message needed.
-            $('#save-form').submit();
+            $saveForm.submit();
         } else {
             $('#ss-save-dialog').askConfirmation(function(){
-                $("#save-form")
+                $saveForm
                     .addFormHiddenField("comment", $("#ss-commit-message").val())
                     .submit();
             });

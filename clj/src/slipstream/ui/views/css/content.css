@@ -9,3 +9,7 @@ body.ss-error-page #ss-content {
 code {
   color: #4499ce;
 }
+
+.has-error code {
+  color: #a94442;
+}

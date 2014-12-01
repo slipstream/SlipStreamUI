@@ -159,7 +159,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             send: function () {
                 var request = this;
-                if ($.isFunction(this.intern.validation) && ! this.intern.validation.call(request)) {
+                if (this.intern.validation && this.intern.validation.call(request) === false) {
                     // Ensure this.intern.always fn (or fns) are called
                     // if ($.isFunction(this.intern.always) || $.type(this.intern.always) === "array") {
                     if (this.intern.always) {
@@ -245,6 +245,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             useToSubmitForm: function (sel, preSubmitCallback) {
                 var request = this,
                     $form = $("form" + sel);
+                $form.enableLiveFormValidation();
                 request
                     // .serialization("json") // NOTE: Uncomment to send a JSON to the server
                     // .dataType("json")      // NOTE: Uncomment to request the server a JSON reply
@@ -254,6 +255,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         // Unflag the form as submitted after the request is done
                         // so that the next submit can be performed
                         $form.data("submitted", false);
+                    })
+                    .validation(function(){
+                        var allowRequest = $form.isValidForm();
+                        if (! allowRequest) {
+                            $form.showGenericErrorFormAlert();
+                        }
+                        return allowRequest;
                     });
                 $form.off("submit");
 
@@ -284,10 +292,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // This request object will be passed as the 'this' argument to
                 // the validation callback fn.
                 // In contrast to other callbacks of this request object (like
-                // onSuccess... or onError...) there can only be one validation.
-                // Calling validation() a second time will override the previous one.
+                // onSuccess... or onError...) not all validation callbacks might
+                // be executed. They are executed in the order they were added to
+                // the request object and the first returning false breaks the
+                // validation chain and stops the request from being send.
+                // It is expected that a validation callback stopping a request
+                // properly informs the user, for example with an $$.alert.showError() call.
                 // Note that this.intern.always fn (or fns) will be called anyway.
-                this.intern.validation = callback;
+                $$.util.setOrPush(this.intern, "validation", callback);
                 return this;
             }
         };

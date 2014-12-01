@@ -32,6 +32,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Configure copy module dialog
 
     var $copyModuleDialog = $("#ss-copy-module-dialog"),
+        $copyModuleForm = $copyModuleDialog.find("form"),
         $moduleCopyTargetName = $copyModuleDialog.find("#ss-module-copy-target-name");
 
     $copyModuleDialog.data("isProject", false);
@@ -44,40 +45,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
         })
         .useToSubmitForm("#ss-module-copy-form");
 
-    function toggleFormValidation() {
-        // BootstrapValidator needs now a comercial licence from version 0.5.3 :(
-        // Source: http://bootstrapvalidator.com/download/
-        //         https://github.com/nghuuphuoc/bootstrapvalidator/releases
-        var isValidForm;
-        if(! $copyModuleDialog.data("isProject")) {
-            isValidForm = false;
-        } else {
-            var targetName = $moduleCopyTargetName.val();
-            isValidForm = targetName && (targetName.match("^[\\w-]+$") ? true : false);
-        }
-        $moduleCopyTargetName
-            .toggleFormInputValidationState(isValidForm);
-    }
-
-    $moduleCopyTargetName.onTextInputChange(function(e) {
-        toggleFormValidation();
-    });
-
     $copyModuleDialog.find("iframe").bind('load', function(e) {
         var module = $(this).contents().getSlipStreamModel().module,
             isProject = module.isOfCategory("project"),
-            targetProject = isProject ? module.getFullName() : undefined;
+            targetProject = isProject ? module.getFullName() : undefined,
+            $moduleCopyTargetProject = $copyModuleDialog.find("#ss-module-copy-target-project");
         $copyModuleDialog
             .data("isProject", isProject)
             .find("form")
-            .attr("action", "/module/" + targetProject)
-            .find("input")
-            .toggleFormInputValidationState(isProject)
-            .enable(isProject);
-        $copyModuleDialog
-            .find("#ss-module-copy-target-project")
-            .text(targetProject);
-        toggleFormValidation();
+                .attr("action", "/module/" + targetProject)
+                .find("input")
+                    .toggleFormInputValidationState(isProject)
+                    .enable(isProject);
+        if (targetProject) {
+            $moduleCopyTargetProject.text(targetProject);
+        } else {
+            $moduleCopyTargetProject.append("/ ? ");
+        }
     });
 
 

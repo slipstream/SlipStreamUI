@@ -4,6 +4,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.pattern :as pattern]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]))
@@ -83,6 +84,9 @@
     [:#ss-module-copy-target-name-label] (html/content (t :new-module-name.label resource-name))
     [:#ss-module-copy-target-name] (ue/set-value (-> resource-id uc/last-path-segment (str (t :new-module-name.default-suffix module-version))))
     [:#ss-module-copy-target-name] (ue/set-placeholder (t :new-module-name.placeholder))
+    [:.input-group] (ue/add-requirements {:required? true
+                                          :requirements (pattern/requirements :module-name)
+                                          :generic-error-help-hint (t :copy-image.choose-project.generic-error-help-hint resource-name)})
     footnote-sel              (html/html-content  (t :footnote resource-name))
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.copy resource-name))))

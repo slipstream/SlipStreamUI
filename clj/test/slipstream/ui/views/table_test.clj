@@ -204,69 +204,47 @@
   [{:tag :td
     :attrs {:class "ss-table-cell-text-editable"}
     :content ["\n            "
-              {:tag :div, :attrs {:class "form-group"}, :content
-               ["\n              "
-                {:tag :input
-                 :attrs {:value rand-str
-                         :class "form-control"
-                         :type "text"}
-                         :content []}
-                "\n              "
-                "\n            "]}
+              {:tag :input
+               :attrs {:value rand-str
+                       :class "form-control"
+                       :type "text"}
+                       :content []}
               "\n          "]}]
   (@#'slipstream.ui.views.table/cell-text-snip-edit {:text rand-str}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :disabled? true}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :placeholder "Text"}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input value=\"\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input value=\"\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text ""}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input value=\"\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input value=\"\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content {:text nil}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           </td>")
   (cell-html {:type :cell/text, :content rand-str, :editable? true}))
 
@@ -275,10 +253,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <div class=\"form-group\">
-              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-              ""
-            </div>
+            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
           <span>"
             "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
