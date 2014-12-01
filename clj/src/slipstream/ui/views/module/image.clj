@@ -48,16 +48,16 @@
 
   (defmethod middle-section-content :image-creation
     [module section-title section-metadata _]
-    [{:title    (t :recipe.title)
-      :content [(t :recipe.description)
-                (-> section-metadata :recipe :code (code-area "recipe"))]}
+    [{:title    (t :prerecipe.title)
+      :content [(t :prerecipe.description)
+                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}
      {:title    (t :packages.title)
       :content  (or
                   (packages-subsection (:packages section-metadata))
                   (no-packages-hint (-> module :summary :name) section-title))}
-     {:title    (t :prerecipe.title)
-      :content [(t :prerecipe.description)
-                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}])
+     {:title    (t :recipe.title)
+      :content [(t :recipe.description)
+                (-> section-metadata :recipe :code (code-area "recipe"))]}])
 
 ) ; End of prefixed-t scope
 
