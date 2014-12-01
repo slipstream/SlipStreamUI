@@ -74,9 +74,10 @@
      :comment           (-> metadata (html/select [:comment html/text]) first)
      :publication       publication-date
      :published?        (boolean publication-date)
-     :name              (or
-                          (-> attrs :name u/not-default-new-name)
-                          (u/module-name alternative-uri))
+     :name              (-> attrs
+                            :name
+                            (or (u/module-name alternative-uri))
+                            u/not-default-new-name)
      :creation          (-> attrs :creation)
      :version           (-> attrs :version uc/parse-pos-int)
      :short-name        (-> attrs :shortname)
