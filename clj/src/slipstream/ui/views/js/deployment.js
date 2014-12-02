@@ -267,8 +267,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if ($this.val() === parameterBindToOutput) {
             $textInput
                 .disable()
-                .closest(".form-group")
-                    .hide();
+                .hide();
             $outputParamsSelect
                 .enable()
                 .change() // trigger input validation
@@ -281,8 +280,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .hide();
             $textInput
                 .enable()
-                .closest(".form-group")
-                    .show();
+                .show();
         }
     });
 
