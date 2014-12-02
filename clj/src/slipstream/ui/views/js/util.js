@@ -500,7 +500,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         formHasErrorsCls: "ss-form-has-errors",
-        formFieldToValidateCls: "ss-input-to-validate",
+        formFieldToValidateCls: "ss-input-needs-validation",
         requiredFormFieldCls: "ss-required-input",
         formFieldHasRequirementsCls: "ss-input-has-requirements",
 

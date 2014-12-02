@@ -348,7 +348,7 @@
 
 ;; Add input validation to form input fields.
 
-(def input-to-validate-cls "ss-input-to-validate")
+(def input-to-validate-cls "ss-input-needs-validation")
 (def required-input-cls "ss-required-input")
 (def input-has-requirements-cls "ss-input-has-requirements")
 

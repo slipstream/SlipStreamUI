@@ -3,6 +3,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var outputParams = {},
         nodeNameRegExp = /^[a-zA-Z]+\w*$/,
         mappingOptionsComboBoxesSel = "select.ss-mapping-options",
+        formFieldToValidateCls = $().formFieldToValidateCls,
         $initialMappingOptionsComboBoxes = $(mappingOptionsComboBoxesSel),
         nodeShortnameCellCls = "ss-node-shortname",
         nodeShortnameInputSel = "." + nodeShortnameCellCls + " input",
@@ -107,12 +108,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
 
     $("." + deploymentTemplateRowCls)
+        .find(nodeShortnameInputSel)
+            .removeClass(formFieldToValidateCls)
+            .end()
         .data("callbackAfterCloningLastRow", function($newLastRow) {
             this
                 .removeClass(deploymentTemplateRowCls)
                 .addClass(unfinishedNodeRowCls)
                 .find("." + chooseNodeReferenceImageBtnCls)
-                    .fade(true);
+                    .fade(true)
+                    .end()
+                .find(nodeShortnameInputSel)
+                    .addClass(formFieldToValidateCls);
         });
 
     function injectHTMLForOptGroup(selectHTMLArray, nodeName, nodeOutputParams) {

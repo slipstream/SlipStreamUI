@@ -33,29 +33,35 @@ jQuery( function() { ( function( $$, $, undefined ) {
             callbackBeforeCloningLastRow = $originalLastRow.data("callbackBeforeCloningLastRow"),
             callbackAfterCloningLastRow = $originalLastRow.data("callbackAfterCloningLastRow"),
             $newLastRow;
+
         if($.isFunction(callbackBeforeCloningLastRow)) {
             callbackBeforeCloningLastRow.call($originalLastRow);
         }
+
         $newLastRow = $originalLastRow.clone(true); // Boolean means 'withDataAndEvents'
+
         if($.isFunction(callbackAfterCloningLastRow)) {
             callbackAfterCloningLastRow.call($originalLastRow, $newLastRow);
         }
+
         $newLastRow
             .hide() // Will be faded in later on, after being appended to the table.
                 .find("input[type=text]")
-                .val("");
-        $newLastRow
+                .val("")
+                .end()
             .find("input, select")
                 .updateAttr("name", incrementFirstInteger)
                 .updateAttr("id", incrementFirstInteger);
+
         $originalLastRow
             .find(removeRowButtonSelector)
-                .fadeIn();
-        $originalLastRow
+                .fadeIn()
+                .end()
             .removeClass(lastBlankRowClass)
             .offTextInputChange(cloneLastRow)
             .closest("tbody")
                 .append($newLastRow);
+
         $newLastRow
             .fadeIn();
     }
