@@ -257,6 +257,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.length > 1;
         },
 
+        addOfClass: function(cls) {
+            // Helper to add elements to the selection by class, to make it equivalent to hasClass(), addClass()...
+            return this.add(cls.asSel());
+        },
+
         filterOfClass: function(cls) {
             // Helper to filter elements by class, to make it equivalent to hasClass(), addClass()...
             return this.filter(cls.asSel());

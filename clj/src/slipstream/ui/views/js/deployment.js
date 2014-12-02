@@ -115,7 +115,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             this
                 .removeClass(deploymentTemplateRowCls)
                 .addClass(unfinishedNodeRowCls)
-                .find("." + chooseNodeReferenceImageBtnCls)
+                .findOfClass(chooseNodeReferenceImageBtnCls)
                     .fade(true)
                     .end()
                 .find(nodeShortnameInputSel)
@@ -370,7 +370,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isNameOk = isValidNodeShortname($this, curentNodeName);
         $this
             .toggleFormInputValidationState(isNameOk)
-            .data("is-name-ok", isNameOk);
+            .data("is-name-ok", isNameOk)
+            .closest("tr")
+                .findOfClass(chooseNodeReferenceImageBtnCls)
+                    .enable(isNameOk);
     });
 
     checkMappingOptionsComboBoxesState();
