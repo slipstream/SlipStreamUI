@@ -432,7 +432,7 @@
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
    :slipstream.ui.models.parameters.tags.help-hint                              ""
 
-   :slipstream.ui.models.parameters.last-state-change.description               "Last State changes"
+   :slipstream.ui.models.parameters.last-state-change.description               "Last state change"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or ip address of the image"

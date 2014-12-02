@@ -631,16 +631,16 @@
   [run]
   (parameters-table
     (p/map->parameter-list run
-      :module-uri         {:type :cell/url,       :editable? false}
-      :category           {:type :cell/text,      :editable? false}
-      :user               {:type :cell/username,  :editable? false}
-      :start-time         {:type :cell/timestamp, :editable? false}
-      :end-time           {:type :cell/timestamp, :editable? false}
-      :last-state-change  {:type :cell/timestamp, :editable? false}
-      :state              {:type :cell/text,      :editable? false}
-      :type               {:type :cell/text,      :editable? false, :as-parameter :run-type}
-      :uuid               {:type :cell/text,      :editable? false, :as-parameter :run-id}
-      :tags               {:type :cell/text,      :editable? true})))
+      :module-uri         {:type :cell/url}
+      :category           {:type :cell/text}
+      :user               {:type :cell/username}
+      :start-time         {:type :cell/timestamp}
+      :end-time           {:type :cell/timestamp}
+      :state              {:type :cell/text}
+      :last-state-change  {:type :cell/timestamp}
+      :type               {:type :cell/text, :as-parameter :run-type}
+      :uuid               {:type :cell/text, :as-parameter :run-id}
+      :tags               {:type :cell/text, :editable? true})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
