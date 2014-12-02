@@ -14,3 +14,8 @@ README.html
 .lein-deps-sum
 .lein-failures
 .lein-plugins
+
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.tag
+release.properties
