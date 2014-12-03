@@ -509,25 +509,112 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         requiredFormFieldCls: "ss-required-input",
         formFieldHasRequirementsCls: "ss-input-has-requirements",
 
-        validateFormFields: function() {
+        onFormFieldValidationStateChange: function(callback){
+            if (! $.isFunction(callback)) {
+                throw "Callback is not a function.";
+            }
+            this.each(function(){
+                    var $this = $(this),
+                        callbacks = $this.data("onFormFieldValidationStateChangeCallback");
+                    if (! callbacks) {
+                        $this.data("onFormFieldValidationStateChangeCallback", [callback]);
+                    } else {
+                        callbacks.push(callback);
+                    }
+                });
+            return this;
+        },
+
+        addCustomFormFieldRequirement: function(testCallback, errorHelpHint){
+            // testCallback will receive the 'fieldValue' string as the first argument
+            // and the jQuery input element as the second.
+            // It should return a boolean: 'true' if the value passes the requirement
+            // and 'false' if not. In this second case, the 'errorHelpHint' will be
+            // displayed below the input field.
+            var compiledRequirements = this.data("input-compiled-requirements"),
+                requirement = {
+                    test: testCallback,
+                    errorHelpHint: errorHelpHint
+                };
+            if (! compiledRequirements) {
+                this.data("input-compiled-requirements", [requirement]);
+            } else {
+                compiledRequirements.push(requirement);
+            }
+            return this;
+        },
+
+        enableDisplayOfErrorHelpHint: function() {
+            this.data("displayErrorHelpHint", true);
+            return this;
+        },
+
+        enableLiveFormValidation: function() {
+            this
+                .findOfClass(this.formFieldToValidateCls)
+                .onTextInputChange(function() {
+                    $(this).validateFormInput();
+                })
+                .focusout(function() {
+                    $(this)
+                        // By default display the error help hint only after
+                        // the first 'focus out' event to avoid warning about things
+                        // that the user might know.
+                        .enableDisplayOfErrorHelpHint()
+                        .validateFormInput();
+                })
+                ;
+            return this;
+        },
+
+        validateForm: function() {
+            this
+                .closest("form")
+                    .findOfClass(this.formFieldToValidateCls)
+                        .validateFormInput();
+            return this;
+        },
+
+        isValidForm: function() {
+            var $form = this.closest("form");
+            return $form
+                        .validateForm()
+                        .hasClass(this.formHasErrorsCls)
+                        .not();
+        },
+
+        isValidFormInput: function() {
+            return this
+                        .filterOfClass(this.formFieldToValidateCls)
+                        .first()
+                        .validateFormInput()
+                        .data("isValid") ? true : false;
+        },
+
+        validateFormInput: function() {
 
             function getRequirements($fieldToValidate){
-                var compiledRequirements = $fieldToValidate.data("input-compiled-requirements");
-                if (compiledRequirements) {
-                    return compiledRequirements;
+                if ($fieldToValidate.data("already-compiled-input-requirements")) {
+                    return $fieldToValidate.data("input-compiled-requirements");
                 }
                 // lazily compile regexp only once
-                compiledRequirements = [];
-                var requirements = $fieldToValidate.data("input-requirements") || [];
+                var compiledRequirements = $fieldToValidate.data("input-compiled-requirements") || [],
+                    requirements = $fieldToValidate.data("input-requirements") || [];
                 if (requirements.length === 0 && $fieldToValidate.hasClass($fieldToValidate.requiredFormFieldCls)) {
                     requirements = [{"pattern": "\\w+"}];
                 }
                 $.each(requirements, function(i, requirement){
                     compiledRequirements.push($.extend({}, requirement, {
-                        "re": new RegExp(requirement.pattern)
+                        re: new RegExp(requirement.pattern),
+                        test: function(fieldValue) {
+                            return this.re.test(fieldValue);
+                        }
                     }));
                 });
-                $fieldToValidate.data("input-compiled-requirements", compiledRequirements);
+                $fieldToValidate
+                    .data("input-compiled-requirements", compiledRequirements)
+                    .data("already-compiled-input-requirements", true);
+
                 return compiledRequirements;
             }
 
@@ -542,7 +629,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             errorHelpHint;
                         if (fieldValue || isRequired) {
                             $.each(requirements, function(i, requirement){
-                                if (! requirement.re.test(fieldValue)){
+                                if (requirement.test(fieldValue, $fieldToValidate) ===  false){
                                     isValidField = false;
                                     errorHelpHint = requirement.errorHelpHint;
                                     return false; // break 'for' loop
@@ -554,37 +641,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        enableLiveFormValidation: function() {
-            this
-                .findOfClass(this.formFieldToValidateCls)
-                .onTextInputChange(function() {
-                    $(this).validateFormFields();
-                })
-                .focusout(function() {
-                    $(this)
-                        .data("lost-focus-already-once", true)
-                        .validateFormFields();
-                })
-                ;
-            return this;
-        },
-
-        validateForm: function() {
-            this
-                .closest("form")
-                    .findOfClass(this.formFieldToValidateCls)
-                        .validateFormFields();
-            return this;
-        },
-
-        isValidForm: function() {
-            var $form = this.closest("form");
-            return $form
-                        .validateForm()
-                        .hasClass(this.formHasErrorsCls)
-                        .not();
-        },
-
         showGenericErrorFormAlert: function() {
             var $form = this.closest("form");
             $$.alert.showError($form.data("generic-form-error-message") ||
@@ -593,24 +649,26 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         toggleFormInputValidationState: function (state, customErrorHelpHint) {
-
             this
                 .filterOfClass(this.formFieldToValidateCls)
                     .each(function() {
                         var $this = $(this),
+                            isNewState = ($this.data("isValid") !== state),
+                            callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
                             errorHelpHint = customErrorHelpHint || $this.data("generic-error-help-hint"),
-                            lostFocusAlreadyOnce = $this.data("lost-focus-already-once") || false, // A real boolean
+                            displayErrorHelpHint = $this.data("displayErrorHelpHint") || false, // A real boolean
                             $formGroup = $this.closest(".form-group");
                         if ($formGroup.foundNothing()) {
                             throw "No .form-group element could be found from jQuery selection.";
                         }
                         if ($.type(state) === "boolean") {
+                            $this.data("isValid", state);
                             $formGroup
                                 .toggleClass("has-success", state)
                                 .toggleClass("has-error",  !state)
                                 .find(".ss-error-help-hint")
                                     .html(errorHelpHint)
-                                    .toggleClass("hidden", (lostFocusAlreadyOnce && errorHelpHint) ? state : true);
+                                    .toggleClass("hidden", (displayErrorHelpHint && errorHelpHint) ? state : true);
                         } else {
                             // If the 'state' is not a boolean, we toggle the current state
                             $formGroup
@@ -619,6 +677,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 .find(".ss-error-help-hint")
                                     .html(errorHelpHint)
                                     .toggleClass("hidden");
+                            $this.data("isValid", $this.hasClass("has-success"));
                         }
                         var hasErrors = $this.closest("form").find(".has-error").foundAny();
                         $this
@@ -628,6 +687,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 // Enable or disable the submit button accordingly
                                 .find("button[type=submit]")
                                     .disable(hasErrors);
+                        if ( isNewState && callbackOnStateChange ) {
+                            callbackOnStateChange.call($this, state);
+                        }
                     });
             return this;
         },

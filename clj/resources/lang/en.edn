@@ -283,7 +283,7 @@
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output   "is mapped to output `%1$s`." ; %1$s = input parameter value
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value    "is defaulted to value `%1$s`."  ; %1$s = input parameter value
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty  "has no default value."
-   :slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint  "Enter an alphanumeric unique node name."
+   :slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint  "Enter a unique node name."
    :slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference "Choose image reference for this node"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Map to output of another node"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Default to value"
@@ -486,6 +486,11 @@
    :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash  :pattern.default-error-help-hint.alpha-num-underscore-dash
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-new                    :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.module-name.begin-with-letter          :pattern.default-error-help-hint.begin-with-letter
+
+   :slipstream.ui.util.pattern.error-help-hint.node-name.not-empty                    :pattern.default-error-help-hint.not-empty
+   :slipstream.ui.util.pattern.error-help-hint.node-name.alpha-num-underscore-dash    :pattern.default-error-help-hint.alpha-num-underscore-dash
+   :slipstream.ui.util.pattern.error-help-hint.node-name.not-new                      :pattern.default-error-help-hint.not-new
+   :slipstream.ui.util.pattern.error-help-hint.node-name.begin-with-letter            :pattern.default-error-help-hint.begin-with-letter
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Please choose a project (i.e. not an image or a deployment) in the navigator above where this %1$s has to be copied to." ; %1$s: module category ;
 

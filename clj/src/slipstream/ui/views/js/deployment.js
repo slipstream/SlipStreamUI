@@ -1,7 +1,6 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     var outputParams = {},
-        nodeNameRegExp = /^[a-zA-Z]+\w*$/,
         mappingOptionsComboBoxesSel = "select.ss-mapping-options",
         formFieldToValidateCls = $().formFieldToValidateCls,
         $initialMappingOptionsComboBoxes = $(mappingOptionsComboBoxesSel),
@@ -287,14 +286,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Trigger a change event on pageload to correctly set up mapping fields
     $initialMappingOptionsComboBoxes.change();
 
-    // Catch when a node name changes to update bindings
+    // Capture the original node name when begining to edit it
     $initialNodeNameInputs.focusin(function() {
-        var $this = $(this),
-            curentNodeName = $this.val();
-        if (! $this.data("setting-node-name")) {
-            $this.data("node-name", curentNodeName);
-            $this.data("setting-node-name", true);
-        }
+        var $this = $(this);
+        $this.data("originalNodeName", $this.val());
     });
 
     // Manually trigger focusin event for the input already in focus on page load,
@@ -320,61 +315,47 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 });
     }
 
+
     $initialNodeNameInputs.focusout(function() {
         var $this = $(this),
             curentNodeName = $this.val(),
-            previousNodeName = $this.data("node-name");
-        if ( curentNodeName !== previousNodeName) {
-            if ($this.data("is-name-ok")) {
-                updateNodeNameInBindings(previousNodeName, curentNodeName);
+            originalNodeName = $this.data("originalNodeName");
+        if ( curentNodeName !== originalNodeName ) {
+            if ($this.isValidFormInput()) {
+                updateNodeNameInBindings(originalNodeName, curentNodeName);
             } else {
-                $this.val(previousNodeName);
+                $this
+                    .val(originalNodeName)
+                    .validateFormInput();
             }
         }
-        $this
-            .toggleFormInputValidationState(true)
-            .removeData("is-name-ok")
-            .removeData("setting-node-name");
     });
 
-    function isValidNodeShortname($nodeNameInputBeingEdited, nodeName) {
-        var validName;
 
-        // Check if the name is not empty
-        validName = nodeName ? true : false;
-
-        if (validName) {
-            // Check if the format is expected by the server
-            validName = nodeName.match(nodeNameRegExp) ? true : false;
-        }
-
-        if (validName) {
-            // Check if it's unique among the other nodes currently defined for this deployment
-            $(nodeShortnameInputSel)
-                .not($nodeNameInputBeingEdited)
-                    .each(function() {
-                        var $this = $(this);
-                        if($this.val() === nodeName) {
-                            validName = false;
-                            return false;
-                        }
-                    });
-        }
-        return validName;
+    function isUniqueNodeShortname(nodeName, $nodeNameInputBeingEdited) {
+        var isUnique = true;
+        $(nodeShortnameInputSel)
+            .not($nodeNameInputBeingEdited)
+                .each(function() {
+                    var $this = $(this);
+                    if($this.val() === nodeName) {
+                        isUnique = false;
+                        return false; // break 'each' loop
+                    }
+                });
+        return isUnique;
     }
 
-    $initialNodeNameInputs.onTextInputChange(function() {
-        var $this = $(this),
-            curentNodeName = $this.val(),
-            previousNodeName = $this.data("node-name"),
-            isNameOk = isValidNodeShortname($this, curentNodeName);
-        $this
-            .toggleFormInputValidationState(isNameOk)
-            .data("is-name-ok", isNameOk)
-            .closest("tr")
-                .findOfClass(chooseNodeReferenceImageBtnCls)
-                    .enable(isNameOk);
-    });
+    $initialNodeNameInputs
+        .enableDisplayOfErrorHelpHint()
+        .addCustomFormFieldRequirement(isUniqueNodeShortname)
+        .last() // the 'New node' input in the last row
+            .onFormFieldValidationStateChange(function(state){
+                this
+                    .closest("tr")
+                        .findOfClass(chooseNodeReferenceImageBtnCls)
+                            .enable(state);
+            });
 
     checkMappingOptionsComboBoxesState();
 
