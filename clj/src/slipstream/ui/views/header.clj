@@ -15,15 +15,15 @@
 (def image-col-sel        [:.ss-header-image-col])
 
 (defn transform
-  [{:keys [status-code title subtitle icon image] :as header}]
+  [{:keys [status-code title subtitle icon image-url] :as header}]
   (fn [match]
     (html/at match
              icon-sel             (icons/set icon)
              status-code-sel      (ue/content-when-not-nil status-code)
              title-sel            (ue/content-when-not-nil title)
              subtitle-sel         (ue/html-content-when-not-nil subtitle)
-             title-col-sel        (ue/when-replace-class (not image)
+             title-col-sel        (ue/when-replace-class (not image-url)
                                                         "col-sm-8"
                                                         "col-sm-11")
-             image-preloader-sel  (ue/set-src image)
-             image-col-sel        (ue/remove-if-not image))))
+             image-preloader-sel  (ue/set-src image-url)
+             image-col-sel        (ue/remove-if-not image-url))))

@@ -238,7 +238,7 @@
       :publication    {:type :cell/timestamp,  :editable? false, :hidden? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
       :last-modified  {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
       :owner          {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
-      :image          {:type :cell/text
+      :logo-url       {:type :cell/text
                        :hidden? (or (page-type/view?) (-> module :category (= "Project")))
                        :id-format-fn (constantly "logoLink")
                        :required? false

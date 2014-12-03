@@ -227,10 +227,10 @@
              :comment nil
              :creation "2013-03-07 21:03:09.124 CET"
              :name "Public/BaseImages/Ubuntu/new"
+             :logo-url nil
              :short-name "new"
              :published? false
              :publication nil
-             :image nil
              :owner "sixsq"
              :version 4
              :uri "module/Public/BaseImages/Ubuntu/new"

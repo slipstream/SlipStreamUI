@@ -8,13 +8,6 @@
 
 (localization/def-scoped-t)
 
-;; Logo image info
-
-(defn- logo-image
-  [metadata]
-  {:image (-> metadata :attrs :logolink)})
-
-
 ;; Cloud image section
 
 (defn- cloud-image-details
@@ -124,7 +117,7 @@
 (defn sections
   [metadata]
   (let [parameters (parameters/parse metadata)]
-    {:summary              (logo-image metadata)
+    {:summary              {:logo-url (-> metadata :attrs :logolink)}
      :cloud-image-details  (cloud-image-details metadata)
      :os-details           (os-details metadata)
      :cloud-configuration  (parameters/categories-of-type parameters :global)

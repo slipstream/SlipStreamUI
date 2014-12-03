@@ -22,7 +22,7 @@
      :title     (if (page-type/new?)
                   (t :title.new (:category summary))
                   (t :title (:category summary) (:short-name summary)))
-     :image     (-> summary :image)
+     :image-url (-> summary :logo-url)
      :subtitle  (if (page-type/new?)
                   (t :subtitle.new (-> summary :category s/lower-case))
                   (t :subtitle

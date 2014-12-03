@@ -295,7 +295,7 @@
              :creation "2013-03-07 21:03:09.124 CET"
              :name "Public/BaseImages/with-a-very-long-name/Ubuntu/12.04"
              :short-name "12.04"
-             :image "http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png"
+             :logo-url "http://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png"
              :owner "sixsq"
              :version 4
              :uri "module/Public/BaseImages/Ubuntu/12.04"

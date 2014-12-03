@@ -100,7 +100,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $(".ss-mapping-value input[type=text], .ss-mapping-value select")
                 .filter(":visible")
                 .not(":disabled")
-                .not("." + discardedFormInputCls)
+                .not(discardedFormInputCls.asSel())
                     .each(function (){
                         var $this = $(this),
                             rawValue = $this.val() || "",
@@ -121,7 +121,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function resetForm(){
         // reenable discarded text fields
-        $("." + discardedFormInputCls)
+        $(discardedFormInputCls.asSel())
             .removeClass(discardedFormInputCls)
             .enable();
         // Clean up the hidden fields that we added before submit
