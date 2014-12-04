@@ -117,6 +117,7 @@
   [content-transformation-fn]
   ue/this (ue/set-id "save-form")
   ue/this (html/set-attr :accept-charset "utf-8")
+  ue/this (html/set-attr :autocomplete "off")
   ue/this (ue/set-data :generic-form-error-message (t :generic-form-error-message))
   ue/this content-transformation-fn)
 
@@ -185,6 +186,7 @@
   bottom-scripts-container-sel  (html/append (bottom-external-scripts-snip external-js-filenames))
   bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip internal-js-filenames))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/required context))
+  [:input]              (html/set-attr :autocomplete "off") ; NOTE: Disable 'autocomplete' for all inputs (specially required for Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=654072)
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
