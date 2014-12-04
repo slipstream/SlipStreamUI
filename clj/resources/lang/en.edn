@@ -409,8 +409,8 @@
    :slipstream.ui.models.parameters.password-old.description                    "Old Password"
    :slipstream.ui.models.parameters.password-old.help-hint                      "Enter your current password to validate the password update."
 
-   :slipstream.ui.models.parameters.image.description                           "Logo URL"
-   :slipstream.ui.models.parameters.image.help-hint                             "The URL of the optional picture to use as logo for this module. The logo will be shown in the App Store so that it makes sense to provide it for published modules."
+   :slipstream.ui.models.parameters.logo-url.description                        "Logo URL"
+   :slipstream.ui.models.parameters.logo-url.help-hint                          "The URL of the optional picture to use as logo for this module. The logo will be shown in the App Store so that it makes sense to provide it for published modules."
 
    :slipstream.ui.models.parameters.module-uri.description                      :global.nouns.module
    :slipstream.ui.models.parameters.module-uri.help-hint                        ""
