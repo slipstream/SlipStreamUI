@@ -103,7 +103,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // format of email address is so complex, that the only real way to
             // validate it is to send it an email ;)
             // However we can perform a basic validation to catch basic things:
-            return this.match(".+\\@.+\\..+") ? true : false;
+            return this.match(".+\\@.+") ? true : false;
         },
 
         incrementFirstInteger: function() {
