@@ -1058,4 +1058,36 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         }
     };
 
+    util.leavingConfirmation = {
+
+        pageHasChanges: false,
+
+        elemSelToObserve: "input, textarea, option",
+        eventsToObserve: "input change",
+
+        flagPageAsChanged: function() {
+            util.leavingConfirmation.pageHasChanges = true;
+        },
+
+        reset: function() {
+            // The unsaved state warns the user when trying to navigate away
+            // from the current page if any changes where made.
+            // At some specific points, it is intended to leave the page even if
+            // changes were made (e.g. when requesting to 'Save' the page, or when
+            // requesting to 'Delete' a resource)
+            // In that case, we reset the unsaved state to avoid asking for
+            // confirmation before leaving.
+            this.pageHasChanges = false;
+            $("body").one(this.eventsToObserve, this.elemSelToObserve, util.leavingConfirmation.flagPageAsChanged);
+        },
+
+        askIfPageHasChanges: function(msg) {
+            window.onbeforeunload = function() {
+                return util.leavingConfirmation.pageHasChanges ? (msg || "If you leave this page you will lose your unsaved changes.") : null;
+            };
+            this.reset();
+        }
+    };
+
+
 }( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});

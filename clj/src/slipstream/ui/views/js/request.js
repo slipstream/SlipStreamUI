@@ -280,6 +280,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         preSubmitCallback(request, $form);
                     }
 
+                    $$.util.leavingConfirmation.reset();
+
                     request
                         .url(request.settings.url || $form.attr("action"))
                         .dataObject($(this).serializeObject())

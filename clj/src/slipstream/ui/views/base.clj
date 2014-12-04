@@ -79,7 +79,7 @@
 
 (defn- bottom-internal-scripts-snip
   [filenames]
-  (->> filenames
+  (->> (conj filenames "last.js")
        (map (partial str "js/"))
        bottom-scripts-snip))
 
@@ -135,7 +135,8 @@
   (-> context
       (select-keys [:view-ns :view-name])
       (assoc :page-type (name page-type/*current-page-type*)
-             :user-type (current-user/type-name))
+             :user-type (current-user/type-name)
+             :navigate-away-confirmation-msg (t :navigate-away-confirmation-msg))
       (ue/map->meta-tag-snip :name-prefix "ss-")
       html/prepend))
 

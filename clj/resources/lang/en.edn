@@ -151,6 +151,7 @@
                     }
             }
 
+   :slipstream.ui.views.base.navigate-away-confirmation-msg          "You have unsaved changes which will be lost if you leave or reload this page without saving."
 
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password

@@ -210,6 +210,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             } else {
                 request.onSuccessFollowRedirectInResponseHeader();
             }
+            $$.util.leavingConfirmation.reset();
             request
                 .onErrorAlert("Unable to delete",
                     "Something wrong happened when trying to delete this resource." +

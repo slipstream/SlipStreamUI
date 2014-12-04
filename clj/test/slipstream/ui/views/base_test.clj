@@ -40,25 +40,25 @@
 ;; bottom-internal-scripts-snip
 
 (expect
-  ""
+  "<script src=\"js/last.js\"></script>"
   (->> (@#'slipstream.ui.views.base/bottom-internal-scripts-snip nil)
        html/emit*
        (apply str)))
 
 (expect
-  ""
+  "<script src=\"js/last.js\"></script>"
   (->> (@#'slipstream.ui.views.base/bottom-internal-scripts-snip [])
        html/emit*
        (apply str)))
 
 (expect
-  "<script src=\"js/blah.js\"></script>"
+  "<script src=\"js/blah.js\"></script><script src=\"js/last.js\"></script>"
   (->> (@#'slipstream.ui.views.base/bottom-internal-scripts-snip ["blah.js"])
        html/emit*
        (apply str)))
 
 (expect
-  "<script src=\"js/foo.js\"></script><script src=\"js/foo/bar.js\"></script>"
+  "<script src=\"js/foo.js\"></script><script src=\"js/foo/bar.js\"></script><script src=\"js/last.js\"></script>"
   (->> (@#'slipstream.ui.views.base/bottom-internal-scripts-snip ["foo.js" "foo/bar.js"])
        html/emit*
        (apply str)))
