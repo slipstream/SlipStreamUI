@@ -105,3 +105,10 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-page-type-view .ss-deployment-node-row .ss-node-shortname {
   font-weight: bold;
 }
+
+.popover .popover-title {
+  font-weight:  900;
+}
+.popover .popover-content {
+  font-weight:  300;
+}

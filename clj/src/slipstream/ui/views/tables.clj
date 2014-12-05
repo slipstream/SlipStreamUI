@@ -166,7 +166,7 @@
 (defn- parameter-row
   [first-cols-keywords
    row-index
-   {:keys [type editable? hidden? help-hint]
+   {:keys [type editable? hidden?]
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
   (let [cell-type (cell-type-for parameter)
@@ -175,7 +175,8 @@
      :hidden? hidden?
      :cells (conj first-cells
                   {:type cell-type, :content (value-of parameter cell-type row-index), :editable? editable?}
-                  {:type :cell/help-hint, :content help-hint})}))
+                  {:type :cell/help-hint, :content {:title    (:name parameter)
+                                                    :content  (:help-hint parameter)}})}))
 
 (defn build-parameters-table
   "The last columns are always value and hint. The first ones might change."
@@ -387,9 +388,9 @@
       (remove-button-cell)))
 
   (defn- deployment-parameter-row
-    [row-index {:keys [category help-hint] :as param}]
+    [row-index param]
     {:style  (when (page-type/view-or-chooser?)
-               (case category
+               (case (:category param)
                  "Output" :info
                  "Input"  :warning
                  nil))
@@ -399,7 +400,8 @@
              (deployment-parameter-cell param row-index :value)
              (deployment-parameter-cell param row-index :type)
              (deployment-parameter-remove-button-cell param)
-             {:type :cell/help-hint, :content help-hint}]})
+             {:type :cell/help-hint, :content {:title   (:name param)
+                                               :content (:help-hint param)}}]})
 
   (defn deployment-parameters-table
     [deployment-parameters]

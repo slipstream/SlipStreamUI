@@ -82,7 +82,7 @@
    :cell/username           [                           :content/plain]
    :cell/icon               [:content/any                             ]
    :cell/module-version     [                           :content/plain]
-   :cell/help-hint          [                           :content/plain]
+   :cell/help-hint          [             :content/map                ]
    :cell/reference-module   [             :content/map  :content/plain]
    :cell/hidden-input       [             :content/map                ]
    :cell/toggle-button      [             :content/map                ]
@@ -458,7 +458,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" title=\"Home\" data-toogle=\"tooltip\" class=\"glyphicon glyphicon-home ss-table-tooltip\"></span>"
+       "\n              <span data-placement=\"left\" data-toogle=\"tooltip\" title=\"Home\" class=\"glyphicon glyphicon-home ss-table-tooltip\"></span>"
        "\n          </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content icons/home})))
@@ -472,7 +472,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" title=\"Import\" data-toogle=\"tooltip\" class=\"glyphicon-cloud-upload glyphicon ss-table-tooltip\"></span>"
+       "\n              <span data-placement=\"left\" data-toogle=\"tooltip\" title=\"Import\" class=\"glyphicon-cloud-upload glyphicon ss-table-tooltip\"></span>"
        "\n          </td>")
   (localization/with-lang :en
     (cell-html {:type :cell/icon, :content icons/action-import})))
@@ -556,12 +556,16 @@
 ;; Help hint cell
 
 (expect
-  (str "<td class=\"ss-table-cell-help-hint\">
-            <div title=\"" rand-str "\" data-placement=\"left\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">
-              <span class=\"glyphicon glyphicon-question-sign\"></span>
-            </div>
-          </td>")
-  (cell-html {:type :cell/help-hint, :content rand-str}))
+  (str "<td class=\"ss-table-cell-help-hint\">"
+       "\n              <span data-content=\"" rand-str "\" data-trigger=\"focus\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
+       "\n          </td>")
+  (cell-html {:type :cell/help-hint, :content {:content rand-str}}))
+
+(expect
+  (str "<td class=\"ss-table-cell-help-hint\">"
+       "\n              <span data-content=\"" rand-str "\" title=\"The title\" data-trigger=\"focus\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
+       "\n          </td>")
+  (cell-html {:type :cell/help-hint, :content {:title "The title", :content rand-str}}))
 
 
 ;; Reference module cell

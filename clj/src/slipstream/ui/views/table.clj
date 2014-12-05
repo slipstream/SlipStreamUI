@@ -226,9 +226,10 @@
 ; Help hint cell
 
 (html/defsnippet ^:private cell-help-hint-snip-view template-filename (sel-for-cell :help-hint)
-  [help-text]
-  [:.ss-table-tooltip]  (ue/set-title help-text)
-  [:.ss-table-tooltip]  (ue/remove-if-not (not-empty help-text)))
+  [{:keys [title content]}]
+  [:span]  (ue/set-title title)
+  [:span]  (ue/set-data :content content)
+  [:span]  (ue/remove-if-not (not-empty content)))
 
 ; Reference module cell
 
@@ -529,9 +530,9 @@
   [{uri :content}]
   (cell-module-version-snip-view uri))
 
-(defmethod cell-snip [:cell/help-hint :mode/view :content/plain]
-  [{help-text :content}]
-  (cell-help-hint-snip-view help-text))
+(defmethod cell-snip [:cell/help-hint :mode/view :content/map]
+  [{help-content :content}]
+  (cell-help-hint-snip-view help-content))
 
 (defmethod cell-snip [:cell/reference-module :mode/view :content/plain]
   [{reference-module :content}]
