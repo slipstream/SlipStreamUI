@@ -40,7 +40,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var orchestrator = {name: "orchestrator-" + cloudService, id: "id_" + cloudService, data: {type: "orchestrator"}, children: []};
             var nodes = cloudServiceNodesMap[cloudService];
             for (var i = 0; i < nodes.length; i++) {
-                addNode(nodes[i], $("[id*='" + nodes[i] + "\\:multiplicity'").text(), orchestrator);
+                addNode(nodes[i], $("[id*='" + nodes[i] + "\\:multiplicity']").text(), orchestrator);
             }
             root.children.push(orchestrator);
         }
