@@ -1089,5 +1089,74 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         }
     };
 
+    util.recurrentJob = {
+
+        jobs: {},
+
+        runJobsOnlyOnWindowsFocused: function() {
+            if (this.windowsFocusListenersSet === true) {
+                return;
+            }
+            $(window)
+                .on("focus", function() {
+                    $$.util.recurrentJob.restartAll();
+                })
+                .on("blur", function() {
+                    $$.util.recurrentJob.stopAll();
+                });
+            this.windowsFocusListenersSet = true;
+        },
+
+        setJob: function(name, callback, delayInSecs) {
+            if (this.jobs[name]) {
+                this.stop(name);
+            }
+            this.jobs[name] = {
+                callback: callback,
+                delayInSecs: delayInSecs
+            };
+        },
+
+        getJob: function(name) {
+            var job = this.jobs[name];
+            if (! job) {
+                throw "No job found named " + name;
+            }
+            return job;
+        },
+
+        restart: function(name) {
+            this.runJobsOnlyOnWindowsFocused();
+            var job = this.getJob(name);
+            if (job.timeoutID) {
+                this.stop(name);
+            }
+            job.callback();
+            job.timeoutID = setInterval(job.callback, job.delayInSecs * 1000);
+        },
+
+        restartAll: function() {
+            console.log("Restarting jobs: " + Object.keys(SlipStream.util.recurrentJob.jobs).join(", "));
+            $.each(this.jobs, this.restart.bind(this));
+        },
+
+        start: function(name, callback, delayInSecs) {
+            if (callback) {
+                this.setJob(name, callback, delayInSecs);
+            }
+            this.restart(name);
+        },
+
+        stop: function(name){
+            var job = this.getJob(name);
+            clearTimeout(job.timeoutID);
+            job.timeoutID = 0;
+        },
+
+        stopAll: function() {
+            console.log("Stopping jobs: " + Object.keys(SlipStream.util.recurrentJob.jobs).join(", "));
+            $.each(this.jobs, this.stop.bind(this));
+        }
+    };
 
 }( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});

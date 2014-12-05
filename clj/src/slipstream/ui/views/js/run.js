@@ -300,11 +300,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
             console.log("Updating run page...");
             run.updateParameters();
             run.updateReports();
-            setTimeout("SlipStream.run.autoupdateRunPage()", 10000);
         }
     };
 
-     run.autoupdateRunPage();
+     $$.util.recurrentJob.start("updateRun", run.autoupdateRunPage, 10);
 
      $$.run = run;
 
