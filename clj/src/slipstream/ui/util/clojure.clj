@@ -158,6 +158,15 @@
               s/lower-case
               keyword)))
 
+(defn title-case
+  "Makes Only The First Letter Of Each Word Uppercase. See Tests For Expectations."
+  [s]
+  (when s
+    (-> s
+        s/lower-case
+        (s/replace #"(\w)[-\.](\w)" "$1 $2") ; NOTE: dash-separated and dot.separated words become space separated.
+        (s/replace #"(?:^|\b)\w" s/upper-case))))
+
 (defn ->camelCaseString
   "Takes anything and returns a camelCase'd string. See tests for expectations."
   [x]

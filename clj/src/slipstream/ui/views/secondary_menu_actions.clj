@@ -12,7 +12,7 @@
 
 (defn- t-with-ellipsis
   [t-path]
-  (str (t t-path) (t :ellipsis)))
+  (str (t t-path) (t :suffix.ellipsis)))
 
 (defmacro ^:private defaction
   [name & {:keys [option-defaults name-with-ellipsis?]}]

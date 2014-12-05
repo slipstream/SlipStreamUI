@@ -127,6 +127,14 @@
       (html/set-attr k-data v-json)
       (html/remove-attr k-data))))
 
+(defmacro when-set-data
+  ([k v]
+   `(when-set-data ~k (not-empty ~v) ~v))
+  ([k test v]
+   `(if ~test
+      (set-data ~k ~v)
+      identity)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; defn-set-attr familiy

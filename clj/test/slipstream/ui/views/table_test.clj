@@ -80,7 +80,7 @@
    :cell/email              [             :content/map  :content/plain]
    :cell/url                [             :content/map  :content/plain]
    :cell/username           [                           :content/plain]
-   :cell/icon               [                           :content/plain]
+   :cell/icon               [:content/any                             ]
    :cell/module-version     [                           :content/plain]
    :cell/help-hint          [                           :content/plain]
    :cell/reference-module   [             :content/map  :content/plain]
@@ -452,13 +452,30 @@
 
 ;; Icon cell
 
-(expect
-  "<td class=\"ss-table-cell-icon\"><span class=\"glyphicon glyphicon-home\"></span></td>"
-  (cell-html {:type :cell/icon, :content icons/home}))
+;; NOTE: By default, icon cells will include the icon description as tooltip, if the
+;;       cell content is only the bare icon symbol. We can pass the 'computed' icon to
+;;       specify a custom behaviour.
 
 (expect
-  "<td class=\"ss-table-cell-icon\"><span class=\"glyphicon-cloud-upload glyphicon\"></span></td>"
-  (cell-html {:type :cell/icon, :content icons/action-import}))
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span data-placement=\"left\" title=\"Home\" data-toogle=\"tooltip\" class=\"glyphicon glyphicon-home ss-table-tooltip\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content icons/home})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span class=\"glyphicon glyphicon-home\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content (icons/home)})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span data-placement=\"left\" title=\"Import\" data-toogle=\"tooltip\" class=\"glyphicon-cloud-upload glyphicon ss-table-tooltip\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+    (cell-html {:type :cell/icon, :content icons/action-import})))
 
 (expect
   IllegalArgumentException

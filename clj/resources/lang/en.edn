@@ -26,6 +26,7 @@
                     :author           "Author"
                     :authorization    "Authorization"
                     :authorizations   "Authorizations"
+                    :build            "Build"
                     :category         "Category"
                     :child            "Child"
                     :children         "Children"
@@ -43,6 +44,7 @@
                     :error            "Error"
                     :first-name       "First name"
                     :group            "Group"
+                    :home             "Home"
                     :html             "HTML"
                     :image            "Image"
                     :info             "Information"
@@ -77,6 +79,7 @@
                     :report           "Report"
                     :reports          "Reports"
                     :repository       "Repository"
+                    :run              "Run"
                     :service-catalog  "Service Catalog"
                     :start            "Start"
                     :state            "State"
@@ -92,6 +95,8 @@
                     :value            "Value"
                     :version          "Version"
                     :versions         "Versions"
+                    :vm               "Virtual Machine"
+                    :vms              "Virtual Machines"
                     :warning          "Warning"
                     }
             :adjectives {
@@ -549,6 +554,54 @@
    :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.one   "in %s %s"
    :slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.two   "in %s %s and %s %s"
 
+
+   ;; Icon descriptions (might be displayed as tooltip as needed)
+
+   ; Item icon descriptions
+
+   :slipstream.ui.util.icons.description.unknown                   :global.adjectives.unknown
+   :slipstream.ui.util.icons.description.home                      :global.nouns.home
+   :slipstream.ui.util.icons.description.project                   :global.nouns.project
+   :slipstream.ui.util.icons.description.module                    :global.nouns.module
+   :slipstream.ui.util.icons.description.user                      :global.nouns.user
+   :slipstream.ui.util.icons.description.users                     :global.nouns.users
+   :slipstream.ui.util.icons.description.dashboard                 :global.nouns.dashboard
+   :slipstream.ui.util.icons.description.vms                       :global.nouns.vms
+   :slipstream.ui.util.icons.description.run                       :global.nouns.run
+   :slipstream.ui.util.icons.description.deployment                :global.nouns.deployment
+   :slipstream.ui.util.icons.description.build                     :global.nouns.build
+   :slipstream.ui.util.icons.description.image                     :global.nouns.image
+   :slipstream.ui.util.icons.description.node                      :global.nouns.node
+   :slipstream.ui.util.icons.description.config                    :global.nouns.config
+   :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
+   :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
+
+   ; Secondary action icon descriptions
+
+   :slipstream.ui.util.icons.description.action-build              :global.verbs.build
+   :slipstream.ui.util.icons.description.action-cancel             :global.verbs.cancel
+   :slipstream.ui.util.icons.description.action-copy               :global.verbs.copy
+   :slipstream.ui.util.icons.description.action-create             :global.verbs.create
+   :slipstream.ui.util.icons.description.action-delete             :global.verbs.delete
+   :slipstream.ui.util.icons.description.action-edit               :global.verbs.edit
+   :slipstream.ui.util.icons.description.action-edit-user          "Edit user"
+   :slipstream.ui.util.icons.description.action-export-users       "Export users as CSV"
+   :slipstream.ui.util.icons.description.action-import             :global.verbs.import
+   :slipstream.ui.util.icons.description.action-new-deployment     "New deployment"
+   :slipstream.ui.util.icons.description.action-new-image          "New machine image"
+   :slipstream.ui.util.icons.description.action-new-project        "New project"
+   :slipstream.ui.util.icons.description.action-new-user           "New user"
+   :slipstream.ui.util.icons.description.action-publish            :global.verbs.publish
+   :slipstream.ui.util.icons.description.action-run                :global.verbs.run
+   :slipstream.ui.util.icons.description.action-save               :global.verbs.save
+   :slipstream.ui.util.icons.description.action-terminate          :global.verbs.terminate
+   :slipstream.ui.util.icons.description.action-unpublish          :global.verbs.unpublish
+
+   ; Other action icon descriptions
+
+   :slipstream.ui.util.icons.description.action-log-out            :global.verbs.logout
+   :slipstream.ui.util.icons.description.action-ok                 "Ok"
+
    ;; Views
 
    :slipstream.ui.views.welcome.page-title                     "Welcome"
@@ -565,25 +618,26 @@
 
    :slipstream.ui.views.welcome.section.service-catalog.title  :global.nouns.service-catalog
 
-   :slipstream.ui.views.secondary-menu-actions.ellipsis        :global.punctuation.ellipsis
-   :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
-   :slipstream.ui.views.secondary-menu-actions.new-image       "New machine image"
-   :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
-   :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
-   :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
-   :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user"
-   :slipstream.ui.views.secondary-menu-actions.run             :global.verbs.run
+   :slipstream.ui.views.secondary-menu-actions.suffix.ellipsis :global.punctuation.ellipsis
+
    :slipstream.ui.views.secondary-menu-actions.build           :global.verbs.build
-   :slipstream.ui.views.secondary-menu-actions.edit            :global.verbs.edit
-   :slipstream.ui.views.secondary-menu-actions.copy            :global.verbs.copy
-   :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
-   :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
-   :slipstream.ui.views.secondary-menu-actions.terminate       :global.verbs.terminate
-   :slipstream.ui.views.secondary-menu-actions.save            :global.verbs.save
-   :slipstream.ui.views.secondary-menu-actions.create          :global.verbs.create
    :slipstream.ui.views.secondary-menu-actions.cancel          :global.verbs.cancel
+   :slipstream.ui.views.secondary-menu-actions.copy            :global.verbs.copy
+   :slipstream.ui.views.secondary-menu-actions.create          :global.verbs.create
    :slipstream.ui.views.secondary-menu-actions.delete          :global.verbs.delete
+   :slipstream.ui.views.secondary-menu-actions.edit            :global.verbs.edit
+   :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user"
    :slipstream.ui.views.secondary-menu-actions.export-users    "Export users as CSV"
+   :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
+   :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
+   :slipstream.ui.views.secondary-menu-actions.new-image       "New machine image"
+   :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
+   :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
+   :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
+   :slipstream.ui.views.secondary-menu-actions.run             :global.verbs.run
+   :slipstream.ui.views.secondary-menu-actions.save            :global.verbs.save
+   :slipstream.ui.views.secondary-menu-actions.terminate       :global.verbs.terminate
+   :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
 
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
@@ -600,13 +654,13 @@
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"
    :slipstream.ui.views.dashboard.section.quota.title             "Usage"
    :slipstream.ui.views.dashboard.section.runs.title              "Deployments / Runs / Builds"
-   :slipstream.ui.views.dashboard.section.vms.title               "Virtual Machines"
+   :slipstream.ui.views.dashboard.section.vms.title               :global.nouns.vms
    :slipstream.ui.views.dashboard.section.metering.title          :global.nouns.metering
    :slipstream.ui.views.dashboard.metering-options.last-hour      "Last hour"
    :slipstream.ui.views.dashboard.metering-options.last-day       "Last day"
    :slipstream.ui.views.dashboard.metering-options.last-7-days    "Last 7 days"
    :slipstream.ui.views.dashboard.metering-options.last-30-days   "Last 30 days"
-   :slipstream.ui.views.dashboard.metering.metric.instance        "Virtual Machines"
+   :slipstream.ui.views.dashboard.metering.metric.instance        :global.nouns.vms
 
    :slipstream.ui.views.versions.header.title                  "History of '%s'"
    :slipstream.ui.views.versions.header.subtitle.one-version   "There is one version of this %s."
@@ -722,7 +776,7 @@
 
    :slipstream.ui.views.vms.header.title                                        "Your VMs"
    :slipstream.ui.views.vms.header.subtitle                                     "This is a sub-view of the dashboard displaying only your VMs and their status."
-   :slipstream.ui.views.vms.section.vms.title                                   "Virtual Machines"
+   :slipstream.ui.views.vms.section.vms.title                                   :global.nouns.vms
 
    :slipstream.ui.views.configuration.header.title                              "System Configuration"
    :slipstream.ui.views.configuration.header.subtitle                           "Configure the SlipStream service and its cloud connectors"

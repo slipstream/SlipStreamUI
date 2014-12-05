@@ -41,15 +41,15 @@
 .ss-run-overview .dashboard-image:before {
     /*In FontAwesome: icon-desktop*/
     /* content: "\f108"; */
-    /*In Glyphicons: glyphicon-th*/
+    /*In Glyphicons: glyphicon-hdd*/
     content: "\e121";
 }
 
 .ss-run-overview .dashboard-node:before {
     /*In FontAwesome: icon-th*/
     /* content: "\f00a"; */
-    /*In Glyphicons: glyphicon-th*/
-    content: "\e011";
+    /*In Glyphicons: glyphicon-unchecked*/
+    content: "\e157";
 }
 
 .ss-run-overview .dashboard-ok:before {

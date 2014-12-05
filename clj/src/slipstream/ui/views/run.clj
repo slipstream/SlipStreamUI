@@ -62,7 +62,7 @@
   (let [run (run/parse metadata)]
     (base/generate
       {:html-dependencies html-dependencies
-       :header {:icon icons/run
+       :header {:icon  (-> run :summary :type (or :run) icons/icon-for)
                 :title (t :header.title
                           (-> run :summary :uuid (uc/trim-from \-))
                           (-> run :summary :state))

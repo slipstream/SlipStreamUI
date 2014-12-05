@@ -3,51 +3,73 @@
   icon or icon set used, e.g. Glyphicons or other..."
   (:refer-clojure :exclude [set])
   (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.enlive :as ue]
-            [net.cgrand.enlive-html :as html]))
+            [slipstream.ui.util.localization :as localization]))
 
 (uc/def-this-ns)
 
+(localization/def-scoped-t)
+
 ;; TODO: Take into account the html/icon-list.html template to retrieve icons.
 
-(def unknown          ::question-sign)
+(defmacro deficon
+  [icon-symbol icon]
+  (let [tooltip-placement-symbol  (symbol "tooltip-placement")
+        description-symbol        (symbol "description")]
+   `(def ~icon-symbol
+       ^{:type :icon/symbol}
+       (fn [& {:keys [~tooltip-placement-symbol]}]
+         (let [~description-symbol (uc/title-case (t ~(str "description." (name icon-symbol))))]
+           ~(if (symbol? icon)
+              `(assoc (~icon :tooltip-placement ~tooltip-placement-symbol)
+                      :description ~description-symbol)
+               `(with-meta
+                  {:tooltip-placement  ~tooltip-placement-symbol
+                   :class-suffix       ~icon
+                   :description        ~description-symbol}
+                  {:type :icon/computed})))))))
 
-(def home             ::home)
-(def project          ::folder-open)
-(def module           project)
-(def user             ::user)
-(def users            user)
-(def dashboard        ::dashboard)
-(def vms              dashboard)
-(def run              ::th)
-(def deployment       ::send)
-(def build            ::tower)
-(def image            ::hdd)
-(def config           ::cog) ; or ::wrench
-(def service-catalog  ::th-list)
-(def documentation    ::book)
+(deficon unknown                "question-sign")
 
-(def action-new-project project)
-(def action-new-image     image)
-(def action-new-deployment deployment)
-(def action-run           deployment)
-(def action-build         build)
-(def action-import        ::cloud-upload)
-(def action-edit          ::pencil)
-(def action-copy          ::repeat)
-(def action-publish       ::eye-open)
-(def action-unpublish     ::eye-close)
-(def action-log-out       ::log-out)
-(def action-terminate     ::ban-circle)
-(def action-new-user      user)
-(def action-edit-user     action-edit)
-(def action-save          ::floppy-disk)
-(def action-create        action-save)
-(def action-cancel        ::stop)
-(def action-delete        ::trash)
-(def action-ok            ::ok)
-(def action-export-users  ::download)
+(deficon home                   "home")
+(deficon project                "folder-open")
+(deficon module                 project)
+(deficon user                   "user")
+(deficon users                  user)
+(deficon dashboard              "dashboard")
+(deficon vms                    dashboard)
+(deficon deployment             "th")
+(deficon run                    deployment)
+(deficon build                  "tower")
+(deficon image                  "hdd")
+(deficon node                   "unchecked")
+(deficon config                 "cog") ; or "wrench"
+(deficon service-catalog        "th-list")
+(deficon documentation          "book")
+
+(deficon action-new-project     project)
+(deficon action-new-image       image)
+(deficon action-new-deployment  deployment)
+(deficon action-run             "send")
+(deficon action-build           build)
+(deficon action-import          "cloud-upload")
+(deficon action-edit            "pencil")
+(deficon action-copy            "repeat")
+(deficon action-publish         "eye-open")
+(deficon action-unpublish       "eye-close")
+(deficon action-log-out         "log-out")
+(deficon action-terminate       "ban-circle")
+(deficon action-new-user        user)
+(deficon action-edit-user       action-edit)
+(deficon action-save            "floppy-disk")
+(deficon action-create          action-save)
+(deficon action-cancel          "stop")
+(deficon action-delete          "trash")
+(deficon action-ok              "ok")
+(deficon action-export-users    "download")
+
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.
@@ -74,15 +96,20 @@
 
 (defn- set-icon
   [icon]
-  (when-not (= (namespace icon) this-ns)
-    (throw (IllegalArgumentException. (format "Invalid icon %s. Use predefined icons in namespace %s."
-                               icon
-                               this-ns))))
-  (fn [icon-node]
-    ((ue/replace-class
-        (current-glyphicon-icon-cls icon-node)
-        (glyphicon-icon-cls icon))
-     icon-node)))
+  (let [icon-computed (case (type icon)
+                        :icon/computed   icon
+                        :icon/symbol     (icon))
+        {:keys [tooltip-placement class-suffix description]} icon-computed
+        show-tooltip? (not-empty tooltip-placement)]
+    (fn [icon-node]
+      (html/at icon-node
+        ue/this   (ue/replace-class
+                    (current-glyphicon-icon-cls icon-node)
+                    (glyphicon-icon-cls class-suffix))
+        ue/this   (ue/when-add-class            show-tooltip? "ss-table-tooltip")
+        ue/this   (ue/when-set-title            show-tooltip? description)
+        ue/this   (ue/when-set-data :toogle     show-tooltip? "tooltip")
+        ue/this   (ue/when-set-data :placement  show-tooltip? tooltip-placement)))))
 
 (defn set
   "Sets the icon in the given node. If icon is nil, the icon node (i.e. <span> element) is removed."

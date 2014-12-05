@@ -345,6 +345,75 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; title-case
+
+(expect
+  nil
+  (title-case nil))
+
+(expect
+  ""
+  (title-case ""))
+
+(expect
+  "1"
+  (title-case 1))
+
+(expect
+  "[:A :B :C]"
+  (title-case [:a :b :c]))
+
+(expect
+  "[:Foo :Bar :Baz]"
+  (title-case [:foo :bar :baz]))
+
+(expect
+  "A"
+  (title-case "a"))
+
+(expect
+  "A"
+  (title-case "A"))
+
+(expect
+  "Word"
+  (title-case "word"))
+
+(expect
+  "Word"
+  (title-case "WORD"))
+
+(expect
+  "Look! Some Longer Sentence. And Only The 1st Letter (Of Each Word) Should Be 'Upper Case'."
+  (title-case "Look! some longer sentence. and only the 1st letter (of each word) should be 'upper-case'."))
+
+(expect
+  "Look! Some Longer Sentence. And Only The 1st Letter (Of Each Word) Should Be 'Upper Case'."
+  (title-case "Look! SOME LONGER SENTENCE. AND ONLY THE 1ST LETTER (OF EACH WORD) SHOULD BE 'UPPER-CASE'."))
+
+(expect
+  "Look! Some Longer Sentence. And Only The 1st Letter (Of Each Word) Should Be 'Upper Case'."
+  (title-case "Look! some Longer Sentence. And Only The 1st Letter (of Each Word) Should Be 'upper-case'."))
+
+(expect
+  "Some Dash Case String"
+  (title-case "some-dash-case-string"))
+
+(expect
+  "Some Dash Case String"
+  (title-case "SOME-DASH-CASE-STRING"))
+
+(expect
+  "Some String Dot Separated"
+  (title-case "some.string.dot.separated"))
+
+(expect
+  "Some String Dot Separated"
+  (title-case "SOME.STRING.DOT.SEPARATED"))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; keywordize
 
 (expect

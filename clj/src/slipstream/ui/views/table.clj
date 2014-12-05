@@ -212,7 +212,9 @@
 
 (html/defsnippet ^:private cell-icon-snip-view template-filename (sel-for-cell :icon)
   [icon]
-  [:span] (icons/set icon))
+  [:span] (icons/set (case (type icon)
+                       :icon/computed icon
+                       :icon/symbol   (icon :tooltip-placement "left"))))
 
 ; Module version cell
 
@@ -519,7 +521,7 @@
       (cell-text-snip-view content-base)
       (cell-link-snip-view (assoc content-base :href (u/user-uri username))))))
 
-(defmethod cell-snip [:cell/icon :mode/any :content/plain]
+(defmethod cell-snip [:cell/icon :mode/any :content/any]
   [{icon :content}]
   (cell-icon-snip-view icon))
 

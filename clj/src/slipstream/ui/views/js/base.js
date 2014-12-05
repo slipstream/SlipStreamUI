@@ -211,6 +211,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Enable popovers
     $("[data-toggle='popover']").popover();
 
+    // Enable tooltips
+    $("[data-toggle='tooltip']").tooltip();
+
+
     // $("body").getSlipStreamModel().module.dump();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

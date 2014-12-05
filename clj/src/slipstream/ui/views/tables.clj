@@ -581,7 +581,7 @@
     [node-index {:keys [name reference-image] :as deployment-node}]
     {:style  nil
      :class (str "ss-deployment-node-row")
-     :cells [{:type :cell/icon, :content icons/image}
+     :cells [{:type :cell/icon, :content icons/node}
              {:type :cell/text, :content {:text name, :class "ss-node-shortname"}}
              {:type :cell/inner-table, :content (deployment-node-cell-inner-table node-index deployment-node)}]})
 

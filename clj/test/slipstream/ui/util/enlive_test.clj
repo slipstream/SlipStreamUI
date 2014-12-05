@@ -151,6 +151,54 @@
   (sniptest-quoted input-html
                    this (set-data :from-server {:some-key "some-value"})))
 
+;; when-set-data
+
+(expect
+  "<input data-from-server=\"{'a':1}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server true {:a 1})))
+
+(expect
+  "<input data-from-server=\"{'a':1}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server {:a 1})))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server false {:a 1})))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server false {:a 1})
+                   this (when-set-data :test nil)))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server false {:a 1})
+                   this (when-set-data :test true nil)))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"{'a':1}\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server false {:a 1})
+                   this (when-set-data :test {:a 1})))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"{'a':1}\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server false {:a 1})
+                   this (when-set-data :test true {:a 1})))
+
+(expect
+  "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (when-set-data :from-server false {:a 1})
+                   this (when-set-data :test false {:a 1})))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; defn-set-attr familiy
