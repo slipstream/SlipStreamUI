@@ -1,6 +1,6 @@
 jQuery( function() { ( function( $$, util, $, undefined ) {
 
-    // String object prototype extensions
+    // String prototype extensions
 
     $.extend(String.prototype, {
 
@@ -152,7 +152,37 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     });
 
 
-    // Array object prototype extensions
+    // Object prototype extensions
+
+    // $.extend(Object.prototype, {
+    //     // NOTE: It's highly recommended not to extend Object.prototype.
+    //     //       It'll do far more than break jQuery.
+    //     //       Sources: http://stackoverflow.com/a/1827611
+    //     //                http://markmail.org/message/tv7vxcir6w3p2h5e
+    // });
+
+    util.object = {
+        // NOTE: Doing this instead of extending Object.prototype.
+        setOrPush: function (object, key, value) {
+            if (object[key] !== undefined) {
+                if (!object[key].push) {
+                    object[key] = [object[key]];
+                }
+                object[key].push(value || '');
+            } else {
+                object[key] = value || '';
+            }
+            return object;
+        },
+
+        keysString: function(object) {
+            return Object.keys(object).join(", ");
+        }
+
+    };
+
+
+    // Array prototype extensions
 
     $.extend(Array.prototype, {
         call: function(thisArg, arg1, arg2, arg3, arg4) {
@@ -190,10 +220,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 return 0;
                 });
         },
+
+        contains: function(thing) {
+            return ($.inArray(thing, this) === -1) ? false : true;
+        }
     });
 
 
-    // Boolean object prototype extensions
+    // Boolean prototype extensions
 
     $.extend(Boolean.prototype, {
         not: function() {
@@ -204,7 +238,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     });
 
 
-    // Function object prototype extensions
+    // Function prototype extensions
 
     $.extend(Function.prototype, {
 
@@ -224,6 +258,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     args = firstArgs.concat(restArgs);
                 return fn.apply(this, args);
             };
+        },
+
+        identity: function() {
+            return (this.valueOf) ? this.valueOf() : this;
         }
 
     });
@@ -432,7 +470,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var o = {};
             var a = this.serializeArray();
             $.each(a, function() {
-                $$.util.setOrPush(o, this.name, this.value);
+                $$.util.object.setOrPush(o, this.name, this.value);
             });
             return o;
         },
@@ -804,6 +842,137 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        categoryStyle: {
+            // From Bootstrap classes
+            info:{
+                color:              "rgba( 36,  82, 105, 1.0)", // .text-info:hover
+                backgroundColor:    "rgba(175, 217, 238,  .6)"  // .bg-info:hover
+            },
+            success:{
+                color:              "rgba( 43,  84,  44, 1.0)", // .text-success:hover
+                backgroundColor:    "rgba(193, 226, 179,  .6)"  // .bg-success:hover
+            },
+            warning:{
+                color:              "rgba(102,  81,  44, 1.0)", // .text-warning:hover
+                backgroundColor:    "rgba(247, 236, 181,  .6)"  // .bg-warning:hover
+            },
+            danger:{
+                color:              "rgba(132,  53,  52, 1.0)", // .text-danger:hover
+                backgroundColor:    "rgba(228, 185, 185,  .6)"  // .bg-danger:hover
+            }
+        },
+
+        captureInlineStyle: function() {
+            return this.data("inlineStyle", this.attr("style"));
+        },
+
+        restoreInlineStyle: function() {
+            var inlineStyle = this.data("inlineStyle");
+            if (inlineStyle) {
+                this.attr("style", inlineStyle);
+            } else {
+                this.removeAttr("style");
+            }
+            return this;
+        },
+
+        flash: function(category) {
+            var $elemToFlash = this,
+                originalStyle = {
+                    color:              $elemToFlash.css("color"),
+                    backgroundColor:    $elemToFlash.css("backgroundColor")
+                };
+            return $elemToFlash
+                    .captureInlineStyle()
+                    .animate(this.categoryStyle[category || "info"], 200)
+                    .animate(originalStyle, 2000, function() {
+                        $elemToFlash.restoreInlineStyle();
+                     });
+        },
+
+        // updateHTML: function(newHTML, todoIfUpdated, callbackIfUpdated) {
+        //     // todoIfUpdated can be a callback function to be called if the 'html' was
+        //     // changed, or an object with e.g. {flashClosestSel: "tr",flashCategory: "danger"}
+        //     // In both cases 'todoIfUpdated' has no effect if the 'html' was not changed
+        //     // because it was the same as before.
+        //     var $this = this,
+        //         originalHTML = $this.html();
+        //     if ( originalHTML != newHTML ) {
+        //         var originalOpacity = $this.css("opacity");
+        //         $this
+        //             .captureInlineStyle()
+        //             .animate({opacity: 0}, 200, function() {
+        //                 $this.html(newHTML);
+        //             })
+        //             .animate({opacity: originalOpacity}, 200, function (){
+        //                 $this.restoreInlineStyle();
+        //                 if ($.isPlainObject(todoIfUpdated)) {
+        //                     var closestSel = todoIfUpdated.flashClosestSel,
+        //                         $elemToFlash = closestSel ? $this.closest(closestSel) : $this;
+        //                     $elemToFlash.flash(todoIfUpdated.flashCategory);
+        //                 } else {
+        //                     $this.flash();
+        //                 }
+        //                 if ($.isFunction(callbackIfUpdated)) {
+        //                     callbackIfUpdated.call($this, newHTML, originalHTML);
+        //                 }
+        //             });
+        //     }
+        //     return this;
+        // },
+
+        updateContent: function(contentGetterFn, contentSetterFn, newContent, todoIfUpdated, callbackIfUpdated) {
+            // NOTE: Refer to 'updateWith()', 'updateHTML()' and 'updateText()' below.
+            // todoIfUpdated is an object with '{flashClosestSel: "tr", flashCategory: "danger"}'
+            // to indicate what element to flash (and how) if 'this' was actually changed.
+            // In that case, 'callbackIfUpdated' is also called, and receives the new content as argument.
+            // In both 'todoIfUpdated' and 'callbackIfUpdated' have no effect if the 'newContent' is the
+            // same as the original content.
+            var $this = this,
+                originalContent = contentGetterFn.call($this),
+                shouldUpdateContent = (originalContent != newContent);
+            if (newContent instanceof jQuery) {
+                if (! (originalContent instanceof jQuery)) {
+                    throw "'contentGetterFn' should return a jQuery element if 'newContent' is a jQuery element.";
+                }
+                shouldUpdateContent = (newContent[0].outerHTML != originalContent[0].outerHTML);
+            }
+            if ( shouldUpdateContent ) {
+                var originalOpacity = $this.css("opacity");
+                $this
+                    .captureInlineStyle()
+                    .animate({opacity: 0}, 200, function() {
+                        contentSetterFn.call($this, newContent);
+                    })
+                    .animate({opacity: originalOpacity}, 200, function (){
+                        $this.restoreInlineStyle();
+                        if ($.isPlainObject(todoIfUpdated)) {
+                            var closestSel = todoIfUpdated.flashClosestSel,
+                                $elemToFlash = closestSel ? $this.closest(closestSel) : $this;
+                            $elemToFlash.flash(todoIfUpdated.flashCategory);
+                        } else {
+                            $this.flash();
+                        }
+                        if ($.isFunction(callbackIfUpdated)) {
+                            callbackIfUpdated.call($this, newContent, originalContent);
+                        }
+                    });
+            }
+            return this;
+        },
+
+        updateWith: function($newElem, todoIfUpdated, callbackIfUpdated) {
+            return this.updateContent(Function.identity, this.replaceWith, $newElem, todoIfUpdated, callbackIfUpdated);
+        },
+
+        updateText: function(newText, todoIfUpdated, callbackIfUpdated) {
+            return this.updateContent(this.text, this.text, newText, todoIfUpdated, callbackIfUpdated);
+        },
+
+        updateHTML: function(newHTML, todoIfUpdated, callbackIfUpdated) {
+            return this.updateContent(this.html, this.html, newHTML, todoIfUpdated, callbackIfUpdated);
+        },
+
         // jQuery extensions related to Bootstrap components are prefixed by 'bs'
 
         bsEnableDropdownToggle: function(enable) {
@@ -946,21 +1115,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return str ? str : undefined;
         }
 
-    };
-
-    // TODO: How to extend Object to have this function?
-    // $.fn.setOrPush = function (key, value) {
-    // Object.prototype.setOrPush = function (key, value) {
-    util.setOrPush = function (object, key, value) {
-        if (object[key] !== undefined) {
-            if (!object[key].push) {
-                object[key] = [object[key]];
-            }
-            object[key].push(value || '');
-        } else {
-            object[key] = value || '';
-        }
-        return object;
     };
 
     util.url = {
@@ -1115,6 +1269,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 callback: callback,
                 delayInSecs: delayInSecs
             };
+            return this;
         },
 
         getJob: function(name) {
@@ -1133,29 +1288,54 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             job.callback();
             job.timeoutID = setInterval(job.callback, job.delayInSecs * 1000);
+            return this;
+        },
+
+        _logActionOnAll: function(actionName) {
+            if ($.isEmptyObject(this.jobs)){
+                console.log("No jobs to " + actionName.toLowerCase());
+            } else {
+                console.log(actionName + "ing all jobs: " + util.object.keysString(this.jobs));
+            }
         },
 
         restartAll: function() {
-            console.log("Restarting jobs: " + Object.keys(SlipStream.util.recurrentJob.jobs).join(", "));
+            this._logActionOnAll("Restart");
             $.each(this.jobs, this.restart.bind(this));
+            return this;
         },
 
         start: function(name, callback, delayInSecs) {
-            if (callback) {
+            if (name && callback && delayInSecs) {
                 this.setJob(name, callback, delayInSecs);
             }
             this.restart(name);
+            return this;
         },
 
         stop: function(name){
             var job = this.getJob(name);
             clearTimeout(job.timeoutID);
             job.timeoutID = 0;
+            return this;
         },
 
         stopAll: function() {
-            console.log("Stopping jobs: " + Object.keys(SlipStream.util.recurrentJob.jobs).join(", "));
+            this._logActionOnAll("Stop");
             $.each(this.jobs, this.stop.bind(this));
+            return this;
+        },
+
+        clear: function(name){
+            this.stop(name);
+            delete this.jobs[name];
+            return this;
+        },
+
+        clearAll: function() {
+            this._logActionOnAll("Clear");
+            $.each(this.jobs, this.clear.bind(this));
+            return this;
         }
     };
 

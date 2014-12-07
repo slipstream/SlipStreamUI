@@ -768,7 +768,7 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            "Mutable deployment"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
-   :slipstream.ui.views.run.header.title                    "%1$s is %2$s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.header.title!                   "Run: %1$s is <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.run.section.global.title            :global.adjectives.global

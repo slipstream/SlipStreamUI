@@ -161,6 +161,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function checkForm() {
+        if ($$.util.meta.isViewName("configuration")) {
+            // Nothing to validate
+            return true;
+        }
         var $saveForm = $("#save-form"),
             resourceName,
             suggestedName,
@@ -175,8 +179,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     "There are still some nodes without a reference image. Setup them correctly or remove them before saving.");
                 return false;
             }
-        } else {
-            // User is the only resource beyond module that can be created
+        } if ($$.util.meta.isViewName("user")) {
             suggestedName = usernameFromForm($saveForm);
             resourceName = "User";
             isEmailMissing = $saveForm.find("#email").val().mightBeAnEmailAddress().not();
@@ -216,5 +219,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     // $("body").getSlipStreamModel().module.dump();
+    // $("body").getSlipStreamModel().run.dump();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

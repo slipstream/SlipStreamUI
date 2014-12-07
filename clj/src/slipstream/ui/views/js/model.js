@@ -223,6 +223,129 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
             };
         };
 
+        model.getRun = function($elem) {
+            if ($elem === undefined) {
+                $elem = $(":root");
+            }
+            if (! $$.util.meta.getViewName($elem)) {
+                // $elem is not the top element of its DOM
+                $elem = $elem.parents("html");
+            }
+            var isRun   = $$.util.meta.isViewName("run", $elem),
+                finalStates = ["Cancelled", "Aborted", "Done"],
+                refreshRequest,
+                url,
+                moduleURL;
+            return {
+                getURL: function() {
+                    if (isRun && ! url) {
+                        url = "/run/" + $elem.find("#uuid").text();
+                    }
+                    return url;
+                },
+
+                setGlobalRuntimeValue: function(parameterName, value, flashCategory) {
+                    // flashCategory is optional
+                    return $elem
+                                .find("[id^='parameter-ss:" + parameterName + "']")
+                                .updateText(value, {
+                                    flashClosestSel: "tr",
+                                    flashCategory: flashCategory
+                                });
+                },
+
+                getGlobalRuntimeValue: function(parameterName) {
+                    return $elem
+                                .find("[id^='parameter-ss:" + parameterName + "']")
+                                .text();
+                },
+
+                setNodeRuntimeValue: function(nodeName, parameterName, flashCategory) {
+                    // flashCategory arg is optional
+                    return $elem
+                                .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
+                                .updateText(value, {
+                                    flashClosestSel: "tr",
+                                    flashCategory: flashCategory
+                                });
+                },
+
+                getNodeRuntimeValue: function(nodeName, parameterName) {
+                    return $elem
+                                .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
+                                .text();
+                },
+
+                setState: function(state) {
+                    this.state = state;
+                    var flashCategory = {
+                            done:       "success",
+                            cancelled:  "danger",
+                            aborted:    "danger"
+                        }[state.toLowerCase()];
+                    $elem
+                        .find("#state")
+                            .updateText(state, {flashClosestSel: "tr", flashCategory: flashCategory})
+                            .end()
+                        .find(".ss-header-title .ss-run-state")
+                            .updateText(state, {flashCategory: flashCategory});
+                    this.setGlobalRuntimeValue("state", state, flashCategory);
+                    return this;
+                },
+
+                getState: function() {
+                    return $elem.find("#state").text();
+                },
+
+                isInFinalState: function() {
+                    return this.finalStates.contains(this.getState);
+                },
+
+                getModuleURL: function() {
+                    if (isRun && ! moduleURL) {
+                        moduleURL = $elem.find("#moduleuri").text();
+                    }
+                    return moduleURL;
+                },
+
+                refresh: function() {
+                    var runModel = this;
+                    function processRunHTML(data, textStatus, jqXHR) {
+                        var $newRunHTMLRows = $("tr", data),
+                            newState = $newRunHTMLRows.find("#state").text();
+                        runModel.setState(newState);
+                        $newRunHTMLRows
+                            .find("[id]")
+                                .not("[id='state'], [id^='parameter-ss:state']") // State is already set up above
+                                    .each(function(){
+                                        var $this = $(this);
+                                        $elem
+                                            .find("[id='" + $this.id() + "']")
+                                                // .updateHTML($this.html(), {flashClosestSel: "tr"});
+                                                .updateWith($this, {flashClosestSel: "tr"});
+                                    });
+                    }
+                    if (! refreshRequest) {
+                        refreshRequest = $$.request
+                                            .get(this.getURL())
+                                            .async(false)
+                                            .dataType("html")
+                                            .onSuccess(processRunHTML);
+                    }
+                    refreshRequest.send();
+                },
+
+                dump: function() {
+                    console.trace();
+                    console.log("Testing Run querying util fns:");
+                    console.log("  - getURL:        " + this.getURL());
+                    console.log("  - getModuleURL:  " + this.getModuleURL());
+                    console.log("  - getState:      " + this.getState());
+                    return undefined;
+                }
+            };
+        };
+
 
     // jQuery extensions related to the SlipStream application model
 
@@ -234,7 +357,8 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
             // fns if the $elem is an iframe content, for example.
             var $elem = $(this);
             return {
-                module: model.getModule($elem)
+                module: model.getModule($elem),
+                run:    model.getRun($elem)
             };
         }
 

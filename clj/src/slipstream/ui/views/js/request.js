@@ -34,7 +34,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // on the returned Promise object.
 
                 // Callback signature: jqXHR.always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) { });
-                $$.util.setOrPush(this.intern, "always", callback);
+                $$.util.object.setOrPush(this.intern, "always", callback);
                 return this;
             },
             async: function (enable) {
@@ -67,7 +67,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 // Callback signature: function (data, textStatus, jqXHR) {}
 
-                $$.util.setOrPush(this.settings, "success", callback);
+                $$.util.object.setOrPush(this.settings, "success", callback);
                 return this;
             },
             onSuccessReloadPageWithoutQueryParamsInURL: function (){
@@ -125,7 +125,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // Server Error."
 
                 // Callback signature: function (jqXHR, textStatus, errorThrown) {}
-                $$.util.setOrPush(this.settings, "error", callback);
+                $$.util.object.setOrPush(this.settings, "error", callback);
                 return this;
             },
             onErrorAlert: function (titleOrMsg, msg){
@@ -301,7 +301,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // It is expected that a validation callback stopping a request
                 // properly informs the user, for example with an $$.alert.showError() call.
                 // Note that this.intern.always fn (or fns) will be called anyway.
-                $$.util.setOrPush(this.intern, "validation", callback);
+                $$.util.object.setOrPush(this.intern, "validation", callback);
                 return this;
             }
         };

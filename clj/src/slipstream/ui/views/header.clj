@@ -19,8 +19,8 @@
   (fn [match]
     (html/at match
              icon-sel             (icons/set icon)
-             status-code-sel      (ue/content-when-not-nil status-code)
-             title-sel            (ue/content-when-not-nil title)
+             status-code-sel      (ue/content-when-not-nil (str status-code))
+             title-sel            (ue/html-content-when-not-nil title)
              subtitle-sel         (ue/html-content-when-not-nil subtitle)
              title-col-sel        (ue/when-replace-class (not image-url)
                                                         "col-sm-8"

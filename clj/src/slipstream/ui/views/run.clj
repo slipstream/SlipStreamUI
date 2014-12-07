@@ -64,8 +64,8 @@
       {:html-dependencies html-dependencies
        :header {:icon  (-> run :summary :type (or :run) icons/icon-for)
                 :title (t :header.title
-                          (-> run :summary :uuid (uc/trim-from \-))
-                          (-> run :summary :state))
+                         (-> run :summary :uuid (uc/trim-from \-))
+                         (-> run :summary :state))
                 :subtitle (-> run :summary :module-uri)}
        :resource-uri (-> run :summary :uri)
        :secondary-menu-actions [action/terminate]

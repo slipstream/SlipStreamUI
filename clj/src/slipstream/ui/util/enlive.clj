@@ -31,11 +31,14 @@
     (instance? clojure.lang.PersistentStructMap (first n))
     (instance? clojure.lang.PersistentStructMap (ffirst n))))
 
+;; TODO: Refactor content-when-not-nil, if-content and when-content to make them
+;;       consistent with set-attr-* fn family
+
 (defn content-when-not-nil
   [content]
   (if (nil? content)
     identity
-    (html/content (str content))))
+    (html/content content)))
 
 (defmacro if-content
   [test content-if-truthy content-if-falsey]

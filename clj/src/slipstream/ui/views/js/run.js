@@ -303,7 +303,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     };
 
-     $$.util.recurrentJob.start("updateRun", run.autoupdateRunPage, 10);
+     // $$.util.recurrentJob.start("updateRun", run.autoupdateRunPage, 10);
 
      $$.run = run;
 
