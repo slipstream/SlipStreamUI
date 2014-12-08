@@ -67,6 +67,12 @@
     identity
     (html/html-content (str html-content))))
 
+(defmacro when-wrap
+  [test wrapping-tag-if-truthy & attrs-map]
+   `(if ~test
+     (apply html/wrap ~wrapping-tag-if-truthy [~@attrs-map])
+     identity))
+
 (defmacro when-add-class
   "Consider using (enable-class enable? cls) function below, instead of this one,
   since it will also ensure it's not present if enabled? is falsey."

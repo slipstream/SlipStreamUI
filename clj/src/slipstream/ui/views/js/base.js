@@ -207,18 +207,4 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .validation(checkForm)
         .useToSubmitForm("#save-form", updateRequest);
 
-    // Auto-open all dropdowns on mouseover.
-    // The click action is still available for touch devices.
-    $("body").bsOpenDropdownOnMouseOver();
-
-    // Enable popovers
-    $("[data-toggle='popover']").popover();
-
-    // Enable tooltips
-    $("[data-toggle='tooltip']").tooltip();
-
-
-    // $("body").getSlipStreamModel().module.dump();
-    // $("body").getSlipStreamModel().run.dump();
-
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

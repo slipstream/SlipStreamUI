@@ -305,6 +305,9 @@
 
    :slipstream.ui.views.table.input-text.placeholder.required     :global.adjectives.required
 
+   :slipstream.ui.views.table.enum-cell.view-mode.tooltip         "Possible values: %1$s" ; %1$s = All enum option values
+
+
    :slipstream.ui.views.tables.deployment-nodes-table.mapping     :global.nouns.mapping
    :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
 

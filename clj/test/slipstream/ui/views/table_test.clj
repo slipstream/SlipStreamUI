@@ -181,18 +181,18 @@
   (let [ss-timestamp (->> 1 t/hours t/ago (f/unparse (f/formatters :date-time)))
         human-readable-long (time/format :human-readable-long ss-timestamp)]
     (expect
-      (re-pattern (str "<td title=\"1 hour.* ago\" class=\"ss-table-cell-text\">" human-readable-long "</td>"))
+      (re-pattern (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour.* ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable-long "</span></td>"))
       (localization/with-lang :en
         (cell-html {:type :cell/timestamp, :content ss-timestamp}))))
 
-(expect
-  IllegalArgumentException
-  (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"}))
+  (expect
+    IllegalArgumentException
+    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"}))
 
-(expect
-  (re-pattern "<td title=\".*\" class=\"ss-table-cell-text\">mercredi, 6 mars 2013, 14:30:59 UTC</td>")
-  (localization/with-lang :fr
-    (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"}))))
+  (expect
+    (re-pattern "<td class=\"ss-table-cell-text\"><span title=\".*\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">mercredi, 6 mars 2013, 14:30:59 UTC</span></td>")
+    (localization/with-lang :fr
+      (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"}))))
 
 
 ;; Editable text cell
@@ -314,16 +314,25 @@
     :text   rand-str}])
 
 (expect
-  (str "<td title=\"Possible values: Other choice, " rand-str "\" class=\"ss-table-cell-text\">" rand-str "</td>")
-  (cell-html {:type :cell/enum, :content enum}))
+  (str "<td class=\"ss-table-cell-text\">"
+          "<span title=\"Possible values: Other choice, " rand-str "\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" rand-str "</span>"
+       "</td>")
+  (localization/with-lang :en
+    (cell-html {:type :cell/enum, :content enum})))
 
 (expect
-  (str "<td title=\"Possible values: Other choice, " rand-str "\" class=\"ss-table-cell-text\">" rand-str "</td>")
-  (cell-html {:type :cell/enum, :content {:enum enum}}))
+  (str "<td class=\"ss-table-cell-text\">"
+          "<span title=\"Possible values: Other choice, " rand-str "\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" rand-str "</span>"
+       "</td>")
+  (localization/with-lang :en
+    (cell-html {:type :cell/enum, :content {:enum enum}})))
 
 (expect
-  (str "<td title=\"Possible values: Other choice, " rand-str "\" id=\"the-id\" class=\"ss-table-cell-text\">" rand-str "</td>")
-  (cell-html {:type :cell/enum, :content {:enum enum, :id "the-id"}}))
+  (str "<td id=\"the-id\" class=\"ss-table-cell-text\">"
+          "<span title=\"Possible values: Other choice, " rand-str "\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" rand-str "</span>"
+       "</td>")
+  (localization/with-lang :en
+    (cell-html {:type :cell/enum, :content {:enum enum, :id "the-id"}})))
 
 
 ;; Editable enum cell

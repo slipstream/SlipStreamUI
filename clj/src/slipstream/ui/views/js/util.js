@@ -907,10 +907,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 if (! (originalContent instanceof jQuery)) {
                     throw "'contentGetterFn' should return a jQuery element if 'newContent' is a jQuery element.";
                 }
+                $newElem = newContent.bsEnableDynamicElements();
+                // enable dynamic Bootstrap elements beofre comparing outerHTML, since attributes might change.
                 shouldUpdateContent = (newContent[0].outerHTML != originalContent[0].outerHTML);
-                shouldVisuallyHighlightUpdate = (newContent.html() != originalContent.html());
+                shouldVisuallyHighlightUpdate = (newContent.text() != originalContent.text());
                 if (shouldVisuallyHighlightUpdate) {
-                    $newElem = newContent.css("opacity", 0);
+                    $newElem.css("opacity", 0);
                 }
             }
             if (shouldUpdateContent) {
@@ -1073,6 +1075,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                         this.button("active");
                     }
                 });
+            return this;
+        },
+
+        bsEnableDynamicElements: function() {
+            this
+                // Enable popovers
+                .find("[data-toggle='popover']")
+                    .popover()
+                    .end()
+                // Enable tooltips
+                .find("[data-toggle='tooltip']")
+                    .tooltip();
             return this;
         }
 

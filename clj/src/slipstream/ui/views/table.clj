@@ -51,20 +51,31 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(ue/def-blank-snippet ^:private text-with-tooltip-snip :span
+  [{:keys [text tooltip]}]
+  ue/this (html/html-content      (str text))
+  ue/this (html/add-class         "ss-table-tooltip")
+  ue/this (ue/set-data :toggle    "tooltip")
+  ue/this (ue/set-data :placement "bottom")
+  ue/this (ue/set-title           (str tooltip)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Enlive cell snips
 
 ; Text cell
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
   [{:keys [text tooltip id class colspan] :as cell-content}]
-  ue/this (html/html-content (str text))
+  ue/this  (if (not-empty tooltip)
+             (html/content (text-with-tooltip-snip cell-content))
+             (html/html-content (str text)))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
   ue/this (ue/set-id id)
   ue/this (ue/when-add-class class)
-  ue/this (ue/set-colspan colspan)
-  ue/this (ue/when-set-title (not-empty tooltip)
-                             (str tooltip)))
+  ue/this (ue/set-colspan colspan))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
   [{:keys [text tooltip id read-only? disabled? placeholder class data required?] :as cell-content}]
@@ -119,6 +130,17 @@
   [:input]  (ue/set-value password)
   [:input]  (ue/add-requirements cell-content)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
+
+; Timestamp cell
+
+(defn- cell-timestamp-snip-view
+  [{:keys [timestamp] :as content} text-format tooltip-format]
+  (cell-text-snip-view (-> content
+                           (dissoc :timestamp)
+                           (assoc :text (or
+                                          (ut/format text-format timestamp)
+                                          (t :timestamp.unknown))
+                                  :tooltip (ut/format tooltip-format timestamp)))))
 
 ; Boolean cell
 
@@ -388,7 +410,7 @@
   [{{:keys [enum id]} :content}]
   (cell-text-snip-view {:text (selected-options-str enum)
                         :id id
-                        :tooltip (str "Possible values: " (options-str enum))}))
+                        :tooltip (t :enum-cell.view-mode.tooltip (options-str enum))}))
 
 (defmethod cell-snip [:cell/enum :mode/view :content/plain]
   [{enum :content :as cell}]
@@ -421,16 +443,6 @@
   (cell-text-snip-edit (-> content
                            (assoc :text (-> content :set uc/join-as-str))
                            (dissoc :set))))
-
-
-(defn- cell-timestamp-snip-view
-  [{:keys [timestamp] :as content} text-format tooltip-format]
-  (cell-text-snip-view (-> content
-                           (dissoc :timestamp)
-                           (assoc :text (or
-                                          (ut/format text-format timestamp)
-                                          (t :timestamp.unknown))
-                                  :tooltip (ut/format tooltip-format timestamp)))))
 
 (defmethod cell-snip [:cell/timestamp :mode/any :content/map]
   [{content :content}]

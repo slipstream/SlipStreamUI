@@ -7,4 +7,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.util.meta.getMetaValue("ss-navigate-away-confirmation-msg")
     );
 
+    $("body")
+        // Auto-open all dropdowns on mouseover.
+        // The click action is still available for touch devices.
+        .bsOpenDropdownOnMouseOver()
+        .bsEnableDynamicElements();
+
+    // $("body").getSlipStreamModel().module.dump();
+    // $("body").getSlipStreamModel().run.dump();
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
