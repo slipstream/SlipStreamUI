@@ -1,5 +1,7 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    var runModel = $("body").getSlipStreamModel().run;
+
     var run = {
 
         initialState: '...',
@@ -298,12 +300,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         autoupdateRunPage: function() {
             console.log("Updating run page...");
-            run.updateParameters();
+            // run.updateParameters();
+            runModel.refresh();
             run.updateReports();
         }
     };
 
-     // $$.util.recurrentJob.start("updateRun", run.autoupdateRunPage, 10);
+     $$.util.recurrentJob.start("updateRun", run.autoupdateRunPage, 15);
 
      $$.run = run;
 
