@@ -276,6 +276,12 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                 .text();
                 },
 
+                getNodeInstanceRuntimeValue: function(nodeName, nodeInstanceIndex, parameterName) {
+                    return $elem
+                                .find("[id^='parameter-" + nodeName + "." + nodeInstanceIndex + ":" + parameterName + "']")
+                                .text();
+                },
+
                 setState: function(state) {
                     this.state = state;
                     var flashCategory = {

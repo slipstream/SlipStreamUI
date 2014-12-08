@@ -1,16 +1,13 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    //init data
+    var runModel = $("body").getSlipStreamModel().run;
+
     var getRuntimeValue = function(nodeName, parameterName) {
-        return $$.run.getRuntimeValue(nodeName, parameterName);
+        return runModel.getNodeRuntimeValue(nodeName, parameterName);
     };
 
     var getGlobalRuntimeValue = function(parameterName) {
-        return $$.run.getGlobalRuntimeValue(parameterName);
-    };
-
-    var getRuntimeValueFullName = function(parameterName) {
-        return $$.run.getRuntimeValueFullName(parameterName);
+        return runModel.getGlobalRuntimeValue(parameterName);
     };
 
     var cloudServiceNodesMap = function() {
@@ -69,22 +66,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     var isBuild = function() {
-        return getRunType() === 'Build';
+        return getRunType() === 'Image Build';
     }
 
     var isDeployment = function() {
-        return getRunType() === 'Deployment';
+        return getRunType() === 'Deployment Run';
     }
 
     var addOrchestrators = function() {
         if(isDeployment()) {
             addDeploymentOrchestrator();
+        } else if(isBuild()) {
+            addBuildOrchestrator();
         } else {
-            if(isBuild()) {
-                addBuildOrchestrator();
-            } else {
-                root.children.push(createMachine());
-            }
+            root.children.push(createMachine());
         }
         if(root.children.length === 1) {
             // collapse the orchestrator to the root node
@@ -230,7 +225,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 label.innerHTML = "<div class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "'/> \
                     <ul style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(getRuntimeValueFullName(node.name + "\\.1\\:state")) + " (?/" + getRuntimeValueFullName(node.name + "\\.1\\:multiplicity") + ")</div> \
+                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(runModel.getNodeInstanceRuntimeValue(node.name, 1, "state")) + " (?/" + runModel.getNodeInstanceRuntimeValue(node.name, 1, "multiplicity") + ")</div> \
                     </ul></div>";
             }
 
