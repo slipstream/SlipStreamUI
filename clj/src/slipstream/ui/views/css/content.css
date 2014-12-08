@@ -13,3 +13,7 @@ code {
 .has-error code {
   color: #a94442;
 }
+
+.text-muted {
+  font-weight:  300;
+}
