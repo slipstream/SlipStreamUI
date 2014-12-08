@@ -649,9 +649,9 @@
 (defn- vm-row
   [{:keys [cloud-name run-uuid cloud-instance-id username state] :as vm}]
   {:style  nil
-   :cells [(if run-uuid
+   :cells [(if (and (not-empty run-uuid) (not= run-uuid "Unknown"))
                {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-               {:type :cell/text, :content {:text "Unknown"}})
+               {:type :cell/text, :content {:text (t :run.uuid.unknown)}})
            {:type :cell/text,     :content (localization/with-prefixed-t :run.state
                                              (-> (or state :unknown) uc/keywordize t))}
            {:type :cell/username, :content username}
