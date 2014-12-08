@@ -866,8 +866,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.data("inlineStyle", this.attr("style"));
         },
 
-        restoreInlineStyle: function() {
-            var inlineStyle = this.data("inlineStyle");
+        restoreInlineStyle: function($elemToRestoreFrom) {
+            var inlineStyle = ($elemToRestoreFrom || this).data("inlineStyle");
             if (inlineStyle) {
                 this.attr("style", inlineStyle);
             } else {
@@ -890,37 +890,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                      });
         },
 
-        // updateHTML: function(newHTML, todoIfUpdated, callbackIfUpdated) {
-        //     // todoIfUpdated can be a callback function to be called if the 'html' was
-        //     // changed, or an object with e.g. {flashClosestSel: "tr",flashCategory: "danger"}
-        //     // In both cases 'todoIfUpdated' has no effect if the 'html' was not changed
-        //     // because it was the same as before.
-        //     var $this = this,
-        //         originalHTML = $this.html();
-        //     if ( originalHTML != newHTML ) {
-        //         var originalOpacity = $this.css("opacity");
-        //         $this
-        //             .captureInlineStyle()
-        //             .animate({opacity: 0}, 200, function() {
-        //                 $this.html(newHTML);
-        //             })
-        //             .animate({opacity: originalOpacity}, 200, function (){
-        //                 $this.restoreInlineStyle();
-        //                 if ($.isPlainObject(todoIfUpdated)) {
-        //                     var closestSel = todoIfUpdated.flashClosestSel,
-        //                         $elemToFlash = closestSel ? $this.closest(closestSel) : $this;
-        //                     $elemToFlash.flash(todoIfUpdated.flashCategory);
-        //                 } else {
-        //                     $this.flash();
-        //                 }
-        //                 if ($.isFunction(callbackIfUpdated)) {
-        //                     callbackIfUpdated.call($this, newHTML, originalHTML);
-        //                 }
-        //             });
-        //     }
-        //     return this;
-        // },
-
         updateContent: function(contentGetterFn, contentSetterFn, newContent, todoIfUpdated, callbackIfUpdated) {
             // NOTE: Refer to 'updateWith()', 'updateHTML()' and 'updateText()' below.
             // todoIfUpdated is an object with '{flashClosestSel: "tr", flashCategory: "danger"}'
@@ -928,35 +897,51 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // In that case, 'callbackIfUpdated' is also called, and receives the new content as argument.
             // In both 'todoIfUpdated' and 'callbackIfUpdated' have no effect if the 'newContent' is the
             // same as the original content.
-            var $this = this,
-                originalContent = contentGetterFn.call($this),
-                shouldUpdateContent = (originalContent != newContent);
+            var $originalElem = this,
+                $newElem = this,
+                originalContent     = contentGetterFn.call($originalElem),
+                shouldUpdateContent = (originalContent != newContent),
+                shouldVisuallyHighlightUpdate = true,
+                fadeDuration        = 200;
             if (newContent instanceof jQuery) {
                 if (! (originalContent instanceof jQuery)) {
                     throw "'contentGetterFn' should return a jQuery element if 'newContent' is a jQuery element.";
                 }
                 shouldUpdateContent = (newContent[0].outerHTML != originalContent[0].outerHTML);
+                shouldVisuallyHighlightUpdate = (newContent.html() != originalContent.html());
+                if (shouldVisuallyHighlightUpdate) {
+                    $newElem = newContent.css("opacity", 0);
+                }
             }
-            if ( shouldUpdateContent ) {
-                var originalOpacity = $this.css("opacity");
-                $this
-                    .captureInlineStyle()
-                    .animate({opacity: 0}, 200, function() {
-                        contentSetterFn.call($this, newContent);
-                    })
-                    .animate({opacity: originalOpacity}, 200, function (){
-                        $this.restoreInlineStyle();
-                        if ($.isPlainObject(todoIfUpdated)) {
-                            var closestSel = todoIfUpdated.flashClosestSel,
-                                $elemToFlash = closestSel ? $this.closest(closestSel) : $this;
-                            $elemToFlash.flash(todoIfUpdated.flashCategory);
-                        } else {
-                            $this.flash();
-                        }
-                        if ($.isFunction(callbackIfUpdated)) {
-                            callbackIfUpdated.call($this, newContent, originalContent);
-                        }
-                    });
+            if (shouldUpdateContent) {
+                if (shouldVisuallyHighlightUpdate) {
+                    var originalOpacity = $originalElem.css("opacity");
+                    $originalElem
+                        .captureInlineStyle()
+                        .animate({opacity: 0}, fadeDuration, function() {
+                            contentSetterFn.call($originalElem, newContent);
+                            $newElem
+                                .animate({opacity: originalOpacity}, fadeDuration, function (){
+                                    $newElem.restoreInlineStyle($originalElem);
+                                    if ($.isPlainObject(todoIfUpdated)) {
+                                        var closestSel = todoIfUpdated.flashClosestSel,
+                                            $elemToFlash = closestSel ? $newElem.closest(closestSel) : $newElem;
+                                        $elemToFlash.flash(todoIfUpdated.flashCategory);
+                                    } else {
+                                        $newElem.flash();
+                                    }
+                                    if ($.isFunction(callbackIfUpdated)) {
+                                        callbackIfUpdated.call($newElem, newContent, originalContent);
+                                    }
+                                });
+                        });
+                } else {
+                    // Update without visually highlighting the change
+                    contentSetterFn.call($originalElem, newContent);
+                    if ($.isFunction(callbackIfUpdated)) {
+                        callbackIfUpdated.call($newElem, newContent, originalContent);
+                    }
+                }
             }
             return this;
         },
