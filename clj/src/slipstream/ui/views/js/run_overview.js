@@ -113,15 +113,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     addOrchestrators();
 
-    var canvasHeight = 200;
+    var canvasHeight = 300;
 
     //Increase height for deployment
     if(isDeployment()) {
         canvasHeight = 600;
-        var height = canvasHeight + 'px';
-        $("#center-container").css('height', height)
-        $("#infovis").css('height', height)
     }
+    var height = canvasHeight + 'px';
+    $("#center-container").css('height', height)
+    $("#infovis").css('height', height)
 
     //Create a new ST instance
     var st = new $jit.ST({
