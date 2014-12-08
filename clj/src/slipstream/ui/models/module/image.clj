@@ -16,7 +16,10 @@
    :cloud-identifiers (->> (html/select metadata [:cloudImageIdentifier])
                            (map :attrs)
                            (map (juxt :cloudservicename :cloudimageidentifier))
-                           (into {}))
+                           (into (zipmap
+                                   (->> (html/select metadata [:cloudNames :string html/text])
+                                        (remove #{"default"}))
+                                   (repeat nil))))
    :reference-image   (-> metadata :attrs :modulereferenceuri (uc/trim-prefix "module/"))})
 
 

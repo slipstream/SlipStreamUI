@@ -94,6 +94,7 @@
     <string>stratuslab</string>
     <string>atos</string>
     <string>sky</string>
+    <string>default</string>
 </cloudNames>
 <targets class='org.hibernate.collection.PersistentBag'>
     <target name='execute' runInBackground='false'>execute target</target>
@@ -123,7 +124,9 @@
 (def parsed-metadata
   {:cloud-image-details {:reference-image "examples/images/ubuntu-12.04"
                        :cloud-identifiers {"stratuslab" "HZTKYZgX7XzSokCHMB60lS0wsiv"
-                                           "my-cloud" "abc"}
+                                           "my-cloud" "abc"
+                                           "atos" nil
+                                           "sky" nil}
                        :native-image? false}
    :os-details {:login-username "donald"
                 :platform [{:value  "centos",   :text   "CentOS"}
@@ -289,7 +292,8 @@
                    :inherited-group-members? true}
    :available-clouds [{:value "stratuslab", :text "stratuslab"}
                       {:value "atos", :text "atos"}
-                      {:selected? true, :value "sky", :text "sky"}]
+                      {:selected? true, :value "sky", :text "sky"}
+                      {:value "default", :text "default"}]
    :summary {:deleted? false
              :comment "this is a comment"
              :creation "2013-03-07 21:03:09.124 CET"
