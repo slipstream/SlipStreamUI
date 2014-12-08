@@ -1,14 +1,8 @@
 (ns slipstream.ui.models.run-items
   "Parsing of run items, used in dashboard and module/image models."
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.clojure :as uc]))
-
-;; TODO: merge this with slipstream.ui.models.run/run-type-mapping
-(def run-type-mapping
-  {"Orchestration"  "Deployment"
-   "Machine"        "Build"
-   "Run"             "Run"})
-   ; "Run"             "Simple Run"})
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.models.run :as run]))
 
 (defn- parse-run-item
   [run-item-metadata]
@@ -19,7 +13,7 @@
                       :uuid
                       :username])
         (assoc        :start-time  (-> attrs :starttime))
-        (assoc        :type        (-> attrs :type run-type-mapping))
+        (assoc        :type        (-> attrs :type run/run-type-mapping))
         (assoc        :module-uri  (-> attrs :moduleresourceuri))
         (assoc        :uri         (-> attrs :resourceuri))
         (assoc        :cloud-name  (-> attrs :cloudservicename)))))

@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.dashboard-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.dashboard :as model]))
 
 (def raw-metadata-str
@@ -63,7 +64,7 @@
            :runs [{:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-                   :type "Deployment"
+                   :type "Deployment Run"
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
@@ -71,7 +72,7 @@
                   {:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-                   :type "Run"
+                   :type "Image Run"
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
@@ -79,7 +80,7 @@
                   {:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-                   :type "Build"
+                   :type "Image Build"
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
@@ -93,4 +94,5 @@
                     :current-usage 13
                     :quota 15}]}
    :metering {:enabled? true}}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
+  (localization/with-lang :en
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))

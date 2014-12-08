@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.run-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.run :as model]))
 
 (def raw-metadata-str
@@ -581,9 +582,9 @@
                                 #!/bin/sh -xe
                                 apt-get update -y
                                 apt-get install -y apache2
-                                
+
                                 echo 'Hello from Apache deployed by SlipStream!' > /var/www/data.txt
-                                
+
                                 service apache2 stop
                                 port=$(ss-get port)
                                 sed -i -e 's/^Listen.*$/Listen '$port'/' /etc/apache2/ports.conf
@@ -1027,7 +1028,7 @@
                                 web_server_ip=$(ss-get --timeout 360 webserver.hostname)
                                 web_server_port=$(ss-get --timeout 360 webserver.port)
                                 ss-get --timeout 360 webserver.ready
-                                
+
                                 # Execute the test
                                 ENDPOINT=http://${web_server_ip}:${web_server_port}/data.txt
                                 wget -t 2 -O /tmp/data.txt ${ENDPOINT}
@@ -1470,7 +1471,8 @@
 
 (expect
   [:runtime-parameters :summary]
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys))
+  (localization/with-lang :en
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys)))
 
 (expect
   {:end-time "2014-09-24 00:20:06.517 CEST"
@@ -1483,11 +1485,12 @@
    :start-time "2014-09-24 00:12:43.287 CEST"
    :uri "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :uuid "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
-   :type "Deployment"
+   :type "Deployment Run"
    :user "super"
    :category "Deployment"
    :tags "\n                 \n            "}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary))
+  (localization/with-lang :en
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary)))
 
 
 ; The metadata mockup contains too many runtime parameters to test,
@@ -1591,5 +1594,6 @@
                          :order 2147483647
                          :mapped-value? false
                          :value "\n                 \n            "}]}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters first))
+  (localization/with-lang :en
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters first)))
 

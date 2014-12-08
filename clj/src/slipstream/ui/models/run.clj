@@ -1,12 +1,19 @@
 (ns slipstream.ui.models.run
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.runtime-parameters :as runtime-parameters]))
 
-(def run-type-mapping
-  {"Orchestration"  "Deployment"
-   "Machine"        "Build"
-   "Run"             "Simple Run"})
+(localization/def-scoped-t)
+
+(defn run-type-mapping
+  "Also used in ns 'slipstream.ui.models.run-items'."
+  [original-type]
+  (case original-type
+    "Machine"        (t :type.machine)
+    "Run"            (t :type.run)
+    "Orchestration"  (t :type.orchestration)
+    nil))
 
 (defn- summary
   [metadata]

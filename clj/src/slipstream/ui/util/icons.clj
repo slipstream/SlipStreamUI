@@ -41,9 +41,12 @@
 (deficon dashboard              "dashboard")
 (deficon vms                    dashboard)
 (deficon deployment             "th")
-(deficon run                    deployment)
-(deficon build                  "tower")
 (deficon image                  "hdd")
+(deficon build                  "tower")
+(deficon deployment-run         deployment)
+(deficon image-run              image)
+(deficon image-build            build)
+(deficon run                    deployment)
 (deficon node                   "unchecked")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
@@ -70,6 +73,13 @@
 (deficon action-ok              "ok")
 (deficon action-export-users    "download")
 
+(defn- icon-get
+  [icon-symbol]
+  (if-let [icon-resolved-symbol (resolve icon-symbol)]
+    (var-get icon-resolved-symbol)
+    (do
+      (println (str "Missing icon: '" icon-symbol "' - Using 'unknown' instead."))
+      unknown)))
 
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.
@@ -77,11 +87,11 @@
   Useful to retrieve icons for module categories."
   [item]
   (->> (or item "unknown")
+       uc/keywordize
        name
        s/lower-case
        (symbol this-ns)
-       resolve
-       var-get))
+       icon-get))
 
 ;; Bootstrap
 
