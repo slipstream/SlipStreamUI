@@ -300,9 +300,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         autoupdateRunPage: function() {
             console.log("Updating run page...");
-            // run.updateParameters();
-            runModel.refresh();
             run.updateReports();
+            // run.updateParameters();
+            return ! runModel
+                        .refresh()
+                        .isInFinalState();
         }
     };
 

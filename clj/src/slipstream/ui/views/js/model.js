@@ -232,7 +232,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 $elem = $elem.parents("html");
             }
             var isRun   = $$.util.meta.isViewName("run", $elem),
-                finalStates = ["Cancelled", "Aborted", "Done"],
+                finalStates = ["cancelled", "aborted", "done"],
                 refreshRequest,
                 url,
                 moduleURL;
@@ -298,7 +298,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 },
 
                 isInFinalState: function() {
-                    return this.finalStates.contains(this.getState);
+                    return finalStates.contains(this.getState().trim().toLowerCase());
                 },
 
                 getModuleURL: function() {
@@ -321,7 +321,6 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                         var $this = $(this);
                                         $elem
                                             .find("[id='" + $this.id() + "']")
-                                                // .updateHTML($this.html(), {flashClosestSel: "tr"});
                                                 .updateWith($this, {flashClosestSel: "tr"});
                                     });
                     }
@@ -333,6 +332,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                             .onSuccess(processRunHTML);
                     }
                     refreshRequest.send();
+                    return this;
                 },
 
                 dump: function() {

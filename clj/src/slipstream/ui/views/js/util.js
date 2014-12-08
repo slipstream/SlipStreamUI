@@ -1262,31 +1262,52 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         setJob: function(name, callback, delayInSecs) {
             if (this.jobs[name]) {
-                this.stop(name);
+                this.clear(name);
             }
-            this.jobs[name] = {
-                callback: callback,
-                delayInSecs: delayInSecs
+
+            var newJob = {
+                name:           name,
+                callback:       undefined,
+                delayInSecs:    delayInSecs,
+                runCount:       0
             };
+
+            function jobRunner(){
+                newJob.runCount += 1;
+                var ret = callback.call(newJob, name);
+                if (ret === false && util.recurrentJob.jobs[name]) {
+                    util.recurrentJob.stop(name);
+                }
+                return ret;
+            }
+
+            newJob.callback = jobRunner;
+            this.jobs[name] = newJob;
+
             return this;
         },
 
         getJob: function(name) {
             var job = this.jobs[name];
             if (! job) {
-                throw "No job found named " + name;
+                throw "No job found with name: " + name;
             }
             return job;
         },
 
         restart: function(name) {
             this.runJobsOnlyOnWindowsFocused();
-            var job = this.getJob(name);
-            if (job.timeoutID) {
+            var job = this.getJob(name),
+                shouldSchedule = true;
+            if (job.timeoutID === 0) {
+                // Call it once right when restarting it
+                shouldSchedule = (job.callback() !== false);
+            } else if (job.timeoutID > 0) {
                 this.stop(name);
             }
-            job.callback();
-            job.timeoutID = setInterval(job.callback, job.delayInSecs * 1000);
+            if (shouldSchedule) {
+                job.timeoutID = setInterval(job.callback, job.delayInSecs * 1000);
+            }
             return this;
         },
 
@@ -1305,10 +1326,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         start: function(name, callback, delayInSecs) {
-            if (name && callback && delayInSecs) {
-                this.setJob(name, callback, delayInSecs);
+            if (! name || ! callback || ! delayInSecs) {
+                throw "Provide all arguments: start(jobName, callback, delayInSecs) or try restart(jobName).";
             }
-            this.restart(name);
+            this
+                .setJob(name, callback, delayInSecs)
+                .restart(name);
             return this;
         },
 
