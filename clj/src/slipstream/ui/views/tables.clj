@@ -264,33 +264,36 @@
    :post              "Post"})
 
 (defn- access-right-row
-  [access-rights [access-right-name access-rights-key]]
+  [access-rights [access-rights-key access-right-name help-hint]]
   (let [{:keys [owner-access? group-access? public-access?] :as access-rights} (get access-rights access-rights-key)
         id-suffix (access-rights-id-suffix access-rights-key)]
     {:style (when (page-type/view-or-chooser?) (access-right-row-style access-rights))
-     :cells [{:type :cell/text,     :content access-right-name}
-             {:type :cell/boolean,  :content {:value owner-access?,   :id (str "owner"  id-suffix)},  :editable? (page-type/edit-or-new?)}
-             {:type :cell/boolean,  :content {:value group-access?,   :id (str "group"  id-suffix)},  :editable? (page-type/edit-or-new?)}
-             {:type :cell/boolean,  :content {:value public-access?,  :id (str "public" id-suffix)},  :editable? (page-type/edit-or-new?)}]}))
+     :cells [{:type :cell/text,       :content access-right-name}
+             {:type :cell/boolean,    :content {:value owner-access?,     :id (str "owner"  id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/boolean,    :content {:value group-access?,     :id (str "group"  id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/boolean,    :content {:value public-access?,    :id (str "public" id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/help-hint,  :content {:title access-right-name, :content help-hint}}]}))
 
 (defn- access-rights-rows
-  [module-type]
+  [module-category]
   (vector
-    [(t :access.view)   :get]
-    [(t :access.edit)   :put]
-    [(t :access.delete) :delete]
-    (case module-type
-      :project    [(t :access.create-children)    :create-children]
-      :image      [(t :access.build-or-run-image) :post]
-      :deployment [(t :access.run-deployment)     :post])))
+    [:get     (t :access.view.description)    (case module-category
+                                                :project    (t :access.view.project.help-hint)
+                                                (t :access.view.image.help-hint (u/t-module-category module-category s/lower-case)))]
+    [:put     (t :access.edit.description)    (t :access.edit.help-hint)]
+    [:delete  (t :access.delete.description)  (t :access.delete.help-hint)]
+    (case module-category
+      :project    [:create-children (t :access.create-children.description)     (t :access.create-children.help-hint)]
+      :image      [:post            (t :access.build-or-run-image.description)  (t :access.build-or-run-image.help-hint)]
+      :deployment [:post            (t :access.run-deployment.description)      (t :access.run-deployment.help-hint)])))
 
 (defn access-rights-table
   [module]
-  (let [module-type   (-> module :summary :category uc/keywordize)
+  (let [module-category   (-> module :summary :category uc/keywordize)
         access-rights (-> module :authorization :access-rights)]
     (table/build
-      {:headers [:access-right :owner :group :public]
-       :rows (->> module-type
+      {:headers [:access-right :owner :group :public nil]
+       :rows (->> module-category
                   access-rights-rows
                   (map (partial access-right-row access-rights)))})))
 

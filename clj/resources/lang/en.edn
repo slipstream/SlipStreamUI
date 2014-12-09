@@ -321,12 +321,21 @@
    :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF in new page"
    :slipstream.ui.views.tables.documentation.open-epub        :global.verbs.download
 
-   :slipstream.ui.views.tables.access.view                    :global.verbs.view
-   :slipstream.ui.views.tables.access.edit                    :global.verbs.edit
-   :slipstream.ui.views.tables.access.delete                  :global.verbs.delete
-   :slipstream.ui.views.tables.access.create-children         "Create children"
-   :slipstream.ui.views.tables.access.run-deployment          "Run deployment"
-   :slipstream.ui.views.tables.access.build-or-run-image      "Build or run single image"
+   :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
+   :slipstream.ui.views.tables.access.view.project.help-hint              "The users in the selected level will be able to find and see this project."
+   :slipstream.ui.views.tables.access.view.image.help-hint                "The users in the selected level will be able to find and see this %1$s. If this %1$s is published to
+                                                                          the AppStore, this 'view' access level will still apply to determine which users see this %1$s in the AppStore."
+   :slipstream.ui.views.tables.access.view.deployment.help-hint           "The users in the selected level will be able to find and see this module."
+   :slipstream.ui.views.tables.access.edit.description                    :global.verbs.edit
+   :slipstream.ui.views.tables.access.edit.help-hint                      ""
+   :slipstream.ui.views.tables.access.delete.description                  :global.verbs.delete
+   :slipstream.ui.views.tables.access.delete.help-hint                    ""
+   :slipstream.ui.views.tables.access.create-children.description         "Create children"
+   :slipstream.ui.views.tables.access.create-children.help-hint           "The users in the selected level will be able to created subprojects, images or deployments in this project."
+   :slipstream.ui.views.tables.access.run-deployment.description          "Run deployment"
+   :slipstream.ui.views.tables.access.run-deployment.help-hint            "The users in the selected level will be able to launch a new run of this deployment."
+   :slipstream.ui.views.tables.access.build-or-run-image.description      "Build or run single image"
+   :slipstream.ui.views.tables.access.build-or-run-image.help-hint        "The users in the selected level will be able to trigger a build of this image or launch a new run of this image."
 
    :slipstream.ui.views.tables.action.delete                  "Delete..."
 
