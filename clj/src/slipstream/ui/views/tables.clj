@@ -268,11 +268,12 @@
   (let [{:keys [owner-access? group-access? public-access?] :as access-rights} (get access-rights access-rights-key)
         id-suffix (access-rights-id-suffix access-rights-key)]
     {:style (when (page-type/view-or-chooser?) (access-right-row-style access-rights))
-     :cells [{:type :cell/text,       :content access-right-name}
-             {:type :cell/boolean,    :content {:value owner-access?,     :id (str "owner"  id-suffix)},  :editable? (page-type/edit-or-new?)}
-             {:type :cell/boolean,    :content {:value group-access?,     :id (str "group"  id-suffix)},  :editable? (page-type/edit-or-new?)}
-             {:type :cell/boolean,    :content {:value public-access?,    :id (str "public" id-suffix)},  :editable? (page-type/edit-or-new?)}
-             {:type :cell/help-hint,  :content {:title access-right-name, :content help-hint}}]}))
+     :cells [{:type :cell/text,         :content access-right-name}
+             {:type :cell/boolean,      :content {:value true},                                             :editable? false}
+             {:type :cell/hidden-input, :content {:value "on",              :id (str "owner"  id-suffix)}}
+             {:type :cell/boolean,      :content {:value group-access?,     :id (str "group"  id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/boolean,      :content {:value public-access?,    :id (str "public" id-suffix)},  :editable? (page-type/edit-or-new?)}
+             {:type :cell/help-hint,    :content {:title access-right-name, :content help-hint}}]}))
 
 (defn- access-rights-rows
   [module-category]
