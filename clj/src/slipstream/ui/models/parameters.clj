@@ -108,3 +108,12 @@
   (->> parameters
        flatten
        (some (partial value-when-named parameter-name))))
+
+(defn update
+  [parameters parameters-to-update k v]
+  (let [parameters-set (set parameters-to-update)
+        update-fn (fn [parameter]
+                    (if (-> parameter :name parameters-set)
+                      (assoc parameter k v)
+                      parameter))]
+    (uc/map-in [:parameters] update-fn parameters)))

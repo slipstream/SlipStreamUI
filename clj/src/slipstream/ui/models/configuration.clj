@@ -2,12 +2,18 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.models.parameters :as parameters]))
 
+(def ^:private non-editable-fields
+  "The parameter attr 'readOnly' provided by the server is not yet used in a standard
+  way, so that we manually flag here the fields that we know as non editable."
+  ["slipstream.version"])
+
 (defn parse
   [metadata]
   {:parameters (-> metadata
                    (html/select [:serviceConfiguration])
                    first
-                   parameters/parse)})
+                   parameters/parse
+                   (parameters/update non-editable-fields :editable? false))})
 
 ;; Configuration parameters utils
 
