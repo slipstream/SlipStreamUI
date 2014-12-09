@@ -382,10 +382,10 @@
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Are group members inherited from parent module?"
-   :slipstream.ui.models.parameters.inherited-group-members?.help-hint          ""
+   :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 
    :slipstream.ui.models.parameters.group-members.description                   "Group members"
-   :slipstream.ui.models.parameters.group-members.help-hint                     ""
+   :slipstream.ui.models.parameters.group-members.help-hint                     "You can define a new set of SlipStream users as the 'Group' level of this module by entering a comma separated list of usernames."
 
    :slipstream.ui.models.parameters.native-image?.description                   "Native image"
    :slipstream.ui.models.parameters.native-image?.help-hint                     "This image maps to an existing cloud-specific image,
