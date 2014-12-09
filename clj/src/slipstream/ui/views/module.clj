@@ -108,6 +108,8 @@
        :alerts [(old-version-alert summary)
                 (edit-published-alert summary)]
        :resource-uri (:uri summary)
-       :html-dependencies (html-dependencies module)
+       :html-dependencies (merge-with (comp vec concat)
+                            {:internal-js-filenames ["module.js"]}
+                            (html-dependencies module))
        :secondary-menu-actions (actions module)
        :content (sections module)})))

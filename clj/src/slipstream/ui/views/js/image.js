@@ -1,7 +1,6 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     function toggleBaseImageFormInputs(isBase) {
-        var disableOptions = {disableReason: "This attribute will be removed when on saving."};
         // Toggle as well the two form inputs in the section "Operating System Details" below.
         $(".cloudimageid_imageid_, select#platform, input#loginUser")
             .closest("tr")
