@@ -397,19 +397,22 @@
    :slipstream.ui.models.parameters.group-members.help-hint                     "You can define a new set of SlipStream users as the 'Group' level of this module by entering a comma separated list of usernames."
 
    :slipstream.ui.models.parameters.native-image?.description                   "Native image"
-   :slipstream.ui.models.parameters.native-image?.help-hint                     "This image maps to an existing cloud-specific image,
-                                                                                 which SlipStream didn't create. For native images, you
-                                                                                 are required to provide cloud image identifiers for
-                                                                                 each cloud you want to use. For non-native images, you
-                                                                                 need to provide a reference image, which can be chained,
-                                                                                 to a native image."
+   :slipstream.ui.models.parameters.native-image?.help-hint                     "A native image maps to an existing cloud-specific image,
+                                                                                 which SlipStream didn't create. For native images, the Cloud Image IDs
+                                                                                 must be provided for each of the targeted clouds.
+                                                                                 For non-native images a SlipStream parent image must be specified instead."
 
    :slipstream.ui.models.parameters.cloud-identifiers.description               "Cloud image IDs"
-   :slipstream.ui.models.parameters.cloud-identifiers.help-hint                 "Contains the cloud specific image unique identifier
-                                                                                 (e.g. ami-xxxxxx for Amazon EC2)."
+   :slipstream.ui.models.parameters.cloud-identifiers.help-hint                 "If this is a native image, SlipStream must know the Cloud Image IDs corresponding
+                                                                                 to this image on each of the targeted clouds (e.g. 'ami-xxxxxx' for Amazon EC2).
+                                                                                 Other SlipStream images will be able to use a native image as parent image."
 
-   :slipstream.ui.models.parameters.reference-image.description                 "This image is based on"
-   :slipstream.ui.models.parameters.reference-image.help-hint                   "The image module this image inherits from."
+   :slipstream.ui.models.parameters.reference-image.description                 "Parent image"
+   :slipstream.ui.models.parameters.reference-image.help-hint                   "If this is not a native image, a parent image must be specified instead
+                                                                                of the Cloud Image IDs, to speficy the image module on which this image is based.
+                                                                                The parent image may or may not be a native image itself. However, SlipStream
+                                                                                requires a native image eventually, so that the root parent of the inheritance chain
+                                                                                must be a native image."
 
    :slipstream.ui.models.parameters.platform.description                        :global.nouns.platform
    :slipstream.ui.models.parameters.platform.help-hint                          "The platform is defined by the native image and inherited by
