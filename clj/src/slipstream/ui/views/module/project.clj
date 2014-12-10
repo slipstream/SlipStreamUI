@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.module.project
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.views.secondary-menu-actions :as action]
@@ -20,7 +21,9 @@
       {:title   (t :title)
        :content (if-let [children (-> module :children not-empty)]
                   (t/project-children-table children)
-                  (apply t :empty-content-hint (new-submodules-hrefs module)))
+                  (if (page-type/chooser?)
+                    (t :empty-content-hint.on-chooser)
+                    (apply t :empty-content-hint (new-submodules-hrefs module))))
        :selected? true})))
 
 (defn actions

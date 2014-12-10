@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.module.deployment
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
@@ -12,7 +13,9 @@
     {:title   (t :title)
      :content (if-let [nodes (-> module :nodes not-empty)]
                 (t/deployment-nodes-table nodes)
-                (t :empty-content-hint (-> module :summary :uri (u/module-uri :edit true))))
+                (if (page-type/chooser?)
+                    (t :empty-content-hint.on-chooser)
+                    (t :empty-content-hint (-> module :summary :uri (u/module-uri :edit true)))))
      :selected? true}))
 
 (def html-dependencies

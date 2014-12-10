@@ -701,8 +701,10 @@
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
    :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
-   :slipstream.ui.views.module.project.section.children.empty-content-hint  "This project doesn't have any children set up yet. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
-   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint  "This deployment doesn't have any nodes set up yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
+   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children set up yet. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.project.section.children.empty-content-hint.on-chooser   "This project doesn't have any children set up yet."
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint              "This deployment doesn't have any nodes set up yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes set up yet."
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
