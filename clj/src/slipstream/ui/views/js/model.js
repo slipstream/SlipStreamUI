@@ -1,8 +1,40 @@
 jQuery( function() { ( function( $$, model, $, undefined ) {
 
+        function extractParameters(json, category){
+            var result = [];        
+            $.each(json.parameters, function(key, val) {
+                if(val.category===category){                    
+                    result.push(val);                    
+                }
+            });
+            result.sortObjectsByKey("name");            
+            return result;
+        }
+
+        function extractParametersNames(json, category){
+            var parameters = extractParameters(json, category);                    
+            return $.map(parameters, function(e) {return e.name});
+        }
+
+        model.extractOutputParameters = function(json){
+            return extractParameters(json, "Output");            
+        };
+
+        model.extractOutputParametersNames = function(json){
+            return extractParametersNames(json, "Output");            
+        };
+
+        model.extractInputParameters = function(json){
+            return extractParameters(json, "Input");            
+        };
+
+        model.extractInputParametersNames = function(json){
+            return extractParametersNames(json, "Input");            
+        };  
+
         function asImage(exactVersion) {
 
-            var imageXML,
+            var imageJSON,
                 request,
                 outputParameters = [],
                 outputParameterNames = [],
@@ -18,32 +50,25 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 };
             }
 
-            function processImageXML(data, textStatus, jqXHR) {
-                    imageXML = data;
-                    // Extract Output Parameters
-                    $(imageXML).find("parameter[category=Output][type!=Dummy]").each(function(index, outputParamElem) {
-                        outputParameters.push(param(outputParamElem));
-                        outputParameterNames.push($(outputParamElem).attr("name"));
-                    });
-                    outputParameters.sortObjectsByKey("name");
+            function processImageJSON(data, textStatus, jqXHR) {
+                imageJSON = data;
 
-                    // Extract Input Parameters
-                    $(imageXML).find("parameter[category=Input][type!=Dummy]").each(function(index, inputParamElem) {
-                        inputParameters.push(param(inputParamElem));
-                        inputParameterNames.push($(inputParamElem).attr("name"));
-                    });
-                    inputParameters.sortObjectsByKey("name");
+                outputParameters = model.extractOutputParameters(json);
+                outputParameterNames = model.extractOutputParametersNames(json);
+
+                inputParameters = model.extractInputParameters(json);
+                inputParameterNames = model.extractInputParametersNames(json);
             }
 
             request = $$.request
                                 .get()
                                 .async(false)
-                                .dataType("xml")
+                                .dataType("json")
                                 .validation(function(){
                                     // Prevent sending the request more than once
-                                    return imageXML === undefined;
+                                    return imageJSON === undefined;
                                 })
-                                .onSuccess(processImageXML);
+                                .onSuccess(processImageJSON);
 
             if (exactVersion === true) {
                 request.url(this.getURIWithVersion());
