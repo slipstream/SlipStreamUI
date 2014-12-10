@@ -8,13 +8,6 @@
 
 (def ^:private subsection-selected-cls "active")
 
-(def ^:private stacked-sections? false)
-
-(def ^:private subsection-group-sel
-  (if stacked-sections?
-    [:.ss-subsection-group-stacked]
-    [:.ss-subsection-group]))
-
 (def ^:private activator-group-sel    [:.ss-subsection-activator-group])
 (def ^:private activator-sel          [[:li html/first-of-type]])
 (def ^:private activator-xs-group-sel [:.ss-subsection-activator-xs-group])
@@ -44,11 +37,27 @@
                             (html/html-content content)
                             (html/content content))))
 
-(html/defsnippet subsection-group-snip template-filename subsection-group-sel
+;; TODO: Refactor the 'subsection-group-snip-*' into one, since the body is identical.
+
+(html/defsnippet subsection-group-snip-flat template-filename [:.ss-subsection-group]
   [subsections]
   activator-group-sel     (activator-group subsections)
   activator-xs-group-sel  (activator-xs-group subsections)
   content-group-sel       (content-group subsections))
+
+(html/defsnippet subsection-group-snip-stacked template-filename [:.ss-subsection-group-stacked]
+  [subsections]
+  activator-group-sel     (activator-group subsections)
+  activator-xs-group-sel  (activator-xs-group subsections)
+  content-group-sel       (content-group subsections))
+
+(def ^:private max-num-of-flat-sections 7)
+
+(defn- subsection-group-snip
+  [subsections]
+  (if (-> subsections count (> max-num-of-flat-sections))
+    (subsection-group-snip-stacked subsections)
+    (subsection-group-snip-flat subsections)))
 
 (defn- assoc-id
   [subsection]
