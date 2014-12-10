@@ -636,7 +636,8 @@
 (html/defsnippet ^:private table-snip template-filename table-sel
   [{:keys [headers rows] :as table}]
   ue/this        (html/add-class (:class table))
-  table-head-sel (html/content (head-snip headers))
+  ue/this        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
+  table-head-sel (ue/when-content (not-empty headers) (head-snip headers))
   table-body-sel (html/content (->> rows
                                     (remove :hidden?)
                                     rows-snip)))

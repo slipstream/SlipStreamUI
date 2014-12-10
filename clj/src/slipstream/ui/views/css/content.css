@@ -43,3 +43,7 @@ a[target='_blank']:hover::after {
   color: rgb(35, 82, 124);
   color: rgba(35, 82, 124, 0.6);
 }
+
+.table.ss-table-without-headers > tbody > tr:first-of-type > td {
+  border: none;
+}

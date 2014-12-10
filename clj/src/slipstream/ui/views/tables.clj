@@ -84,7 +84,7 @@
 (defn docs-table
   [docs]
   (table/build
-    {:headers [nil :name :html :pdf :epub]
+    {:headers nil
      :rows (map doc-row docs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

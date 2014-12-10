@@ -317,9 +317,9 @@
 
    :slipstream.ui.views.tables.run.uuid.unknown               :global.adjectives.unknown
 
-   :slipstream.ui.views.tables.documentation.open-html        "Open in new page"
-   :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF in new page"
-   :slipstream.ui.views.tables.documentation.open-epub        :global.verbs.download
+   :slipstream.ui.views.tables.documentation.open-html        "Open HTML"
+   :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF"
+   :slipstream.ui.views.tables.documentation.open-epub        "Download ePub"
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "The users in the selected level will be able to find and see this project."
