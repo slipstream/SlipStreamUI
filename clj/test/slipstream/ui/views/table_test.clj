@@ -409,7 +409,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-map\">
-            <dl class=\"dl-horizontal\"><dt>Second-key</dt><dd>will come first since sorted alphabetically</dd><dt>first-key</dt><dd>" rand-str "</dd></dl>
+            <dl class=\"dl-horizontal\"><dt>Second-key</dt><dd id=\"Second-key\">will come first since sorted alphabetically</dd><dt>first-key</dt><dd id=\"first-key\">" rand-str "</dd></dl>
           </td>")
   (cell-html {:type :cell/map, :content {"first-key" rand-str, "Second-key" "will come first since sorted alphabetically"}}))
 
@@ -584,7 +584,7 @@
   (->> s rest (apply str)))
 
 (expect
-  (str "<td class=\"ss-table-cell-link\"><a href=\"/module"
+  (str "<td class=\"ss-table-cell-link\"><a class=\"ss-reference-module-name\" href=\"/module"
        rand-url
        "\">"
        (remove-first-char rand-url)

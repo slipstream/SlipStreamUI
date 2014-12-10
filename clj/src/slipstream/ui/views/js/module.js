@@ -1,14 +1,9 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    if (! $$.util.meta.isPageType("edit")) {
-        // nothing to do
-        return;
-    }
-
     var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers");
 
     function toggleGroupMembersRow(areGroupMembersInherited) {
-        $("input#groupmembers")
+        $("#groupmembers")
             .closest("tr")
                 .enableRow(! areGroupMembersInherited,
                     {disableReason: "This module will inherit the group members from its parent module."});

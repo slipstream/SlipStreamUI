@@ -147,6 +147,8 @@
 (html/defsnippet ^:private cell-boolean-snip-view template-filename (sel-for-cell :boolean)
   [{:keys [value id] :as cell-content}]
   ; [:input] (ue/toggle-disabled true)
+  [:input] (ue/set-id id)
+  [:input] (ue/set-name id)
   [:input] (ue/toggle-checked value))
 
 (html/defsnippet ^:private cell-boolean-snip-edit template-filename (sel-for-cell :boolean :editable)
@@ -195,13 +197,15 @@
   (concat (sel-for-cell :map variation) [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
 
 (html/defsnippet ^:private term-dict-entry-snip-view template-filename (cell-map-entry-sel)
-  [[k v]]
+  [ids [k v]]
   [:dt] (html/content (map-key-str k))
+  [:dd] (ue/set-id          (or (get ids k) (name k)))
+  [:dd] (ue/when-add-class  (:class ids))
   [:dd] (html/content (str v)))
 
 (html/defsnippet ^:private cell-map-snip-view template-filename (sel-for-cell :map)
   [m]
-  [:dl] (html/content (->> m (into (sorted-map)) (mapcat term-dict-entry-snip-view))))
+  [:dl] (html/content (->> m (into (sorted-map)) (mapcat (partial term-dict-entry-snip-view (-> m meta :ids))))))
 
 ; Editable map cell
 
@@ -223,10 +227,11 @@
 ; Link cell
 
 (html/defsnippet ^:private cell-link-snip-view template-filename (sel-for-cell :link)
-  [{:keys [text href open-in-new-window? id colspan] :as cell-content}]
+  [{:keys [text href open-in-new-window? id colspan class] :as cell-content}]
     [:a] (html/content (str text))
     [:a] (ue/set-href href)
     [:a] (ue/set-id id)
+    [:a] (ue/when-add-class class)
     ue/this (ue/set-colspan colspan)
     [:a] (ue/when-set-target open-in-new-window? "_blank"))
 
@@ -243,7 +248,7 @@
 (html/defsnippet ^:private cell-module-version-snip-view template-filename (sel-for-cell :module-version)
   [uri]
   [:span] (html/content (uc/last-path-segment uri))
-  [:a]    (ue/set-href   (uc/trim-last-path-segment uri) "/" ))
+  [:a]    (ue/set-href  (uc/trim-last-path-segment uri) "/" ))
 
 ; Help hint cell
 
@@ -482,7 +487,6 @@
 
 (defmethod cell-snip [:cell/map :mode/edit :content/any]
   [{m :content}]
-  ; TODO: Unimplemented edit view
   (cell-map-snip-edit m))
 
 (defmethod cell-snip [:cell/link :mode/view :content/any]
@@ -548,7 +552,9 @@
 
 (defmethod cell-snip [:cell/reference-module :mode/view :content/plain]
   [{reference-module :content}]
-  (cell-link-snip-view {:text (u/module-name reference-module) :href (u/module-uri reference-module)}))
+  (cell-link-snip-view {:text (u/module-name reference-module)
+                        :href (u/module-uri reference-module)
+                        :class "ss-reference-module-name"}))
 
 (defmethod cell-snip [:cell/reference-module :mode/edit :content/plain]
   [{reference-module :content}]
