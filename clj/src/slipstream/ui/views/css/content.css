@@ -33,7 +33,10 @@ a[target='_blank']::after {
   left: 3px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
+a[target='_blank']:empty::after {
+  content: "";
 }
 
 a[target='_blank']:hover::after {
