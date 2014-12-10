@@ -175,7 +175,7 @@
      :hidden? hidden?
      :cells (conj first-cells
                   {:type cell-type, :content (value-of parameter cell-type row-index), :editable? editable?}
-                  {:type :cell/help-hint, :content {:title    (:name parameter)
+                  {:type :cell/help-hint, :content {:title    (get parameter (first first-cols-keywords))
                                                     :content  (:help-hint parameter)}})}))
 
 (defn build-parameters-table
