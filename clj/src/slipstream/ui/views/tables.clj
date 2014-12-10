@@ -280,7 +280,7 @@
   (vector
     [:get     (t :access.view.description)    (case module-category
                                                 :project    (t :access.view.project.help-hint)
-                                                (t :access.view.image.help-hint (u/t-module-category module-category s/lower-case)))]
+                                                (t :access.view.publishable-module.help-hint (u/t-module-category module-category s/lower-case)))]
     [:put     (t :access.edit.description)    (t :access.edit.help-hint)]
     [:delete  (t :access.delete.description)  (t :access.delete.help-hint)]
     (case module-category

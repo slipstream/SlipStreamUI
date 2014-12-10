@@ -322,20 +322,19 @@
    :slipstream.ui.views.tables.documentation.open-epub        "Download ePub"
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
-   :slipstream.ui.views.tables.access.view.project.help-hint              "The users in the selected level will be able to find and see this project."
-   :slipstream.ui.views.tables.access.view.image.help-hint                "The users in the selected level will be able to find and see this %1$s. If this %1$s is published to
-                                                                          the AppStore, this 'view' access level will still apply to determine which users see this %1$s in the AppStore."
-   :slipstream.ui.views.tables.access.view.deployment.help-hint           "The users in the selected level will be able to find and see this module."
+   :slipstream.ui.views.tables.access.view.project.help-hint              "This right allows users to find and see this project."
+   :slipstream.ui.views.tables.access.view.publishable-module.help-hint   "This right allows users to find and see this %1$s. If this %1$s is published to
+                                                                          the AppStore, this 'view' access right will still apply to determine which users see this %1$s in the AppStore."
    :slipstream.ui.views.tables.access.edit.description                    :global.verbs.edit
    :slipstream.ui.views.tables.access.edit.help-hint                      ""
    :slipstream.ui.views.tables.access.delete.description                  :global.verbs.delete
    :slipstream.ui.views.tables.access.delete.help-hint                    ""
    :slipstream.ui.views.tables.access.create-children.description         "Create children"
-   :slipstream.ui.views.tables.access.create-children.help-hint           "The users in the selected level will be able to created subprojects, images or deployments in this project."
+   :slipstream.ui.views.tables.access.create-children.help-hint           "This right allows users to created subprojects, images or deployments in this project."
    :slipstream.ui.views.tables.access.run-deployment.description          "Run deployment"
-   :slipstream.ui.views.tables.access.run-deployment.help-hint            "The users in the selected level will be able to launch a new run of this deployment."
+   :slipstream.ui.views.tables.access.run-deployment.help-hint            "This right allows users to launch this deployment."
    :slipstream.ui.views.tables.access.build-or-run-image.description      "Build or run single image"
-   :slipstream.ui.views.tables.access.build-or-run-image.help-hint        "The users in the selected level will be able to trigger a build of this image or launch a new run of this image."
+   :slipstream.ui.views.tables.access.build-or-run-image.help-hint        "This right allows users to trigger a build of this image or launch a new run of this image."
 
    :slipstream.ui.views.tables.action.delete                  "Delete..."
 
@@ -728,7 +727,7 @@
    :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content-hint "There are no packages set up yet. You can [add some](%1$s) by editing this image with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
-   :slipstream.ui.views.reports.no-need-to-refresh                               "This section will automatically update when reports appear. No need to refresh."
+   :slipstream.ui.views.reports.no-need-to-refresh                               "Reports will be displayed as soon as available. No need to refresh."
 
    :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
 
