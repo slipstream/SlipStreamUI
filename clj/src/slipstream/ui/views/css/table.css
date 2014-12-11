@@ -112,3 +112,14 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .popover .popover-content {
   font-weight:  300;
 }
+
+.ss-map-empty-value {
+  font-style: italic;
+  opacity: 0.5
+}
+.ss-map-empty-value::before {
+  content: "<";
+}
+.ss-map-empty-value::after {
+  content: ">";
+}

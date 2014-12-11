@@ -195,12 +195,19 @@
   [& [variation]]
   (concat (sel-for-cell :map variation) [#{[:dt html/first-of-type] [:dd html/first-of-type]}]))
 
+(ue/def-blank-snippet map-empty-value-snip :span
+  []
+  ue/this (html/add-class     "ss-map-empty-value")
+  ue/this (html/html-content  (-> :map-cell.empty-value t s/lower-case)))
+
 (html/defsnippet ^:private term-dict-entry-snip-view template-filename (cell-map-entry-sel)
   [ids [k v]]
   [:dt] (html/content (map-key-str k))
   [:dd] (ue/set-id          (or (get ids k) (name k)))
   [:dd] (ue/when-add-class  (:class ids))
-  [:dd] (html/content (str v)))
+  [:dd] (if-let [v-str (-> v str s/trim not-empty)]
+            (html/content v-str)
+            (html/content (map-empty-value-snip))))
 
 (html/defsnippet ^:private cell-map-snip-view template-filename (sel-for-cell :map)
   [m]

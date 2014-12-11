@@ -100,6 +100,7 @@
                     :warning          "Warning"
                     }
             :adjectives {
+                    :empty          "Empty"
                     :global         "Global"
                     :local          "Local"
                     :public         "Public"
@@ -306,6 +307,7 @@
 
    :slipstream.ui.views.table.enum-cell.view-mode.tooltip         "Possible values: %1$s" ; %1$s = All enum option values
 
+   :slipstream.ui.views.table.map-cell.empty-value                :global.adjectives.empty
 
    :slipstream.ui.views.tables.deployment-nodes-table.mapping     :global.nouns.mapping
    :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
