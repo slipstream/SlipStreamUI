@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.run
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.runtime-parameters :as runtime-parameters]))
@@ -18,19 +19,21 @@
 (defn- summary
   [metadata]
   (let [attrs (:attrs metadata)]
-    {:category    (-> attrs :category)
-     :creation    (-> attrs :creation)
-     :start-time  (-> attrs :starttime)
-     :end-time    (-> attrs :endtime)
-     :deleted?    (-> attrs :deleted uc/parse-boolean)
-     :user        (-> attrs :user)
-     :state       (-> attrs :state)
-     :status      (-> attrs :status)
-     :uuid        (-> attrs :uuid)
-     :type        (-> attrs :type run-type-mapping)
-     :uri         (-> attrs :resourceuri)
-     :owner       (-> metadata (html/select [:authz]) first :attrs :owner)
-     :module-uri  (-> attrs :moduleresourceuri)}))
+    {:category      (-> attrs :category)
+     :creation      (-> attrs :creation)
+     :start-time    (-> attrs :starttime)
+     :end-time      (-> attrs :endtime)
+     :deleted?      (-> attrs :deleted uc/parse-boolean)
+     :mutable?      (-> attrs :mutable uc/parse-boolean)
+     :user          (-> attrs :user)
+     :state         (-> attrs :state)
+     :status        (-> attrs :status)
+     :uuid          (-> attrs :uuid)
+     :original-type (-> attrs :type s/lower-case)
+     :type          (-> attrs :type run-type-mapping)
+     :uri           (-> attrs :resourceuri)
+     :owner         (-> metadata (html/select [:authz]) first :attrs :owner)
+     :module-uri    (-> attrs :moduleresourceuri)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."

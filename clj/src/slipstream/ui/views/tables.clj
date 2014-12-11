@@ -645,9 +645,10 @@
       :end-time           {:type :cell/timestamp}
       :state              {:type :cell/text}
       :last-state-change  {:type :cell/timestamp}
-      :type               {:type :cell/text, :as-parameter :run-type}
-      :uuid               {:type :cell/text, :as-parameter :run-id}
-      :tags               {:type :cell/text, :editable? true})))
+      :type               {:type :cell/text,    :as-parameter :run-type}
+      :mutable?           {:type :cell/boolean, :hidden? (-> run :original-type (not= "orchestration"))}
+      :uuid               {:type :cell/text,    :as-parameter :run-id}
+      :tags               {:type :cell/text,    :editable? true})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

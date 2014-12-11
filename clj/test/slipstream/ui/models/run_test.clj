@@ -1477,6 +1477,7 @@
 (expect
   {:end-time "2014-09-24 00:20:06.517 CEST"
    :status nil
+   :mutable? false
    :deleted? false
    :state "Aborted"
    :creation "2014-09-24 00:12:43.287 CEST"
@@ -1486,6 +1487,7 @@
    :uri "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :uuid "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :type "Deployment Run"
+   :original-type "orchestration"
    :user "super"
    :category "Deployment"
    :tags "\n                 \n            "}

@@ -458,6 +458,9 @@
    :slipstream.ui.models.parameters.last-state-change.description               "Last state change"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
 
+   :slipstream.ui.models.parameters.mutable?.description                        "Mutable deployment"
+   :slipstream.ui.models.parameters.mutable?.help-hint                          ""
+
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or ip address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Provided at runtime by SlipStream"
