@@ -49,7 +49,7 @@ a[target='_blank']:hover::after {
 }
 
 .ss-table-cell-help-hint:hover {
-  opacity: 0.5;
+  color: rgba(0,0,0,.4);
 }
 
 dl.ss-footer-versions-popover {
