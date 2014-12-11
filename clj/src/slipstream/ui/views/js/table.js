@@ -2,12 +2,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $(".ss-table-tooltip").tooltip();
 
-    $(".ss-table-cell-help-hint [data-toggle='popover']").mouseenter(function() {
-        $(this)
-            .popover("show")
-            .addClass("text-muted");
-    });
-
     $(".ss-table-cell-help-hint [data-toggle='popover']").mouseleave(function() {
         $(this)
             .popover("hide")

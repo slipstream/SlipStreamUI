@@ -47,3 +47,17 @@ a[target='_blank']:hover::after {
 .table.ss-table-without-headers > tbody > tr:first-of-type > td {
   border: none;
 }
+
+.ss-table-cell-help-hint:hover {
+  opacity: 0.5;
+}
+
+dl.ss-footer-versions-popover {
+  margin-bottom: 0;
+}
+.ss-footer-versions-popover dt {
+  width: 90px;
+}
+.ss-footer-versions-popover dd {
+  margin-left: 100px;
+}

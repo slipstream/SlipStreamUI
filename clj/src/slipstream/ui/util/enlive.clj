@@ -362,6 +362,25 @@
          this (->> k name (str name-prefix) set-name)
          this (-> v str  set-content)))
 
+(def-blank-snippet text-with-tooltip-snip :span
+  [ & {:keys [text tooltip class placement]}]
+  this (html/html-content   (str text))
+  this (when-add-class      class)
+  this (set-data :toggle    "tooltip")
+  this (set-data :placement (or placement "bottom"))
+  this (set-title           (str tooltip)))
+
+(def-blank-snippet text-with-popover-snip :span
+  [ & {:keys [text title content class placement html]}]
+  this (html/html-content   (str text))
+  this (when-add-class      class)
+  this (set-data :toggle    "popover")
+  this (set-data :trigger   "hover")
+  this (set-data :placement (or placement "bottom"))
+  this (set-data :html      (or (boolean html) false))
+  this (set-title           (str title))
+  this (set-data :content   (str content)))
+
 
 ;; Add input validation to form input fields.
 

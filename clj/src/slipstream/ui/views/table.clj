@@ -51,14 +51,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(ue/def-blank-snippet ^:private text-with-tooltip-snip :span
+(defn- cell-text-with-tooltip-snip
   [{:keys [text tooltip]}]
-  ue/this (html/html-content      (str text))
-  ue/this (html/add-class         "ss-table-tooltip")
-  ue/this (ue/set-data :toggle    "tooltip")
-  ue/this (ue/set-data :placement "bottom")
-  ue/this (ue/set-title           (str tooltip)))
-
+  (ue/text-with-tooltip-snip
+    :text       text
+    :tooltip    tooltip
+    :class      "ss-table-tooltip"
+    :placement  "bottom"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -69,7 +68,7 @@
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
   [{:keys [text tooltip id class colspan] :as cell-content}]
   ue/this  (if (not-empty tooltip)
-             (html/content (text-with-tooltip-snip cell-content))
+             (html/content (cell-text-with-tooltip-snip cell-content))
              (html/html-content (str text)))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")

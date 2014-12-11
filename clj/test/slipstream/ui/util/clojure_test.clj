@@ -114,6 +114,14 @@
   (trim-prefix "/some/path/or/url" "/"))
 
 (expect
+  "some/path/or/url\n"
+  (trim-prefix "some/path/or/url\n" "/"))
+
+(expect
+  "some/path/or/url\n"
+  (trim-prefix "/some/path/or/url\n" "/"))
+
+(expect
   "some/path/or/url"
   (trim-prefix "some/path/or/url" \/))
 

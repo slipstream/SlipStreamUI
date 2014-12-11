@@ -1082,7 +1082,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             this
                 // Enable popovers
                 .find("[data-toggle='popover']")
-                    .popover()
+                    .popover({
+                        delay: 200
+                    })
                     .end()
                 // Enable tooltips
                 .find("[data-toggle='tooltip']")

@@ -48,7 +48,10 @@
   [s prefix]
   {:pre [(or (nil? s) (string? s))]}
   (when s
-    (if-let [[_ s-without-prefix] (-> prefix (str "(.*)") re-pattern (re-matches s))]
+    (if-let [[_ s-without-prefix] (-> "(?s)%s(.*)" ;; (?s) Dot matches all (including newline)
+                                      (format prefix)
+                                      re-pattern
+                                      (re-matches s))]
       s-without-prefix
       s)))
 

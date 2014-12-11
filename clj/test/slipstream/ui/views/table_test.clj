@@ -566,13 +566,13 @@
 
 (expect
   (str "<td class=\"ss-table-cell-help-hint\">"
-       "\n              <span data-content=\"" rand-str "\" data-trigger=\"focus\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
+       "\n              <span data-content=\"" rand-str "\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
        "\n          </td>")
   (cell-html {:type :cell/help-hint, :content {:content rand-str}}))
 
 (expect
   (str "<td class=\"ss-table-cell-help-hint\">"
-       "\n              <span data-content=\"" rand-str "\" title=\"The title\" data-trigger=\"focus\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
+       "\n              <span data-content=\"" rand-str "\" title=\"The title\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
        "\n          </td>")
   (cell-html {:type :cell/help-hint, :content {:title "The title", :content rand-str}}))
 
