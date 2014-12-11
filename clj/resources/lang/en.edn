@@ -54,6 +54,7 @@
                     :mapping          "Mapping"
                     :metering         "Metering"
                     :module           "Module"
+                    :mutable-deployment "Mutable deployment _(beta)_"
                     :name             "Name"
                     :node             "Node"
                     :nodes            "Nodes"
@@ -458,7 +459,7 @@
    :slipstream.ui.models.parameters.last-state-change.description               "Last state change"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
 
-   :slipstream.ui.models.parameters.mutable?.description                        "Mutable deployment"
+   :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or ip address of the image"
@@ -795,7 +796,7 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Run deployment"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            "Mutable deployment"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
    :slipstream.ui.views.run.header.title!                   "Run: %1$s is <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
