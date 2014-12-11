@@ -1,3 +1,7 @@
+.ss-run-overview {
+    overflow: hidden;
+}
+
 .ss-run-overview .node {
     width: 200px;
     height: 58px;
