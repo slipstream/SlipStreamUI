@@ -602,15 +602,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .onTextInputChange(function() {
                     $(this).validateFormInput();
                 })
-                .focusout(function() {
-                    $(this)
-                        // By default display the error help hint only after
-                        // the first 'focus out' event to avoid warning about things
-                        // that the user might know.
-                        .enableDisplayOfErrorHelpHint()
-                        .validateFormInput();
-                })
-                ;
+                .enableDisplayOfErrorHelpHint();
             return this;
         },
 
