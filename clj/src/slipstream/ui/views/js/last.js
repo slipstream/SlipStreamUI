@@ -3,9 +3,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // This script is always executed last. It is intended to enable some states
     // must be only loaded after the whole page and other scripts are loaded.
 
-    $$.util.leavingConfirmation.askIfPageHasChanges(
-        $$.util.meta.getMetaValue("ss-navigate-away-confirmation-msg")
-    );
+    if ($$.util.meta.isPageType("edit") || $$.util.meta.isPageType("new")) {
+        $$.util.leavingConfirmation.askIfPageHasChanges(
+            $$.util.meta.getMetaValue("ss-navigate-away-confirmation-msg")
+        );
+    }
 
     $("body")
         // Auto-open all dropdowns on mouseover.
