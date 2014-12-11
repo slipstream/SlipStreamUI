@@ -547,6 +547,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         requiredFormFieldCls: "ss-required-input",
         formFieldHasRequirementsCls: "ss-input-has-requirements",
 
+        setRequiredFormInput: function(isRequired) {
+            this.toggleClass(this.requiredFormFieldCls, isRequired);
+            return this;
+        },
+
+        isRequiredFormInput: function() {
+            return this.hasClass(this.requiredFormFieldCls);
+        },
+
         onFormFieldValidationStateChange: function(callback){
             if (! $.isFunction(callback)) {
                 throw "Callback is not a function.";
@@ -662,7 +671,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                         var $fieldToValidate  = $(this),
                             fieldValue      = $fieldToValidate.val() || "",
                             requirements    = getRequirements($fieldToValidate),
-                            isRequired      = $fieldToValidate.hasClass($fieldToValidate.requiredFormFieldCls),
+                            isRequired      = $fieldToValidate.isRequiredFormInput(),
                             isValidField    = true,
                             errorHelpHint;
                         if (fieldValue || isRequired) {
@@ -781,7 +790,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         onTextInputChange: function(callback) {
-            var $textInputFields = $(this).findIncludingItself("input[type=text], textarea");
+            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
             if ($textInputFields.foundNothing()) {
                 return this;
             }
@@ -791,7 +800,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         offTextInputChange: function(callback) {
-            var $textInputFields = $(this).findIncludingItself("input[type=text], textarea");
+            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
             if ($textInputFields.foundNothing()) {
                 return this;
             }

@@ -215,8 +215,19 @@
         :email          {:type :cell/email, :required? true, :requirements (pattern/requirements :email)}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
         :creation       {:type :cell/timestamp, :editable? false}
-        :password-new-1 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password1"), :required? (page-type/new?)}
-        :password-new-2 {:type :cell/password,  :editable? true,  :hidden? (not (page-type/edit-or-new?)),  :id-format-fn (constantly "password2"), :required? (page-type/new?)}
+        :password-new-1 {:type :cell/password
+                         :editable? true
+                         :hidden? (not (page-type/edit-or-new?))
+                         :id-format-fn (constantly "password1")
+                         :requirements (pattern/requirements :user-password)
+                         :required? (page-type/new?)}
+        :password-new-2 {:type :cell/password
+                         :editable? true
+                         :hidden? (not (page-type/edit-or-new?))
+                         :id-format-fn (constantly "password2")
+                         :required? (page-type/new?)
+                         :requirements (pattern/requirements :user-password-confirmation)
+                         :generic-error-help-hint (t :password-not-match.error-help-hint)}
         :password-old   {:type :cell/password,  :editable? true,  :hidden? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
         :state          {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)}))))
 

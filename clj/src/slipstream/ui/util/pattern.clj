@@ -2,25 +2,30 @@
   "Util functions only related to the regex patterns to be fulfilled by SlipStream items
   like image names, user names or email addresses."
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
 
-(def ^:private str-pattern
-  {:not-empty                   ".+"
-   :alpha-num                   "^[a-zA-Z0-9]+$"
-   :alpha-num-underscore        "^\\w+$"
-   :alpha-num-underscore-dash   "^[\\w-]+$"
-   :not-new                     "^(?!new$).*$"    ; Other than the string 'new'
-   :begin-with-letter           "^[a-zA-Z]"       ; Matches "asd..." but not "1asd..."
-   :min-3-chars                 ".{3}"
-   :url                         "^https?://\\w+"
-   :picture-file                "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
-   ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
-   ;       format of email address is so complex, that the only real way to
-   ;       validate it is to send it an email. ;)
-   ;       However we can perform a basic validation.
-   :email                       "^.+@.+$"})
+(defn- str-pattern
+  [pattern-key]
+  (case pattern-key
+    :not-empty                   ".+"
+    :alpha-num                   "^[a-zA-Z0-9]+$"
+    :alpha-num-underscore        "^\\w+$"
+    :alpha-num-underscore-dash   "^[\\w-]+$"
+    :not-new                     "^(?!new$).*$" ; Other than the string 'new'.
+    :not-include-username        (str "^((?!" (current-user/username) ").)*$") ; Does not contain username.
+    :begin-with-letter           "^[a-zA-Z]"    ; Matches "asd..." but not "1asd..."
+    :min-3-chars                 ".{3}"
+    :min-6-chars                 ".{6}"
+    :url                         "^https?://\\w+"
+    :picture-file                "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
+    ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
+    ;       format of email address is so complex, that the only real way to
+    ;       validate it is to send it an email. ;)
+    ;       However we can perform a basic validation.
+    :email                       "^.+@.+$"))
 
 (defn- requirement
   [field pattern-key]
@@ -29,31 +34,37 @@
      :error-help-hint (t error-help-hint-t-key)}))
 
 (def ^:private patterns-for
-  {:username    [:not-empty
-                 :alpha-num-underscore
-                 :not-new
-                 :begin-with-letter
-                 :min-3-chars]
+  {:username      [:not-empty
+                   :alpha-num-underscore
+                   :not-new
+                   :begin-with-letter
+                   :min-3-chars]
 
-   :email       [:not-empty
-                 :email]
+   :email         [:not-empty
+                   :email]
 
-   :first-name  [:not-empty]
+   :first-name    [:not-empty]
 
-   :last-name   [:not-empty]
+   :last-name     [:not-empty]
 
-   :module-name [:not-empty
-                 :alpha-num-underscore-dash
-                 :not-new
-                 :begin-with-letter]
+   :module-name   [:not-empty
+                   :alpha-num-underscore-dash
+                   :not-new
+                   :begin-with-letter]
 
-   :picture-url [:url
-                 :picture-file]
+   :picture-url   [:url
+                   :picture-file]
 
-   :node-name   [:not-empty
-                 :alpha-num-underscore-dash
-                 :not-new
-                 :begin-with-letter]})
+   :node-name     [:not-empty
+                   :alpha-num-underscore-dash
+                   :not-new
+                   :begin-with-letter]
+
+   :user-password [:not-empty
+                   :not-include-username
+                   :min-6-chars]
+
+   :user-password-confirmation [:not-empty]})
 
 (defn requirements
   [field]

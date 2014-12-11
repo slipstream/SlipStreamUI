@@ -491,6 +491,7 @@
                                         :alpha-num-underscore-dash              "Please use only [a-zA-Z0-9_-]."
                                         :not-new                                "Oh, this will confuse me..."
                                         :begin-with-letter                      "Please begin with a letter."
+                                        :min-x-chars                            "Come on, a bit longuer."
                                        }
              }
 
@@ -498,7 +499,7 @@
    :slipstream.ui.util.pattern.error-help-hint.username.alpha-num-underscore    :pattern.default-error-help-hint.alpha-num-underscore
    :slipstream.ui.util.pattern.error-help-hint.username.not-new                 :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.username.begin-with-letter       :pattern.default-error-help-hint.begin-with-letter
-   :slipstream.ui.util.pattern.error-help-hint.username.min-3-chars             "Come on, a bit longuer."
+   :slipstream.ui.util.pattern.error-help-hint.username.min-3-chars             :pattern.default-error-help-hint.min-x-chars
 
    :slipstream.ui.util.pattern.error-help-hint.email.not-empty                  "Please enter an email."
    :slipstream.ui.util.pattern.error-help-hint.email.email                      "This does not look like a valid email."
@@ -518,6 +519,13 @@
    :slipstream.ui.util.pattern.error-help-hint.node-name.alpha-num-underscore-dash    :pattern.default-error-help-hint.alpha-num-underscore-dash
    :slipstream.ui.util.pattern.error-help-hint.node-name.not-new                      :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.node-name.begin-with-letter            :pattern.default-error-help-hint.begin-with-letter
+
+   :slipstream.ui.util.pattern.error-help-hint.user-password.not-empty                :pattern.default-error-help-hint.not-empty
+   :slipstream.ui.util.pattern.error-help-hint.user-password.not-include-username     "This is not a good idea."
+   :slipstream.ui.util.pattern.error-help-hint.user-password.min-6-chars              :pattern.default-error-help-hint.min-x-chars
+
+   :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.not-empty   "Enter the password a second time to confirm it."
+   :slipstream.ui.views.tables.password-not-match.error-help-hint                     "This is not what you typed above."
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Please choose a project (i.e. not an image or a deployment) in the navigator above where this %1$s has to be copied to." ; %1$s: module category ;
 
