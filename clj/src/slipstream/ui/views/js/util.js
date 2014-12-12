@@ -961,6 +961,29 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.updateContent(this.html, this.html, newHTML, todoIfUpdated, callbackIfUpdated);
         },
 
+        // Bottom shadow
+
+        _onScrollCallbackToAdjustIFrameBottomShadowOpacity: function (iFrameHeight, $bottomShadow){
+            var scrollHeight = this.document.body.scrollHeight,
+                scrollY = this.scrollY,
+                bottomShadowOpacity = 4 * (1 - (iFrameHeight / (scrollHeight - scrollY))); // NOTE: Empirical formula.
+            if ( bottomShadowOpacity >= 0 && bottomShadowOpacity <= 1 ) {
+                $bottomShadow
+                    .css("opacity", bottomShadowOpacity);
+            }
+        },
+
+        enableBottomShadowAdjustOnScroll: function (){
+            $(this[0].contentWindow).scroll(this._onScrollCallbackToAdjustIFrameBottomShadowOpacity.partial(
+                this
+                    .outerHeight(),
+                this
+                    .closest(".ss-iframe-container")
+                        .find(".ss-shadow-bottom")
+                ));
+            return this;
+        },
+
         // jQuery extensions related to Bootstrap components are prefixed by 'bs'
 
         bsEnableDropdownToggle: function(enable) {

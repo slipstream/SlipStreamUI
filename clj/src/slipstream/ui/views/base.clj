@@ -192,14 +192,17 @@
                                                     (ue/append-to-href "?chooser=true")
                                                     identity))
 
-(def ^:private templates-base
-  [alerts/template-filename
-   menubar/template-filename
-   subsection/template-filename       ;; TODO: only if body has subsections.
-   section/template-filename          ;; TODO: only if body has sections.
-   modal-dialogs/template-filename    ;; TODO: only if body has modal-dialogs.
-   table/template-filename            ;; TODO: only if body has tables.
-   code-area/template-filename])      ;; TODO: only if body has code-areas.
+(defn- templates
+  [current-template-filename]
+  (cond-> []
+    :always                   (conj alerts/template-filename)
+    :always                   (conj menubar/template-filename)
+    :always                   (conj subsection/template-filename)       ;; TODO: only if body has subsections.
+    :always                   (conj section/template-filename)          ;; TODO: only if body has sections.
+    (page-type/not-chooser?)  (conj modal-dialogs/template-filename)    ;; TODO: only if body has modal-dialogs.
+    :always                   (conj table/template-filename)            ;; TODO: only if body has tables.
+    :always                   (conj code-area/template-filename)        ;; TODO: only if body has code-areas.
+    :always                   (conj current-template-filename)))
 
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]
@@ -217,7 +220,7 @@
       (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
       (page-type/new?)  (assoc :secondary-menu-actions  new-page-actions)
       :always           (assoc :configuration           (-> context :metadata configuration/parse))
-      :always           (assoc :involved-templates      (conj templates-base template-filename)))))
+      :always           (assoc :involved-templates      (templates template-filename)))))
 
 (defmacro generate
   "This macro includes info about the caller into the 'context' map argument."

@@ -187,20 +187,21 @@
 
 (defn required
   [context]
-  (let [resource-name (resource-name context)
-        resource-id (resource-id context)
-        module-version (module-version context)]
-    (cond-> []
-      (page-type/edit?)                   (conj (save-dialog resource-name)
-                                                (delete-dialog resource-name resource-id))
-      (chooser-required? context)         (conj (image-chooser-dialog
-                                                  (or
-                                                    (-> context :parsed-metadata :cloud-image-details :reference-image)
-                                                    (-> context :parsed-metadata :summary :parent-uri))))
-      (terminate-required? context)       (conj (terminate-deployment-dialog))
-      (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
-                                                (unpublish-module-confirmation-dialog resource-name resource-id module-version))
-      (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
-      (run-image-required? context)       (conj (run-image-dialog :run    resource-id module-version (-> context :parsed-metadata :available-clouds))
-                                                (run-image-dialog :build  resource-id module-version (-> context :parsed-metadata :available-clouds)))
-      (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version )))))
+  (when (page-type/not-chooser?)
+    (let [resource-name (resource-name context)
+          resource-id (resource-id context)
+          module-version (module-version context)]
+      (cond-> []
+        (page-type/edit?)                   (conj (save-dialog resource-name)
+                                                  (delete-dialog resource-name resource-id))
+        (chooser-required? context)         (conj (image-chooser-dialog
+                                                    (or
+                                                      (-> context :parsed-metadata :cloud-image-details :reference-image)
+                                                      (-> context :parsed-metadata :summary :parent-uri))))
+        (terminate-required? context)       (conj (terminate-deployment-dialog))
+        (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
+                                                  (unpublish-module-confirmation-dialog resource-name resource-id module-version))
+        (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
+        (run-image-required? context)       (conj (run-image-dialog :run    resource-id module-version (-> context :parsed-metadata :available-clouds))
+                                                  (run-image-dialog :build  resource-id module-version (-> context :parsed-metadata :available-clouds)))
+        (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))))))

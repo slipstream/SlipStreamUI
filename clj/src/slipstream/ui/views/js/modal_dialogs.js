@@ -19,14 +19,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var $imageChooserDialog = $("#ss-image-chooser-dialog");
 
     $("#ss-image-chooser-dialog iframe").bind('load', function(e) {
-        var $iframe = $(this),
-            $iframeContents = $iframe.contents(),
-            module = $iframe.contents().getSlipStreamModel().module,
+        var $this = $(this),
+            $iframeContents = $this.contents(),
+            module = $this.contents().getSlipStreamModel().module,
             isImage = module.isOfCategory("image");
         $imageChooserDialog
             .data("currentImageModule", isImage ? module : undefined)
             .find(".ss-select-btn, .ss-select-exact-version-btn")
             .enable(isImage);
+        $this.enableBottomShadowAdjustOnScroll();
+
     });
 
     // Configure copy module dialog
@@ -46,7 +48,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .useToSubmitForm("#ss-module-copy-form");
 
     $copyModuleDialog.find("iframe").bind('load', function(e) {
-        var module = $(this).contents().getSlipStreamModel().module,
+        var $this = $(this),
+            module = $this.contents().getSlipStreamModel().module,
             isProject = module.isOfCategory("project"),
             targetProject = isProject ? module.getFullName() : undefined,
             $moduleCopyTargetProject = $copyModuleDialog.find("#ss-module-copy-target-project");
@@ -57,6 +60,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .find("input")
                     .toggleFormInputValidationState(isProject)
                     .enable(isProject);
+        $this.enableBottomShadowAdjustOnScroll();
         if (targetProject) {
             $moduleCopyTargetProject.text(targetProject);
         } else {
