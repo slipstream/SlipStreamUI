@@ -13,7 +13,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // Auto-open all dropdowns on mouseover.
         // The click action is still available for touch devices.
         .bsOpenDropdownOnMouseOver()
-        .bsEnableDynamicElements();
+        .bsEnableDynamicElements()
+        .reloadAllImages();
 
     // $("body").getSlipStreamModel().module.dump();
     // $("body").getSlipStreamModel().run.dump();

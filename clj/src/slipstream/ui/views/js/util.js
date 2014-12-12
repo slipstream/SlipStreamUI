@@ -148,7 +148,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         asSel: function() {
             // Helper function to use a CSS class as a jQuery selector.
             return "." + this;
+        },
+
+        isRootURL: function() {
+            var re = new RegExp("^" + window.location.origin + "/?$");
+            return re.test(this);
         }
+
     });
 
 
@@ -1113,6 +1119,66 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Enable tooltips
                 .find("[data-toggle='tooltip']")
                     .tooltip();
+            return this;
+        },
+
+        // Image Preloader utils
+        //
+        // '.imagesLoaded()' requires following library:
+        //   <script src="external/imagesloaded/js/imagesloaded.min.js"></script>
+        // Source: https://github.com/desandro/imagesloaded
+
+        reloadImage: function(imgSrcArg, always){
+            // Put 'imgSrcArg' as centered justified background image only when and if it's loaded.
+            // If 'imgSrcArg' is not given, it simply reloads the current image.
+            var $imgPreloaders = this.filter("img.ss-image-preloader");
+            if (imgSrcArg !== undefined) {
+                $imgPreloaders
+                    .attr("src", imgSrcArg);
+            }
+            $imgPreloaders
+                .imagesLoaded()
+                .progress( function( instance, image ) {
+                    var img = image.img,
+                        imgSrc = img.src,
+                        $imgParent = $(img).parent(),
+                        originalOpacity = $imgParent.css("opacity");
+                    if (!imgSrc || imgSrc.isRootURL()) {
+                        // Empty image src
+                        var hasCurrentImage = /background-image/.test($imgParent.attr("style"));
+                        if (hasCurrentImage){
+                            // Remove image
+                            $imgParent.fadeTo(150, 0, function() {
+                                $imgParent.css("background-image", "");
+                                $imgParent.fadeTo(200, originalOpacity,
+                                    $.isFunction(always) ? always.bind(img, image.isLoaded) : undefined);
+                            });
+
+                        }
+                        return;
+                    }
+                    $imgParent.fadeTo(150, 0, function() {
+                        if (image.isLoaded) {
+                            $imgParent.css("background-image", "url(" + imgSrc +")");
+                        } else {
+                            // Image link broken
+                            var image_placeholder = $imgParent
+                                                        .css("background-image", "")
+                                                        .css("background-image"),
+                                broken_image_placeholder = image_placeholder.replace(".png", "_broken.png");
+                            $imgParent.css("background-image", broken_image_placeholder);
+                        }
+                        $imgParent.fadeTo(200, originalOpacity,
+                            $.isFunction(always) ? always.bind(img, image.isLoaded) : undefined);
+                    });
+                });
+            return this;
+        },
+
+        reloadAllImages: function(){
+            this
+                .find("img.ss-image-preloader")
+                    .reloadImage();
             return this;
         }
 

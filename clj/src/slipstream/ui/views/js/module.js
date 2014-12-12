@@ -1,6 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers");
+    var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers"),
+        $logoURLInput = $("input#logoLink"),
+        $logoHeaderImg = $(".ss-header-image-container img");
 
     function toggleGroupMembersRow(areGroupMembersInherited) {
         $("#groupmembers")
@@ -16,5 +18,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Trigger the 'change' event for set up the correct state of the form on page load
     $inheritedGroupMembersCheckbox.change();
+
+    $logoURLInput
+        .focusout(function(){
+            if ($logoURLInput.isValidFormInput()) {
+                $logoHeaderImg
+                    .reloadImage($logoURLInput.val()
+                    //   // Un-comment that to flash the logo after the change.
+                    //     , function(isLoaded){
+                    //     $logoHeaderImg
+                    //         .parent()
+                    //             .flash(isLoaded ? "success" : "warning");
+                    // }
+                    );
+            }
+        });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
