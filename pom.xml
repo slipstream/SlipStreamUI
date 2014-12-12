@@ -97,7 +97,34 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>    
+            </plugin> 
+            <plugin>
+                <groupId>com.github.searls</groupId>
+                <artifactId>jasmine-maven-plugin</artifactId>
+                <version>1.3.1.5</version>
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>test</goal>
+                    </goals>                    
+                  </execution>
+                </executions>
+                <configuration>
+                    <jsSrcDir>${project.basedir}/clj/src/slipstream/ui/views/</jsSrcDir>
+                    <sourceIncludes>    
+                        <include>**/js/jquery.js</include>        
+                        <include>**/js/model.js</include>
+                        <include>**/js/util.js</include>
+                    </sourceIncludes>                    
+                    <jsTestSrcDir>${project.basedir}/clj/test/slipstream/ui/views/jasmine</jsTestSrcDir>                  
+                    <specIncludes>                    
+                        <include>**/spec/ModelSpec.js</include>                    
+                    </specIncludes>
+                    <skipJasmineTests>
+                        false
+                    </skipJasmineTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
