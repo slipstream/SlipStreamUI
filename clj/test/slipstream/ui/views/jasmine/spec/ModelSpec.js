@@ -87,7 +87,7 @@
 
     it("extractOutputParametersNames should return an array of output parameters names sorted", function() {
         var outputParameterNames = window.SlipStream.model.extractOutputParametersNames(json);              
-        expect(outputParameterNames).toEqual(["hostname", "instanceid", "param1", "zzz"]);
+        expect(outputParameterNames).toEqual(["XXXXhostname", "instanceid", "param1", "zzz"]);
     });
 		
     it("extractInputParameters should return an array of input parameters sorted by their names", function(){
