@@ -562,7 +562,28 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.hasClass(this.requiredFormFieldCls);
         },
 
+        onFormFieldValidation: function(callback){
+            // This callback will be called after each validation of the input field,
+            // receiving as the only argument a boolean to indicate if the field value
+            // is valid or not.
+            if (! $.isFunction(callback)) {
+                throw "Callback is not a function.";
+            }
+            this.each(function(){
+                    var $this = $(this),
+                        callbacks = $this.data("onFormFieldValidationCallback");
+                    if (! callbacks) {
+                        $this.data("onFormFieldValidationCallback", [callback]);
+                    } else {
+                        callbacks.push(callback);
+                    }
+                });
+            return this;
+        },
+
         onFormFieldValidationStateChange: function(callback){
+            // Like 'onFormFieldValidation()' but called only when the state changes
+            // from valid ('true') to invalid ('false') or viceversa.
             if (! $.isFunction(callback)) {
                 throw "Callback is not a function.";
             }
@@ -699,6 +720,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .each(function() {
                         var $this = $(this),
                             isNewState = ($this.data("isValid") !== state),
+                            callback = $this.data("onFormFieldValidationCallback"),
                             callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
                             errorHelpHint = customErrorHelpHint || $this.data("generic-error-help-hint"),
                             displayErrorHelpHint = $this.data("displayErrorHelpHint") || false, // A real boolean
@@ -732,6 +754,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 // Enable or disable the submit button accordingly
                                 .find("button[type=submit]")
                                     .disable(hasErrors);
+                        callback.call($this, state);
                         if ( isNewState && callbackOnStateChange ) {
                             callbackOnStateChange.call($this, state);
                         }

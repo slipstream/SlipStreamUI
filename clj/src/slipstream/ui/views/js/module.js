@@ -20,9 +20,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $inheritedGroupMembersCheckbox.change();
 
     $logoURLInput
-        // TODO: Update image on logo url input validation event.
-        .focusout(function(){
-            if ($logoURLInput.isValidFormInput()) {
+        .onFormFieldValidation(function(isValidLogoURL){
+            if (isValidLogoURL) {
                 $logoHeaderImg
                     .reloadImage($logoURLInput.val()
                     //   // Un-comment that to flash the logo after the change:
