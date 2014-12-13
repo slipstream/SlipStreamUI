@@ -125,6 +125,7 @@
              :last-modified "2013-05-16 17:04:39.113 CEST"
              :parent-uri "module/Public"
              :description "Another description..."
+             :logo-url ""
              :category "Project"}})
 
 (expect

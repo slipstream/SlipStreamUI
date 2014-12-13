@@ -52,8 +52,7 @@
 (defn sections
   [metadata]
   (let [cloud-names (html/select metadata [:cloudNames :string html/text])]
-    {:summary    {:logo-url (-> metadata :attrs :logolink)}
-     :nodes (->> (html/select metadata [:nodes :entry :node])
+    {:nodes (->> (html/select metadata [:nodes :entry :node])
                  (sort-by (comp :name :attrs)) ; Sort before adding the blank template row.
                  append-template-node-in-edit-mode
                  (map (partial parse-node cloud-names)))}))

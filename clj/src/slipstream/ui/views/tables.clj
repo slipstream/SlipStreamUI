@@ -251,7 +251,7 @@
       :last-modified  {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
       :owner          {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
       :logo-url       {:type :cell/text
-                       :hidden? (or (page-type/view?) (-> module :category (= "Project")))
+                       :hidden? (page-type/view?)
                        :id-format-fn (constantly "logoLink")
                        :required? false
                        :requirements (pattern/requirements :picture-url)})))

@@ -227,7 +227,7 @@
              :comment nil
              :creation "2013-03-07 21:03:09.124 CET"
              :name "Public/BaseImages/Ubuntu/new"
-             :logo-url nil
+             :logo-url ""
              :short-name "new"
              :published? false
              :publication nil

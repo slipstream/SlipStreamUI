@@ -120,8 +120,7 @@
 (defn sections
   [metadata]
   (let [parameters (parameters/parse metadata)]
-    {:summary              {:logo-url (-> metadata :attrs :logolink)}
-     :cloud-image-details  (cloud-image-details metadata)
+    {:cloud-image-details  (cloud-image-details metadata)
      :os-details           (os-details metadata)
      :cloud-configuration  (parameters/categories-of-type parameters :global)
      :image-creation       (image-creation metadata)

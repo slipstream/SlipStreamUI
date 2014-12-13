@@ -90,6 +90,7 @@
                           (-> attrs :resourceuri)
                           alternative-uri)
      :parent-uri        (-> attrs :parenturi)
+     :logo-url          (-> metadata :attrs :logolink (or ""))
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 
 (defn- available-clouds
