@@ -783,25 +783,25 @@
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group\">"
                    "<input value=\"bar\" class=\"ss-required-input ss-input-needs-validation\" />"
-                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+                   "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                "</div>"
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group\">"
                    "<input value=\"baz\" class=\"ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'.+'}]\" />"
-                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+                   "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                "</div>"
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group\">"
                    "<input value=\"foobar\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'\\\\d+'}]\" />"
-                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+                   "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                "</div>"
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group\">"
-                   "<input value=\"foobar\" data-generic-error-help-hint=\"foo bar\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'\\\\w+'}]\" />"
-                   "<span class=\"ss-error-help-hint help-block hidden\"></span>"
+                   "<input value=\"foobar\" data-generic-help-hints=\"{'error':'foo bar','warning':'bar baz'}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'\\\\w+'}]\" />"
+                   "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                "</div>"
            "</li>"
        "</ul>")
@@ -809,7 +809,7 @@
         {:value "bar", :required? true}
         {:value "baz", :required? false :requirements [{:some-pattern ".+"}]}
         {:value "foobar", :required? true :requirements [{:some-pattern "\\d+"}]}
-        {:value "foobar", :required? true :requirements [{:some-pattern "\\w+"}], :generic-error-help-hint "foo bar"}]
+        {:value "foobar", :required? true :requirements [{:some-pattern "\\w+"}], :generic-help-hints {:error "foo bar", :warning "bar baz"}}]
        input-list-snip
        html/emit*
        (apply str)

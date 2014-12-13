@@ -137,7 +137,7 @@
                k-name)])))
 
 (defn- value-of
-  [{:keys [name value id-format-fn built-from-map? read-only? required? generic-error-help-hint requirements] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map? read-only? required? generic-help-hints requirements] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
                          (id-format-fn name)
                          (format "parameter-%s--%s--value" name row-index))
@@ -146,7 +146,7 @@
                             :read-only? read-only?
                             :required? required?
                             :requirements requirements
-                            :generic-error-help-hint generic-error-help-hint}
+                            :generic-help-hints generic-help-hints}
                       (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       ; TODO: Using the same key for all cell
@@ -227,7 +227,7 @@
                          :id-format-fn (constantly "password2")
                          :required? (page-type/new?)
                          :requirements (pattern/requirements :user-password-confirmation)
-                         :generic-error-help-hint (t :password-not-match.error-help-hint)}
+                         :generic-help-hints {:error (t :password-not-match.error-help-hint)}}
         :password-old   {:type :cell/password,  :editable? true,  :hidden? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
         :state          {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)}))))
 
@@ -254,6 +254,7 @@
                        :hidden? (page-type/view?)
                        :id-format-fn (constantly "logoLink")
                        :required? false
+                       :generic-help-hints {:warning (t :logo-url.warning-help-hint)}
                        :requirements (pattern/requirements :picture-url)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -610,7 +611,7 @@
      :data  (when name (assoc-in {} ["outputParams" name] (:output-parameters deployment-node)))
      :cells [{:type :cell/text, :editable? true, :content {:text name
                                                            :class "ss-node-shortname"
-                                                           :generic-error-help-hint (t :node-name-unique.error-help-hint)
+                                                           :generic-help-hints {:error (t :node-name-unique.error-help-hint)}
                                                            :id (format "node--%s--shortname" node-index),
                                                            :required? true
                                                            :requirements (pattern/requirements :node-name)

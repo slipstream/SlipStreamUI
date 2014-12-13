@@ -82,7 +82,7 @@
              :value (get m k)
              :built-from-map? true}
       (contains? hints :required?)        (assoc :required?       (:required?       hints))
-      (contains? hints :generic-error-help-hint)  (assoc :generic-error-help-hint (:generic-error-help-hint hints))
+      (contains? hints :generic-help-hints)  (assoc :generic-help-hints (:generic-help-hints hints))
       (contains? hints :requirements)     (assoc :requirements    (:requirements    hints))
       (contains? hints :editable?)        (assoc :editable?       (:editable?       hints))
       (contains? hints :read-only?)       (assoc :read-only?      (:read-only?      hints))

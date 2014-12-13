@@ -527,6 +527,8 @@
    :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.not-empty   "Enter the password a second time to confirm it."
    :slipstream.ui.views.tables.password-not-match.error-help-hint                     "This is not what you typed above."
 
+   :slipstream.ui.views.tables.logo-url.warning-help-hint                             "The image doesn't seem reachable right now."
+
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Please choose a project (i.e. not an image or a deployment) in the navigator above where this %1$s has to be copied to." ; %1$s: module category ;
 
    ;; Utils.core

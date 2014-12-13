@@ -347,7 +347,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     $initialNodeNameInputs
-        .enableDisplayOfErrorHelpHint()
         .addCustomFormFieldRequirement(isUniqueNodeShortname)
         .last() // the 'New node' input in the last row
             .onFormFieldValidationStateChange(function(state){

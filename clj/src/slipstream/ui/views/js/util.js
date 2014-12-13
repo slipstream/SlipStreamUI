@@ -512,6 +512,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        hasFocus: function() {
+            return this.is(":focus");
+        },
+
         formHiddenFieldCls: "ss-form-hidden-field-added-with-addFormHiddenField-fn",
 
         addFormHiddenField: function (fieldName, fieldValue) {
@@ -618,8 +622,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        enableDisplayOfErrorHelpHint: function() {
-            this.data("displayErrorHelpHint", true);
+        enableDisplayOfValidationHelpHint: function() {
+            this.data("displayValidationHelpHint", true);
             return this;
         },
 
@@ -629,7 +633,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .onTextInputChange(function() {
                     $(this).validateFormInput();
                 })
-                .enableDisplayOfErrorHelpHint();
+                .enableDisplayOfValidationHelpHint();
             return this;
         },
 
@@ -714,38 +718,54 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return $form;
         },
 
-        toggleFormInputValidationState: function (state, customErrorHelpHint) {
+        setFormInputValidationState: function (stateArg, customHelpHint) {
+            // 'stateArg' can be a boolean or a string: 'success', 'warning' or 'error'.
+            // If it is a boolean 'true' means 'success' and 'false' means 'error'.
+            var stateArgType = $.type(stateArg),
+                allowedStateStrings = ["success", "warning", "error"],
+                state,
+                isValid;
+
+            if (stateArgType === "boolean") {
+                state = stateArg ? "success" : "error";
+            } else if (stateArgType === "string") {
+                if (allowedStateStrings.contains(stateArg)) {
+                    state = stateArg;
+                } else {
+                    console.warn("Validation state '" + stateArg + "' is not allowed. Using 'warning' instead.");
+                    state = "warning";
+                }
+            }
+
+            isValid = (state === "success");
+
             this
                 .filterOfClass(this.formFieldToValidateCls)
                     .each(function() {
                         var $this = $(this),
-                            isNewState = ($this.data("isValid") !== state),
+                            isNewState = ($this.data("isNewState") !== state),
                             callback = $this.data("onFormFieldValidationCallback"),
                             callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
-                            errorHelpHint = customErrorHelpHint || $this.data("generic-error-help-hint"),
-                            displayErrorHelpHint = $this.data("displayErrorHelpHint") || false, // A real boolean
+                            genericHelpHints = $this.data("generic-help-hints") || {},
+                            validationHelpHint = customHelpHint || genericHelpHints[state],
+                            displayHelpHint = $this.data("displayValidationHelpHint") || false, // A real boolean
                             $formGroup = $this.closest(".form-group");
                         if ($formGroup.foundNothing()) {
                             throw "No .form-group element could be found from jQuery selection.";
                         }
-                        if ($.type(state) === "boolean") {
-                            $this.data("isValid", state);
-                            $formGroup
-                                .toggleClass("has-success", state)
-                                .toggleClass("has-error",  !state)
-                                .find(".ss-error-help-hint")
-                                    .html(errorHelpHint)
-                                    .toggleClass("hidden", (displayErrorHelpHint && errorHelpHint) ? state : true);
-                        } else {
-                            // If the 'state' is not a boolean, we toggle the current state
-                            $formGroup
-                                .toggleClass("has-success")
-                                .toggleClass("has-error")
-                                .find(".ss-error-help-hint")
-                                    .html(errorHelpHint)
-                                    .toggleClass("hidden");
-                            $this.data("isValid", $this.hasClass("has-success"));
+                        $this.data("validationState", state);
+                        if (state !== "warning") {
+                            // Warning doesn't change the validation state of the field.
+                            // If it was valid before the warning it stays valid, and it
+                            // it was not valid before the warning it stays not valid.
+                            $this.data("isValid", isValid);
                         }
+                        $formGroup
+                            .removeClass("has-success has-warning has-error")
+                            .addClass("has-" + state)
+                            .find(".ss-validation-help-hint")
+                                .html(validationHelpHint)
+                                .toggleClass("hidden", ! (displayHelpHint && validationHelpHint));
                         var hasErrors = $this.closest("form").find(".has-error").foundAny();
                         $this
                             .closest("form")
@@ -754,11 +774,25 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 // Enable or disable the submit button accordingly
                                 .find("button[type=submit]")
                                     .disable(hasErrors);
-                        callback.call($this, state);
-                        if ( isNewState && callbackOnStateChange ) {
-                            callbackOnStateChange.call($this, state);
+                        if (callback) {
+                            callback.call($this, isValid, state);
+                        }
+                        if (isNewState && callbackOnStateChange) {
+                            callbackOnStateChange.call($this, isValid, state);
                         }
                     });
+            return this;
+
+        },
+
+        toggleFormInputValidationState: function (state, customErrorHelpHint) {
+            if ($.type(state) === "boolean") {
+                this.setFormInputValidationState(state, customErrorHelpHint);
+            } else if ($.type(state) === "undefined") {
+                this.setFormInputValidationState(! this.data("isValid"), customErrorHelpHint);
+            } else {
+                throw "State must be a boolean or left undefined.";
+            }
             return this;
         },
 
@@ -769,9 +803,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 throw "No .form-group element can be found from jQuery selection.";
             }
             $formGroup
-                .removeClass("has-success")
-                .removeClass("has-error")
-                .find(".ss-error-help-hint")
+                .removeClass("has-success has-warning has-error")
+                .find(".ss-validation-help-hint")
                     .addClass("hidden");
             // Do the same with the submit button, if no .has-error in form
             var hasErrors = $this.closest("form").find(".has-error").foundAny();

@@ -390,7 +390,7 @@
 
 (defn add-requirements
   "See tests for expectations."
-  [{:keys [required? requirements generic-error-help-hint]}]
+  [{:keys [required? requirements generic-help-hints]}]
   (if (or required? (not-empty requirements))
     (fn [match]
       (html/at match
@@ -401,7 +401,7 @@
         [:input]  (html/add-class input-to-validate-cls)
         [:input]  (enable-class required? required-input-cls)
         [:input]  (enable-class (not-empty requirements) input-has-requirements-cls)
-        [:input]  (set-data :generic-error-help-hint generic-error-help-hint)
+        [:input]  (set-data :generic-help-hints generic-help-hints)
         this      (html/wrap :div {:class "form-group"}) ; NOTE: Bootstrap required this to be able to flag the input as non valid.
-        this      (html/append (blank-node :span :class "ss-error-help-hint help-block hidden"))))
+        this      (html/append (blank-node :span :class "ss-validation-help-hint help-block hidden"))))
     identity))

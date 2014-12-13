@@ -20,16 +20,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $inheritedGroupMembersCheckbox.change();
 
     $logoURLInput
-        .onFormFieldValidation(function(isValidLogoURL){
-            if (isValidLogoURL) {
+        .onFormFieldValidation(function(isValidLogoURL, logoURLInputState){
+            if (isValidLogoURL && logoURLInputState !== "warning" && $logoURLInput.hasFocus()) {
                 $logoHeaderImg
-                    .reloadImage($logoURLInput.val()
-                    //   // Un-comment that to flash the logo after the change:
-                    //     , function(isLoaded){
-                    //     $logoHeaderImg
-                    //         .parent()
-                    //             .flash(isLoaded ? "success" : "warning");
-                    // }
+                    .reloadImage($logoURLInput.val(),
+                        function(isLoaded){
+                            if (!isLoaded && $logoURLInput.val()) {
+                                $logoURLInput
+                                    .setFormInputValidationState("warning");
+                            }
+                      // // Un-comment that to flash the logo after the change:
+                      //   $logoHeaderImg
+                      //       .parent()
+                      //           .flash(isLoaded ? "success" : "warning");
+                    }
                     );
             }
         });
