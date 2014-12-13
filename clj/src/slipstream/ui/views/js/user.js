@@ -6,7 +6,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $firstPasswordInput
         .onTextInputChange(function (){
             $secondPasswordInput
-                .setRequiredFormInput($firstPasswordInput.val().trim() !== "");
+                .setRequiredFormInput($firstPasswordInput.val().trim() !== "")
+                .validateFormInput();
         });
 
     function isPasswordEqualToFirstPasswordInput(password) {
