@@ -1165,7 +1165,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             var image_placeholder = $imgParent
                                                         .css("background-image", "")
                                                         .css("background-image"),
-                                broken_image_placeholder = image_placeholder.replace(".png", "_broken.png");
+                                broken_image_placeholder = image_placeholder.replace(".png", "_warning.png");
                             $imgParent.css("background-image", broken_image_placeholder);
                         }
                         $imgParent.fadeTo(200, originalOpacity,

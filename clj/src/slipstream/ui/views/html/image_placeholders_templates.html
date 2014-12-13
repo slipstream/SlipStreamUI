@@ -1,0 +1,213 @@
+<html>
+<head>
+    <title>Image Templates</title>
+    <link rel="stylesheet" type="text/css" href="../external/bootstrap/css/bootstrap.min.css"/>
+    <style>
+        .placeholder-image-template div {
+            font-size: 180px;
+            margin: 50px;
+            padding: 50px;
+            padding-top: 30px;
+            width: 335px;
+            min-width: 335px;
+            max-width: 335px;
+            height: 251px;
+            min-height: 251px;
+            max-height: 251px;
+            border: solid 1px;
+            overflow: hidden;
+            text-align:center;
+        }
+
+        .column-title div {
+            font-size: 20px;
+            margin:  50px;
+            margin-bottom: 0;
+            padding: 50px;
+            padding-bottom: 0;
+            width: 335px;
+            min-width: 335px;
+            max-width: 335px;
+        }
+
+        .placeholder-image-template div {
+            /* The light version for the AppStore tiles. */
+            color: #ddd;
+            background-color: #eee;
+/*
+            -webkit-box-shadow: inset 0 0 20px 5px #ddd;
+               -moz-box-shadow: inset 0 0 20px 5px #ddd;
+                    box-shadow: inset 0 0 20px 5px #ddd;
+*/
+        }
+        .placeholder-image-template div:nth-of-type(2) {
+            /* The dark version for the module header. */
+            color: #272727;
+            background-color: #3d3d3d;
+/*
+            -webkit-box-shadow: inset 0 0 20px 5px #272727;
+               -moz-box-shadow: inset 0 0 20px 5px #272727;
+                    box-shadow: inset 0 0 20px 5px #272727;
+*/
+        }
+
+        .placeholder-image-template.warning div {
+            text-shadow: 0px 0px 10px rgba(185, 123, 5, 0.5);
+        }
+        .placeholder-image-template.warning div::after {
+            text-shadow: none;
+            content: "\e107";
+            font-size: 50px;
+            color: rgba(185, 123, 5, 0.5);
+            position: absolute;
+            margin-left: 23px;
+            margin-top: -65px;
+        }
+
+        .placeholder-image-template.error div {
+            text-shadow: 0px 0px 10px rgba(168, 0, 8, 0.5);
+        }
+        .placeholder-image-template.error div::after {
+            text-shadow: none;
+            content: "\e014";
+            font-size: 50px;
+            color: rgba(168, 0, 8, 0.5);
+            position: absolute;
+            margin-left: 25px;
+            margin-top: -60px;
+        }
+
+        .placeholder-image-template.broken-red div {
+            color: rgb(213, 185, 186);
+        }
+        .placeholder-image-template.broken-red div:nth-of-type(2) {
+            color: rgb(73, 0, 0);
+        }
+
+        .placeholder-image-template.broken-yellow div {
+            color: rgb(224, 196, 119);
+            background-color: rgb(246, 235, 200);
+        }
+        .placeholder-image-template.broken-yellow div:nth-of-type(2) {
+            color: rgb(185, 123, 5);
+            background-color: rgb(233, 173, 24);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+
+        <div class="row column-title">
+            <div class="col-xs-6">
+                Light version for the AppStore tiles.
+            </div>
+            <div class="col-xs-6">
+                Dark version for the module header.
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template">
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template warning">
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template error">
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row column-title">
+            <div class="col-xs-6">
+                Other tests
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template broken-red">
+            <div class="col-xs-6">
+                <span class="glyphicon-remove"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-remove"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template broken-red">
+            <div class="col-xs-6">
+                <span class="glyphicon-remove-circle"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-remove-circle"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template">
+            <div class="col-xs-6">
+                <span class="glyphicon-ban-circle"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-ban-circle"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template">
+            <div class="col-xs-6">
+                <span class="glyphicon-exclamation-sign"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-exclamation-sign"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template">
+            <div class="col-xs-6">
+                <span class="glyphicon-eye-close"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-eye-close"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template broken-yellow">
+            <div class="col-xs-6">
+                <span class="glyphicon-warning-sign"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-warning-sign"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template broken-yellow">
+            <div class="col-xs-6">
+                <span class="glyphicon-eye-close"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-eye-close"></span>
+            </div>
+        </div>
+    </div> <!-- /.container -->
+
+</body>
+</html>
