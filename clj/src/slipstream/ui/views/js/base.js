@@ -161,41 +161,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function checkForm() {
-        if ($$.util.meta.isViewName("configuration")) {
-            // Nothing to validate
-            return true;
-        }
-        var $saveForm = $("#save-form"),
-            resourceName,
-            suggestedName,
-            isEmailMissing;
         if ($$.util.meta.isViewName("module")) {
             var module = $$.model.getModule();
-            suggestedName = module.getBaseName();
-            resourceName = module.getCategoryName();
             if (module.isOfCategory("deployment") &&
                 $(".ss-deployment-node-unfinished-row").not(".ss-disabled-row").foundAny()) {
                 $$.alert.showError("Unfinished deployment configuration",
                     "There are still some nodes without a reference image. Setup them correctly or remove them before saving.");
                 return false;
             }
-        } if ($$.util.meta.isViewName("user")) {
-            suggestedName = usernameFromForm($saveForm);
-            resourceName = "User";
-            isEmailMissing = $saveForm.find("#email").val().mightBeAnEmailAddress().not();
-        }
-        if (! suggestedName) {
-            $$.alert.showError(resourceName + " name missing",
-                "Please provide a name for the new " + resourceName.toLowerCase() + ".");
-            return false;
-        } else if ($$.util.string.caseInsensitiveEqual(suggestedName, "new")) {
-            $$.alert.showError("Invalid " + resourceName + " name",
-                "'new' is not a valid "  + resourceName.toLowerCase() + " name.");
-            return false;
-        } else if (isEmailMissing) {
-            $$.alert.showError("Email missing",
-                "Please provide a valid email address for the new " + resourceName.toLowerCase() + ".");
-            return false;
         }
         return true;
     }
