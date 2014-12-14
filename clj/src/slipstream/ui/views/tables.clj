@@ -214,7 +214,7 @@
         :organization   {:type :cell/text}
         :email          {:type :cell/email, :required? true, :requirements (pattern/requirements :email)}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
-        :creation       {:type :cell/timestamp, :editable? false}
+        :creation       {:type :cell/timestamp, :editable? false, :hidden? (page-type/new?)}
         :password-new-1 {:type :cell/password
                          :editable? true
                          :hidden? (not (page-type/edit-or-new?))
