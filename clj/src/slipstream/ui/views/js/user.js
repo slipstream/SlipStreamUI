@@ -11,7 +11,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
 
     function isPasswordEqualToFirstPasswordInput(password) {
-        return ($firstPasswordInput.val() === password);
+        if (password) {
+            return ($firstPasswordInput.val() === password);
+        } else {
+            // There is nothing to check yet.
+            return true;
+        }
     }
 
     $secondPasswordInput
