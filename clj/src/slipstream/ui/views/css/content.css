@@ -49,6 +49,7 @@ a[target='_blank']:hover::after {
 }
 
 .ss-table-cell-help-hint:hover {
+  color: rgb(110,110,110);
   color: rgba(0,0,0,.4);
 }
 
@@ -60,4 +61,12 @@ dl.ss-footer-versions-popover {
 }
 .ss-footer-versions-popover dd {
   margin-left: 100px;
+}
+
+.ss-form-group-with-validation .form-control-feedback {
+  top: 0;     /* NOTE: Input validation icon top must be adjusted. */
+}
+.table .ss-form-group-with-validation .form-control-feedback {
+  z-index: 0; /* NOTE: Otherwise it goes on top of popover menus.
+                       Only on tables, because in modal dialogs original z-index is required. */
 }

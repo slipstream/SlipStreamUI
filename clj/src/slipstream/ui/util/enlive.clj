@@ -402,6 +402,9 @@
         [:input]  (enable-class required? required-input-cls)
         [:input]  (enable-class (not-empty requirements) input-has-requirements-cls)
         [:input]  (set-data :generic-help-hints generic-help-hints)
-        this      (html/wrap :div {:class "form-group"}) ; NOTE: Bootstrap required this to be able to flag the input as non valid.
-        this      (html/append (blank-node :span :class "ss-validation-help-hint help-block hidden"))))
+         ; NOTE: Bootstrap requires .form-group to be able to flag the input as non valid,
+         ;       and .has-feedback if the input also shows an icon for the validation state.
+        this      (html/wrap :div {:class "form-group has-feedback ss-form-group-with-validation"})
+        this      (html/append (blank-node :span :class "ss-validation-help-hint help-block hidden"))
+        this      (html/append (blank-node :span :class "glyphicon glyphicon-ok form-control-feedback hidden"))))
     identity))

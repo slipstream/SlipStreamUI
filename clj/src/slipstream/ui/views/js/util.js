@@ -181,10 +181,17 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return object;
         },
 
-        keysString: function(object) {
-            return Object.keys(object).join(", ");
-        }
+        keysString: function(object, separator) {
+            return Object.keys(object).join(separator || ", ");
+        },
 
+        valsString: function(object, separator) {
+            var vals = [];
+            $.each(object, function(k, v) {
+                vals.push(v);
+            });
+            return vals.join(separator || ", ");
+        }
     };
 
 
@@ -722,7 +729,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // 'stateArg' can be a boolean or a string: 'success', 'warning' or 'error'.
             // If it is a boolean 'true' means 'success' and 'false' means 'error'.
             var stateArgType = $.type(stateArg),
-                allowedStateStrings = ["success", "warning", "error"],
+                stateIcons = {
+                    success:    "glyphicon-ok",
+                    warning:    "glyphicon-warning-sign",
+                    error:      "glyphicon-remove"
+                },
+                allowedStateStrings = Object.keys(stateIcons),
+                allIconsClasses = $$.util.object.valsString(stateIcons, " "),
                 state,
                 isValid;
 
@@ -743,13 +756,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .filterOfClass(this.formFieldToValidateCls)
                     .each(function() {
                         var $this = $(this),
+                            $formGroup = $this.closest(".form-group"),
                             isNewState = ($this.data("isNewState") !== state),
                             callback = $this.data("onFormFieldValidationCallback"),
                             callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
                             genericHelpHints = $this.data("generic-help-hints") || {},
                             validationHelpHint = customHelpHint || genericHelpHints[state],
-                            displayHelpHint = $this.data("displayValidationHelpHint") || false, // A real boolean
-                            $formGroup = $this.closest(".form-group");
+                            displayHelpHint = $this.data("displayValidationHelpHint") || false; // A real boolean
                         if ($formGroup.foundNothing()) {
                             throw "No .form-group element could be found from jQuery selection.";
                         }
@@ -765,7 +778,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             .addClass("has-" + state)
                             .find(".ss-validation-help-hint")
                                 .html(validationHelpHint)
-                                .toggleClass("hidden", ! (displayHelpHint && validationHelpHint));
+                                .toggleClass("hidden", ! (displayHelpHint && validationHelpHint))
+                                .end()
+                            .find(".form-control-feedback")
+                                .removeClass(allIconsClasses + " hidden")
+                                .addClass(stateIcons[state]);
                         var hasErrors = $this.closest("form").find(".has-error").foundAny();
                         $this
                             .closest("form")
