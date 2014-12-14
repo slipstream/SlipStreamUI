@@ -782,7 +782,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 .end()
                             .find(".form-control-feedback")
                                 .removeClass(allIconsClasses + " hidden")
-                                .addClass(stateIcons[state]);
+                                .addClass(stateIcons[state])
+                                .end()
+                            .closest("tr")
+                                .toggleClass("danger", state === "error")
+                                .toggleClass("warning", state === "warning");
                         var hasErrors = $this.closest("form").find(".has-error").foundAny();
                         $this
                             .closest("form")
