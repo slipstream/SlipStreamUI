@@ -59,6 +59,15 @@
    action/cancel
    action/delete])
 
+(defn- save-page?
+  [context]
+  (-> context
+      :view-name
+      #{"configuration" "service-catalog"}))
+
+(def ^:private save-page-actions
+  [action/save])
+
 (def ^:private new-page-actions
   [action/create
    action/cancel])
@@ -217,10 +226,11 @@
                                               configuration/service-catalog-enabled?))
   (base
     (cond-> context
-      (page-type/edit?) (assoc :secondary-menu-actions  edit-page-actions)
-      (page-type/new?)  (assoc :secondary-menu-actions  new-page-actions)
-      :always           (assoc :configuration           (-> context :metadata configuration/parse))
-      :always           (assoc :involved-templates      (templates template-filename)))))
+      (page-type/edit?)     (assoc :secondary-menu-actions  edit-page-actions)
+      (page-type/new?)      (assoc :secondary-menu-actions  new-page-actions)
+      (save-page? context)  (assoc :secondary-menu-actions  save-page-actions)
+      :always               (assoc :configuration           (-> context :metadata configuration/parse))
+      :always               (assoc :involved-templates      (templates template-filename)))))
 
 (defmacro generate
   "This macro includes info about the caller into the 'context' map argument."
