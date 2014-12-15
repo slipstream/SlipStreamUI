@@ -16,6 +16,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function saveTags() {
         var $tagsInput = $(this);
+        $tagsInput.validateFormInput();
         if ($tagsInput.isFormInputValidationState("error") ||
             $tagsInput.isFormInputValidationState(undefined) ||
             $tagsInput.data("areTagsBeingSaved")) {

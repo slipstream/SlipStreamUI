@@ -501,6 +501,72 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return o;
         },
 
+        triggerDelayed: function(delayInMillis, eventName) {
+            // Trigger an event after 'delayInMillis'. If this function is called many times
+            // it ensures that the event is triggered *only once*, 'delayInMillis' millis
+            // after the last call.
+            var $this = this,
+                triggerIDKey = "triggerTimeoutFor" + eventName,
+                deadlineKey  = "deadlineFor" + eventName;
+            this.data(deadlineKey, $.now() + delayInMillis);
+            if(! this.data(triggerIDKey)) {
+                this.data(triggerIDKey, setTimeout(function(){
+                    $this.removeData(triggerIDKey);
+                    if ($.now() < $this.data(deadlineKey)) {
+                        $this.triggerDelayed(delayInMillis, eventName);
+                    } else {
+                        $this.trigger(eventName);
+                    }
+                }, delayInMillis));
+            }
+            return this;
+        },
+
+        enableBufferedTextInputChangeEvent: function() {
+            // The event is bound to the 'body' so that it's enabled for all relevant elements, present or future.
+            var $staticParent = this.closest("body"),
+                targetElemSel = "input[type=text], input[type=password], input[type=number], textarea",
+                enabledKey = "isBufferedTextInputChangeEventEnabled";
+            if (! $staticParent.data(enabledKey)) {
+                $staticParent.on("input", targetElemSel, function() {
+                    $(this).triggerDelayed(300, "bufferedtextinputchange");
+                });
+                this.data(enabledKey, true);
+            }
+            return this;
+        },
+
+        bufferedtextinputchange: function (callback) {
+            // This event triggers max once every 300 millis (i.e. not on every keystroke).
+            // See also onTextInputChange();
+            this
+                .enableBufferedTextInputChangeEvent()
+                .on("bufferedtextinputchange", callback);
+            return this;
+        },
+
+        onTextInputChange: function(callback) {
+            // This event triggers at every input change (e.g. every keystroke).
+            // See also bufferedtextinputchange(callback);
+            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
+            if ($textInputFields.foundNothing()) {
+                return this;
+            }
+            // Inspired from: http://stackoverflow.com/a/6458946
+            $textInputFields
+                .on("input", callback);
+            return this;
+        },
+
+        offTextInputChange: function(callback) {
+            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
+            if ($textInputFields.foundNothing()) {
+                return this;
+            }
+            $textInputFields.off('input', callback);
+            return this;
+        },
+
         enableEnterKeyPressEvent: function() {
             var $this = this,
                 enabledKey = "isEnterKeyPressEventEnabled";
@@ -678,7 +744,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         enableLiveInputValidation: function() {
             this
                 .findIncludingItself(this.formFieldToValidateCls.asSel())
-                .onTextInputChange(function() {
+                .bufferedtextinputchange(function() {
                     $(this).validateFormInput();
                 })
                 .enableDisplayOfValidationHelpHint();
@@ -952,25 +1018,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .filter(function(){
                     return $(this).val() === "";
                 });
-        },
-
-        onTextInputChange: function(callback) {
-            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
-            if ($textInputFields.foundNothing()) {
-                return this;
-            }
-            // Inspired from: http://stackoverflow.com/a/6458946
-            $textInputFields.on('input', callback);
-            return this;
-        },
-
-        offTextInputChange: function(callback) {
-            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
-            if ($textInputFields.foundNothing()) {
-                return this;
-            }
-            $textInputFields.off('input', callback);
-            return this;
         },
 
         askConfirmation: function (callbackOnOKButtonPress) {
