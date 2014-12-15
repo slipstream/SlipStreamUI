@@ -175,7 +175,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         var $this = $(this);
                         if($(nodeRowSel).getDisabledRows().foundNothing()) {
                             // Nothign to check
-                            $this.cleanFormInputValidationState();
+                            $this.clearFormInputValidationState();
                             return;
                         }
                         var selectedOutput = $this.getSelectedOptionText(),
@@ -185,7 +185,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                 $rowOfNodeOfSelectedOutput.foundOne() &&
                                                 $rowOfNodeOfSelectedOutput.isEnabledRow();
                         if (validSelection) {
-                            $this.cleanFormInputValidationState();
+                            $this.clearFormInputValidationState();
                         } else {
                             $this.toggleFormInputValidationState(false);
                         }

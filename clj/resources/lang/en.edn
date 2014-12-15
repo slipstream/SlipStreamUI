@@ -526,8 +526,10 @@
    :slipstream.ui.util.pattern.error-help-hint.user-password.min-6-chars              :pattern.default-error-help-hint.min-x-chars
 
    :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.not-empty   "Enter the password a second time to confirm it."
+   :slipstream.ui.views.tables.password-not-match.success-help-hint                   "That's it."
    :slipstream.ui.views.tables.password-not-match.error-help-hint                     "This is not what you typed above."
 
+   :slipstream.ui.views.tables.logo-url.success-help-hint                             "That looks nice."
    :slipstream.ui.views.tables.logo-url.warning-help-hint                             "The logo file doesn't seem reachable right now."
 
    :slipstream.ui.views.tables.run-tags.success-help-hint                             "Tags successfully updated."

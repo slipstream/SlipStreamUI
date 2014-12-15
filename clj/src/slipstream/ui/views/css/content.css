@@ -79,3 +79,6 @@ dl.ss-footer-versions-popover {
   z-index: 0; /* NOTE: Otherwise it goes on top of popover menus.
                        Only on tables, because in modal dialogs original z-index is required. */
 }
+.ss-validation-help-hint {
+  font-weight: 300;
+}

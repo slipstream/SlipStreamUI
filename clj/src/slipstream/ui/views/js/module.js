@@ -21,19 +21,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $logoURLInput
         .onFormFieldValidation(function(isValidLogoURL, logoURLInputState){
-            if (isValidLogoURL && logoURLInputState !== "warning" && $logoURLInput.hasFocus()) {
+            if (! $logoURLInput.hasFocus()) {
+                // do nothing
+                return;
+            }
+            if (! $logoURLInput.val() || logoURLInputState === undefined) {
+                // Remove image
+                $logoHeaderImg
+                    .reloadImage("");
+            } else if (logoURLInputState === "validating") {
                 $logoHeaderImg
                     .reloadImage($logoURLInput.val(),
                         function(isLoaded){
-                            if (!isLoaded && $logoURLInput.val()) {
-                                $logoURLInput
-                                    .setFormInputValidationState("warning");
-                            }
-                      // // Un-comment that to flash the logo after the change:
-                      //   $logoHeaderImg
-                      //       .parent()
-                      //           .flash(isLoaded ? "success" : "warning");
-                    }
+                            $logoURLInput
+                                .setFormInputValidationState(isLoaded ? "success" : "warning");
+                        }
                     );
             }
         });

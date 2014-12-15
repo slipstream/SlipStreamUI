@@ -789,21 +789,21 @@
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group has-feedback ss-form-group-with-validation\">"
-                   "<input value=\"baz\" class=\"ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'.+'}]\" />"
+                   "<input value=\"baz\" data-validation=\"{'requirements':[{'somePattern':'.+'}]}\" class=\"ss-input-has-requirements ss-input-needs-validation\" />"
                    "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                    "<span class=\"glyphicon glyphicon-ok form-control-feedback hidden\"></span>"
                "</div>"
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group has-feedback ss-form-group-with-validation\">"
-                   "<input value=\"foobar\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'\\\\d+'}]\" />"
+                   "<input value=\"foobar\" data-validation=\"{'requirements':[{'somePattern':'\\\\d+'}]}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" />"
                    "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                    "<span class=\"glyphicon glyphicon-ok form-control-feedback hidden\"></span>"
                "</div>"
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group has-feedback ss-form-group-with-validation\">"
-                   "<input value=\"foobar\" data-generic-help-hints=\"{'error':'foo bar','warning':'bar baz'}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" data-input-requirements=\"[{'somePattern':'\\\\w+'}]\" />"
+                   "<input value=\"foobar\" data-validation=\"{'requirements':[{'somePattern':'\\\\w+'}],'genericHelpHints':{'error':'foo bar','warning':'bar baz'}}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" />"
                    "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                    "<span class=\"glyphicon glyphicon-ok form-control-feedback hidden\"></span>"
                "</div>"
@@ -811,9 +811,9 @@
        "</ul>")
   (->> [{:value "foo", :required? false}
         {:value "bar", :required? true}
-        {:value "baz", :required? false :requirements [{:some-pattern ".+"}]}
-        {:value "foobar", :required? true :requirements [{:some-pattern "\\d+"}]}
-        {:value "foobar", :required? true :requirements [{:some-pattern "\\w+"}], :generic-help-hints {:error "foo bar", :warning "bar baz"}}]
+        {:value "baz", :required? false, :validation {:requirements [{:some-pattern ".+"}]}}
+        {:value "foobar", :required? true, :validation {:requirements [{:some-pattern "\\d+"}]}}
+        {:value "foobar", :required? true, :validation {:requirements [{:some-pattern "\\w+"}], :generic-help-hints {:error "foo bar", :warning "bar baz"}}}]
        input-list-snip
        html/emit*
        (apply str)

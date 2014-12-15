@@ -11,7 +11,6 @@
   [pattern-key]
   (case pattern-key
     :not-empty                   ".+"
-    :empty                       "^$"
     :alpha-num                   "^[a-zA-Z0-9]+$"
     :alpha-num-underscore        "^\\w+$"
     :alpha-num-underscore-dash   "^[\\w-]+$"
@@ -61,12 +60,10 @@
                    :not-new
                    :begin-with-letter]
 
-   :run-tags      [[:empty                  {:when-true   "warning"
-                                             :when-false  "success"}]
-                   [:comma-separated-words  {:when-true   "warning"}]]
+   :run-tags      [[:comma-separated-words  {:when-true   "warning"}]]
 
    :picture-url   [:url
-                   :picture-file]
+                   [:picture-file           {:when-true   "validating"}]]
 
    :node-name     [:not-empty
                    :alpha-num-underscore-dash

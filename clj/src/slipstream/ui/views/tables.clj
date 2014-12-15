@@ -137,7 +137,7 @@
                k-name)])))
 
 (defn- value-of
-  [{:keys [name value id-format-fn built-from-map? read-only? required? generic-help-hints requirements] :as parameter} cell-type row-index]
+  [{:keys [name value id-format-fn built-from-map? read-only? required? validation] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
                          (id-format-fn name)
                          (format "parameter-%s--%s--value" name row-index))
@@ -145,8 +145,7 @@
                             :row-index row-index
                             :read-only? read-only?
                             :required? required?
-                            :requirements requirements
-                            :generic-help-hints generic-help-hints}
+                            :validation validation}
                       (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       ; TODO: Using the same key for all cell
@@ -208,26 +207,27 @@
                          :editable? (page-type/new?)
                          :id-format-fn (constantly "name")
                          :required? true
-                         :requirements (pattern/requirements :username)}
-        :first-name     {:type :cell/text, :required? true, :requirements (pattern/requirements :first-name)}
-        :last-name      {:type :cell/text, :required? true, :requirements (pattern/requirements :last-name)}
+                         :validation {:requirements (pattern/requirements :username)}}
+        :first-name     {:type :cell/text, :required? true, :validation {:requirements (pattern/requirements :first-name)}}
+        :last-name      {:type :cell/text, :required? true, :validation {:requirements (pattern/requirements :last-name)}}
         :organization   {:type :cell/text}
-        :email          {:type :cell/email, :required? true, :requirements (pattern/requirements :email)}
+        :email          {:type :cell/email, :required? true, :validation {:requirements (pattern/requirements :email)}}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
         :creation       {:type :cell/timestamp, :editable? false, :hidden? (page-type/new?)}
         :password-new-1 {:type :cell/password
                          :editable? true
                          :hidden? (not (page-type/edit-or-new?))
                          :id-format-fn (constantly "password1")
-                         :requirements (pattern/requirements :user-password)
+                         :validation {:requirements (pattern/requirements :user-password)}
                          :required? (page-type/new?)}
         :password-new-2 {:type :cell/password
                          :editable? true
                          :hidden? (not (page-type/edit-or-new?))
                          :id-format-fn (constantly "password2")
                          :required? (page-type/new?)
-                         :requirements (pattern/requirements :user-password-confirmation)
-                         :generic-help-hints {:error (t :password-not-match.error-help-hint)}}
+                         :validation {:requirements (pattern/requirements :user-password-confirmation)
+                                      :generic-help-hints {:success (t :password-not-match.success-help-hint)
+                                                           :error   (t :password-not-match.error-help-hint)}}}
         :password-old   {:type :cell/password,  :editable? true,  :hidden? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
         :state          {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)}))))
 
@@ -241,7 +241,7 @@
                        :editable? (page-type/new?)
                        :id-format-fn (constantly "ss-module-name")
                        :required? true
-                       :requirements (pattern/requirements :module-name)}
+                       :validation {:requirements (pattern/requirements :module-name)}}
       :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description    {:type :cell/text}
       :comment        {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
@@ -254,8 +254,9 @@
                        :hidden? (page-type/view?)
                        :id-format-fn (constantly "logoLink")
                        :required? false
-                       :generic-help-hints {:warning (t :logo-url.warning-help-hint)}
-                       :requirements (pattern/requirements :picture-url)})))
+                       :validation {:requirements (pattern/requirements :picture-url)
+                                    :generic-help-hints {:success  (t :logo-url.success-help-hint)
+                                                         :warning  (t :logo-url.warning-help-hint)}}})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -611,10 +612,10 @@
      :data  (when name (assoc-in {} ["outputParams" name] (:output-parameters deployment-node)))
      :cells [{:type :cell/text, :editable? true, :content {:text name
                                                            :class "ss-node-shortname"
-                                                           :generic-help-hints {:error (t :node-name-unique.error-help-hint)}
                                                            :id (format "node--%s--shortname" node-index),
                                                            :required? true
-                                                           :requirements (pattern/requirements :node-name)
+                                                           :validation {:generic-help-hints {:error (t :node-name-unique.error-help-hint)}
+                                                                        :requirements (pattern/requirements :node-name)}
                                                            :placeholder (t (if template-node? :template-node.name.placeholder :node.name.placeholder))}}
             {:type :cell/multi, :visible-cell-index (if template-node? 1 0), :content [
               {:type :cell/inner-table,   :content (deployment-node-cell-inner-table node-index deployment-node)}
@@ -662,11 +663,12 @@
       :uuid               {:type :cell/text,    :as-parameter :run-id}
       :tags               {:type :cell/text
                            :editable? true
-                           :generic-help-hints {:success  (t :run-tags.success-help-hint)
-                                                :warning  (t :run-tags.warning-help-hint)
-                                                :error    (t :run-tags.error-help-hint)}
                            :required? false
-                           :requirements (pattern/requirements :run-tags)})))
+                           :validation {:state-when-empty  "warning"
+                                        :generic-help-hints {:success  (t :run-tags.success-help-hint)
+                                                             :warning  (t :run-tags.warning-help-hint)
+                                                             :error    (t :run-tags.error-help-hint)}
+                                        :requirements (pattern/requirements :run-tags)}})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

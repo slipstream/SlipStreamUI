@@ -349,6 +349,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.data(key, ! currentValue);
         },
 
+        dataIn: function(keyPath) {
+            var keys = keyPath.split("."),
+                rootKey = keys.shift(),
+                data = this.data(rootKey);
+            $.each(keys, function(i, key) {
+                if (data) {
+                    data = data[key];
+                }
+                return data ? true : false;
+            });
+            return data;
+        },
+
         // Toggle disabled status of buttons, inputs and anchors
         // Inspired from: http://stackoverflow.com/a/16788240
         disable: function(disable) {
@@ -711,7 +724,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 }
                 // lazily compile regexp only once
                 var compiledRequirements = $fieldToValidate.data("input-compiled-requirements") || [],
-                    requirements = $fieldToValidate.data("input-requirements") || [];
+                    requirements = $fieldToValidate.dataIn("validation.requirements") || [];
                 if (requirements.length === 0 && $fieldToValidate.hasClass($fieldToValidate.requiredFormFieldCls)) {
                     requirements = [{"pattern": "\\w+"}];
                 }
@@ -739,19 +752,23 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             isRequired          = $fieldToValidate.isRequiredFormInput(),
                             validationState     = "success",
                             validationHelpHint;
-                        $.each(requirements, function(i, requirement){
-                            validationState = requirement.status.whenTrue || "success";
-                            validationHelpHint = requirement.helpHint.whenTrue;
-                            if (requirement.test(fieldValue, $fieldToValidate) ===  false){
-                                validationState = requirement.status.whenFalse || "error";
-                                validationHelpHint = requirement.helpHint.whenFalse;
-                            }
-                            if (validationState !== "success") {
-                                return false; // break 'for' loop
-                            }
-                        });
+                        if (fieldValue || isRequired) {
+                            $.each(requirements, function(i, requirement){
+                                validationState = requirement.status.whenTrue || "success";
+                                validationHelpHint = requirement.helpHint.whenTrue;
+                                if (requirement.test(fieldValue, $fieldToValidate) ===  false){
+                                    validationState = requirement.status.whenFalse || "error";
+                                    validationHelpHint = requirement.helpHint.whenFalse;
+                                }
+                                if (validationState !== "success") {
+                                    return false; // break 'each' loop
+                                }
+                            });
+                        } else {
+                            validationState = $fieldToValidate.dataIn("validation.stateWhenEmpty") || validationState;
+                        }
                         if (validationState === "success" && ! fieldValue) {
-                            $fieldToValidate.cleanFormInputValidationState();
+                            $fieldToValidate.clearFormInputValidationState();
                         } else {
                             $fieldToValidate.setFormInputValidationState(validationState, validationHelpHint);
                         }
@@ -772,6 +789,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var stateArgType = $.type(stateArg),
                 stateIcons = {
                     success:    "glyphicon-ok",
+                    validating: "glyphicon-time",
                     warning:    "glyphicon-warning-sign",
                     error:      "glyphicon-remove"
                 },
@@ -801,7 +819,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             isNewState = ($this.data("isNewState") !== state),
                             callback = $this.data("onFormFieldValidationCallback"),
                             callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
-                            genericHelpHints = $this.data("generic-help-hints") || {},
+                            genericHelpHints = $this.dataIn("validation.genericHelpHints") || {},
                             validationHelpHint = customHelpHint || genericHelpHints[state],
                             displayHelpHint = validationHelpHint && $this.data("displayValidationHelpHint") || false; // A real boolean
                         if ($formGroup.foundNothing()) {
@@ -816,7 +834,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                         }
                         $formGroup
                             .removeClass("has-success has-warning has-error")
-                            .addClass("has-" + state)
+                            .addClass(state === "validating" ? "has-warning" : "has-" + state)
                             .find(".ss-validation-help-hint")
                                 .stop(true, true)
                                 .html(validationHelpHint)
@@ -871,7 +889,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        cleanFormInputValidationState: function () {
+        clearFormInputValidationState: function () {
             var $this = $(this),
                 $formGroup = $this.closest(".form-group"),
                 callback = $this.data("onFormFieldValidationCallback"),
@@ -894,10 +912,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .closest("tr")
                     .removeClass("warning danger");
             if (callback) {
-                callback.call($this, true, "success");
+                callback.call($this, undefined, undefined);
             }
             if (callbackOnStateChange) {
-                callbackOnStateChange.call($this, true, "success");
+                callbackOnStateChange.call($this, undefined, undefined);
             }
             // Do the same with the submit button, if no .has-error in form
             var hasErrors = $this.closest("form").find(".has-error").foundAny();
@@ -1028,6 +1046,30 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 this.attr("style", inlineStyle);
             } else {
                 this.removeAttr("style");
+            }
+            return this;
+        },
+
+        captureInlineOpacity: function() {
+            var inlineStyle = this.attr("style");
+            if (/\bopacity\b/.test(inlineStyle)) {
+                this.data("inlineOpacity", inlineStyle.match(/.*opacity\s*:([^;]*)*;/)[1].trim());
+            } else {
+                this.removeData("inlineOpacity");
+            }
+            return this;
+        },
+
+        getCapturedInlineOpacity: function() {
+            return this.data("inlineOpacity");
+        },
+
+        restoreInlineOpacity: function($elemToRestoreFrom) {
+            var inlineOpacity = ($elemToRestoreFrom || this).getCapturedInlineOpacity();
+            if (inlineOpacity) {
+                this.css("opacity", inlineOpacity);
+            } else {
+                this.css("opacity", "");
             }
             return this;
         },
@@ -1285,9 +1327,32 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // Put 'imgSrcArg' as centered justified background image only when and if it's loaded.
             // If 'imgSrcArg' is not given, it simply reloads the current image.
             var $imgPreloaders = this.filter("img.ss-image-preloader");
-            if (imgSrcArg !== undefined) {
-                $imgPreloaders
-                    .attr("src", imgSrcArg);
+
+            $imgPreloaders.each(function() {
+                var $imgPreloader = $(this);
+                if ($imgPreloader.data("alreadyLoadingImage")) {
+                    $imgPreloader
+                        .data("alreadyLoadingImage", true)
+                        .parent()
+                            .captureInlineOpacity();
+                } else {
+                    $imgPreloader
+                        .parent()
+                            .stop(true, true)
+                            .restoreInlineOpacity();
+                }
+                if (imgSrcArg !== undefined) {
+                $imgPreloader
+                        .attr("src", imgSrcArg);
+                }
+            });
+            function finishImageLoading($imgParent, image) {
+                $imgParent
+                    .restoreInlineOpacity()
+                    .data("alreadyLoadingImage", false);
+                if (always) {
+                    always.call(image.img, image.isLoaded);
+                }
             }
             $imgPreloaders
                 .imagesLoaded()
@@ -1301,29 +1366,28 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                         var hasCurrentImage = /background-image/.test($imgParent.attr("style"));
                         if (hasCurrentImage){
                             // Remove image
-                            $imgParent.fadeTo(150, 0, function() {
-                                $imgParent.css("background-image", "");
-                                $imgParent.fadeTo(200, originalOpacity,
-                                    $.isFunction(always) ? always.bind(img, image.isLoaded) : undefined);
-                            });
-
+                            $imgParent
+                                .fadeTo(150, 0, function() {
+                                    $imgParent.css("background-image", "");
+                                })
+                                .fadeTo(200, originalOpacity, finishImageLoading.partial($imgParent, image));
                         }
-                        return;
+                    } else {
+                        $imgParent
+                            .fadeTo(150, 0, function() {
+                                if (image.isLoaded) {
+                                    $imgParent.css("background-image", "url(" + imgSrc +")");
+                                } else {
+                                    // Image link broken
+                                    var image_placeholder = $imgParent
+                                                                .css("background-image", "")
+                                                                .css("background-image"),
+                                        broken_image_placeholder = image_placeholder.replace(".png", "_warning.png");
+                                    $imgParent.css("background-image", broken_image_placeholder);
+                                }
+                            })
+                            .fadeTo(200, originalOpacity, finishImageLoading.partial($imgParent, image));
                     }
-                    $imgParent.fadeTo(150, 0, function() {
-                        if (image.isLoaded) {
-                            $imgParent.css("background-image", "url(" + imgSrc +")");
-                        } else {
-                            // Image link broken
-                            var image_placeholder = $imgParent
-                                                        .css("background-image", "")
-                                                        .css("background-image"),
-                                broken_image_placeholder = image_placeholder.replace(".png", "_warning.png");
-                            $imgParent.css("background-image", broken_image_placeholder);
-                        }
-                        $imgParent.fadeTo(200, originalOpacity,
-                            $.isFunction(always) ? always.bind(img, image.isLoaded) : undefined);
-                    });
                 });
             return this;
         },

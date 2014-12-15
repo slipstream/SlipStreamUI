@@ -390,18 +390,17 @@
 
 (defn add-requirements
   "See tests for expectations."
-  [{:keys [required? requirements generic-help-hints]}]
-  (if (or required? (not-empty requirements))
+  [{:keys [required? validation]}]
+  (if (or required? (not-empty validation))
     (fn [match]
       (html/at match
         ;; NOTE: We target the [:input] specifically since 'this' (i.e. 'match') might select
         ;;       a div.input-group containing itself an input. However, what we need to wrap
         ;;       within a div.form-group is the top level tag, either input or div.input-group.
-        [:input]  (set-data :input-requirements requirements)
         [:input]  (html/add-class input-to-validate-cls)
         [:input]  (enable-class required? required-input-cls)
-        [:input]  (enable-class (not-empty requirements) input-has-requirements-cls)
-        [:input]  (set-data :generic-help-hints generic-help-hints)
+        [:input]  (enable-class (not-empty validation) input-has-requirements-cls)
+        [:input]  (set-data :validation validation)
          ; NOTE: Bootstrap requires .form-group to be able to flag the input as non valid,
          ;       and .has-feedback if the input also shows an icon for the validation state.
         this      (html/wrap :div {:class "form-group has-feedback ss-form-group-with-validation"})
