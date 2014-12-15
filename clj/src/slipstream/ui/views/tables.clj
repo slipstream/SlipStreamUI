@@ -553,7 +553,7 @@
       :cells [{:type :cell/text,              :content (t :reference-image.label)}
               {:type :cell/reference-module,  :content {:value (:reference-image deployment-node)
                                                         :colspan 2
-                                                        :open-in-new-window? true}, :editable? false}
+                                                        :open-in-new-window? (page-type/edit-or-new?)}, :editable? false}
               {:type :cell/hidden-input,      :content {:value (-> deployment-node :reference-image u/module-uri (uc/trim-prefix "/"))
                                                         :id (format "node--%s--imagelink" node-index)}}]}
      {:class "ss-deployment-node-default-multiplicity-row"
