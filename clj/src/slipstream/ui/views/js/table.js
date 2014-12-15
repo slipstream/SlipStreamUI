@@ -72,7 +72,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .fadeIn();
     }
 
-    if ($$.util.meta.isPageType("edit") || $$.util.meta.isPageType("new")) {
+    if ($$.util.meta.isPageType("edit new")) {
         $lastBlankRow
             .addClass(lastBlankRowClass);
     }

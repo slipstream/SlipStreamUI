@@ -235,121 +235,155 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 finalStates = ["cancelled", "aborted", "done"],
                 refreshRequest,
                 url,
-                moduleURL;
-            return {
-                getURL: function() {
-                    if (isRun && ! url) {
-                        url = "/run/" + $elem.find("#uuid").text();
-                    }
-                    return url;
-                },
+                moduleURL,
+                runModel = {
+                    getURL: function() {
+                        if (isRun && ! url) {
+                            url = "/run/" + $elem.find("#uuid").text();
+                        }
+                        return url;
+                    },
 
-                setGlobalRuntimeValue: function(parameterName, value, flashCategory) {
-                    // flashCategory is optional
-                    return $elem
-                                .find("[id^='parameter-ss:" + parameterName + "']")
-                                .updateText(value, {
-                                    flashClosestSel: "tr",
-                                    flashCategory: flashCategory
-                                });
-                },
-
-                getGlobalRuntimeValue: function(parameterName) {
-                    return $elem
-                                .find("[id^='parameter-ss:" + parameterName + "']")
-                                .text();
-                },
-
-                setNodeRuntimeValue: function(nodeName, parameterName, flashCategory) {
-                    // flashCategory arg is optional
-                    return $elem
-                                .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
-                                .updateText(value, {
-                                    flashClosestSel: "tr",
-                                    flashCategory: flashCategory
-                                });
-                },
-
-                getNodeRuntimeValue: function(nodeName, parameterName) {
-                    return $elem
-                                .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
-                                .text();
-                },
-
-                getNodeInstanceRuntimeValue: function(nodeName, nodeInstanceIndex, parameterName) {
-                    return $elem
-                                .find("[id^='parameter-" + nodeName + "." + nodeInstanceIndex + ":" + parameterName + "']")
-                                .text();
-                },
-
-                setState: function(state) {
-                    this.state = state;
-                    var flashCategory = {
-                            done:       "success",
-                            cancelled:  "danger",
-                            aborted:    "danger"
-                        }[state.toLowerCase()];
-                    $elem
-                        .find("#state")
-                            .updateText(state, {flashClosestSel: "tr", flashCategory: flashCategory})
-                            .end()
-                        .find(".ss-header-title .ss-run-state")
-                            .updateText(state, {flashCategory: flashCategory});
-                    this.setGlobalRuntimeValue("state", state, flashCategory);
-                    return this;
-                },
-
-                getState: function() {
-                    return $elem.find("#state").text();
-                },
-
-                isInFinalState: function() {
-                    return finalStates.contains(this.getState().trim().toLowerCase());
-                },
-
-                getModuleURL: function() {
-                    if (isRun && ! moduleURL) {
-                        moduleURL = $elem.find("#moduleuri").text();
-                    }
-                    return moduleURL;
-                },
-
-                refresh: function() {
-                    var runModel = this;
-                    function processRunHTML(data, textStatus, jqXHR) {
-                        var $newRunHTMLRows = $("tr", data),
-                            newState = $newRunHTMLRows.find("#state").text();
-                        runModel.setState(newState);
-                        $newRunHTMLRows
-                            .find("[id]")
-                                .not("[id='state'], [id^='parameter-ss:state']") // State is already set up above
-                                    .each(function(){
-                                        var $this = $(this);
-                                        $elem
-                                            .find("[id='" + $this.id() + "']")
-                                                .updateWith($this, {flashClosestSel: "tr"});
+                    setGlobalRuntimeValue: function(parameterName, value, flashCategory) {
+                        // flashCategory is optional
+                        return $elem
+                                    .find("[id^='parameter-ss:" + parameterName + "']")
+                                    .updateText(value, {
+                                        flashClosestSel: "tr",
+                                        flashCategory: flashCategory
                                     });
-                    }
-                    if (! refreshRequest) {
-                        refreshRequest = $$.request
-                                            .get(this.getURL())
-                                            .async(false)
-                                            .dataType("html")
-                                            .onSuccess(processRunHTML);
-                    }
-                    refreshRequest.send();
-                    return this;
-                },
+                    },
 
-                dump: function() {
-                    console.trace();
-                    console.log("Testing Run querying util fns:");
-                    console.log("  - getURL:        " + this.getURL());
-                    console.log("  - getModuleURL:  " + this.getModuleURL());
-                    console.log("  - getState:      " + this.getState());
-                    return undefined;
-                }
+                    getGlobalRuntimeValue: function(parameterName) {
+                        return $elem
+                                    .find("[id^='parameter-ss:" + parameterName + "']")
+                                    .text();
+                    },
+
+                    setNodeRuntimeValue: function(nodeName, parameterName, flashCategory) {
+                        // flashCategory arg is optional
+                        return $elem
+                                    .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
+                                    .updateText(value, {
+                                        flashClosestSel: "tr",
+                                        flashCategory: flashCategory
+                                    });
+                    },
+
+                    getNodeRuntimeValue: function(nodeName, parameterName) {
+                        return $elem
+                                    .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
+                                    .text();
+                    },
+
+                    getNodeInstanceRuntimeValue: function(nodeName, nodeInstanceIndex, parameterName) {
+                        return $elem
+                                    .find("[id^='parameter-" + nodeName + "." + nodeInstanceIndex + ":" + parameterName + "']")
+                                    .text();
+                    },
+
+                    setState: function(state) {
+                        runModel.state = state;
+                        var flashCategory = {
+                                done:       "success",
+                                cancelled:  "danger",
+                                aborted:    "danger"
+                            }[state.toLowerCase()];
+                        $elem
+                            .find("#state")
+                                .updateText(state, {flashClosestSel: "tr", flashCategory: flashCategory})
+                                .end()
+                            .find(".ss-header-title .ss-run-state")
+                                .updateText(state, {flashCategory: flashCategory});
+                        runModel.setGlobalRuntimeValue("state", state, flashCategory);
+                        return runModel;
+                    },
+
+                    getState: function() {
+                        return $elem.find("#state").text();
+                    },
+
+                    isInFinalState: function() {
+                        return finalStates.contains(runModel.getState().trim().toLowerCase());
+                    },
+
+                    getModuleURL: function() {
+                        if (isRun && ! moduleURL) {
+                            moduleURL = $elem.find("#moduleuri").text();
+                        }
+                        return moduleURL;
+                    },
+
+                    getTags: function() {
+                        return $elem
+                                    .find("#tags")
+                                        .val()
+                                        .trim()
+                                        .replace(/(?:\s*,+\s*)+/g,", ") // Ensure that there is only ", " between tags
+                                        .replace(/(?:,+\s*)*$/,"")      // Remove trailing commas
+                                        .replace(/^(?:,+\s*)*/,"")      // Remove heading commas
+                                        .split(", ")
+                                        .sort()                         // Sort tags alphabetically
+                                        .join(", ");
+                    },
+
+                    commitTags: function(callback) {
+                        var $tagsInput = $elem.find("#tags");
+                        $tagsInput.addClass($tagsInput.formFieldToValidateCls);
+                        $$.request
+                            .put(runModel.getURL() + "/ss:tags?ignoreabort=true")
+                            .data(runModel.getTags())
+                            .serialization("literalString")
+                            .onSuccess(function(){
+                                if (callback) {
+                                    callback.call(runModel, true);
+                                }
+                            })
+                            .onError(function(){
+                                if (callback) {
+                                    callback.call(runModel, false);
+                                }
+                            })
+                            .send();
+                        return runModel;
+                    },
+
+                    refresh: function() {
+                        function processRunHTML(data, textStatus, jqXHR) {
+                            var $newRunHTMLRows = $("tr", data),
+                                newState = $newRunHTMLRows.find("#state").text();
+                            runModel.setState(newState);
+                            $newRunHTMLRows
+                                .find("[id]")
+                                    .not("[id='state'], [id^='parameter-ss:state']") // State is already set up above
+                                        .each(function(){
+                                            var $this = $(this);
+                                            $elem
+                                                .find("[id='" + $this.id() + "']")
+                                                    .updateWith($this, {flashClosestSel: "tr"});
+                                        });
+                        }
+                        if (! refreshRequest) {
+                            refreshRequest = $$.request
+                                                .get(runModel.getURL())
+                                                .async(false)
+                                                .dataType("html")
+                                                .onSuccess(processRunHTML);
+                        }
+                        refreshRequest.send();
+                        return runModel;
+                    },
+
+                    dump: function() {
+                        console.trace();
+                        console.log("Testing Run querying util fns:");
+                        console.log("  - getURL:        " + this.getURL());
+                        console.log("  - getModuleURL:  " + this.getModuleURL());
+                        console.log("  - getState:      " + this.getState());
+                        return undefined;
+                    }
             };
+            return runModel;
         };
 
 

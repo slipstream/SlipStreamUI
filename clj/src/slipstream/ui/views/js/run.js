@@ -1,6 +1,41 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var runModel = $("body").getSlipStreamModel().run;
+    var runModel = $("body").getSlipStreamModel().run,
+        autoupdateRunPageJobName = "updateRun";
+
+    function reenableTagsInput(wasCommitSuccessful) {
+        this
+            .enable()
+            .setFormInputValidationState(wasCommitSuccessful)
+            .data("areTagsBeingSaved", false);
+        $$.util.recurrentJob.restart(autoupdateRunPageJobName);
+        if (wasCommitSuccessful) {
+            $$.util.leavingConfirmation.reset();
+        }
+    }
+
+    function saveTags() {
+        var $tagsInput = $(this);
+        if ($tagsInput.isFormInputValidationState("error") ||
+            $tagsInput.isFormInputValidationState(undefined) ||
+            $tagsInput.data("areTagsBeingSaved")) {
+            // do nothing
+            return;
+        }
+        $tagsInput.data("areTagsBeingSaved", true);
+        $$.util.recurrentJob.stop(autoupdateRunPageJobName);
+        $tagsInput
+            .disable()
+            .val(runModel.getTags());
+        runModel.commitTags(reenableTagsInput.bind($tagsInput));
+    }
+
+    $("#ss-section-summary")
+        .on("enterkeypress", "#tags", saveTags);
+
+    $("#tags")
+        .enableEnterKeyPressEvent()
+        .enableLiveInputValidation();
 
     var run = {
 
@@ -228,7 +263,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     };
 
-     $$.util.recurrentJob.start("updateRun", run.autoupdateRunPage, 15);
+     $$.util.recurrentJob.start(autoupdateRunPageJobName, run.autoupdateRunPage, 15);
 
      $$.run = run;
 

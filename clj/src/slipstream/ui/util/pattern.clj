@@ -11,6 +11,7 @@
   [pattern-key]
   (case pattern-key
     :not-empty                   ".+"
+    :empty                       "^$"
     :alpha-num                   "^[a-zA-Z0-9]+$"
     :alpha-num-underscore        "^\\w+$"
     :alpha-num-underscore-dash   "^[\\w-]+$"
@@ -21,6 +22,7 @@
     :min-6-chars                 ".{6}"
     :url                         "^https?://\\w+"
     :picture-file                "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
+    :comma-separated-words       "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
     ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
     ;       format of email address is so complex, that the only real way to
     ;       validate it is to send it an email. ;)
@@ -28,10 +30,17 @@
     :email                       "^.+@.+$"))
 
 (defn- requirement
-  [field pattern-key]
-  (let [error-help-hint-t-key (str "error-help-hint." (name field) "." (name pattern-key))]
-    {:pattern (str-pattern pattern-key)
-     :error-help-hint (t error-help-hint-t-key)}))
+  [field pattern]
+  (let [[pattern-key status] (if (vector? pattern)
+                               pattern
+                               [pattern {}])
+        error-help-hint-t-key (str "error-help-hint." (name field) "." (name pattern-key))]
+    {:pattern-name (name pattern-key)
+     :pattern (str-pattern pattern-key)
+     :help-hint {:when-false (t error-help-hint-t-key)}
+     :status (merge
+               {:when-true  "success", :when-false "error"}
+               status)}))
 
 (def ^:private patterns-for
   {:username      [:not-empty
@@ -51,6 +60,10 @@
                    :alpha-num-underscore-dash
                    :not-new
                    :begin-with-letter]
+
+   :run-tags      [[:empty                  {:when-true   "warning"
+                                             :when-false  "success"}]
+                   [:comma-separated-words  {:when-true   "warning"}]]
 
    :picture-url   [:url
                    :picture-file]

@@ -145,11 +145,11 @@
             var $this = $(this);
             $$.request
                 .get(settings.url)
-                .dataObject({
-                              target: settings.target_func.call(this, $this.data("metric")),
-                              from: settings.from,
-                              format: "json"
-                            })
+                .data({
+                    target: settings.target_func.call(this, $this.data("metric")),
+                    from:   settings.from,
+                    format: "json"
+                })
                 .dataType("json")
                 .onDataTypeParseErrorAlert("Metrics Error", "We are not able to understand the metrics data.")
                 .onSuccess(function(samples, status, xhr) {

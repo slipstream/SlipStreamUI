@@ -45,8 +45,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
                 return this;
             },
-            dataObject: function (object) {
-                this.settings.data = object;
+            data: function (dataArg) {
+                this.settings.data = dataArg;
                 return this;
             },
             dataType: function (type) {
@@ -184,6 +184,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         this.settings.data = $.param(this.settings.data);
                     }
                     break;
+                case "literalString":
+                    this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+                    if (this.settings.data) {
+                        this.settings.data = this.settings.data.toString();
+                    }
+                    break;
                 default:
                     throw new Error( "Serialization type '" +
                         this.intern.serialization +
@@ -245,7 +251,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             useToSubmitForm: function (sel, preSubmitCallback) {
                 var request = this,
                     $form = $("form" + sel);
-                $form.enableLiveFormValidation();
+                $form.enableLiveInputValidation();
                 request
                     // .serialization("json") // NOTE: Uncomment to send a JSON to the server
                     // .dataType("json")      // NOTE: Uncomment to request the server a JSON reply
@@ -284,7 +290,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     request
                         .url(request.settings.url || $form.attr("action"))
-                        .dataObject($(this).serializeObject())
+                        .data($(this).serializeObject())
                         .send();
                     return false;
                 });

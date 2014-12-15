@@ -660,7 +660,13 @@
       :type               {:type :cell/text,    :as-parameter :run-type}
       :mutable?           {:type :cell/boolean, :hidden? (-> run :original-type (not= "orchestration"))}
       :uuid               {:type :cell/text,    :as-parameter :run-id}
-      :tags               {:type :cell/text,    :editable? true})))
+      :tags               {:type :cell/text
+                           :editable? true
+                           :generic-help-hints {:success  (t :run-tags.success-help-hint)
+                                                :warning  (t :run-tags.warning-help-hint)
+                                                :error    (t :run-tags.error-help-hint)}
+                           :required? false
+                           :requirements (pattern/requirements :run-tags)})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

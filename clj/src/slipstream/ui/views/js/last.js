@@ -3,7 +3,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // This script is always executed last. It is intended to enable some states
     // must be only loaded after the whole page and other scripts are loaded.
 
-    if ($$.util.meta.isPageType("edit") || $$.util.meta.isPageType("new")) {
+    if ($$.util.meta.isPageType("edit new") || $$.util.meta.isViewName("run")) {
         $$.util.leavingConfirmation.askIfPageHasChanges(
             $$.util.meta.getMetaValue("ss-navigate-away-confirmation-msg")
         );

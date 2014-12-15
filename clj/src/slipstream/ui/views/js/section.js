@@ -62,7 +62,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ($$.util.meta.isPageType("edit") || $$.util.meta.isPageType("new")) {
+    if ($$.util.meta.isPageType("edit new")) {
         // For pages in edit mode, bring the focus to the first textfield of the first open section
         $(".panel .panel-collapse.collapse.in").focusFirstInput();
 

@@ -454,7 +454,7 @@
    :slipstream.ui.models.parameters.run-id.help-hint                            ""
 
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
-   :slipstream.ui.models.parameters.tags.help-hint                              ""
+   :slipstream.ui.models.parameters.tags.help-hint                              "You can label this run with a coma separated list of tags. This can be useful e.g. to identify the purpose of a specific run later on. You can modify the run tags any time."
 
    :slipstream.ui.models.parameters.last-state-change.description               "Last state change"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
@@ -492,6 +492,7 @@
                                         :not-new                                "Oh, this will confuse me..."
                                         :begin-with-letter                      "Please begin with a letter."
                                         :min-x-chars                            "Come on, a bit longuer."
+                                        :comma-separated-words                  "Enter only words separated by commas."
                                        }
              }
 
@@ -528,6 +529,11 @@
    :slipstream.ui.views.tables.password-not-match.error-help-hint                     "This is not what you typed above."
 
    :slipstream.ui.views.tables.logo-url.warning-help-hint                             "The logo file doesn't seem reachable right now."
+
+   :slipstream.ui.views.tables.run-tags.success-help-hint                             "Tags successfully updated."
+   :slipstream.ui.views.tables.run-tags.warning-help-hint                             "Press `Enter` to save modification."
+   :slipstream.ui.views.tables.run-tags.error-help-hint                               "Something went wrong when trying to save the tags. Please retry."
+   :slipstream.ui.util.pattern.error-help-hint.run-tags.comma-separated-words         :pattern.default-error-help-hint.comma-separated-words
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Please choose a project (i.e. not an image or a deployment) in the navigator above where this %1$s has to be copied to." ; %1$s: module category ;
 

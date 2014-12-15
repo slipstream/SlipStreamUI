@@ -488,7 +488,29 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return o;
         },
 
+        enableEnterKeyPressEvent: function() {
+            var $this = this,
+                enabledKey = "isEnterKeyPressEventEnabled";
+            if (! this.data(enabledKey)) {
+                this.keypress(function (e) {
+                    if (e.keyCode === 13) {
+                        $this.trigger("enterkeypress");
+                    }
+                });
+                this.data(enabledKey, true);
+            }
+            return this;
+        },
+
+        enterkeypress: function (callback) {
+            this
+                .enableEnterKeyPressEvent()
+                .on("enterkeypress", callback);
+            return this;
+        },
+
         onAltEnterPress: function (callback) {
+            // TODO: Rename it in jQuery style (i.e. 'altenterpress') and create a custom event?
             if ($.isFunction(callback)) {
                 $(this).keypress(function (e) {
                     if (e.altKey && e.keyCode === 13) {
@@ -619,7 +641,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var compiledRequirements = this.data("input-compiled-requirements"),
                 requirement = {
                     test: testCallback,
-                    errorHelpHint: errorHelpHint
+                    helpHint: {
+                        whenFalse: errorHelpHint
+                    },
+                    status: {
+                        whenTrue:   "success",
+                        whenFalse:  "error"
+                    }
                 };
             if (! compiledRequirements) {
                 this.data("input-compiled-requirements", [requirement]);
@@ -634,9 +662,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        enableLiveFormValidation: function() {
+        enableLiveInputValidation: function() {
             this
-                .findOfClass(this.formFieldToValidateCls)
+                .findIncludingItself(this.formFieldToValidateCls.asSel())
                 .onTextInputChange(function() {
                     $(this).validateFormInput();
                 })
@@ -666,6 +694,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                         .first()
                         .validateFormInput()
                         .data("isValid") ? true : false;
+        },
+
+        isFormInputValidationState: function(state) {
+            return this
+                        .filterOfClass(this.formFieldToValidateCls)
+                        .first()
+                        .data("validationState") === state;
         },
 
         validateFormInput: function() {
@@ -698,22 +733,28 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             this
                 .filterOfClass(this.formFieldToValidateCls)
                     .each(function() {
-                        var $fieldToValidate  = $(this),
-                            fieldValue      = $fieldToValidate.val() || "",
-                            requirements    = getRequirements($fieldToValidate),
-                            isRequired      = $fieldToValidate.isRequiredFormInput(),
-                            isValidField    = true,
-                            errorHelpHint;
-                        if (fieldValue || isRequired) {
-                            $.each(requirements, function(i, requirement){
-                                if (requirement.test(fieldValue, $fieldToValidate) ===  false){
-                                    isValidField = false;
-                                    errorHelpHint = requirement.errorHelpHint;
-                                    return false; // break 'for' loop
-                                }
-                            });
+                        var $fieldToValidate    = $(this),
+                            fieldValue          = $fieldToValidate.val() || "",
+                            requirements        = getRequirements($fieldToValidate),
+                            isRequired          = $fieldToValidate.isRequiredFormInput(),
+                            validationState     = "success",
+                            validationHelpHint;
+                        $.each(requirements, function(i, requirement){
+                            validationState = requirement.status.whenTrue || "success";
+                            validationHelpHint = requirement.helpHint.whenTrue;
+                            if (requirement.test(fieldValue, $fieldToValidate) ===  false){
+                                validationState = requirement.status.whenFalse || "error";
+                                validationHelpHint = requirement.helpHint.whenFalse;
+                            }
+                            if (validationState !== "success") {
+                                return false; // break 'for' loop
+                            }
+                        });
+                        if (validationState === "success" && ! fieldValue) {
+                            $fieldToValidate.cleanFormInputValidationState();
+                        } else {
+                            $fieldToValidate.setFormInputValidationState(validationState, validationHelpHint);
                         }
-                        $fieldToValidate.toggleFormInputValidationState(isValidField, errorHelpHint);
                     });
             return this;
         },
@@ -762,7 +803,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
                             genericHelpHints = $this.data("generic-help-hints") || {},
                             validationHelpHint = customHelpHint || genericHelpHints[state],
-                            displayHelpHint = $this.data("displayValidationHelpHint") || false; // A real boolean
+                            displayHelpHint = validationHelpHint && $this.data("displayValidationHelpHint") || false; // A real boolean
                         if ($formGroup.foundNothing()) {
                             throw "No .form-group element could be found from jQuery selection.";
                         }
@@ -777,8 +818,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             .removeClass("has-success has-warning has-error")
                             .addClass("has-" + state)
                             .find(".ss-validation-help-hint")
+                                .stop(true, true)
                                 .html(validationHelpHint)
-                                .toggleClass("hidden", ! (displayHelpHint && validationHelpHint))
+                                .toggleClass("hidden", ! displayHelpHint)
                                 .end()
                             .find(".form-control-feedback")
                                 .removeClass(allIconsClasses + " hidden")
@@ -787,6 +829,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             .closest("tr")
                                 .toggleClass("danger", state === "error")
                                 .toggleClass("warning", state === "warning");
+                        if (state === "success" && displayHelpHint) {
+                            // Fade success help hint after 5 secs
+                            $formGroup
+                                .find(".ss-validation-help-hint")
+                                    .captureInlineStyle()
+                                    .delay(5000)
+                                    .slideUp(400, function() {
+                                        $(this)
+                                            .addClass("hidden")
+                                            .restoreInlineStyle();
+                                    });
+                        }
                         var hasErrors = $this.closest("form").find(".has-error").foundAny();
                         $this
                             .closest("form")
@@ -819,14 +873,32 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         cleanFormInputValidationState: function () {
             var $this = $(this),
-                $formGroup = $this.closest(".form-group");
+                $formGroup = $this.closest(".form-group"),
+                callback = $this.data("onFormFieldValidationCallback"),
+                callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback");
             if ($formGroup.foundNothing()) {
                 throw "No .form-group element can be found from jQuery selection.";
             }
+            $this
+                .removeData("validationState")
+                .removeData("isValid");
+
             $formGroup
                 .removeClass("has-success has-warning has-error")
                 .find(".ss-validation-help-hint")
-                    .addClass("hidden");
+                    .addClass("hidden")
+                    .end()
+                .find(".form-control-feedback")
+                    .addClass("hidden")
+                    .end()
+                .closest("tr")
+                    .removeClass("warning danger");
+            if (callback) {
+                callback.call($this, true, "success");
+            }
+            if (callbackOnStateChange) {
+                callbackOnStateChange.call($this, true, "success");
+            }
             // Do the same with the submit button, if no .has-error in form
             var hasErrors = $this.closest("form").find(".has-error").foundAny();
             $this
@@ -991,10 +1063,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 if (! (originalContent instanceof jQuery)) {
                     throw "'contentGetterFn' should return a jQuery element if 'newContent' is a jQuery element.";
                 }
-                $newElem = newContent.bsEnableDynamicElements();
+                $newElem = newContent
+                                .bsEnableDynamicElements()
+                                .enableEnterKeyPressEvent()
+                                .enableLiveInputValidation();
                 // enable dynamic Bootstrap elements beofre comparing outerHTML, since attributes might change.
                 shouldUpdateContent = (newContent[0].outerHTML != originalContent[0].outerHTML);
-                shouldVisuallyHighlightUpdate = (newContent.text() != originalContent.text());
+                shouldVisuallyHighlightUpdate = (newContent.text() != originalContent.text()) ||
+                                                (newContent.val() != originalContent.val());
                 if (shouldVisuallyHighlightUpdate) {
                     $newElem.css("opacity", 0);
                 }
@@ -1358,8 +1434,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // as in the slipstream.ui.util.page-type Clojure namespace.
             return this.getMetaValue("ss-page-type", $elem);
         },
-        isPageType: function (pageType, $elem) {
-            return util.string.caseInsensitiveEqual(this.getPageType($elem), pageType);
+        isPageType: function (pageTypes, $elem) {
+            // Returns true is the current page type is one of the coma separated 'pageTypes'.
+            return pageTypes.split(" ").contains(this.getPageType($elem));
         },
         getUserType: function ($elem) {
             // User type is one of 'super' or 'regular',
@@ -1375,8 +1452,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // See clj/src/slipstream/ui/views/base.clj:215 or nearby ;)
             return this.getMetaValue("ss-view-name", $elem);
         },
-        isViewName: function (viewName, $elem) {
-            return util.string.caseInsensitiveEqual(this.getViewName($elem), viewName);
+        isViewName: function (viewNames, $elem) {
+            // Returns true is the current view name is one of the coma separated 'viewNames'.
+            return viewNames.split(" ").contains(this.getViewName($elem));
         }
     };
 

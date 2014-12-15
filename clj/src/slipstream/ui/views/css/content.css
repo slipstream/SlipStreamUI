@@ -10,8 +10,17 @@ code {
   color: #4499ce;
 }
 
+.has-success code {
+  color: #3c763d;
+  background-color: transparent;
+}
+.has-warning code {
+  color: #8a6d3b;
+  background-color: transparent;
+}
 .has-error code {
   color: #a94442;
+  background-color: transparent;
 }
 
 .text-muted {
