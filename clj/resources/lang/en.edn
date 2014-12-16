@@ -157,7 +157,7 @@
                     }
             }
 
-   :slipstream.ui.views.base.navigate-away-confirmation-msg          "You have unsaved changes which will be lost if you leave or reload this page without saving."
+   :slipstream.ui.views.base.navigate-away-confirmation-msg          "You have unsaved changes that will be lost if you leave or reload this page without saving."
 
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
@@ -178,9 +178,9 @@
 
 
    :slipstream.ui.views.error.page-title                       :global.nouns.error
-   :slipstream.ui.views.error.header.subtitle                  "How embarrassing. We lost you on the cloud, away from the slipstream.
-                                                                We are surely working on it, but if you land to this page many times,
-                                                                please don't hesitate to [let us know](mailto:support@sixsq.com)." ; Also set up by default in error.css
+   :slipstream.ui.views.error.header.subtitle                  "How embarrassing. We lost you in the cloud, away from the slipstream.
+                                                                We are surely working on it, but if you repeatedly land on this page,
+                                                                please [let us know](mailto:support@sixsq.com)." ; Also set up by default in error.css
 
    :slipstream.ui.views.error.header.title.status-code-400     "Bad request"
    :slipstream.ui.views.error.header.title.status-code-401     "Unauthorized"
@@ -288,12 +288,12 @@
 
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.input             "Input `%1$s`"          ; %1$s = input parameter name
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output   "is mapped to output `%1$s`." ; %1$s = input parameter value
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value    "is defaulted to value `%1$s`."  ; %1$s = input parameter value
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value    "defaults to `%1$s`."  ; %1$s = input parameter value
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty  "has no default value."
    :slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint  "Enter a unique node name."
    :slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference "Choose image reference for this node"
-   :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Map to output of another node"
-   :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Default to value"
+   :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Map to output parameter of another node"
+   :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Default value"
 
 
    :slipstream.ui.views.tables.deployment-nodes-table.new-parameter-mapping.placeholder.value   "No value"
@@ -327,7 +327,7 @@
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "This right allows users to find and see this project."
    :slipstream.ui.views.tables.access.view.publishable-module.help-hint   "This right allows users to find and see this %1$s. If this %1$s is published to
-                                                                          the AppStore, this 'view' access right will still apply to determine which users see this %1$s in the AppStore."
+                                                                          the App Store, this 'view' access right will still apply to determine which users see this %1$s in the App Store."
    :slipstream.ui.views.tables.access.edit.description                    :global.verbs.edit
    :slipstream.ui.views.tables.access.edit.help-hint                      ""
    :slipstream.ui.views.tables.access.delete.description                  :global.verbs.delete
@@ -366,7 +366,7 @@
    :slipstream.ui.models.parameters.creation.help-hint                          ""
 
    :slipstream.ui.models.parameters.publication.description                     "Date of publication"
-   :slipstream.ui.models.parameters.publication.help-hint                       "This is the date when this version of the module was published on the SlipStream AppStore."
+   :slipstream.ui.models.parameters.publication.help-hint                       "This is the date when this version of the module was published on the SlipStream App Store."
 
    :slipstream.ui.models.parameters.state.description                           :global.nouns.state
    :slipstream.ui.models.parameters.state.help-hint                             ""
@@ -392,32 +392,29 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
-   :slipstream.ui.models.parameters.inherited-group-members?.description        "Are group members inherited from parent module?"
+   :slipstream.ui.models.parameters.inherited-group-members?.description        "Inherit group members from parent module?"
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 
    :slipstream.ui.models.parameters.group-members.description                   "Group members"
    :slipstream.ui.models.parameters.group-members.help-hint                     "You can define a new set of SlipStream users as the 'Group' level of this module by entering a comma separated list of usernames."
 
    :slipstream.ui.models.parameters.native-image?.description                   "Native image"
-   :slipstream.ui.models.parameters.native-image?.help-hint                     "A native image maps to an existing cloud-specific image,
-                                                                                 which SlipStream didn't create. For native images, the Cloud Image IDs
-                                                                                 must be provided for each of the targeted clouds.
-                                                                                 For non-native images a SlipStream parent image must be specified instead."
+   :slipstream.ui.models.parameters.native-image?.help-hint                     "A native image maps to a pre-existing cloud-specific image
+                                                                                 that SlipStream didn't create. For native images, the Cloud Image IDs
+                                                                                 must be provided for each of the targeted clouds."
 
    :slipstream.ui.models.parameters.cloud-identifiers.description               "Cloud image IDs"
-   :slipstream.ui.models.parameters.cloud-identifiers.help-hint                 "If this is a native image, SlipStream must know the Cloud Image IDs corresponding
-                                                                                 to this image on each of the targeted clouds (e.g. 'ami-xxxxxx' for Amazon EC2).
-                                                                                 Other SlipStream images will be able to use a native image as parent image."
+   :slipstream.ui.models.parameters.cloud-identifiers.help-hint                 "For a native image, SlipStream must know the Cloud Image IDs corresponding
+                                                                                 to this image for each cloud (e.g. 'ami-xxxxxx' for Amazon EC2).
+                                                                                 Derived images in SlipStream images can use a native image as parent image."
 
    :slipstream.ui.models.parameters.reference-image.description                 "Parent image"
-   :slipstream.ui.models.parameters.reference-image.help-hint                   "If this is not a native image, a parent image must be specified instead
-                                                                                of the Cloud Image IDs, to speficy the image module on which this image is based.
-                                                                                The parent image may or may not be a native image itself. However, SlipStream
-                                                                                requires a native image eventually, so that the root parent of the inheritance chain
-                                                                                must be a native image."
+   :slipstream.ui.models.parameters.reference-image.help-hint                   "For a derived image, a parent image from which this image is derived must be specified.
+                                                                                The parent image may or may be a native or another derived image. However,
+                                                                                the root parent of an image inheritance chain must always be a native image."
 
    :slipstream.ui.models.parameters.platform.description                        :global.nouns.platform
-   :slipstream.ui.models.parameters.platform.help-hint                          "The platform is defined by the native image and inherited by
+   :slipstream.ui.models.parameters.platform.help-hint                          "The platform (operating system) is defined by the native image and inherited by
                                                                                  all derived images."
 
    :slipstream.ui.models.parameters.login-username.description                  "Login username"
@@ -427,13 +424,13 @@
    :slipstream.ui.models.parameters.password-new-1.help-hint                    "Enter the new password if you want to change it."
 
    :slipstream.ui.models.parameters.password-new-2.description                  "Confirm New Password"
-   :slipstream.ui.models.parameters.password-new-2.help-hint                    "Enter again the new password to make sure it is not mistyped."
+   :slipstream.ui.models.parameters.password-new-2.help-hint                    "Enter the new password again to make sure it is not mistyped."
 
    :slipstream.ui.models.parameters.password-old.description                    "Old Password"
    :slipstream.ui.models.parameters.password-old.help-hint                      "Enter your current password to validate the password update."
 
    :slipstream.ui.models.parameters.logo-url.description                        "Logo URL"
-   :slipstream.ui.models.parameters.logo-url.help-hint                          "The URL of the optional picture to use as logo for this module. The logo will be shown in the App Store so that it makes sense to provide it for published modules."
+   :slipstream.ui.models.parameters.logo-url.help-hint                          "The URL of an optional logo for this module. The logo will be shown in the App Store if present."
 
    :slipstream.ui.models.parameters.module-uri.description                      :global.nouns.module
    :slipstream.ui.models.parameters.module-uri.help-hint                        ""
@@ -454,7 +451,7 @@
    :slipstream.ui.models.parameters.run-id.help-hint                            ""
 
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
-   :slipstream.ui.models.parameters.tags.help-hint                              "You can label this run with a coma separated list of tags. This can be useful e.g. to identify the purpose of a specific run later on. You can modify the run tags any time."
+   :slipstream.ui.models.parameters.tags.help-hint                              "You can label this run with a comma-separated list of tags. This can be useful to identify the purpose of a specific run later on. You can modify the run tags any time."
 
    :slipstream.ui.models.parameters.last-state-change.description               "Last state change"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
@@ -462,10 +459,10 @@
    :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
-   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or ip address of the image"
+   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or IP address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Provided at runtime by SlipStream"
-   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance id"
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance ID"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
 
@@ -491,7 +488,7 @@
                                         :alpha-num-underscore-dash              "Please use only [a-zA-Z0-9_-]."
                                         :not-new                                "Oh, this will confuse me..."
                                         :begin-with-letter                      "Please begin with a letter."
-                                        :min-x-chars                            "Come on, a bit longuer."
+                                        :min-x-chars                            "Come on, a bit longer."
                                         :comma-separated-words                  "Enter only words separated by commas."
                                        }
              }
@@ -502,14 +499,14 @@
    :slipstream.ui.util.pattern.error-help-hint.username.begin-with-letter       :pattern.default-error-help-hint.begin-with-letter
    :slipstream.ui.util.pattern.error-help-hint.username.min-3-chars             :pattern.default-error-help-hint.min-x-chars
 
-   :slipstream.ui.util.pattern.error-help-hint.email.not-empty                  "Please enter an email."
-   :slipstream.ui.util.pattern.error-help-hint.email.email                      "This does not look like a valid email."
+   :slipstream.ui.util.pattern.error-help-hint.email.not-empty                  "Please enter an email address."
+   :slipstream.ui.util.pattern.error-help-hint.email.email                      "This does not look like a valid email address."
 
    :slipstream.ui.util.pattern.error-help-hint.first-name.not-empty             "How do people call this person, then?"
    :slipstream.ui.util.pattern.error-help-hint.last-name.not-empty              "This will really help you later."
 
-   :slipstream.ui.util.pattern.error-help-hint.picture-url.url                  "Provide the URL to get the image from."
-   :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Please provide a URL for a `.png` or `.jpg` picture file."
+   :slipstream.ui.util.pattern.error-help-hint.picture-url.url                  "Provide the URL for an image."
+   :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Please provide a URL for a `.png` or `.jpg` image file."
 
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-empty                  :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash  :pattern.default-error-help-hint.alpha-num-underscore-dash
@@ -530,7 +527,7 @@
    :slipstream.ui.views.tables.password-not-match.error-help-hint                     "This is not what you typed above."
 
    :slipstream.ui.views.tables.logo-url.success-help-hint                             "That looks nice."
-   :slipstream.ui.views.tables.logo-url.warning-help-hint                             "The logo file doesn't seem reachable right now."
+   :slipstream.ui.views.tables.logo-url.warning-help-hint                             "The logo URL doesn't seem reachable right now."
 
    :slipstream.ui.views.tables.run-tags.success-help-hint                             "Tags successfully updated."
    :slipstream.ui.views.tables.run-tags.warning-help-hint                             "Press `Enter` to save modification."
@@ -725,10 +722,10 @@
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
    :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
-   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children set up yet. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
-   :slipstream.ui.views.module.project.section.children.empty-content-hint.on-chooser   "This project doesn't have any children set up yet."
-   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint              "This deployment doesn't have any nodes set up yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
-   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes set up yet."
+   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children yet. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.project.section.children.empty-content-hint.on-chooser   "This project doesn't have any children yet."
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint              "This deployment doesn't have any nodes yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes yet."
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
@@ -833,5 +830,5 @@
    :slipstream.ui.views.action.header.title                                     "Action Confirmation"
 
    :slipstream.ui.views.service-catalog.header.title                            :global.nouns.service-catalog
-   :slipstream.ui.views.service-catalog.header.subtitle                         "Provides detailed capability information for each available clouds"
+   :slipstream.ui.views.service-catalog.header.subtitle                         "Provides detailed capability information for each available cloud"
 }
