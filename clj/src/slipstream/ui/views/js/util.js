@@ -1608,12 +1608,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             if (this.windowsFocusListenersSet === true) {
                 return;
             }
-            $(window)
-                .on("focus", function() {
-                    $$.util.recurrentJob.restartAll();
-                })
-                .on("blur", function() {
-                    $$.util.recurrentJob.stopAll();
+            // NOTE: The event name has vendor prefixes only on Android.
+            //       https://developer.mozilla.org/en-US/docs/Web/Guide/User_experience/Using_the_Page_Visibility_API
+            //       http://www.html5rocks.com/en/tutorials/pagevisibility/intro/
+            $(window.document)
+                .on("visibilitychange", function() {
+                    if (window.document.hidden) {
+                        $$.util.recurrentJob.stopAll();
+                    } else {
+                        $$.util.recurrentJob.restartAll();
+                    }
                 });
             this.windowsFocusListenersSet = true;
         },
