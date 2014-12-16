@@ -479,7 +479,8 @@
 
    ;; Error help hints for required table fields
 
-   :slipstream.ui.views.base.generic-form-error-message                         "Please verify the fields highlighted in red."
+   :slipstream.ui.views.base.generic-form-message.success                       "Changes successfully saved."
+   :slipstream.ui.views.base.generic-form-message.error                         "Please verify the fields highlighted in red."
 
    :pattern {
              :default-error-help-hint {

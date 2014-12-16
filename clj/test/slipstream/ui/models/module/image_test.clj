@@ -220,7 +220,7 @@
                 :parameters [{:name "instanceid"
                               :category "Output"
                               :type "String"
-                              :description "Cloud instance id"
+                              :description "Cloud instance ID"
                               :value nil
                               :order 1
                               :placeholder "Provided at runtime by SlipStream"
@@ -234,7 +234,7 @@
                               :placeholder "Provided at runtime by SlipStream"
                               :value "123.234.345"
                               :category "Output"
-                              :description "Hostname or ip address of the image"
+                              :description "Hostname or IP address of the image"
                               :type "String"
                               :name "hostname"}
                              {:help-hint nil

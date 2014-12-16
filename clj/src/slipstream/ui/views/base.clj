@@ -127,7 +127,8 @@
   ue/this (ue/set-id "save-form")
   ue/this (html/set-attr :accept-charset "utf-8")
   ue/this (html/set-attr :autocomplete "off")
-  ue/this (ue/set-data :generic-form-error-message (t :generic-form-error-message))
+  ue/this (ue/set-data :generic-form-messages {:success (t :generic-form-message.success)
+                                               :error   (t :generic-form-message.error)})
   ue/this content-transformation-fn)
 
 (defn- transform-content

@@ -842,11 +842,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        showGenericErrorFormAlert: function() {
-            var $form = this.closest("form");
-            $$.alert.showError($form.data("generic-form-error-message") ||
-                "Please check the fields flagged in red before sending this form.");
-            return $form;
+        getGenericFormAlertMsg: function(category) {
+            // 'category' is 'error' or 'success'
+            return this
+                    .closest("form")
+                    .dataIn("generic-form-messages." + category);
         },
 
         setFormInputValidationState: function (stateArg, customHelpHint) {

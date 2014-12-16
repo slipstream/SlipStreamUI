@@ -160,10 +160,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $("#ss-secondary-menu-action-save").clickWhenEnabled( function(event) {
         if (! $saveForm.isValidForm()) {
-            $saveForm.showGenericErrorFormAlert();
+            $$.alert.showError($form.getGenericFormAlertMsg("error"));
         } else if (event.altKey ||
-            $$.util.meta.isViewName("user") ||
-            $$.util.meta.isViewName("configuration")) {
+            $$.util.meta.isViewName("user configuration service-catalog")) {
             // No commit message needed.
             $saveForm.submit();
         } else {

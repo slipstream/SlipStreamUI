@@ -173,11 +173,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return true;
     }
 
-    $$.request
-        .put()
-        .onSuccessFollowRedirectInResponseHeader()
-        .always(resetForm)
-        .validation(checkForm)
-        .useToSubmitForm("#save-form", updateRequest);
+    if ($$.util.meta.isViewName("configuration service-catalog")) {
+        $$.request
+            .put()
+            .onSuccessAlert($("#save-form").getGenericFormAlertMsg("success"))
+            .useToSubmitForm("#save-form");
+    } else {
+        $$.request
+            .put()
+            .onSuccessFollowRedirectInResponseHeader()
+            .always(resetForm)
+            .validation(checkForm)
+            .useToSubmitForm("#save-form", updateRequest);
+    }
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

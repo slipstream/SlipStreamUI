@@ -265,7 +265,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .validation(function(){
                         var allowRequest = $form.isValidForm();
                         if (! allowRequest) {
-                            $form.showGenericErrorFormAlert();
+                            $$.alert.showError($form.getGenericFormAlertMsg("error"));
                         }
                         return allowRequest;
                     });
