@@ -34,10 +34,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Configure copy module dialog
 
     var $copyModuleDialog = $("#ss-copy-module-dialog"),
-        $copyModuleForm = $copyModuleDialog.find("form"),
         $moduleCopyTargetName = $copyModuleDialog.find("#ss-module-copy-target-name");
 
     $copyModuleDialog.data("isProject", false);
+
+    $moduleCopyTargetName
+        .focusout(function() {
+            // The form input validation is done with on 'bufferedtextinputchange' event
+            // which triggers only when the input hasn't changed for a while (300ms).
+            // Re-validating the input on 'focusout' allows to ensure that the users doesn't
+            // tries to hit the submit (here: "copy") button during these 300ms.
+            $moduleCopyTargetName.validateFormInput();
+        });
 
     $$.request
         .post()
