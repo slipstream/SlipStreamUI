@@ -319,11 +319,10 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                     .find("#tags")
                                         .val()
                                         .trim()
-                                        .replace(/(?:\s*,+\s*)+/g,", ") // Ensure that there is only ", " between tags
-                                        .replace(/(?:,+\s*)*$/,"")      // Remove trailing commas
-                                        .replace(/^(?:,+\s*)*/,"")      // Remove heading commas
-                                        .split(", ")
-                                        .sort()                         // Sort tags alphabetically
+                                        .split(/[^\w-]+/) // tags can only contain [a-zA-Z0-9-]
+                                        .sort()
+                                        .unique()
+                                        .filter($$.util.string.notEmpty)
                                         .join(", ");
                     },
 

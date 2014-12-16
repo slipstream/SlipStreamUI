@@ -232,10 +232,27 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 }
                 return 0;
                 });
+            return this;
         },
 
         contains: function(thing) {
             return ($.inArray(thing, this) === -1) ? false : true;
+        },
+
+        unique: function() {
+            // From: http://stackoverflow.com/a/9229821
+            var seen = {};
+            var out = [];
+            var len = this.length;
+            var j = 0;
+            for(var i = 0; i < len; i++) {
+                var item = this[i];
+                if(seen[item] !== 1) {
+                    seen[item] = 1;
+                    out[j++] = item;
+                }
+            }
+            return out;
         }
     });
 
