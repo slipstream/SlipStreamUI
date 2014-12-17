@@ -194,6 +194,7 @@
       (cond-> []
         (page-type/edit?)                   (conj (save-dialog resource-name)
                                                   (delete-dialog resource-name resource-id))
+        (page-type/view?)                   (conj (delete-dialog resource-name resource-id))
         (chooser-required? context)         (conj (image-chooser-dialog
                                                     (or
                                                       (-> context :parsed-metadata :cloud-image-details :reference-image)

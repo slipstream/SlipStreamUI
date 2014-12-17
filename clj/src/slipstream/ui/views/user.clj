@@ -38,7 +38,8 @@
       {:parsed-metadata user
        :header (header user)
         :html-dependencies {:internal-js-filenames ["user.js"]}
-       :secondary-menu-actions [action/edit]
+       :secondary-menu-actions [action/edit
+                                action/delete]
        :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
        :content (into [{:title (t :summary)
                         :selected? true
