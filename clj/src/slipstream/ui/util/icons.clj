@@ -14,8 +14,10 @@
 
 ;; TODO: Take into account the html/icon-list.html template to retrieve icons.
 
+;; TODO: Overlays are still beta. They disrupt the layout, specially next to text.
+
 (defmacro deficon
-  [icon-symbol icon]
+  [icon-symbol icon & {:keys [overlay]}]
   (let [tooltip-placement-symbol  (symbol "tooltip-placement")
         description-symbol        (symbol "description")]
    `(def ~icon-symbol
@@ -24,11 +26,13 @@
          (let [~description-symbol (uc/title-case (t ~(str "description." (name icon-symbol))))]
            ~(if (symbol? icon)
               `(assoc (~icon :tooltip-placement ~tooltip-placement-symbol)
-                      :description ~description-symbol)
+                      :description  ~description-symbol
+                      :overlay      ~overlay)
                `(with-meta
-                  {:tooltip-placement  ~tooltip-placement-symbol
-                   :class-suffix       ~icon
-                   :description        ~description-symbol}
+                  {:tooltip-placement ~tooltip-placement-symbol
+                   :class-suffix      ~icon
+                   :description       ~description-symbol
+                   :overlay           ~overlay}
                   {:type :icon/computed})))))))
 
 (deficon unknown                "question-sign")
@@ -37,7 +41,8 @@
 (deficon project                "folder-open")
 (deficon module                 project)
 (deficon user                   "user")
-(deficon users                  user)
+(deficon super-user             user :overlay "star")
+(deficon users                  "users")
 (deficon dashboard              "dashboard")
 (deficon vms                    dashboard)
 (deficon deployment             "th")
@@ -55,9 +60,9 @@
 (deficon action-new-project     project)
 (deficon action-new-image       image)
 (deficon action-new-deployment  deployment)
-(deficon action-run             "send")
+(deficon action-run             "cloud-upload")
 (deficon action-build           build)
-(deficon action-import          "cloud-upload")
+(deficon action-import          "floppy-open")
 (deficon action-edit            "pencil")
 (deficon action-copy            "repeat")
 (deficon action-publish         "eye-open")
@@ -109,7 +114,7 @@
   (let [icon-computed (case (type icon)
                         :icon/computed   icon
                         :icon/symbol     (icon))
-        {:keys [tooltip-placement class-suffix description]} icon-computed
+        {:keys [tooltip-placement class-suffix description overlay]} icon-computed
         show-tooltip? (not-empty tooltip-placement)]
     (fn [icon-node]
       (html/at icon-node
@@ -117,6 +122,7 @@
                     (current-glyphicon-icon-cls icon-node)
                     (glyphicon-icon-cls class-suffix))
         ue/this   (ue/when-add-class            show-tooltip? "ss-table-tooltip")
+        ue/this   (ue/when-add-class            (not-empty overlay) (str "ss-icon-overlay-" overlay))
         ue/this   (ue/when-set-title            show-tooltip? description)
         ue/this   (ue/when-set-data :toogle     show-tooltip? "tooltip")
         ue/this   (ue/when-set-data :placement  show-tooltip? tooltip-placement)))))

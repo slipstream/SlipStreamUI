@@ -872,7 +872,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var stateArgType = $.type(stateArg),
                 stateIcons = {
                     success:    "glyphicon-ok",
-                    validating: "glyphicon-time",
+                    validating: "glyphicon-refresh",
                     warning:    "glyphicon-warning-sign",
                     error:      "glyphicon-remove"
                 },

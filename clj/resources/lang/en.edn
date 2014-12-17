@@ -601,6 +601,7 @@
    :slipstream.ui.util.icons.description.project                   :global.nouns.project
    :slipstream.ui.util.icons.description.module                    :global.nouns.module
    :slipstream.ui.util.icons.description.user                      :global.nouns.user
+   :slipstream.ui.util.icons.description.super-user                :global.nouns.super-user
    :slipstream.ui.util.icons.description.users                     :global.nouns.users
    :slipstream.ui.util.icons.description.dashboard                 :global.nouns.dashboard
    :slipstream.ui.util.icons.description.vms                       :global.nouns.vms

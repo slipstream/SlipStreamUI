@@ -1,0 +1,156 @@
+.glyphicon-users:before {
+  /* NOTE: Same than .glyphicon-user */
+  content: "\e008";
+}
+
+.glyphicon-cancel-edit:before {
+  content: "\270f";
+/*
+  color: white;
+  text-shadow:  -1px -1px .5px black,
+                 1px -1px .5px black,
+                -1px  1px .5px black,
+                 1px  1px .5px black;
+*/
+}
+.glyphicon-cancel-edit:after {
+  content: "\e014";
+  color: #a94442;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px .5px white,
+                 1px -1px .5px white,
+                -1px  1px .5px white,
+                 1px  1px .5px white;
+
+}
+
+/* TODO: Trying to do a 'users' icon with 2 user icons */
+/*
+.glyphicon-users:before {
+  content: "\e008";
+  font-size: 80%;
+  margin-right: -30%;
+  margin-left: -15%;
+}
+.glyphicon-users:after {
+  opacity: .7;
+  font-size: 80%;
+  content: "\e008";
+}
+*/
+
+.ss-icon-overlay-star:after {
+  content: "\e006";
+  color: gold;
+  margin-left: -60%;
+  font-size: 60%;
+  text-shadow: 0 0 1px #000;
+}
+
+.ss-icon-overlay-action-add:after {
+  content: "\2b";
+  color: #209212;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px .5px white,
+                 1px -1px .5px white,
+                -1px  1px .5px white,
+                 1px  1px .5px white;
+}
+
+.ss-icon-overlay-action-copy-to:after {
+  content: "\e095";
+  color: white;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px 1px black,
+                 1px -1px 1px black,
+                -1px  1px 1px black,
+                 1px  1px 1px black;
+}
+
+.ss-icon-overlay-action-remove:after {
+  content: "\e014";
+  color: #a94442;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px .5px white,
+                 1px -1px .5px white,
+                -1px  1px .5px white,
+                 1px  1px .5px white;
+}
+
+.ss-icon-overlay-action-edit:after {
+  content: "\270f";
+  color: white;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px .5px black,
+                 1px -1px .5px black,
+                -1px  1px .5px black,
+                 1px  1px .5px black;
+}
+
+.ss-icon-overlay-success:after {
+  content: "\e013";
+  /*content: "\e089";*/
+  color: #209212;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px .5px white,
+                 1px -1px .5px white,
+                -1px  1px .5px white,
+                 1px  1px .5px white;
+}
+
+.ss-icon-overlay-warning:after {
+  content: "\e107";
+  color: black;
+  font-size: 50%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px 1px gold,
+                 1px -1px 1px gold,
+                -1px  1px 1px gold,
+                 1px  1px 1px gold;
+}
+
+.ss-icon-overlay-error:after {
+  content: "\e101";
+  color: #a94442;
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px 1px white,
+                 1px -1px 1px white,
+                -1px  1px 1px white,
+                 1px  1px 1px white;
+}
+
+@-webkit-keyframes rotation { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(359deg); } }
+   @-moz-keyframes rotation { from {    -mox-transform: rotate(0deg); } to {    -mox-transform: rotate(359deg); } }
+     @-o-keyframes rotation { from {      -o-transform: rotate(0deg); } to {      -o-transform: rotate(359deg); } }
+        @keyframes rotation { from {         transform: rotate(0deg); } to {         transform: rotate(359deg); } }
+
+.glyphicon-refresh {
+  -webkit-animation: rotation 2s infinite linear;
+     -moz-animation: rotation 2s infinite linear;
+       -o-animation: rotation 2s infinite linear;
+          animation: rotation 2s infinite linear;
+}
+
+.glyphicon-cog:hover {
+  -webkit-animation: rotation 4s infinite linear;
+     -moz-animation: rotation 4s infinite linear;
+       -o-animation: rotation 4s infinite linear;
+          animation: rotation 4s infinite linear;
+}
+
+/*.strokeme
+{
+    color: yellow;
+    text-shadow: -1px -1px 0 #000,
+                  1px -1px 0 #000,
+                 -1px  1px 0 #000,
+                  1px  1px 0 #000;
+}
+*/
