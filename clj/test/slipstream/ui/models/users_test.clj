@@ -5,12 +5,12 @@
 
 (def raw-metadata-str
   "<list>
-    <item firstName='Super' lastName='User' lastOnline='2014-08-14 20:14:20.810 CEST' name='super' online='true' organization='SixSq' resourceUri='user/super' state='ACTIVE'/>
-    <item firstName='A Test' lastName='User' lastOnline='2015-08-10 22:09:21.705 CEST' name='atest' online='false' organization='ACME' resourceUri='user/atest' state='ACTIVE'/>
-    <item firstName='D Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='dtest' online='true' organization='SixSq' resourceUri='user/tdest' state='ACTIVE'/>
-    <item firstName='B Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='btest' online='false' organization='ACME' resourceUri='user/btest' state='ACTIVE'/>
-    <item firstName='Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='test' online='true' organization='ACME' resourceUri='user/test' state='ACTIVE'/>
-    <item firstName='C Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='ctest' online='false' organization='ACME' resourceUri='user/tcest' state='ACTIVE'/>
+    <item firstName='Super' lastName='User' lastOnline='2014-08-14 20:14:20.810 CEST' name='super' online='true' organization='SixSq' resourceUri='user/super' issuper='true' state='ACTIVE'/>
+    <item firstName='A Test' lastName='User' lastOnline='2015-08-10 22:09:21.705 CEST' name='atest' online='false' organization='ACME' resourceUri='user/atest' issuper='true' state='ACTIVE'/>
+    <item firstName='D Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='dtest' online='true' organization='SixSq' resourceUri='user/tdest' issuper='true' state='ACTIVE'/>
+    <item firstName='B Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='btest' online='false' organization='ACME' resourceUri='user/btest' issuper='false' state='ACTIVE'/>
+    <item firstName='Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='test' online='true' organization='ACME' resourceUri='user/test' issuper='false' state='ACTIVE'/>
+    <item firstName='C Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='ctest' online='false' organization='ACME' resourceUri='user/tcest' issuper='false' state='ACTIVE'/>
     <item firstName='SixSq' lastName='Administrator' name='sixsq' online='false' organization='SixSq' resourceUri='user/sixsq' state='ACTIVE'/>
 </list>")
 
@@ -22,6 +22,7 @@
     :organization "ACME"
     :state "ACTIVE"
     :online? false
+    :super? true
     :last-online "2015-08-10 22:09:21.705 CEST"}
    {:username "btest"
     :uri "user/btest"
@@ -30,6 +31,7 @@
     :organization "ACME"
     :state "ACTIVE"
     :online? false
+    :super? false
     :last-online "2014-08-10 22:09:21.705 CEST"}
    {:username "ctest"
     :uri "user/tcest"
@@ -38,6 +40,7 @@
     :organization "ACME"
     :state "ACTIVE"
     :online? false
+    :super? false
     :last-online "2014-08-10 22:09:21.705 CEST"}
    {:username "dtest"
     :uri "user/tdest"
@@ -46,6 +49,7 @@
     :organization "SixSq"
     :state "ACTIVE"
     :online? true
+    :super? true
     :last-online "2014-08-10 22:09:21.705 CEST"}
    {:username "sixsq"
     :uri "user/sixsq"
@@ -54,6 +58,7 @@
     :organization "SixSq"
     :state "ACTIVE"
     :online? false
+    :super? nil
     :last-online nil}
    {:username "super"
     :uri "user/super"
@@ -62,6 +67,7 @@
     :organization "SixSq"
     :state "ACTIVE"
     :online? true
+    :super? true
     :last-online "2014-08-14 20:14:20.810 CEST"}
    {:username "test"
     :uri "user/test"
@@ -70,6 +76,7 @@
     :organization "ACME"
     :state "ACTIVE"
     :online? true
+    :super? false
     :last-online "2014-08-10 22:09:21.705 CEST"}])
 
 (expect

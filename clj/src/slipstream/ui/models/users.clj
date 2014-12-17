@@ -1,19 +1,21 @@
 (ns slipstream.ui.models.users
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.clojure :as uc]))
 
 (def ^:private user-sel [:list :item])
 
 (defn- parse-user
   [user-node]
   (let [attrs (:attrs user-node)]
-    {:username (:name attrs)
-     :uri (:resourceuri attrs)
-     :first-name (:firstname attrs)
-     :last-name (:lastname attrs)
-     :organization (:organization attrs)
-     :state (:state attrs)
-     :online? (= "true" (:online attrs))
-     :last-online (:lastonline attrs)}))
+    {:username      (-> attrs :name)
+     :uri           (-> attrs :resourceuri)
+     :first-name    (-> attrs :firstname)
+     :last-name     (-> attrs :lastname)
+     :organization  (-> attrs :organization)
+     :state         (-> attrs :state)
+     :online?       (-> attrs :online uc/parse-boolean)
+     :super?        (-> attrs :issuper uc/parse-boolean)
+     :last-online   (-> attrs :lastonline)}))
 
 (defn parse
   [metadata]
