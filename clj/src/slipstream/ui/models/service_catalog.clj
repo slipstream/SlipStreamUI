@@ -11,15 +11,8 @@
 
 (defn parse
   [metadata]
-  (let [service-catalogs (html/select metadata [:serviceCatalog])
-        catalogs-to-keep (->> service-catalogs
-                              (map :attrs)
-                              (map :cloud)
-                              set
-                              count)]
+  (let [service-catalogs (html/select metadata [:serviceCatalog])]
     {:items (->> service-catalogs
-                 (take catalogs-to-keep) ;; NOTE: This is to fix a server bug where
-                                         ;;       the list of catalogs is duplicated.
                  (map parse-service-catalog)
                  (filter (comp not-empty :parameters))
                  (remove nil?)
