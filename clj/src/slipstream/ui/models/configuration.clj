@@ -34,3 +34,9 @@
   (-> configuration
       :parameters
       (parameters/value-for "slipstream.service.catalog.enable")))
+
+(defn self-registration-enabled?
+  [configuration]
+  (-> configuration
+      :parameters
+      (parameters/value-for "slipstream.registration.enable")))
