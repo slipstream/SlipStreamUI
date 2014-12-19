@@ -1,3 +1,10 @@
+/* Overloading bootstrap theme */
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #cecece;
+    border-color: #ddd
+}
+
 body.ss-error-page #ss-content {
   display: none;
 }
