@@ -1514,6 +1514,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // window.location = url;
             return window.location.assign(url);
         },
+        reloadPage: function () {
+            return this.redirectTo(window.location.href);
+        },
         reloadPageWithoutHashInURL: function () {
             return this.redirectTo(window.location.href.split('#')[0]);
         },

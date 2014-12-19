@@ -233,6 +233,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
             }
             var isRun   = $$.util.meta.isViewName("run", $elem),
                 finalStates = ["cancelled", "aborted", "done"],
+                checkLoginRequest,
                 refreshRequest,
                 url,
                 moduleURL,
@@ -362,6 +363,16 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                                     .updateWith($this, {flashClosestSel: "tr"});
                                         });
                         }
+
+                        if (! checkLoginRequest) {
+                            checkLoginRequest = $$.request
+                                                    .get($("#ss-menubar-user-profile-anchor").attr("href"))
+                                                    .async(false)
+                                                    .dataType("xml")
+                                                    .onError(function() {
+                                                        $$.util.url.reloadPage();
+                                                    });
+                        }
                         if (! refreshRequest) {
                             refreshRequest = $$.request
                                                 .get(runModel.getURL())
@@ -369,6 +380,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                                 .dataType("html")
                                                 .onSuccess(processRunHTML);
                         }
+                        checkLoginRequest.send();
                         refreshRequest.send();
                         return runModel;
                     },
