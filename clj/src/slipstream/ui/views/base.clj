@@ -125,7 +125,6 @@
 (ue/def-blank-snippet ^:private save-form-snip :form
   [content-transformation-fn]
   ue/this (ue/set-id "save-form")
-  ue/this (html/add-class "form-inline")
   ue/this (html/set-attr :accept-charset "utf-8")
   ue/this (html/set-attr :autocomplete "off")
   ue/this (ue/set-data :generic-form-messages {:success (t :generic-form-message.success)
