@@ -9,6 +9,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var getGlobalRuntimeValue = function(parameterName) {
         return runModel.getGlobalRuntimeValue(parameterName);
     };
+    
+    var defaultIfEmpty = function(value, defaultValue) {
+        return (value != null && $.trim(value))? value : defaultValue;
+    }
+    
+    var getVmState = function(vm) {
+        return defaultIfEmpty(getRuntimeValue(vm, "vmstate"), "Unknown");
+    }
+    
+    var getNbCompletedForNode = function(node) {
+        var completed = 0;
+        var ids = getRuntimeValue(node, "ids").split(",");
+        for (var i=0; i < ids.length; i++) {
+            if ($.trim(runModel.getNodeInstanceRuntimeValue(node, ids[i], "complete").toLowerCase()) == "true")
+                completed ++;
+        }
+        return completed;
+    }
 
     var cloudServiceNodesMap = function() {
         var map = {},
@@ -164,7 +182,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     + "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
             }
             if(node.data.type === "node") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + $("#" + node.name + "\\.1\\:multiplicity").text() + "</b></div>";
+                tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + getRuntimeValue(node.name, "multiplicity") + "</b></div>";
             }
             if(node.data.type === "vm") {
                 tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>"
@@ -217,7 +235,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 label.innerHTML = "<div class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "'/> \
                     <ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is ...</li> \
+                        <li id='" + idprefix + "-state'>VM is " + getVmState(node.name) + "</li> \
                     </ul></div>";
             }
 
@@ -225,7 +243,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 label.innerHTML = "<div class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "'/> \
                     <ul style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(runModel.getNodeInstanceRuntimeValue(node.name, 1, "state")) + " (?/" + runModel.getNodeInstanceRuntimeValue(node.name, 1, "multiplicity") + ")</div> \
+                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(runModel.getState()) + " (" + getNbCompletedForNode(node.name) + "/" + getRuntimeValue(node.name, "multiplicity") + ")</div> \
                     </ul></div>";
             }
 
@@ -234,7 +252,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 label.innerHTML = "<div class='dashboard-icon dashboard-image " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'> \
                     <ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is ...</li> \
+                        <li id='" + idprefix + "-state'>VM is " + getVmState(node.name) + "</li> \
                         <li id='" + idprefix + "-statecustom'>" + $$.run.truncate(getRuntimeValue(node.name, 'statecustom')) + "</li> \
                     </ul></div>";
             }
