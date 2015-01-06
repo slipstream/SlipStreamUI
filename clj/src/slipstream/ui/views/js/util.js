@@ -1300,7 +1300,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Since we handle each dropdown individually, this can be called
                 // on $("body") to enable at once mouseover reactivity on all dropdowns.
                 var $dropdownToggle = $(this),
-                    $dropdown = $dropdownToggle.closest(".btn-group, .dropdown");
+                    $dropdown = $dropdownToggle.parent();
                 $dropdown.mouseleave(function(){
                     // Cancel the scheduled dropdown opening if leaving.
                     clearTimeout($dropdown.data("openTimer"));
@@ -1314,7 +1314,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     // not yet fired.
                     $dropdownToggle.bsEnableDropdownToggle(true);
                 });
-                $dropdown.mouseenter(function(){
+                $dropdownToggle.mouseenter(function(){
                     // Cancel the scheduled dropdown closing if entering again.
                     clearTimeout($dropdown.data("closeTimer"));
                     // Note that the click action is still available for touch devices.
