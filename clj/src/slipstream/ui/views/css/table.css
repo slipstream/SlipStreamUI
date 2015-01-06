@@ -123,3 +123,11 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-map-empty-value::after {
   content: ">";
 }
+
+.form-inline .form-control {
+  width: 100%;
+}
+
+.ss-view-name-service-catalog table > tbody > tr > td:nth-child(1) {
+  width: 1px;
+}

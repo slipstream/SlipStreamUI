@@ -54,10 +54,13 @@
    "configuration"    configuration/page
    "action"           action/page})
 
-(def page-types
-  {"reports"          "chooser"
-   "service_catalog"  "edit"
-   "configuration"    "edit"})
+(defn page-types
+  [pagename]
+  (case pagename
+    "reports"          "chooser"
+    "service_catalog"  (if (current-user/super?) "edit" "view")
+    "configuration"    (if (current-user/super?) "edit" "view")
+    nil))
 
 (defn- render-html
   "Enlive templates (used in page-fn's) return a seq of string which must be
@@ -97,7 +100,7 @@
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata
       (current-user/with-user-from-metadata
-        (page-type/with-page-type (get page-types pagename type)
+        (page-type/with-page-type (or (page-types pagename) type)
           (guard-exceptions
             (render-page pagename metadata)))))))
 

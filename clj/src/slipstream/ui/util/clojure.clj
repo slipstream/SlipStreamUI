@@ -55,6 +55,20 @@
       s-without-prefix
       s)))
 
+(defn ensure-suffix
+  "See tests for expectations."
+  [s suffix]
+  {:pre [(or (nil? s) (string? s))]}
+  (when s
+    (if (->> s
+             reverse
+             (take (count (str suffix)))
+             reverse
+             (apply str)
+             (= (str suffix))) ; NOTE: Using a regex is not safe because suffix might be e.g. "."
+      s
+      (str s suffix))))
+
 (defn ensure-unquoted
   "See tests for expectations."
   [s]

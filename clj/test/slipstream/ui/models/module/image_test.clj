@@ -143,6 +143,7 @@
                           :parameters [{:help-hint nil
                                         :name "network"
                                         :read-only? false
+                                        :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
                                         :value [{:value  "Public",  :text   "Public", :selected? true}
@@ -151,6 +152,7 @@
                                         :category "Cloud"}
                                        {:help-hint "Password..."
                                         :read-only? false
+                                        :mandatory? true
                                         :order 2147483647
                                         :value "youshouldnotseethis"
                                         :category "Cloud"
@@ -161,6 +163,7 @@
                           :category "stratuslab"
                           :parameters [{:help-hint nil
                                         :read-only? false
+                                        :mandatory? true
                                         :order 2147483647
                                         :value nil
                                         :category "stratuslab"
@@ -170,6 +173,7 @@
                                        {:help-hint nil
                                         :name "stratuslab.disks.bus.type"
                                         :read-only? false
+                                        :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
                                         :value [{:value "virtio", :text "virtio", :selected? true}
@@ -179,6 +183,7 @@
                                        {:help-hint nil
                                         :name "stratuslab.instance.type"
                                         :read-only? false
+                                        :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
                                         :value [{:value "m1.small", :text "m1.small", :selected? true}
@@ -192,6 +197,7 @@
                                         :category "stratuslab"}
                                        {:help-hint nil
                                         :read-only? false
+                                        :mandatory? true
                                         :order 2147483647
                                         :value nil
                                         :category "stratuslab"
@@ -225,11 +231,13 @@
                               :order 1
                               :placeholder "Provided at runtime by SlipStream"
                               :read-only? false
+                              :mandatory? true
                               :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
                               :disabled? true}
                              {:disabled? true
                               :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
                               :read-only? false
+                              :mandatory? true
                               :order 2
                               :placeholder "Provided at runtime by SlipStream"
                               :value "123.234.345"
@@ -239,6 +247,7 @@
                               :name "hostname"}
                              {:help-hint nil
                               :read-only? false
+                              :mandatory? true
                               :order 2147483647
                               :value nil
                               :category "Input"
@@ -247,6 +256,7 @@
                               :name "someotherintputparam"}
                              {:help-hint nil
                               :read-only? false
+                              :mandatory? true
                               :order 2147483647
                               :value nil
                               :category "Output"

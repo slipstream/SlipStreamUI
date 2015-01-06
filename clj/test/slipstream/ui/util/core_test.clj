@@ -33,6 +33,47 @@
 
 ;; Enum utils
 
+(def some-enum
+  ["value"
+   "another value"
+   "the last one"])
+
+(def some-expected-enum
+  [{:value  "value",   :text   "value", :selected? true}
+   {:value  "another value",   :text   "another value"}
+   {:value  "the last one",    :text   "the last one"}])
+
+(expect
+  some-expected-enum
+  (localization/with-lang :en
+    (enum some-enum :some-unlocalized-enum)))
+
+(expect
+  some-expected-enum
+  (localization/with-lang :en
+    (-> some-enum
+        (enum :some-unlocalized-enum)
+        (enum-select "value"))))
+
+(def some-expected-enum-with-another-value-selected
+  [{:value  "value",          :text "value"}
+   {:value  "another value",  :text "another value", :selected? true}
+   {:value  "the last one",   :text "the last one"}])
+
+(expect
+  some-expected-enum-with-another-value-selected
+  (localization/with-lang :en
+    (-> some-enum
+        (enum :some-unlocalized-enum)
+        (enum-select "another value"))))
+
+(expect
+  some-expected-enum-with-another-value-selected
+  (localization/with-lang :en
+    (enum some-enum :some-unlocalized-enum "another value")))
+
+; Test with the platforms enum, which is found in the Image edit page.
+
 (def platforms
   ["centos"
    "debian"

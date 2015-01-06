@@ -481,7 +481,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toogle=\"tooltip\" title=\"Import\" class=\"glyphicon-cloud-upload glyphicon ss-table-tooltip\"></span>"
+       "\n              <span data-placement=\"left\" data-toogle=\"tooltip\" title=\"Import\" class=\"glyphicon ss-table-tooltip glyphicon-floppy-open\"></span>"
        "\n          </td>")
   (localization/with-lang :en
     (cell-html {:type :cell/icon, :content icons/action-import})))

@@ -61,6 +61,37 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var discardedFormInputCls = "ss-discarded-form-input";
 
+    function disableBlankParamInputs($nameInputs) {
+        $nameInputs
+            .not(":disabled")
+                .blankInputs()
+                    .closest("tr")
+                        .find("select, input")
+                            .addClass(discardedFormInputCls)
+                            .disable();
+    }
+
+    function updateRequestForServiceCatalog(request, $form) {
+        var idSuffixForNamePrefixInput = "-prefix",
+            idSuffixForNameSuffixInput = "-suffix";
+        disableBlankParamInputs(
+            $(".ss-table-with-blank-last-row tbody tr:last-of-type td:first-child input:first-of-type")
+        );
+        $("[id$='--name" + idSuffixForNamePrefixInput + "']").each( function(index, elem) {
+            var $prefixElem = $(elem),
+                id          = $prefixElem.id(),
+                nameInputId = id.trimSuffix(idSuffixForNamePrefixInput),
+                prefix      = $prefixElem.val(),
+                $nameElem   = $prefixElem
+                                .closest("tr")
+                                .find("#" + nameInputId + idSuffixForNameSuffixInput),
+                suffix      = $nameElem.val();
+            if (suffix) {
+                $form.addFormHiddenField(nameInputId, prefix + suffix);
+            }
+        });
+    }
+
     function updateRequestForModule(request, $form) {
         var module = $form.getSlipStreamModel().module;
         if ($$.util.meta.isPageType("new")) {
@@ -75,13 +106,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if (module.isOfCategory("image")) {
             // Disable deployment parameters without name to prevent
             // to be sent with the form request.
-            $(".ss-table-with-blank-last-row tbody tr td:first-child input:first-child")
-                .not(":disabled")
-                    .blankInputs()
-                        .closest("tr")
-                            .find("select, input")
-                                .addClass(discardedFormInputCls)
-                                .disable();
+            disableBlankParamInputs(
+                $(".ss-table-with-blank-last-row tbody tr td:first-child input:first-child")
+            );
             // Add scripts as hidden form fields
             $("pre.ss-code-editor").each(function (){
                 var thisId = $(this).attr("id"),
@@ -154,6 +181,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             case "module":
                 updateRequestForModule(request, $form);
                 break;
+            case "service-catalog":
+                updateRequestForServiceCatalog(request, $form);
+                break;
             default:
                 // nothing to do
                 break;
@@ -177,7 +207,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.request
             .put()
             .onSuccessAlert($("#save-form").getGenericFormAlertMsg("success"))
-            .useToSubmitForm("#save-form");
+            .always(resetForm)
+            .useToSubmitForm("#save-form", updateRequest);
     } else {
         $$.request
             .put()

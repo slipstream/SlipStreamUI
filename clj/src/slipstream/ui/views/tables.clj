@@ -192,10 +192,6 @@
   [parameters]
   (build-parameters-table [:name] parameters))
 
-(defn service-catalog-parameters-table
-  [parameters]
-  (build-parameters-table [:name :description :category] parameters))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn user-summary-table
@@ -375,13 +371,13 @@
   (defmulti deployment-parameter-cell (comp last vector))
 
   (defmethod deployment-parameter-cell :type
-    [{:keys [disabled? placeholder category] :as param} row-index field]
+    [row-index {:keys [disabled? placeholder category] :as param} field]
     {:type      :cell/hidden-input
      :content {:id    (when-not disabled? (deployment-parameter-cell-id row-index field))
                :value "String"}})
 
   (defmethod deployment-parameter-cell :category
-    [{:keys [disabled? placeholder category] :as param} row-index field]
+    [row-index {:keys [disabled? placeholder category] :as param} field]
     {:type      :cell/enum
      :editable? (page-type/edit-or-new?)
      :content {:disabled? disabled?
@@ -389,7 +385,7 @@
                :enum (u/enum ["Output" "Input"] :deployment-parameter-category category)}})
 
   (defmethod deployment-parameter-cell :default
-    [{:keys [disabled? placeholder category] :as param} row-index field]
+    [row-index {:keys [disabled? placeholder category] :as param} field]
     {:type :cell/text
      :editable? (page-type/edit-or-new?)
      :content {:disabled? disabled?
@@ -411,11 +407,11 @@
                  "Output" :info
                  "Input"  :warning
                  nil))
-     :cells [(deployment-parameter-cell param row-index :name)
-             (deployment-parameter-cell param row-index :description)
-             (deployment-parameter-cell param row-index :category)
-             (deployment-parameter-cell param row-index :value)
-             (deployment-parameter-cell param row-index :type)
+     :cells [(deployment-parameter-cell row-index param :name)
+             (deployment-parameter-cell row-index param :description)
+             (deployment-parameter-cell row-index param :category)
+             (deployment-parameter-cell row-index param :value)
+             (deployment-parameter-cell row-index param :type)
              (deployment-parameter-remove-button-cell param)
              {:type :cell/help-hint, :content {:title   (:name param)
                                                :content (:help-hint param)}}]})
@@ -690,3 +686,118 @@
      :rows (map vm-row vms)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/with-prefixed-t :service-catalog-parameters-table
+
+  (defn- service-catalog-parameter-cell-placeholder
+    [field]
+    (->> field name (format "blank-service-catalog-parameter.%s.placeholder") t))
+
+  (defn- service-catalog-parameter-cell-id
+    [catalog-id row-index field]
+    (format "parameter-%s-%s--%s"
+            catalog-id
+            row-index
+            (name field)))
+
+  (defn- as-hidden-form-field
+    [text-cell]
+    {:type :cell/hidden-input
+     :content {:id    (-> text-cell :content :id)
+               :value (-> text-cell :content :text)}})
+
+  (defmulti service-catalog-parameter-cell (comp last vector))
+
+  (defmethod service-catalog-parameter-cell :name
+    [catalog-id row-index {:keys [disabled? placeholder category mandatory? blank-row?] :as param} _ _]
+    (let [editable? blank-row?
+          name-prefix (uc/ensure-suffix catalog-id \.)
+          cell-base {:type :cell/text
+                     :editable? editable?
+                     :content {:disabled? disabled?
+                               :id (service-catalog-parameter-cell-id catalog-id row-index (if editable? :name-suffix :name))
+                               :placeholder (or
+                                              placeholder
+                                              (service-catalog-parameter-cell-placeholder :name))
+                               :validation (when blank-row? {:requirements (pattern/requirements :parameter-name)})
+                               :text    (when-not blank-row? (:name param))
+                               :before  (when blank-row? name-prefix)}}]
+      [cell-base
+       (when-not editable? (as-hidden-form-field cell-base))
+       (when editable? {:type :cell/hidden-input
+                        :content {:id    (service-catalog-parameter-cell-id catalog-id row-index :name-prefix)
+                                  :value name-prefix}})]))
+
+  (defmethod service-catalog-parameter-cell :type
+    [catalog-id row-index {:keys [disabled? placeholder category] :as param} _ _]
+    [{:type    :cell/hidden-input
+      :content {:id    (when-not disabled? (service-catalog-parameter-cell-id catalog-id row-index :type))
+                :value "String"}}])
+
+  (defmethod service-catalog-parameter-cell :category
+    [catalog-id row-index {:keys [disabled? placeholder category mandatory? blank-row?] :as param} category-enum _]
+    (let [editable? (and blank-row? (page-type/edit?))
+          cell-base {:type      :cell/enum
+                     :editable? editable?
+                     :content {:disabled? disabled?
+                               :id (when-not disabled? (service-catalog-parameter-cell-id catalog-id row-index :category))
+                               :enum (u/enum-select category-enum category)}}]
+      [cell-base
+       (when-not editable? (as-hidden-form-field cell-base))]))
+
+  (defmethod service-catalog-parameter-cell :remove-button
+    [_ _ param _ _]
+    [(if-not (:mandatory? param)
+       (remove-button-cell)
+       {:type :cell/blank})])
+
+  (defmethod service-catalog-parameter-cell :help-hint
+    [_ _ param _ _]
+    [{:type :cell/help-hint
+      :content {:title    (:name param)
+                :content  (:help-hint param)}}])
+
+  (defmethod service-catalog-parameter-cell :default
+    [catalog-id row-index {:keys [disabled? placeholder category mandatory?] :as param} _ field]
+    (let [editable? (and (page-type/edit?) (or (= field :value) (not mandatory?)))
+          cell-base {:type :cell/text
+                     :editable? editable?
+                     :content {:disabled? disabled?
+                               :id (when-not disabled? (service-catalog-parameter-cell-id catalog-id row-index field))
+                               :placeholder (or
+                                              placeholder
+                                              (service-catalog-parameter-cell-placeholder field))
+                               :text (get param field)}}]
+      [cell-base
+       (when-not editable? (as-hidden-form-field cell-base))]))
+
+  (defn- service-catalog-parameter-row
+    [catalog-id category-enum row-index param]
+    {:style  nil
+     :cells (->> [:name :type :description :category :value :remove-button :help-hint]
+              (map (partial service-catalog-parameter-cell catalog-id row-index param category-enum))
+              (apply concat)
+              (remove nil?))})
+
+  (defn service-catalog-parameters-table
+    [service-catalog-parameters]
+    (let [catalog-id (-> service-catalog-parameters
+                         first
+                         :name
+                         (uc/trim-from \.))
+          category-enum (u/enum ["General"
+                                 "Locations"
+                                 "Overall capacity"
+                                 "Single VM capacity"
+                                 "Price"
+                                 "Suppliers catalogue"
+                                 "Other"]
+                                :service-catalog-parameters)]
+      (table/build
+        {:class "ss-table-with-blank-last-row"
+         :headers [:name :description :category :value nil]
+         :rows (->> service-catalog-parameters
+                    append-blank-row-in-edit-mode
+                    (map-indexed (partial service-catalog-parameter-row catalog-id category-enum)))})))
+
+) ;; End of prefixed t scope

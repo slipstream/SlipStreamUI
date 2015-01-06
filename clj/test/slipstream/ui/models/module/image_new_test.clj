@@ -113,11 +113,13 @@
                               :order 1
                               :placeholder "Provided at runtime by SlipStream"
                               :read-only? false
+                              :mandatory? true
                               :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
                               :disabled? true}
                              {:disabled? true
                               :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
                               :read-only? false
+                              :mandatory? true
                               :order 2
                               :placeholder "Provided at runtime by SlipStream"
                               :value "123.234.345"
@@ -134,6 +136,7 @@
                           :category "Cloud"
                           :parameters [{:help-hint nil
                                         :read-only? false
+                                        :mandatory? true
                                         :order 2147483647
                                         :value "12345"
                                         :category "Cloud"
@@ -143,6 +146,7 @@
                                        {:help-hint nil
                                         :name "network"
                                         :read-only? false
+                                        :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
                                         :value [{:selected? true, :value "Public", :text "Public"}
@@ -153,6 +157,7 @@
                           :category "stratuslab"
                           :parameters [{:help-hint nil
                                         :read-only? false
+                                        :mandatory? true
                                         :order 2147483647
                                         :value nil
                                         :category "stratuslab"
@@ -162,6 +167,7 @@
                                        {:help-hint nil
                                         :name "stratuslab.disks.bus.type"
                                         :read-only? false
+                                        :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
                                         :value [{:selected? true, :value "virtio", :text "virtio"}
@@ -171,6 +177,7 @@
                                        {:help-hint nil
                                         :name "stratuslab.instance.type"
                                         :read-only? false
+                                        :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
                                         :value [{:selected? true, :value "m1.small", :text "m1.small"}
@@ -184,6 +191,7 @@
                                         :category "stratuslab"}
                                        {:help-hint nil
                                         :read-only? false
+                                        :mandatory? true
                                         :order 2147483647
                                         :value nil
                                         :category "stratuslab"

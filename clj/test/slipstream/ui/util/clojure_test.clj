@@ -131,6 +131,71 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ensure-suffix
+
+(expect
+  nil
+  (ensure-suffix nil nil))
+
+(expect
+  nil
+  (ensure-suffix nil "some suffix"))
+
+(expect
+  "some string"
+  (ensure-suffix "some string" nil))
+
+(expect
+  "suffix some string"
+  (ensure-suffix "suffix some string" "suffix some string"))
+
+(expect
+  "suffix some string"
+  (ensure-suffix "" "suffix some string"))
+
+(expect
+  "some string with suffix"
+  (ensure-suffix "some string with suffix" "suffix"))
+
+(expect
+  "some string with suffix"
+  (ensure-suffix "some string with " "suffix"))
+
+(expect
+  "/some/path/or/url/"
+  (ensure-suffix "/some/path/or/url" "/"))
+
+(expect
+  "/some/path/or/url/"
+  (ensure-suffix "/some/path/or/url/" "/"))
+
+(expect
+  "/some/path/or/url/"
+  (ensure-suffix "/some/path/or/url" \/))
+
+(expect
+  "/some/path/or/url/"
+  (ensure-suffix "/some/path/or/url/" \/))
+
+(expect
+  "some.dot.separated.words."
+  (ensure-suffix "some.dot.separated.words" "."))
+
+(expect
+  "some.dot.separated.words."
+  (ensure-suffix "some.dot.separated.words." "."))
+
+(expect
+  "some.dot.separated.words."
+  (ensure-suffix "some.dot.separated.words" \.))
+
+(expect
+  "some.dot.separated.words."
+  (ensure-suffix "some.dot.separated.words." \.))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; parse-pos-int
 
 (expect

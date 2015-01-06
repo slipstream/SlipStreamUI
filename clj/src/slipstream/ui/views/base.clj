@@ -125,6 +125,7 @@
 (ue/def-blank-snippet ^:private save-form-snip :form
   [content-transformation-fn]
   ue/this (ue/set-id "save-form")
+  ue/this (html/add-class "form-inline")
   ue/this (html/set-attr :accept-charset "utf-8")
   ue/this (html/set-attr :autocomplete "off")
   ue/this (ue/set-data :generic-form-messages {:success (t :generic-form-message.success)
@@ -173,6 +174,7 @@
   [:body]               (ue/enable-class beta-page? beta-page-cls)
   [:body]               (ue/enable-class in-progress-page? in-progress-page-cls)
   [:body]               (html/add-class (str "ss-page-type-" (name page-type/*current-page-type*)))
+  [:body]               (html/add-class (str "ss-view-name-" (:view-name context)))
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   ; base-sel              (ue/when-set-href (not *dev?*) "/") ;; TODO: Is that needed eventually??!
   base-sel              (ue/set-href "/") ;; TODO: Is that needed eventually??!

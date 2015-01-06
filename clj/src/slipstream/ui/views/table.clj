@@ -61,6 +61,23 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(ue/def-blank-snippet ^:private input-group-addon-snip :span
+  [content]
+  ue/this (html/add-class "input-group-addon")
+  ue/this (html/content   content))
+
+(defn- decorate-textual-input
+  [{:keys [before after]}]
+  (if (or before after)
+    (fn [match]
+      (html/at match
+        ue/this (html/wrap :div {:class "input-group"})
+        ue/this (ue/when-prepend  (not-empty before)  (input-group-addon-snip before))
+        ue/this (ue/when-append   (not-empty after)   (input-group-addon-snip after))))
+    identity))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Enlive cell snips
 
 ; Text cell
@@ -87,6 +104,7 @@
   [:input]  (ue/toggle-readonly (and (current-user/not-super?) read-only?))
   [:input]  (ue/toggle-disabled disabled?)
   [:input]  (ue/add-requirements cell-content)
+  [:input]  (decorate-textual-input cell-content)
   ue/this   (ue/when-set-title (not-empty tooltip) (str tooltip))
   ue/this   (ue/when-add-class class)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))

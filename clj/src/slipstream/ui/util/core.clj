@@ -67,7 +67,16 @@
     :mapping-options                ; Values: [:parameter.bind-to-output :parameter.bind-to-value]
     :atos-ip-type                   ; Values: ["public" "local" "private"]
     :network                        ; Values: ["Public" "Private"]
-    :cloudsigma-location})          ; Values: ["LVS" "ZRH"]
+    :cloudsigma-location            ; Values: ["LVS" "ZRH"]
+    :service-catalog-parameters     ; Values: ["General"
+                                    ;          "Locations"
+                                    ;          "Overall capacity"
+                                    ;          "Single VM capacity"
+                                    ;          "Price"
+                                    ;          "Suppliers catalogue"
+                                    ;          "Other"]
+                                    ;        in slipstream.ui.views.tables
+    })
 
 (defn- enum-text
   [enum-name option]

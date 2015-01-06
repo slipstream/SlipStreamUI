@@ -40,6 +40,7 @@
       (assoc        :value (value parameter)
                     :order (u/order parameter)
                     :read-only? (-> parameter :attrs :readonly uc/parse-boolean)
+                    :mandatory? (-> parameter :attrs :mandatory uc/parse-boolean)
                     :help-hint (help-hint parameter))
       u/normalize-value
       (u/assoc-enum-details parameter)))

@@ -61,6 +61,14 @@
       (html/append ~content-if-truthy)
       identity)))
 
+(defmacro when-prepend
+  ([content]
+   `(when-prepend (not-empty ~content) ~content))
+  ([test content-if-truthy]
+   `(if ~test
+      (html/prepend ~content-if-truthy)
+      identity)))
+
 (defn html-content-when-not-nil
   [html-content]
   (if (nil? html-content)

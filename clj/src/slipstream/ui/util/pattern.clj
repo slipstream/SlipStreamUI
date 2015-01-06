@@ -22,6 +22,7 @@
     :url                         "^https?://\\w+"
     :picture-file                "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
     :comma-separated-words       "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
+    :dot-separated-words         "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
     ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
     ;       format of email address is so complex, that the only real way to
     ;       validate it is to send it an email. ;)
@@ -59,6 +60,11 @@
                    :alpha-num-underscore-dash
                    :not-new
                    :begin-with-letter]
+
+   :parameter-name  [:not-empty
+                     :dot-separated-words
+                     :not-new
+                     :begin-with-letter]
 
    :run-tags      [[:comma-separated-words  {:when-true   "warning"}]]
 
