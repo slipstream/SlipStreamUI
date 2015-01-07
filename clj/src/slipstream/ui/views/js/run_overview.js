@@ -11,7 +11,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     };
 
     var defaultIfEmpty = function(value, defaultValue) {
-        return (value !== null && $.trim(value))? value : defaultValue;
+        return $$.util.string.isEmpty(value) ? defaultValue : value;
     };
 
     var getVmState = function(vm) {

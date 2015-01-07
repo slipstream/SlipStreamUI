@@ -1485,6 +1485,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         notEmpty: function(str) {
             return str ? str : undefined;
+        },
+
+        isEmpty: function(str) {
+            return $.trim(str) === "" ? true : false;
         }
 
     };
