@@ -54,6 +54,8 @@
 (def placeholder-page-cls "ss-placeholder-page")
 (def in-progress-page-cls "ss-in-progress-page")
 
+(def num-of-main-secondary-menu-actions-default 3)
+
 (def ^:private edit-page-actions
   [action/save
    action/cancel
@@ -159,6 +161,7 @@
            header
            resource-uri
            secondary-menu-actions
+           num-of-main-secondary-menu-actions
            configuration
            content
            page-type
@@ -181,7 +184,9 @@
   topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
   secondary-menu-sel    (when-not (page-type/chooser?)
-                          (secondary-menu/transform secondary-menu-actions))
+                          (secondary-menu/transform secondary-menu-actions (or
+                                                                             num-of-main-secondary-menu-actions
+                                                                             num-of-main-secondary-menu-actions-default)))
   secondary-menubar-sel (ue/remove-if-not (or resource-uri secondary-menu-actions))
   [:#release-version]   (html/content @version/slipstream-release-version)
   footer-sel            (ue/remove-if (page-type/chooser?))

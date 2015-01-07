@@ -657,7 +657,7 @@
    :slipstream.ui.util.icons.description.action-export-users       "Export users as CSV"
    :slipstream.ui.util.icons.description.action-import             :global.verbs.import
    :slipstream.ui.util.icons.description.action-new-deployment     "New deployment"
-   :slipstream.ui.util.icons.description.action-new-image          "New machine image"
+   :slipstream.ui.util.icons.description.action-new-image          "New image"
    :slipstream.ui.util.icons.description.action-new-project        "New project"
    :slipstream.ui.util.icons.description.action-new-user           "New user"
    :slipstream.ui.util.icons.description.action-publish            :global.verbs.publish
@@ -699,7 +699,7 @@
    :slipstream.ui.views.secondary-menu-actions.export-users    "Export users as CSV"
    :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
    :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
-   :slipstream.ui.views.secondary-menu-actions.new-image       "New machine image"
+   :slipstream.ui.views.secondary-menu-actions.new-image       "New image"
    :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
    :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
    :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish

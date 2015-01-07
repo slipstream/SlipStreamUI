@@ -28,8 +28,8 @@
 
 (defn actions
   [module]
-  [action/edit
-   action/new-project
+  [action/new-project
    action/new-image
    action/new-deployment
+   action/edit
    action/import])
