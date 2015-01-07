@@ -55,7 +55,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var orchestrator = {name: "orchestrator-" + cloudService, id: "id_" + cloudService, data: {type: "orchestrator"}, children: []};
             var nodes = cloudServiceNodesMap[cloudService];
             for (var i = 0; i < nodes.length; i++) {
-                addNode(nodes[i], $("[id*='" + nodes[i] + "\\:multiplicity']").text(), orchestrator);
+                addNode(nodes[i], orchestrator);
             }
             root.children.push(orchestrator);
         }
@@ -105,16 +105,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     };
 
-    var addNode = function(nodeName, multiplicity, orchestrator) {
+    var addNode = function(nodeName, orchestrator) {
         nodeName = nodeName.trim();
         var node = {name: nodeName, id: "id_" + nodeName, data: {type: "node"}, children: []};
-        addVm($("[id*='" + nodeName + "\\:multiplicity']").text(), node);
+        addVm($("[id*='" + nodeName + "\\:ids']").text().split(','), node);
         orchestrator.children.push(node);
     };
 
-    var addVm = function(multiplicity, node) {
-        for(var i=1;i<=multiplicity;i++) {
-            node.children.push({name: node.name + "." + i, id: "id_" + node.name + "." + i, data: {type: "vm"}});
+    var addVm = function(ids, node) {
+        for (var i=0; i < ids.length; i++) {
+            node.children.push({name: node.name + "." + ids[i], id: "id_" + node.name + "." + ids[i], data: {type: "vm"}});
         }
     };
 
