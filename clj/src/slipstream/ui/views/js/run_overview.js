@@ -9,15 +9,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var getGlobalRuntimeValue = function(parameterName) {
         return runModel.getGlobalRuntimeValue(parameterName);
     };
-    
+
     var defaultIfEmpty = function(value, defaultValue) {
-        return (value != null && $.trim(value))? value : defaultValue;
-    }
-    
+        return (value !== null && $.trim(value))? value : defaultValue;
+    };
+
     var getVmState = function(vm) {
         return defaultIfEmpty(getRuntimeValue(vm, "vmstate"), "Unknown");
-    }
-    
+    };
+
     var getNbCompletedForNode = function(node) {
         var completed = 0;
         var ids = getRuntimeValue(node, "ids").split(",");
@@ -26,7 +26,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 completed ++;
         }
         return completed;
-    }
+    };
 
     var cloudServiceNodesMap = function() {
         var map = {},
@@ -77,19 +77,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if (obj.hasOwnProperty(key)) size++;
         }
         return size;
-    }
+    };
 
     var getRunType = function() {
         return $("#type").text();
-    }
+    };
 
     var isBuild = function() {
         return getRunType() === 'Image Build';
-    }
+    };
 
     var isDeployment = function() {
         return getRunType() === 'Deployment Run';
-    }
+    };
 
     var addOrchestrators = function() {
         if(isDeployment()) {
@@ -118,11 +118,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     };
 
-    var root = function() {
-        return {id: "id_slipstream",
-                name: "slipstream",
-                data: {type: "slipstream"},
-                children: []}}();
+    var root = {
+            id: "id_slipstream",
+            name: "slipstream",
+            data: {
+                type: "slipstream"
+            },
+            children: []
+        };
 
     addOrchestrators();
 
@@ -133,8 +136,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         canvasHeight = 600;
     }
     var height = canvasHeight + 'px';
-    $("#center-container").css('height', height)
-    $("#infovis").css('height', height)
+    $("#center-container").css('height', height);
+    $("#infovis").css('height', height);
 
     //Create a new ST instance
     var st = new $jit.ST({
@@ -178,16 +181,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + getGlobalRuntimeValue("state") + "</b></div>";
             }
             if(node.data.type === "orchestrator") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>"
-                    + "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
+                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
+                    "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
             }
             if(node.data.type === "node") {
                 tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + getRuntimeValue(node.name, "multiplicity") + "</b></div>";
             }
             if(node.data.type === "vm") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>"
-                    + "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>"
-                    + "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
+                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
+                    "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>" +
+                    "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
             }
           }
         },
