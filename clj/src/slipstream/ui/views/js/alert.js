@@ -73,6 +73,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $alertContainer.prepend($alertElem);
         $alertElem.slideDown("fast");
 
+        if (settings.container === "fixed") {
+            $alertContainer.reveal();
+        }
+
         if (settings.autoDismiss) {
             $alertElem.scheduleAlertDismiss();
         }

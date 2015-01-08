@@ -1238,7 +1238,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
         },
 
-        enableBottomShadowAdjustOnScroll: function (){
+        enableBottomShadowAdjustOnScroll: function() {
             $(this[0].contentWindow).scroll(this._onScrollCallbackToAdjustIFrameBottomShadowOpacity.partial(
                 this
                     .outerHeight(),
@@ -1246,6 +1246,28 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .closest(".ss-iframe-container")
                         .find(".ss-shadow-bottom")
                 ));
+            return this;
+        },
+
+        isOnWindow: function() {
+            // Returns true if the top of the element is in the window (i.e. the
+            // user can see its top part, if the elem is not invisible).
+            var $w = $(window),
+                windowTop = $w.scrollTop(),
+                windowHeight = $w.height(),
+                elemTop = this.offset().top;
+            return  windowTop   < elemTop &&
+                    elemTop     < (windowTop + windowHeight);
+        },
+
+        reveal: function() {
+            // Scroll to the element, if it's not currently on the window port.
+            var topOffset = 80; // Due to the menu bar
+            if (! this.isOnWindow()) {
+                $("html, body").animate({
+                    scrollTop: Math.max(0, this.offset().top - topOffset)
+                }, 800);
+            }
             return this;
         },
 
