@@ -28,3 +28,6 @@
    action/copy
    (action/publish    :hidden? (-> module :summary :published?))
    (action/unpublish  :hidden? (-> module :summary :published? not))])
+
+(def num-of-main-secondary-menu-actions
+  2)

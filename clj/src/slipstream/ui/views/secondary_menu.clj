@@ -23,6 +23,11 @@
              action-icon-sel   (icons/set icon)
              action-name-sel   (html/content (str name)))))
 
+(defn- setup-main-actions
+  [main-actions]
+  (html/clone-for [main-action main-actions]
+                  ue/this (setup-action main-action)))
+
 (defn- setup-extra-actions
   [extra-actions]
   (when extra-actions
@@ -49,14 +54,17 @@
     (map-or-fn)))
 
 (defn transform
-  [secondary-menu-actions]
+  [secondary-menu-actions num-of-main-actions]
   (let [actions (->> secondary-menu-actions
                      (map call-action-fn)
                      (map toggle-super-only-action)
-                     not-empty)]
+                     not-empty)
+        main (min num-of-main-actions (count actions))
+        main-actions  (take main actions)
+        extra-actions (drop main actions)]
     (when actions
       (fn [match]
           (html/at match
-                   main-action-sel              (setup-action (first actions))
-                   extra-actions-toggle-sel     (ue/remove-if-not (next actions))
-                   extra-actions-container-sel  (setup-extra-actions (next actions)))))))
+                   main-action-sel              (setup-main-actions main-actions)
+                   extra-actions-toggle-sel     (ue/remove-if-not (not-empty extra-actions))
+                   extra-actions-container-sel  (setup-extra-actions extra-actions))))))

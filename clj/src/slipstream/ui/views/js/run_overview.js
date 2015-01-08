@@ -59,11 +59,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if (obj.hasOwnProperty(key)) size++;
         }
         return size;
-    }
+    };
 
     var getRunType = function() {
         return $("#type").text();
-    }
+    };
 
     var addOrchestrators = function() {
         if(runModel.isDeployment()) {
@@ -92,11 +92,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     };
 
-    var root = function() {
-        return {id: "id_slipstream",
-                name: "slipstream",
-                data: {type: "slipstream"},
-                children: []}}();
+    var root = {
+            id: "id_slipstream",
+            name: "slipstream",
+            data: {
+                type: "slipstream"
+            },
+            children: []
+        };
 
     addOrchestrators();
 
@@ -107,8 +110,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         canvasHeight = 600;
     }
     var height = canvasHeight + 'px';
-    $("#center-container").css('height', height)
-    $("#infovis").css('height', height)
+    $("#center-container").css('height', height);
+    $("#infovis").css('height', height);
 
     //Create a new ST instance
     var st = new $jit.ST({
@@ -152,16 +155,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + getGlobalRuntimeValue("state") + "</b></div>";
             }
             if(node.data.type === "orchestrator") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>"
-                    + "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
+                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
+                    "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
             }
             if(node.data.type === "node") {
                 tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + getRuntimeValue(node.name, "multiplicity") + "</b></div>";
             }
             if(node.data.type === "vm") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>"
-                    + "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>"
-                    + "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
+                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
+                    "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>" +
+                    "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
             }
           }
         },

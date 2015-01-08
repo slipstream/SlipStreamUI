@@ -96,6 +96,14 @@
     :image       (image/actions module)
     :deployment  (deployment/actions module)))
 
+(defn- num-of-main-secondary-menu-actions
+  [module]
+  (case (-> module :summary :category uc/keywordize)
+    :project     nil
+    :image       nil
+    :deployment  (when (page-type/view?)
+                   deployment/num-of-main-secondary-menu-actions)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn page
@@ -112,4 +120,5 @@
                             {:internal-js-filenames ["module.js"]}
                             (html-dependencies module))
        :secondary-menu-actions (actions module)
+       :num-of-main-secondary-menu-actions (num-of-main-secondary-menu-actions module)
        :content (sections module)})))
