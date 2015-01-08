@@ -304,8 +304,17 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         return $elem.find("#state").text();
                     },
 
+                    isAllVmstateUnknown: function() {
+                        var vmstates = $("tr").find("[id*=':vmstate']").toArray();
+                        for (var i=0; i < vmstates.length; i++) {
+                            if ($.trim($(vmstates[i]).text()).toLowerCase() != 'unknown')
+                                return false;
+                        }
+                        return true;
+                    },
+
                     isInFinalState: function() {
-                        return finalStates.contains(runModel.getState().trim().toLowerCase());
+                        return finalStates.contains(runModel.getState().trim().toLowerCase()) && runModel.isAllVmstateUnknown();
                     },
 
                     getModuleURL: function() {
@@ -428,7 +437,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                             $('#'+id).toggleClass('dashboard-ok', !runModel.isNodeAbort(name));
                             $('#'+id).toggleClass('dashboard-error', runModel.isNodeAbort(name));
 
-                            $('#'+id+'-ratio').html("State: " + $$.run.truncate(runModel.getState()) + " (" + runModel.getNbCompletedForNode(name) + "/" + runModel.getNodeRuntimeValue(name, "multiplicity") + ")");
+                            $('#'+id+'-ratio').html("State: " + $$.run.truncate(runModel.getGlobalRuntimeValue("state")) + " (" + runModel.getNbCompletedForNode(name) + "/" + runModel.getNodeRuntimeValue(name, "multiplicity") + ")");
                         }
 
                         if(type === "vm") {
