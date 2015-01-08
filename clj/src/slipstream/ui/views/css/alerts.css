@@ -16,3 +16,8 @@
   top: 3px;
   margin-right: 5px;
 }
+
+#ss-alert-container-fixed .alert {
+  margin-top: 30px;
+  margin-bottom: 0;
+}

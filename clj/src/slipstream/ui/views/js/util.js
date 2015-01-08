@@ -1061,7 +1061,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         scheduleAlertDismiss: function(millis){
             var $alertElem = $(this).filter("div[role=alert]:not(.hidden)");
             $alertElem.data("dismissTimeout", setTimeout(function(){
-                $alertElem.hide("slow", function() {
+                $alertElem.slideUp("slow", function() {
                     $alertElem.remove();
                 });
             }, millis || 5000));

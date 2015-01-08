@@ -36,7 +36,7 @@
 (def bottom-scripts-container-sel [:#bottom-scripts])
 (def bottom-scripts-sel (concat bottom-scripts-container-sel [:> :script]))
 
-(def alert-container-sel [:#alert-container])
+(def alert-container-sel [:#ss-alert-container-floating])
 
 (def topbar-sel [:#topbar])
 (def menubar-sel [:#menubar])

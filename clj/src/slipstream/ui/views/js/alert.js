@@ -4,32 +4,37 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $("#alert-container div[role=alert]:not(.hidden)").scheduleAlertDismiss();
 
     var alertDefaultOptions = {
-      type: "info",
-      title: undefined,
-      msg: undefined
+        type: "info",
+        container: "floating",
+        autoDismiss: true,
+        title: undefined,
+        msg: undefined
     };
 
-    function show(options) {
+    function show(arg) {
 
         var settings,
+            customOptions,
             $alertContainer,
+            alertContainerIDPrefix = "#ss-alert-container-",
             $alertElem,
             $lastAlertElem;
 
-        $alertContainer = $("#alert-container");
-
-        if ( ! $alertContainer.length) {
-            return false;
+        if ($.type(arg) === "string") {
+            customOptions = {
+                msg: arg
+            };
+        } else if ($.type(arg) === "object") {
+            customOptions = arg;
         }
 
-        if ($.type(options) === "string") {
-            settings = {
-                type: "info",
-                msg: options
-            };
-        } else {
-            /* merge alertDefaultOptions and options, without modifying alertDefaultOptions */
-            settings = $.extend({}, alertDefaultOptions, options);
+        /* merge alertDefaultOptions and arg, without modifying alertDefaultOptions */
+        settings = $.extend({}, alertDefaultOptions, customOptions);
+
+        $alertContainer = $(alertContainerIDPrefix + settings.container);
+
+        if ( $alertContainer.foundNothing()) {
+            throw "alert: No container '" + settings.container + "' found in page!";
         }
 
         $alertElem = $("#alert-" + settings.type)
@@ -46,17 +51,29 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $alertElem.find(".alert-title").html(settings.title);
         }
 
-        $alertContainer.prepend($alertElem);
-        $alertElem.show("fast");
+        // Configure custom dismiss animation
+        $alertElem
+            .find("button.close")
+                .removeAttr("data-dismiss")
+                .click(function (elem) {
+                    $alertElem.slideUp("fast");
+                });
 
-        $alertElem.scheduleAlertDismiss();
+        $alertContainer.prepend($alertElem);
+        $alertElem.slideDown("fast");
+
+        if (settings.autoDismiss) {
+            $alertElem.scheduleAlertDismiss();
+        }
 
         return true;
     }
 
-    function showOfType(type, titleOrMsg, msg) {
+    function showOfType(container, type, titleOrMsg, msg) {
         return show({
             type: type,
+            container: container || "floating",
+            autoDismiss: container === "floating",
             title: msg ? titleOrMsg : undefined,
             msg: msg ? msg : titleOrMsg,
         });
@@ -64,16 +81,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.alert = {
         showError: function (titleOrMsg, msg) {
-            return showOfType("error", titleOrMsg, msg);
+            return showOfType("floating", "error", titleOrMsg, msg);
+        },
+        showErrorFixed: function (titleOrMsg, msg) {
+            return showOfType("fixed", "error", titleOrMsg, msg);
         },
         showWarning: function (titleOrMsg, msg) {
-            return showOfType("warning", titleOrMsg, msg);
+            return showOfType("floating", "warning", titleOrMsg, msg);
+        },
+        showWarningFixed: function (titleOrMsg, msg) {
+            return showOfType("fixed", "warning", titleOrMsg, msg);
         },
         showSuccess: function (titleOrMsg, msg) {
-            return showOfType("success", titleOrMsg, msg);
+            return showOfType("floating", "success", titleOrMsg, msg);
+        },
+        showSuccessFixed: function (titleOrMsg, msg) {
+            return showOfType("fixed", "success", titleOrMsg, msg);
         },
         showInfo: function (titleOrMsg, msg) {
-            return showOfType("info", titleOrMsg, msg);
+            return showOfType("floating", "info", titleOrMsg, msg);
+        },
+        showInfoFixed: function (titleOrMsg, msg) {
+            return showOfType("fixed", "info", titleOrMsg, msg);
         }
     };
 
