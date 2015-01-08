@@ -305,12 +305,12 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     },
 
                     isAllVmstateUnknown: function() {
-                        var vmstates = $("tr").find("[id*=':vmstate']").toArray();
-                        for (var i=0; i < vmstates.length; i++) {
-                            if ($.trim($(vmstates[i]).text()).toLowerCase() != 'unknown')
-                                return false;
-                        }
-                        return true;
+                        var res = true;
+                        $("[id*=':vmstate']").each(function(elem){
+                            res = $(elem).text().trim().toLowerCase() === "unknown";
+                            return res; // 'false' breaks the 'each' loop
+                        });
+                        return res;
                     },
 
                     isInFinalState: function() {
