@@ -463,7 +463,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                                     .updateWith($this, {flashClosestSel: "tr"});
                                         });
                             // This will trigger the update of each element of the overview
-                            $(document).trigger("runUpdated");
+                            setTimeout(function(){$(document).trigger("runUpdated");}, 500);
                         }
 
                         if (! checkLoginRequest) {
