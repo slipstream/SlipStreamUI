@@ -6,10 +6,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return runModel.getNodeRuntimeValue(nodeName, parameterName);
     };
 
-    var getGlobalRuntimeValue = function(parameterName) {
-        return runModel.getGlobalRuntimeValue(parameterName);
-    };
-
     var cloudServiceNodesMap = function() {
         var map = {},
             nodeGroups = $("[id*='ss:groups']").text().split(",");
@@ -59,10 +55,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if (obj.hasOwnProperty(key)) size++;
         }
         return size;
-    };
-
-    var getRunType = function() {
-        return $("#type").text();
     };
 
     var addOrchestrators = function() {
@@ -152,7 +144,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             tip.innerHTML = "";
             //display node info in tooltip
             if(node.data.type === "slipstream") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + getGlobalRuntimeValue("state") + "</b></div>";
+                tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state") + "</b></div>";
             }
             if(node.data.type === "orchestrator") {
                 tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
@@ -209,28 +201,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
 
             if(node.data.type === "orchestrator") {
-                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' > \
-                    <ul id='" + idprefix + "-vm' class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
+                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-orchestrator dashboard-ok' > \
+                    <ul id='" + idprefix + "-vm' class='vm vm-inactive' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is " + runModel.getVmState(node.name) + "</li> \
+                        <li id='" + idprefix + "-state'>VM is ...</li> \
                     </ul></div>";
             }
 
             if(node.data.type === "node") {
-                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' > \
+                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-node dashboard-ok' > \
                     <ul style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(runModel.getState()) + " (" + runModel.getNbCompletedForNode(node.name) + "/" + getRuntimeValue(node.name, "multiplicity") + ")</div> \
+                        <li id='" + idprefix + "-ratio'>State: ? (?/?)</div> \
                     </ul></div>";
             }
 
             if(node.data.type === "vm") {
                 // We attache the vm state to the ul since we use :before, which would clash with node css on div
-                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-image " + this.nodeCssClass(node.name) + "' > \
-                    <ul id='" + idprefix + "-vm' class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
+                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-image dashboard-ok' > \
+                    <ul id='" + idprefix + "-vm' class='vm vm-inactive' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is " + runModel.getVmState(node.name) + "</li> \
-                        <li id='" + idprefix + "-statecustom'>" + $$.run.truncate(getRuntimeValue(node.name, 'statecustom')) + "</li> \
+                        <li id='" + idprefix + "-state'>VM is ...</li> \
+                        <li id='" + idprefix + "-statecustom'></li> \
                     </ul></div>";
             }
 
@@ -240,6 +232,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 st.onClick(node.id);
             };
 
+        },
+        
+        onComplete: function(){
+            // refresh values of the overview
+            $(document).trigger("runUpdated");
         },
 
         //This method is called right before plotting
@@ -267,5 +264,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     //emulate a click on the root node.
     st.onClick(st.root);
     //end
+    
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
