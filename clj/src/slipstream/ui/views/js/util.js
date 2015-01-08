@@ -1485,6 +1485,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         notEmpty: function(str) {
             return str ? str : undefined;
+        },
+        
+        defaultIfEmpty: function(value, defaultValue) {
+            return (value != null && $.trim(value))? value : defaultValue;
         }
 
     };

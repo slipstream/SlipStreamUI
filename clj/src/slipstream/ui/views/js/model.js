@@ -348,6 +348,94 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         return runModel;
                     },
 
+                    getRunType: function() {
+                        return $("#type").text();
+                    },
+
+                    isBuild: function() {
+                        return runModel.getRunType() === 'Image Build';
+                    },
+
+                    isDeployment: function() {
+                        return runModel.getRunType() === 'Deployment Run';
+                    },
+
+                    getVmState: function(vm) {
+                        return $$.util.string.defaultIfEmpty(runModel.getNodeRuntimeValue(vm, "vmstate"), "Unknown");
+                    },
+
+                    getNbCompletedForNode: function(node) {
+                        var completed = 0;
+                        var ids = runModel.getNodeRuntimeValue(node, "ids").split(",");
+                        for (var i=0; i < ids.length; i++) {
+                            if ($.trim(runModel.getNodeInstanceRuntimeValue(node, ids[i], "complete").toLowerCase()) == "true")
+                                completed ++;
+                        }
+                        return completed;
+                    },
+
+                    isActive: function(nodeInstanceName) {
+                        var activeStates = ["running", "on"];
+                        var vmstate = runModel.getNodeRuntimeValue(nodeInstanceName, 'vmstate').toLowerCase();
+                        var active = $.inArray(vmstate, activeStates) > -1;
+                        return active;
+                    },
+
+                    isAbort: function(nodeInstanceName) {
+                        if (nodeInstanceName) {
+                            return !(runModel.getNodeRuntimeValue(nodeInstanceName, 'abort') === "");
+                        } else {
+                            return !(runModel.getGlobalRuntimeValue('abort') === "");
+                        }
+                    },
+
+                    isNodeAbort: function(nodeName) {
+                        var globalAbort = !(runModel.getGlobalRuntimeValue('abort') === "");
+                        var abort = false;
+                        if (globalAbort) {
+                            // find if vms under this node are the cause
+                            var ids = runModel.getNodeRuntimeValue(nodeName, "ids").split(',');
+                            for (var i=0; i < ids.length; i++) {
+                                if(runModel.isAbort(nodeName + "." + ids[i])) {
+                                    abort = true;
+                                    break;
+                                }
+                            }
+                        }
+                        return abort;
+                    },
+
+                    escapeId: function(id) {
+                        return $$.run.escapeDot(id);
+                    },
+
+                    updateOverviewLabel: function(event) {
+                        var id = runModel.escapeId(event.data.id);
+                        var name = event.data.name;
+                        var type = event.data.type;
+
+                        if(type === "orchestrator" || type === "vm") {
+                            $('#'+id).toggleClass('dashboard-ok', !runModel.isAbort(name));
+                            $('#'+id).toggleClass('dashboard-error', runModel.isAbort(name));
+
+                            $('#'+id+'-vm').toggleClass('vm-active', runModel.isActive(name));
+                            $('#'+id+'-vm').toggleClass('vm-inactive', !runModel.isActive(name));
+
+                            $('#'+id+'-state').html('VM is ' + runModel.getVmState(name));
+                        }
+
+                        if(type === "node") {
+                            $('#'+id).toggleClass('dashboard-ok', !runModel.isNodeAbort(name));
+                            $('#'+id).toggleClass('dashboard-error', runModel.isNodeAbort(name));
+
+                            $('#'+id+'-ratio').html("State: " + $$.run.truncate(runModel.getState()) + " (" + runModel.getNbCompletedForNode(name) + "/" + runModel.getNodeRuntimeValue(name, "multiplicity") + ")");
+                        }
+
+                        if(type === "vm") {
+                            $('#'+id+'-statecustom').html($$.run.truncate(runModel.getNodeRuntimeValue(name, 'statecustom')));
+                        }
+                    },
+
                     refresh: function() {
                         function processRunHTML(data, textStatus, jqXHR) {
                             var $newRunHTMLRows = $("tr", data),
@@ -362,6 +450,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                                 .find("[id='" + $this.id() + "']")
                                                     .updateWith($this, {flashClosestSel: "tr"});
                                         });
+                            $(document).trigger("runUpdated");
                         }
 
                         if (! checkLoginRequest) {

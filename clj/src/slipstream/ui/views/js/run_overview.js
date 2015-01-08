@@ -9,24 +9,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var getGlobalRuntimeValue = function(parameterName) {
         return runModel.getGlobalRuntimeValue(parameterName);
     };
-    
-    var defaultIfEmpty = function(value, defaultValue) {
-        return (value != null && $.trim(value))? value : defaultValue;
-    }
-    
-    var getVmState = function(vm) {
-        return defaultIfEmpty(getRuntimeValue(vm, "vmstate"), "Unknown");
-    }
-    
-    var getNbCompletedForNode = function(node) {
-        var completed = 0;
-        var ids = getRuntimeValue(node, "ids").split(",");
-        for (var i=0; i < ids.length; i++) {
-            if ($.trim(runModel.getNodeInstanceRuntimeValue(node, ids[i], "complete").toLowerCase()) == "true")
-                completed ++;
-        }
-        return completed;
-    }
 
     var cloudServiceNodesMap = function() {
         var map = {},
@@ -83,18 +65,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return $("#type").text();
     }
 
-    var isBuild = function() {
-        return getRunType() === 'Image Build';
-    }
-
-    var isDeployment = function() {
-        return getRunType() === 'Deployment Run';
-    }
-
     var addOrchestrators = function() {
-        if(isDeployment()) {
+        if(runModel.isDeployment()) {
             addDeploymentOrchestrator();
-        } else if(isBuild()) {
+        } else if(runModel.isBuild()) {
             addBuildOrchestrator();
         } else {
             root.children.push(createMachine());
@@ -129,7 +103,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var canvasHeight = 300;
 
     //Increase height for deployment
-    if(isDeployment()) {
+    if(runModel.isDeployment()) {
         canvasHeight = 600;
     }
     var height = canvasHeight + 'px';
@@ -232,30 +206,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
 
             if(node.data.type === "orchestrator") {
-                label.innerHTML = "<div class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "'/> \
-                    <ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
+                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-orchestrator " + this.nodeCssClass(node.name) + "' > \
+                    <ul id='" + idprefix + "-vm' class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is " + getVmState(node.name) + "</li> \
+                        <li id='" + idprefix + "-state'>VM is " + runModel.getVmState(node.name) + "</li> \
                     </ul></div>";
             }
 
             if(node.data.type === "node") {
-                label.innerHTML = "<div class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' id='" + idprefix + "'><div id='" + idprefix + "'/> \
+                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-node " + this.nodeNodeCssClass(node.name) + "' > \
                     <ul style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(runModel.getState()) + " (" + getNbCompletedForNode(node.name) + "/" + getRuntimeValue(node.name, "multiplicity") + ")</div> \
+                        <li id='" + idprefix + "-ratio'>State: " + $$.run.truncate(runModel.getState()) + " (" + runModel.getNbCompletedForNode(node.name) + "/" + getRuntimeValue(node.name, "multiplicity") + ")</div> \
                     </ul></div>";
             }
 
             if(node.data.type === "vm") {
                 // We attache the vm state to the ul since we use :before, which would clash with node css on div
-                label.innerHTML = "<div class='dashboard-icon dashboard-image " + this.nodeCssClass(node.name) + "' id='" + idprefix + "'> \
-                    <ul class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
+                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-image " + this.nodeCssClass(node.name) + "' > \
+                    <ul id='" + idprefix + "-vm' class='vm " + this.vmCssClass(node.name) + "' style='list-style-type:none'> \
                         <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is " + getVmState(node.name) + "</li> \
+                        <li id='" + idprefix + "-state'>VM is " + runModel.getVmState(node.name) + "</li> \
                         <li id='" + idprefix + "-statecustom'>" + $$.run.truncate(getRuntimeValue(node.name, 'statecustom')) + "</li> \
                     </ul></div>";
             }
+
+            $(document).on("runUpdated", null, {'id': idprefix, 'name': node.name, 'type': node.data.type}, runModel.updateOverviewLabel);
 
             label.onclick = function(){
                 st.onClick(node.id);
