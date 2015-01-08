@@ -38,10 +38,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
 
         $alertElem = $("#alert-" + settings.type)
-            .clone()
-            .removeClass("hidden") // Bootstrap class
-            .hide()
-            .removeAttr("id");
+                            .clone()
+                                .removeClass("hidden") // Bootstrap class
+                                .hide()
+                                .removeAttr("id")
+                                .find("button.close")
+                                    .removeAttr("data-dismiss")
+                                    .end();
 
         $alertElem
             .find(".alert-msg")
@@ -51,12 +54,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $alertElem.find(".alert-title").html(settings.title);
         }
 
+        if ( $alertElem.html() === $alertContainer.find("div.alert").first().html() ){
+            // The exact same alert is the most recent one.
+            // Nothing to do.
+            return true;
+        }
+
         // Configure custom dismiss animation
         $alertElem
             .find("button.close")
                 .removeAttr("data-dismiss")
                 .click(function (elem) {
-                    $alertElem.slideUp("fast");
+                    $alertElem.slideUp("fast", function() {
+                        $alertElem.remove();
+                    });
                 });
 
         $alertContainer.prepend($alertElem);
