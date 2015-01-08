@@ -455,6 +455,9 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                     .not("[id='state'], [id^='parameter-ss:state']") // State is already set up above
                                         .each(function(){
                                             var $this = $(this);
+                                            if ($this.is("[id^='parameter-ss:abort']") && ! $$.util.string.isEmpty($this.text())) {
+                                                $$.alert.showErrorFixed($this.text());
+                                            }
                                             $elem
                                                 .find("[id='" + $this.id() + "']")
                                                     .updateWith($this, {flashClosestSel: "tr"});
