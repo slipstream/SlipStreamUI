@@ -306,8 +306,8 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
 
                     isAllVmstateUnknown: function() {
                         var res = true;
-                        $("[id*=':vmstate']").each(function(elem){
-                            res = $(elem).text().trim().toLowerCase() === "unknown";
+                        $("[id*=':vmstate']").each(function(index, element){
+                            res = $(element).text().trim().toLowerCase() === "unknown";
                             return res; // 'false' breaks the 'each' loop
                         });
                         return res;
