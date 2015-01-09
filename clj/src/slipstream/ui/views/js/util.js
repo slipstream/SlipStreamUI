@@ -1513,12 +1513,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return str ? str : undefined;
         },
 
-        defaultIfEmpty: function(value, defaultValue) {
-            return (value != null && $.trim(value))? value : defaultValue;
-        },
-
         isEmpty: function(str) {
             return $.trim(str) === "" ? true : false;
+        },
+
+        defaultIfEmpty: function(value, defaultValue) {
+            return $$.util.string.isEmpty(value) ? defaultValue : value;
         }
 
     };
