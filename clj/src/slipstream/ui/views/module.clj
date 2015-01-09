@@ -94,7 +94,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- user-can?
+(defn- user-has?
   [access-right module]
   (or
     (current-user/super?)
@@ -104,21 +104,29 @@
       (-> module :authorization :access-rights access-right :group-access?)
       (-> module :authorization :group-members (get (current-user/username))))))
 
-(defn- user-can-edit?
-  [module]
-  (user-can? :put module))
+(def ^:private action-types
+  {:edit            {:access-right  :put
+                     :menu-actions  #{action/edit}}
+   :build-run       {:access-right  :post
+                     :menu-actions  #{action/run
+                                      action/build}}
+   :create-children {:access-right  :create-children
+                     :menu-actions  #{action/new-project
+                                      action/new-image
+                                      action/new-deployment}}})
 
-(defn- disable-edit-action
-  [action]
-  (if (= action action/edit)
+(defn- disable-actions
+  [menu-actions action]
+  (if (get menu-actions action)
     (action :disabled? true)
     action))
 
-(defn- toggle-edit-action
-  [actions module]
-  (if (user-can-edit? module)
-    actions
-    (map disable-edit-action actions)))
+(defn- toggle-action
+  [actions action-type module]
+  (let [{:keys [access-right menu-actions]} (action-types action-type)]
+    (if (user-has? access-right module)
+      actions
+      (map (partial disable-actions menu-actions) actions))))
 
 (defn- module-actions
   [module]
@@ -131,7 +139,9 @@
   [module]
   (-> module
       module-actions
-      (toggle-edit-action module)))
+      (toggle-action :edit            module)
+      (toggle-action :build-run       module)
+      (toggle-action :create-children module)))
 
 (defn- num-of-main-secondary-menu-actions
   [module]
