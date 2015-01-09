@@ -47,4 +47,6 @@
 (defn set-release-version
   [version]
   (reset! slipstream-release-version
-          (version-with-popover version)))
+          (if (re-matches #".*<dd>not found</dd>.*" popover-html-content)
+            version
+            (version-with-popover version))))
