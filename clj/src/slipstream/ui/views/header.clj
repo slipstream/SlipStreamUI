@@ -19,13 +19,13 @@
   [{:keys [status-code title subtitle second-subtitle icon image-url] :as header}]
   (fn [match]
     (html/at match
-             icon-sel             (icons/set icon)
+             icon-sel             (icons/set (icon :tooltip-placement "bottom"))
              status-code-sel      (ue/content-when-not-nil (str status-code))
              title-sel            (ue/html-content-when-not-nil title)
              subtitle-sel         (ue/html-content-when-not-nil subtitle)
              second-subtitle-sel  (ue/html-content-when-not-nil second-subtitle)
              title-col-sel        (ue/when-replace-class (not image-url)
-                                                        "col-sm-8"
-                                                        "col-sm-11")
+                                                        "col-sm-9"
+                                                        "col-sm-12")
              image-preloader-sel  (ue/set-src image-url)
              image-col-sel        (ue/remove-if-not image-url))))
