@@ -1,7 +1,18 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    function scheduleAlertDismiss($alertElem) {
+        // Wait longer for longer messages.
+        var minDelay = 5000,
+            delayMillisPerChar = 100, // empirical value
+            msg = $alertElem.find(".alert-msg").text();
+            delay = Math.max(minDelay, delayMillisPerChar * msg.countNonWhitespaceChars());
+        $alertElem.scheduleAlertDismiss(delay);
+    }
+
     // Auto dismiss alerts already present on page load
-    $("#alert-container div[role=alert]:not(.hidden)").scheduleAlertDismiss();
+    $("#ss-alert-container-floating div[role=alert]:not(.hidden)").each(function (index, alertElem) {
+        scheduleAlertDismiss($(alertElem));
+    });
 
     var alertDefaultOptions = {
         type: "info",
@@ -78,11 +89,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
 
         if (settings.autoDismiss) {
-            // Wait longer for longer messages.
-            var minDelay = 5000,
-                delayMillisPerChar = 75, // empirical value
-                delay = Math.max(minDelay, delayMillisPerChar * settings.msg.countNonWhitespaceChars());
-            $alertElem.scheduleAlertDismiss(delay);
+            scheduleAlertDismiss($alertElem);
         }
 
         return true;
