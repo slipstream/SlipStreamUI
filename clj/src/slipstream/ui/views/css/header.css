@@ -2,7 +2,7 @@
   background-color: #262626;
   color: white;
   min-height: 150px;
-  padding-top: 35px;
+  padding: 0px;
   margin: 0;
 }
 
@@ -11,7 +11,28 @@
 }
 
 .jumbotron .ss-header h1 .glyphicon {
-  font-size: 50px;
+  font-size: 0.6em;
+}
+
+.jumbotron p {
+  margin-bottom: 5px;
+}
+
+.ss-header-second-subtitle {
+  font-size: 1.1em !important;
+}
+
+.ss-header-title-col {
+  padding-bottom: 20px;
+}
+
+.ss-header-title-col h1 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.jumbotron h1 span {
+  font-size: 0.8em;
 }
 
 /* Header Error Status code hidden if not error page */
@@ -48,9 +69,9 @@
 
 #header .ss-header-image-container {
   position: relative;
-  margin: 2.5%;
+  margin: 0%;
   width: 95%;
-  padding-bottom: 70%;
+  padding-bottom: 131px;
   height: 0;
   overflow: hidden;
   background-color: transparent;
@@ -62,8 +83,7 @@
 }
 
 #header .ss-header-image-col {
-  margin-top: 15px;
-  padding: 10px;
+  padding: 20px;
 }
 
 /* Big computer screen (lg) */
@@ -74,49 +94,22 @@
 
 /* Small computer screen (md) */
 @media (min-width: 992px) and (max-width: 1199px) {
-  .jumbotron {
-    padding-bottom: 25px;
-  }
-  #header .ss-header-image-col {
-    margin-top: 15px;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 10px;
-  }
-  #header .ss-header-image-container {
-    padding-bottom: 80%;
-  }
+
 }
 
 /* Tablet (sm) */
 @media (min-width: 768px) and (max-width: 991px) {
-  .jumbotron {
-    padding-bottom: 25px;
-  }
-  #header .ss-header-image-col {
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 10px;
-  }
-  #header .ss-header-image-container {
-    padding-bottom: 90%;
-  }
+    
 }
 
 /* Phone (xs) */
 @media (max-width: 767px) {
-  #header .ss-header-image-col {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 25px;
-  }
-  #header .ss-header-image-container {
-    width: 100%;
-    padding-bottom: 40%;
-  }
+    #header .ss-header-image-container {
+        padding-bottom: 80px;
+    }
+    
+    #header .ss-header-image-col {
+        padding-top: 0px;
+    }
 }
 
