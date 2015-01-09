@@ -2,6 +2,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.time :as ut]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.secondary-menu-actions :as action]
@@ -57,6 +58,16 @@
    :external-js-filenames ["jit/js/jit.js"]
    :internal-js-filenames ["run.js" "run_overview.js"]})
 
+(defn- subtitle
+  [run]
+  (let [summary (:summary run)
+        mutable? (:mutable? summary)
+        t-key (-> summary
+                  :original-type
+                  (str "." (when-not mutable? "not-") "mutable"))
+        relative-start-timestamp (ut/format :relative (:start-time summary))]
+    (t t-key (:owner summary) relative-start-timestamp)))
+
 (defn page
   [metadata]
   (let [run (run/parse metadata)]
@@ -66,8 +77,15 @@
                 :title (t :header.title
                          (-> run :summary :uuid (uc/trim-from \-))
                          (-> run :summary :state))
-                :subtitle (-> run :summary :module-uri)}
-       :resource-uri (-> run :summary :uri)
+                :subtitle (subtitle run)}
+       :resource-uri (-> run
+                         :summary
+                         :module-uri
+                         (uc/ensure-suffix "/")
+                         (uc/ensure-suffix (-> run
+                                               :summary
+                                               :uuid
+                                               (uc/trim-from \-))))
        :secondary-menu-actions [action/terminate]
        :content (->> sections
                      (map (partial section run))

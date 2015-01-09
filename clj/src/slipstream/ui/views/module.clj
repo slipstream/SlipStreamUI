@@ -5,8 +5,10 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as module]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.module.image :as image]
             [slipstream.ui.views.module.project :as project]
@@ -92,12 +94,44 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- actions
+(defn- user-can?
+  [access-right module]
+  (or
+    (current-user/super?)
+    (-> module :summary :owner (current-user/is?))
+    (-> module :authorization :access-rights access-right :public-access?)
+    (and
+      (-> module :authorization :access-rights access-right :group-access?)
+      (-> module :authorization :group-members (get (current-user/username))))))
+
+(defn- user-can-edit?
+  [module]
+  (user-can? :put module))
+
+(defn- disable-edit-action
+  [action]
+  (if (= action action/edit)
+    (action :disabled? true)
+    action))
+
+(defn- toggle-edit-action
+  [actions module]
+  (if (user-can-edit? module)
+    actions
+    (map disable-edit-action actions)))
+
+(defn- module-actions
   [module]
   (case (-> module :summary :category uc/keywordize)
     :project     (project/actions module)
     :image       (image/actions module)
     :deployment  (deployment/actions module)))
+
+(defn- actions
+  [module]
+  (-> module
+      module-actions
+      (toggle-edit-action module)))
 
 (defn- num-of-main-secondary-menu-actions
   [module]
