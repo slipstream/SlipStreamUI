@@ -27,6 +27,7 @@
 (def action-service-catalog-sel [:.ss-action-service-catalog])
 (def action-system-sel [:.ss-action-system])
 (def action-users-sel [:.ss-action-users])
+(def action-help-sel [:.ss-action-help])
 (def action-logout-sel [:.ss-action-logout])
 (def action-profile-sel [:.ss-action-profile])
 
@@ -76,6 +77,7 @@
             action-service-catalog-menu-item-sel (ue/remove-if-not (configuration/service-catalog-enabled? configuration))
             action-service-catalog-sel  (html/content (t :logged-in.action.service-catalog))
             action-users-sel            (html/content (t :logged-in.action.users))
+            action-help-sel             (html/content (t :logged-in.action.help))
             action-profile-sel          (html/content (t :logged-in.action.profile))
             action-documentation-sel    (html/content (t :logged-in.action.documentation))
             action-contact-us-sel       (html/content (t :logged-in.action.contact-us))
