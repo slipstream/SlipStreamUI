@@ -45,8 +45,8 @@
     title-sel                 (html/content (t :title))
     [:iframe]                 (ue/when-set-src (not-empty reference-image) (u/module-uri reference-image) "?chooser=true")
     first-button-sel          (html/content (t :button.cancel))
-    second-button-sel         (html/content (t :button.select))
-    last-button-sel           (html/content (t :button.select-exact-version))))
+    [:.ss-select-exact-version-btn] (html/content (t :button.select-exact-version))
+    [:.ss-select-btn]         (html/content (t :button.select))))
 
 (localization/with-prefixed-t :terminate-deployment-dialog
   (html/defsnippet ^:private terminate-deployment-dialog template-filename [:#ss-terminate-deployment-dialog]
