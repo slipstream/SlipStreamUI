@@ -78,7 +78,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
 
         if (settings.autoDismiss) {
-            $alertElem.scheduleAlertDismiss();
+            // Wait longer for longer messages.
+            var minDelay = 5000,
+                delayMillisPerChar = 75, // empirical value
+                delay = Math.max(minDelay, delayMillisPerChar * settings.msg.countNonWhitespaceChars());
+            $alertElem.scheduleAlertDismiss(delay);
         }
 
         return true;

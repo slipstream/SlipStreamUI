@@ -153,6 +153,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         isRootURL: function() {
             var re = new RegExp("^" + window.location.origin + "/?$");
             return re.test(this);
+        },
+
+        countNonWhitespaceChars: function() {
+            return this.replace(/\W/g, "").length;
         }
 
     });
