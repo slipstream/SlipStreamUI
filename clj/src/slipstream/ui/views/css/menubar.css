@@ -135,3 +135,7 @@ body > .navbar .ss-menubar-logged-in {
 .navbar-nav.navbar-right:last-child {
   margin-right: 0;
 }
+
+.dropdown-menu {
+  margin-top: 0;
+}

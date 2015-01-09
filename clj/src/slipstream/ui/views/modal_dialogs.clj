@@ -6,6 +6,7 @@
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.pattern :as pattern]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]))
 
@@ -21,6 +22,16 @@
 (def ^:private second-button-sel [:.modal-footer [:button (html/nth-of-type 2)]])
 (def ^:private last-button-sel [:.modal-footer [:button html/last-of-type]])
 
+
+(localization/with-prefixed-t :reset-password-dialog
+  (html/defsnippet ^:private reset-password-dialog template-filename [:#ss-reset-password-dialog]
+    []
+    title-sel                   (html/content           (t :title))
+    [:#ss-reset-password-username-label] (html/content  (t :label.username))
+    [:#ss-reset-password-form]  (ue/set-data :success-message (t :form.success.message))
+    footnote-sel                (html/html-content      (t :footnote))
+    first-button-sel            (html/content           (t :button.cancel))
+    last-button-sel             (html/content           (t :button.reset-password))))
 
 (localization/with-prefixed-t :save-dialog
   (html/defsnippet ^:private save-dialog template-filename [:#ss-save-dialog]
@@ -192,6 +203,7 @@
           resource-id (resource-id context)
           module-version (module-version context)]
       (cond-> []
+        (current-user/not-logged-in?)       (conj (reset-password-dialog))
         (page-type/edit?)                   (conj (save-dialog resource-name)
                                                   (delete-dialog resource-name resource-id))
         (page-type/view?)                   (conj (delete-dialog resource-name resource-id))

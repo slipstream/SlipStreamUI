@@ -781,6 +781,16 @@
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.title               "Reset password"
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.label.username      :global.nouns.username
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.footnote            "Enter the username to reset the pasword for. If it corresponds to an existent user,
+                                                                                we'll send an email to the email address in the user's profile with a link to reset the password."
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.button.cancel       :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.button.reset-password "Request password reset link"
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.form.success.message "A password reset validation email has been sent to the address
+                                                                                  in the user's account profile. Please visit the link in that email
+                                                                                  to confirm this request."
+
    :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Save %1$s changes" ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message    "Commit message"
    :slipstream.ui.views.modal-dialogs.save-dialog.footnote                      "Hold down `ALT` when saving to skip this confirmation and the commit message." ; Note that strings are parsed as markdown :)
