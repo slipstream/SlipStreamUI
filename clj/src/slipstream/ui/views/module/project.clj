@@ -32,4 +32,5 @@
    action/new-image
    action/new-deployment
    action/edit
-   action/import])
+   action/import
+   action/delete])

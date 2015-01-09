@@ -27,7 +27,8 @@
    action/edit
    action/copy
    (action/publish    :hidden? (-> module :summary :published?))
-   (action/unpublish  :hidden? (-> module :summary :published? not))])
+   (action/unpublish  :hidden? (-> module :summary :published? not))
+   action/delete])
 
 (def num-of-main-secondary-menu-actions
   2)

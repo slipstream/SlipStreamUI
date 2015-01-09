@@ -113,7 +113,9 @@
    :create-children {:access-right  :create-children
                      :menu-actions  #{action/new-project
                                       action/new-image
-                                      action/new-deployment}}})
+                                      action/new-deployment}}
+   :delete          {:access-right  :delete
+                     :menu-actions  #{action/delete}}})
 
 (defn- disable-actions
   [menu-actions action]
@@ -141,7 +143,8 @@
       module-actions
       (toggle-action :edit            module)
       (toggle-action :build-run       module)
-      (toggle-action :create-children module)))
+      (toggle-action :create-children module)
+      (toggle-action :delete          module)))
 
 (defn- num-of-main-secondary-menu-actions
   [module]
