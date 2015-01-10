@@ -29,7 +29,9 @@
 
 (defmethod middle-section-content :runs
   [_ section-metadata _]
-  (map run-section section-metadata))
+  (if-let [runs (not-empty section-metadata)]
+    (map run-section section-metadata)
+    (t :section.runs.empty-content-hint)))
 
 (defn- middle-section
   [module metadata-key]

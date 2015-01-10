@@ -90,7 +90,9 @@
 
 (defmethod middle-section-content :runs
   [_ _ section-metadata _]
-  (map run-section section-metadata))
+  (if-let [runs (not-empty section-metadata)]
+    (map run-section section-metadata)
+    (t :section.runs.empty-content-hint)))
 
 ; Other table sections (e.g. cloud-image-details os-details)
 
