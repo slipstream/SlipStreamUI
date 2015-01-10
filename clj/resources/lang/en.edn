@@ -380,10 +380,10 @@
    :slipstream.ui.models.parameters.module-version.help-hint                    ""
 
    :slipstream.ui.models.parameters.description.description                     :global.nouns.description
-   :slipstream.ui.models.parameters.description.help-hint                       ""
+   :slipstream.ui.models.parameters.description.help-hint                       "The description of this module. It appears in the subtitle of the page header, under the module name."
 
-   :slipstream.ui.models.parameters.comment.description                         :global.nouns.comment
-   :slipstream.ui.models.parameters.comment.help-hint                           ""
+   :slipstream.ui.models.parameters.comment.description                         "Version comment"
+   :slipstream.ui.models.parameters.comment.help-hint                           "The commit message when this version was saved. It appears in the second subtitle of the page header, following the version number."
 
    :slipstream.ui.models.parameters.category.description                        :global.nouns.category
    :slipstream.ui.models.parameters.category.help-hint                          ""
