@@ -82,6 +82,7 @@
                     :reports          "Reports"
                     :repository       "Repository"
                     :run              "Run"
+                    :runs             "Runs"
                     :service-catalog  "Service Catalog"
                     :start            "Start"
                     :state            "State"
@@ -769,7 +770,7 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
-   :slipstream.ui.views.module.image.section.runs.title                                 "Runs"
+   :slipstream.ui.views.module.image.section.runs.title                                 :global.nouns.runs
    :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Standard recipe (fires during Running phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
@@ -780,6 +781,7 @@
    :slipstream.ui.views.reports.no-need-to-refresh                               "Reports will be displayed as soon as available. No need to refresh."
 
    :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
+   :slipstream.ui.views.module.deployment.section.runs.title                    :global.nouns.runs
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 

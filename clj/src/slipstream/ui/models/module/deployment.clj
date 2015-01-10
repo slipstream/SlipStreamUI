@@ -2,7 +2,8 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.page-type :as page-type]))
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.models.run-items :as run-items]))
 
 (defn- append-template-node-in-edit-mode
   "To serve as template for new nodes. See tests for expectations."
@@ -55,4 +56,5 @@
     {:nodes (->> (html/select metadata [:nodes :entry :node])
                  (sort-by (comp :name :attrs)) ; Sort before adding the blank template row.
                  append-template-node-in-edit-mode
-                 (map (partial parse-node cloud-names)))}))
+                 (map (partial parse-node cloud-names)))
+     :runs       (run-items/parse metadata)}))

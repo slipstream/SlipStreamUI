@@ -2,7 +2,8 @@
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.module :as model]
-            [slipstream.ui.util.page-type :as page-type]))
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.localization :as localization]))
 
 (def raw-metadata-str
   "<deploymentModule category=\"Deployment\" creation=\"2014-11-21 15:59:48.282 UTC\" deleted=\"false\" description=\"Testing how to create a deployment\" isLatestVersion=\"true\" lastModified=\"2014-11-24 15:57:48.882 UTC\" logoLink=\"\" parentUri=\"module/EBU_TTF/test-ui\" shortName=\"deployment-test\" version=\"612\">
@@ -22,7 +23,10 @@
         <string>ec2-eu-west</string>
         <string>default</string>
     </cloudNames>
-    <runs/>
+    <runs>
+        <item abort=\"Unknown key ubuntu2:blah\" cloudServiceName=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\"startTime=\"2015-01-09 11:39:56.813 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"43a560db-7948-4b67-abb2-3c3af32d10e6\"/>
+        <item abort=\"Unknown key ss:blah\" cloudServiceName=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\" startTime=\"2015-01-09 11:33:58.583 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"c6a7157b-acbb-4e69-b3f8-ad085e75bbc6\"/>
+    </runs>
     <nodes>
         <entry>
             <string>node1</string>
@@ -354,6 +358,25 @@
                         {:name "my-vm2-input-param-2"
                          :mapped-value? false
                          :value "'some-value-for-vm2-input-2'"}]}]
+    :runs [{:cloud-name "exoscale-ch-gva"
+            :runs [{:cloud-name "exoscale-ch-gva"
+                    :uri nil
+                    :module-uri "module/mynewproject1/ubuntu-dpl/659"
+                    :type "Deployment Run"
+                    :start-time "2015-01-09 11:39:56.813 CET"
+                    :username "konstantest"
+                    :uuid "43a560db-7948-4b67-abb2-3c3af32d10e6"
+                    :status "Aborted"
+                    :tags ""}
+                   {:cloud-name "exoscale-ch-gva"
+                    :uri nil
+                    :module-uri "module/mynewproject1/ubuntu-dpl/659"
+                    :type "Deployment Run"
+                    :start-time "2015-01-09 11:33:58.583 CET"
+                    :username "konstantest"
+                    :uuid "c6a7157b-acbb-4e69-b3f8-ad085e75bbc6"
+                    :status "Aborted"
+                    :tags ""}]}]
     :summary {:publication nil
               :deleted? false
               :published? false
@@ -393,12 +416,14 @@
 
 (expect
   parsed-metadata
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
+  (localization/with-lang :en
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
 
 (expect
   parsed-metadata
-  (page-type/with-page-type "view"
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
+  (localization/with-lang :en
+    (page-type/with-page-type "view"
+      (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))))
 
 (def ^:private blank-node-template
   {:name nil
@@ -419,5 +444,6 @@
 
 (expect
   (update-in parsed-metadata [:nodes] conj blank-node-template)
-  (page-type/with-page-type "edit"
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
+  (localization/with-lang :en
+    (page-type/with-page-type "edit"
+      (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))))
