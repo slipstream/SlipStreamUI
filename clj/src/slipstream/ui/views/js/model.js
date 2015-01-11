@@ -445,11 +445,16 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         }
                     },
 
+                    updateSubTitle: function(data) {
+                        $('.ss-header-subtitle').html($('.ss-header-subtitle', data).html());
+                    },
+
                     refresh: function() {
                         function processRunHTML(data, textStatus, jqXHR) {
                             var $newRunHTMLRows = $("tr", data),
                                 newState = $newRunHTMLRows.find("#state").text();
                             runModel.setState(newState);
+                            runModel.updateSubTitle(data);
                             $newRunHTMLRows
                                 .find("[id]")
                                     .not("[id='state'], [id^='parameter-ss:state']") // State is already set up above
