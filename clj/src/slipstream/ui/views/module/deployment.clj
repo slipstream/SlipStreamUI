@@ -7,16 +7,48 @@
 
 (localization/def-scoped-t)
 
+(defmulti middle-section-content (comp last vector))
+
+; Section "nodes"
+
 (localization/with-prefixed-t :section.nodes
-  (defn middle-sections
-    [module]
-    {:title   (t :title)
-     :content (if-let [nodes (-> module :nodes not-empty)]
-                (t/deployment-nodes-table nodes)
-                (if (page-type/chooser?)
-                    (t :empty-content-hint.on-chooser)
-                    (t :empty-content-hint (-> module :summary :uri (u/module-uri :edit true)))))
-     :selected? true}))
+  (defmethod middle-section-content :nodes
+    [module section-metadata _]
+    (if-let [nodes (not-empty section-metadata)]
+      (t/deployment-nodes-table nodes)
+      (if (page-type/chooser?)
+          (t :empty-content-hint.on-chooser)
+          (t :empty-content-hint (-> module :summary :uri (u/module-uri :edit true)))))))
+
+; Section "runs"
+
+(defn- run-section
+  [{:keys [cloud-name runs]}]
+  {:title cloud-name
+   :content (t/runs-table runs)})
+
+(defmethod middle-section-content :runs
+  [_ section-metadata _]
+  (if-let [runs (not-empty section-metadata)]
+    (map run-section section-metadata)
+    (t :section.runs.empty-content-hint)))
+
+(defn- middle-section
+  [module metadata-key]
+  (let [section-title (localization/section-title metadata-key)
+        section-metadata (get module metadata-key)]
+    {:title   section-title
+     :content (middle-section-content module section-metadata metadata-key)
+     :selected? (= metadata-key :nodes)}))
+
+(defn- visible-middle-sections
+  []
+  (cond-> [:nodes]
+   (page-type/view?) (conj :runs)))
+
+(defn middle-sections
+  [module]
+  (map (partial middle-section module) (visible-middle-sections)))
 
 (def html-dependencies
   {:internal-js-filenames ["deployment.js"]})

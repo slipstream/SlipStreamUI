@@ -82,6 +82,7 @@
                     :reports          "Reports"
                     :repository       "Repository"
                     :run              "Run"
+                    :runs             "Runs"
                     :service-catalog  "Service Catalog"
                     :start            "Start"
                     :state            "State"
@@ -380,10 +381,10 @@
    :slipstream.ui.models.parameters.module-version.help-hint                    ""
 
    :slipstream.ui.models.parameters.description.description                     :global.nouns.description
-   :slipstream.ui.models.parameters.description.help-hint                       ""
+   :slipstream.ui.models.parameters.description.help-hint                       "The description of this module. It appears in the subtitle of the page header, under the module name."
 
-   :slipstream.ui.models.parameters.comment.description                         :global.nouns.comment
-   :slipstream.ui.models.parameters.comment.help-hint                           ""
+   :slipstream.ui.models.parameters.comment.description                         "Version comment"
+   :slipstream.ui.models.parameters.comment.help-hint                           "The commit message when this version was saved. It appears in the second subtitle of the page header, following the version number."
 
    :slipstream.ui.models.parameters.category.description                        :global.nouns.category
    :slipstream.ui.models.parameters.category.help-hint                          ""
@@ -752,10 +753,8 @@
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
    :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
-   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children yet. You can add a [new machine image](%1$s), a [new deployment](%2$s) or a [new subproject](%3$s) with the menu next to the `Edit` button on the right." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children yet. You can add a [new project](%3$s), [new image](%1$s) or a [new deployment](%2$s) with the corresponding actions in the menu above." ; %1$s - %3$s hrefs for new submodules
    :slipstream.ui.views.module.project.section.children.empty-content-hint.on-chooser   "This project doesn't have any children yet."
-   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint              "This deployment doesn't have any nodes yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
-   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes yet."
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
@@ -772,7 +771,8 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
-   :slipstream.ui.views.module.image.section.runs.title                                 "Runs"
+   :slipstream.ui.views.module.image.section.runs.title                                 :global.nouns.runs
+   :slipstream.ui.views.module.image.section.runs.empty-content-hint                    "This section will list all runs and builds of this image."
    :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Standard recipe (fires during Running phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
@@ -783,6 +783,10 @@
    :slipstream.ui.views.reports.no-need-to-refresh                               "Reports will be displayed as soon as available. No need to refresh."
 
    :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint              "This deployment doesn't have any nodes yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
+   :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes yet."
+   :slipstream.ui.views.module.deployment.section.runs.title                    :global.nouns.runs
+   :slipstream.ui.views.module.deployment.section.runs.empty-content-hint       "This section will list all runs of this deployment."
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 

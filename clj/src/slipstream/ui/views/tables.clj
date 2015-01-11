@@ -238,8 +238,8 @@
                        :id-format-fn (constantly "ss-module-name")
                        :required? true
                        :validation {:requirements (pattern/requirements :module-name)}}
-      :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :description    {:type :cell/text}
+      :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
       :comment        {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
       :category       {:type :cell/text,       :editable? false, :hidden? (page-type/new?)}
       :creation       {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
