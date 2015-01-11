@@ -22,10 +22,12 @@
              icon-sel             (when icon (icons/set (icon :tooltip-placement "bottom")))
              status-code-sel      (ue/content-when-not-nil (str status-code))
              title-sel            (ue/html-content-when-not-nil title)
-             subtitle-sel         (ue/html-content-when-not-nil subtitle)
-             second-subtitle-sel  (ue/html-content-when-not-nil second-subtitle)
+             subtitle-sel         (ue/remove-if-not  subtitle)
+             subtitle-sel         (html/html-content subtitle)
+             second-subtitle-sel  (ue/remove-if-not  second-subtitle)
+             second-subtitle-sel  (html/html-content second-subtitle)
              title-col-sel        (ue/when-replace-class (not image-url)
-                                                        "col-sm-9"
-                                                        "col-sm-12")
+                                                        "col-sm-8"
+                                                        "col-sm-11")
              image-preloader-sel  (ue/set-src image-url)
              image-col-sel        (ue/remove-if-not image-url))))

@@ -741,7 +741,7 @@
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "New %1$s"
-   :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
+   :slipstream.ui.views.module.header.subtitle                 "Version: %1$s" ; %1$s = version
    :slipstream.ui.views.module.header.subtitle.new             "Add the information to create a new %1$s."
    :slipstream.ui.views.module.alert.old-version.msg           "This is not on the latest version of this %1$s." ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.alert.edit-published.title      "Editing a published %1$s version" ;  %1$s = category: image, project or deployment
