@@ -70,15 +70,14 @@
 
 (defn page
   [metadata]
-  (let [run (run/parse metadata)]
+  (let [run (run/parse metadata)
+        short-run-uuid (-> run :summary :uuid (uc/trim-from \-))]
     (base/generate
       {:html-dependencies html-dependencies
-       :page-title     (t :title
-                          (-> run :summary :uuid (uc/trim-from \-))
-                          (-> run :summary :state))
+       :page-title     (t :page-title short-run-uuid)
        :header {:icon  (-> run :summary :type (or :run) icons/icon-for)
                 :title (t :header.title
-                         (-> run :summary :uuid (uc/trim-from \-))
+                         short-run-uuid
                          (-> run :summary :state))
                 :subtitle (subtitle run)}
        :resource-uri (-> run
