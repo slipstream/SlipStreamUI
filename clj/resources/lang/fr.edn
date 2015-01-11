@@ -182,7 +182,7 @@
 
    :slipstream.ui.views.error.page-title                       :global.nouns.error
    :slipstream.ui.views.error.header.subtitle                  "Humm, c'est embarassant. On vous a perdu dans le Cloud, loin de SlipStream.
-                                                                Nous travaillons sans doute dessus, mais si vous atterrissez sur cette page plusieurs fois
+                                                                Nous travaillons sans doute sur ce problème, mais si vous atterrissez sur cette page plusieurs fois
                                                                 n'hésitez pas à nous [le faire savoir](mailto:support@sixsq.com)." ; Also set up by default in error.css
 
    :slipstream.ui.views.error.header.title.status-code-400     "Mauvaise requête"
@@ -641,9 +641,9 @@
    :slipstream.ui.util.icons.description.image-run                 "Exécution d'une image"
    :slipstream.ui.util.icons.description.deployment-run            "Exécution d'un déploiement"
 
-   :slipstream.ui.models.run.type.machine                          "Construction d'image"
-   :slipstream.ui.models.run.type.run                              "Exécution d'image"
-   :slipstream.ui.models.run.type.orchestration                    "Exécution de déploiement"
+   :slipstream.ui.models.run.type.machine                          "Image Build"       ; Was 'Build'
+   :slipstream.ui.models.run.type.run                              "Image Run"         ; Was 'Simple Run'
+   :slipstream.ui.models.run.type.orchestration                    "Deployment Run"    ; Was 'Deployment'
 
    ; Secondary action icon descriptions
 
