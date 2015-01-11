@@ -852,8 +852,8 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Paramètres des noeuds"
 
-   :slipstream.ui.views.run.header.title                    "L'exécution %s est %s" ;; "[run id] is [run status]"
-   :slipstream.ui.views.run.header.title!                   "Exécution: %1$s est <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.title                           "L'exécution %s est %s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.header.title!                   "L'exécution %1$s est <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.machine.not-mutable             "Image build lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.run.not-mutable                 "Image run lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.not-mutable       "Exécution d'un déploiement lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
