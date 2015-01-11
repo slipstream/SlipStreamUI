@@ -734,8 +734,8 @@
    :slipstream.ui.views.versions.header.subtitle.multiple-versions "Il y a %s versions de ce module (%s)."
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
 
-   :slipstream.ui.views.header.noscript-title                  "Erreur: JavaScript est désactivé"
-   :slipstream.ui.views.header.noscript-subtitle               "SlipStream a besoin de JavaScript pour fonctionner. S'il vous plaît activez le."
+   :slipstream.ui.views.base.noscript-error.title              "Erreur: JavaScript est désactivé"
+   :slipstream.ui.views.base.noscript-error.subtitle           "SlipStream a besoin de JavaScript pour fonctionner. Activez-le et rechargez cette page, s'il vous plaît."
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "Nouveau %1$s"
@@ -852,7 +852,7 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Paramètres des noeuds"
 
-   :slipstream.ui.views.run.title                           "L'exécution %s est %s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.page-title                      "Exécution %1$s" ;; %1$s = [run id]
    :slipstream.ui.views.run.header.title!                   "L'exécution %1$s est <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
    :slipstream.ui.views.run.machine.not-mutable             "Image build lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.run.not-mutable                 "Image run lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
