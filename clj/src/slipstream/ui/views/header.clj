@@ -15,8 +15,6 @@
 (def icon-sel             [:span.ss-header-icon])
 (def image-preloader-sel  [:img.ss-image-preloader])
 (def image-col-sel        [:.ss-header-image-col])
-(def noscript-title-sel   [:.ss-header-noscript-title])
-(def noscript-subtitle-sel [:.ss-header-noscript-subtitle])
 
 (localization/def-scoped-t)
 
@@ -35,6 +33,4 @@
                                                         "col-sm-8"
                                                         "col-sm-11")
              image-preloader-sel  (ue/set-src image-url)
-             image-col-sel        (ue/remove-if-not image-url)
-             noscript-title-sel   (ue/when-content (t :noscript-title))
-             noscript-subtitle-sel (ue/when-content (t :noscript-subtitle)))))
+             image-col-sel        (ue/remove-if-not image-url))))
