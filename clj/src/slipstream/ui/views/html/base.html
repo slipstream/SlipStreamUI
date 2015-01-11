@@ -55,6 +55,15 @@
   <link rel="stylesheet" type="text/css" href="css/content.css"/>
   <link rel="stylesheet" type="text/css" href="css/footer.css"/>
   <link rel="stylesheet" type="text/css" href="css/error.css"/>
+
+  <noscript>
+  	<style type="text/css">
+  	  #header .container h1 > span,
+  	  #header .container > p {
+  	    display: none;
+  	  }
+  	</style>
+  </noscript>
 </head>
 
 <body>
@@ -80,6 +89,10 @@
             <div class="col-sm-12 text-left">
               <div class="container">
                 <h1>
+                  <noscript>
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="ss-header-noscript-title">Error JavaScript disabled</span>
+                  </noscript>
                   <span class="ss-header-icon-error glyphicon glyphicon-remove"></span>
                   <span class="ss-header-icon glyphicon glyphicon-picture"></span>
                   <span class="ss-header-error-status-code"></span>
@@ -89,6 +102,9 @@
             </div> <!-- /col -->
             <div class="col-sm-12 text-left">
               <div class="container">
+                <noscript>
+                  <p class="ss-header-noscript-subtitle">SlipStream require JavaScript. Please enable it.</p>
+                </noscript>
                 <p class="ss-header-subtitle"></p>
                 <p class="ss-header-second-subtitle"></p>
               </div> <!-- /.container -->

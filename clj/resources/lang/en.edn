@@ -738,6 +738,9 @@
    :slipstream.ui.views.versions.header.subtitle.multiple-versions "There are %s versions of this %s."
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
 
+   :slipstream.ui.views.header.noscript-title                  "Error: JavaScript is disabled"
+   :slipstream.ui.views.header.noscript-subtitle               "SlipStream requires JavaScript. Please enable it."
+
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "New %1$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"

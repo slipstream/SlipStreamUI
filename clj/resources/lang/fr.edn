@@ -508,6 +508,8 @@
    :slipstream.ui.views.versions.category.deployment           :global.nouns.deployment
    :slipstream.ui.views.versions.category.image                :global.nouns.image
    :slipstream.ui.views.versions.category.project              :global.nouns.project
+   :slipstream.ui.views.header.noscript-title                  "Erreur: JavaScript est désactivé"
+   :slipstream.ui.views.header.noscript-subtitle               "SlipStream a besoin de JavaScript pour fonctionner. S'il vous plaît activer le."
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "Nouveau %1$s"

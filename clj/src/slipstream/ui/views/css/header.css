@@ -1,3 +1,7 @@
+noscript {
+  color: #DE5058;
+}
+
 .jumbotron {
   background-color: #262626;
   color: white;
@@ -16,6 +20,10 @@
 
 .jumbotron p {
   margin-bottom: 5px;
+}
+
+.ss-run-state {
+    font-size: 1em !important;
 }
 
 .ss-header-second-subtitle {
