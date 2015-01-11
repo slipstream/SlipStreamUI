@@ -419,7 +419,7 @@
                                                                                  toutes les images dérivées."
 
    :slipstream.ui.models.parameters.login-username.description                  "Nom d'utilisateur de connexion"
-   :slipstream.ui.models.parameters.login-username.help-hint                    "Le nom d'utilisateur est défini par l'image native et héritée par toutes les images dérivées."
+   :slipstream.ui.models.parameters.login-username.help-hint                    "Le nom d'utilisateur est défini par l'image native et hérité par toutes les images dérivées."
 
    :slipstream.ui.models.parameters.password-new-1.description                  "Nouveau mot de passe"
    :slipstream.ui.models.parameters.password-new-1.help-hint                    "Entrez le nouveau mot de passe si vous souhaitez le changer."
