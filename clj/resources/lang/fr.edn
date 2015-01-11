@@ -735,7 +735,7 @@
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
 
    :slipstream.ui.views.header.noscript-title                  "Erreur: JavaScript est désactivé"
-   :slipstream.ui.views.header.noscript-subtitle               "SlipStream a besoin de JavaScript pour fonctionner. S'il vous plaît activer le."
+   :slipstream.ui.views.header.noscript-subtitle               "SlipStream a besoin de JavaScript pour fonctionner. S'il vous plaît activez le."
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "Nouveau %1$s"
@@ -757,7 +757,7 @@
    :slipstream.ui.views.module.deployment.section.runs.title                            :global.nouns.runs
    :slipstream.ui.views.module.deployment.section.runs.empty-content-hint               "Cette section contiendra la liste des précédentes exécutions de ce déploiement."
 
-   :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Identifiant d'image Cloud et hierarchie d'image"
+   :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Identifiant d'image Cloud et héritage d'image"
    :slipstream.ui.views.module.image.section.os-details.title                           "Détails sur le système d'exploitation"
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Configuration Cloud"
    :slipstream.ui.views.module.image.section.image-creation.title                       "Recette de création d'image"
