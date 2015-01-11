@@ -1,47 +1,54 @@
-noscript {
-  color: #DE5058;
-}
-
 .jumbotron {
   background-color: #262626;
   color: white;
   min-height: 150px;
-  padding: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin: 0;
 }
 
-.jumbotron .ss-header h1 {
+.jumbotron .ss-header {
   color: #50a7de;
+  font-size: 50px;
 }
 
-.jumbotron .ss-header h1 .glyphicon {
-  font-size: 0.6em;
+.jumbotron .ss-header .row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.jumbotron p {
+.jumbotron .ss-header .row > div {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+.jumbotron .ss-header .glyphicon {
+  font-size: 40px;
+}
+
+.jumbotron .ss-header .ss-header-title-icon-col {
+  width: 60px;
+  line-height: 1.2;
+}
+
+.jumbotron .ss-header .ss-header-title {
+  line-height: 1.2;
+}
+
+.jumbotron .ss-header .ss-header-subtitle {
+  color: white;
+  color: #ddd;
+  font-size: 22px;
   margin-bottom: 5px;
 }
 
-.ss-run-state {
-    font-size: 1em !important;
-}
-
-.ss-header-second-subtitle {
-  font-size: 1.1em !important;
-}
-
-.ss-header-title-col {
-  padding-bottom: 20px;
-}
-
-.ss-header-title-col h1 {
-  margin-top: 10px;
+.jumbotron .ss-header .ss-header-second-subtitle {
+  color: gray;
+  color: #888;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 
-.jumbotron h1 span {
-  font-size: 0.8em;
-}
 
 /* Header Error Status code hidden if not error page */
 
@@ -49,15 +56,6 @@ noscript {
   display: none;
 }
 
-/* Header title default message */
-
-.jumbotron .ss-header .ss-header-title:empty::before {
-  content: "Welcome to SlipStream";
-}
-
-.jumbotron .ss-header .ss-header-subtitle:empty::before {
-  content: "Your way to multi-cloud deployments.";
-}
 
 /* Header icon defaults */
 
@@ -77,21 +75,25 @@ noscript {
 
 #header .ss-header-image-container {
   position: relative;
-  margin: 0%;
-  width: 95%;
-  padding-bottom: 131px;
+  width: 100%;
+  padding-bottom: 45%;
   height: 0;
   overflow: hidden;
   background-color: transparent;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("../images/header_image_placeholder.png");
-  background-position: center center;
+  background-position: right center;
 
 }
 
 #header .ss-header-image-col {
-  padding: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  left: 35px;
+  padding-left: 0;
+  padding-right: 0;
+
 }
 
 /* Big computer screen (lg) */
@@ -103,21 +105,38 @@ noscript {
 /* Small computer screen (md) */
 @media (min-width: 992px) and (max-width: 1199px) {
 
+  #header .ss-header-image-col {
+    left: 20px;
+  }
+
+  #header .ss-header-image-container {
+    padding-bottom: 55%;
+  }
 }
 
 /* Tablet (sm) */
 @media (min-width: 768px) and (max-width: 991px) {
-    
+
+  #header .ss-header-image-col {
+    left: 0;
+  }
+
+  #header .ss-header-image-container {
+    padding-bottom: 75%;
+  }
+
 }
 
 /* Phone (xs) */
 @media (max-width: 767px) {
-    #header .ss-header-image-container {
-        padding-bottom: 80px;
-    }
-    
-    #header .ss-header-image-col {
-        padding-top: 0px;
-    }
+
+  #header .ss-header-image-col {
+    left: 28px;
+  }
+
+  #header .ss-header-image-container {
+    padding-bottom: 40%;
+  }
+
 }
 

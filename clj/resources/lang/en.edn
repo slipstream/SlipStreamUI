@@ -739,12 +739,12 @@
    :slipstream.ui.views.versions.header.subtitle.multiple-versions "There are %s versions of this %s."
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
 
-   :slipstream.ui.views.header.noscript-title                  "Error: JavaScript is disabled"
-   :slipstream.ui.views.header.noscript-subtitle               "SlipStream requires JavaScript. Please enable it."
+   :slipstream.ui.views.base.noscript-error.title              "Error: JavaScript is disabled"
+   :slipstream.ui.views.base.noscript-error.subtitle           "SlipStream requires JavaScript. Please enable it."
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "New %1$s"
-   :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
+   :slipstream.ui.views.module.header.subtitle                 "Version: %1$s" ; %1$s = version
    :slipstream.ui.views.module.header.subtitle.new             "Add the information to create a new %1$s."
    :slipstream.ui.views.module.alert.old-version.msg           "This is not the latest version of this %1$s." ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.alert.edit-published.title      "Editing a published %1$s version" ;  %1$s = category: image, project or deployment
@@ -858,7 +858,7 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
-   :slipstream.ui.views.run.title                           "Run: %1$s is %2$s" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.page-title                      "Run %1$s" ;; %1$s = [run id]
    :slipstream.ui.views.run.header.title!                   "Run: %1$s is <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
 
    :slipstream.ui.views.run.machine.not-mutable             "Image build started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp

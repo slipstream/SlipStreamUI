@@ -34,20 +34,34 @@ body.ss-error-page .jumbotron .ss-header a {
   text-decoration: underline;
 }
 
-
 body.ss-error-page #header {
   background-color: transparent;
   opacity: 0.8;
 }
 
-body.ss-error-page .jumbotron .ss-header h1 {
+body.ss-error-page .jumbotron .ss-header {
   color: rgb(170,0,0);
+}
+
+body.ss-error-page .jumbotron .ss-header {
+  margin-top: 10px;
+}
+
+body.ss-error-page .jumbotron .ss-header .ss-header-subtitle {
+  margin-top: 70px;
+}
+
+/* Header Error icon */
+
+body.ss-error-page .jumbotron .ss-header .ss-header-title-icon-col {
+  line-height: inherit;
 }
 
 /* Header Error Status code */
 
 body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code {
-  display:  inline-block;
+  display:  inline-table;
+  font-weight: 500;
 }
 
 body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code::before {
@@ -63,6 +77,11 @@ body.ss-error-page .jumbotron .ss-header .ss-header-error-status-code::after {
 }
 
 /* Header title default message in case of error */
+
+body.ss-error-page .jumbotron .ss-header .ss-header-title {
+  line-height: inherit;
+  display: inline;
+}
 
 body.ss-error-page .jumbotron .ss-header .ss-header-title:empty::before {
   content: "Oups...";

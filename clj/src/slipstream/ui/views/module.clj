@@ -20,20 +20,22 @@
 (localization/with-prefixed-t :header
   (defn- header
     [summary]
-    {:icon      (-> summary :category icons/icon-for)
-     :title     (if (page-type/new?)
-                  (t :title.new (:category summary))
-                  (:short-name summary))
-     :image-url (-> summary :logo-url)
-     :subtitle  (if (page-type/new?)
-                  (t :subtitle.new (-> summary :category s/lower-case))
-                  (-> summary :description not-empty))
-     :second-subtitle (if (page-type/new?)
-                        (str "")
-                        (t :subtitle
-                           (str (:version summary)
-                                (when-let [comment (-> summary :comment not-empty)]
-                                  (str " - " comment)))))}))
+    (let [category-name (-> summary :category u/t-module-category)]
+      {:icon      (-> summary :category icons/icon-for)
+       :title     (if (page-type/new?)
+                    (t :title.new (:category summary))
+                    (:short-name summary))
+       :image-url (-> summary :logo-url)
+       :subtitle  (if (page-type/new?)
+                    (t :subtitle.new (s/lower-case category-name))
+                    (or
+                      (-> summary :description not-empty)
+                      category-name))
+       :second-subtitle (when-not (page-type/new?)
+                          (t :subtitle
+                             (str (:version summary)
+                                  (when-let [comment (-> summary :comment not-empty)]
+                                    (str " - " comment)))))})))
 
 (defn- old-version-alert
   [{:keys [category latest-version?]}]

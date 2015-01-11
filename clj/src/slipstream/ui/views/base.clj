@@ -48,6 +48,10 @@
 (def footer-sel [:#footer])
 (def modal-dialogs-placeholder-sel [:#ss-modal-dialogs-placeholder])
 
+(def noscript-title-sel     [:.ss-noscript-error-title])
+(def noscript-subtitle-sel  [:.ss-noscript-error-subtitle])
+
+
 (def error-page-cls "ss-error-page")
 (def dev-mode-page-cls "ss-dev-mode-page")
 (def beta-page-cls "ss-beta-page")
@@ -199,6 +203,8 @@
   content-sel           (transform-content content)
   alert-container-sel   (html/content (map alerts/alert alerts))
   alert-container-sel   (html/append (alerts/hidden-templates))
+  noscript-title-sel    (ue/when-content (t :noscript-error.title))
+  noscript-subtitle-sel (ue/when-content (t :noscript-error.subtitle))
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   bottom-scripts-container-sel  (html/append (bottom-external-scripts-snip external-js-filenames))
   bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip internal-js-filenames))
