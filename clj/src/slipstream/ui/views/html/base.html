@@ -55,6 +55,25 @@
   <link rel="stylesheet" type="text/css" href="css/content.css"/>
   <link rel="stylesheet" type="text/css" href="css/footer.css"/>
   <link rel="stylesheet" type="text/css" href="css/error.css"/>
+
+  <noscript>
+  	<style type="text/css">
+      .jumbotron .ss-header .ss-header-title-icon {
+        margin-top: 7px;
+      }
+      .jumbotron .ss-header .ss-header-icon-error {
+        display: inline;
+        color: rgb(170,0,0);
+      }
+      .jumbotron .ss-header .ss-header-icon,
+      .jumbotron .ss-header .ss-header-title,
+      .jumbotron .ss-header .ss-header-subtitle,
+      .jumbotron .ss-header .ss-header-second-subtitle,
+      .jumbotron .ss-header .ss-header-image-col {
+  	    display: none;
+  	  }
+  	</style>
+  </noscript>
 </head>
 
 <body>
@@ -82,10 +101,16 @@
             </div>
           </div> <!-- /col -->
           <div class="col-sm-8 text-left ss-header-title-col">
+            <noscript>
+              <span class="ss-header-noscript-title">Error JavaScript disabled</span>
+            </noscript>
             <div>
               <span class="ss-header-error-status-code"></span>
               <div class="ss-header-title">Welcome to SlipStream</div>
             </div>
+            <noscript>
+              <p class="ss-header-noscript-subtitle">SlipStream require JavaScript. Please enable it.</p>
+            </noscript>
             <p class="ss-header-subtitle">Your way to multi-cloud deployments.</p>
             <p class="ss-header-second-subtitle">And much more.</p>
           </div> <!-- /col -->

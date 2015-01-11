@@ -39,6 +39,7 @@ body.ss-error-page #header {
   opacity: 0.8;
 }
 
+noscript,
 body.ss-error-page .jumbotron .ss-header {
   color: rgb(170,0,0);
 }
