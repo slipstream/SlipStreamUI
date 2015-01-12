@@ -228,15 +228,16 @@
 
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]
-  (println "Generating base from ns" (:view-ns context)
-           "- View name" (:view-name context)
-           "- Title" (-> context :header :title)
-           "- Template:" template-filename
-           "- Metadata available?" (-> context :metadata boolean)
-           "- Service Catalogue enabled?" (-> context
-                                              :metadata
-                                              configuration/parse
-                                              configuration/service-catalog-enabled?))
+  (when ud/*dev?*
+    (println "Generating base from ns" (:view-ns context)
+             "- View name" (:view-name context)
+             "- Title" (-> context :header :title)
+             "- Template:" template-filename
+             "- Metadata available?" (-> context :metadata boolean)
+             "- Service Catalogue enabled?" (-> context
+                                                :metadata
+                                                configuration/parse
+                                                configuration/service-catalog-enabled?)))
   (base
     (cond-> context
       (page-type/edit?)     (assoc :secondary-menu-actions  edit-page-actions)
