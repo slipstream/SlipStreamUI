@@ -60,12 +60,12 @@
     (subsection-group-snip-flat subsections)))
 
 (defn- assoc-id
-  [subsection]
-  (assoc subsection :id (->> subsection :title uc/keywordize name (str "ss-subsection-"))))
+  [subsection-id-prefix subsection]
+  (assoc subsection :id (->> subsection :title uc/keywordize name (str subsection-id-prefix "-"))))
 
 (defn build
   [subsections]
   (html/content (subsection-group-snip (->> subsections
                                             vec
                                             u/ensure-one-selected
-                                            (map assoc-id)))))
+                                            (map (partial assoc-id (gensym "ss-subsection-")))))))
