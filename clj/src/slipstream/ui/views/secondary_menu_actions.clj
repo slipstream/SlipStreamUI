@@ -31,7 +31,7 @@
 (defaction new-project)
 (defaction new-image)
 (defaction new-deployment)
-(defaction import)
+(defaction import :option-defaults {:disabled? true}) ;; TODO: Import action still unimplemented
 (defaction new-user)
 
 (defaction run        :name-with-ellipsis? true)
