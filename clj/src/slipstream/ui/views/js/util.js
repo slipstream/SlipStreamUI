@@ -634,7 +634,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     if (! $thisIntern.hasClass("disabled") && $.isFunction(callback)) {
                         callback.call($thisIntern, event);
                     } else if ($thisIntern.attr("disabled-reason") === "ss-super-only-action") {
-                        $$.alert.showWarning("Your must be have administrator access to perform this action.");
+                        $$.alert.showWarning("You must have administrator access to perform this action.");
                     }
                 });
             });
