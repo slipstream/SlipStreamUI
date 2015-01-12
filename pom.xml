@@ -143,9 +143,12 @@
             <url>http://maven.restlet.org</url>
         </repository>
     </repositories>
-    <scm>
-        <connection>scm:git:ssh://git@github.com/slipstream/SlipStreamUI.git</connection>
-        <url>scm:git:ssh://git@github.com/slipstream/SlipStreamUI.git</url>
-        <developerConnection>scm:git:ssh://git@github.com/slipstream/SlipStreamUI.git</developerConnection>
-    </scm>
+
+  <scm>
+    <connection>${scm.read}/SlipStreamUI.git</connection>
+    <developerConnection>${scm.write}/SlipStreamUI.git</developerConnection>
+    <url>${scm.public}/SlipStreamUI</url>
+    <tag>HEAD</tag>
+  </scm>
+
 </project>
