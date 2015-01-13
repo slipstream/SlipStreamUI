@@ -23,6 +23,7 @@
          :id          (str "ss-secondary-menu-action-" '~name)
          :icon        ~(symbol "slipstream.ui.util.icons" (str "action-" name))
          :disabled?   false
+         :disabled-reason nil
          :hidden?     false
          :super-only? false}
         ~option-defaults

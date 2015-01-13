@@ -630,11 +630,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             this.each(function () {
                 var $this = $(this);
                 $this.click( function (event) {
-                    var $thisIntern = $(this);
+                    var $thisIntern = $(this),
+                        reason      = $thisIntern.attr("disabled-reason");
                     if (! $thisIntern.hasClass("disabled") && $.isFunction(callback)) {
                         callback.call($thisIntern, event);
-                    } else if ($thisIntern.attr("disabled-reason") === "ss-super-only-action") {
-                        $$.alert.showWarning("You must have administrator access to perform this action.");
+                    } else if (reason) {
+                        $$.alert.showWarning(reason);
                     }
                 });
             });
