@@ -711,7 +711,8 @@
    :slipstream.ui.views.secondary-menu-actions.terminate       :global.verbs.terminate
    :slipstream.ui.views.secondary-menu-actions.unpublish       :global.verbs.unpublish
 
-   :slipstream.ui.views.secondary-menu.disabled-reason.super-only-action "You must have administrator access to perform this action."
+   :slipstream.ui.views.secondary-menu.disabled-reason.super-only-action  "You must have administrator access to perform this action."
+   :slipstream.ui.views.module.action-disabled-reason.wrong-acls          "You do not have the rights to perform this action.  You might contact the module owner to request the rights."
 
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."

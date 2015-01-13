@@ -42,10 +42,12 @@
   Hard-coded ':disabled? true' value wins over ':super-only?' setting.
   Hard-coded ':disabled? false' value loses over ':super-only?' setting."
   [{:keys [disabled? super-only?] :as action}]
-  (let [enabled? (if disabled? false (or (current-user/super?) (not super-only?)))]
-    (assoc action
-      ::enabled? enabled?
-      :disabled-reason  (t :disabled-reason.super-only-action))))
+  (if-not super-only?
+    (assoc action ::enabled? (not disabled?))
+    (let [enabled? (if disabled? false (or (current-user/super?) (not super-only?)))]
+      (assoc action
+        ::enabled? enabled?
+        :disabled-reason  (t :disabled-reason.super-only-action)))))
 
 (defn- call-action-fn
   "Actions defined in slipstream.ui.views.secondary-menu-actions are functions

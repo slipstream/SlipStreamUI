@@ -27,7 +27,7 @@
          :hidden?     false
          :super-only? false}
         ~option-defaults
-        (select-keys options# [:disabled? :hidden? :super-only?]))))
+        (select-keys options# [:disabled? :hidden? :super-only? :disabled-reason]))))
 
 (defaction new-project)
 (defaction new-image)
