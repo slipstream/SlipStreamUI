@@ -632,7 +632,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 $this.click( function (event) {
                     var $thisIntern = $(this),
                         reason      = $thisIntern.attr("disabled-reason");
-                    if (! $thisIntern.hasClass("disabled") && $.isFunction(callback)) {
+                    if (! $thisIntern.hasClass("ss-action-disabled") && $.isFunction(callback)) {
                         callback.call($thisIntern, event);
                     } else if (reason) {
                         $$.alert.showWarning(reason);

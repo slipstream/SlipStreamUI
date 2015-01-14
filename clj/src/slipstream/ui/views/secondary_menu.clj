@@ -21,7 +21,7 @@
     (html/at action-node
              ue/this           (ue/set-id id)
              ue/this           (ue/enable-class hidden? "hidden")
-             ue/this           (ue/enable-class (not enabled?) "disabled")
+             ue/this           (ue/enable-class (not enabled?) "ss-action-disabled")
              ue/this           (ue/when-set-disabled-reason (and (not enabled?) (not-empty disabled-reason)) disabled-reason)
              action-icon-sel   (icons/set icon)
              action-name-sel   (html/content (str name)))))
