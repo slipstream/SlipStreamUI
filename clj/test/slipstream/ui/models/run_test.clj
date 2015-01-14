@@ -1490,7 +1490,7 @@
    :original-type "orchestration"
    :user "super"
    :category "Deployment"
-   :tags "\n                 \n            "}
+   :tags ""}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary)))
 
@@ -1511,7 +1511,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                \n                Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed.\n                \n            "}
+                         :value "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Module category"
@@ -1523,7 +1523,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 Deployment \n            "}
+                         :value "Deployment"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Global complete flag, set when run completed"
@@ -1535,7 +1535,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "}
+                         :value ""}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Comma separated node groups"
@@ -1547,7 +1547,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 CloudSigma-zrh:apache,CloudSigma-zrh:testclient \n            "}
+                         :value "CloudSigma-zrh:apache,CloudSigma-zrh:testclient"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Run abort flag, set when aborting"
@@ -1559,7 +1559,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 true \n            "}
+                         :value "true"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Global execution state"
@@ -1571,7 +1571,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 Aborted \n            "}
+                         :value "Aborted"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Comma separated tag values"
@@ -1583,7 +1583,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "}
+                         :value ""}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Optional service URL for the deployment"
@@ -1595,7 +1595,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "}]}
+                         :value ""}]}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters first)))
 
