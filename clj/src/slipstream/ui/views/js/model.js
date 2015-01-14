@@ -461,7 +461,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                         .each(function(){
                                             var $this = $(this);
                                             if ($this.is("[id^='parameter-ss:abort']") && ! $$.util.string.isEmpty($this.text())) {
-                                                $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + $this.text());
+                                                $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + $this.html());
                                             }
                                             $elem
                                                 .find("[id='" + $this.id() + "']")

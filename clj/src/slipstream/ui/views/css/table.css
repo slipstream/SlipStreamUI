@@ -129,7 +129,11 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 }
 
 td[id*=':abort'] {
-  color: #de0019;
+  color: #a94442;
+}
+td[id*=':abort'] a {
+  color: inherit;
+  font-weight: 600;
 }
 td[id*=':abort']::before {
   font-family: 'Glyphicons Halflings';

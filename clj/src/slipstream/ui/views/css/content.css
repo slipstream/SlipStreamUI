@@ -17,6 +17,11 @@ code {
   color: #4499ce;
 }
 
+.alert a {
+  color: inherit;
+  font-weight: 600;
+}
+
 .alert-info code {
   color: #31708f;
   background-color: transparent;

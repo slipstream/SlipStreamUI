@@ -36,7 +36,8 @@
 (def bottom-scripts-container-sel [:#bottom-scripts])
 (def bottom-scripts-sel (concat bottom-scripts-container-sel [:> :script]))
 
-(def alert-container-sel [:#ss-alert-container-floating])
+(def alert-container-floating-sel [:#ss-alert-container-floating])
+(def alert-container-fixed-sel    [:#ss-alert-container-fixed])
 
 (def topbar-sel [:#topbar])
 (def menubar-sel [:#menubar])
@@ -201,8 +202,13 @@
                             (html/substitute header)
                             (header/transform header)))
   content-sel           (transform-content content)
-  alert-container-sel   (html/content (map alerts/alert alerts))
-  alert-container-sel   (html/append (alerts/hidden-templates))
+  alert-container-floating-sel  (html/content (->> alerts
+                                                   (filter alerts/is-floating?)
+                                                   (map alerts/alert)))
+  alert-container-fixed-sel     (html/content (->> alerts
+                                                   (filter alerts/is-fixed?)
+                                                   (map alerts/alert)))
+  alert-container-floating-sel   (html/append (alerts/hidden-templates))
   noscript-title-sel    (ue/when-content (t :noscript-error.title))
   noscript-subtitle-sel (ue/when-content (t :noscript-error.subtitle))
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
