@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.runtime-parameters
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]))
 
@@ -31,7 +32,7 @@
                     :mapped-param-names (-> parameter :attrs :mappedruntimeparameternames)
                     :mapped-value?  (-> parameter :attrs :ismappedvalue uc/parse-boolean)
                     :name           (-> parameter :attrs :key)
-                    :value          (-> parameter (html/select [html/text-node]) first)
+                    :value          (-> parameter (html/select [html/text-node]) first (or "") s/trim)
                     :order          (u/order parameter)
                     :help-hint      (-> parameter :attrs :description)
                     :node           node-name)

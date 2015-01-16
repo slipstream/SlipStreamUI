@@ -51,4 +51,5 @@
     (-> {}
         (assoc :summary (summary metadata))
         (assoc :runtime-parameters runtime-parameters)
-        (assoc-in [:summary :tags] (runtime-parameters/value-for runtime-parameters "ss:tags")))))
+        (assoc-in [:summary :tags] (runtime-parameters/value-for runtime-parameters "ss:tags"))
+        (assoc-in [:summary :global-ss-abort] (runtime-parameters/value-for runtime-parameters "ss:abort")))))

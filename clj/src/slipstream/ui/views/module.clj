@@ -122,7 +122,8 @@
 (defn- disable-actions
   [menu-actions action]
   (if (get menu-actions action)
-    (action :disabled? true)
+    (action :disabled? true
+            :disabled-reason (t :action-disabled-reason.wrong-acls))
     action))
 
 (defn- toggle-action

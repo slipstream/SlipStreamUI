@@ -19,6 +19,13 @@
    :success [:#alert-success]
    :info    [:#alert-info]})
 
+(defn is-fixed?
+  [alert]
+  (= (:container alert) :fixed))
+
+(def is-floating?
+  (complement is-fixed?))
+
 (def alerts
   "Static (computed) snippet with all alerts HTML templates.
   Since the templates don't change, we don't need to compute them at runtime."

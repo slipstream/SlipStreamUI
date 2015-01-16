@@ -127,3 +127,20 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-view-name-service-catalog table > tbody > tr > td:nth-child(1) {
   width: 1px;
 }
+
+td[id*=':abort'] {
+  color: #a94442;
+}
+td[id*=':abort'] a {
+  color: inherit;
+  font-weight: 600;
+}
+td[id*=':abort']::before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e014"; /* .glyphicon-remove */
+  font-size: 12px;
+  padding-right: 5px;
+}
+td[id*=':abort']:empty::before {
+  content: "";
+}

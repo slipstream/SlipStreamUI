@@ -84,6 +84,13 @@
         relative-start-timestamp (ut/format :relative (:start-time summary))]
     (t t-key (:owner summary) relative-start-timestamp)))
 
+(defn- ss-abort-alert
+  [run]
+  (when-let [ss-abort-msg (-> run :summary :global-ss-abort not-empty)]
+    {:type :error
+     :container :fixed
+     :msg (str "<strong><code>ss:abort</code></strong>- " ss-abort-msg)}))
+
 (defn page
   [metadata]
   (let [run (run/parse metadata)
@@ -96,6 +103,7 @@
                          short-run-uuid
                          (-> run :summary :state))
                 :subtitle (subtitle run)}
+       :alerts [(ss-abort-alert run)]
        :resource-uri (-> run
                          :summary
                          :module-uri

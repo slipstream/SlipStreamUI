@@ -1,4 +1,8 @@
-(ns slipstream.ui.models.module.deployment-test
+(ns slipstream.ui.models.module.deployment-super-test
+  "This namespace adds a mockup data for a deployment for a super-user, which can
+  be accessed on the route http://localhost:8082/deployment-view-super. No unit
+  tests are made here, since the corresponding metadata transformation is already
+  tested in slipstream.ui.models.module.deployment-test."
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.module :as model]
@@ -318,132 +322,6 @@
         </entry>
     </nodes>
     <parameters/>
-    <user issuper='false' resourceUri='user/regularuser' name='regularuser' defaultCloud='sky'></user>
+    <user issuper='true' resourceUri='user/super' name='super' defaultCloud='sky'></user>
 </deploymentModule>")
 
-(def parsed-metadata
-   {:nodes [{:name "node1"
-             :template-node? nil
-             :reference-image "EBU_TTF/test-ui/vm1"
-             :default-multiplicity 1
-             :default-cloud [{:value "exoscale-ch-gva"
-                              :text "exoscale-ch-gva"}
-                             {:value "ec2-eu-west"
-                              :text "ec2-eu-west"}
-                             {:selected? true
-                              :value "default"
-                              :text "default"}]
-             :output-parameters ["hostname" "instanceid" "my-output-param-1" "my-output-param-2"]
-             :mappings [{:name "my-input-param-1"
-                         :mapped-value? false
-                         :value "'some-value-for-input-1'"}
-                        {:name "my-input-param-2"
-                         :mapped-value? true
-                         :value "node2:my-vm2-output-param-2"}]}
-            {:name "node2"
-             :template-node? nil
-             :reference-image "EBU_TTF/test-ui/vm2/610"
-             :default-multiplicity 1
-             :default-cloud [{:value "exoscale-ch-gva"
-                              :text "exoscale-ch-gva"}
-                             {:value "ec2-eu-west"
-                              :text "ec2-eu-west"}
-                             {:selected? true
-                              :value "default"
-                              :text "default"}]
-             :output-parameters ["hostname" "instanceid" "my-vm2-output-param-1" "my-vm2-output-param-2"]
-             :mappings [{:name "my-vm2-input-param-1"
-                         :mapped-value? true
-                         :value "node1:my-output-param-1"}
-                        {:name "my-vm2-input-param-2"
-                         :mapped-value? false
-                         :value "'some-value-for-vm2-input-2'"}]}]
-    :runs [{:cloud-name "exoscale-ch-gva"
-            :runs [{:cloud-name "exoscale-ch-gva"
-                    :uri nil
-                    :module-uri "module/mynewproject1/ubuntu-dpl/659"
-                    :type :deployment-run
-                    :start-time "2015-01-09 11:39:56.813 CET"
-                    :username "konstantest"
-                    :uuid "43a560db-7948-4b67-abb2-3c3af32d10e6"
-                    :status "Aborted"
-                    :tags ""}
-                   {:cloud-name "exoscale-ch-gva"
-                    :uri nil
-                    :module-uri "module/mynewproject1/ubuntu-dpl/659"
-                    :type :deployment-run
-                    :start-time "2015-01-09 11:33:58.583 CET"
-                    :username "konstantest"
-                    :uuid "c6a7157b-acbb-4e69-b3f8-ad085e75bbc6"
-                    :status "Aborted"
-                    :tags ""}]}]
-    :summary {:publication nil
-              :deleted? false
-              :published? false
-              :comment nil
-              :creation "2014-11-21 15:59:48.282 UTC"
-              :name "EBU_TTF/test-ui/deployment-test"
-              :logo-url ""
-              :short-name "deployment-test"
-              :owner "rob"
-              :version 612
-              :uri "module/EBU_TTF/test-ui/deployment-test"
-              :latest-version? true
-              :last-modified "2014-11-24 15:57:48.882 UTC"
-              :parent-uri "module/EBU_TTF/test-ui"
-              :description "Testing how to create a deployment"
-              :category "Deployment"}
-    :available-clouds [{:value "exoscale-ch-gva", :text "exoscale-ch-gva", :selected? true}
-                       {:value "ec2-eu-west", :text "ec2-eu-west"}
-                       {:value "default", :text "default"}]
-    :authorization {:access-rights {:create-children {:public-access? false
-                                                      :group-access? false
-                                                      :owner-access? true}
-                                    :delete {:owner-access? true
-                                             :public-access? false
-                                             :group-access? false}
-                                    :put {:owner-access? true
-                                          :public-access? false
-                                          :group-access? false}
-                                    :post {:group-access? false
-                                           :owner-access? true
-                                           :public-access? false}
-                                    :get {:group-access? false
-                                          :public-access? false
-                                          :owner-access? true}}
-                    :group-members #{"meb" "other" "konstan" "xxx"}
-                    :inherited-group-members? true}})
-
-(expect
-  parsed-metadata
-  (localization/with-lang :en
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
-
-(expect
-  parsed-metadata
-  (localization/with-lang :en
-    (page-type/with-page-type "view"
-      (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))))
-
-(def ^:private blank-node-template
-  {:name nil
-   :template-node? true
-   :reference-image "new"
-   :default-multiplicity 1
-   :default-cloud [{:value "exoscale-ch-gva"
-                    :text "exoscale-ch-gva"}
-                   {:value "ec2-eu-west"
-                    :text "ec2-eu-west"}
-                   {:selected? true
-                    :value "default"
-                    :text "default"}]
-   :output-parameters ()
-   :mappings [{:name nil
-               :mapped-value? nil
-               :value nil}]})
-
-(expect
-  (update-in parsed-metadata [:nodes] conj blank-node-template)
-  (localization/with-lang :en
-    (page-type/with-page-type "edit"
-      (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))))

@@ -9,9 +9,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $alertElem.scheduleAlertDismiss(delay);
     }
 
-    // Auto dismiss alerts already present on page load
+    function configureCustomDismissAnimation($alertElem) {
+        $alertElem
+            .find("button.close")
+                .removeAttr("data-dismiss")
+                .click(function (elem) {
+                    $alertElem.slideUp("fast", function() {
+                        $alertElem.remove();
+                    });
+                });
+    }
+
+    // Configure alerts already present on page load
+
     $("#ss-alert-container-floating div[role=alert]:not(.hidden)").each(function (index, alertElem) {
-        scheduleAlertDismiss($(alertElem));
+        var $alertElem = $(alertElem);
+        scheduleAlertDismiss($alertElem);
+        configureCustomDismissAnimation($alertElem);
+    });
+
+    $("#ss-alert-container-fixed div[role=alert]:not(.hidden)").each(function (index, alertElem) {
+        var $alertElem = $(alertElem);
+        configureCustomDismissAnimation($alertElem);
     });
 
     var alertDefaultOptions = {
@@ -71,15 +90,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return true;
         }
 
-        // Configure custom dismiss animation
-        $alertElem
-            .find("button.close")
-                .removeAttr("data-dismiss")
-                .click(function (elem) {
-                    $alertElem.slideUp("fast", function() {
-                        $alertElem.remove();
-                    });
-                });
+
+        configureCustomDismissAnimation($alertElem);
 
         $alertContainer.prepend($alertElem);
         $alertElem.slideDown("fast");

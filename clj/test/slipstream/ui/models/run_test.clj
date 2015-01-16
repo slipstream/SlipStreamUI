@@ -1491,7 +1491,8 @@
    :original-type "orchestration"
    :user "super"
    :category "Deployment"
-   :tags "\n                 \n            "}
+   :tags ""
+   :global-ss-abort "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary)))
 
@@ -1513,7 +1514,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                \n                Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed.\n                \n            "
+                         :value "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1526,7 +1527,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 Deployment \n            "
+                         :value "Deployment"
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1539,7 +1540,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "
+                         :value ""
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1552,7 +1553,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 CloudSigma-zrh:apache,CloudSigma-zrh:testclient \n            "
+                         :value "CloudSigma-zrh:apache,CloudSigma-zrh:testclient"
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1565,7 +1566,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 true \n            "
+                         :value "true"
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1578,7 +1579,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 Aborted \n            "
+                         :value "Aborted"
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1591,7 +1592,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "
+                         :value ""
                          :node "Global"}
                         {:group "Global"
                          :deleted? false
@@ -1604,7 +1605,7 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "
+                         :value ""
                          :node "Global"}]}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters first)))

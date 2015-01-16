@@ -2,7 +2,10 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.current-user :as current-user]))
+
+(localization/def-scoped-t)
 
 (def ^:private main-action-sel [:.ss-secondary-menu-main-action])
 (def ^:private extra-actions-container-sel [:#ss-secondary-menu :> :div :> :ul])
@@ -13,13 +16,13 @@
 (def ^:private extra-action-anchor-sel [:a])
 
 (defn- setup-action
-  [{:keys [icon name id hidden? super-only?] enabled? ::enabled? :or {enabled? true}}]
+  [{:keys [icon name id hidden? super-only? disabled-reason] enabled? ::enabled? :or {enabled? true}}]
   (fn [action-node]
     (html/at action-node
              ue/this           (ue/set-id id)
              ue/this           (ue/enable-class hidden? "hidden")
-             ue/this           (ue/enable-class (not enabled?) "disabled")
-             ue/this           (ue/when-set-disabled-reason (and (not enabled?) super-only?) "ss-super-only-action")
+             ue/this           (ue/enable-class (not enabled?) "ss-action-disabled")
+             ue/this           (ue/when-set-disabled-reason (and (not enabled?) (not-empty disabled-reason)) disabled-reason)
              action-icon-sel   (icons/set icon)
              action-name-sel   (html/content (str name)))))
 
@@ -39,9 +42,12 @@
   Hard-coded ':disabled? true' value wins over ':super-only?' setting.
   Hard-coded ':disabled? false' value loses over ':super-only?' setting."
   [{:keys [disabled? super-only?] :as action}]
-  (assoc action ::enabled? (if disabled?
-                             false
-                             (or (current-user/super?) (not super-only?)))))
+  (if-not super-only?
+    (assoc action ::enabled? (not disabled?))
+    (let [enabled? (if disabled? false (or (current-user/super?) (not super-only?)))]
+      (assoc action
+        ::enabled? enabled?
+        :disabled-reason  (t :disabled-reason.super-only-action)))))
 
 (defn- call-action-fn
   "Actions defined in slipstream.ui.views.secondary-menu-actions are functions

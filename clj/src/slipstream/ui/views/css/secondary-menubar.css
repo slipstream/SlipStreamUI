@@ -120,11 +120,15 @@ button.ss-secondary-btn.active,
   padding-right: 5px;
 }
 
-.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.disabled,
-.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.disabled:hover,
-button.ss-secondary-menu-main-action.disabled {
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.ss-action-disabled,
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.ss-action-disabled:hover,
+button.ss-secondary-menu-main-action.ss-action-disabled,
+button.ss-secondary-menu-main-action.ss-action-disabled:active {
   color: #777;
   background-color: transparent;
   opacity: .8;
   cursor: default;
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
 }
