@@ -26,15 +26,31 @@
     {:title   (localization/section-title metadata-key)
      :content (t/run-summary-table section-metadata)}))
 
-(defn- runtime-parameter-section
+(defn- runtime-parameter-node-instance-section
   [parameter-group]
   {:title   (-> parameter-group :group name)
    :content (-> parameter-group :runtime-parameters t/runtime-parameters-table)})
 
+(defn- group
+  [runtime-parameters]
+  (uc/coll-grouped-by :group runtime-parameters
+                      :items-keyword :runtime-parameters))
+
+(defn- runtime-parameter-node-section
+  [parameter-group]
+  (let [subsection-metadata (-> parameter-group :runtime-parameters group)
+        section-type        (-> parameter-group :node-type)
+        global?             (= section-type :global)]
+    {:icon    (when-not global? (icons/icon-for section-type))
+     :title   (if global? (t :section.global.title) (-> parameter-group :node name))
+     :content (if (-> subsection-metadata count (= 1))
+                (-> subsection-metadata first runtime-parameter-node-instance-section :content)
+                (map runtime-parameter-node-instance-section subsection-metadata))}))
+
 (defmethod section :runtime-parameters
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
-    (map runtime-parameter-section section-metadata)))
+    (map runtime-parameter-node-section section-metadata)))
 
 (ue/def-blank-snippet reports-iframe-snip :iframe
   [run]

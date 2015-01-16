@@ -47,6 +47,8 @@
 (deficon vms                    dashboard)
 (deficon deployment             "th")
 (deficon image                  "hdd")
+(deficon orchestrator           image)
+(deficon vm                     image)
 (deficon build                  "tower")
 (deficon deployment-run         deployment)
 (deficon image-run              image)

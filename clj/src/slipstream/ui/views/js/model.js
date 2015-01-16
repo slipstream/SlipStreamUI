@@ -358,15 +358,15 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     },
 
                     getRunType: function() {
-                        return $("#type").text();
+                        return $("#originaltype").text();
                     },
 
                     isBuild: function() {
-                        return runModel.getRunType() === 'Image Build';
+                        return runModel.getRunType() === 'machine';
                     },
 
                     isDeployment: function() {
-                        return runModel.getRunType() === 'Deployment Run';
+                        return runModel.getRunType() === 'orchestration';
                     },
 
                     getVmState: function(vm) {

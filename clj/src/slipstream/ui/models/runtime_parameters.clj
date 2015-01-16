@@ -5,9 +5,20 @@
 
 (def ^:private runtime-parameter-sel [:runtimeParameter])
 
+(defn- runtime-parameters-section-type
+  [section-name]
+  (condp re-matches section-name
+    #"^Global$"         :global
+    #"^orchestrator-.*" :orchestrator
+    #"^.*\.[0-9]+$"     :vm
+    #"^machine$"        :vm
+    :node))
+
 (defn- parse-parameter
   [parameter]
-  (-> parameter
+  (let [group-name (->> parameter :attrs :group)
+        node-name  (->> group-name (re-matches #"^([^.]*)(?:\.[0-9]+)?$") second)]
+    (-> parameter
       :attrs
       (select-keys [:group
                     :type
@@ -22,20 +33,25 @@
                     :name           (-> parameter :attrs :key)
                     :value          (-> parameter (html/select [html/text-node]) first)
                     :order          (u/order parameter)
-                    :help-hint      (-> parameter :attrs :description))
-      (u/assoc-enum-details parameter)))
+                    :help-hint      (-> parameter :attrs :description)
+                    :node           node-name)
+      (u/assoc-enum-details parameter))))
+
+(def sections-order {:global 1 :orchestrator 2 :vm 3 :node 4})
 
 (defn- group
   [runtime-parameters]
-  (uc/coll-grouped-by :group runtime-parameters
+  (uc/coll-grouped-by :node runtime-parameters
                       :items-keyword :runtime-parameters
-                      :items-sort-fn (juxt :order :name)))
+                      :items-sort-fn (juxt :order :name)
+                      :group-type-fn runtime-parameters-section-type))
 
 (defn parse
   [metadata]
   (->> (html/select metadata runtime-parameter-sel)
        (map parse-parameter)
-       group))
+       group
+       (sort-by (comp sections-order :node-type))))
 
 ;; Runtime-parameter util methods
 

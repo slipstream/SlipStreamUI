@@ -7,13 +7,21 @@
 
 (localization/def-scoped-t)
 
-(defn run-type-mapping
+(defn run-type-localization-mapping
   "Also used in ns 'slipstream.ui.models.run-items'."
   [original-type]
   (case original-type
     "Machine"        (t :type.machine)
     "Run"            (t :type.run)
     "Orchestration"  (t :type.orchestration)
+    nil))
+
+(defn run-type-mapping
+  [original-type]
+  (case original-type
+    "Machine"        :image-build
+    "Run"            :image-run
+    "Orchestration"  :deployment-run
     nil))
 
 (defn- summary
@@ -30,6 +38,7 @@
      :status        (-> attrs :status)
      :uuid          (-> attrs :uuid)
      :original-type (-> attrs :type s/lower-case)
+     :localized-type(-> attrs :type run-type-localization-mapping)
      :type          (-> attrs :type run-type-mapping)
      :uri           (-> attrs :resourceuri)
      :owner         (-> metadata (html/select [:authz]) first :attrs :owner)

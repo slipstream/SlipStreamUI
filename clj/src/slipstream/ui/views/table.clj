@@ -637,11 +637,12 @@
 
 (html/defsnippet ^:private rows-snip template-filename table-row-sel
   [rows]
-  ue/this (html/clone-for [{:keys [style cells class data]} rows]
+  ue/this (html/clone-for [{:keys [style cells class data hidden?]} rows]
            ue/this (html/content (map cell-snip cells))
            ue/this (ue/set-data :from-server data)
            ue/this (ue/when-add-class style (name style))
-           ue/this (ue/when-add-class class)))
+           ue/this (ue/when-add-class class)
+           ue/this (ue/enable-class hidden? "hidden")))
 
 
 ;; Headers
@@ -663,7 +664,7 @@
   ue/this        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
   table-head-sel (ue/when-content (not-empty headers) (head-snip headers))
   table-body-sel (html/content (->> rows
-                                    (remove :hidden?)
+                                    (remove :remove?)
                                     rows-snip)))
 
 (defn build

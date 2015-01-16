@@ -64,7 +64,7 @@
            :runs [{:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-                   :type "Deployment Run"
+                   :type :deployment-run
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
@@ -72,7 +72,7 @@
                   {:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-                   :type "Image Run"
+                   :type :image-run
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
@@ -80,7 +80,7 @@
                   {:cloud-name "stratuslab"
                    :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
                    :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-                   :type "Image Build"
+                   :type :image-build
                    :start-time "2013-07-05 17:27:12.471 CEST"
                    :username "donald"
                    :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"

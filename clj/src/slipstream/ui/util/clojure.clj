@@ -220,7 +220,7 @@
   in the result. See tests for expectations."
   [f coll & {:keys [group-keyword group-sort-fn items-keyword items-sort-fn group-type-fn group-type-keyword]
              :or   {group-keyword :group
-                    group-sort-fn identity
+                    group-sort-fn identity ;; NOTE: The input of the group-sort-fn will be the value of the group
                     items-keyword :items}}]
   (let [group-keyword (if (keyword? f) f group-keyword)
         group-type-keyword (or

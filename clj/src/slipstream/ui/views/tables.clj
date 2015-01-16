@@ -165,12 +165,13 @@
 (defn- parameter-row
   [first-cols-keywords
    row-index
-   {:keys [type editable? hidden?]
+   {:keys [type editable? remove? hidden?]
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
   (let [cell-type (cell-type-for parameter)
         first-cells (mapv #(do {:type :cell/text, :content (get parameter %)}) first-cols-keywords)]
     {:style nil
+     :remove? remove?
      :hidden? hidden?
      :cells (conj first-cells
                   {:type cell-type, :content (value-of parameter cell-type row-index), :editable? editable?}
@@ -209,23 +210,23 @@
         :organization   {:type :cell/text}
         :email          {:type :cell/email, :required? true, :validation {:requirements (pattern/requirements :email)}}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
-        :creation       {:type :cell/timestamp, :editable? false, :hidden? (page-type/new?)}
+        :creation       {:type :cell/timestamp, :editable? false, :remove? (page-type/new?)}
         :password-new-1 {:type :cell/password
                          :editable? true
-                         :hidden? (not (page-type/edit-or-new?))
+                         :remove? (not (page-type/edit-or-new?))
                          :id-format-fn (constantly "password1")
                          :validation {:requirements (pattern/requirements :user-password)}
                          :required? (page-type/new?)}
         :password-new-2 {:type :cell/password
                          :editable? true
-                         :hidden? (not (page-type/edit-or-new?))
+                         :remove? (not (page-type/edit-or-new?))
                          :id-format-fn (constantly "password2")
                          :required? (page-type/new?)
                          :validation {:requirements (pattern/requirements :user-password-confirmation)
                                       :generic-help-hints {:success (t :password-not-match.success-help-hint)
                                                            :error   (t :password-not-match.error-help-hint)}}}
-        :password-old   {:type :cell/password,  :editable? true,  :hidden? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
-        :state          {:type :cell/text,      :editable? false, :hidden? (page-type/edit-or-new?)}))))
+        :password-old   {:type :cell/password,  :editable? true,  :remove? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
+        :state          {:type :cell/text,      :editable? false, :remove? (page-type/edit-or-new?)}))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -239,15 +240,15 @@
                        :required? true
                        :validation {:requirements (pattern/requirements :module-name)}}
       :description    {:type :cell/text}
-      :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :hidden? (page-type/new?)}
-      :comment        {:type :cell/text,       :hidden?  (page-type/edit-or-new?)}
-      :category       {:type :cell/text,       :editable? false, :hidden? (page-type/new?)}
-      :creation       {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
-      :publication    {:type :cell/timestamp,  :editable? false, :hidden? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
-      :last-modified  {:type :cell/timestamp,  :editable? false, :hidden? (page-type/new?)}
-      :owner          {:type :cell/username,   :editable? false, :hidden? (page-type/new?)}
+      :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :remove? (page-type/new?)}
+      :comment        {:type :cell/text,       :remove?  (page-type/edit-or-new?)}
+      :category       {:type :cell/text,       :editable? false, :remove? (page-type/new?)}
+      :creation       {:type :cell/timestamp,  :editable? false, :remove? (page-type/new?)}
+      :publication    {:type :cell/timestamp,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
+      :last-modified  {:type :cell/timestamp,  :editable? false, :remove? (page-type/new?)}
+      :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?)}
       :logo-url       {:type :cell/text
-                       :hidden? (page-type/view?)
+                       :remove? (page-type/view?)
                        :id-format-fn (constantly "logoLink")
                        :required? false
                        :validation {:requirements (pattern/requirements :picture-url)
@@ -654,8 +655,9 @@
       :end-time           {:type :cell/timestamp}
       :state              {:type :cell/text}
       :last-state-change  {:type :cell/timestamp}
-      :type               {:type :cell/text,    :as-parameter :run-type}
-      :mutable?           {:type :cell/boolean, :hidden? (-> run :original-type (not= "orchestration"))}
+      :original-type      {:type :cell/text,    :hidden? true :description "" :help-hint ""}
+      :localized-type     {:type :cell/text,    :as-parameter :run-type}
+      :mutable?           {:type :cell/boolean, :remove? (-> run :original-type (not= "orchestration"))}
       :uuid               {:type :cell/text,    :as-parameter :run-id}
       :tags               {:type :cell/text
                            :editable? true

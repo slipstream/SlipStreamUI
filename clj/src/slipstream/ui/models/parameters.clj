@@ -79,13 +79,14 @@
              :id-format-fn (or id-format-fn uc/dashless-str)
              :type type
              :description (or description (-> as-parameter (or k) name (str ".description") keyword t))
-             :help-hint (or help-hint (-> as-parameter (or k) name (str ".help-hint") keyword t))
+             :help-hint   (or help-hint   (-> as-parameter (or k) name (str ".help-hint")   keyword t))
              :value (get m k)
              :built-from-map? true}
       (contains? hints :required?)    (assoc :required?   (:required?   hints))
       (contains? hints :validation)   (assoc :validation  (:validation  hints))
       (contains? hints :editable?)    (assoc :editable?   (:editable?   hints))
       (contains? hints :read-only?)   (assoc :read-only?  (:read-only?  hints))
+      (contains? hints :remove?)      (assoc :remove?     (:remove?     hints))
       (contains? hints :hidden?)      (assoc :hidden?     (:hidden?     hints)))))
 
 (defn categories-of-type

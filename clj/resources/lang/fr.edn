@@ -641,9 +641,9 @@
    :slipstream.ui.util.icons.description.image-run                 "Exécution d'une image"
    :slipstream.ui.util.icons.description.deployment-run            "Exécution d'un déploiement"
 
-   :slipstream.ui.models.run.type.machine                          "Image Build"       ; Was 'Build'
-   :slipstream.ui.models.run.type.run                              "Image Run"         ; Was 'Simple Run'
-   :slipstream.ui.models.run.type.orchestration                    "Deployment Run"    ; Was 'Deployment'
+   :slipstream.ui.models.run.type.machine                          "Construction d'une image"   ; Was 'Build'
+   :slipstream.ui.models.run.type.run                              "Exécution d'une image"      ; Was 'Simple Run'
+   :slipstream.ui.models.run.type.orchestration                    "Exécution d'un déploiement" ; Was 'Deployment'
 
    ; Secondary action icon descriptions
 

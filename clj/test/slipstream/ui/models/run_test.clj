@@ -1486,7 +1486,8 @@
    :start-time "2014-09-24 00:12:43.287 CEST"
    :uri "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :uuid "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
-   :type "Deployment Run"
+   :type :deployment-run
+   :localized-type "Deployment Run"
    :original-type "orchestration"
    :user "super"
    :category "Deployment"
@@ -1499,7 +1500,8 @@
 ; so we check only the first category.
 
 (expect
-  {:group "Global"
+  {:node "Global"
+   :node-type :global
    :runtime-parameters [{:group "Global"
                          :deleted? false
                          :help-hint "Run abort flag, set when aborting"
@@ -1511,7 +1513,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                \n                Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed.\n                \n            "}
+                         :value "\n                \n                Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed.\n                \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Module category"
@@ -1523,7 +1526,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 Deployment \n            "}
+                         :value "\n                 Deployment \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Global complete flag, set when run completed"
@@ -1535,7 +1539,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "}
+                         :value "\n                 \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Comma separated node groups"
@@ -1547,7 +1552,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 CloudSigma-zrh:apache,CloudSigma-zrh:testclient \n            "}
+                         :value "\n                 CloudSigma-zrh:apache,CloudSigma-zrh:testclient \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Run abort flag, set when aborting"
@@ -1559,7 +1565,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 true \n            "}
+                         :value "\n                 true \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Global execution state"
@@ -1571,7 +1578,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 Aborted \n            "}
+                         :value "\n                 Aborted \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Comma separated tag values"
@@ -1583,7 +1591,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "}
+                         :value "\n                 \n            "
+                         :node "Global"}
                         {:group "Global"
                          :deleted? false
                          :help-hint "Optional service URL for the deployment"
@@ -1595,7 +1604,8 @@
                          :map-others? false
                          :order 2147483647
                          :mapped-value? false
-                         :value "\n                 \n            "}]}
+                         :value "\n                 \n            "
+                         :node "Global"}]}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters first)))
 

@@ -362,7 +362,7 @@
             :runs [{:cloud-name "exoscale-ch-gva"
                     :uri nil
                     :module-uri "module/mynewproject1/ubuntu-dpl/659"
-                    :type "Deployment Run"
+                    :type :deployment-run
                     :start-time "2015-01-09 11:39:56.813 CET"
                     :username "konstantest"
                     :uuid "43a560db-7948-4b67-abb2-3c3af32d10e6"
@@ -371,7 +371,7 @@
                    {:cloud-name "exoscale-ch-gva"
                     :uri nil
                     :module-uri "module/mynewproject1/ubuntu-dpl/659"
-                    :type "Deployment Run"
+                    :type :deployment-run
                     :start-time "2015-01-09 11:33:58.583 CET"
                     :username "konstantest"
                     :uuid "c6a7157b-acbb-4e69-b3f8-ad085e75bbc6"
