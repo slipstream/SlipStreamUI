@@ -3,6 +3,7 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [clj-json.core :as json]
+            [clojure.data.xml :as xml]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
@@ -30,12 +31,17 @@
         vec
         (assoc-in [0 :selected?] true))))
 
+;; NOTE: Using clojure.data.xml instead of [clojure.xml :as xml] for performance
+; (defn- parse-xml-str [s]
+;    (xml/parse
+;      (java.io.ByteArrayInputStream. (.getBytes s))))
+
 (defn clojurify-raw-metadata-str
   "raw-metadata-str is assumed trimmed. See test for expectations."
   [raw-metadata-str]
   (if (->> raw-metadata-str first (= \{))
     (json/parse-string raw-metadata-str true)
-    (first (html/html-snippet raw-metadata-str))))
+    (xml/parse-str raw-metadata-str)))
 
 
 ;; Enum
