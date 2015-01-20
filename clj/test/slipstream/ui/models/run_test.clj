@@ -1475,7 +1475,8 @@
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys)))
 
 (expect
-  {:end-time "2014-09-24 00:20:06.517 CEST"
+  {:last-state-change "2014-09-24 00:20:06.517 CEST"
+   :end-time "2014-09-24 00:20:06.517 CEST"
    :status nil
    :mutable? false
    :deleted? false
