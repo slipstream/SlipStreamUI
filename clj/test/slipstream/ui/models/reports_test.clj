@@ -9,10 +9,11 @@
     <body style=\"font-family: sans-serif;\">
       <h2>Listing of \"/reports/91aac79a-7090-4fb6-861d-9cbf6101b5b8\"</h2>
       <a href=\"http://slipstream.sixsq.com/reports/\">..</a>
-      <br>
+      <br></br>
       <a href=\"http://slipstream.sixsq.com/reports/91aac79a-7090-4fb6-861d-9cbf6101b5b8/orchestrator-ec2-eu-west_report_2014-07-05T080220Z.tgz\">orchestrator-ec2-eu-west_report_2014-07-05T080220Z.tgz</a>
       <a href=\"http://slipstream.sixsq.com/reports/91aac79a-7090-4fb6-861d-9cbf6101b5b8/wp.1_report_2014-07-05T080217Z.tgz\">wp.1_report_2014-07-05T080217Z.tgz</a>
-      <br></body>
+      <br></br>
+    </body>
     </html>")
 
 (expect

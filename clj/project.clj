@@ -13,6 +13,7 @@
                  ;; Chosing clj-json against cheshire or clojure.data.json for performace.
                  ;; Source: http://stackoverflow.com/a/21528391
                  [clj-json "0.5.3"]
+                 [org.clojure/data.xml "0.0.8"]
                  [clj-time "0.8.0"]]
   :plugins [[lein-expectations "0.0.7"]
             [lein-autoexpect "1.0"]]

@@ -46,7 +46,7 @@
 	      </parameter>
       </entry>
     </parameters>
-  </serviceConfiguration'>
+  </serviceConfiguration>
 </dashboard>")
 
 (expect

@@ -27,7 +27,7 @@
   (clojurify-raw-metadata-str "{\"foo\":\"bar\"}"))
 
 (expect
-  {:tag :a, :attrs {:href "#"}, :content ["text"]}
+  #clojure.data.xml.Element{:tag :a, :attrs {:href "#"}, :content ["text"]}
   (clojurify-raw-metadata-str "<a href=\"#\">text</a>"))
 
 

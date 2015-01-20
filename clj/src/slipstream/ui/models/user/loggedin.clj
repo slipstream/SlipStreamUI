@@ -10,6 +10,6 @@
         user-attrs (:attrs user)]
     (when user
       {:username    (:name user-attrs)
-       :uri         (:resourceuri user-attrs)
+       :uri         (:resourceUri user-attrs)
        :super?      (uc/parse-boolean (:issuper user-attrs))
        :logged-in?  true})))

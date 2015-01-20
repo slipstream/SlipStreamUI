@@ -12,15 +12,15 @@
 
 (defn- cloud-image-details
   [metadata]
-  {:native-image?     (-> metadata :attrs :isbase uc/parse-boolean)
+  {:native-image?     (-> metadata :attrs :isBase uc/parse-boolean)
    :cloud-identifiers (->> (html/select metadata [:cloudImageIdentifier])
                            (map :attrs)
-                           (map (juxt :cloudservicename :cloudimageidentifier))
+                           (map (juxt :cloudServiceName :cloudImageIdentifier))
                            (into (zipmap
                                    (->> (html/select metadata [:cloudNames :string html/text])
                                         (remove #{"default"}))
                                    (repeat nil))))
-   :reference-image   (-> metadata :attrs :modulereferenceuri (uc/trim-prefix "module/"))})
+   :reference-image   (-> metadata :attrs :moduleReferenceUri (uc/trim-prefix "module/"))})
 
 
 ;; Os details section
@@ -39,7 +39,7 @@
 (defn- os-details
   [metadata]
   {:platform         (->> metadata :attrs :platform (u/enum platforms :cloud-platforms))
-   :login-username   (-> metadata :attrs :loginuser)})
+   :login-username   (-> metadata :attrs :loginUser)})
 
 
 ;; Image creation metadata section
@@ -81,7 +81,7 @@
                             first)]
     (assoc-in m [:targets target]
         {:code              (-> target-metadata (html/select [html/text-node]) first)
-         :run-in-background (-> target-metadata :attrs :runinbackground uc/parse-boolean)})))
+         :run-in-background (-> target-metadata :attrs :runInBackground uc/parse-boolean)})))
 
 (def ^:private default-parameters-order
   {"instanceid" 1
