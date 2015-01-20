@@ -8,8 +8,8 @@
       (select-keys [:state
                     :measurement])
       (assoc        :username           (-> vm-metadata :user))
-      (assoc        :cloud-instance-id  (-> vm-metadata :instanceid))
-      (assoc        :run-uuid           (-> vm-metadata :runuuid))
+      (assoc        :cloud-instance-id  (-> vm-metadata :instanceId))
+      (assoc        :run-uuid           (-> vm-metadata :runUuid))
       (assoc        :cloud-name         (-> vm-metadata :cloud))))
 
 (defn- group-vms

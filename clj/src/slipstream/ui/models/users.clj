@@ -8,14 +8,14 @@
   [user-node]
   (let [attrs (:attrs user-node)]
     {:username      (-> attrs :name)
-     :uri           (-> attrs :resourceuri)
-     :first-name    (-> attrs :firstname)
-     :last-name     (-> attrs :lastname)
+     :uri           (-> attrs :resourceUri)
+     :first-name    (-> attrs :firstName)
+     :last-name     (-> attrs :lastName)
      :organization  (-> attrs :organization)
      :state         (-> attrs :state)
      :online?       (-> attrs :online uc/parse-boolean)
      :super?        (-> attrs :issuper uc/parse-boolean)
-     :last-online   (-> attrs :lastonline)}))
+     :last-online   (-> attrs :lastOnline)}))
 
 (defn parse
   [metadata]

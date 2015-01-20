@@ -6,7 +6,7 @@
   [service-catalog]
   {:cloud       (-> service-catalog :attrs :cloud)
    :creation    (-> service-catalog :attrs :creation)
-   :uri         (-> service-catalog :attrs :resourceuri)
+   :uri         (-> service-catalog :attrs :resourceUri)
    :parameters  (-> service-catalog parameters/parse parameters/flatten)})
 
 (defn parse

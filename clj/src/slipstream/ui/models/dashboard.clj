@@ -8,7 +8,7 @@
 (defn- parse-usage
   [usage]
   {:cloud         (-> usage :cloud)
-   :current-usage (-> usage :currentusage uc/parse-pos-int)
+   :current-usage (-> usage :currentUsage uc/parse-pos-int)
    :quota         (-> usage :quota uc/parse-pos-int)})
 
 (defn- usages

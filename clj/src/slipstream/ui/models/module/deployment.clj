@@ -16,7 +16,7 @@
   [parameter-mapping-metadata]
   (let [attrs (:attrs parameter-mapping-metadata)]
     {:name          (-> attrs :name)
-     :mapped-value? (-> attrs :ismappedvalue uc/parse-boolean)
+     :mapped-value? (-> attrs :isMappedValue uc/parse-boolean)
      :value         (-> parameter-mapping-metadata
                         (html/select [:value html/text])
                         first)}))
@@ -32,9 +32,9 @@
         template-node? (:template-node? node-metadata)]
     {:name                  (-> attrs :name)
      :template-node?        template-node?
-     :reference-image       (-> attrs :imageuri (or "new") u/module-name)
+     :reference-image       (-> attrs :imageUri (or "new") u/module-name)
      :default-multiplicity  (-> attrs :multiplicity uc/parse-pos-int (or 1))
-     :default-cloud         (->> attrs :cloudservice (or "default") (u/enum cloud-names :cloud-names))
+     :default-cloud         (->> attrs :cloudService (or "default") (u/enum cloud-names :cloud-names))
      :output-parameters     (->> (html/select node-metadata [:image :parameters :entry [:parameter (html/attr-has :category "Output")]])
                                  (map (comp :name :attrs))
                                  sort)

@@ -29,8 +29,8 @@
   (let [attrs (:attrs metadata)]
     {:category      (-> attrs :category)
      :creation      (-> attrs :creation)
-     :start-time    (-> attrs :starttime)
-     :end-time      (-> attrs :endtime)
+     :start-time    (-> attrs :startTime)
+     :end-time      (-> attrs :endTime)
      :deleted?      (-> attrs :deleted uc/parse-boolean)
      :mutable?      (-> attrs :mutable uc/parse-boolean)
      :user          (-> attrs :user)
@@ -40,9 +40,9 @@
      :original-type (-> attrs :type s/lower-case)
      :localized-type(-> attrs :type run-type-localization-mapping)
      :type          (-> attrs :type run-type-mapping)
-     :uri           (-> attrs :resourceuri)
+     :uri           (-> attrs :resourceUri)
      :owner         (-> metadata (html/select [:authz]) first :attrs :owner)
-     :module-uri    (-> attrs :moduleresourceuri)}))
+     :module-uri    (-> attrs :moduleResourceUri)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."

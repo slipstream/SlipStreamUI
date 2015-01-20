@@ -13,13 +13,13 @@
         commit-comment-node (first (html/select commit-node commit-comment-sel))]
     {:author (get-in commit-node [:attrs :author])
      :comment (first (html/unwrap commit-comment-node))
-     :date (get-in version-node [:attrs :lastmodified])}))
+     :date (get-in version-node [:attrs :lastModified])}))
 
 (defn- version-metadata
   [version-node]
   (let [attrs (:attrs version-node)]
     {:version (uc/parse-pos-int (:version attrs))
-     :uri (:resourceuri attrs)
+     :uri (:resourceUri attrs)
      :commit (commit-metadata version-node)}))
 
 (defn- versions
@@ -40,7 +40,7 @@
         first-version-node (first version-nodes)]
    {:versions (versions version-nodes)
     :resource-uri (-> first-version-node
-                      (get-in [:attrs :resourceuri])
+                      (get-in [:attrs :resourceUri])
                       uc/trim-last-path-segment)
     :module-name (get-in first-version-node [:attrs :name])
     :category (get-in first-version-node [:attrs :category])}))

@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.module
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
@@ -11,11 +12,11 @@
  (defn- parse-keyword
    [k]
    (let [[match group-name optional-create-str policy-name]
-          (re-matches #"(owner|group|public)(create)?(\w+)" (name k))]
+          (re-matches #"(?i)(owner|group|public)(create)?(\w+)" (name k))]
      (when match
        (let [group-key (keyword (str group-name "-access?"))
              optional-create-prefix (when optional-create-str (str optional-create-str "-"))
-             policy-key (keyword (str optional-create-prefix policy-name))]
+             policy-key (->> policy-name (str optional-create-prefix) s/lower-case keyword)]
         [:access-rights policy-key group-key]))))
 
 (defn- assoc-authz-setting
@@ -42,7 +43,7 @@
   (let [authz (first (html/select metadata [:authz]))
         attrs (:attrs authz)]
     (-> {}
-        (assoc :inherited-group-members? (-> attrs :inheritedgroupmembers uc/parse-boolean)
+        (assoc :inherited-group-members? (-> attrs :inheritedGroupMembers uc/parse-boolean)
                :group-members            (group-members authz))
         (add-rights attrs))))
 
@@ -67,8 +68,8 @@
 (defn- summary
   [metadata]
   (let [attrs (:attrs metadata)
-        alternative-uri (str (:parenturi attrs) "/" (:shortname attrs))
-        publication-date (-> metadata (html/select [:published]) first :attrs :publicationdate)]
+        alternative-uri (str (:parentUri attrs) "/" (:shortName attrs))
+        publication-date (-> metadata (html/select [:published]) first :attrs :publicationDate)]
     {:description       (-> attrs :description)
      :category          (-> attrs :category)
      :comment           (-> metadata (html/select [:comment html/text]) first)
@@ -80,22 +81,22 @@
                             u/not-default-new-name)
      :creation          (-> attrs :creation)
      :version           (-> attrs :version uc/parse-pos-int)
-     :short-name        (-> attrs :shortname)
-     :last-modified     (-> attrs :lastmodified)
+     :short-name        (-> attrs :shortName)
+     :last-modified     (-> attrs :lastModified)
      :latest-version?   (or
                           (page-type/new?)
-                          (-> attrs :islatestversion uc/parse-boolean))
+                          (-> attrs :isLatestVersion uc/parse-boolean))
      :deleted?          (-> attrs :deleted uc/parse-boolean)
      :uri               (or
-                          (-> attrs :resourceuri)
+                          (-> attrs :resourceUri)
                           alternative-uri)
-     :parent-uri        (-> attrs :parenturi)
-     :logo-url          (-> metadata :attrs :logolink (or ""))
+     :parent-uri        (-> attrs :parentUri)
+     :logo-url          (-> metadata :attrs :logoLink (or ""))
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 
 (defn- available-clouds
   [metadata]
-  (let [cloud-default (-> metadata (html/select [:user]) first :attrs :defaultcloud)]
+  (let [cloud-default (-> metadata (html/select [:user]) first :attrs :defaultCloud)]
     (-> metadata
         (html/select [:cloudNames :string html/text-node])
         (u/enum :available-clouds)

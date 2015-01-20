@@ -14,7 +14,7 @@
 
 (defn- children
   [metadata]
-  (let [project-root-uri (-> metadata :attrs :resourceuri uc/trim-last-path-segment)]
+  (let [project-root-uri (-> metadata :attrs :resourceUri uc/trim-last-path-segment)]
     (->> (html/select metadata [:children :item])
          (map (partial parse-child project-root-uri))
          (sort-by :name))))

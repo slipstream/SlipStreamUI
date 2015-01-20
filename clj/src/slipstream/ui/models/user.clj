@@ -12,9 +12,9 @@
                       :state
                       :creation])
         (assoc        :username   (-> attrs :name u/not-default-new-name)
-                      :first-name (:firstname attrs)
-                      :last-name  (:lastname attrs)
-                      :uri        (:resourceuri attrs)
+                      :first-name (:firstName attrs)
+                      :last-name  (:lastName attrs)
+                      :uri        (:resourceUri attrs)
                       :super?     (-> attrs :issuper uc/parse-boolean)
                       :deleted?   (-> attrs :deleted uc/parse-boolean)
                       :loggedin?  (= (:name attrs) (current-user/username))))))

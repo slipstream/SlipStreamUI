@@ -16,8 +16,8 @@
   (-> app-node
       :attrs
       (select-keys [:description :name :version])
-      (assoc :uri       (get-in app-node [:attrs :resourceuri])
-             :image     (get-in app-node [:attrs :logolink])
+      (assoc :uri       (get-in app-node [:attrs :resourceUri])
+             :image     (get-in app-node [:attrs :logoLink])
              :publisher (owner app-node))))
 
 (defn- published-apps
@@ -30,7 +30,7 @@
   (-> project-node
       :attrs
       (select-keys [:category :description :version :name])
-      (assoc :uri (get-in project-node [:attrs :resourceuri])
+      (assoc :uri (get-in project-node [:attrs :resourceUri])
              :owner (owner project-node))))
 
 (defn- projects

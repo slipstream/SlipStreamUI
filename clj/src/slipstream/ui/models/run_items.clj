@@ -12,11 +12,11 @@
                       :status
                       :uuid
                       :username])
-        (assoc        :start-time  (-> attrs :starttime))
+        (assoc        :start-time  (-> attrs :startTime))
         (assoc        :type        (-> attrs :type run/run-type-mapping))
-        (assoc        :module-uri  (-> attrs :moduleresourceuri))
-        (assoc        :uri         (-> attrs :resourceuri))
-        (assoc        :cloud-name  (-> attrs :cloudservicename)))))
+        (assoc        :module-uri  (-> attrs :moduleResourceUri))
+        (assoc        :uri         (-> attrs :resourceUri))
+        (assoc        :cloud-name  (-> attrs :cloudServiceName)))))
 
 (defn- group-run-items
   [run-items]
