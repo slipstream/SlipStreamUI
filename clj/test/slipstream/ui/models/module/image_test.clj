@@ -15,6 +15,7 @@
         <instructions><![CDATA[Password...]]></instructions>
     </parameter>
 </entry>
+<entry>
 <string>extra.disk.volatile</string>
 <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Volatile extra disk in GB' isSet='false' mandatory='true' name='extra.disk.volatile' readonly='false' type='String'>
 <value>12345XXX</value>
@@ -140,7 +141,16 @@
                            {:value  "other",    :text   "Other"}]}
    :cloud-configuration [{:category-type :global
                           :category "Cloud"
-                          :parameters [{:help-hint nil
+                          :parameters [{:help-hint "Some help :-)"
+                                        :mandatory? true
+                                        :read-only? false
+                                        :order 2147483647
+                                        :value "12345XXX"
+                                        :category "Cloud"
+                                        :description "Volatile extra disk in GB"
+                                        :type "String"
+                                        :name "extra.disk.volatile"}
+                                       {:help-hint nil
                                         :name "network"
                                         :read-only? false
                                         :mandatory? true

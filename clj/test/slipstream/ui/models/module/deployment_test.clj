@@ -24,7 +24,7 @@
         <string>default</string>
     </cloudNames>
     <runs>
-        <item abort=\"Unknown key ubuntu2:blah\" cloudServiceName=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\"startTime=\"2015-01-09 11:39:56.813 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"43a560db-7948-4b67-abb2-3c3af32d10e6\"/>
+        <item abort=\"Unknown key ubuntu2:blah\" cloudServiceName=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\" startTime=\"2015-01-09 11:39:56.813 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"43a560db-7948-4b67-abb2-3c3af32d10e6\"/>
         <item abort=\"Unknown key ss:blah\" cloudServiceName=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\" startTime=\"2015-01-09 11:33:58.583 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"c6a7157b-acbb-4e69-b3f8-ad085e75bbc6\"/>
     </runs>
     <nodes>
