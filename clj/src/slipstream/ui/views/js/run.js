@@ -38,6 +38,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .enableEnterKeyPressEvent()
         .enableLiveInputValidation();
 
+    $("#ss-section-group").on("shown.bs.collapse", runModel.processRunHTML);
+    $("#ss-section-group").on("shown.bs.tab", runModel.processRunHTML);
+
     var run = {
 
         initialState: '...',

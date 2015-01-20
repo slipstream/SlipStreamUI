@@ -237,6 +237,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 refreshRequest,
                 url,
                 moduleURL,
+                lastRefreshData = "",
                 runModel = {
                     getURL: function() {
                         if (isRun && ! url) {
@@ -255,10 +256,8 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                     });
                     },
 
-                    getGlobalRuntimeValue: function(parameterName) {
-                        return $elem
-                                    .find("[id^='parameter-ss:" + parameterName + "']")
-                                    .text();
+                    getGlobalRuntimeValue: function(parameterName, context) {
+                        return $("[id^='parameter-ss:" + parameterName + "']", context).text();
                     },
 
                     setNodeRuntimeValue: function(nodeName, parameterName, flashCategory) {
@@ -271,16 +270,16 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                     });
                     },
 
-                    getNodeRuntimeValue: function(nodeName, parameterName) {
-                        return $elem
-                                    .find("[id^='parameter-" + nodeName + ":" + parameterName + "']")
-                                    .text();
+                    getNodeRuntimeValue: function(nodeName, parameterName, context) {
+                        return $("[id^='parameter-" + nodeName + ":" + parameterName + "']", context).text();
                     },
 
-                    getNodeInstanceRuntimeValue: function(nodeName, nodeInstanceIndex, parameterName) {
-                        return $elem
-                                    .find("[id^='parameter-" + nodeName + "." + nodeInstanceIndex + ":" + parameterName + "']")
-                                    .text();
+                    getNodeInstanceRuntimeValue: function(nodeName, nodeInstanceIndex, parameterName, context) {
+                        return $("[id^='parameter-" + nodeName + "." + nodeInstanceIndex + ":" + parameterName + "']", context).text();
+                    },
+
+                    getNodeRuntimeValues: function(nodeName, parameterName, context) {
+                        return $("[id^='parameter-" + nodeName + ".'][id*=':" + parameterName + "']", context).contents();
                     },
 
                     setState: function(state) {
@@ -300,13 +299,13 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         return runModel;
                     },
 
-                    getState: function() {
-                        return $elem.find("#state").text();
+                    getState: function(context) {
+                        return $("#state", context).text();
                     },
 
                     isAllVmstateUnknown: function() {
                         var res = true;
-                        $("[id*=':vmstate']").each(function(index, element){
+                        $("[id*=':vmstate']", lastRefreshData).each(function(index, element){
                             res = $(element).text().trim().toLowerCase() === "unknown";
                             return res; // 'false' breaks the 'each' loop
                         });
@@ -314,7 +313,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     },
 
                     isInFinalState: function() {
-                        return finalStates.contains(runModel.getState().trim().toLowerCase()) && runModel.isAllVmstateUnknown();
+                        return window.stopRefresh || (finalStates.contains(runModel.getState().trim().toLowerCase()) && runModel.isAllVmstateUnknown());
                     },
 
                     getModuleURL: function() {
@@ -369,43 +368,44 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         return runModel.getRunType() === 'orchestration';
                     },
 
-                    getVmState: function(vm) {
-                        return $$.util.string.defaultIfEmpty(runModel.getNodeRuntimeValue(vm, "vmstate"), "Unknown");
+                    getVmState: function(vm, context) {
+                        return $$.util.string.defaultIfEmpty(runModel.getNodeRuntimeValue(vm, "vmstate", context), "Unknown");
                     },
 
-                    getNbCompletedForNode: function(node) {
+                    getNbCompletedForNode: function(node, context) {
                         var completed = 0;
-                        var ids = runModel.getNodeRuntimeValue(node, "ids").split(",");
-                        for (var i=0; i < ids.length; i++) {
-                            if ($.trim(runModel.getNodeInstanceRuntimeValue(node, ids[i], "complete").toLowerCase()) == "true")
+                        var values = runModel.getNodeRuntimeValues(node, "complete", context);
+                        values.each(function(){
+                            if (this.data == "true") {
                                 completed ++;
-                        }
+                            }
+                        });
                         return completed;
                     },
 
-                    isActive: function(nodeInstanceName) {
+                    isActive: function(nodeInstanceName, context) {
                         var activeStates = ["running", "on"];
-                        var vmstate = runModel.getNodeRuntimeValue(nodeInstanceName, 'vmstate').toLowerCase();
+                        var vmstate = runModel.getNodeRuntimeValue(nodeInstanceName, 'vmstate', context).toLowerCase();
                         var active = $.inArray(vmstate, activeStates) > -1;
                         return active;
                     },
 
-                    isAbort: function(nodeInstanceName) {
+                    isAbort: function(nodeInstanceName, context) {
                         if (nodeInstanceName) {
-                            return !(runModel.getNodeRuntimeValue(nodeInstanceName, 'abort') === "");
+                            return !(runModel.getNodeRuntimeValue(nodeInstanceName, 'abort', context) === "");
                         } else {
-                            return !(runModel.getGlobalRuntimeValue('abort') === "");
+                            return !(runModel.getGlobalRuntimeValue('abort', context) === "");
                         }
                     },
 
-                    isNodeAbort: function(nodeName) {
-                        var globalAbort = !(runModel.getGlobalRuntimeValue('abort') === "");
+                    isNodeAbort: function(nodeName, context) {
+                        var globalAbort = !(runModel.getGlobalRuntimeValue('abort', context) === "");
                         var abort = false;
                         if (globalAbort) {
                             // find if vms under this node are the cause
-                            var ids = runModel.getNodeRuntimeValue(nodeName, "ids").split(',');
+                            var ids = runModel.getNodeRuntimeValue(nodeName, "ids", context).split(',');
                             for (var i=0; i < ids.length; i++) {
-                                if(runModel.isAbort(nodeName + "." + ids[i])) {
+                                if(runModel.isAbort(nodeName + "." + ids[i], context)) {
                                     abort = true;
                                     break;
                                 }
@@ -415,60 +415,71 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     },
 
                     escapeId: function(id) {
-                        return $$.run.escapeDot(id);
+                        return id.replace(/(:|\.|\[|\]|\?)/g, "\\$1" );
                     },
 
-                    updateOverviewLabel: function(event) {
+                    updateOverviewLabel: function(event, data) {
                         var id = runModel.escapeId(event.data.id);
                         var name = event.data.name;
                         var type = event.data.type;
+                        var context = (data && data.context)? data.context : $(":root");
 
                         if(type === "orchestrator" || type === "vm") {
-                            $('#'+id).toggleClass('dashboard-ok', !runModel.isAbort(name));
-                            $('#'+id).toggleClass('dashboard-error', runModel.isAbort(name));
+                            $('#'+id).toggleClass('dashboard-ok', !runModel.isAbort(name, context));
+                            $('#'+id).toggleClass('dashboard-error', runModel.isAbort(name, context));
 
-                            $('#'+id+'-vm').toggleClass('vm-active', runModel.isActive(name));
-                            $('#'+id+'-vm').toggleClass('vm-inactive', !runModel.isActive(name));
+                            $('#'+id+'-vm').toggleClass('vm-active', runModel.isActive(name, context));
+                            $('#'+id+'-vm').toggleClass('vm-inactive', !runModel.isActive(name, context));
 
-                            $('#'+id+'-state').html('VM is ' + runModel.getVmState(name));
+                            $('#'+id+'-state').html('VM is ' + runModel.getVmState(name, context));
                         }
 
                         if(type === "node") {
-                            $('#'+id).toggleClass('dashboard-ok', !runModel.isNodeAbort(name));
-                            $('#'+id).toggleClass('dashboard-error', runModel.isNodeAbort(name));
+                            $('#'+id).toggleClass('dashboard-ok', !runModel.isNodeAbort(name, context));
+                            $('#'+id).toggleClass('dashboard-error', runModel.isNodeAbort(name, context));
 
-                            $('#'+id+'-ratio').html("State: " + $$.run.truncate(runModel.getGlobalRuntimeValue("state")) + " (" + runModel.getNbCompletedForNode(name) + "/" + runModel.getNodeRuntimeValue(name, "multiplicity") + ")");
+                            $('#'+id+'-ratio').html("State: " + $$.run.truncate(runModel.getState(context)) + " (" + runModel.getNbCompletedForNode(name, context) + "/" + runModel.getNodeRuntimeValue(name, "multiplicity", context) + ")");
                         }
 
                         if(type === "vm") {
-                            $('#'+id+'-statecustom').html($$.run.truncate(runModel.getNodeRuntimeValue(name, 'statecustom')));
+                            $('#'+id+'-statecustom').html($$.run.truncate(runModel.getNodeRuntimeValue(name, 'statecustom', context)));
                         }
                     },
 
-                    updateSubTitle: function(data) {
-                        $('.ss-header-subtitle').html($('.ss-header-subtitle', data).html());
+                    updateSubTitle: function() {
+                        $('.ss-header-subtitle').html($('.ss-header-subtitle', lastRefreshData).html());
+                    },
+
+                    processRunHTML: function() {
+                        var newState = $("#state", lastRefreshData).text();
+                        runModel.setState(newState);
+                        runModel.updateSubTitle();
+                        $("tr")
+                            .find("[id]")
+                                .not("#state, [id^='parameter-ss:state']") // State is already set up above
+                                    .not(":hidden")
+                                        .each(function(){
+                                            var $this = $(this);
+                                            var id = runModel.escapeId($this.id());
+                                            var newElem = $("#"+id, lastRefreshData);
+
+                                            if ($this.is("[id^='parameter-ss:abort']") && ! $$.util.string.isEmpty(newElem.text())) {
+                                                $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + newElem.html());
+                                            }
+
+                                            $this.updateWith(newElem, {flashClosestSel: "tr"});
+                                        });
                     },
 
                     refresh: function() {
-                        function processRunHTML(data, textStatus, jqXHR) {
-                            var $newRunHTMLRows = $("tr", data),
-                                newState = $newRunHTMLRows.find("#state").text();
-                            runModel.setState(newState);
-                            runModel.updateSubTitle(data);
-                            $newRunHTMLRows
-                                .find("[id]")
-                                    .not("[id='state'], [id^='parameter-ss:state']") // State is already set up above
-                                        .each(function(){
-                                            var $this = $(this);
-                                            if ($this.is("[id^='parameter-ss:abort']") && ! $$.util.string.isEmpty($this.text())) {
-                                                $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + $this.html());
-                                            }
-                                            $elem
-                                                .find("[id='" + $this.id() + "']")
-                                                    .updateWith($this, {flashClosestSel: "tr"});
-                                        });
+
+                        function refreshCallback(data, textStatus, jqXHR) {
+                            lastRefreshData = $(data);
+
+                            runModel.processRunHTML();
+
                             // This will trigger the update of each element of the overview
-                            setTimeout(function(){$(document).trigger("runUpdated");}, 500);
+                            $(document).trigger("runUpdated", {"context": lastRefreshData});
                         }
 
                         if (! checkLoginRequest) {
@@ -485,7 +496,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                                 .get(runModel.getURL())
                                                 .async(false)
                                                 .dataType("html")
-                                                .onSuccess(processRunHTML);
+                                                .onSuccess(refreshCallback);
                         }
                         checkLoginRequest.send();
                         refreshRequest.send();
