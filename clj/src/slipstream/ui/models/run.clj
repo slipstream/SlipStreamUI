@@ -42,7 +42,8 @@
      :type          (-> attrs :type run-type-mapping)
      :uri           (-> attrs :resourceuri)
      :owner         (-> metadata (html/select [:authz]) first :attrs :owner)
-     :module-uri    (-> attrs :moduleresourceuri)}))
+     :module-uri    (-> attrs :moduleresourceuri)
+     :last-state-change (-> attrs :laststatechangetime)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."
