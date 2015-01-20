@@ -99,171 +99,185 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     //Increase height for deployment
     if(runModel.isDeployment()) {
-        canvasHeight = 600;
+        canvasHeight = 400;
     }
     var height = canvasHeight + 'px';
     $("#center-container").css('height', height);
     $("#infovis").css('height', height);
 
-    //Create a new ST instance
-    var st = new $jit.ST({
-        //id of viz container element
-        injectInto: 'infovis',
-        //set duration for the animation
-        duration: 600,
-        //set animation transition type
-        transition: $jit.Trans.Quart.easeInOut,
-        //set distance between node and its children
-        levelDistance: 50,
-        //enable panning
-        Navigation: {
-          enable:true,
-          panning:true
-        },
-        offsetX: 250,
-        offsetY: 0,
-        //set node and edge styles
-        //set overridable=true for styling individual
-        //nodes or edges
-        Node: {
-            height: 60,
-            width: 200,
-            type: 'rectangle',
-            color: 'white',
-            overridable: true,
-        },
+    var createJit = function() {
 
-        Edge: {
-            type: 'bezier',
-            overridable: true
-        },
-        //Add Tips
-        Tips: {
-          enable: true,
-          onShow: function(tip, node) {
-            tip.innerHTML = "";
-            //display node info in tooltip
-            if(node.data.type === "slipstream") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state") + "</b></div>";
+        //Create a new ST instance
+        var st = new $jit.ST({
+            //id of viz container element
+            injectInto: 'infovis',
+            //set duration for the animation
+            duration: 600,
+            //set animation transition type
+            transition: $jit.Trans.Quart.easeInOut,
+            //set distance between node and its children
+            levelDistance: 50,
+            //enable panning
+            Navigation: {
+              enable:true,
+              panning:true
+            },
+            offsetX: 250,
+            offsetY: 0,
+            //set node and edge styles
+            //set overridable=true for styling individual
+            //nodes or edges
+            Node: {
+                height: 60,
+                width: 200,
+                type: 'rectangle',
+                color: 'white',
+                overridable: true,
+            },
+
+            Edge: {
+                type: 'bezier',
+                overridable: true
+            },
+            //Add Tips
+            Tips: {
+              enable: true,
+              onShow: function(tip, node) {
+                tip.innerHTML = "";
+                //display node info in tooltip
+                if(node.data.type === "slipstream") {
+                    tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state") + "</b></div>";
+                }
+                if(node.data.type === "orchestrator") {
+                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
+                        "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
+                }
+                if(node.data.type === "node") {
+                    tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + getRuntimeValue(node.name, "multiplicity") + "</b></div>";
+                }
+                if(node.data.type === "vm") {
+                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
+                        "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>" +
+                        "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
+                }
+              }
+            },
+
+            isActive: function(nodeName) {
+                return $$.run.isActive(nodeName);
+            },
+
+            vmCssClass: function(nodeName) {
+                var active = this.isActive(nodeName);
+                return (active) ? 'vm-active' : 'vm-inactive';
+            },
+
+            isAbort: function(nodeName) {
+                return $$.run.isAbort(nodeName);
+            },
+
+            nodeCssClass: function(nodeName) {
+                var abort = this.isAbort(nodeName);
+                return (abort) ? 'dashboard-error' : 'dashboard-ok';
+            },
+
+            // Node as in grouping of vms
+            nodeNodeCssClass: function(nodeName) {
+                return $$.run.nodeNodeCssClass(nodeName);
+            },
+
+            getTruncatedState: function(nodeName) {
+                var state = getRuntimeValue(nodeName, 'state');
+                return $$.run.truncate(state);
+            },
+
+            //This method is called on DOM label creation.
+            //Use this method to add event handlers and styles to
+            //your node.
+            onCreateLabel: function(label, node){
+                label.id = node.id;
+                label.innerHTML = "<div><b>" + node.name + "</b></div>";
+                var idprefix = "dashboard-" + node.name;
+
+                if(node.data.type === "slipstream") {
+                }
+
+                if(node.data.type === "orchestrator") {
+                    label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-orchestrator dashboard-ok' > \
+                        <ul id='" + idprefix + "-vm' class='vm vm-inactive' style='list-style-type:none'> \
+                            <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
+                            <li id='" + idprefix + "-state'>VM is ...</li> \
+                        </ul></div>";
+                }
+
+                if(node.data.type === "node") {
+                    label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-node dashboard-ok' > \
+                        <ul style='list-style-type:none'> \
+                            <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
+                            <li id='" + idprefix + "-ratio'>State: ? (?/?)</div> \
+                        </ul></div>";
+                }
+
+                if(node.data.type === "vm") {
+                    // We attache the vm state to the ul since we use :before, which would clash with node css on div
+                    label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-image dashboard-ok' > \
+                        <ul id='" + idprefix + "-vm' class='vm vm-inactive' style='list-style-type:none'> \
+                            <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
+                            <li id='" + idprefix + "-state'>VM is ...</li> \
+                            <li id='" + idprefix + "-statecustom'></li> \
+                        </ul></div>";
+                }
+
+                $(document).on("runUpdated", null, {'id': idprefix, 'name': node.name, 'type': node.data.type}, runModel.updateOverviewLabel);
+
+                label.onclick = function(){
+                    st.onClick(node.id);
+                };
+
+            },
+            
+            onComplete: function(){
+                // refresh values of the overview
+                $(document).trigger("runUpdated");
+            },
+
+            //This method is called right before plotting
+            //an edge. It's useful for changing an individual edge
+            //style properties before plotting it.
+            //Edge data proprties prefixed with a dollar sign will
+            //override the Edge global style properties.
+            onBeforePlotLine: function(adj){
+                if (adj.nodeFrom.selected && adj.nodeTo.selected) {
+                    adj.data.$color = "#eed";
+                    adj.data.$lineWidth = 3;
+                }
+                else {
+                    delete adj.data.$color;
+                    delete adj.data.$lineWidth;
+                }
             }
-            if(node.data.type === "orchestrator") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
-                    "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
-            }
-            if(node.data.type === "node") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + getRuntimeValue(node.name, "multiplicity") + "</b></div>";
-            }
-            if(node.data.type === "vm") {
-                tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
-                    "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>" +
-                    "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
-            }
-          }
-        },
-
-        isActive: function(nodeName) {
-            return $$.run.isActive(nodeName);
-        },
-
-        vmCssClass: function(nodeName) {
-            var active = this.isActive(nodeName);
-            return (active) ? 'vm-active' : 'vm-inactive';
-        },
-
-        isAbort: function(nodeName) {
-            return $$.run.isAbort(nodeName);
-        },
-
-        nodeCssClass: function(nodeName) {
-            var abort = this.isAbort(nodeName);
-            return (abort) ? 'dashboard-error' : 'dashboard-ok';
-        },
-
-        // Node as in grouping of vms
-        nodeNodeCssClass: function(nodeName) {
-            return $$.run.nodeNodeCssClass(nodeName);
-        },
-
-        getTruncatedState: function(nodeName) {
-            var state = getRuntimeValue(nodeName, 'state');
-            return $$.run.truncate(state);
-        },
-
-        //This method is called on DOM label creation.
-        //Use this method to add event handlers and styles to
-        //your node.
-        onCreateLabel: function(label, node){
-            label.id = node.id;
-            label.innerHTML = "<div><b>" + node.name + "</b></div>";
-            var idprefix = "dashboard-" + node.name;
-
-            if(node.data.type === "slipstream") {
-            }
-
-            if(node.data.type === "orchestrator") {
-                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-orchestrator dashboard-ok' > \
-                    <ul id='" + idprefix + "-vm' class='vm vm-inactive' style='list-style-type:none'> \
-                        <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is ...</li> \
-                    </ul></div>";
-            }
-
-            if(node.data.type === "node") {
-                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-node dashboard-ok' > \
-                    <ul style='list-style-type:none'> \
-                        <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-ratio'>State: ? (?/?)</div> \
-                    </ul></div>";
-            }
-
-            if(node.data.type === "vm") {
-                // We attache the vm state to the ul since we use :before, which would clash with node css on div
-                label.innerHTML = "<div id='" + idprefix + "' class='dashboard-icon dashboard-image dashboard-ok' > \
-                    <ul id='" + idprefix + "-vm' class='vm vm-inactive' style='list-style-type:none'> \
-                        <li id='" + idprefix + "-name'><b>" + node.name + "</b></li> \
-                        <li id='" + idprefix + "-state'>VM is ...</li> \
-                        <li id='" + idprefix + "-statecustom'></li> \
-                    </ul></div>";
-            }
-
-            $(document).on("runUpdated", null, {'id': idprefix, 'name': node.name, 'type': node.data.type}, runModel.updateOverviewLabel);
-
-            label.onclick = function(){
-                st.onClick(node.id);
-            };
-
-        },
+        });
         
-        onComplete: function(){
-            // refresh values of the overview
-            $(document).trigger("runUpdated");
-        },
+        //load json data
+        st.loadJSON(root);
+        
+        //compute node positions and layout
+        st.compute();
 
-        //This method is called right before plotting
-        //an edge. It's useful for changing an individual edge
-        //style properties before plotting it.
-        //Edge data proprties prefixed with a dollar sign will
-        //override the Edge global style properties.
-        onBeforePlotLine: function(adj){
-            if (adj.nodeFrom.selected && adj.nodeTo.selected) {
-                adj.data.$color = "#eed";
-                adj.data.$lineWidth = 3;
-            }
-            else {
-                delete adj.data.$color;
-                delete adj.data.$lineWidth;
-            }
-        }
-    });
-    //load json data
-    st.loadJSON(root);
-    //compute node positions and layout
-    st.compute();
-    //optional: make a translation of the tree
-    st.geom.translate(new $jit.Complex(200, 0), "current");
-    //emulate a click on the root node.
-    st.onClick(st.root);
-    //end
+        //optional: make a translation of the tree
+        //st.geom.translate(new $jit.Complex(200, 0), "current");
+        
+        //emulate a click on the root node.
+        st.onClick(st.root);
+        
+        //end
+    }
+    
+    if ($(".panel:first > .panel-collapse").is(":visible")) {
+        createJit();
+    } else {
+        $(".panel:first").one("shown.bs.collapse", createJit);
+    }
     
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
