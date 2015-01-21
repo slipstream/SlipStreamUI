@@ -1480,6 +1480,10 @@
    :status nil
    :mutable? false
    :deleted? false
+   :large-run? false
+   :counts {:total-orchestrators 1
+            :total-nodes 2
+            :total-instances 2}
    :state "Aborted"
    :creation "2014-09-24 00:12:43.287 CEST"
    :module-uri "module/examples/tutorials/service-testing/system/72"
@@ -1497,6 +1501,10 @@
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary)))
 
+(expect
+  [:global :orchestrator :node :node]
+  (localization/with-lang :en
+    (->> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters (mapv :node-type))))
 
 ; The metadata mockup contains too many runtime parameters to test,
 ; so we check only the first category.

@@ -1,4 +1,5 @@
 (ns slipstream.ui.models.runtime-parameters
+  (:refer-clojure :exclude [filter])
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
@@ -66,3 +67,9 @@
   (->> runtime-parameters
        (mapcat :runtime-parameters)
        (some (partial value-when-named parameter-name))))
+
+(defn filter
+  [parameter-type runtime-parameters]
+  (->> runtime-parameters
+       (mapcat :runtime-parameters)
+       (clojure.core/filter #(re-matches (re-pattern (str ".*" parameter-type "$")) (:name %)))))
