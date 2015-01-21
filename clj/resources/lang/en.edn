@@ -59,6 +59,7 @@
                     :name             "Name"
                     :node             "Node"
                     :nodes            "Nodes"
+                    :orchestrator     "Orchestrator"
                     :organization     "Organization"
                     :output           "Output"
                     :overview         "Overview"
@@ -636,6 +637,7 @@
    :slipstream.ui.util.icons.description.build                     :global.nouns.build
    :slipstream.ui.util.icons.description.image                     :global.nouns.image
    :slipstream.ui.util.icons.description.node                      :global.nouns.node
+   :slipstream.ui.util.icons.description.orchestrator              :global.nouns.orchestrator
    :slipstream.ui.util.icons.description.config                    :global.nouns.config
    :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
