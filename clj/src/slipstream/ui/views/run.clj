@@ -63,16 +63,19 @@
     {:title   (localization/section-title metadata-key)
      :content (reports-iframe-snip run)}))
 
-(def ^:private sections
-  [:overview
-   :summary
-   :runtime-parameters
-   :reports])
+(defn- sections
+  [large-run?]
+  (cond-> []
+    (not large-run?)  (conj :overview)
+    :always           (conj :summary)
+    :always           (conj :runtime-parameters)
+    :always           (conj :reports) ))
 
-(def ^:private html-dependencies
+(defn- html-dependencies
+  [large-run?]
   {:css-filenames         ["run.css"]
-   :external-js-filenames ["jit/js/jit.js"]
-   :internal-js-filenames ["run.js" "run_overview.js"]})
+   :external-js-filenames (when-not large-run? ["jit/js/jit.js"])
+   :internal-js-filenames (when-not large-run? ["run.js" "run_overview.js"])})
 
 (defn- subtitle
   [run]
@@ -91,19 +94,29 @@
      :container :fixed
      :msg (str "<strong><code>ss:abort</code></strong>- " ss-abort-msg)}))
 
+(defn- large-run-alert
+  [large-run? counts]
+  (when large-run?
+    {:type :warning
+     :container :fixed
+     :title (t :large-run-alert.title)
+     :msg   (t :large-run-alert.message (:total-instances counts))}))
+
 (defn page
   [metadata]
   (let [run (run/parse metadata)
-        short-run-uuid (-> run :summary :uuid (uc/trim-from \-))]
+        short-run-uuid (-> run :summary :uuid (uc/trim-from \-))
+        large-run? (-> run :summary :large-run?)]
     (base/generate
-      {:html-dependencies html-dependencies
+      {:html-dependencies (html-dependencies large-run?)
        :page-title     (t :page-title short-run-uuid)
        :header {:icon  (-> run :summary :type (or :run) icons/icon-for)
                 :title (t :header.title
                          short-run-uuid
                          (-> run :summary :state))
                 :subtitle (subtitle run)}
-       :alerts [(ss-abort-alert run)]
+       :alerts [(ss-abort-alert run)
+                (large-run-alert large-run? (-> run :summary :counts))]
        :resource-uri (-> run
                          :summary
                          :module-uri
@@ -113,7 +126,7 @@
                                                :uuid
                                                (uc/trim-from \-))))
        :secondary-menu-actions [action/terminate]
-       :content (->> sections
+       :content (->> (sections large-run?)
                      (map (partial section run))
                      flatten)})))
 

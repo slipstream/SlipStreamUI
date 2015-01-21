@@ -97,12 +97,13 @@
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename type]
-  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
+  (let [metadata (time (u/clojurify-raw-metadata-str raw-metadata-str))]
     (localization/with-lang-from-metadata
       (current-user/with-user-from-metadata
         (page-type/with-page-type (or (page-types pagename) type)
           (guard-exceptions
-            (render-page pagename metadata)))))))
+            (time
+              (render-page pagename metadata))))))))
 
 (defn -toHtmlError
   "Generate an HTML error page"
