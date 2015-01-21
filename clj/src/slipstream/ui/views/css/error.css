@@ -11,7 +11,7 @@ body.ss-error-page::after {
       From http://thienbao.deviantart.com/art/Lost-in-the-Clouds-21423013
       Ask for permission if accepted ;)
 */
-  background-image: url(../images/lost_in_the_clouds.jpg);
+  /*background-image: url(../images/lost_in_the_clouds.jpg);*/
   background-size: cover;
   background-repeat:no-repeat;
   background-position: 50% 120px;
