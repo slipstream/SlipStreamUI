@@ -1,11 +1,12 @@
 (ns slipstream.ui.models.large-run-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.run :as model]))
 
 (def raw-metadata-str
-  (slurp "test/slipstream/ui/mockup_data/metadata_run_1000_instance.xml"))
+  (uc/slurp-resource "slipstream/ui/mockup_data/metadata_run_1000_instance.xml"))
 
 (expect
   [:runtime-parameters :summary]

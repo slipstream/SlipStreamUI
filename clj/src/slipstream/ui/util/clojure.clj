@@ -1,6 +1,8 @@
 (ns slipstream.ui.util.clojure
   (:require [clojure.string :as s]
-            [clj-json.core :as json]))
+            [clojure.java.io :as io]
+            [clj-json.core :as json])
+  (:import  [java.io FileNotFoundException]))
 
 (defmacro def-this-ns
   "Defines a private top level var with the namespace string of the current file."
@@ -18,6 +20,13 @@
   `(def ~fname
      (memoize
        (fn ~@body))))
+
+(defn slurp-resource
+  [path-str]
+  (if-let [file (io/resource path-str)]
+    (slurp file)
+    (throw (FileNotFoundException.
+             (format "Resource file %s not found!" path-str)))))
 
 (defn first-not-nil
   [& args]
