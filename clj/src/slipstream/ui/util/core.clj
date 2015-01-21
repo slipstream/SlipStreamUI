@@ -39,9 +39,10 @@
 (defn clojurify-raw-metadata-str
   "raw-metadata-str is assumed trimmed. See test for expectations."
   [raw-metadata-str]
-  (if (->> raw-metadata-str first (= \{))
-    (json/parse-string raw-metadata-str true)
-    (xml/parse-str raw-metadata-str)))
+  (when (not-empty raw-metadata-str)
+    (if (->> raw-metadata-str first (= \{))
+      (json/parse-string raw-metadata-str true)
+      (xml/parse-str raw-metadata-str))))
 
 
 ;; Enum
