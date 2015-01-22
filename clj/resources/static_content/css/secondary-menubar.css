@@ -73,7 +73,7 @@ body.ss-error-page #ss-secondary-menubar-container {
 
 /* Secondary button group */
 
-button.ss-secondary-btn {
+.ss-secondary-btn {
   background-color: transparent;
   color: #50a7de;
   border: none;
@@ -85,15 +85,15 @@ button.ss-secondary-btn {
   padding-left: 10px;
 }
 
-button.ss-secondary-btn:hover,
-button.ss-secondary-btn:focus {
+.ss-secondary-btn:hover,
+.ss-secondary-btn:focus {
   color: #50a7de;
   background-color: #252525;
 }
 
-button.ss-secondary-btn:active,
-button.ss-secondary-btn.active,
-.open > button.dropdown-toggle.ss-secondary-btn {
+.ss-secondary-btn:active,
+.ss-secondary-btn.active,
+.open > .dropdown-toggle.ss-secondary-btn {
   color: #50a7de;
   background-color: #151515;
 }
@@ -122,8 +122,8 @@ button.ss-secondary-btn.active,
 
 .dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.ss-action-disabled,
 .dropdown-menu.ss-secondary-menu-extra-actions-container > li > a.ss-action-disabled:hover,
-button.ss-secondary-menu-main-action.ss-action-disabled,
-button.ss-secondary-menu-main-action.ss-action-disabled:active {
+.ss-secondary-menu-main-action.ss-action-disabled,
+.ss-secondary-menu-main-action.ss-action-disabled:active {
   color: #777;
   background-color: transparent;
   opacity: .8;

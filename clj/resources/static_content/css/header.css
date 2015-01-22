@@ -84,7 +84,6 @@
   background-repeat: no-repeat;
   background-image: url("../images/header_image_placeholder.png");
   background-position: right center;
-
 }
 
 #header .ss-header-image-col {
@@ -93,7 +92,6 @@
   left: 35px;
   padding-left: 0;
   padding-right: 0;
-
 }
 
 /* Big computer screen (lg) */

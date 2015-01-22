@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.dev :as ud]
+            [slipstream.ui.util.theme :as theme]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
@@ -47,6 +48,7 @@
 (def secondary-menu-sel [:#ss-secondary-menu])
 (def content-sel [:#ss-content])
 (def footer-sel [:#footer])
+(def footer-notice-sel [:.ss-footer-notice])
 (def modal-dialogs-placeholder-sel [:#ss-modal-dialogs-placeholder])
 
 (def noscript-title-sel     [:.ss-noscript-error-title])
@@ -102,11 +104,12 @@
 ;; Top CSS link snippet
 
 (ue/def-blank-snippet ^:private css-links-snip :link
-  [filenames]
+  [filenames & [theme]]
   ue/this (ue/set-rel   "stylesheet")
   ue/this (ue/set-type  "text/css")
   ue/this (html/clone-for [filename filenames]
-            ue/this (ue/set-href "css/" filename)))
+            ue/this (ue/set-href
+                      (theme/static-content-folder theme) "css/" filename)))
 
 
 (defn-memo ^:private node-from-template
@@ -162,6 +165,7 @@
            beta-page?
            placeholder-page?
            in-progress-page?
+           theme
            page-title
            header
            resource-uri
@@ -185,6 +189,7 @@
   page-title-sel        (html/content (u/page-title (or page-title (:title header))))
   ; base-sel              (ue/when-set-href (not *dev?*) "/") ;; TODO: Is that needed eventually??!
   base-sel              (ue/set-href "/") ;; TODO: Is that needed eventually??!
+  ; base-sel              nil ;; TODO: Is that needed eventually??!
   menubar-sel           (html/substitute (menubar/menubar configuration))
   topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
@@ -218,7 +223,12 @@
   [:input]              (html/set-attr :autocomplete "off") ; NOTE: Disable 'autocomplete' for all inputs (specially required for Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=654072)
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
                                                     (ue/append-to-href "?chooser=true")
-                                                    identity))
+                                                    identity)
+  footer-notice-sel             (html/content (t :footer.notice))
+  ;; Changes for the UI theme
+  css-container-sel           (ue/when-append theme (css-links-snip ["custom.css"] theme))
+  [[:img theme/themable-sel]] (ue/prepend-to-src (theme/static-content-folder theme))
+  )
 
 (defn- templates
   [current-template-filename]
@@ -246,6 +256,7 @@
                                                 configuration/service-catalog-enabled?)))
   (base
     (cond-> context
+      :always               (assoc :theme (theme/current))
       (page-type/edit?)     (assoc :secondary-menu-actions  edit-page-actions)
       (page-type/new?)      (assoc :secondary-menu-actions  new-page-actions)
       (save-page? context)  (assoc :secondary-menu-actions  save-page-actions)

@@ -171,6 +171,8 @@
         toggle-fn-symbol (symbol (str "toggle-" attr-name))
         update-fn-symbol (symbol (str "update-" attr-name))
         append-to-fn-symbol (symbol (str "append-to-" attr-name))
+        prepend-to-fn-symbol (symbol (str "prepend-to-" attr-name))
+        when-prepend-to-fn-symbol (symbol (str "when-prepend-to-" attr-name))
         ;; NOTE: Not using gemsym higienic symbols, since not needed and it makes the code and (doc) weird.
         parts-symbol (symbol "parts")
         f-symbol (symbol "f")
@@ -232,6 +234,22 @@
                 doc-str)
           [& ~parts-symbol]
           (apply ~update-fn-symbol str ~parts-symbol))
+      (defn ~prepend-to-fn-symbol
+          ~(str "Inserts the parts as string at the begining of the attr '" attr-name "'."
+                "\n  If parts are not provided or they are nil, this is a no-op."
+                doc-str)
+          [& ~parts-symbol]
+          (~update-fn-symbol #(str (apply str ~parts-symbol) %)))
+      (defn ~when-prepend-to-fn-symbol
+          ~(str "When test is truthy, inserts the parts as string at the begining of the attr '" attr-name "'."
+                "\n  If parts are not provided or they are nil, this is a no-op."
+                doc-str)
+          ([~test-symbol]
+            (~when-prepend-to-fn-symbol (-> ~test-symbol str not-empty) ~test-symbol))
+          ([~test-symbol & ~parts-symbol]
+            (if ~test-symbol
+              (apply ~prepend-to-fn-symbol ~parts-symbol)
+              identity)))
       )))
 
 (defn-set-attr :checked)

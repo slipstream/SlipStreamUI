@@ -14,9 +14,15 @@
   color: white;
 }
 
-.jumbotron h1,
+.jumbotron .ss-header,
+.jumbotron h1 {
+  color: white;
+}
+.jumbotron .ss-header .ss-header-subtitle,
 .jumbotron a,
 .jumbotron p {
   color: white;
 }
-
+.jumbotron .ss-header .ss-header-second-subtitle {
+  color: white;
+}

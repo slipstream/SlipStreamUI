@@ -1,0 +1,216 @@
+/* Some colors for the theme */
+
+.color-primary-1 { color: #7ec4ff } /* ^ lighter */
+.color-primary-2 { color: #45a0ec }
+.color-primary-0 { color: #2178c0 } /* main primary color, from the HNX header background */
+.color-primary-3 { color: #174b77 }
+.color-primary-3 { color: #0f2a48 }
+.color-primary-4 { color: #091117 } /* v darker */
+
+.header-background      { color: #2179c0;}
+.header-laterals        { color: #b1d9ed;}
+.header-laterals-dark   { color: #97c1d7;}
+.header-laterals-darker { color: #7899ab;}
+.header-light-blue-from-logo { color: #b3d6ff;}
+
+
+/* Menubar */
+.navbar .ss-menubar-logged-in {
+  color: #091117;
+  background-color: white;
+  border-bottom-color: #2178c0;
+}
+
+.ss-menubar-logged-in .navbar-nav li > a:hover,
+.ss-menubar-logged-in .navbar-nav li > a:focus,
+.ss-menubar-logged-in .navbar-nav li > a:active,
+.ss-menubar-logged-in .dropdown-menu,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:hover,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:focus,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:active,
+.ss-menubar-logged-in .navbar-toggle:hover,
+.ss-menubar-logged-in .navbar-toggle:focus {
+  /*background-color: #b1d9ed;*/
+  background-color: #b3d6ff;
+}
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:hover,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:focus,
+.ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:active {
+  background-color: #97c1d7;
+}
+
+.ss-menubar-logged-in .navbar-nav li > a:active {
+  color: inherit;
+  background-color: #97c1d7;
+  -webkit-box-shadow: inset 0 0 8px 6px #7899ab;
+     -moz-box-shadow: inset 0 0 8px 6px #7899ab;
+          box-shadow: inset 0 0 8px 6px #7899ab;
+}
+
+/* Pushed down effet on other than mobile (!xs) */
+
+@media (min-width: 767px) {
+  .ss-menubar-logged-in .navbar-nav li.open > a,
+  .ss-menubar-logged-in .navbar-nav li.open > a:hover,
+  .ss-menubar-logged-in .navbar-nav li.open > a:focus {
+    color: inherit;
+    background-color: #97c1d7;
+    -webkit-box-shadow: inset 0 0 8px 6px #7899ab;
+       -moz-box-shadow: inset 0 0 8px 6px #7899ab;
+            box-shadow: inset 0 0 8px 6px #7899ab;
+  }
+}
+
+/* Pushed down effet on mobile (xs) */
+
+@media (max-width: 767px) {
+
+  .ss-menubar-logged-in .navbar-nav li.dropdown.open {
+    color: inherit;
+    background-color: #97c1d7;
+    -webkit-box-shadow: inset 0 0 8px 6px #7899ab;
+       -moz-box-shadow: inset 0 0 8px 6px #7899ab;
+            box-shadow: inset 0 0 8px 6px #7899ab;
+  }
+
+  .ss-menubar-logged-in .navbar-nav li.open > a,
+  .ss-menubar-logged-in .navbar-nav li.open > a:hover,
+  .ss-menubar-logged-in .navbar-nav li.open > a:focus {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:hover {
+    background-color: #700;
+  }
+
+  .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:active {
+    background-color: #500000;
+    -webkit-box-shadow: inset 0 0 8px 6px #600000;
+       -moz-box-shadow: inset 0 0 8px 6px #600000;
+            box-shadow: inset 0 0 8px 6px #600000;
+  }
+
+}
+
+/* Header */
+.jumbotron {
+  color: white;
+  background-color: #2179c0;
+  background-image: none;
+}
+
+.jumbotron .ss-header,
+.jumbotron h1 {
+  color: white;
+}
+.jumbotron .ss-header .ss-header-subtitle,
+.jumbotron a,
+.jumbotron p {
+  color: #b3d6ff;
+}
+.jumbotron .ss-header .ss-header-second-subtitle {
+  color: #b3d6ff;
+}
+
+#header .ss-header-image-container {
+  background-image: url("/themes/helixnebula/images/header_image_placeholder.png");
+}
+
+
+/* Secondary menubar */
+#ss-secondary-menubar-container {
+  color: white;
+  background-color: #174b77;
+}
+/* Breadcrumbs */
+#ss-breadcrumb-container > .breadcrumb > li,
+#ss-breadcrumb-container > .breadcrumb a {
+  /*color: #b1d9ed;*/
+  color: #b3d6ff;
+  font-weight: 300;
+}
+#ss-breadcrumb-container > .breadcrumb > li.disabled > a,
+#ss-breadcrumb-container > .breadcrumb > li.disabled > a:hover,
+#ss-breadcrumb-container > .breadcrumb > li:last-child {
+  color: rgba(177, 217, 237, 0.6);
+  font-weight: 300;
+}
+
+/* Secondary menu actions */
+.ss-secondary-btn {
+  /*color: #b1d9ed;*/
+  color: #b3d6ff;
+}
+.ss-secondary-btn:hover,
+.ss-secondary-btn:focus {
+  /*color: #b1d9ed;*/
+  color: #b3d6ff;
+  background-color: #0f2a48;
+}
+.ss-secondary-btn:active,
+.ss-secondary-btn.active,
+.open > .dropdown-toggle.ss-secondary-btn {
+  /*color: #b1d9ed;*/
+  color: #b3d6ff;
+  background-color: #091117;
+}
+
+.dropdown-menu.ss-secondary-menu-extra-actions-container,
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a {
+  /*color: #50a7de;*/
+  /*color: #b1d9ed;*/
+  color: #b3d6ff;
+  background-color: #174b77;
+}
+
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a:hover,
+.dropdown-menu.ss-secondary-menu-extra-actions-container > li > a:focus {
+  /*color: #b1d9ed;*/
+  color: #b3d6ff;
+  background-color: #0f2a48;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Sections */
+.panel-default>.panel-heading {
+  color: white;
+  background-color: #2179c0;
+  border-color: #ddd
+}
+.panel-default {
+  border-color: #174b77;
+  border-color: #b1d9ed;
+}
+
+/* Error page */
+body.ss-error-page::after {
+  background-color: #2178c0;
+  background-image: none;
+  opacity : 1;
+}
+/* Error page Menubar */
+body.ss-error-page .navbar .ss-menubar-logged-in {
+  border-bottom-color: white;
+}
+
+/* App logo image */
+
+.thumbnail .ss-app-image-container {
+  background-image: url("/themes/helixnebula/images/app_image_placeholder.png");
+}
+
+/* Footer */
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+}
+.footer {
+  /* Set the fixed height of the footer here */
+  height: 80px;
+}
+.footer .ss-footer-notice,
+.footer .ss-footer-trademarks {
+  margin-top: 12px;
+}

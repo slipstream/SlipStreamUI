@@ -1,0 +1,7 @@
+{
+   :slipstream.ui.views.login.header.title      "Welcome to the Helix Nebula Marketplace"
+   :slipstream.ui.views.login.header.subtitle   "The Helix Nebula Initiative has been established by public and private organisations to build a
+                                                 multidisciplinary cloud platform for data intensive science."
+   :slipstream.ui.views.login.header.last-line  ""
+   :slipstream.ui.views.base.footer.notice      "The Helix Nebula project is co-funded by the European Community Seventh Framework Programme (FP7/2007-2013) under Grant Agreement no 312301."
+}

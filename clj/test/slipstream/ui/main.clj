@@ -1,6 +1,7 @@
 (ns slipstream.ui.main
   (:require [clojure.string :as s]
             [ring.util.response :as resp]
+            [ring.middleware.resource :as resource]
             [slipstream.ui.util.dev :as ud]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.views.representation :as representation])
@@ -33,7 +34,8 @@
         raw-metadata-str
         (representation/-toHtml pagename type)
         resp/response
-        constantly)))
+        constantly
+        (resource/wrap-resource "public"))))
 
 (defn- render-error
   [& {:keys [raw-metadata-ns message code]}]
@@ -119,8 +121,10 @@
     ["error-401"]             (render-error :raw-metadata-ns "module.project"
                                             :message "I'm afraid you are not allowed to do this."
                                             :code 401)
-    [&]                       (render-error :raw-metadata-ns "module.project"
-                                            :code 404)))
+    [&] (fn [req] (resp/file-response (req :uri) {:root "resources/static_content"}))
+    ; [&]                       (render-error :raw-metadata-ns "module.project"
+    ;                                         :code 404)
+    ))
 
 ;; =============================================================================
 ;; Local test app

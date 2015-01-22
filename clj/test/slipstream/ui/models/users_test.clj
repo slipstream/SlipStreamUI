@@ -12,6 +12,7 @@
     <item firstName='Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='test' online='true' organization='ACME' resourceUri='user/test' issuper='false' state='ACTIVE'/>
     <item firstName='C Test' lastName='User' lastOnline='2014-08-10 22:09:21.705 CEST' name='ctest' online='false' organization='ACME' resourceUri='user/tcest' issuper='false' state='ACTIVE'/>
     <item firstName='SixSq' lastName='Administrator' name='sixsq' online='false' organization='SixSq' resourceUri='user/sixsq' state='ACTIVE'/>
+    <user issuper='true' resourceUri='user/super' name='super' defaultCloud='sky'></user>
 </list>")
 
 (def parsed-metadata

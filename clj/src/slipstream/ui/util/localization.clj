@@ -3,7 +3,8 @@
   (:require [clojure.java.io :as io]
             [taoensso.tower :as tower]
             [slipstream.ui.util.dev :as ud]
-            [slipstream.ui.util.clojure :as uc])
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.theme :as theme])
   (:import  java.io.File))
 
 (def ^:private available-languages
@@ -12,9 +13,15 @@
   However, this doesn't work (i.e. it's much more complicated) from within the
   packajed jar, so that known resources must be directly loaded.
   For one possible solution see: http://stackoverflow.com/a/22363700"
-  #{:en :ja :fr})
+  #{:en
+    :ja
+    :fr})
 
-(def ^:private lang-resources-dir "lang/")
+(def ^:private available-themes
+  "See 'available-languages' above for documentation."
+  #{"helixnebula"})
+
+(def ^:private lang-resources-dir "lang")
 
 (def ^:private spot-missing-t-calls-mode? false)
 ; (def ^:private spot-missing-t-calls-mode? true)
@@ -36,36 +43,78 @@
     (throw (IllegalStateException.
              "Requesting Locale outside the context of one 'with-lang...' macro."))))
 
-(defn- language-code->locale-entry
-  [language-code]
-  (let [lang-resource-filename (str lang-resources-dir (name language-code) ".edn")]
-    (when-not (io/resource lang-resource-filename)
-      (throw (IllegalArgumentException.
-           (str "No lang locale file '" lang-resource-filename
-                "' found in resource dir '" lang-resources-dir "'"))))
-    [language-code lang-resource-filename]))
+(defn- prefix-with-theme
+  [theme k]
+  (->> k name (str theme ".") keyword))
 
-(def ^:private lang-locales
+(defn- merge-themes-localizations
+  [lang-resource-filename lang-base-dict]
+  (loop [dict         lang-base-dict
+         theme        (first  available-themes)
+         next-themes  (next   available-themes)]
+    (let [theme-lang-resource-filename (str (theme/resources-folder theme) lang-resource-filename)
+          lang-theme-dict (-> theme-lang-resource-filename
+                              (uc/read-resource {})
+                              (uc/update-map-keys (partial prefix-with-theme theme)))
+          lang-dict (merge dict lang-theme-dict)]
+      (if next-themes
+        (recur lang-dict (first next-themes) (next next-themes))
+        lang-dict))))
+
+(defn- language-code->cached-locale-entry
+  "Providing the proper map the lang dictionary instead of the path of the file makes
+  localization faster (since it's cached) and allows merging strings from other themes.
+  However, changes in the localization files are not taken into account without restarting
+  the service.
+  Used in prod."
+  [language-code]
+  (let [lang-resource-filename (str lang-resources-dir "/" (name language-code) ".edn")
+        lang-base-dict (uc/read-resource lang-resource-filename)
+        lang-dict (merge-themes-localizations lang-resource-filename lang-base-dict)]
+    [language-code lang-dict]))
+
+(def ^:private cached-lang-locales
   (->> available-languages
-       (map language-code->locale-entry)
+       (map language-code->cached-locale-entry)
        (into {})))
 
-(when (empty? lang-locales)
+
+(defn- language-code->referenced-locale-entry
+  "Providing the path of the lang dictionary instead of the proper map allows 'tower' to refresh
+  the localization file on changes. If a theme is used, only the specific strings for the theme
+  will be loaded, and all other will appear as missing.
+  Used in dev."
+  [language-code]
+  (let [lang-resource-filename (str lang-resources-dir "/" (name language-code) ".edn")
+        theme (theme/current)
+        theme-lang-resource-filename (str (theme/resources-folder theme) lang-resource-filename)]
+    (when (io/resource theme-lang-resource-filename)
+      [language-code theme-lang-resource-filename])))
+
+(def ^:private referenced-lang-locales
+  (->> available-languages
+       (map language-code->referenced-locale-entry)
+       (into {})))
+
+(when (empty? cached-lang-locales)
   (throw (IllegalStateException.
            (str "No lang locale files found in: " lang-resources-dir))))
 
-(def ^:private tconfig
-  {:dictionary lang-locales
+(def ^:private tconfig-base
+  {:dictionary {}
    :dev-mode? false ; Set to true for auto dictionary reloading
    :fallback-locale :en
    ; :fmt-fn fmt-str ; (fn [loc fmt args])
    :log-missing-translation-fn
-   (fn [{:keys [locale ks scope] :as args}]
-     (println ">>> Missing translation:" args))})
+     (fn [{:keys [locale ks scope] :as args}]
+         (println ">>> Missing translation:" args))
+   })
 
 (def t-prod
   "Localization function for prod. The dictionary is cached for performance."
-  (tower/make-t (assoc tconfig :dev-mode? false)))
+  (tower/make-t (assoc tconfig-base
+                  :dictionary cached-lang-locales
+                  :dev-mode?  false)))
 
 (defn t-fallback-prod
   [locale-or-locales k-or-ks & fmt-args]
@@ -79,21 +128,26 @@
   (if spot-missing-t-calls-mode?
     ; (constantly "XXX")
     (fn [& args] (str (second args)))
-    (tower/make-t (assoc tconfig :dev-mode? true))))
+    (tower/make-t (assoc tconfig-base
+                    :dictionary   referenced-lang-locales
+                    :dev-mode?    true))))
 
 (defn t-fallback-dev
-  [& args]
-  (str args))
+  [locale-or-locales k-or-ks & fmt-args]
+  (str [locale-or-locales (if (vector? k-or-ks) (first k-or-ks) k-or-ks)]))
 
 (defn t
   "Main localization function."
-  [& args]
+  [k & args]
   (when-not *lang*
     (throw (IllegalStateException.
              "Running global localization fn 't' (i.e. not scoped) outside the context of one 'with-lang...' macro.")))
-  (if ud/*dev?*
-    (or (apply t-dev  *lang* args) (apply t-fallback-dev  *lang* args))
-    (or (apply t-prod *lang* args) (apply t-fallback-prod *lang* args))))
+  (let [k-or-ks (if-let [theme (theme/current)]
+                  [(prefix-with-theme theme k) k]
+                  k)]
+    (if ud/*dev?*
+      (or (apply t-dev  *lang* k-or-ks args) (apply t-fallback-dev  *lang* k-or-ks args))
+      (or (apply t-prod *lang* k-or-ks args) (apply t-fallback-prod *lang* k-or-ks args)))))
 
 (defn- replace-nil-args-with-blank-str
   "If we pass nil to the 't' fn as an argument, it will be displayed as 'null',

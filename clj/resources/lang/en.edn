@@ -881,15 +881,17 @@
    :slipstream.ui.views.run.section.global.title            :global.adjectives.global
    :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
 
-   :slipstream.ui.views.vms.header.title                                        "Your VMs"
-   :slipstream.ui.views.vms.header.subtitle                                     "This is a sub-view of the dashboard displaying only your VMs and their status."
-   :slipstream.ui.views.vms.section.vms.title                                   :global.nouns.vms
+   :slipstream.ui.views.vms.header.title                    "Your VMs"
+   :slipstream.ui.views.vms.header.subtitle                 "This is a sub-view of the dashboard displaying only your VMs and their status."
+   :slipstream.ui.views.vms.section.vms.title               :global.nouns.vms
 
-   :slipstream.ui.views.configuration.header.title                              "System Configuration"
-   :slipstream.ui.views.configuration.header.subtitle                           "Configure the SlipStream service and its cloud connectors"
+   :slipstream.ui.views.configuration.header.title          "System Configuration"
+   :slipstream.ui.views.configuration.header.subtitle       "Configure the SlipStream service and its cloud connectors"
 
-   :slipstream.ui.views.action.header.title                                     "Action Confirmation"
+   :slipstream.ui.views.action.header.title                 "Action Confirmation"
 
-   :slipstream.ui.views.service-catalog.header.title                            :global.nouns.service-catalog
-   :slipstream.ui.views.service-catalog.header.subtitle                         "Provides detailed capability information for each available cloud"
+   :slipstream.ui.views.service-catalog.header.title        :global.nouns.service-catalog
+   :slipstream.ui.views.service-catalog.header.subtitle     "Provides detailed capability information for each available cloud"
+
+   :slipstream.ui.views.base.footer.notice                  ""
 }

@@ -873,15 +873,17 @@
    :slipstream.ui.views.run.section.global.title            :global.adjectives.global
    :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
 
-   :slipstream.ui.views.vms.header.title                                        "Vos machines virtuelles"
-   :slipstream.ui.views.vms.header.subtitle                                     "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les VMs s'exécutants sur votre compte Cloud."
-   :slipstream.ui.views.vms.section.vms.title                                   "Machines Virtuelles"
+   :slipstream.ui.views.vms.header.title                    "Vos machines virtuelles"
+   :slipstream.ui.views.vms.header.subtitle                 "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les VMs s'exécutants sur votre compte Cloud."
+   :slipstream.ui.views.vms.section.vms.title               "Machines Virtuelles"
 
-   :slipstream.ui.views.configuration.header.title                              "Configuration système"
-   :slipstream.ui.views.configuration.header.subtitle                           "Configure le service SlipStream et ses connecteurs."
+   :slipstream.ui.views.configuration.header.title          "Configuration système"
+   :slipstream.ui.views.configuration.header.subtitle       "Configure le service SlipStream et ses connecteurs."
 
-   :slipstream.ui.views.action.header.title                                     "Confirmation de l'action"
+   :slipstream.ui.views.action.header.title                 "Confirmation de l'action"
 
-   :slipstream.ui.views.service-catalog.header.title                            :global.nouns.service-catalog
-   :slipstream.ui.views.service-catalog.header.subtitle                         "Fournit des informations détaillées sur les capacités de chaque Cloud disponible"
+   :slipstream.ui.views.service-catalog.header.title        :global.nouns.service-catalog
+   :slipstream.ui.views.service-catalog.header.subtitle     "Fournit des informations détaillées sur les capacités de chaque Cloud disponible"
+
+   :slipstream.ui.views.base.footer.notice                  ""
 }

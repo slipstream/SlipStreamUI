@@ -1,7 +1,9 @@
 <html>
 <head>
     <title>Image Templates</title>
-    <link rel="stylesheet" type="text/css" href="../external/bootstrap/css/bootstrap.min.css"/>
+    <base href="../../../../../resources/static_content/">
+
+    <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
     <style>
         .placeholder-image-template div {
             font-size: 180px;
@@ -93,6 +95,18 @@
             background-color: rgb(233, 173, 24);
         }
 
+        /* Blue Theme for HNX */
+        .ss-theme-helixnebula.placeholder-image-template div {
+            /* The light version for the AppStore tiles. */
+            color: #97c1d7;
+            background-color: #b1d9ed;
+        }
+        .ss-theme-helixnebula.placeholder-image-template div:nth-of-type(2) {
+            /* The dark version for the module header. */
+            color: #0f2a48;
+            background-color: #174b77;
+        }
+
     </style>
 </head>
 
@@ -129,6 +143,44 @@
         </div>
 
         <div class="row glyphicon placeholder-image-template error">
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row column-title">
+            <div class="col-xs-6">
+                Light version for the AppStore tiles for HNX blue theme.
+            </div>
+            <div class="col-xs-6">
+                Dark version for the module header for HNX blue theme.
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template ss-theme-helixnebula">
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template ss-theme-helixnebula warning">
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+            <div class="col-xs-6">
+                <span class="glyphicon-picture"></span>
+            </div>
+        </div>
+
+        <div class="row glyphicon placeholder-image-template ss-theme-helixnebula error">
             <div class="col-xs-6">
                 <span class="glyphicon-picture"></span>
             </div>

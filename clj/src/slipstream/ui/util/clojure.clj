@@ -1,6 +1,7 @@
 (ns slipstream.ui.util.clojure
   (:require [clojure.string :as s]
             [clojure.java.io :as io]
+            [clojure.edn :as edn]
             [clj-json.core :as json])
   (:import  [java.io FileNotFoundException]))
 
@@ -27,6 +28,19 @@
     (slurp file)
     (throw (FileNotFoundException.
              (format "Resource file %s not found!" path-str)))))
+
+(defn read-resource
+  "Returns the clojure structure contained in the resource file. If the file is not
+  found, a default 'not-found' structure can be provided. If not provided, an exception
+  will be thrown if the file doesn't exists."
+  ([path-str]
+    (-> path-str
+        slurp-resource
+        edn/read-string))
+  ([path-str not-found]
+    (if (io/resource path-str)
+      (read-resource path-str)
+      not-found)))
 
 (defn first-not-nil
   [& args]
