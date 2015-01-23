@@ -204,11 +204,11 @@ body.ss-error-page .navbar .ss-menubar-logged-in {
 /* Footer */
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 .footer {
   /* Set the fixed height of the footer here */
-  height: 80px;
+  height: 100px;
 }
 .footer .ss-footer-notice,
 .footer .ss-footer-trademarks {
