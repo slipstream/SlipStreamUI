@@ -26,7 +26,10 @@
 (def ^:private spot-missing-t-calls-mode? false)
 ; (def ^:private spot-missing-t-calls-mode? true)
 
-(def lang-default :en)
+(def lang-default
+  (or
+    (available-languages (System/getProperty "slipstream.ui.util.localization.lang-default"))
+    :en))
 
 (def ^:dynamic *lang*
   "The lang is configured with a local thread-bound binding with the macro
@@ -34,6 +37,8 @@
   value of this dynamic var *lang* is nil to indicate that the is no locale binding
   setup for the current thread."
   nil)
+
+
 
 (defn locale
   "Returns valid Locale matching given the current *lang*"
