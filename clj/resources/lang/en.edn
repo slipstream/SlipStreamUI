@@ -337,7 +337,7 @@
    :slipstream.ui.views.tables.access.delete.description                  :global.verbs.delete
    :slipstream.ui.views.tables.access.delete.help-hint                    ""
    :slipstream.ui.views.tables.access.create-children.description         "Create children"
-   :slipstream.ui.views.tables.access.create-children.help-hint           "This right allows users to created subprojects, images or deployments in this project."
+   :slipstream.ui.views.tables.access.create-children.help-hint           "This right allows users to create subprojects, images or deployments in this project."
    :slipstream.ui.views.tables.access.run-deployment.description          "Run deployment"
    :slipstream.ui.views.tables.access.run-deployment.help-hint            "This right allows users to launch this deployment."
    :slipstream.ui.views.tables.access.build-or-run-image.description      "Build or run single image"
