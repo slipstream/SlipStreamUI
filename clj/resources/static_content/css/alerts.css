@@ -22,5 +22,5 @@
   margin-bottom: 0;
 }
 .alert-msg {
-  word-break: break-all;
+  word-break: break-word;
 }
