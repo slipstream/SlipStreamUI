@@ -21,6 +21,14 @@
   border-bottom-color: #2178c0;
 }
 
+.ss-menubar-logged-in .navbar-toggle {
+  border-color: #2179c0;
+  background-color: transparent;
+}
+.ss-menubar-logged-in .navbar-toggle .icon-bar {
+  background-color: #2179c0;
+}
+
 .ss-menubar-logged-in .navbar-nav li > a:hover,
 .ss-menubar-logged-in .navbar-nav li > a:focus,
 .ss-menubar-logged-in .navbar-nav li > a:active,
@@ -36,15 +44,15 @@
 .ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:hover,
 .ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:focus,
 .ss-menubar-logged-in .navbar-nav .open .dropdown-menu > li > a:active {
-  background-color: #97c1d7;
+  background-color: #86bdff;
 }
 
 .ss-menubar-logged-in .navbar-nav li > a:active {
   color: inherit;
-  background-color: #97c1d7;
-  -webkit-box-shadow: inset 0 0 8px 6px #7899ab;
-     -moz-box-shadow: inset 0 0 8px 6px #7899ab;
-          box-shadow: inset 0 0 8px 6px #7899ab;
+  background-color: #86bdff;
+  -webkit-box-shadow: inset 0 0 4px 3px rgba(0, 0, 0, 0.25);
+     -moz-box-shadow: inset 0 0 4px 3px rgba(0, 0, 0, 0.25);
+          box-shadow: inset 0 0 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 /* Pushed down effet on other than mobile (!xs) */
@@ -54,10 +62,10 @@
   .ss-menubar-logged-in .navbar-nav li.open > a:hover,
   .ss-menubar-logged-in .navbar-nav li.open > a:focus {
     color: inherit;
-    background-color: #97c1d7;
-    -webkit-box-shadow: inset 0 0 8px 6px #7899ab;
-       -moz-box-shadow: inset 0 0 8px 6px #7899ab;
-            box-shadow: inset 0 0 8px 6px #7899ab;
+    background-color: #86bdff;
+    -webkit-box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
+       -moz-box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -67,10 +75,10 @@
 
   .ss-menubar-logged-in .navbar-nav li.dropdown.open {
     color: inherit;
-    background-color: #97c1d7;
-    -webkit-box-shadow: inset 0 0 8px 6px #7899ab;
-       -moz-box-shadow: inset 0 0 8px 6px #7899ab;
-            box-shadow: inset 0 0 8px 6px #7899ab;
+    background-color: #86bdff;
+    -webkit-box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
+       -moz-box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
   }
 
   .ss-menubar-logged-in .navbar-nav li.open > a,
@@ -81,14 +89,14 @@
   }
 
   .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:hover {
-    background-color: #700;
+    background-color: #658fc3;
   }
 
   .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:active {
-    background-color: #500000;
-    -webkit-box-shadow: inset 0 0 8px 6px #600000;
-       -moz-box-shadow: inset 0 0 8px 6px #600000;
-            box-shadow: inset 0 0 8px 6px #600000;
+    background-color: #658fc3;
+    -webkit-box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
+       -moz-box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0 0 8px 6px rgba(0, 0, 0, 0.25);
   }
 
 }
