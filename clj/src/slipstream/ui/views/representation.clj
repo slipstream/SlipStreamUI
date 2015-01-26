@@ -26,10 +26,10 @@
     :name slipstream.ui.views.Representation
     :methods [#^{:static true
                  :doc "Takes: metadata pagename type"}
-                [toHtml [String String String] String]
+                [toHtml [String String java.util.Map] String]
               #^{:static true
                  :doc "Takes: user message code"}
-                [toHtmlError [String String String] String]
+                [toHtmlError [String String String java.util.Map] String]
               #^{:static true
                  :doc "Set alternative namespace for HTML template. Must be slash separated."}
                 [setHtmlTemplateNamespace [String] String]
@@ -96,17 +96,17 @@
 
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
-  [raw-metadata-str pagename type]
+  [raw-metadata-str pagename options]
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata
       (current-user/with-user-from-metadata
-        (page-type/with-page-type (or (page-types pagename) type)
+        (page-type/with-page-type (or (page-types pagename) options)
           (guard-exceptions
             (render-page pagename metadata)))))))
 
 (defn -toHtmlError
   "Generate an HTML error page"
-  [raw-metadata-str message code]
+  [raw-metadata-str message code options]
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata
       (current-user/with-user-from-metadata
