@@ -226,8 +226,9 @@
                                                     identity)
   footer-notice-sel             (html/content (t :footer.notice))
   ;; Changes for the UI theme
-  css-container-sel           (ue/when-append theme (css-links-snip ["custom.css"] theme))
-  [[:img theme/themable-sel]] (ue/prepend-to-src (theme/static-content-folder theme))
+  css-container-sel             (ue/when-append theme (css-links-snip ["custom.css"] theme))
+  [[:img theme/themable-sel]]   (ue/prepend-to-src  (theme/static-content-folder theme))
+  [[:link theme/themable-sel]]  (ue/prepend-to-href (theme/static-content-folder theme))
   )
 
 (defn- templates
