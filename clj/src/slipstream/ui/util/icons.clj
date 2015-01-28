@@ -45,6 +45,7 @@
 (deficon users                  "users")
 (deficon dashboard              "dashboard")
 (deficon vms                    dashboard)
+(deficon runs                   dashboard)
 (deficon deployment             "th")
 (deficon image                  "hdd")
 (deficon orchestrator           image)
@@ -123,10 +124,10 @@
         ue/this   (ue/replace-class
                     (current-glyphicon-icon-cls icon-node)
                     (glyphicon-icon-cls class-suffix))
-        ue/this   (ue/when-add-class            show-tooltip? "ss-table-tooltip")
+        ue/this   (ue/when-add-class            show-tooltip? "ss-icon-tooltip")
         ue/this   (ue/when-add-class            (not-empty overlay) (str "ss-icon-overlay-" overlay))
         ue/this   (ue/when-set-title            show-tooltip? description)
-        ue/this   (ue/when-set-data :toogle     show-tooltip? "tooltip")
+        ue/this   (ue/when-set-data :toggle     show-tooltip? "tooltip")
         ue/this   (ue/when-set-data :placement  show-tooltip? tooltip-placement)))))
 
 (defn set

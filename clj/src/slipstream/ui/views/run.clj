@@ -89,7 +89,7 @@
 
 (defn- ss-abort-alert
   [run]
-  (when-let [ss-abort-msg (-> run :summary :global-ss-abort not-empty)]
+  (when-let [ss-abort-msg (-> run :summary :abort-msg not-empty)]
     {:type :error
      :container :fixed
      :msg (str "<strong><code>ss:abort</code></strong>- " ss-abort-msg)}))

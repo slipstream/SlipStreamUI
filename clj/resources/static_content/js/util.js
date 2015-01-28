@@ -1178,7 +1178,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 .bsEnableDynamicElements()
                                 .enableEnterKeyPressEvent()
                                 .enableLiveInputValidation();
-                // enable dynamic Bootstrap elements beofre comparing outerHTML, since attributes might change.
+                // enable dynamic Bootstrap elements before comparing outerHTML, since attributes might change.
                 shouldUpdateContent = (newContent[0].outerHTML != originalContent[0].outerHTML);
                 shouldVisuallyHighlightUpdate = (newContent.text() != originalContent.text()) ||
                                                 (newContent.val() != originalContent.val());

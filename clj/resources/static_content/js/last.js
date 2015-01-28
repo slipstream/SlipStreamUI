@@ -16,6 +16,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .bsEnableDynamicElements()
         .reloadAllImages();
 
+    $$.section.triggerOnShowOnOpenSection();
+
     // $("body").getSlipStreamModel().module.dump();
     // $("body").getSlipStreamModel().run.dump();
 

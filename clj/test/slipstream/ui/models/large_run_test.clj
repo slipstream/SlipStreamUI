@@ -30,7 +30,7 @@
    :owner "super"
    :start-time "2015-01-19 12:31:18.869 CET"
    :uri "run/3a5b0160-547c-4c1a-b877-4498f9164ced"
-   :global-ss-abort "sh: /usr/bin/nuvlabox-run-instances: Aucun fichier ou dossier de ce type"
+   :abort-msg "sh: /usr/bin/nuvlabox-run-instances: Aucun fichier ou dossier de ce type"
    :uuid "3a5b0160-547c-4c1a-b877-4498f9164ced"
    :type :deployment-run
    :localized-type "Deployment Run"

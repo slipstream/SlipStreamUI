@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.run-items
-  "Parsing of run items, used in dashboard and module/image models."
+  "Parsing of run items, used in model/runs and model/module/image."
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.run :as run]))
@@ -13,18 +13,14 @@
                       :uuid
                       :username])
         (assoc        :start-time  (-> attrs :startTime))
+        (assoc        :abort-msg   (-> attrs :abort))
         (assoc        :type        (-> attrs :type run/run-type-mapping))
         (assoc        :module-uri  (-> attrs :moduleResourceUri))
         (assoc        :uri         (-> attrs :resourceUri))
-        (assoc        :cloud-name  (-> attrs :cloudServiceName)))))
-
-(defn- group-run-items
-  [run-items]
-  (uc/coll-grouped-by :cloud-name run-items
-                      :items-keyword :runs))
+        (assoc        :cloud-names (-> attrs :cloudServiceNames)))))
 
 (defn parse
   [metadata]
   (->> (html/select metadata [:runs :item])
        (map parse-run-item)
-       group-run-items))
+       (sort-by :cloud-names)))

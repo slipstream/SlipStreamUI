@@ -3,47 +3,50 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.models.vms :as model]))
 
+;; NOTE: For request /vms?media=xml&offset=10&limit=5&cloud=CloudA
 (def raw-metadata-str
-  "<vms>
-     <vm runUuid='aaaaaaaa-8a39-4870-8940-0031f2cffd40' user='test' state='Running' instanceId='aaaa' cloud='StratusLab' measurement='2014-02-04 16:18:08.670 CET' />
-     <vm runUuid='bbbbbbbb-8a39-4870-8940-0031f2cffd40' user='test' state='Unknown' instanceId='bbbb' cloud='StratusLab' measurement='2014-02-04 16:18:08.670 CET' />
-     <vm runUuid='cccccccc-8a39-4870-8940-0031f2cffd40' user='test' state='Running' instanceId='cccc' cloud='Interoute' measurement='2014-02-04 16:18:08.670 CET' />
-     <vm runUuid='dddddddd-8a39-4870-8940-0031f2cffd40' user='test' state='Running' instanceId='dddd' cloud='EC2' measurement='2014-02-04 16:18:08.670 CET' />
-     <vm runUuid='Unknown' user='test' status='Running' instanceId='dddd' cloud='EC2' measurement='2014-02-04 16:18:08.670 CET' />
-  <user issuper='true' resourceUri='user/super' name='super'></user>
-</vms>")
+  "<vms offset='10' limit='5' count='19' cloud='CloudA'>
+      <vm cloud='CloudA' user='bob' state='Running' instanceId='4f2708e1-6aa6-4469-8f5e-b18ffd42cb50_machine' measurement='2014-12-08 13:09:24.82 CET' runUuid='a1b345f0-c434-490e-849f-c3894af55588'/>
+      <vm cloud='CloudA' user='bob' state='Terminated' instanceId='157701e9-9c52-45b1-a506-13241446aad3_machine' measurement='2014-12-08 13:09:24.98 CET' runUuid='a1b345f0-c434-490e-849f-c3894af55588'/>
+      <vm cloud='CloudA' user='bob' state='Running' instanceId='vm_gateway' measurement='2014-12-08 13:09:24.112 CET' runUuid='35c3789f-5da1-4504-8294-d41489d035ae'/>
+      <vm cloud='CloudA' user='bob' state='Running' instanceId='vApp_6_centos' measurement='2014-12-08 13:09:24.126 CET' runUuid='Unknown'/>
+      <vm cloud='CloudA' user='bob' state='Running' instanceId='1b0afd4f-340d-4bef-89e2-d6f4a776f2ea' measurement='2014-12-08 13:09:33.215 CET' runUuid='Unknown'/>
+      <user issuper='true' resourceUri='user/super' name='super'></user>
+  </vms>")
 
 (expect
-  [{:cloud-name "EC2"
-    :vms [{:cloud-name "EC2"
-           :run-uuid "dddddddd-8a39-4870-8940-0031f2cffd40"
-           :cloud-instance-id "dddd"
-           :username "test"
-           :measurement "2014-02-04 16:18:08.670 CET"
-           :state "Running"}
-          {:cloud-name "EC2"
-           :run-uuid "Unknown"
-           :cloud-instance-id "dddd"
-           :username "test"
-           :measurement "2014-02-04 16:18:08.670 CET"}]}
-   {:cloud-name "Interoute"
-    :vms [{:cloud-name "Interoute"
-           :run-uuid "cccccccc-8a39-4870-8940-0031f2cffd40"
-           :cloud-instance-id "cccc"
-           :username "test"
-           :measurement "2014-02-04 16:18:08.670 CET"
-           :state "Running"}]}
-   {:cloud-name "StratusLab"
-    :vms [{:cloud-name "StratusLab"
-           :run-uuid "aaaaaaaa-8a39-4870-8940-0031f2cffd40"
-           :cloud-instance-id "aaaa"
-           :username "test"
-           :measurement "2014-02-04 16:18:08.670 CET"
-           :state "Running"}
-          {:cloud-name "StratusLab"
-           :run-uuid "bbbbbbbb-8a39-4870-8940-0031f2cffd40"
-           :cloud-instance-id "bbbb"
-           :username "test"
-           :measurement "2014-02-04 16:18:08.670 CET"
-           :state "Unknown"}]}]
+  {:pagination {:offset 10
+                :limit 5
+                :count 19
+                :cloud-name "CloudA"}
+   :vms [{:cloud-name "CloudA"
+          :run-uuid "a1b345f0-c434-490e-849f-c3894af55588"
+          :cloud-instance-id "4f2708e1-6aa6-4469-8f5e-b18ffd42cb50_machine"
+          :username "bob"
+          :measurement "2014-12-08 13:09:24.82 CET"
+          :state "Running"}
+         {:cloud-name "CloudA"
+          :run-uuid "a1b345f0-c434-490e-849f-c3894af55588"
+          :cloud-instance-id "157701e9-9c52-45b1-a506-13241446aad3_machine"
+          :username "bob"
+          :measurement "2014-12-08 13:09:24.98 CET"
+          :state "Terminated"}
+         {:cloud-name "CloudA"
+          :run-uuid "35c3789f-5da1-4504-8294-d41489d035ae"
+          :cloud-instance-id "vm_gateway"
+          :username "bob"
+          :measurement "2014-12-08 13:09:24.112 CET"
+          :state "Running"}
+         {:cloud-name "CloudA"
+          :run-uuid "Unknown"
+          :cloud-instance-id "vApp_6_centos"
+          :username "bob"
+          :measurement "2014-12-08 13:09:24.126 CET"
+          :state "Running"}
+         {:cloud-name "CloudA"
+          :run-uuid "Unknown"
+          :cloud-instance-id "1b0afd4f-340d-4bef-89e2-d6f4a776f2ea"
+          :username "bob"
+          :measurement "2014-12-08 13:09:33.215 CET"
+          :state "Running"}]}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

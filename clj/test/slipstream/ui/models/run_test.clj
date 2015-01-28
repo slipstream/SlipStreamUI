@@ -1497,7 +1497,7 @@
    :user "super"
    :category "Deployment"
    :tags ""
-   :global-ss-abort "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."}
+   :abort-msg "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary)))
 

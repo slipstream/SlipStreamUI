@@ -71,6 +71,7 @@
    :cell/password           [:content/any :content/map  :content/plain]
    :cell/enum               [             :content/map  :content/plain]
    :cell/set                [             :content/map  :content/plain]
+   :cell/timestamp-long     [             :content/map  :content/plain]
    :cell/timestamp          [             :content/map  :content/plain]
    :cell/relative-timestamp [             :content/map  :content/plain]
    :cell/boolean            [             :content/map  :content/plain]
@@ -179,9 +180,9 @@
 
 (localization/with-lang :en
   (let [ss-timestamp (->> 1 t/hours t/ago (f/unparse (f/formatters :date-time)))
-        human-readable-long (time/format :human-readable-long ss-timestamp)]
+        human-readable (time/format :human-readable ss-timestamp)]
     (expect
-      (re-pattern (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour.* ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable-long "</span></td>"))
+      (re-pattern (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour.* ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable "</span></td>"))
       (localization/with-lang :en
         (cell-html {:type :cell/timestamp, :content ss-timestamp}))))
 
@@ -190,7 +191,7 @@
     (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"}))
 
   (expect
-    (re-pattern "<td class=\"ss-table-cell-text\"><span title=\".*\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">mercredi, 6 mars 2013, 14:30:59 UTC</span></td>")
+    (re-pattern "<td class=\"ss-table-cell-text\"><span title=\".*\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">mer., 6 mars 2013, 14:30:59 UTC</span></td>")
     (localization/with-lang :fr
       (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"}))))
 
@@ -467,7 +468,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toogle=\"tooltip\" title=\"Home\" class=\"glyphicon glyphicon-home ss-table-tooltip\"></span>"
+       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Home\" class=\"glyphicon glyphicon-home ss-icon-tooltip\"></span>"
        "\n          </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content icons/home})))
@@ -481,7 +482,7 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toogle=\"tooltip\" title=\"Import\" class=\"glyphicon ss-table-tooltip glyphicon-floppy-open\"></span>"
+       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Import\" class=\"glyphicon ss-icon-tooltip glyphicon-floppy-open\"></span>"
        "\n          </td>")
   (localization/with-lang :en
     (cell-html {:type :cell/icon, :content icons/action-import})))

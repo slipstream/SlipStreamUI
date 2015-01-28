@@ -48,29 +48,51 @@ jQuery( function() { ( function( $$, $, undefined ) {
     enableSubsections();
 
     var subsectionIdPrefix = "ss-subsection-",
-        sep = $$.util.url.hash.segmentSeparator;
+        sep = $$.util.url.hash.segmentSeparator,
+        onShowCallbackKey = "on-show-callback",
+        tabAnchorSel = ".ss-subsection-activator-group a[role=tab]";
 
+    $(tabAnchorSel).on("shown.bs.tab", function (e) {
+        // Ensure correct hash when opening subsections
+        var $tabAnchor          = $(this),
+            subsectionTitle     = $tabAnchor.text(),
+            subsectionId        = $tabAnchor.attr("href"),
+            subsectionIdTrimmed = subsectionId
+                                    .trimPrefix("#" + subsectionIdPrefix)
+                                    .replace(/\d+-/, ""), // remove digits of the unique prefix
+            $subsectionContent  = $(subsectionId),
+            onShowCallback      = $tabAnchor.data(onShowCallbackKey);
+        window.location.hash    = window.location.hash
+                                    .trimFromLastIndexOf(sep) + sep + subsectionIdTrimmed;
 
-    // Ensure correct hash when opening subsections
-
-    $(".ss-subsection-activator-group a[role=tab]").on("shown.bs.tab", function (e) {
-        var subsectionTitle = $(this)
-                                    .attr("href")
-                                    .trimPrefix("#" + subsectionIdPrefix);
-        window.location.hash = window.location.hash
-                                    .trimFromLastIndexOf(sep) + sep + subsectionTitle;
+        // Run on-show-callback if present
+        if ($.isFunction(onShowCallback)) {
+            onShowCallback(subsectionTitle, $subsectionContent);
+        }
     });
 
-    $$.subsections = {
+    $$.subsection = {
         reenableSubsections: enableSubsections,
 
         showByTitle: function($section, title) {
             return $section
                        .find(".ss-subsection-activator-group")
-                           .find("a[href=#" + subsectionIdPrefix + title + "]")
-                           .click()
-                           .foundOne();
-        }
+                           .find("a[href^='#" + subsectionIdPrefix + "'][href$='" + title + "']")
+                               .click()
+                               .foundOne();
+        },
+
+        // Callback with the signature: function(subsectionTitle, $subsectionContent)
+        onShow: function(callback) {
+            $(tabAnchorSel).data(onShowCallbackKey, callback);
+        },
+        triggerOnShowOnOpenSubsection: function() {
+            $(".panel .panel-collapse.collapse.in")         // The open section
+                .find(".ss-subsection-group li.active > a") // The open subsection
+                    .trigger("show.bs.tab")
+                    .trigger("shown.bs.tab");
+       }
+
     };
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

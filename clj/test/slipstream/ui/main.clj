@@ -32,7 +32,7 @@
   (ud/with-dev-environment
     (-> raw-metadata-ns
         raw-metadata-str
-        (representation/-toHtml pagename type)
+        (representation/-toHtml pagename {"type" type})
         resp/response
         constantly
         (resource/wrap-resource "public"))))
@@ -97,6 +97,7 @@
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
 
     ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
+    ["runs"]                  (render :pagename "runs"             :raw-metadata-ns "runs")
     ["vms"]                   (render :pagename "vms"             :raw-metadata-ns "vms")
     ["metrics" "render"]      (render-file "metrics.json")
     ; ["metrics" "render"]      (render-file "metrics_2_lots_of_clouds.json")

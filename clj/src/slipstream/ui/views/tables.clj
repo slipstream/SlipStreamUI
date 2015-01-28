@@ -210,7 +210,7 @@
         :organization   {:type :cell/text}
         :email          {:type :cell/email, :required? true, :validation {:requirements (pattern/requirements :email)}}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
-        :creation       {:type :cell/timestamp, :editable? false, :remove? (page-type/new?)}
+        :creation       {:type :cell/timestamp-long, :editable? false, :remove? (page-type/new?)}
         :password-new-1 {:type :cell/password
                          :editable? true
                          :remove? (not (page-type/edit-or-new?))
@@ -243,9 +243,9 @@
       :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :remove? (page-type/new?)}
       :comment        {:type :cell/text,       :remove?  (page-type/edit-or-new?)}
       :category       {:type :cell/text,       :editable? false, :remove? (page-type/new?)}
-      :creation       {:type :cell/timestamp,  :editable? false, :remove? (page-type/new?)}
-      :publication    {:type :cell/timestamp,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
-      :last-modified  {:type :cell/timestamp,  :editable? false, :remove? (page-type/new?)}
+      :creation       {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
+      :publication    {:type :cell/timestamp-long,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
+      :last-modified  {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
       :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?)}
       :logo-url       {:type :cell/text
                        :remove? (page-type/view?)
@@ -339,20 +339,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-name uri module-uri start-time username uuid status tags type] :as run}]
+  [{:keys [cloud-names uri module-uri start-time username uuid status tags type] :as run}]
   {:style nil
    :cells [{:type :cell/icon,      :content (icons/icon-for (or type :run))}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
            {:type :cell/url,       :content module-uri}
            {:type :cell/text,      :content status}
            {:type :cell/timestamp, :content start-time}
+           {:type :cell/text,      :content cloud-names}
            {:type :cell/username,  :content username}
            {:type :cell/text,      :content tags}]})
 
 (defn runs-table
   [docs]
   (table/build
-    {:headers [nil :id :module :status :start-time :user :tags]
+    {:headers [nil :id :module :status :start-time :cloud-names :user :tags]
      :rows (map run-row docs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -651,10 +652,10 @@
       :module-uri         {:type :cell/url}
       :category           {:type :cell/text}
       :user               {:type :cell/username}
-      :start-time         {:type :cell/timestamp}
-      :end-time           {:type :cell/timestamp}
+      :start-time         {:type :cell/timestamp-long}
+      :end-time           {:type :cell/timestamp-long}
       :state              {:type :cell/text}
-      :last-state-change  {:type :cell/timestamp}
+      :last-state-change  {:type :cell/timestamp-long}
       :original-type      {:type :cell/text,    :hidden? true :description "" :help-hint ""}
       :localized-type     {:type :cell/text,    :as-parameter :run-type}
       :mutable?           {:type :cell/boolean, :remove? (-> run :original-type (not= "orchestration"))}

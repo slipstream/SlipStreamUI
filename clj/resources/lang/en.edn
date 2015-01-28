@@ -30,6 +30,8 @@
                     :category         "Category"
                     :child            "Child"
                     :children         "Children"
+                    :cloud            "Cloud"
+                    :clouds           "Clouds"
                     :comment          "Comment"
                     :configuration    "Configuration"
                     :dashboard        "Dashboard"
@@ -253,6 +255,7 @@
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
    :slipstream.ui.views.table.header.cloud-instance-id        "Cloud Instance Id"
+   :slipstream.ui.views.table.header.cloud-names              :global.nouns.clouds
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
    :slipstream.ui.views.table.header.date                     :global.nouns.date
    :slipstream.ui.views.table.header.default-configuration    "Default configuration"
@@ -524,7 +527,7 @@
    :slipstream.ui.util.pattern.error-help-hint.module-name.begin-with-letter          :pattern.default-error-help-hint.begin-with-letter
 
    :slipstream.ui.util.pattern.error-help-hint.node-name.not-empty                    :pattern.default-error-help-hint.not-empty
-   :slipstream.ui.util.pattern.error-help-hint.node-name.alpha-num-underscore-dash    :pattern.default-error-help-hint.alpha-num-underscore-dash
+   :slipstream.ui.util.pattern.error-help-hint.node-name.alpha-num-underscore         :pattern.default-error-help-hint.alpha-num-underscore
    :slipstream.ui.util.pattern.error-help-hint.node-name.not-new                      :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.node-name.begin-with-letter            :pattern.default-error-help-hint.begin-with-letter
 
@@ -632,6 +635,7 @@
    :slipstream.ui.util.icons.description.users                     :global.nouns.users
    :slipstream.ui.util.icons.description.dashboard                 :global.nouns.dashboard
    :slipstream.ui.util.icons.description.vms                       :global.nouns.vms
+   :slipstream.ui.util.icons.description.runs                      :global.nouns.runs
    :slipstream.ui.util.icons.description.run                       :global.nouns.run
    :slipstream.ui.util.icons.description.deployment                :global.nouns.deployment
    :slipstream.ui.util.icons.description.build                     :global.nouns.build
@@ -883,7 +887,15 @@
 
    :slipstream.ui.views.vms.header.title                    "Your VMs"
    :slipstream.ui.views.vms.header.subtitle                 "This is a sub-view of the dashboard displaying only your VMs and their status."
+   :slipstream.ui.views.vms.header.second-subtitle          "Please note that this page might display the data for only one given cloud, depending on the request URL."
    :slipstream.ui.views.vms.section.vms.title               :global.nouns.vms
+   :slipstream.ui.views.vms.section.vms.empty-content-hint  "You don't have any VMs running in this cloud."
+
+   :slipstream.ui.views.runs.header.title                   "Your Runs"
+   :slipstream.ui.views.runs.header.subtitle                "This is a sub-view of the dashboard displaying only your Runs and their status."
+   :slipstream.ui.views.runs.header.second-subtitle         "Please note that this page might display the data for only one given cloud, depending on the request URL."
+   :slipstream.ui.views.runs.section.runs.title             :global.nouns.runs
+   :slipstream.ui.views.runs.section.runs.empty-content-hint "You don't have any runs in this cloud."
 
    :slipstream.ui.views.configuration.header.title          "System Configuration"
    :slipstream.ui.views.configuration.header.subtitle       "Configure the SlipStream service and its cloud connectors"

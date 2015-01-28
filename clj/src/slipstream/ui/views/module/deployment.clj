@@ -22,15 +22,10 @@
 
 ; Section "runs"
 
-(defn- run-section
-  [{:keys [cloud-name runs]}]
-  {:title cloud-name
-   :content (t/runs-table runs)})
-
 (defmethod middle-section-content :runs
   [_ section-metadata _]
   (if-let [runs (not-empty section-metadata)]
-    (map run-section section-metadata)
+    (t/runs-table runs)
     (t :section.runs.empty-content-hint)))
 
 (defn- middle-section

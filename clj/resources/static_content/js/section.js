@@ -15,7 +15,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $section.addClass("in");
             if (subSectionTitle) {
                 // Try to open a subsection
-                if (! $$.subsections.showByTitle($section, subSectionTitle)) {
+                if (! $$.subsection.showByTitle($section, subSectionTitle)) {
                     // There is no subsection with the give title, so we clean it.
                     document.location.hash = sectionTitle;
                 }
@@ -33,27 +33,67 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $(".panel .panel-collapse.collapse.in")
         .parent()
-        .find(".panel-title .glyphicon-chevron-down")
-        .removeClass("glyphicon-chevron-down")
-        .addClass("glyphicon-chevron-up");
+            .find(".panel-title .glyphicon-chevron-down")
+                .removeClass("glyphicon-chevron-down")
+                .addClass("glyphicon-chevron-up");
 
     $(".panel .panel-collapse.collapse:not(.in)")
-        .parent()
-        .find(".panel-title .glyphicon-chevron-up")
-        .removeClass("glyphicon-chevron-up")
-        .addClass("glyphicon-chevron-down");
+            .parent()
+                .find(".panel-title .glyphicon-chevron-up")
+                    .removeClass("glyphicon-chevron-up")
+                    .addClass("glyphicon-chevron-down");
 
 
     // Ensure correct chevrons and hash when opening/closing the sections
 
-    $(".panel-collapse.collapse").on("show.bs.collapse", function (e) {
-        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
-        $(chevron_sel).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-        // Update hash in URL
-        window.location.hash = e.delegateTarget.id.trimPrefix(sectionIdPrefix);
+    var $sectionPanels = $(".panel-collapse.collapse"),
+        onShowCallbackKey = "on-show-callback";
+
+    // "show.bs.tab" - This event fires on tab show, but before the new
+    // tab has been shown. Use event.target and event.relatedTarget to
+    // target the active tab and the previous active tab (if
+    // available) respectively.
+    $sectionPanels.on("show.bs.collapse", function (e) {
+
+        // Ensure correct chevrons when opening the section
+        var $sectionContent = $(e.target),
+            chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+        $(chevron_sel)
+            .removeClass('glyphicon-chevron-down')
+            .addClass('glyphicon-chevron-up');
+
     });
 
-    $(".panel-collapse.collapse").on("hide.bs.collapse", function (e) {
+    // "shown.bs.tab" - This event fires on tab show after a tab has been
+    // shown. Use event.target and event.relatedTarget to target the
+    // active tab and the previous active tab (if available)
+    // respectively.
+    $sectionPanels.on("shown.bs.collapse", function (e) {
+
+        // Ensure correct chevrons when opening the section
+        var $sectionContent = $(e.target);
+
+        // Update hash in URL
+        window.location.hash = e.delegateTarget.id.trimPrefix(sectionIdPrefix);
+
+        // Run on-show-callback if present
+        var onShowCallback = $sectionContent.data(onShowCallbackKey),
+            sectionTitle = $sectionContent.closest(".panel").find(".ss-section-title").text();
+        if ($.isFunction(onShowCallback)) {
+            onShowCallback(sectionTitle, $sectionContent);
+        }
+
+        // Trigger shown event on open subsection
+        $$.subsection.triggerOnShowOnOpenSubsection();
+
+    });
+
+    // "hide.bs.tab" - This event fires when a new tab is to be shown
+    // (and thus the previous active tab is to be hidden). Use
+    // event.target and event.relatedTarget to target the current
+    // active tab and the new soon-to-be-active tab, respectively.
+    $sectionPanels.on("hide.bs.collapse", function (e) {
+        // Ensure correct chevrons when closing the section
         var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
         $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
         if (window.location.hash.trimPrefix("#") == e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
@@ -66,7 +106,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // For pages in edit mode, bring the focus to the first textfield of the first open section
         $(".panel .panel-collapse.collapse.in").focusFirstInput();
 
-        $(".panel-collapse.collapse").on("shown.bs.collapse", function (e) {
+        $sectionPanels.on("shown.bs.collapse", function (e) {
             // And ensure the focus each time when a section is open.
             $(this).focusFirstInput();
         });
@@ -115,7 +155,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return "sucessfully selected";
     }
 
-    $$.Section = {
+    $$.section = {
         select: function (index) {
             return toggleCollapsible(
                 $(".panel-group .panel:nth-child(" + index + ")")
@@ -128,7 +168,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .filter(function(){return $(this).text().trim() == title.trim();})
                     .closest(".panel")
             );
-        }
+        },
+        // Callback with the signature: function(sectionTitle, $sectionContent)
+        onShow: function(callback) {
+            $sectionPanels.data(onShowCallbackKey, callback);
+        },
+        triggerOnShowOnOpenSection: function() {
+           $(".panel .panel-collapse.collapse.in")
+               .trigger("show.bs.collapse")
+               .trigger("shown.bs.collapse");
+       }
     };
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

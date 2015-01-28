@@ -14,6 +14,7 @@
             [slipstream.ui.views.versions :as versions]
             [slipstream.ui.views.dashboard :as dashboard]
             [slipstream.ui.views.vms :as vms]
+            [slipstream.ui.views.runs :as runs]
             [slipstream.ui.views.user :as user]
             [slipstream.ui.views.users :as users]
             [slipstream.ui.views.run :as run]
@@ -47,6 +48,7 @@
    "versions"         versions/page
    "dashboard"        dashboard/page
    "vms"              vms/page
+   "runs"             runs/page ;; NOTE: Not to be mixed with '/run'
    "user"             user/page
    "users"            users/page
    "run"              run/page
@@ -96,7 +98,7 @@
 
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
-  ; NOTE: :strs directive used instead of :keys, because keys in options map are string.
+  ; NOTE: :strs directive used instead of :keys, because keys in options map are strings.
   [raw-metadata-str pagename {:strs [type request] :as options}]
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata
@@ -107,7 +109,7 @@
 
 (defn -toHtmlError
   "Generate an HTML error page"
-  ; NOTE: :strs directive used instead of :keys, because keys in options map are string.
+  ; NOTE: :strs directive used instead of :keys, because keys in options map are strings.
   [raw-metadata-str message code {:strs [type request] :as options}]
   (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang-from-metadata

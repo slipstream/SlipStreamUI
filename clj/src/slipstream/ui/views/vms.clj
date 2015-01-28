@@ -7,22 +7,20 @@
 
 (localization/def-scoped-t)
 
-(defn- vms-subsection
-  [{:keys [cloud-name vms]}]
-  {:title cloud-name
-   :content (t/vms-table vms)})
-
 (defn- section
-  [vms]
+  [vms-metadata]
   [{:title   (localization/section-title :vms)
-    :content (map vms-subsection vms)}])
+    :content (if-let [vms (-> vms-metadata :vms not-empty)]
+               (t/vms-table vms)
+               (t :section.vms.empty-content-hint))}])
 
 (defn page
   [metadata]
-  (let [vms (vms/parse metadata)]
+  (let [vms-metadata (vms/parse metadata)]
   (base/generate
     {:header {:icon icons/vms
               :title (t :header.title)
-              :subtitle (t :header.subtitle)}
+              :subtitle (t :header.subtitle)
+              :second-subtitle (t :header.second-subtitle)}
      :resource-uri "/dashboard/vms"
-     :content (section vms)})))
+     :content (section vms-metadata)})))

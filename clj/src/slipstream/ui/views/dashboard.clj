@@ -26,33 +26,35 @@
               ue/this (html/set-attr :data-quota-max (:quota cloud-usage))
               ue/this (html/set-attr :data-quota-current (:current-usage cloud-usage))))
 
-(defmethod section :quota
+(defmethod section ::quota
   [dashboard metadata-key]
   {:title   (localization/section-title metadata-key)
    :content (-> dashboard :quota :usage usage-snip)})
 
-;; Runs section
+;; Runs and VMs section
 
-(defn- runs-subsection
-  [{:keys [cloud-name runs]}]
-  {:title cloud-name
-   :content (t/runs-table runs)})
+(def ^:private spinner-icon
+  (ue/blank-node :span :class "glyphicon glyphicon-refresh ss-subsection-content-spinner"))
 
-(defmethod section :runs
-  [dashboard metadata-key]
-  (let [section-metadata (get dashboard metadata-key)]
-    {:title   (localization/section-title metadata-key)
-     :content (map runs-subsection section-metadata)}))
+(ue/def-blank-snippet ^:private dynamic-cloud-subsection-content-snip :div
+  [metadata-key cloud-name]
+  ue/this (html/add-class "ss-dynamic-content-subsection")
+  ue/this (ue/set-data :content-load-url (format "/%s?cloud=%s&offset=0&limit=20"
+                                                 ({::vms "vms"
+                                                   ::runs "run"} metadata-key)
+                                                 cloud-name))
+  ue/this (ue/set-id (name metadata-key) "-" cloud-name)
+  ue/this (html/content spinner-icon))
 
-;; VMS section
+(defn- cloud-subsection
+  [metadata-key cloud-name]
+  {:title   cloud-name
+   :content (dynamic-cloud-subsection-content-snip metadata-key cloud-name)})
 
-(def ^:private vms-div
-  (ue/blank-node :div :id "vms"))
-
-(defmethod section :vms
-  [dashboard metadata-key]
+(defmethod section ::dynamic-cloud-subsection
+  [{:keys [clouds]} metadata-key]
   {:title   (localization/section-title metadata-key)
-   :content vms-div})
+   :content (map (partial cloud-subsection metadata-key) clouds)})
 
 ;; Metering section
 
@@ -97,18 +99,21 @@
     {:title (t metric)
      :content (metering-subsection-snip metric)}))
 
-(defmethod section :metering
+(defmethod section ::metering
   [dashboard metadata-key]
   {:title   (localization/section-title metadata-key)
    :content (map metering-subsection metering-metrics)})
 
+(derive ::runs ::dynamic-cloud-subsection)
+(derive ::vms  ::dynamic-cloud-subsection)
+
 (defn- sections
   [dashboard]
   (cond-> []
-    (-> dashboard :quota :enabled?)     (conj :quota)
-    :always                             (conj :runs)
-    :always                             (conj :vms)
-    (-> dashboard :metering :enabled?)  (conj :metering)))
+    (-> dashboard :quota :enabled?)     (conj ::quota)
+    :always                             (conj ::runs)
+    :always                             (conj ::vms)
+    (-> dashboard :metering :enabled?)  (conj ::metering)))
 
 (def ^:private html-dependencies
   {:css-filenames ["dashboard.css"]

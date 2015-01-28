@@ -473,17 +473,25 @@
                            (assoc :text (-> content :set uc/join-as-str))
                            (dissoc :set))))
 
-(defmethod cell-snip [:cell/timestamp :mode/any :content/map]
+(defmethod cell-snip [:cell/timestamp-long :mode/any :content/map]
   [{content :content}]
   (cell-timestamp-snip-view content :human-readable-long :relative))
+
+(defmethod cell-snip [:cell/timestamp :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :human-readable :relative))
 
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/map]
   [{content :content}]
   (cell-timestamp-snip-view content :relative :human-readable-long))
 
-(defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
+(defmethod cell-snip [:cell/timestamp-long :mode/any :content/plain]
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :human-readable-long :relative))
+
+(defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-timestamp-snip-view {:timestamp timestamp} :human-readable :relative))
 
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/plain]
   [{timestamp :content}]

@@ -1,12 +1,20 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    function fillVms(html) {
-        var vmsDiv = $(".ss-section-content", html)[0];
-        $("#vms").parent().replaceWith(vmsDiv);
-        $$.subsections.reenableSubsections();
-    }
-
-    $.get("/vms", fillVms, "html");
+    $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
+        var $dynamicCloudSubSection = $subsectionContent.find(".ss-dynamic-content-subsection");
+        if ($dynamicCloudSubSection.foundNothing()) {
+            return;
+        }
+        $$.request
+            .get($dynamicCloudSubSection.data("content-load-url"))
+            .dataType("html")
+            .onSuccess(function (html){
+                var $newContent = $(".ss-section-content", html);
+                $dynamicCloudSubSection
+                    .updateWith($newContent);
+            })
+            .send();
+    });
 
     function drawGauges(panel) {
         $(".ss-usage-gauge", panel).each(function(idx, elem) {

@@ -18,11 +18,16 @@
        (map parse-usage)
        (sort-by :cloud)))
 
+(defn- clouds
+  [dashboard]
+  (-> dashboard
+      (html/select [:clouds :string html/text-node])
+      sort))
+
 (defn parse
   [metadata]
   (let [configuration (configuration/parse metadata)]
-    {:runs      (run-items/parse metadata)
-     :vms       (vms/parse metadata)
+    {:clouds    (clouds metadata)
      :quota     {:enabled? (configuration/quota-enabled? configuration)
                  :usage    (usages metadata)}
      :metering  {:enabled? (configuration/metering-enabled? configuration)}}))

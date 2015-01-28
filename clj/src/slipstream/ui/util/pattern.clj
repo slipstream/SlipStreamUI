@@ -72,7 +72,7 @@
                    [:picture-file           {:when-true   "validating"}]]
 
    :node-name     [:not-empty
-                   :alpha-num-underscore-dash
+                   :alpha-num-underscore
                    :not-new
                    :begin-with-letter]
 
