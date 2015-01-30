@@ -115,7 +115,7 @@
     <cloudImageIdentifier cloudImageIdentifier='abc' cloudServiceName='my-cloud' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'></cloudImageIdentifier>
 </cloudImageIdentifiers>
 <extraDisks class='org.hibernate.collection.PersistentBag'></extraDisks>
-<runs>
+<runs count='2' limit='20' offset='0' totalCount='2'>
     <item username='donald' cloudServiceNames='stratuslab' resourceUri='run/638f04c3-44a1-41c7-90db-c81167fc6f19' uuid='638f04c3-44a1-41c7-90db-c81167fc6f19' moduleResourceUri='module/Public/Tutorials/HelloWorld/client_server/11' status='Aborting' startTime='2013-07-05 17:27:12.471 CEST'/>
     <item username='mickey' cloudServiceNames='interoute' resourceUri='run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e' uuid='e8d0b957-14a8-4e96-8677-85c7bd9eb64e' moduleResourceUri='module/Mebster/word_press/simple_deployment/410' status='Aborting' startTime='2013-07-04 17:11:56.340 CEST' tags='this is a tag!' />
 </runs>
@@ -274,26 +274,30 @@
                               :type "String"
                               :name "someotheroutputparam"}]}
 
-   :runs [{:cloud-names "interoute"
-           :abort-msg nil
-           :uri "run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
-           :module-uri "module/Mebster/word_press/simple_deployment/410"
-           :start-time "2013-07-04 17:11:56.340 CEST"
-           :username "mickey"
-           :uuid "e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
-           :status "Aborting"
-           :tags "this is a tag!"
-           :type nil}
-          {:cloud-names "stratuslab"
-           :abort-msg nil
-           :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
-           :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
-           :start-time "2013-07-05 17:27:12.471 CEST"
-           :username "donald"
-           :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
-           :status "Aborting"
-           :type nil}
-          ]
+   :runs {:pagination {:offset 0
+                       :limit 20
+                       :count 2
+                       :total-count 2
+                       :cloud-name nil}
+          :runs [{:cloud-names "interoute"
+                  :abort-msg nil
+                  :uri "run/e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
+                  :module-uri "module/Mebster/word_press/simple_deployment/410"
+                  :start-time "2013-07-04 17:11:56.340 CEST"
+                  :username "mickey"
+                  :uuid "e8d0b957-14a8-4e96-8677-85c7bd9eb64e"
+                  :status "Aborting"
+                  :tags "this is a tag!"
+                  :type nil}
+                 {:cloud-names "stratuslab"
+                  :abort-msg nil
+                  :uri "run/638f04c3-44a1-41c7-90db-c81167fc6f19"
+                  :module-uri "module/Public/Tutorials/HelloWorld/client_server/11"
+                  :start-time "2013-07-05 17:27:12.471 CEST"
+                  :username "donald"
+                  :uuid "638f04c3-44a1-41c7-90db-c81167fc6f19"
+                  :status "Aborting"
+                  :type nil}]}
    :authorization {:access-rights {:create-children {:public-access? false
                                                      :group-access? false
                                                      :owner-access? true}

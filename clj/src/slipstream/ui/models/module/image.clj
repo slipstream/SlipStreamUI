@@ -2,8 +2,9 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.run-items :as run-items]
+            [slipstream.ui.models.runs :as runs]
             [slipstream.ui.models.parameters :as parameters]))
 
 (localization/def-scoped-t)
@@ -120,10 +121,11 @@
 (defn sections
   [metadata]
   (let [parameters (parameters/parse metadata)]
-    {:cloud-image-details  (cloud-image-details metadata)
-     :os-details           (os-details metadata)
-     :cloud-configuration  (parameters/categories-of-type parameters :global)
-     :image-creation       (image-creation metadata)
-     :deployment           (deployment metadata parameters)
-     :runs                 (run-items/parse metadata)}))
+    (cond->
+        {:cloud-image-details         (cloud-image-details metadata)
+         :os-details                  (os-details metadata)
+         :cloud-configuration         (parameters/categories-of-type parameters :global)
+         :image-creation              (image-creation metadata)
+         :deployment                  (deployment metadata parameters)}
+      (page-type/view?) (assoc :runs  (runs/parse metadata)))))
 

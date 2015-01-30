@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.module.image-new-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
@@ -96,8 +97,7 @@
 
 
 (def parsed-metadata
-  {:runs []
-   :deployment {:targets {:on-vm-remove {:code nil
+  {:deployment {:targets {:on-vm-remove {:code nil
                                          :run-in-background nil}
                           :on-vm-add {:code nil
                                       :run-in-background nil}
@@ -234,7 +234,7 @@
    :summary {:deleted? false
              :comment nil
              :creation "2013-03-07 21:03:09.124 CET"
-             :name "Public/BaseImages/Ubuntu/new"
+             :name nil
              :logo-url ""
              :short-name "new"
              :published? false
@@ -242,7 +242,7 @@
              :owner "sixsq"
              :version 4
              :uri "module/Public/BaseImages/Ubuntu/new"
-             :latest-version? nil
+             :latest-version? true
              :last-modified "2013-03-07 21:03:09.337 CET"
              :parent-uri "module/Public/BaseImages/Ubuntu"
              :description "Nice Ubuntu distro"
@@ -250,8 +250,9 @@
 
 (expect
   parsed-metadata
-  (localization/with-lang :en
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))
+  (page-type/with-page-type "new"
+    (localization/with-lang :en
+      (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))))
 
 
 

@@ -5,7 +5,7 @@
 
 ;; NOTE: For request /vms?media=xml&offset=10&limit=5&cloud=CloudA
 (def raw-metadata-str
-  "<vms offset='10' limit='5' count='19' cloud='CloudA'>
+  "<vms offset='10' limit='5' count='5' totalCount='19' cloud='CloudA'>
       <vm cloud='CloudA' user='bob' state='Running' instanceId='4f2708e1-6aa6-4469-8f5e-b18ffd42cb50_machine' measurement='2014-12-08 13:09:24.82 CET' runUuid='a1b345f0-c434-490e-849f-c3894af55588'/>
       <vm cloud='CloudA' user='bob' state='Terminated' instanceId='157701e9-9c52-45b1-a506-13241446aad3_machine' measurement='2014-12-08 13:09:24.98 CET' runUuid='a1b345f0-c434-490e-849f-c3894af55588'/>
       <vm cloud='CloudA' user='bob' state='Running' instanceId='vm_gateway' measurement='2014-12-08 13:09:24.112 CET' runUuid='35c3789f-5da1-4504-8294-d41489d035ae'/>
@@ -17,7 +17,8 @@
 (expect
   {:pagination {:offset 10
                 :limit 5
-                :count 19
+                :count 5
+                :total-count 19
                 :cloud-name "CloudA"}
    :vms [{:cloud-name "CloudA"
           :run-uuid "a1b345f0-c434-490e-849f-c3894af55588"

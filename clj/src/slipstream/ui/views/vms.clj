@@ -11,7 +11,7 @@
   [vms-metadata]
   [{:title   (localization/section-title :vms)
     :content (if-let [vms (-> vms-metadata :vms not-empty)]
-               (t/vms-table vms)
+               (t/vms-table vms (:pagination vms-metadata))
                (t :section.vms.empty-content-hint))}])
 
 (defn page

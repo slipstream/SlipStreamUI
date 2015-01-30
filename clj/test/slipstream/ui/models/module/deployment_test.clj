@@ -23,7 +23,7 @@
         <string>ec2-eu-west</string>
         <string>default</string>
     </cloudNames>
-    <runs>
+    <runs count='2' limit='20' offset='0' totalCount='2'>
         <item abort=\"Unknown key ubuntu2:blah\" cloudServiceNames=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\" startTime=\"2015-01-09 11:39:56.813 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"43a560db-7948-4b67-abb2-3c3af32d10e6\"/>
         <item abort=\"Unknown key ss:blah\" cloudServiceNames=\"exoscale-ch-gva\" moduleResourceUri=\"module/mynewproject1/ubuntu-dpl/659\" startTime=\"2015-01-09 11:33:58.583 CET\" status=\"Aborted\" tags=\"\" type=\"Orchestration\" username=\"konstantest\" uuid=\"c6a7157b-acbb-4e69-b3f8-ad085e75bbc6\"/>
     </runs>
@@ -358,26 +358,31 @@
                         {:name "my-vm2-input-param-2"
                          :mapped-value? false
                          :value "'some-value-for-vm2-input-2'"}]}]
-    :runs [{:cloud-names "exoscale-ch-gva"
-            :abort-msg "Unknown key ubuntu2:blah"
-            :uri nil
-            :module-uri "module/mynewproject1/ubuntu-dpl/659"
-            :type :deployment-run
-            :start-time "2015-01-09 11:39:56.813 CET"
-            :username "konstantest"
-            :uuid "43a560db-7948-4b67-abb2-3c3af32d10e6"
-            :status "Aborted"
-            :tags ""}
-           {:cloud-names "exoscale-ch-gva"
-            :abort-msg "Unknown key ss:blah"
-            :uri nil
-            :module-uri "module/mynewproject1/ubuntu-dpl/659"
-            :type :deployment-run
-            :start-time "2015-01-09 11:33:58.583 CET"
-            :username "konstantest"
-            :uuid "c6a7157b-acbb-4e69-b3f8-ad085e75bbc6"
-            :status "Aborted"
-            :tags ""}]
+    :runs  {:pagination {:offset 0
+                         :limit 20
+                         :count 2
+                         :total-count 2
+                         :cloud-name nil}
+            :runs [{:cloud-names "exoscale-ch-gva"
+                    :abort-msg "Unknown key ubuntu2:blah"
+                    :uri nil
+                    :module-uri "module/mynewproject1/ubuntu-dpl/659"
+                    :type :deployment-run
+                    :start-time "2015-01-09 11:39:56.813 CET"
+                    :username "konstantest"
+                    :uuid "43a560db-7948-4b67-abb2-3c3af32d10e6"
+                    :status "Aborted"
+                    :tags ""}
+                   {:cloud-names "exoscale-ch-gva"
+                    :abort-msg "Unknown key ss:blah"
+                    :uri nil
+                    :module-uri "module/mynewproject1/ubuntu-dpl/659"
+                    :type :deployment-run
+                    :start-time "2015-01-09 11:33:58.583 CET"
+                    :username "konstantest"
+                    :uuid "c6a7157b-acbb-4e69-b3f8-ad085e75bbc6"
+                    :status "Aborted"
+                    :tags ""}]}
     :summary {:publication nil
               :deleted? false
               :published? false

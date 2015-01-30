@@ -1,7 +1,6 @@
 (ns slipstream.ui.models.dashboard
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.models.run-items :as run-items]
             [slipstream.ui.models.vms :as vms]
             [slipstream.ui.models.configuration :as configuration]))
 

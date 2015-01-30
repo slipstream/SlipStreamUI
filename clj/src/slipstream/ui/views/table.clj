@@ -652,6 +652,44 @@
            ue/this (ue/when-add-class class)
            ue/this (ue/enable-class hidden? "hidden")))
 
+(defn- pagination-msg
+  [{:keys [offset limit count total-count]}]
+  (let [first-item  (inc offset)
+        last-item   (+ offset count)]
+    (cond
+      (= 1 count total-count)   (t :pagination.msg.showing-one) ;; "There is only one item."
+      (= 1 count)               (t :pagination.msg.showing-one-from-many ;; msg: "Showing item %s from a total of %s."
+                                        first-item total-count)
+      (= count total-count)     (t :pagination.msg.showing-all ;; msg: "Showing all %s items."
+                                        count)
+      ; (and
+      ;   (-> count (* 2) (> total-count))
+      ;   (= count last-item))    (format "Showing first %s items from a total of %s. Show all."
+      ;                                   count total-count)
+      (= count last-item)       (t :pagination.msg.showing-first-n-from-many ;; msg: "Showing first %s items from a total of %s."
+                                        count total-count limit)
+      (= total-count last-item) (t :pagination.msg.showing-last-n-from-many ;; msg: "Showing last %s items from a total of %s."
+                                        count total-count)
+      (= 2 count)               (t :pagination.msg.showing-two-from-many ;; msg: "Showing items %s and %s from a total of %s."
+                                        count first-item last-item total-count)
+      :else                     (t :pagination.msg.showing-range ;; msg: "Showing %s items (from %s to %s) from a total of %s."
+                                        count first-item last-item total-count))))
+
+(defn- rows-with-pagination
+  [{:keys [pagination headers rows] :as table}]
+  (let [num-of-cols (count headers)
+        pagination-info-row {:cells [{:type :cell/text
+                                      :content {:colspan num-of-cols
+                                                :class "text-right text-muted"
+                                                :text (pagination-msg pagination)}}]}]
+    (concat rows [pagination-info-row])))
+
+(defn- rows
+  [{:keys [pagination rows] :as table}]
+  (if (not-empty pagination)
+    (rows-with-pagination table)
+    rows))
+
 
 ;; Headers
 
@@ -667,11 +705,11 @@
             ue/this (html/content (header-str header))))
 
 (html/defsnippet ^:private table-snip template-filename table-sel
-  [{:keys [headers rows] :as table}]
+  [{:keys [headers] :as table}]
   ue/this        (html/add-class (:class table))
   ue/this        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
   table-head-sel (ue/when-content (not-empty headers) (head-snip headers))
-  table-body-sel (html/content (->> rows
+  table-body-sel (html/content (->> (rows table)
                                     (remove :remove?)
                                     rows-snip)))
 

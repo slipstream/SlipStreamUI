@@ -5,7 +5,7 @@
 
 ;; NOTE: For request /run?media=xm&offset=0&limit=10&cloud=StratusLab
 (def raw-metadata-str
-  "<runs offset='0' limit='10' count='2' cloud='StratusLab'>
+  "<runs offset='0' limit='10' count='2' totalCount='2' cloud='StratusLab'>
     <item resourceUri='run/36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae' uuid='36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae' moduleResourceUri='module/first-project/newdeployment/85' status='Initializing' abort='Cloud Username cannot be empty, please edit your &lt;a href=\"/user/super\"&gt;user account&lt;/a&gt;' startTime='2015-01-14 17:23:18.262 CET' cloudServiceNames='StratusLab' username='rob' type='Orchestration' tags=''/>
     <item resourceUri='run/0aa79e3f-878a-40b1-8e88-bb6808a183cc' uuid='0aa79e3f-878a-40b1-8e88-bb6808a183cc' moduleResourceUri='module/calsproject/deployment/54' status='Cancelled' abort='Marketplace endpoint should be set for StratusLab' startTime='2014-12-16 12:40:30.118 CET' cloudServiceNames='StratusLab' username='cal' type='Orchestration' tags='123, asdf, bbb, d, ssd, zzz'/>
     <user issuper='true' resourceUri='user/super' name='super'></user>
@@ -15,6 +15,7 @@
   {:pagination {:offset 0
                 :limit 10
                 :count 2
+                :total-count 2
                 :cloud-name "StratusLab"}
    :runs [{:status "Initializing"
            :module-uri "module/first-project/newdeployment/85"

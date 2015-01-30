@@ -85,8 +85,8 @@
 
 (defmethod middle-section-content :runs
   [_ _ section-metadata _]
-  (if-let [runs (not-empty section-metadata)]
-    (t/runs-table runs)
+  (if-let [runs (-> section-metadata :runs not-empty)]
+    (t/runs-table runs (:pagination section-metadata))
     (t :section.runs.empty-content-hint)))
 
 ; Other table sections (e.g. cloud-image-details os-details)

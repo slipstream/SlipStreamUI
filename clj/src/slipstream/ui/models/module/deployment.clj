@@ -3,7 +3,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.models.run-items :as run-items]))
+            [slipstream.ui.models.runs :as runs]))
 
 (defn- append-template-node-in-edit-mode
   "To serve as template for new nodes. See tests for expectations."
@@ -57,4 +57,4 @@
                  (sort-by (comp :name :attrs)) ; Sort before adding the blank template row.
                  append-template-node-in-edit-mode
                  (map (partial parse-node cloud-names)))
-     :runs       (run-items/parse metadata)}))
+     :runs       (runs/parse metadata)}))

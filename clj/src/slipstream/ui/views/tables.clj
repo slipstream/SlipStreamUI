@@ -351,10 +351,11 @@
            {:type :cell/text,      :content tags}]})
 
 (defn runs-table
-  [docs]
+  [runs & [pagination]]
   (table/build
-    {:headers [nil :id :module :status :start-time :cloud-names :user :tags]
-     :rows (map run-row docs)}))
+    {:pagination  pagination
+     :headers     [nil :id :module :status :start-time :cloud-names :user :tags]
+     :rows        (map run-row runs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -683,9 +684,10 @@
            {:type :cell/text,     :content cloud-instance-id}]})
 
 (defn vms-table
-  [vms]
+  [vms & [pagination]]
   (table/build
-    {:headers [:slipstream-id :state :user :cloud-instance-id]
+    {:pagination  pagination
+     :headers [:slipstream-id :state :user :cloud-instance-id]
      :rows (map vm-row vms)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

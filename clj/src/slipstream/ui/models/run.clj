@@ -10,7 +10,7 @@
 (def ^:private large-run-threshold 19)
 
 (defn run-type-localization-mapping
-  "Also used in ns 'slipstream.ui.models.run-items'."
+  "Also used in ns 'slipstream.ui.models.runs'."
   [original-type]
   (case original-type
     "Machine"        (t :type.machine)
