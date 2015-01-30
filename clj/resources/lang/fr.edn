@@ -303,7 +303,7 @@
 
    :slipstream.ui.views.tables.deployment-nodes-table.new-parameter-mapping.placeholder.value "Pas de valeur"
 
-    :slipstream.ui.views.table.reference-module-cell.chooser-button.label "Choisir la référence"
+   :slipstream.ui.views.table.reference-module-cell.chooser-button.label "Choisir la référence"
 
    :slipstream.ui.views.table.remove-row-button.text              :global.verbs.remove
    :slipstream.ui.views.table.remove-row-button.text-custom       "Supprimer %1$s" ; %1$s = name of the item to be removed
@@ -314,6 +314,14 @@
    :slipstream.ui.views.table.enum-cell.view-mode.tooltip         "Valeurs possibles: %1$s" ; %1$s = All enum option values
 
    :slipstream.ui.views.table.map-cell.empty-value                :global.adjectives.empty
+
+   :slipstream.ui.views.table.pagination.msg.showing-one                  "Il y a seulement un item."
+   :slipstream.ui.views.table.pagination.msg.showing-one-from-many        "Item %1$s parmis un total de %2$s."
+   :slipstream.ui.views.table.pagination.msg.showing-all                  "La totalité des %1$s items."
+   :slipstream.ui.views.table.pagination.msg.showing-first-n-from-many    "Premiers %1$s items parmis un total de %2$s."
+   :slipstream.ui.views.table.pagination.msg.showing-last-n-from-many     "Derniers %1$s items parmis un total de %2$s."
+   :slipstream.ui.views.table.pagination.msg.showing-two-from-many        "Items %1$s et %2$s parmis un total de %3$s."
+   :slipstream.ui.views.table.pagination.msg.showing-range                "%1$s items (du %2$s au %3$s) parmis un total de %4$s."
 
    :slipstream.ui.views.tables.deployment-nodes-table.mapping     :global.nouns.mapping
    :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
