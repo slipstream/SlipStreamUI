@@ -31,14 +31,9 @@
   {:title   (-> parameter-group :group name)
    :content (-> parameter-group :runtime-parameters t/runtime-parameters-table)})
 
-(defn- group
-  [runtime-parameters]
-  (uc/coll-grouped-by :group runtime-parameters
-                      :items-keyword :runtime-parameters))
-
 (defn- runtime-parameter-node-section
   [parameter-group]
-  (let [subsection-metadata (-> parameter-group :runtime-parameters group)
+  (let [subsection-metadata (-> parameter-group :node-instances)
         section-type        (-> parameter-group :node-type)
         global?             (= section-type :global)]
     {:icon    (when-not global? (icons/icon-for section-type))

@@ -108,7 +108,8 @@
     ["users"]                 (render :pagename "users"           :raw-metadata-ns "users")
 
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
-    ["large-run"]             (render :pagename "run"             :raw-metadata-ns "large-run")
+    ["run-25-instances"]      (render :pagename "run"             :raw-metadata-ns "run-25-instances")
+    ["run-1000-instances"]    (render :pagename "run"             :raw-metadata-ns "run-1000-instances")
 
     ["reports" &]             (render :pagename "reports"         :raw-metadata-ns "reports")
 

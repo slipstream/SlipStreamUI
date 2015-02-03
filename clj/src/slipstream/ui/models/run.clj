@@ -60,10 +60,12 @@
      :module-uri    (-> attrs :moduleResourceUri)
      :last-state-change (-> attrs :lastStateChangeTime)}))
 
+
 (defn parse
   "See tests for structure of the expected parsed metadata."
   [metadata]
-  (let [runtime-parameters (runtime-parameters/parse metadata)]
+  (let [runtime-parameters (->> metadata
+                                runtime-parameters/parse)]
     (-> {}
         (assoc :summary (summary metadata runtime-parameters))
         (assoc :runtime-parameters runtime-parameters)

@@ -1,4 +1,4 @@
-(ns slipstream.ui.models.large-run-test
+(ns slipstream.ui.models.run-1000-instances-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
@@ -8,10 +8,16 @@
 (def raw-metadata-str
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_run_1000_instance.xml"))
 
+(def parsed-metadata
+  (localization/with-lang :en
+    (-> raw-metadata-str
+        u/clojurify-raw-metadata-str
+        model/parse)))
+
 (expect
   [:runtime-parameters :summary]
-  (localization/with-lang :en
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys)))
+  (-> parsed-metadata
+      keys))
 
 (expect
   {:end-time nil
@@ -37,10 +43,21 @@
    :user "super"
    :category "Deployment"
    :tags ""}
-  (localization/with-lang :en
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :summary)))
+  (-> parsed-metadata
+      :summary))
 
 (expect
   [:global :orchestrator :node :node]
-  (localization/with-lang :en
-    (->> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters (mapv :node-type))))
+  (->> parsed-metadata
+       :runtime-parameters
+       (mapv :node-type)))
+
+(expect
+  ["testclient.998" "testclient.999" "testclient.1000"]
+  (->> parsed-metadata
+       :runtime-parameters
+       last
+       :node-instances
+       (map :group)
+       distinct
+       (take-last 3)))
