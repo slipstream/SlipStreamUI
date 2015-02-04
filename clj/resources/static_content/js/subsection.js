@@ -12,7 +12,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // Match the height of the tab contents to the highest to avoid jumping
         // NOTE: Doesn't work if the element is not visible on page load (e.g.
         //       in a hidden section) since the height will be 0.
-        $(".ss-subsection-group, .ss-subsection-group-stacked").each(function (){
+        $(".ss-subsection-group, .ss-subsection-group-stacked, .ss-subsection-group-dropdown").each(function (){
             var $thisTabPanes = $(this).find(".tab-pane"),
                 highestHight = Math.max.apply(null,
                     $thisTabPanes.map(function(){

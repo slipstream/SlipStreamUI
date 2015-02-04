@@ -33,7 +33,8 @@ select.ss-subsection-activator-xs-group:focus {
   padding-left: 10px;
 }
 
-.ss-subsection-group > .tab-content {
+.ss-subsection-group > .tab-content,
+.ss-subsection-group-dropdown > .tab-content {
   padding-top: 20px;
 }
 

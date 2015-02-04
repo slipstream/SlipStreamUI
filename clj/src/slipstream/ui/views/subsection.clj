@@ -41,23 +41,31 @@
 
 (html/defsnippet subsection-group-snip-flat template-filename [:.ss-subsection-group]
   [subsections]
-  activator-group-sel     (activator-group subsections)
+  activator-group-sel     (activator-group    subsections)
   activator-xs-group-sel  (activator-xs-group subsections)
-  content-group-sel       (content-group subsections))
+  content-group-sel       (content-group      subsections))
 
 (html/defsnippet subsection-group-snip-stacked template-filename [:.ss-subsection-group-stacked]
   [subsections]
-  activator-group-sel     (activator-group subsections)
+  activator-group-sel     (activator-group    subsections)
   activator-xs-group-sel  (activator-xs-group subsections)
-  content-group-sel       (content-group subsections))
+  content-group-sel       (content-group      subsections))
+
+(html/defsnippet subsection-group-snip-dropdown template-filename [:.ss-subsection-group-dropdown]
+  [subsections]
+  activator-group-sel     (activator-group    subsections)
+  activator-xs-group-sel  (activator-xs-group subsections)
+  content-group-sel       (content-group      subsections))
 
 (def ^:private max-num-of-flat-sections 7)
+(def ^:private max-num-of-stacked-sections 25)
 
 (defn- subsection-group-snip
   [subsections]
-  (if (-> subsections count (> max-num-of-flat-sections))
-    (subsection-group-snip-stacked subsections)
-    (subsection-group-snip-flat subsections)))
+  (condp >= (count subsections)
+    max-num-of-flat-sections    (subsection-group-snip-flat     subsections)
+    max-num-of-stacked-sections (subsection-group-snip-stacked  subsections)
+    (subsection-group-snip-dropdown subsections)))
 
 (defn- assoc-id
   [subsection-id-prefix subsection]
