@@ -646,11 +646,11 @@
 (html/defsnippet ^:private rows-snip template-filename table-row-sel
   [rows]
   ue/this (html/clone-for [{:keys [style cells class data hidden?]} rows]
-           ue/this (html/content (map cell-snip cells))
            ue/this (ue/set-data :from-server data)
            ue/this (ue/when-add-class style (name style))
            ue/this (ue/when-add-class class)
-           ue/this (ue/enable-class hidden? "hidden")))
+           ue/this (ue/enable-class hidden? "hidden")
+           ue/this (html/content (map cell-snip cells))))
 
 (defn- pagination-msg
   [{:keys [offset limit count total-count]}]
