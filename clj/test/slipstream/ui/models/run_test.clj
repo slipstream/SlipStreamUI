@@ -1956,39 +1956,3 @@
                                              :value ""}]}]}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters last)))
-
-
-; (defn t
-;   []
-;   (time
-;     (localization/with-lang :en
-;       (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys))))
-
-; (defn t1
-;   [file]
-;   (time
-;     (localization/with-lang :en
-;       (-> file slurp u/clojurify-raw-metadata-str model/parse keys))))
-
-; (defn t2
-;   [file]
-;   (time
-;     (localization/with-lang :en
-;       (-> file slurp u/clojurify-raw-metadata-str boolean))))
-
-; (defn t3
-;   [file]
-;     (localization/with-lang :en
-;       (->> file slurp time u/clojurify-raw-metadata-str time model/parse time keys)))
-
-; (defn e [s] (clojure.pprint/pprint s) s)
-
-; (expect
-;   {}
-;   (localization/with-lang :en
-;     (->> raw-metadata-str u/clojurify-raw-metadata-str model/parse :runtime-parameters
-;         e
-;          ; last
-;          ; (map :node)
-;          (uc/map-in [:runtime-parameters] :group )
-;          )))
