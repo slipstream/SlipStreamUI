@@ -6,8 +6,7 @@
             [slipstream.ui.models.run :as model]))
 
 (def raw-metadata-str
-  (uc/slurp-resource "slipstream/ui/mockup_data/metadata_run_25_instance.xml")
-  )
+  (uc/slurp-resource "slipstream/ui/mockup_data/metadata_run_25_instances.xml"))
 
 (def parsed-metadata
   (localization/with-lang :en

@@ -109,6 +109,7 @@
 
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
     ["run-25-instances"]      (render :pagename "run"             :raw-metadata-ns "run-25-instances")
+    ["run-200-instances"]     (render :pagename "run"             :raw-metadata-ns "run-200-instances")
     ["run-1000-instances"]    (render :pagename "run"             :raw-metadata-ns "run-1000-instances")
 
     ["reports" &]             (render :pagename "reports"         :raw-metadata-ns "reports")
