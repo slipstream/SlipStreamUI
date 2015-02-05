@@ -144,3 +144,32 @@ td[id*=':abort']::before {
 td[id*=':abort']:empty::before {
   content: "";
 }
+
+/* Pagination */
+.ss-table-cell-pagination .ss-pagination-msg {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.ss-table-cell-pagination .glyphicon {
+  opacity: .6;
+  padding: 2px;
+}
+.ss-table-cell-pagination .ss-pagination-action {
+  opacity: .9;
+}
+.ss-table-cell-pagination .ss-pagination-action:hover {
+  opacity: 1;
+  background-color: #dcdcdc;
+  cursor: pointer;
+}
+
+.ss-table-cell-pagination .ss-pagination-all:active,
+.ss-table-cell-pagination .ss-pagination-action:active {
+  color: #555;
+  background-color: #bababa;
+  cursor: pointer;
+}
+.ss-table-cell-pagination .ss-pagination-all:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

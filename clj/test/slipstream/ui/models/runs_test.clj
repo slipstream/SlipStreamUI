@@ -14,8 +14,8 @@
 (expect
   {:pagination {:offset 0
                 :limit 10
-                :count 2
-                :total-count 2
+                :count-shown 2
+                :count-total 2
                 :cloud-name "StratusLab"}
    :runs [{:status "Initializing"
            :module-uri "module/first-project/newdeployment/85"

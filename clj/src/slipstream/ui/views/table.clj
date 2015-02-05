@@ -347,6 +347,26 @@
   []
   identity)
 
+; Pagination cell
+
+(localization/with-prefixed-t :pagination.action
+  (html/defsnippet ^:private cell-pagination-snip-view template-filename (sel-for-cell :pagination)
+    [{:keys [colspan msg]
+      {:keys [first-page previous-page next-page last-page show-all]} :params}]
+    ue/this                     (ue/set-colspan colspan)
+    [:.ss-pagination-msg]       (html/content msg)
+    [:.ss-pagination-first]     (when first-page    (ue/set-data  :pagination-params first-page))
+    [:.ss-pagination-first]     (when first-page    (ue/set-title        (t :tooltip.first-page)))
+    [:.ss-pagination-previous]  (when previous-page (ue/set-data  :pagination-params previous-page))
+    [:.ss-pagination-previous]  (when previous-page (ue/set-title        (t :tooltip.previous-page)))
+    [:.ss-pagination-all]       (when show-all      (ue/set-data  :pagination-params show-all))
+    [:.ss-pagination-all]       (when show-all      (html/content            (t :msg.show-all)))
+    [:.ss-pagination-next]      (when next-page     (ue/set-data  :pagination-params next-page))
+    [:.ss-pagination-next]      (when next-page     (ue/set-title        (t :tooltip.next-page)))
+    [:.ss-pagination-last]      (when last-page     (ue/set-data  :pagination-params last-page))
+    [:.ss-pagination-last]      (when last-page     (ue/set-title        (t :tooltip.last-page)))))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Cell snip dispatching on type, mode and content
@@ -634,6 +654,10 @@
         (partial cell-group-id visible-cell-index)
         (map-indexed cells))))
 
+(defmethod cell-snip [:cell/pagination :mode/any :content/any]
+  [{content :content}]
+  (cell-pagination-snip-view content))
+
 (defmethod cell-snip [:cell/blank :mode/any :content/any]
   [_]
   (cell-toggle-blank-snip))
@@ -652,36 +676,64 @@
            ue/this (ue/enable-class hidden? "hidden")
            ue/this (html/content (map cell-snip cells))))
 
-(defn- pagination-msg
-  [{:keys [offset limit count total-count]}]
+(defn- pagination-type
+  [first-item last-item count-shown count-total]
+  (cond
+    (= 1 count-shown count-total)     :showing-one
+    (= 1 count-shown first-item)      :showing-first-from-many
+    (and
+      (= 1 count-shown)
+      (= count-total last-item))      :showing-last-from-many
+    (= 1 count-shown)                 :showing-one-from-many
+    (= count-shown count-total)       :showing-all
+    (< count-total (* 2 count-shown)) :showing-almost-all
+    (= count-shown last-item)         :showing-first-n-from-many
+    (= count-total last-item)         :showing-last-n-from-many
+    (= 2 count-shown)                 :showing-two-from-many
+    :else                             :showing-range))
+
+(defn- pagination-params
+  [pagination-type offset limit count-total]
+  (select-keys
+    {:first-page     {:offset  0
+                      :limit   limit}
+     :previous-page  {:offset  (- offset limit)
+                      :limit   limit}
+     :next-page      {:offset  (+ offset limit)
+                      :limit   limit}
+     :last-page      {:offset  (-> limit (mod count-total) inc (* limit))
+                      :limit   limit}
+     :show-all       {:offset  0
+                      :limit   (inc count-total)}}
+    (case pagination-type
+      :showing-one                []
+      :showing-first-from-many    [:next-page :last-page]
+      :showing-last-from-many     [:first-page :previous-page]
+      :showing-one-from-many      [:first-page :previous-page :next-page :last-page]
+      :showing-all                []
+      :showing-almost-all         [:show-all]
+      :showing-first-n-from-many  [:next-page :last-page]
+      :showing-last-n-from-many   [:first-page :previous-page]
+      :showing-two-from-many      [:first-page :previous-page :next-page :last-page]
+      :showing-range              [:first-page :previous-page :next-page :last-page])))
+
+(defn- pagination-cell-content
+  [{:keys [offset limit count-shown count-total]}]
   (let [first-item  (inc offset)
-        last-item   (+ offset count)]
-    (cond
-      (= 1 count total-count)   (t :pagination.msg.showing-one) ;; "There is only one item."
-      (= 1 count)               (t :pagination.msg.showing-one-from-many ;; msg: "Showing item %s from a total of %s."
-                                        first-item total-count)
-      (= count total-count)     (t :pagination.msg.showing-all ;; msg: "Showing all %s items."
-                                        count)
-      ; (and
-      ;   (-> count (* 2) (> total-count))
-      ;   (= count last-item))    (format "Showing first %s items from a total of %s. Show all."
-      ;                                   count total-count)
-      (= count last-item)       (t :pagination.msg.showing-first-n-from-many ;; msg: "Showing first %s items from a total of %s."
-                                        count total-count limit)
-      (= total-count last-item) (t :pagination.msg.showing-last-n-from-many ;; msg: "Showing last %s items from a total of %s."
-                                        count total-count)
-      (= 2 count)               (t :pagination.msg.showing-two-from-many ;; msg: "Showing items %s and %s from a total of %s."
-                                        count first-item last-item total-count)
-      :else                     (t :pagination.msg.showing-range ;; msg: "Showing %s items (from %s to %s) from a total of %s."
-                                        count first-item last-item total-count))))
+        last-item   (+ offset count-shown)
+        pagination-type (pagination-type first-item last-item count-shown count-total)
+        pagination-msg-key (->> pagination-type name (str "pagination.msg.") keyword)
+        pagination-msg (t pagination-msg-key count-shown first-item last-item count-total)]
+    {:msg     pagination-msg
+     :params  (pagination-params pagination-type offset limit count-total)}))
 
 (defn- rows-with-pagination
   [{:keys [pagination headers rows] :as table}]
   (let [num-of-cols (count headers)
-        pagination-info-row {:cells [{:type :cell/text
-                                      :content {:colspan num-of-cols
-                                                :class "text-right text-muted"
-                                                :text (pagination-msg pagination)}}]}]
+        pagination-info-row {:cells [{:type :cell/pagination
+                                      :content (merge
+                                                 {:colspan num-of-cols}
+                                                 (pagination-cell-content pagination))}]}]
     (concat rows [pagination-info-row])))
 
 (defn- rows

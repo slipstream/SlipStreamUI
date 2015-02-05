@@ -360,8 +360,8 @@
                          :value "'some-value-for-vm2-input-2'"}]}]
     :runs  {:pagination {:offset 0
                          :limit 20
-                         :count 2
-                         :total-count 2
+                         :count-shown 2
+                         :count-total 2
                          :cloud-name nil}
             :runs [{:cloud-names "exoscale-ch-gva"
                     :abort-msg "Unknown key ubuntu2:blah"

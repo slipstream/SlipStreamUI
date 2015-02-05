@@ -97,7 +97,8 @@
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
 
     ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
-    ["runs"]                  (render :pagename "runs"             :raw-metadata-ns "runs")
+    ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
+    ["runs-paginated"]        (render :pagename "runs"            :raw-metadata-ns "runs-paginated")
     ["vms"]                   (render :pagename "vms"             :raw-metadata-ns "vms")
     ["metrics" "render"]      (render-file "metrics.json")
     ; ["metrics" "render"]      (render-file "metrics_2_lots_of_clouds.json")

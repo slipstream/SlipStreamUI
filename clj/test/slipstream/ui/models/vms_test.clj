@@ -17,8 +17,8 @@
 (expect
   {:pagination {:offset 10
                 :limit 5
-                :count 5
-                :total-count 19
+                :count-shown 5
+                :count-total 19
                 :cloud-name "CloudA"}
    :vms [{:cloud-name "CloudA"
           :run-uuid "a1b345f0-c434-490e-849f-c3894af55588"

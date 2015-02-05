@@ -1,17 +1,18 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
-        var $dynamicCloudSubSection = $subsectionContent.find(".ss-dynamic-content-subsection");
-        if ($dynamicCloudSubSection.foundNothing()) {
+        var $dynamicCloudSubsection = $subsectionContent.find(".ss-dynamic-subsection");
+        if ($dynamicCloudSubsection.foundNothing()) {
             return;
         }
         $$.request
-            .get($dynamicCloudSubSection.data("content-load-url"))
+            .get($dynamicCloudSubsection.data("content-load-url"))
             .dataType("html")
             .onSuccess(function (html){
                 var $newContent = $(".ss-section-content", html);
-                $dynamicCloudSubSection
-                    .updateWith($newContent);
+                $dynamicCloudSubsection
+                    .children("div:first-of-type")
+                        .updateWith($newContent, {flash: true, flashDuration: 140, flashCategory: "transparent"});
             })
             .send();
     });

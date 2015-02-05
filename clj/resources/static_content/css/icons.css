@@ -131,7 +131,8 @@
      @-o-keyframes rotation { from {      -o-transform: rotate(0deg); } to {      -o-transform: rotate(359deg); } }
         @keyframes rotation { from {         transform: rotate(0deg); } to {         transform: rotate(359deg); } }
 
-.glyphicon-refresh {
+.glyphicon-refresh,
+.glyphicon.ss-icon-loading {
   -webkit-animation: rotation 2s infinite linear;
      -moz-animation: rotation 2s infinite linear;
        -o-animation: rotation 2s infinite linear;
@@ -144,6 +145,15 @@
        -o-animation: rotation 4s infinite linear;
           animation: rotation 4s infinite linear;
 }
+
+
+/* Transform any .glyphicon into a rotating refresh icon by adding the
+   class .ss-icon-loading to the span (even next to the original icon class). */
+.glyphicon.ss-icon-loading::before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e031";
+}
+
 
 /*.strokeme
 {

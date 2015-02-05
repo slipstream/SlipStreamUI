@@ -6,6 +6,7 @@
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.current-user :as current-user]
+            [slipstream.ui.models.pagination :as pagination]
             [slipstream.ui.models.dashboard :as dashboard]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.base :as base]))
@@ -36,15 +37,17 @@
 (def ^:private spinner-icon
   (ue/blank-node :span :class "glyphicon glyphicon-refresh ss-subsection-content-spinner"))
 
-(ue/def-blank-snippet ^:private dynamic-cloud-subsection-content-snip :div
+(ue/def-blank-snippet ^:private dynamic-cloud-subsection-content-snip [:div :div]
   [metadata-key cloud-name]
-  ue/this (html/add-class "ss-dynamic-content-subsection")
-  ue/this (ue/set-data :content-load-url (format "/%s?cloud=%s&offset=0&limit=20"
-                                                 ({::vms "vms"
-                                                   ::runs "run"} metadata-key)
-                                                 cloud-name))
-  ue/this (ue/set-id (name metadata-key) "-" cloud-name)
-  ue/this (html/content spinner-icon))
+  ue/this     (html/add-class "ss-dynamic-subsection")
+  [:div :div] (html/add-class "ss-dynamic-subsection-content")
+  ue/this     (ue/set-data :content-load-url (format "/%s?cloud=%s&offset=0&limit=%s"
+                                                     ({::vms "vms"
+                                                       ::runs "run"} metadata-key)
+                                                     cloud-name
+                                                     pagination/items-per-page))
+  ue/this     (ue/set-id (name metadata-key) "-" cloud-name)
+  [:div :div] (html/content spinner-icon))
 
 (defn- cloud-subsection
   [metadata-key cloud-name]

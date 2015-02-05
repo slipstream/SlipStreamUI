@@ -1086,6 +1086,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         categoryStyle: {
+            transparent:{
+                backgroundColor:    "rgba(255, 255, 255,  .0)"
+            },
             // From Bootstrap classes
             info:{
                 color:              "rgba( 36,  82, 105, 1.0)", // .text-info:hover
@@ -1157,19 +1160,22 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                      });
         },
 
-        updateContent: function(contentGetterFn, contentSetterFn, newContent, todoIfUpdated, callbackIfUpdated) {
+        updateContent: function(contentGetterFn, contentSetterFn, newContent, todoIfUpdatedArg, callbackIfUpdated) {
             // NOTE: Refer to 'updateWith()', 'updateHTML()' and 'updateText()' below.
-            // todoIfUpdated is an object with '{flashClosestSel: "tr", flashCategory: "danger"}'
+            // todoIfUpdatedArg is an object with '{flash: true, flashClosestSel: "tr", flashCategory: "danger"}'
             // to indicate what element to flash (and how) if 'this' was actually changed.
             // In that case, 'callbackIfUpdated' is also called, and receives the new content as argument.
-            // In both 'todoIfUpdated' and 'callbackIfUpdated' have no effect if the 'newContent' is the
+            // In both 'todoIfUpdatedArg' and 'callbackIfUpdated' have no effect if the 'newContent' is the
             // same as the original content.
-            var $originalElem = this,
-                $newElem = this,
-                originalContent     = contentGetterFn.call($originalElem),
-                shouldUpdateContent = (originalContent != newContent),
-                shouldVisuallyHighlightUpdate = true,
-                fadeDuration        = 200;
+            var $originalElem           = this,
+                $newElem                = this,
+                originalContent         = contentGetterFn.call($originalElem),
+                shouldUpdateContent     = (originalContent != newContent),
+                todoIfUpdatedOptions    = $.isPlainObject(todoIfUpdatedArg) ? todoIfUpdatedArg : {},
+                todoIfUpdatedDefaults   = {flash: true, flashCategory: "info", flashDuration: 400},
+                todoIfUpdated           = $.extend(todoIfUpdatedDefaults, todoIfUpdatedOptions),
+                fadeDuration            = todoIfUpdated.flashDuration / 2,
+                shouldVisuallyHighlightUpdate = true;
             if (newContent instanceof jQuery) {
                 if (! (originalContent instanceof jQuery)) {
                     throw "'contentGetterFn' should return a jQuery element if 'newContent' is a jQuery element.";
@@ -1180,8 +1186,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 .enableLiveInputValidation();
                 // enable dynamic Bootstrap elements before comparing outerHTML, since attributes might change.
                 shouldUpdateContent = (newContent[0].outerHTML != originalContent[0].outerHTML);
-                shouldVisuallyHighlightUpdate = (newContent.text() != originalContent.text()) ||
-                                                (newContent.val() != originalContent.val());
+                shouldVisuallyHighlightUpdate = todoIfUpdated.flash &&
+                                                ((newContent.text() != originalContent.text()) ||
+                                                 (newContent.val() != originalContent.val()));
                 if (shouldVisuallyHighlightUpdate) {
                     $newElem.css("opacity", 0);
                 }
@@ -1196,13 +1203,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             $newElem
                                 .animate({opacity: originalOpacity}, fadeDuration, function (){
                                     $newElem.restoreInlineStyle($originalElem);
-                                    if ($.isPlainObject(todoIfUpdated)) {
-                                        var closestSel = todoIfUpdated.flashClosestSel,
-                                            $elemToFlash = closestSel ? $newElem.closest(closestSel) : $newElem;
-                                        $elemToFlash.flash(todoIfUpdated.flashCategory);
-                                    } else {
-                                        $newElem.flash();
-                                    }
+                                    var closestSel = todoIfUpdated.flashClosestSel,
+                                        $elemToFlash = closestSel ? $newElem.closest(closestSel) : $newElem;
+                                    $elemToFlash.flash(todoIfUpdated.flashCategory);
                                     if ($.isFunction(callbackIfUpdated)) {
                                         callbackIfUpdated.call($newElem, newContent, originalContent);
                                     }
@@ -1585,6 +1588,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 }
             }
         }
+        // Create deparam() function from http://stackoverflow.com/questions/1131630/the-param-inverse-function-in-javascript-jquery
     };
 
     util.meta = {

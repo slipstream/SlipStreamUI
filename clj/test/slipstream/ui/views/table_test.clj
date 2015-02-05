@@ -92,7 +92,8 @@
    :cell/inner-table        [:content/any                             ]
    :cell/multi              [:content/any                             ]
    :cell/action-button      [             :content/map                ]
-   :cell/blank              [:content/any                             ]})
+   :cell/blank              [:content/any                             ]
+   :cell/pagination         [:content/any                             ]})
 
 
 (expect

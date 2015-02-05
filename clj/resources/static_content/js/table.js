@@ -88,4 +88,29 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $(".ss-toggle-btn").bsEnableToggleButton();
 
+    var paginationActionCls = "ss-pagination-action",
+        paginationActionSel = paginationActionCls.asSel();
+
+    // Enable pagination
+    $("body").on("click", paginationActionSel, function(e){
+        var $this   = $(this),
+            params  = $this.data("pagination-params") || {},
+            $dynamicContentElem = $this.closest(".ss-dynamic-subsection"),
+            contentLoadUrl      = $dynamicContentElem.data("content-load-url"),
+            newContentLoadUrl   = contentLoadUrl
+                                        .replace(/offset=\d+/, "offset=" + params.offset)
+                                        .replace(/limit=\d+/, "limit=" + params.limit);
+        $this
+            .parent()
+                .find(paginationActionSel)
+                    .removeClass(paginationActionCls);
+        $this
+            .addClass("ss-icon-loading");
+        $dynamicContentElem.data("content-load-url", newContentLoadUrl);
+
+        // Trigger shown event on open subsection
+        $$.subsection.triggerOnShowOnOpenSubsection(); // TODO: Make it an event from the $dynamicContentElem, not from the subsection
+    });
+
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

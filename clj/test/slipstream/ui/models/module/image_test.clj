@@ -276,8 +276,8 @@
 
    :runs {:pagination {:offset 0
                        :limit 20
-                       :count 2
-                       :total-count 2
+                       :count-shown 2
+                       :count-total 2
                        :cloud-name nil}
           :runs [{:cloud-names "interoute"
                   :abort-msg nil
