@@ -54,7 +54,7 @@
                       :limit   limit}
      :next-page      {:offset  (+ offset limit)
                       :limit   limit}
-     :last-page      {:offset  (-> limit (mod count-total) inc (* limit))
+     :last-page      {:offset  (->> limit (quot (dec count-total)) (* limit))
                       :limit   limit}
      :show-all       {:offset  0
                       :limit   (inc count-total)}}
