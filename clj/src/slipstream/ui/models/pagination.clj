@@ -13,10 +13,10 @@
 
 (defn- parse-pagination
   [attrs]
-  {:offset      (-> attrs :offset uc/parse-pos-int)
-   :limit       (-> attrs :limit uc/parse-pos-int)
-   :count-shown (-> attrs :count uc/parse-pos-int)
-   :count-total (-> attrs :totalCount uc/parse-pos-int)
+  {:offset      (-> attrs :offset uc/parse-pos-int (or 0))
+   :limit       (-> attrs :limit uc/parse-pos-int (or 0))
+   :count-shown (-> attrs :count uc/parse-pos-int (or 0))
+   :count-total (-> attrs :totalCount uc/parse-pos-int (or 0))
    :cloud-name  (-> attrs :cloud)})
 
 (defn parse
