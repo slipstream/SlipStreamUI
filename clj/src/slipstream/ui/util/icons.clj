@@ -67,7 +67,7 @@
 (deficon action-build           build)
 (deficon action-import          "floppy-open")
 (deficon action-edit            "pencil")
-(deficon action-copy            "repeat")
+(deficon action-copy            "duplicate")
 (deficon action-publish         "eye-open")
 (deficon action-unpublish       "eye-close")
 (deficon action-log-out         "log-out")
