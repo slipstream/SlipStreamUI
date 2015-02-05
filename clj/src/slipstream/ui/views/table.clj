@@ -8,7 +8,8 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
-            [slipstream.ui.util.current-user :as current-user]))
+            [slipstream.ui.util.current-user :as current-user]
+            [slipstream.ui.models.pagination :as pagination]))
 
 (localization/def-scoped-t)
 
@@ -676,64 +677,14 @@
            ue/this (ue/enable-class hidden? "hidden")
            ue/this (html/content (map cell-snip cells))))
 
-(defn- pagination-type
-  [first-item last-item count-shown count-total]
-  (cond
-    (= 1 count-shown count-total)     :showing-one
-    (= 1 count-shown first-item)      :showing-first-from-many
-    (and
-      (= 1 count-shown)
-      (= count-total last-item))      :showing-last-from-many
-    (= 1 count-shown)                 :showing-one-from-many
-    (= count-shown count-total)       :showing-all
-    ; (<= count-total (+ 5 count-shown)) :showing-almost-all ;; NOTE: Outcommented until the server allow to a limit above 20
-    (= count-shown last-item)         :showing-first-n-from-many
-    (= count-total last-item)         :showing-last-n-from-many
-    (= 2 count-shown)                 :showing-two-from-many
-    :else                             :showing-range))
-
-(defn- pagination-params
-  [pagination-type offset limit count-total]
-  (select-keys
-    {:first-page     {:offset  0
-                      :limit   limit}
-     :previous-page  {:offset  (- offset limit)
-                      :limit   limit}
-     :next-page      {:offset  (+ offset limit)
-                      :limit   limit}
-     :last-page      {:offset  (-> limit (mod count-total) inc (* limit))
-                      :limit   limit}
-     :show-all       {:offset  0
-                      :limit   (inc count-total)}}
-    (case pagination-type
-      :showing-one                []
-      :showing-first-from-many    [:next-page :last-page]
-      :showing-last-from-many     [:first-page :previous-page]
-      :showing-one-from-many      [:first-page :previous-page :next-page :last-page]
-      :showing-all                []
-      :showing-almost-all         [:show-all]
-      :showing-first-n-from-many  [:next-page :last-page]
-      :showing-last-n-from-many   [:first-page :previous-page]
-      :showing-two-from-many      [:first-page :previous-page :next-page :last-page]
-      :showing-range              [:first-page :previous-page :next-page :last-page])))
-
-(defn- pagination-cell-content
-  [{:keys [offset limit count-shown count-total]}]
-  (let [first-item  (inc offset)
-        last-item   (+ offset count-shown)
-        pagination-type (pagination-type first-item last-item count-shown count-total)
-        pagination-msg-key (->> pagination-type name (str "pagination.msg.") keyword)
-        pagination-msg (t pagination-msg-key count-shown first-item last-item count-total)]
-    {:msg     pagination-msg
-     :params  (pagination-params pagination-type offset limit count-total)}))
-
 (defn- rows-with-pagination
   [{:keys [pagination headers rows] :as table}]
   (let [num-of-cols (count headers)
+        {:keys [msg params]} (pagination/info pagination)
         pagination-info-row {:cells [{:type :cell/pagination
-                                      :content (merge
-                                                 {:colspan num-of-cols}
-                                                 (pagination-cell-content pagination))}]}]
+                                      :content {:colspan  num-of-cols
+                                                :msg      msg
+                                                :params   params}}]}]
     (concat rows [pagination-info-row])))
 
 (defn- rows

@@ -317,16 +317,16 @@
 
                                                                           ;; Note: In following 'Showing...' strings, parameters are always
                                                                           ;;       %1$s: count-shown, %2$s: first-item, %3$s: last-item, %4$s: count-total
-   :slipstream.ui.views.table.pagination.msg.showing-one                  "Il y a seulement un item."
-   :slipstream.ui.views.table.pagination.msg.showing-first-from-many      "Premier item parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-last-from-many       "Dernier item parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-one-from-many        "Item %2$s parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-all                  "La totalité des %4$s items."
-   :slipstream.ui.views.table.pagination.msg.showing-almost-all           "%1$s items parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-first-n-from-many    "Premiers %1$s items parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-last-n-from-many     "Derniers %1$s items parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-two-from-many        "Items %2$s et %3$s parmis un total de %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-range                "%1$s items (du %2$s au %3$s) parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-one                       "Il y a seulement un item."
+   :slipstream.ui.models.pagination.msg.showing-first-from-many           "Premier item parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-last-from-many            "Dernier item parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-one-from-many             "Item %2$s parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-all                       "La totalité des %4$s items."
+   :slipstream.ui.models.pagination.msg.showing-almost-all                "%1$s items parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-first-n-from-many         "Premiers %1$s items parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-last-n-from-many          "Derniers %1$s items parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-two-from-many             "Items %2$s et %3$s parmis un total de %4$s."
+   :slipstream.ui.models.pagination.msg.showing-range                     "%1$s items (du %2$s au %3$s) parmis un total de %4$s."
 
    :slipstream.ui.views.table.pagination.action.tooltip.first-page        "Première page"
    :slipstream.ui.views.table.pagination.action.tooltip.previous-page     "Page précendente"

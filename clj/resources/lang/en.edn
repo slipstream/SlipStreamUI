@@ -319,16 +319,16 @@
 
                                                                           ;; Note: In following 'Showing...' strings, parameters are always
                                                                           ;;       %1$s: count-shown, %2$s: first-item, %3$s: last-item, %4$s: count-total
-   :slipstream.ui.views.table.pagination.msg.showing-one                  "There is only one item."
-   :slipstream.ui.views.table.pagination.msg.showing-first-from-many      "Showing first item from a total of %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-last-from-many       "Showing last item from a total of %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-one-from-many        "Showing item %2$s from a total of %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-all                  "Showing all %4$s items."
-   :slipstream.ui.views.table.pagination.msg.showing-almost-all           "Showing %1$s items from %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-first-n-from-many    "Showing first %1$s items from a total of %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-last-n-from-many     "Showing last %1$s items from a total of %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-two-from-many        "Showing items %2$s and %3$s from a total of %4$s."
-   :slipstream.ui.views.table.pagination.msg.showing-range                "Showing %1$s items (from %2$s to %3$s) from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-one                       "There is only one item."
+   :slipstream.ui.models.pagination.msg.showing-first-from-many           "Showing first item from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-last-from-many            "Showing last item from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-one-from-many             "Showing item %2$s from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-all                       "Showing all %4$s items."
+   :slipstream.ui.models.pagination.msg.showing-almost-all                "Showing %1$s items from %4$s."
+   :slipstream.ui.models.pagination.msg.showing-first-n-from-many         "Showing first %1$s items from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-last-n-from-many          "Showing last %1$s items from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-two-from-many             "Showing items %2$s and %3$s from a total of %4$s."
+   :slipstream.ui.models.pagination.msg.showing-range                     "Showing %1$s items (from %2$s to %3$s) from a total of %4$s."
 
    :slipstream.ui.views.table.pagination.action.tooltip.first-page        "Show first page"
    :slipstream.ui.views.table.pagination.action.tooltip.previous-page     "Show previous page"
