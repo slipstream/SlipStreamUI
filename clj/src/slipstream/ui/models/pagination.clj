@@ -6,7 +6,7 @@
 
 (def items-per-page
   "Default value."
-  25)
+  20)
 
 (defn- parse-pagination
   [attrs]
