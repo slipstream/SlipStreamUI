@@ -52,8 +52,8 @@
 .ss-run-overview .dashboard-node:before {
     /*In FontAwesome: icon-th*/
     /* content: "\f00a"; */
-    /*In Glyphicons: glyphicon-unchecked*/
-    content: "\e157";
+    /*In Glyphicons: .glyphicon-modal-window */
+    content: "\e237";
 }
 
 .ss-run-overview .dashboard-ok:before {

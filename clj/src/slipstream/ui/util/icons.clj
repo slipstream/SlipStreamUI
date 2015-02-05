@@ -55,7 +55,7 @@
 (deficon image-run              image)
 (deficon image-build            build)
 (deficon run                    deployment)
-(deficon node                   "unchecked")
+(deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
 (deficon documentation          "book")
