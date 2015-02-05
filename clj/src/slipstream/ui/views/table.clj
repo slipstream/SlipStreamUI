@@ -686,7 +686,7 @@
       (= count-total last-item))      :showing-last-from-many
     (= 1 count-shown)                 :showing-one-from-many
     (= count-shown count-total)       :showing-all
-    (< count-total (* 2 count-shown)) :showing-almost-all
+    ; (<= count-total (+ 5 count-shown)) :showing-almost-all ;; NOTE: Outcommented until the server allow to a limit above 20
     (= count-shown last-item)         :showing-first-n-from-many
     (= count-total last-item)         :showing-last-n-from-many
     (= 2 count-shown)                 :showing-two-from-many
