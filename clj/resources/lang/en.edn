@@ -418,6 +418,9 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
+   :slipstream.ui.models.parameters.module-owner.description                    "Module owner"
+   :slipstream.ui.models.parameters.module-owner.help-hint                      "The username of the the owner of the deployed module."
+
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Inherit group members from parent module?"
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 

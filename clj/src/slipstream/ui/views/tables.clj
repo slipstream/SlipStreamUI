@@ -152,6 +152,7 @@
       ;       types (e.g. :value) would simplify this code
       :cell/textarea  (assoc value-base :text      value)
       :cell/text      (assoc value-base :text      value)
+      :cell/username  (assoc value-base :username  value)
       :cell/timestamp (assoc value-base :timestamp value)
       :cell/set       (assoc value-base :set       value)
       :cell/email     (assoc value-base :email     value)
@@ -246,7 +247,7 @@
       :creation       {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
       :publication    {:type :cell/timestamp-long,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
       :last-modified  {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
-      :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?)}
+      :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?), :id-format-fn (constantly "username")}
       :logo-url       {:type :cell/text
                        :remove? (page-type/view?)
                        :id-format-fn (constantly "logoLink")
@@ -651,8 +652,9 @@
   (parameters-table
     (p/map->parameter-list run
       :module-uri         {:type :cell/url}
+      :module-owner       {:type :cell/username :id-format-fn (constantly "module-owner-username")}
       :category           {:type :cell/text}
-      :user               {:type :cell/username}
+      :user               {:type :cell/username, :id-format-fn (constantly "username")}
       :start-time         {:type :cell/timestamp-long}
       :end-time           {:type :cell/timestamp-long}
       :state              {:type :cell/text}

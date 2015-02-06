@@ -56,7 +56,7 @@
      :localized-type(-> attrs :type run-type-localization-mapping)
      :type          (-> attrs :type run-type-mapping)
      :uri           (-> attrs :resourceUri)
-     :module-owner  (-> metadata (html/select [:authz]) first :attrs :owner)
+     :module-owner  (-> metadata (html/select [:module :authz]) first :attrs :owner)
      :module-uri    (-> attrs :moduleResourceUri)
      :last-state-change (-> attrs :lastStateChangeTime)}))
 

@@ -417,6 +417,9 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
+   :slipstream.ui.models.parameters.module-owner.description                    "Propriétaire du module"
+   :slipstream.ui.models.parameters.module-owner.help-hint                      "Nom d'utilisateur du propriétaire du module déployé."
+
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Hériter les membres du groupe du module parent."
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          ""
 
