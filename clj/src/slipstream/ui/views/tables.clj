@@ -35,11 +35,11 @@
 (defn- welcome-project-row
   [{:keys [name uri description owner version] :as welcome-project}]
   {:style nil
-   :cells [{:type :cell/icon, :content icons/project}
-           {:type :cell/link, :content {:text name, :href uri}}
-           {:type :cell/text, :content description}
-           {:type :cell/text, :content owner}
-           {:type :cell/text, :content version}]})
+   :cells [{:type :cell/icon,     :content icons/project}
+           {:type :cell/link,     :content {:text name, :href uri}}
+           {:type :cell/text,     :content description}
+           {:type :cell/username, :content owner}
+           {:type :cell/text,     :content version}]})
 
 (defn welcome-projects-table
   [welcome-projects]
