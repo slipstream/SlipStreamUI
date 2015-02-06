@@ -10,19 +10,20 @@
 (defn- str-pattern
   [pattern-key]
   (case pattern-key
-    :not-empty                   ".+"
-    :alpha-num                   "^[a-zA-Z0-9]+$"
-    :alpha-num-underscore        "^\\w+$"
-    :alpha-num-underscore-dash   "^[\\w-]+$"
-    :not-new                     "^(?!new$).*$" ; Other than the string 'new'.
-    :not-include-username        (str "^((?!" (current-user/username) ").)*$") ; Does not contain username.
-    :begin-with-letter           "^[a-zA-Z]"    ; Matches "asd..." but not "1asd..."
-    :min-3-chars                 ".{3}"
-    :min-6-chars                 ".{6}"
-    :url                         "^https?://\\w+"
-    :picture-file                "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
-    :comma-separated-words       "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
-    :dot-separated-words         "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
+    :not-empty                      ".+"
+    :alpha-num                      "^[a-zA-Z0-9]+$"
+    :alpha-num-underscore           "^\\w+$"
+    :alpha-num-underscore-dash      "^[\\w-]+$"
+    :alpha-num-underscore-dash-dot  "^[\\w.-]+$"
+    :not-new                        "^(?!new$).*$" ; Other than the string 'new'.
+    :not-include-username           (str "^((?!" (current-user/username) ").)*$") ; Does not contain username.
+    :begin-with-letter              "^[a-zA-Z]"    ; Matches "asd..." but not "1asd..."
+    :min-3-chars                    ".{3}"
+    :min-6-chars                    ".{6}"
+    :url                            "^https?://\\w+"
+    :picture-file                   "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
+    :comma-separated-words          "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
+    :dot-separated-words            "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
     ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
     ;       format of email address is so complex, that the only real way to
     ;       validate it is to send it an email. ;)
@@ -57,7 +58,7 @@
    :last-name     [:not-empty]
 
    :module-name   [:not-empty
-                   :alpha-num-underscore-dash
+                   :alpha-num-underscore-dash-dot
                    :not-new
                    :begin-with-letter]
 

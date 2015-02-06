@@ -515,6 +515,7 @@
                                         :not-empty                              "Ne peut pas être vide"
                                         :alpha-num-underscore                   "Caractères autorisés: 0-9 a-z A-Z _"
                                         :alpha-num-underscore-dash              "Caractères autorisés: 0-9 a-z A-Z _ -"
+                                        :alpha-num-underscore-dash-dot          "Caractères autorisés: 0-9 a-z A-Z _ . -"
                                         :not-new                                "Cette valeur n'est pas nouvelle/existe déjà"
                                         :begin-with-letter                      "La valeur doit commencer par une lettre"
                                         :min-x-chars                            "Trop court"
@@ -539,7 +540,7 @@
    :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Fournir l'URL d'une image de type .png ou .jpg."
 
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-empty                  :pattern.default-error-help-hint.not-empty
-   :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash  :pattern.default-error-help-hint.alpha-num-underscore-dash
+   :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash-dot  :pattern.default-error-help-hint.alpha-num-underscore-dash-dot
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-new                    :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.module-name.begin-with-letter          :pattern.default-error-help-hint.begin-with-letter
 

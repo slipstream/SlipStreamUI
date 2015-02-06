@@ -515,8 +515,9 @@
    :pattern {
              :default-error-help-hint {
                                         :not-empty                              "Well, if you leave this blank..."
-                                        :alpha-num-underscore                   "Please use only [a-zA-Z0-9_]."
-                                        :alpha-num-underscore-dash              "Please use only [a-zA-Z0-9_-]."
+                                        :alpha-num-underscore                   "Please use only [a-zA-Z0-9_]"
+                                        :alpha-num-underscore-dash              "Please use only [a-zA-Z0-9_-]"
+                                        :alpha-num-underscore-dash-dot          "Please use only [a-zA-Z0-9_.-]"
                                         :not-new                                "Oh, this will confuse me..."
                                         :begin-with-letter                      "Please begin with a letter."
                                         :min-x-chars                            "Come on, a bit longer."
@@ -541,7 +542,7 @@
    :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Please provide a URL for a `.png` or `.jpg` image file."
 
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-empty                  :pattern.default-error-help-hint.not-empty
-   :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash  :pattern.default-error-help-hint.alpha-num-underscore-dash
+   :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash-dot  :pattern.default-error-help-hint.alpha-num-underscore-dash-dot
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-new                    :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.module-name.begin-with-letter          :pattern.default-error-help-hint.begin-with-letter
 
