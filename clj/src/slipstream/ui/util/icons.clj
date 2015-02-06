@@ -55,7 +55,7 @@
 (deficon image-run              image)
 (deficon image-build            build)
 (deficon run                    deployment)
-(deficon node                   "unchecked")
+(deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
 (deficon documentation          "book")
@@ -67,7 +67,7 @@
 (deficon action-build           build)
 (deficon action-import          "floppy-open")
 (deficon action-edit            "pencil")
-(deficon action-copy            "repeat")
+(deficon action-copy            "duplicate")
 (deficon action-publish         "eye-open")
 (deficon action-unpublish       "eye-close")
 (deficon action-log-out         "log-out")
