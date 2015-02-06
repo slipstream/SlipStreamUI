@@ -6,7 +6,7 @@
             [slipstream.ui.models.run :as model]))
 
 (def raw-metadata-str
-  "<run category=\"Deployment\" deleted=\"false\" resourceUri=\"run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d\" uuid=\"d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d\" type=\"Orchestration\" cloudServiceNames=\"CloudSigma-zrh\" state=\"Aborted\" moduleResourceUri=\"module/examples/tutorials/service-testing/system/72\" startTime=\"2014-09-24 00:12:43.287 CEST\" endTime=\"2014-09-24 00:20:06.517 CEST\" lastStateChangeTime=\"2014-09-24 00:20:06.517 CEST\" nodeNames=\"apache.1,testclient.1,orchestrator-CloudSigma-zrh\" user=\"super\" mutable=\"false\" creation=\"2014-09-24 00:12:43.287 CEST\" groups=\"CloudSigma-zrh:apache,CloudSigma-zrh:testclient\">
+  "<run category=\"Deployment\" deleted=\"false\" resourceUri=\"run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d\" uuid=\"d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d\" type=\"Orchestration\" cloudServiceNames=\"CloudSigma-zrh\" state=\"Aborted\" moduleResourceUri=\"module/examples/tutorials/service-testing/system/72\" startTime=\"2014-09-24 00:12:43.287 CEST\" endTime=\"2014-09-24 00:20:06.517 CEST\" lastStateChangeTime=\"2014-09-24 00:20:06.517 CEST\" nodeNames=\"apache.1,testclient.1,orchestrator-CloudSigma-zrh\" user=\"rob\" mutable=\"false\" creation=\"2014-09-24 00:12:43.287 CEST\" groups=\"CloudSigma-zrh:apache,CloudSigma-zrh:testclient\">
     <runtimeParameters class=\"org.hibernate.collection.internal.PersistentMap\">
         <entry>
             <string>
@@ -1488,14 +1488,14 @@
    :state "Aborted"
    :creation "2014-09-24 00:12:43.287 CEST"
    :module-uri "module/examples/tutorials/service-testing/system/72"
-   :owner "super"
+   :module-owner "super"
    :start-time "2014-09-24 00:12:43.287 CEST"
    :uri "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :uuid "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :type :deployment-run
    :localized-type "Deployment Run"
    :original-type "orchestration"
-   :user "super"
+   :user "rob"
    :category "Deployment"
    :tags ""
    :abort-msg "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."}

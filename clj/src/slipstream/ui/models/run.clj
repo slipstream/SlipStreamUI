@@ -44,7 +44,7 @@
      :end-time      (-> attrs :endTime)
      :deleted?      (-> attrs :deleted uc/parse-boolean)
      :mutable?      (-> attrs :mutable uc/parse-boolean)
-     :user          (-> attrs :user)
+     :user          (-> attrs :user) ;; NOTE: User who started the build (not module owner, see below)
      :state         (-> attrs :state)
      :status        (-> attrs :status)
      :counts        {:total-orchestrators total-orchestrators
@@ -56,7 +56,7 @@
      :localized-type(-> attrs :type run-type-localization-mapping)
      :type          (-> attrs :type run-type-mapping)
      :uri           (-> attrs :resourceUri)
-     :owner         (-> metadata (html/select [:authz]) first :attrs :owner)
+     :module-owner  (-> metadata (html/select [:authz]) first :attrs :owner)
      :module-uri    (-> attrs :moduleResourceUri)
      :last-state-change (-> attrs :lastStateChangeTime)}))
 

@@ -33,7 +33,7 @@
    :original-type "orchestration"
    :large-run? true
    :mutable? false
-   :owner "super"
+   :module-owner "super"
    :start-time "2015-01-19 12:31:18.869 CET"
    :uri "run/3a5b0160-547c-4c1a-b877-4498f9164ced"
    :abort-msg "sh: /usr/bin/nuvlabox-run-instances: Aucun fichier ou dossier de ce type"

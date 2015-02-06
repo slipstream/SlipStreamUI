@@ -33,7 +33,7 @@
    :original-type "orchestration"
    :large-run? true
    :mutable? false
-   :owner "rob"
+   :module-owner "rob"
    :start-time "2015-02-03 13:36:35.374 CET"
    :uri "run/07596eb7-f1f7-4e45-8561-5dbbc55cc817"
    :uuid "07596eb7-f1f7-4e45-8561-5dbbc55cc817"
