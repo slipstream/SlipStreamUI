@@ -80,7 +80,7 @@
    :cell/external-link      [             :content/map                ]
    :cell/email              [             :content/map  :content/plain]
    :cell/url                [             :content/map  :content/plain]
-   :cell/username           [                           :content/plain]
+   :cell/username           [             :content/map  :content/plain]
    :cell/icon               [:content/any                             ]
    :cell/module-version     [                           :content/plain]
    :cell/help-hint          [             :content/map                ]
@@ -451,14 +451,34 @@
   (cell-html {:type :cell/url, :content {:url rand-url, :id "the-id"}}))
 
 (expect
-  "<td class=\"ss-table-cell-link\"><a id=\"username\" href=\"/user/testusername\">testusername</a></td>"
+  "<td class=\"ss-table-cell-link\"><a href=\"/user/testusername\">testusername</a></td>"
   (current-user/with-user {:super? true}
     (cell-html {:type :cell/username, :content "testusername"})))
 
 (expect
-  "<td id=\"username\" class=\"ss-table-cell-text\">testusername</td>"
+  "<td class=\"ss-table-cell-text\">testusername</td>"
   (current-user/with-user {:super? false}
     (cell-html {:type :cell/username, :content "testusername"})))
+
+(expect
+  "<td class=\"ss-table-cell-link\"><a href=\"/user/testusername\">testusername</a></td>"
+  (current-user/with-user {:super? true}
+    (cell-html {:type :cell/username, :content {:username "testusername"}})))
+
+(expect
+  "<td class=\"ss-table-cell-text\">testusername</td>"
+  (current-user/with-user {:super? false}
+    (cell-html {:type :cell/username, :content {:username "testusername"}})))
+
+(expect
+  "<td class=\"ss-table-cell-link\"><a id=\"some-id\" href=\"/user/testusername\">testusername</a></td>"
+  (current-user/with-user {:super? true}
+    (cell-html {:type :cell/username, :content {:username "testusername" :id "some-id"}})))
+
+(expect
+  "<td id=\"some-id\" class=\"ss-table-cell-text\">testusername</td>"
+  (current-user/with-user {:super? false}
+    (cell-html {:type :cell/username, :content {:username "testusername" :id "some-id"}})))
 
 
 ;; Icon cell

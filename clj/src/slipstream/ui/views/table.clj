@@ -583,8 +583,13 @@
   (cell-text-snip-edit {:text url}))
 
 (defmethod cell-snip [:cell/username :mode/any :content/plain]
-  [{username :content}]
-  (let [content-base {:text username, :id "username"}]
+  [{username :content :as cell}]
+  (cell-snip (assoc cell :content {:username username})))
+
+(defmethod cell-snip [:cell/username :mode/any :content/map]
+  [{content :content}]
+  (let [username (:username content)
+        content-base (assoc content :text username)]
     (if (or
           (current-user/not-super?) ; Regular users do not have access to profiles other than their own.
           (page-type/chooser?))     ; We don't want to be able to link outside of the chooser scope.
