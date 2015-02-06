@@ -878,7 +878,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 stateIcons = {
                     success:    "glyphicon-ok",
                     validating: "glyphicon-refresh",
-                    warning:    "glyphicon-warning-sign",
+                    warning:    "glyphicon-alert",
                     error:      "glyphicon-remove"
                 },
                 allowedStateStrings = Object.keys(stateIcons),
