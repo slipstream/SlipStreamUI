@@ -11,6 +11,7 @@
   [pattern-key]
   (case pattern-key
     :not-empty                      ".+"
+    :positive-integer               "^[0-9]+$"
     :alpha-num                      "^[a-zA-Z0-9]+$"
     :alpha-num-underscore           "^\\w+$"
     :alpha-num-underscore-dash      "^[\\w-]+$"
@@ -76,6 +77,10 @@
                    :alpha-num-underscore
                    :not-new
                    :begin-with-letter]
+
+   :multiplicity  [:positive-integer]
+
+   :max-provisioning-failures [:positive-integer]
 
    :user-password [:not-empty
                    :not-include-username

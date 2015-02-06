@@ -287,13 +287,15 @@
    :slipstream.ui.views.table.header.run-id                   "Id du Run"
    :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
 
-   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label             "Image de référence"
-   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label        "Multiplicité par défaut"
-   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.label                "Multiplicité"
-   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label   "Nombre maximal d'erreurs accepté"
-   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label               "Cloud par défaut"
-   :slipstream.ui.views.tables.deployment-nodes-table.cloud.label                       "Cloud"
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label          "Liaisons de paramètres"
+   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Image de référence"
+   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Multiplicité par défaut"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.label                          "Multiplicité"
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Nombre maximal d'erreurs accepté"
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "Ceci doit être une valeur inférieure à la multiplicité ci-dessus."
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "Cela semble une grande tolérance. Assurez-vous que cela a du sense pour ce déploiement."
+   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label                         "Cloud par défaut"
+   :slipstream.ui.views.tables.deployment-nodes-table.cloud.label                                 "Cloud"
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label                    "Liaisons de paramètres"
 
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.input                  "Le paramètre `%1$s`"          ; %1$s = input parameter name
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output        "est lié à `%1$s`." ; %1$s = input parameter value
@@ -516,6 +518,7 @@
    :pattern {
              :default-error-help-hint {
                                         :not-empty                              "Ne peut pas être vide"
+                                        :positive-integer                       "Ceci doit être un entier positif."
                                         :alpha-num-underscore                   "Caractères autorisés: 0-9 a-z A-Z _"
                                         :alpha-num-underscore-dash              "Caractères autorisés: 0-9 a-z A-Z _ -"
                                         :alpha-num-underscore-dash-dot          "Caractères autorisés: 0-9 a-z A-Z _ . -"
@@ -572,6 +575,10 @@
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.dot-separated-words     :pattern.default-error-help-hint.dot-separated-words
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-new                 :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.begin-with-letter       :pattern.default-error-help-hint.begin-with-letter
+
+   :slipstream.ui.util.pattern.error-help-hint.multiplicity.positive-integer              :pattern.default-error-help-hint.positive-integer
+
+   :slipstream.ui.util.pattern.error-help-hint.max-provisioning-failures.positive-integer :pattern.default-error-help-hint.positive-integer
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Choisir un projet (pas une image ou un déploiement) où copier ce/cette %1$s dans la barre de navigation ci-dessus." ; %1$s: module category ;
 
