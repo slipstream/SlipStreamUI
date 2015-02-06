@@ -574,6 +574,10 @@
               {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
                                                        :min-value 1
                                                        :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
+     {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
+              {:type :cell/positive-number,  :content {:value 0
+                                                       :min-value 0
+                                                       :id (format "parameter--node--%s--max-provisioning-failures" (:name deployment-node))}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :default-cloud.label)}
               {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
                                                        :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])

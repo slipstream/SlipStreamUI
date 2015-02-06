@@ -7,7 +7,7 @@
 
 (def raw-metadata-str
   "<deploymentModule category=\"Deployment\" creation=\"2014-11-21 15:59:48.282 UTC\" deleted=\"false\" description=\"Testing how to create a deployment\" isLatestVersion=\"true\" lastModified=\"2014-11-24 15:57:48.882 UTC\" logoLink=\"\" parentUri=\"module/EBU_TTF/test-ui\" shortName=\"deployment-test\" version=\"612\">
-    <authz groupCreateChildren=\"false\" groupDelete=\"false\" groupGet=\"false\" groupPost=\"false\" groupPut=\"false\" inheritedGroupMembers=\"true\" owner=\"rob\" ownerCreateChildren=\"true\" ownerDelete=\"true\" ownerGet=\"true\" ownerPost=\"true\" ownerPut=\"true\" publicCreateChildren=\"false\" publicDelete=\"false\" publicGet=\"false\" publicPost=\"false\" publicPut=\"false\">
+    <authz groupCreateChildren=\"false\" groupDelete=\"false\" groupGet=\"false\" groupPost=\"true\" groupPut=\"false\" inheritedGroupMembers=\"true\" owner=\"rob\" ownerCreateChildren=\"true\" ownerDelete=\"true\" ownerGet=\"true\" ownerPost=\"true\" ownerPut=\"true\" publicCreateChildren=\"false\" publicDelete=\"false\" publicGet=\"false\" publicPost=\"true\" publicPut=\"false\">
         <groupMembers class='java.util.ArrayList'>
             <string>meb</string>
             <string>konstan</string>
@@ -411,9 +411,9 @@
                                     :put {:owner-access? true
                                           :public-access? false
                                           :group-access? false}
-                                    :post {:group-access? false
+                                    :post {:group-access? true
                                            :owner-access? true
-                                           :public-access? false}
+                                           :public-access? true}
                                     :get {:group-access? false
                                           :public-access? false
                                           :owner-access? true}}

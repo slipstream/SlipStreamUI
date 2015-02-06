@@ -287,10 +287,11 @@
    :slipstream.ui.views.table.header.run-id                   "Id du Run"
    :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
 
-   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label       "Image de référence"
-   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label  "Multiplicité par défaut"
-   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label         "Cloud par défaut"
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label    "Liaisons de paramètres"
+   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label             "Image de référence"
+   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label        "Multiplicité par défaut"
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label   "Nombre maximal d'erreurs accepté"
+   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label               "Cloud par défaut"
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label          "Liaisons de paramètres"
 
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.input                  "Le paramètre `%1$s`"          ; %1$s = input parameter name
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output        "est lié à `%1$s`." ; %1$s = input parameter value
