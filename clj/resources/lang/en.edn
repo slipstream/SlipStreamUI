@@ -292,7 +292,7 @@
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.label                          "Multiplicity"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Max provisioning failures"
-   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "It must be an value smaller than the multiplicity above."
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "It must be a value smaller than the multiplicity above."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "This looks like a big tolerance. Please make sure that this makes sense for this deployment."
    :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label                         "Default cloud"
    :slipstream.ui.views.tables.deployment-nodes-table.cloud.label                                 "Cloud"
