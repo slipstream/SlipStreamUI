@@ -40,7 +40,7 @@
    :uuid "3a5b0160-547c-4c1a-b877-4498f9164ced"
    :type :deployment-run
    :localized-type "Deployment Run"
-   :user "super"
+   :run-owner "super"
    :category "Deployment"
    :tags ""}
   (-> parsed-metadata

@@ -80,7 +80,7 @@
                   :original-type
                   (str "." (when-not mutable? "not-") "mutable"))
         relative-start-timestamp (ut/format :relative (:start-time summary))]
-    (t t-key (:user summary) relative-start-timestamp)))
+    (t t-key (:run-owner summary) relative-start-timestamp)))
 
 (defn- ss-abort-alert
   [run]

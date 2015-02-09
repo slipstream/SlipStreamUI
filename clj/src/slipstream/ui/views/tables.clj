@@ -651,10 +651,10 @@
   [run]
   (parameters-table
     (p/map->parameter-list run
+      :run-owner          {:type :cell/username, :id-format-fn (constantly "username")}
       :module-uri         {:type :cell/url}
       :module-owner       {:type :cell/username :id-format-fn (constantly "module-owner-username")}
       :category           {:type :cell/text}
-      :user               {:type :cell/username, :id-format-fn (constantly "username")}
       :start-time         {:type :cell/timestamp-long}
       :end-time           {:type :cell/timestamp-long}
       :state              {:type :cell/text}

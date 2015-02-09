@@ -44,7 +44,7 @@
      :end-time      (-> attrs :endTime)
      :deleted?      (-> attrs :deleted uc/parse-boolean)
      :mutable?      (-> attrs :mutable uc/parse-boolean)
-     :user          (-> attrs :user) ;; NOTE: User who started the build (not module owner, see below)
+     :run-owner     (-> attrs :user) ;; NOTE: User who started the build (for module owner, see below)
      :state         (-> attrs :state)
      :status        (-> attrs :status)
      :counts        {:total-orchestrators total-orchestrators
