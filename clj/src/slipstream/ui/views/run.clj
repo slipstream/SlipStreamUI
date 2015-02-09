@@ -4,6 +4,7 @@
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.time :as ut]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]
@@ -76,11 +77,13 @@
   [run]
   (let [summary (:summary run)
         mutable? (:mutable? summary)
+        run-owner (:run-owner summary)
         t-key (-> summary
                   :original-type
-                  (str "." (when-not mutable? "not-") "mutable"))
+                  (str "." (when-not mutable? "not-") "mutable")
+                  (str (when (current-user/is? run-owner) ".own-run")))
         relative-start-timestamp (ut/format :relative (:start-time summary))]
-    (t t-key (:run-owner summary) relative-start-timestamp)))
+    (t t-key run-owner relative-start-timestamp)))
 
 (defn- ss-abort-alert
   [run]
