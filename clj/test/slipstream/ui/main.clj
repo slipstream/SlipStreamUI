@@ -66,6 +66,7 @@
     ["documentation"]         (render :pagename "documentation")
 
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
+    ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 
     ["service_catalog"]       (render :pagename "service_catalog" :raw-metadata-ns "service-catalog")
