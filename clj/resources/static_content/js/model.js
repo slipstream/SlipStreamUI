@@ -450,10 +450,18 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         $('.ss-header-subtitle').html($('.ss-header-subtitle', lastRefreshData).html());
                     },
 
+                    handleAbort: function(){
+                        var abortMessage = $("[id^='parameter-ss:abort']", lastRefreshData);
+                        if (! $$.util.string.isEmpty(abortMessage.text())) {
+                            $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + abortMessage.html());
+                        }
+                    },
+
                     processRunHTML: function() {
                         var newState = $("#state", lastRefreshData).text();
                         runModel.setState(newState);
                         runModel.updateSubTitle();
+                        runModel.handleAbort();
                         $("tr")
                             .find("[id]")
                                 .not("#state, [id^='parameter-ss:state']") // State is already set up above
@@ -462,10 +470,6 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                             var $this = $(this);
                                             var id = runModel.escapeId($this.id());
                                             var newElem = $("#"+id, lastRefreshData);
-
-                                            if ($this.is("[id^='parameter-ss:abort']") && ! $$.util.string.isEmpty(newElem.text())) {
-                                                $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + newElem.html());
-                                            }
 
                                             $this.updateWith(newElem, {flashClosestSel: "tr"});
                                         });
