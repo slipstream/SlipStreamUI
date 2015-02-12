@@ -136,16 +136,24 @@
                (id-format-fn k-name)
                k-name)])))
 
+(defn- validation-key
+  [field-name]
+  (condp re-find field-name
+    #"\.ssh\.public\.key$" :ssh-public-keys
+    nil))
+
 (defn- value-of
   [{:keys [name value id-format-fn built-from-map? read-only? required? validation] :as parameter} cell-type row-index]
   (let [formatted-name (if (fn? id-format-fn)
                          (id-format-fn name)
                          (format "parameter-%s--%s--value" name row-index))
+        field-validation-key (validation-key name)
+        validation-default (when field-validation-key {:requirements (pattern/requirements field-validation-key)})
         value-base (cond-> {:id formatted-name
                             :row-index row-index
                             :read-only? read-only?
-                            :required? required?
-                            :validation validation}
+                            :required? (or required? (some-> validation-default :requirements pattern/requires-not-empty?))
+                            :validation (or validation validation-default)}
                       (not built-from-map?) (assoc :parameter parameter))]
     (case cell-type
       ; TODO: Using the same key for all cell

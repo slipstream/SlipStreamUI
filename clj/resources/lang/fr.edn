@@ -527,6 +527,7 @@
                                         :min-x-chars                            "Trop court"
                                         :comma-separated-words                  "Entrer uniquement des mots séparés par des virgules"
                                         :dot-separated-words                    "Entrer uniquement des mots séparés par des points"
+                                        :ssh-public-keys                        "La liste des clés publiques SSH semble incorrecte."
                                        }
              }
 
@@ -575,6 +576,9 @@
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.dot-separated-words     :pattern.default-error-help-hint.dot-separated-words
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-new                 :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.begin-with-letter       :pattern.default-error-help-hint.begin-with-letter
+
+   :slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.not-empty              "Vous devez fournir au moins une clé publique SSH."
+   :slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.ssh-public-keys        :pattern.default-error-help-hint.ssh-public-keys
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Choisir un projet (pas une image ou un déploiement) où copier ce/cette %1$s dans la barre de navigation ci-dessus." ; %1$s: module category ;
 
