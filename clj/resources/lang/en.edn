@@ -423,6 +423,12 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
+   :slipstream.ui.models.parameters.module-owner.description                    "Module owner"
+   :slipstream.ui.models.parameters.module-owner.help-hint                      "The owner of the deployed module."
+
+   :slipstream.ui.models.parameters.run-owner.description                       "Run owner"
+   :slipstream.ui.models.parameters.run-owner.help-hint                         "The user who started this run."
+
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Inherit group members from parent module?"
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 
@@ -904,11 +910,15 @@
    :slipstream.ui.views.run.large-run-alert.message         "This is a large run with a total of %1$s node instances. The overview diagram and the auto-refresh of the runtime parameters are disabled." ;; %1$s is total number of node instances.
 
    :slipstream.ui.views.run.machine.not-mutable             "Image build started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.machine.not-mutable.own-run     "Image build started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.run.not-mutable                 "Image run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.run.not-mutable.own-run         "Image run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.orchestration.not-mutable       "Deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.not-mutable.own-run "Deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.mutable           "Mutable deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable.own-run   "Mutable deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary

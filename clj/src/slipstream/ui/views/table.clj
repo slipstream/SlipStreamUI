@@ -583,13 +583,21 @@
   (cell-text-snip-edit {:text url}))
 
 (defmethod cell-snip [:cell/username :mode/any :content/plain]
-  [{username :content}]
-  (let [content-base {:text username, :id "username"}]
-    (if (or
-          (current-user/not-super?) ; Regular users do not have access to profiles other than their own.
-          (page-type/chooser?))     ; We don't want to be able to link outside of the chooser scope.
-      (cell-text-snip-view content-base)
-      (cell-link-snip-view (assoc content-base :href (u/user-uri username))))))
+  [{username :content :as cell}]
+  (cell-snip (assoc cell :content {:username username})))
+
+(defmethod cell-snip [:cell/username :mode/any :content/map]
+  [{content :content}]
+  (let [username (:username content)
+        content-base (assoc content :text username)
+        display-as-link? (and
+                           (page-type/not-chooser?)         ; We don't want to be able to link outside of the chooser scope.
+                           (or
+                             (current-user/super?)          ; Only super-users have access to all user profiles.
+                             (current-user/is? username)))] ; But for regular users it still makes sense to add the link to their own profile though.
+    (if display-as-link?
+      (cell-link-snip-view (assoc content-base :href (u/user-uri username)))
+      (cell-text-snip-view content-base))))
 
 (defmethod cell-snip [:cell/icon :mode/any :content/any]
   [{icon :content}]

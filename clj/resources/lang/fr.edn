@@ -422,6 +422,12 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
+   :slipstream.ui.models.parameters.module-owner.description                    "Propriétaire du module"
+   :slipstream.ui.models.parameters.module-owner.help-hint                      "Nom d'utilisateur du propriétaire du module déployé."
+
+   :slipstream.ui.models.parameters.run-owner.description                       :global.nouns.user
+   :slipstream.ui.models.parameters.run-owner.help-hint                         "Utilisateur qui a démarré ce déploiement."
+
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Hériter les membres du groupe du module parent."
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          ""
 
@@ -897,9 +903,13 @@
    :slipstream.ui.views.run.large-run-alert.message         "Cette exécution contient un total de %1$s instances de noeuds. L'aperçu ainsi que le rafraîshissement automatique des paramètres des noeuds sont donc désactivés." ;; %1$s is total number of node instances.
 
    :slipstream.ui.views.run.machine.not-mutable             "Image build lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.machine.not-mutable.own-run     "Image build lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.run.not-mutable                 "Image run lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.run.not-mutable.own-run         "Image run lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.not-mutable       "Exécution d'un déploiement lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.not-mutable.own-run "Exécution d'un déploiement lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.mutable           "Exécution d'un déploiement mutable lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable.own-run   "Exécution d'un déploiement mutable lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary

@@ -35,11 +35,11 @@
 (defn- welcome-project-row
   [{:keys [name uri description owner version] :as welcome-project}]
   {:style nil
-   :cells [{:type :cell/icon, :content icons/project}
-           {:type :cell/link, :content {:text name, :href uri}}
-           {:type :cell/text, :content description}
-           {:type :cell/text, :content owner}
-           {:type :cell/text, :content version}]})
+   :cells [{:type :cell/icon,     :content icons/project}
+           {:type :cell/link,     :content {:text name, :href uri}}
+           {:type :cell/text,     :content description}
+           {:type :cell/username, :content owner}
+           {:type :cell/text,     :content version}]})
 
 (defn welcome-projects-table
   [welcome-projects]
@@ -152,6 +152,7 @@
       ;       types (e.g. :value) would simplify this code
       :cell/textarea  (assoc value-base :text      value)
       :cell/text      (assoc value-base :text      value)
+      :cell/username  (assoc value-base :username  value)
       :cell/timestamp (assoc value-base :timestamp value)
       :cell/set       (assoc value-base :set       value)
       :cell/email     (assoc value-base :email     value)
@@ -246,7 +247,7 @@
       :creation       {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
       :publication    {:type :cell/timestamp-long,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
       :last-modified  {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
-      :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?)}
+      :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?), :id-format-fn (constantly "username")}
       :logo-url       {:type :cell/text
                        :remove? (page-type/view?)
                        :id-format-fn (constantly "logoLink")
@@ -660,9 +661,10 @@
   [run]
   (parameters-table
     (p/map->parameter-list run
+      :run-owner          {:type :cell/username, :id-format-fn (constantly "username")}
       :module-uri         {:type :cell/url}
+      :module-owner       {:type :cell/username :id-format-fn (constantly "module-owner-username")}
       :category           {:type :cell/text}
-      :user               {:type :cell/username}
       :start-time         {:type :cell/timestamp-long}
       :end-time           {:type :cell/timestamp-long}
       :state              {:type :cell/text}
