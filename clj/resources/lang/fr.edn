@@ -560,7 +560,7 @@
    :slipstream.ui.util.pattern.error-help-hint.user-password.not-include-username     "Ce n'est pas une bonne idée."
    :slipstream.ui.util.pattern.error-help-hint.user-password.min-6-chars              :pattern.default-error-help-hint.min-x-chars
 
-   :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.not-empty   "Entrer le mot de passe une seconde fois pour le confirmer."
+   :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.min-6-chars "Entrer le mot de passe une seconde fois pour le confirmer."
    :slipstream.ui.views.tables.password-not-match.success-help-hint                   "Ok."
    :slipstream.ui.views.tables.password-not-match.error-help-hint                     "Les mots de passe ne correspondent pas."
 

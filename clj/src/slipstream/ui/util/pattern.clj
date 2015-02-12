@@ -66,8 +66,7 @@
                    :not-new
                    :begin-with-letter]
 
-   :parameter-name  [:not-empty
-                     :dot-separated-words
+   :parameter-name  [:dot-separated-words
                      :not-new
                      :begin-with-letter]
 
@@ -84,11 +83,10 @@
                    :not-new
                    :begin-with-letter]
 
-   :user-password [:not-empty
-                   :not-include-username
+   :user-password [:not-include-username
                    :min-6-chars]
 
-   :user-password-confirmation [:not-empty]})
+   :user-password-confirmation [:min-6-chars]})
 
 (defn requirements
   [field]
