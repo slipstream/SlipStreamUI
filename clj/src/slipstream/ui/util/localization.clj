@@ -28,7 +28,7 @@
 
 (def lang-default
   (or
-    (available-languages (System/getProperty "slipstream.ui.util.localization.lang-default"))
+    (-> "slipstream.ui.util.localization.lang-default" System/getProperty keyword available-languages)
     :en))
 
 (def ^:dynamic *lang*
