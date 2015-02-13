@@ -452,8 +452,18 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
 
                     handleAbort: function(){
                         var abortMessage = $("[id^='parameter-ss:abort']", lastRefreshData);
-                        if (! $$.util.string.isEmpty(abortMessage.text())) {
+                        if ($$.util.string.isNotEmpty(abortMessage.text())) {
                             $$.alert.showErrorFixed("<strong><code>ss:abort</code></strong>- " + abortMessage.html());
+                        }
+                    },
+
+                    handleServiceURL: function(){
+                        var $serviceURLAnchor = $("[id^='parameter-ss:url.service']", lastRefreshData);
+                        if ($$.util.string.isNotEmpty($serviceURLAnchor.text())) {
+                            var $clonedServiceURLAnchor = $serviceURLAnchor.clone().removeAttr("id"),
+                                serviceURLAnchorHTML = $clonedServiceURLAnchor[0].outerHTML;
+                            $$.alert.showInfoFixed("The service is ready",
+                                                   "<strong><code>ss:url.service</code></strong>- " + serviceURLAnchorHTML);
                         }
                     },
 
@@ -462,6 +472,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         runModel.setState(newState);
                         runModel.updateSubTitle();
                         runModel.handleAbort();
+                        runModel.handleServiceURL();
                         $("tr")
                             .find("[id]")
                                 .not("#state, [id^='parameter-ss:state']") // State is already set up above
@@ -470,7 +481,6 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                             var $this = $(this);
                                             var id = runModel.escapeId($this.id());
                                             var newElem = $("#"+id, lastRefreshData);
-
                                             $this.updateWith(newElem, {flashClosestSel: "tr"});
                                         });
                     },

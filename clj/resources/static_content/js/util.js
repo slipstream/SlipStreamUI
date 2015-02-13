@@ -1525,6 +1525,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return $.trim(str) === "" ? true : false;
         },
 
+        isNotEmpty: function(str) {
+            return ! this.isEmpty(str);
+        },
+
         defaultIfEmpty: function(value, defaultValue) {
             return $$.util.string.isEmpty(value) ? defaultValue : value;
         }
