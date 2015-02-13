@@ -585,6 +585,9 @@
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-new                 :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.begin-with-letter       :pattern.default-error-help-hint.begin-with-letter
 
+   :slipstream.ui.util.pattern.error-help-hint.multiplicity.positive-integer              :pattern.default-error-help-hint.positive-integer
+   :slipstream.ui.util.pattern.error-help-hint.max-provisioning-failures.positive-integer :pattern.default-error-help-hint.positive-integer
+
    :slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.not-empty              "You need to provide at least one SSH public key."
    :slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.ssh-public-keys        :pattern.default-error-help-hint.ssh-public-keys
 
