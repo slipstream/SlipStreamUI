@@ -904,6 +904,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .each(function() {
                         var $this = $(this),
                             $formGroup = $this.closest(".form-group"),
+                            $elemsToFlag = $this.closest(".ss-section")
+                                                .find("> .ss-section-activator")
+                                                    .add($formGroup),
                             isNewState = ($this.data("isNewState") !== state),
                             callback = $this.data("onFormFieldValidationCallback"),
                             callbackOnStateChange = $this.data("onFormFieldValidationStateChangeCallback"),
@@ -920,9 +923,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             // it was not valid before the warning it stays not valid.
                             $this.data("isValid", isValid);
                         }
-                        $formGroup
+                        $elemsToFlag
                             .removeClass("has-success has-warning has-error")
-                            .addClass(state === "validating" ? "has-warning" : "has-" + state)
+                            .addClass(state === "validating" ? "has-warning" : "has-" + state);
+                        $formGroup
                             .find(".ss-validation-help-hint")
                                 .stop(true, true)
                                 .html(validationHelpHint)
