@@ -566,6 +566,13 @@
   [{{:keys [email] :as content} :content}]
   (cell-text-snip-edit (assoc content :text email)))
 
+(defmethod cell-snip [:cell/external-url :mode/view :content/map]
+  [{{:keys [url id]} :content}]
+  (cell-link-snip-view {:text url
+                        :href url
+                        :id id
+                        :open-in-new-window? true}))
+
 (defmethod cell-snip [:cell/url :mode/view :content/map]
   [{{:keys [url id]} :content}]
   (cell-link-snip-view {:text url :href url, :id id}))

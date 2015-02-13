@@ -80,6 +80,7 @@
    :cell/external-link      [             :content/map                ]
    :cell/email              [             :content/map  :content/plain]
    :cell/url                [             :content/map  :content/plain]
+   :cell/external-url       [             :content/map                ]
    :cell/username           [             :content/map  :content/plain]
    :cell/icon               [:content/any                             ]
    :cell/module-version     [                           :content/plain]
@@ -437,6 +438,10 @@
 (expect
   "<td class=\"ss-table-cell-link\"><a href=\"mailto:some@email.com\">some@email.com</a></td>"
   (cell-html {:type :cell/email, :content "some@email.com"}))
+
+(expect
+  (str "<td class=\"ss-table-cell-link\"><a target=\"_blank\" id=\"the-id\" href=\"" rand-url "\">" rand-url "</a></td>")
+  (cell-html {:type :cell/external-url, :content {:url rand-url, :id "the-id"}}))
 
 (expect
   (str "<td class=\"ss-table-cell-link\"><a href=\"" rand-url "\">" rand-url "</a></td>")

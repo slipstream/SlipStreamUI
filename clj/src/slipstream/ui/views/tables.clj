@@ -116,7 +116,7 @@
   [{:keys [type name] :as parameter}]
   (cond
     (cell-type? type) type
-    (re-matches #".*:url\..*" name) :cell/url
+    (re-matches #".*:url\..*" name) :cell/external-url
     :else (case type
             "String"            :cell/text
             "RestrictedString"  :cell/text
@@ -158,17 +158,17 @@
     (case cell-type
       ; TODO: Using the same key for all cell
       ;       types (e.g. :value) would simplify this code
-      :cell/textarea  (assoc value-base :text      value)
-      :cell/text      (assoc value-base :text      value)
-      :cell/username  (assoc value-base :username  value)
-      :cell/timestamp (assoc value-base :timestamp value)
-      :cell/set       (assoc value-base :set       value)
-      :cell/email     (assoc value-base :email     value)
-      :cell/enum      (assoc value-base :enum      value)
-      :cell/url       (assoc value-base :url       value)
-      :cell/boolean   (assoc value-base :value     value)
-      :cell/password  (assoc value-base :password  value)
-      :cell/map       (with-meta value {:ids (ids-for-map-keys value id-format-fn)})
+      :cell/textarea      (assoc value-base :text      value)
+      :cell/text          (assoc value-base :text      value)
+      :cell/username      (assoc value-base :username  value)
+      :cell/timestamp     (assoc value-base :timestamp value)
+      :cell/set           (assoc value-base :set       value)
+      :cell/email         (assoc value-base :email     value)
+      :cell/enum          (assoc value-base :enum      value)
+      :cell/external-url  (assoc value-base :url       value)
+      :cell/boolean       (assoc value-base :value     value)
+      :cell/password      (assoc value-base :password  value)
+      :cell/map           (with-meta value {:ids (ids-for-map-keys value id-format-fn)})
       value)))
 
 (defn- parameter-row
