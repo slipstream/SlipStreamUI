@@ -2,7 +2,8 @@
   (:require [clojure.zip :as z]
             [net.cgrand.enlive-html :as html]
             [net.cgrand.xml :as xml]
-            [slipstream.ui.util.clojure :as uc]))
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.pattern :as pattern]))
 
 (def this
   "Selector to match the whole node within a transformation snippet.
@@ -418,18 +419,19 @@
   "See tests for expectations."
   [{:keys [required? validation]}]
   (if (or required? (not-empty validation))
-    (fn [match]
-      (html/at match
-        ;; NOTE: We target the [:input] specifically since 'this' (i.e. 'match') might select
-        ;;       a div.input-group containing itself an input. However, what we need to wrap
-        ;;       within a div.form-group is the top level tag, either input or div.input-group.
-        [:input]  (html/add-class input-to-validate-cls)
-        [:input]  (enable-class required? required-input-cls)
-        [:input]  (enable-class (not-empty validation) input-has-requirements-cls)
-        [:input]  (set-data :validation validation)
-         ; NOTE: Bootstrap requires .form-group to be able to flag the input as non valid,
-         ;       and .has-feedback if the input also shows an icon for the validation state.
-        this      (html/wrap :div {:class "form-group has-feedback ss-form-group-with-validation"})
-        this      (html/append (blank-node :span :class "ss-validation-help-hint help-block hidden"))
-        this      (html/append (blank-node :span :class "glyphicon glyphicon-ok form-control-feedback hidden"))))
+    (let [required? (or required? (-> validation :requirements pattern/requires-not-empty?))]
+      (fn [match]
+          (html/at match
+            ;; NOTE: We target the [:input] and [:textarea] specifically since 'this' (i.e. 'match') might select
+            ;;       a div.input-group containing itself an input. However, what we need to wrap
+            ;;       within a div.form-group is the top level tag, either input or div.input-group.
+            [#{:input :textarea}]  (html/add-class input-to-validate-cls)
+            [#{:input :textarea}]  (enable-class required? required-input-cls)
+            [#{:input :textarea}]  (enable-class (not-empty validation) input-has-requirements-cls)
+            [#{:input :textarea}]  (set-data :validation validation)
+             ; NOTE: Bootstrap requires .form-group to be able to flag the input as non valid,
+             ;       and .has-feedback if the input also shows an icon for the validation state.
+            this      (html/wrap :div {:class "form-group has-feedback ss-form-group-with-validation"})
+            this      (html/append (blank-node :span :class "ss-validation-help-hint help-block hidden"))
+            this      (html/append (blank-node :span :class "glyphicon glyphicon-ok form-control-feedback hidden")))))
     identity))

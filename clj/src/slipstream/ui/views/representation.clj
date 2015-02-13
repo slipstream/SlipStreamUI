@@ -96,12 +96,17 @@
         (.printStackTrace t#)
         (render-html error/page-uncaught-exception t#)))))
 
+(defn- lang-from-request
+  [request]
+  (get-in request ["query-parameters" "lang"]))
+
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
   ; NOTE: :strs directive used instead of :keys, because keys in options map are strings.
   [raw-metadata-str pagename {:strs [type request] :as options}]
-  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
-    (localization/with-lang-from-metadata
+  (let [lang (lang-from-request request)
+        metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
+    (localization/with-lang lang
       (current-user/with-user-from-metadata
         (page-type/with-page-type (or (page-types pagename) type)
           (guard-exceptions
@@ -111,8 +116,9 @@
   "Generate an HTML error page"
   ; NOTE: :strs directive used instead of :keys, because keys in options map are strings.
   [raw-metadata-str message code {:strs [type request] :as options}]
-  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
-    (localization/with-lang-from-metadata
+  (let [lang (lang-from-request request)
+        metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
+    (localization/with-lang lang
       (current-user/with-user-from-metadata
         (render-html error/page metadata message code)))))
 

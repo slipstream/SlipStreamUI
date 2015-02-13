@@ -25,11 +25,15 @@
     :picture-file                   "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
     :comma-separated-words          "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
     :dot-separated-words            "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
+    ; NOTE: The following regex is more precise and intended for a multiline match:
+    ;       "^((([^ ]+ )?(ssh-(rsa|dss))|(ecdsa-sha2-nistp(256|384|512)) [^ ]+( .*)?)|(#.*))?$"
+    ;       However 'RegExp(pattern, "gm").test(...)' in JavaScript returns true if any line matches.
+    :ssh-public-keys                "^ssh-rsa \\S+(?: \\S.*)?[\n]*(?:[\n]ssh-rsa \\S+(?: \\S.*)?[\n]*)*$" ; simple regex for non-multiline match
     ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
     ;       format of email address is so complex, that the only real way to
     ;       validate it is to send it an email. ;)
     ;       However we can perform a basic validation.
-    :email                       "^.+@.+$"))
+    :email                          "^.+@.+$"))
 
 (defn- requirement
   [field pattern]
@@ -63,12 +67,14 @@
                    :not-new
                    :begin-with-letter]
 
-   :parameter-name  [:not-empty
-                     :dot-separated-words
+   :parameter-name  [:dot-separated-words
                      :not-new
                      :begin-with-letter]
 
    :run-tags      [[:comma-separated-words  {:when-true   "warning"}]]
+
+   :ssh-public-keys [:not-empty
+                     [:ssh-public-keys      {:when-false   "warning"}]]
 
    :picture-url   [:url
                    [:picture-file           {:when-true   "validating"}]]
@@ -82,12 +88,17 @@
 
    :max-provisioning-failures [:positive-integer]
 
-   :user-password [:not-empty
-                   :not-include-username
+   :user-password [:not-include-username
                    :min-6-chars]
 
-   :user-password-confirmation [:not-empty]})
+   :user-password-confirmation [:min-6-chars]})
 
 (defn requirements
   [field]
   (mapv (partial requirement field) (patterns-for field)))
+
+(defn requires-not-empty?
+  [requirements]
+  (->> requirements
+       (some #(-> % :pattern-name #{"not-empty"}))
+       boolean))

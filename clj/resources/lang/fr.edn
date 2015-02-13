@@ -533,6 +533,7 @@
                                         :min-x-chars                            "Trop court"
                                         :comma-separated-words                  "Entrer uniquement des mots séparés par des virgules"
                                         :dot-separated-words                    "Entrer uniquement des mots séparés par des points"
+                                        :ssh-public-keys                        "La liste des clés publiques SSH semble incorrecte."
                                        }
              }
 
@@ -565,7 +566,7 @@
    :slipstream.ui.util.pattern.error-help-hint.user-password.not-include-username     "Ce n'est pas une bonne idée."
    :slipstream.ui.util.pattern.error-help-hint.user-password.min-6-chars              :pattern.default-error-help-hint.min-x-chars
 
-   :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.not-empty   "Entrer le mot de passe une seconde fois pour le confirmer."
+   :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.min-6-chars "Entrer le mot de passe une seconde fois pour le confirmer."
    :slipstream.ui.views.tables.password-not-match.success-help-hint                   "Ok."
    :slipstream.ui.views.tables.password-not-match.error-help-hint                     "Les mots de passe ne correspondent pas."
 
@@ -582,9 +583,8 @@
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-new                 :pattern.default-error-help-hint.not-new
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.begin-with-letter       :pattern.default-error-help-hint.begin-with-letter
 
-   :slipstream.ui.util.pattern.error-help-hint.multiplicity.positive-integer              :pattern.default-error-help-hint.positive-integer
-
-   :slipstream.ui.util.pattern.error-help-hint.max-provisioning-failures.positive-integer :pattern.default-error-help-hint.positive-integer
+   :slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.not-empty              "Vous devez fournir au moins une clé publique SSH."
+   :slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.ssh-public-keys        :pattern.default-error-help-hint.ssh-public-keys
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint "Choisir un projet (pas une image ou un déploiement) où copier ce/cette %1$s dans la barre de navigation ci-dessus." ; %1$s: module category ;
 

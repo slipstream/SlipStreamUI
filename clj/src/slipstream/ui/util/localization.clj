@@ -28,7 +28,7 @@
 
 (def lang-default
   (or
-    (available-languages (System/getProperty "slipstream.ui.util.localization.lang-default"))
+    (-> "slipstream.ui.util.localization.lang-default" System/getProperty keyword available-languages)
     :en))
 
 (def ^:dynamic *lang*
@@ -197,24 +197,9 @@
          ~@body)
       (throw (IllegalStateException. (str "Scopped t function not found for namespace" *ns*))))))
 
-(defn lang
-  "Get iso language code from the server's metadata. "
-  [metadata]
-  ;; TODO: Parse server metadata to retrieve the wanted iso language code.
-  lang-default)
-
 (defmacro with-lang
   [lang & body]
-  `(if-let [lang# (-> ~lang keyword tower/iso-languages)]
-     (binding [*lang* lang#]
-       ~@body)
-     (throw (IllegalArgumentException. (str "with-lang: wrong language code: " ~lang)))))
-
-(defmacro with-lang-from-metadata
-  [& body]
-  (when-not (-> &env keys set (get 'metadata))
-    (throw (IllegalArgumentException. "with-lang-from-metadata: Unable to find metadata symbol in this context")))
-  `(with-lang (lang ~(symbol "metadata"))
+  `(binding [*lang* (-> ~lang keyword tower/iso-languages (or lang-default))]
     ~@body))
 
 ;; Utils
