@@ -157,6 +157,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         countNonWhitespaceChars: function() {
             return this.replace(/\W/g, "").length;
+        },
+
+        asInt: function() {
+            return parseInt(this, 10);
         }
 
     });
@@ -304,6 +308,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     // jQuery extensions
 
     $.fn.extend({
+        valOr: function(defaultVal) {
+            var val = this.val();
+            if (val === undefined) {
+                return defaultVal;
+            }
+            return val;
+        },
+
         id: function() {
             // Value of the 'id' attribute of the first element in the set of matched elements.
             return this.attr("id");
@@ -569,7 +581,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         onTextInputChange: function(callback) {
             // This event triggers at every input change (e.g. every keystroke).
             // See also bufferedtextinputchange(callback);
-            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
+            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], input[type=number], textarea");
             if ($textInputFields.foundNothing()) {
                 return this;
             }
@@ -580,7 +592,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         offTextInputChange: function(callback) {
-            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], textarea");
+            var $textInputFields = $(this).findIncludingItself("input[type=text], input[type=password], input[type=number], textarea");
             if ($textInputFields.foundNothing()) {
                 return this;
             }
@@ -758,6 +770,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        addValidationTrigger: function (eventName, $elem) {
+            // If $elem is undefined, the trigger for eventName will be bound to
+            // the $this element.
+            var that = this,
+                $eventTarget = $elem || this;
+            $eventTarget.on(eventName, function() {
+                $(that).validateFormInput();
+            });
+        },
+
         enableDisplayOfValidationHelpHint: function() {
             this.data("displayValidationHelpHint", true);
             return this;
@@ -844,7 +866,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             $.each(requirements, function(i, requirement){
                                 validationState = requirement.status.whenTrue || "success";
                                 validationHelpHint = requirement.helpHint.whenTrue;
-                                if (requirement.test(fieldValue, $fieldToValidate) ===  false){
+                                var requirementTestResult = requirement.test(fieldValue, $fieldToValidate);
+                                if ($.type(requirementTestResult) === "string") {
+                                    // NOTE: In that case requirementTestResult should be either "error", "warning" or "success"
+                                    validationState = requirementTestResult;
+                                } else if (requirementTestResult === false) {
                                     validationState = requirement.status.whenFalse || "error";
                                     validationHelpHint = requirement.helpHint.whenFalse;
                                 }

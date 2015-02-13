@@ -372,4 +372,36 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .change(); // Trigger selection validation
     });
 
+
+    // Check for value of 'max provisioning failures' field
+
+    var maxProvisioningFailuresInputIdSuffix    = "--max-provisioning-failures",
+        multiplicityInputIdSuffix               = "--multiplicity";
+
+    function $correspondingMultiplicityInputElem($maxProvisioningFailuresInput) {
+        var multiplicityId = $maxProvisioningFailuresInput.id().trimSuffix(maxProvisioningFailuresInputIdSuffix) + multiplicityInputIdSuffix;
+        return $("[id=" + multiplicityId + "]");
+    }
+
+    function isValidMaxProvisioningFailuresValue(value, $maxProvisioningFailuresInput) {
+        var $multiplicityInputField = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput),
+            multiplicity = $multiplicityInputField.valOr("0").asInt(),
+            maxProvisioningFailures = (value || "0").asInt();
+        if (maxProvisioningFailures >= multiplicity) {
+            return "error";
+        } else if (maxProvisioningFailures >= multiplicity * 0.5) {
+            return "warning";
+        }
+        return "success";
+    }
+
+    $("[id$='--max-provisioning-failures']")
+        .each(function(index, elem){
+            var $maxProvisioningFailuresInput = $(this),
+                $multiplicityInputField = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput);
+            $maxProvisioningFailuresInput
+                .addCustomFormFieldRequirement(isValidMaxProvisioningFailuresValue)
+                .addValidationTrigger("input", $multiplicityInputField);
+        });
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

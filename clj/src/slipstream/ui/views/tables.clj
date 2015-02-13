@@ -579,11 +579,21 @@
 
   (defmethod deployment-node-cell-inner-table-first-rows :deployment-run-dialog
     [deployment-node _]
-    [{:cells [{:type :cell/text,             :content (t :default-multiplicity.label)}
+    [{:cells [{:type :cell/text,             :content (t :multiplicity.label)}
               {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
                                                        :min-value 1
+                                                       :required? true
+                                                       :validation {:requirements (pattern/requirements :multiplicity)}
                                                        :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content (t :default-cloud.label)}
+     {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
+              {:type :cell/positive-number,  :content {:value 0
+                                                       :min-value 0
+                                                       :id (format "parameter--node--%s--max-provisioning-failures" (:name deployment-node))
+                                                       :required? true
+                                                       :validation {:generic-help-hints {:error   (t :max-provisioning-failures.error-help-hint)
+                                                                                         :warning (t :max-provisioning-failures.warning-help-hint)}
+                                                                    :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
+     {:cells [{:type :cell/text,             :content (t :cloud.label)}
               {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
                                                        :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
 

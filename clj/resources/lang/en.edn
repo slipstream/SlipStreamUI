@@ -288,10 +288,15 @@
    :slipstream.ui.views.table.header.version                  :global.nouns.version
 
 
-   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label       "Reference image"
-   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label  "Default multiplicity"
-   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label         "Default cloud"
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label    "Parameter mappings"
+   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
+   :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.label                          "Multiplicity"
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Max provisioning failures"
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "It must be a value smaller than the multiplicity above."
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "This looks like a big tolerance. Please make sure that this makes sense for this deployment."
+   :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label                         "Default cloud"
+   :slipstream.ui.views.tables.deployment-nodes-table.cloud.label                                 "Cloud"
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label                    "Parameter mappings"
 
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.input             "Input `%1$s`"          ; %1$s = input parameter name
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output   "is mapped to output `%1$s`." ; %1$s = input parameter value
@@ -521,6 +526,7 @@
    :pattern {
              :default-error-help-hint {
                                         :not-empty                              "Well, if you leave this blank..."
+                                        :positive-integer                       "A positive integer is expected here."
                                         :alpha-num-underscore                   "Please use only [a-zA-Z0-9_]"
                                         :alpha-num-underscore-dash              "Please use only [a-zA-Z0-9_-]"
                                         :alpha-num-underscore-dash-dot          "Please use only [a-zA-Z0-9_.-]"
