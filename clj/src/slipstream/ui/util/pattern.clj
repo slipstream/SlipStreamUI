@@ -25,10 +25,7 @@
     :picture-file                   "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
     :comma-separated-words          "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
     :dot-separated-words            "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
-    ; NOTE: The following regex is more precise and intended for a multiline match:
-    ;       "^((([^ ]+ )?(ssh-(rsa|dss))|(ecdsa-sha2-nistp(256|384|512)) [^ ]+( .*)?)|(#.*))?$"
-    ;       However 'RegExp(pattern, "gm").test(...)' in JavaScript returns true if any line matches.
-    :ssh-public-keys                "^ssh-rsa \\S+(?: \\S.*)?[\n]*(?:[\n]ssh-rsa \\S+(?: \\S.*)?[\n]*)*$" ; simple regex for non-multiline match
+    :ssh-public-keys                "^((([^ \\n]+[ ]+)?((ssh-(rsa|dss)|ecdsa-sha2-nistp(256|384|512))[ ]+[^ \\n]+|\\d+[ ]+\\d+[ ]+\\d+)([ ]+.*)?)|(#.*))?(\\n((([^ \\n]+[ ]+)?((ssh-(rsa|dss)|ecdsa-sha2-nistp(256|384|512))[ ]+[^ \\n]+|\\d+[ ]+\\d+[ ]+\\d+)([ ]+.*)?)|(#.*))?)*$" ; complex regex for non-multiline match
     ; NOTE: As mentioned in http://stackoverflow.com/a/202528 the RFC of the
     ;       format of email address is so complex, that the only real way to
     ;       validate it is to send it an email. ;)
