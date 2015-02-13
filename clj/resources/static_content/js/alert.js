@@ -84,6 +84,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $alertElem.find(".alert-title").html(settings.title);
         }
 
+        if (! settings.isDismissible) {
+            $alertElem
+                .find("button.close")
+                    .remove();
+        }
+
         if ( $alertElem.html() === $alertContainer.find("div.alert").first().html() ){
             // The exact same alert is the most recent one.
             // Nothing to do.
@@ -112,6 +118,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             type: type,
             container: container || "floating",
             autoDismiss: container === "floating",
+            isDismissible: container === "floating",
             title: msg ? titleOrMsg : undefined,
             msg: msg ? msg : titleOrMsg,
         });
