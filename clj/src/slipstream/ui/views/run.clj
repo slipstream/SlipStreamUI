@@ -71,7 +71,9 @@
   [large-run?]
   {:css-filenames         ["run.css"]
    :external-js-filenames (when-not large-run? ["jit/js/jit.js"])
-   :internal-js-filenames (when-not large-run? ["run.js" "run_overview.js"])})
+   :internal-js-filenames (cond-> ["run.js"]
+                            (not large-run?) (into ["run_autoupdate.js"
+                                                    "run_overview.js"]))})
 
 (defn- subtitle
   [run]
