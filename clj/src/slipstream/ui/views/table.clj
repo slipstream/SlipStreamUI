@@ -350,22 +350,31 @@
 
 ; Pagination cell
 
+(html/defsnippet ^:private pagination-separation-snip template-filename [(ue/first-of-class "ss-pagination-separator-btn")]
+  []
+  identity)
+
 (localization/with-prefixed-t :pagination.action
   (html/defsnippet ^:private cell-pagination-snip-view template-filename (sel-for-cell :pagination)
     [{:keys [colspan msg]
-      {:keys [first-page previous-page next-page last-page show-all]} :params}]
+      {:keys [first-page previous-page next-page last-page show-all pages]} :params}]
     ue/this                     (ue/set-colspan colspan)
     [:.ss-pagination-msg]       (html/content msg)
-    [:.ss-pagination-first]     (when first-page    (ue/set-data  :pagination-params first-page))
-    [:.ss-pagination-first]     (when first-page    (ue/set-title        (t :tooltip.first-page)))
-    [:.ss-pagination-previous]  (when previous-page (ue/set-data  :pagination-params previous-page))
-    [:.ss-pagination-previous]  (when previous-page (ue/set-title        (t :tooltip.previous-page)))
-    [:.ss-pagination-all]       (when show-all      (ue/set-data  :pagination-params show-all))
-    [:.ss-pagination-all]       (when show-all      (html/content            (t :msg.show-all)))
-    [:.ss-pagination-next]      (when next-page     (ue/set-data  :pagination-params next-page))
-    [:.ss-pagination-next]      (when next-page     (ue/set-title        (t :tooltip.next-page)))
-    [:.ss-pagination-last]      (when last-page     (ue/set-data  :pagination-params last-page))
-    [:.ss-pagination-last]      (when last-page     (ue/set-title        (t :tooltip.last-page)))))
+    ; Set up "Previous page" button(s)
+    [:.ss-pagination-previous]  (ue/when-set-data   :pagination-params previous-page)
+    [:.ss-pagination-previous]  (ue/set-title       (t :tooltip.previous-page))
+    [:.ss-pagination-previous]  (ue/when-add-class  (not previous-page) "disabled")
+    ; Set up "Go to page number" button(s)
+    [:.ss-pagination-buttons]   (ue/content-for [[:button html/first-of-type]] [page pages]
+                                                ue/this (html/content       (-> page :page-number str))
+                                                ue/this (ue/set-data        :pagination-params page)
+                                                ue/this (ue/when-add-class  (:hidden page) "hidden")
+                                                ue/this (ue/when-add-class  (:current-page page) "disabled ss-pagination-current-page")
+                                                ue/this (ue/when-after      (:last-hidden page) (pagination-separation-snip)))
+    ; Set up "Next page" button(s)
+    [:.ss-pagination-next]      (ue/when-set-data   :pagination-params next-page)
+    [:.ss-pagination-next]      (ue/set-title       (t :tooltip.next-page))
+    [:.ss-pagination-next]      (ue/when-add-class  (not next-page) "disabled")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -702,9 +711,15 @@
                                                 :params   params}}]}]
     (concat rows [pagination-info-row])))
 
+(defn- paginated?
+  [{:keys [pagination]}]
+  (-> pagination
+      not-empty
+      boolean))
+
 (defn- rows
-  [{:keys [pagination rows] :as table}]
-  (if (not-empty pagination)
+  [{:keys [rows] :as table}]
+  (if (paginated? table)
     (rows-with-pagination table)
     rows))
 
@@ -726,6 +741,7 @@
   [{:keys [headers] :as table}]
   ue/this        (html/add-class (:class table))
   ue/this        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
+  ue/this        (ue/when-add-class (paginated? table) "ss-table-with-pagination")
   table-head-sel (ue/when-content (not-empty headers) (head-snip headers))
   table-body-sel (html/content (->> (rows table)
                                     (remove :remove?)

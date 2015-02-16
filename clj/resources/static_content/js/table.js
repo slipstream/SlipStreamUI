@@ -93,24 +93,49 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Enable pagination
     $("body").on("click", paginationActionSel, function(e){
-        var $this   = $(this),
-            params  = $this.data("pagination-params") || {},
-            $dynamicContentElem = $this.closest(".ss-dynamic-subsection"),
+        var $clickedButton   = $(this),
+            params  = $clickedButton.data("pagination-params") || {},
+            $dynamicContentElem = $clickedButton.closest(".ss-dynamic-subsection"),
             contentLoadUrl      = $dynamicContentElem.data("content-load-url"),
             newContentLoadUrl   = contentLoadUrl
                                         .replace(/offset=\d+/, "offset=" + params.offset)
                                         .replace(/limit=\d+/, "limit=" + params.limit);
-        $this
-            .parent()
-                .find(paginationActionSel)
-                    .removeClass(paginationActionCls);
-        $this
-            .addClass("ss-icon-loading");
+        $clickedButton
+            .addClass("ss-loading")
+            .flagAsLoading()
+            .blur()
+            .closest(".ss-table-cell-pagination")
+                .find("button")
+                    .addClass("disabled");
+
         $dynamicContentElem.data("content-load-url", newContentLoadUrl);
 
         // Trigger shown event on open subsection
         $$.subsection.triggerOnShowOnOpenSubsection(); // TODO: Make it an event from the $dynamicContentElem, not from the subsection
     });
 
+
+    $("body").on("click", "button.ss-pagination-separator-btn", function() {
+        var $elem = $(this),
+            maxNumOfVisiblePages = 25,
+            numOfPagesToRevealOnEachSide = 3,
+            $hiddenPages = $elem.prevUntil(":not(.hidden)");
+        $hiddenPages
+            .takeFirstAndLast(numOfPagesToRevealOnEachSide)
+                .hide()
+                .removeClass("hidden")
+                .fadeIn();
+        if ( $hiddenPages.filter(".hidden").foundNothing() ) {
+            $elem.remove();
+        } else {
+            $elem.insertBefore($hiddenPages.get(numOfPagesToRevealOnEachSide - 1));
+            var numOfVisiblePages = $elem.parent().children(".ss-pagination-action:visible").length;
+            if ( numOfVisiblePages >= maxNumOfVisiblePages ) {
+                // Do not allow to reveal more pages to the control
+                $elem.parent().children(".ss-pagination-separator-btn").disable();
+            }
+        }
+
+    });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

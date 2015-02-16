@@ -222,3 +222,9 @@ body {
 .footer .ss-footer-trademarks {
   margin-top: 12px;
 }
+
+/* Pagination */
+.ss-table-cell-pagination .ss-pagination-current-page {
+  color: white;
+  background-color: #2179c0;
+}

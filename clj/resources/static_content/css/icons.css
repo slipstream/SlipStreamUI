@@ -151,7 +151,7 @@
    class .ss-icon-loading to the span (even next to the original icon class). */
 .glyphicon.ss-icon-loading::before {
   font-family: 'Glyphicons Halflings';
-  content: "\e031";
+  content: "\e031"; /* .glyphicon-refresh */
 }
 
 

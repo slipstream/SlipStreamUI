@@ -273,15 +273,58 @@
             </div><!-- /input-group -->
           </td>
         </tr>
-        <tr>
           <td><code>.ss-table-cell-pagination</code></td>
           <td>Pagination cell</td>
-          <td class="ss-table-cell-pagination text-right text-muted">
-              <span class="ss-pagination-action ss-pagination-first glyphicon glyphicon-step-backward"></span>
-              <span class="ss-pagination-action ss-pagination-previous glyphicon glyphicon-backward"></span>
-              <span class="ss-pagination-msg">Showing items x to y.</span>
-              <span class="ss-pagination-action ss-pagination-next glyphicon glyphicon-forward"></span>
-              <span class="ss-pagination-action ss-pagination-last glyphicon glyphicon-step-forward"></span>
+          <td class="ss-table-cell-pagination text-muted">
+              <div class="row">
+                <div class="col-sm-6 text-left">
+                  <div class="ss-pagination-msg">Showing items x to y.</div>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group btn-group-xs" role="group">
+                      <button type="button" class="btn btn-default ss-pagination-previous ss-pagination-action">
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                      </button>
+                      <button type="button" class="btn btn-default ss-pagination-next ss-pagination-action">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                      </button>
+                    </div>
+                    <div class="btn-group btn-group-xs ss-pagination-buttons" role="group">
+                      <button type="button" class="btn btn-default ss-pagination-action">1</button>
+                      <button type="button" class="btn btn-default ss-pagination-action">2</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">3</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">4</button>
+                      <button type="button" class="btn btn-default ss-pagination-separator-btn">
+                        <span class="glyphicon glyphicon-option-horizontal"></span>
+                      </button>
+                      <button type="button" class="btn btn-default ss-pagination-action">5</button>
+                      <button type="button" class="btn btn-default ss-pagination-action">6</button>
+                      <button type="button" class="btn btn-default disabled ss-pagination-current-page">7</button>
+                      <button type="button" class="btn btn-default ss-pagination-action">8</button>
+                      <button type="button" class="btn btn-default ss-pagination-action">9</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">10</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">11</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">12</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">13</button>
+                      <button type="button" class="btn btn-default ss-pagination-action hidden">14</button>
+                      <button type="button" class="btn btn-default ss-pagination-separator-btn">
+                        <span class="glyphicon glyphicon-option-horizontal"></span>
+                      </button>
+                      <button type="button" class="btn btn-default ss-pagination-action">15</button>
+                      <button type="button" class="btn btn-default ss-pagination-action">16</button>
+                    </div>
+                    <div class="btn-group btn-group-xs" role="group">
+                      <button type="button" class="btn btn-default ss-pagination-previous ss-pagination-action">
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                      </button>
+                      <button type="button" class="btn btn-default ss-pagination-next ss-pagination-action">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <span class="ss-pagination-action ss-pagination-all"></span>
           </td>
         </tr>

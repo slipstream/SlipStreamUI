@@ -341,6 +341,27 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.length > 1;
         },
 
+        take: function(numberOfElementsToTake) {
+            var n = numberOfElementsToTake === undefined ? 1 : numberOfElementsToTake;
+            return this.filter(function(index, element){
+                return n > index;
+            });
+        },
+
+        takeLast: function(numberOfElementsToTakeFromEnd) {
+            var totalNumberOfElements = this.length,
+                n = numberOfElementsToTakeFromEnd === undefined ? 1 : numberOfElementsToTakeFromEnd;
+            return this.filter(function(index, element){
+                return n >= (totalNumberOfElements - index);
+            });
+        },
+
+        takeFirstAndLast: function(numberOfElementsToTakeFromBothEnds) {
+            return this
+                    .take(numberOfElementsToTakeFromBothEnds)
+                    .add(this.takeLast(numberOfElementsToTakeFromBothEnds));
+        },
+
         addOfClass: function(cls) {
             // Helper to add elements to the selection by class, to make it equivalent to hasClass(), addClass()...
             return this.add(cls.asSel());
@@ -1188,6 +1209,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .animate(originalStyle, 2000, function() {
                         $elemToFlash.restoreInlineStyle();
                      });
+        },
+
+        flagAsLoading: function() {
+            return this.html("<span class=\"glyphicon glyphicon-refresh\"></span>");
         },
 
         updateContent: function(contentGetterFn, contentSetterFn, newContent, todoIfUpdatedArg, callbackIfUpdated) {
