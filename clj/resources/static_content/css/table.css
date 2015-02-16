@@ -172,18 +172,18 @@ td[id*=':abort']:empty::before {
   opacity: .6;
   padding: 2px;
 }
-.btn.ss-pagination-action.ss-pagination-previous.disabled,
-.btn.ss-pagination-action.ss-pagination-next.disabled {
+.ss-table-cell-pagination .btn.ss-pagination-action.ss-pagination-previous.disabled,
+.ss-table-cell-pagination .btn.ss-pagination-action.ss-pagination-next.disabled {
   opacity: .3;
 }
-.btn.btn-default:first-child:not(.ss-pagination-current-page),
-.btn+.btn.btn-default:not(.ss-pagination-current-page) {
+.ss-table-cell-pagination .btn.btn-default:first-child:not(.ss-pagination-current-page),
+.ss-table-cell-pagination .btn+.btn.btn-default:not(.ss-pagination-current-page) {
   color: inherit;
   background-color: transparent;
   border-color: transparent;
 }
-.btn.btn-default:first-child:not(.ss-pagination-current-page):hover,
-.btn+.btn.btn-default:not(.ss-pagination-current-page):hover {
+.ss-table-cell-pagination .btn.btn-default:first-child:not(.ss-pagination-current-page):hover,
+.ss-table-cell-pagination .btn+.btn.btn-default:not(.ss-pagination-current-page):hover {
   opacity: 1;
   background-color: #f6f6f6;
   border-color: #bababa;
