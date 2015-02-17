@@ -518,9 +518,9 @@
 
   (defmethod deployment-node-cell-inner-table-mapping-row :page-type-category/read-only
     [node-index _ mapping-index mapping]
-    {:cells [{:type :cell/text, :content {:class "ss-align-middle-right ss-label-cell"
+    {:cells [{:type :cell/html, :content {:class "ss-align-middle-right ss-label-cell"
                                           :text (t :parameter.input (:name mapping))}}
-             {:type :cell/text, :content (deployment-node-cell-mapping-value mapping)}]})
+             {:type :cell/html, :content (deployment-node-cell-mapping-value mapping)}]})
 
   (defn- deployment-node-cell-mapping-options-enum
     [mapping]
@@ -530,7 +530,7 @@
   (defmethod deployment-node-cell-inner-table-mapping-row :page-type-category/editable
     [node-index _ mapping-index mapping]
     {:class "ss-deployment-node-parameter-mapping-row"
-     :cells [{:type :cell/text, :editable? false, :content {:class  "ss-align-middle-right ss-label-cell"
+     :cells [{:type :cell/html, :editable? false, :content {:class  "ss-align-middle-right ss-label-cell"
                                                             :text   (t :parameter.input (:name mapping))}}
              {:type :cell/hidden-input,           :content {:value  (:name mapping)
                                                             :id     (format "node--%s--mappingtable--%s--input" node-index mapping-index)}}
@@ -544,7 +544,7 @@
   (defmethod deployment-node-cell-inner-table-mapping-row :deployment-run-dialog
     [_ node-name _ mapping]
     (when-not (:mapped-value? mapping)
-      {:cells [{:type :cell/text, :editable? false, :content {:text   (t :parameter.input (:name mapping))}}
+      {:cells [{:type :cell/html, :editable? false, :content {:text   (t :parameter.input (:name mapping))}}
                {:type :cell/text, :editable? true,  :content {:text   (-> mapping :value uc/ensure-unquoted)
                                                               :id     (format "parameter--node--%s--%s" node-name (:name mapping))
                                                               :placeholder (t :new-parameter-mapping.placeholder.value)}}]}))
@@ -699,7 +699,7 @@
   {:style  nil
    :cells [(if (and (not-empty run-uuid) (not= run-uuid "Unknown"))
                {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-               {:type :cell/text, :content {:text (t :run.uuid.unknown)}})
+               {:type :cell/html, :content {:text (t :run.uuid.unknown)}})
            {:type :cell/text,     :content (localization/with-prefixed-t :run.state
                                              (-> (or state :unknown) uc/keywordize t))}
            {:type :cell/username, :content username}
