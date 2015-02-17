@@ -117,6 +117,7 @@
   (cond
     (cell-type? type) type
     (re-matches #".*:url\..*" name) :cell/external-url
+    (re-matches #".*:abort$" name)  :cell/html
     :else (case type
             "String"            :cell/text
             "RestrictedString"  :cell/text
@@ -160,6 +161,7 @@
       ;       types (e.g. :value) would simplify this code
       :cell/textarea      (assoc value-base :text      value)
       :cell/text          (assoc value-base :text      value)
+      :cell/html          (assoc value-base :text      value)
       :cell/username      (assoc value-base :username  value)
       :cell/timestamp     (assoc value-base :timestamp value)
       :cell/set           (assoc value-base :set       value)

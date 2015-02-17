@@ -67,6 +67,7 @@
 (def all-cell-types
   "Including their accepted content types."
   {:cell/text               [             :content/map  :content/plain]
+   :cell/html               [             :content/map  :content/plain]
    :cell/textarea           [             :content/map  :content/plain]
    :cell/password           [:content/any :content/map  :content/plain]
    :cell/enum               [             :content/map  :content/plain]

@@ -84,10 +84,10 @@
 ; Text cell
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
-  [{:keys [text tooltip id class colspan] :as cell-content}]
+  [{:keys [text tooltip id class colspan html-content?] :as cell-content}]
   ue/this  (if (not-empty tooltip)
              (html/content (cell-text-with-tooltip-snip cell-content))
-             (html/html-content (str text)))
+             ((if html-content? html/html-content html/content) (str text)))
   ue/this (ue/when-set-style (-> text str count (> 100))
                              "word-wrap: break-word; max-width: 500px;")
   ue/this (ue/set-id id)
@@ -415,6 +415,17 @@
   [{text :content}]
   (cell-text-snip-edit {:text text}))
 
+(defmethod cell-snip [:cell/html :mode/view :content/map]
+  [{content :content}]
+  (cell-text-snip-view (assoc content :html-content? true)))
+
+(defmethod cell-snip [:cell/html :mode/view :content/plain]
+  [{text :content}]
+  (cell-text-snip-view {:text text, :html-content? true}))
+
+;; NOTE: For security reasons, there should not be an editable :cell/html.
+;;       If called, an exception will be thrown, since it's not defined here.
+
 (defmethod cell-snip [:cell/positive-number :mode/view :content/map]
   [{{:keys [value] :as content} :content}]
   (cell-text-snip-view (assoc content :text value)))
@@ -442,7 +453,6 @@
 (defmethod cell-snip [:cell/password :mode/view :content/any]
   [{pwd :content}]
   (cell-text-snip-view {:text (when pwd "•••••")}))
-  ; (cell-text-snip-view {:text (when pwd "*****")}))
 
 (defmethod cell-snip [:cell/password :mode/edit :content/plain]
   [{password :content}]
