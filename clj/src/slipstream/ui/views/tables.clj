@@ -709,7 +709,7 @@
   [vms & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers [:slipstream-id :state :user :cloud-instance-id]
+     :headers [:run-id :state :user :cloud-instance-id]
      :rows (map vm-row vms)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
