@@ -41,6 +41,7 @@
   [{:keys [category latest-version?]}]
   (when-not latest-version?
     {:type :warning
+     :container :fixed
      :msg (t :alert.old-version.msg (u/t-module-category category s/lower-case))}))
 
 (defn- edit-published-alert
