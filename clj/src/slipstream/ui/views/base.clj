@@ -205,7 +205,7 @@
   header-sel            (when-not (page-type/chooser?)
                           (ue/if-enlive-node header
                             (html/substitute header)
-                            (header/transform header)))
+                            (header/transform header (:view-name context))))
   content-sel           (transform-content content)
   alert-container-floating-sel  (html/content (->> alerts
                                                    (filter alerts/is-floating?)
