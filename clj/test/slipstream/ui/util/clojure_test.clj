@@ -1002,3 +1002,34 @@
   (->> some-sequence
        (mapv-in [:b] #(assoc % :a :foo :aa (range 3)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; html-safe-str
+
+(expect
+  ""
+  (html-safe-str nil))
+
+(expect
+  ""
+  (html-safe-str ""))
+
+(expect
+  "1"
+  (html-safe-str 1))
+
+(expect
+  ":a"
+  (html-safe-str :a))
+
+(expect
+  "some string"
+  (html-safe-str "some string"))
+
+(expect
+  "940f2131-10b1-4fd5-acef-b13b6de37567"
+  (html-safe-str "940f2131-10b1-4fd5-acef-b13b6de37567"))
+
+(expect
+  "some string &lt;a href=&quot;#&quot;&gt;with html tags&lt;/a&gt;"
+  (html-safe-str "some string <a href=\"#\">with html tags</a>"))

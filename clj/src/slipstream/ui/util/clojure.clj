@@ -297,3 +297,13 @@
 
 (def map-in   (partial map-fn-in map))
 (def mapv-in  (partial map-fn-in mapv))
+
+(defn html-safe-str
+ "Like clojure.core/str but escapes < > & and \"."
+ [x]
+  (-> x
+      str
+      (.replace "&" "&amp;")
+      (.replace "<" "&lt;")
+      (.replace ">" "&gt;")
+      (.replace "\"" "&quot;")))
