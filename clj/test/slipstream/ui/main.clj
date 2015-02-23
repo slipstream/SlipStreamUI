@@ -42,7 +42,7 @@
   (ud/with-dev-environment
     (-> raw-metadata-ns
         raw-metadata-str
-        (representation/-toHtmlError message code)
+        (representation/-toHtmlError message code nil)
         resp/response
         constantly)))
 
