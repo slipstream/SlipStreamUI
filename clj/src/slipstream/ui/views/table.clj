@@ -155,6 +155,7 @@
   [{:keys [timestamp] :as content} text-format tooltip-format]
   (cell-text-snip-view (-> content
                            (dissoc :timestamp)
+                           (assoc :html-content? true)
                            (assoc :text (or
                                           (ut/format text-format timestamp)
                                           (t :timestamp.unknown))

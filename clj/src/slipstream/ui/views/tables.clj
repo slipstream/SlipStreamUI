@@ -180,7 +180,11 @@
     :or {editable? (page-type/edit-or-new?)}
     :as parameter}]
   (let [cell-type (cell-type-for parameter)
-        first-cells (mapv #(do {:type :cell/text, :content (get parameter %)}) first-cols-keywords)]
+        first-cells (mapv #(do {:type (if (:built-from-map? parameter)
+                                        :cell/html ;; NOTE: Parameters built from maps have HTML-safe names
+                                        :cell/text)
+                                :content (get parameter %)})
+                          first-cols-keywords)]
     {:style nil
      :remove? remove?
      :hidden? hidden?
