@@ -358,10 +358,11 @@
 
 (localization/with-prefixed-t :pagination.action
   (html/defsnippet ^:private cell-pagination-snip-view template-filename (sel-for-cell :pagination)
-    [{:keys [colspan msg]
+    [{:keys [colspan msg tooltip]
       {:keys [first-page previous-page next-page last-page show-all pages]} :params}]
     ue/this                     (ue/set-colspan colspan)
     [:.ss-pagination-msg]       (html/content msg)
+    [:.ss-pagination-msg]       (ue/set-data :content tooltip)
     ; Set up "Previous page" button(s)
     [:.ss-pagination-previous]  (ue/when-set-data   :pagination-params previous-page)
     [:.ss-pagination-previous]  (ue/set-title       (t :tooltip.previous-page))
@@ -716,11 +717,9 @@
 (defn- rows-with-pagination
   [{:keys [pagination headers rows] :as table}]
   (let [num-of-cols (count headers)
-        {:keys [msg params]} (pagination/info pagination)
+        pagination-info (pagination/info pagination)
         pagination-info-row {:cells [{:type :cell/pagination
-                                      :content {:colspan  num-of-cols
-                                                :msg      msg
-                                                :params   params}}]}]
+                                      :content (assoc pagination-info :colspan num-of-cols)}]}]
     (concat rows [pagination-info-row])))
 
 (defn- paginated?

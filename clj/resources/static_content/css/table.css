@@ -167,6 +167,7 @@ td[id*=':abort']:empty::before {
 .ss-table-cell-pagination .ss-pagination-msg {
   padding-left: 5px;
   padding-right: 5px;
+  cursor: default;
 }
 .ss-table-cell-pagination .glyphicon {
   opacity: .6;

@@ -155,10 +155,12 @@
 
 (defn info
   [{:keys [offset limit count-shown count-total]}]
-  (let [first-item          (inc offset)
-        last-item           (+ offset count-shown)
-        pagination-type     (pagination-type first-item last-item count-shown count-total)
-        pagination-msg-key  (->> pagination-type name (str "msg.") keyword)
-        pagination-msg      (t pagination-msg-key count-shown first-item last-item count-total)]
+  (let [first-item              (inc offset)
+        last-item               (+ offset count-shown)
+        pagination-msg          (t :msg count-shown first-item last-item count-total)
+        pagination-type         (pagination-type first-item last-item count-shown count-total)
+        pagination-tooltip-key  (->> pagination-type name (str "tooltip.") keyword)
+        pagination-tooltip      (t pagination-tooltip-key count-shown first-item last-item count-total)]
     {:msg     pagination-msg
+     :tooltip pagination-tooltip
      :params  (navigation-params pagination-type offset limit count-total)}))

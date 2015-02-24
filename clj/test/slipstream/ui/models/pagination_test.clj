@@ -4,7 +4,8 @@
             [slipstream.ui.models.pagination :as model]))
 
 (expect
-  {:msg "Showing 10 items (from 91 to 100) from a total of 430."
+  {:msg "91 − 100 of 430" ;; NOTE: the dash char is not a plain dash, but a "minus-dash" char
+   :tooltip "Showing 10 items (from 91 to 100) from a total of 430."
    :params {:next-page {:offset 100
                         :limit 10}
             :previous-page {:offset 80
@@ -57,11 +58,11 @@
     (model/info {:offset 90
                  :limit 10
                  :count-shown 10
-                 :count-total 430
-                 })))
+                 :count-total 430})))
 
 (expect
-  {:msg "Showing first 10 items from a total of 430."
+  {:msg "1 − 10 of 430" ;; NOTE: the dash char is not a plain dash, but a "minus-dash" char
+   :tooltip "Showing first 10 items from a total of 430."
    :params {:next-page {:offset 10
                         :limit 10}
             :pages [{:page-number 1  :offset 0,   :limit 10, :current-page true}
@@ -112,11 +113,11 @@
     (model/info {:offset 0
                  :limit 10
                  :count-shown 10
-                 :count-total 430
-                 })))
+                 :count-total 430})))
 
 (expect
-  {:msg "Showing last item from a total of 11."
+  {:msg "11 − 11 of 11" ;; NOTE: the dash char is not a plain dash, but a "minus-dash" char
+   :tooltip "Showing last item from a total of 11."
    :params {:previous-page {:offset 0
                             :limit 10}
             :pages [{:page-number 1, :offset 0,  :limit 10}
@@ -125,5 +126,4 @@
     (model/info {:offset 10
                  :limit 10
                  :count-shown 1
-                 :count-total 11
-                 })))
+                 :count-total 11})))
