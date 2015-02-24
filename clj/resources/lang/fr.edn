@@ -289,7 +289,9 @@
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Image de référence"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Multiplicité par défaut"
-   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.label                          "Multiplicité"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label   "Multiplicité"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "La multiplicité doit être supérieure à 0 pour les déploiements non mutables."
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label       "Multiplicité initiale"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Nombre maximal d'erreurs accepté"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "Ceci doit être une valeur inférieure à la multiplicité ci-dessus."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "Cela semble une grande tolérance. Assurez-vous que cela a du sense pour ce déploiement."

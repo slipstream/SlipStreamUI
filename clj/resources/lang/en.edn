@@ -290,9 +290,11 @@
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
-   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.label                          "Multiplicity"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label   "Multiplicity"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label       "Initial multiplicity"
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "Multiplicity must be greater than 0 for non-mutable deployments."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Max provisioning failures"
-   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "It must be a value smaller than the multiplicity above."
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "It must be a value strictly less than the multiplicity above."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "This looks like a big tolerance. Please make sure that this makes sense for this deployment."
    :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label                         "Default cloud"
    :slipstream.ui.views.tables.deployment-nodes-table.cloud.label                                 "Cloud"

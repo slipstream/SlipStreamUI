@@ -372,11 +372,39 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .change(); // Trigger selection validation
     });
 
-
-    // Check for value of 'max provisioning failures' field
+    // Coordination of the 'mutability', 'multiplicity' and 'max provisioning failures' fields
 
     var maxProvisioningFailuresInputIdSuffix    = "--max-provisioning-failures",
-        multiplicityInputIdSuffix               = "--multiplicity";
+        multiplicityInputIdSuffix               = "--multiplicity",
+        $multiplicityInputs                     = $("input[id$='" + multiplicityInputIdSuffix + "']"),
+        $mutabilityCheckbox                     = $("input#mutable");
+
+    $mutabilityCheckbox
+        .change(function() {
+            // Adapt multiplicity fields (min value, label and validation) according to the mutability setting
+            var isMutable = this.checked;
+            $multiplicityInputs
+                .each(function(index, elem){
+                    var $multiplicityInput = $(elem),
+                        mutabilityDataKey = isMutable ? "mutableDeployment" : "nonMutableDeployment",
+                        label = $multiplicityInput.dataIn("inputConfig." + mutabilityDataKey + ".label"),
+                        minValue = $multiplicityInput.dataIn("inputConfig." + mutabilityDataKey + ".minValue");
+                    $multiplicityInput
+                        .attr("min", minValue)
+                        .validateFormInput()
+                        .closest("tr")
+                            .children("td:first-of-type")
+                                .text(label);
+                });
+        });
+
+    $multiplicityInputs
+        .addCustomFormFieldRequirement(function(value, $multiplicityInput) {
+            if ( value.asInt() === 0 ) {
+                return $mutabilityCheckbox.is(":checked") ? "success" : "error";
+            }
+            return "success";
+        });
 
     function $correspondingMultiplicityInputElem($maxProvisioningFailuresInput) {
         var multiplicityId = $maxProvisioningFailuresInput.id().trimSuffix(maxProvisioningFailuresInputIdSuffix) + multiplicityInputIdSuffix;
@@ -384,10 +412,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function isValidMaxProvisioningFailuresValue(value, $maxProvisioningFailuresInput) {
-        var $multiplicityInputField = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput),
-            multiplicity = $multiplicityInputField.valOr("0").asInt(),
+        var $multiplicityInput = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput),
+            multiplicity = $multiplicityInput.valOr("0").asInt(),
             maxProvisioningFailures = (value || "0").asInt();
-        if (maxProvisioningFailures >= multiplicity) {
+        if (maxProvisioningFailures === 0) {
+            return "success";
+        } else if (maxProvisioningFailures >= multiplicity) {
             return "error";
         } else if (maxProvisioningFailures >= multiplicity * 0.5) {
             return "warning";
@@ -395,13 +425,33 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return "success";
     }
 
-    $("[id$='--max-provisioning-failures']")
+    function toggleMaxProvisioningFailuresInputState($multiplicityInput, $maxProvisioningFailuresInput) {
+        if ( $multiplicityInput.val().asInt() > 1 ) {
+            $maxProvisioningFailuresInput
+                .closest("tr")
+                    .enableRow()
+                    .end()
+                .validateFormInput();
+        } else {
+            $maxProvisioningFailuresInput
+                .val("0")
+                .clearFormInputValidationState()
+                .closest("tr")
+                    .disableRow(true, {disableReason: "This value is only relevant for nodes with a big multiplicity (min 2)."});
+        }
+    }
+
+    $("[id$='" + maxProvisioningFailuresInputIdSuffix + "']")
         .each(function(index, elem){
             var $maxProvisioningFailuresInput = $(this),
-                $multiplicityInputField = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput);
+                $multiplicityInput = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput);
             $maxProvisioningFailuresInput
-                .addCustomFormFieldRequirement(isValidMaxProvisioningFailuresValue)
-                .addValidationTrigger("input", $multiplicityInputField);
+                .addCustomFormFieldRequirement(isValidMaxProvisioningFailuresValue);
+            // Toggle state of the MaxProvisioningFailures input at page load and at every multiplicityInput change:
+            toggleMaxProvisioningFailuresInputState($multiplicityInput, $maxProvisioningFailuresInput);
+            $multiplicityInput.onTextInputChange(
+                toggleMaxProvisioningFailuresInputState.partial($multiplicityInput, $maxProvisioningFailuresInput)
+            );
         });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

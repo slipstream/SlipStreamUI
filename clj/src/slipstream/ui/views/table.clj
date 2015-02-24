@@ -114,11 +114,12 @@
 ; Positive integer cell
 
 (html/defsnippet ^:private cell-positive-integer-snip-edit template-filename (sel-for-cell :positive-integer :editable)
-  [{:keys [value tooltip id read-only? disabled? placeholder max-value min-value required?] :as cell-content}]
+  [{:keys [value tooltip id read-only? disabled? placeholder max-value min-value input-config-data required?] :as cell-content}]
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id)
   [:input]  (ue/set-value value)
-  [:input]  (ue/when-set-min min-value)
+  [:input]  (ue/set-min (-> min-value (or 0) (max 0)))
+  [:input]  (ue/when-set-data :input-config input-config-data)
   [:input]  (ue/add-requirements cell-content)
   [:input]  (ue/when-set-max max-value)
   [:input]  (ue/set-placeholder placeholder)

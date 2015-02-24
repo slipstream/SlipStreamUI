@@ -585,11 +585,14 @@
 
   (defmethod deployment-node-cell-inner-table-first-rows :deployment-run-dialog
     [deployment-node _]
-    [{:cells [{:type :cell/text,             :content (t :multiplicity.label)}
+    [{:cells [{:type :cell/text,             :content (t :multiplicity.non-mutable-deployment.label)}
               {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
                                                        :min-value 1
+                                                       :input-config-data {:mutable-deployment      {:min-value 0, :label (t :multiplicity.mutable-deployment.label)}
+                                                                           :non-mutable-deployment  {:min-value 1, :label (t :multiplicity.non-mutable-deployment.label)}}
                                                        :required? true
-                                                       :validation {:requirements (pattern/requirements :multiplicity)}
+                                                       :validation {:generic-help-hints {:error   (t :multiplicity.non-mutable-deployment.error-help-hint)}
+                                                                    :requirements (pattern/requirements :multiplicity)}
                                                        :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
               {:type :cell/positive-number,  :content {:value 0
