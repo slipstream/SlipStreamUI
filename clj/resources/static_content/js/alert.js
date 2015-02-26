@@ -40,6 +40,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
         title: undefined,
         msg: undefined
     };
+    
+    function findAlert(title) {
+        $alertElems = $("div.alert").filter(
+            function(){
+                return $(this).find(".alert-title").text() === title;
+            });
+        return ($alertElems.length > 0)? $alertElems.first() : false;
+    };
+    
+    function alertExist($alertElem, $alertContainer) {
+        return $alertElem.html() === $alertContainer.find("div.alert").first().html();
+    };
 
     function show(arg) {
 
@@ -90,10 +102,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .remove();
         }
 
-        if ( $alertElem.html() === $alertContainer.find("div.alert").first().html() ){
+        if (alertExist($alertElem, $alertContainer)){
             // The exact same alert is the most recent one.
             // Nothing to do.
-            return true;
+            return false;
         }
 
 
@@ -110,7 +122,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             scheduleAlertDismiss($alertElem);
         }
 
-        return true;
+        return $alertElem;
     }
 
     function showOfType(container, type, titleOrMsg, msg) {
@@ -148,6 +160,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         showInfoFixed: function (titleOrMsg, msg) {
             return showOfType("fixed", "info", titleOrMsg, msg);
+        },
+        findAlert: function (title) {
+            return findAlert(title);
         }
     };
 
