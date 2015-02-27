@@ -457,22 +457,31 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         }
                     },
 
-                    handleServiceURL: function(){
+                    handleServiceURL: function(state){
                         var $serviceURLAnchor = $("[id^='parameter-ss:url.service']", lastRefreshData);
                         if ($$.util.string.isNotEmpty($serviceURLAnchor.text())) {
+
                             var $clonedServiceURLAnchor = $serviceURLAnchor.clone().removeAttr("id"),
-                                serviceURLAnchorHTML = $clonedServiceURLAnchor[0].outerHTML;
-                            $$.alert.showInfoFixed("The service is ready",
-                                                   "<strong><code>ss:url.service</code></strong>- " + serviceURLAnchorHTML);
+                                serviceURLAnchorHTML = $clonedServiceURLAnchor[0].outerHTML,
+                                isReadyState = (state === "Ready"),
+                                alertTitle = "The service is ready",
+                                alertMessage = "<strong><code>ss:url.service</code></strong>- " + serviceURLAnchorHTML;
+
+                            if ( isReadyState ) {
+                                $$.alert.showInfoFixed(alertTitle, alertMessage);
+                            } else {
+                                $$.alert.dismissByTitle(alertTitle);
+                            }
                         }
                     },
 
                     processRunHTML: function() {
+
                         var newState = $("#state", lastRefreshData).text();
                         runModel.setState(newState);
                         runModel.updateSubTitle();
                         runModel.handleAbort();
-                        runModel.handleServiceURL();
+                        runModel.handleServiceURL(newState);
                         $("tr")
                             .find("[id]")
                                 .not("#state, [id^='parameter-ss:state']") // State is already set up above

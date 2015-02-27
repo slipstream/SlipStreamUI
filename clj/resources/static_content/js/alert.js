@@ -1,5 +1,15 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    var visibleAlertSel = "div.alert:visible";
+
+    function dismiss($alertElem) {
+        $alertElem
+            .filter(visibleAlertSel)
+                .slideUp("fast", function() {
+                    $alertElem.remove();
+                });
+    }
+
     function scheduleAlertDismiss($alertElem) {
         // Wait longer for longer messages.
         var minDelay = 5000,
@@ -14,9 +24,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .find("button.close")
                 .removeAttr("data-dismiss")
                 .click(function (elem) {
-                    $alertElem.slideUp("fast", function() {
-                        $alertElem.remove();
-                    });
+                    dismiss($alertElem);
                 });
     }
 
@@ -40,6 +48,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
         title: undefined,
         msg: undefined
     };
+
+    function findVisibleAlerts($alertContainer) {
+        // If $alertContainer is given, the alerts are searched within it.
+        // If not, all visible alerts in the body.
+        return ($alertContainer instanceof jQuery) ? $alertContainer.find(visibleAlertSel) : $(visibleAlertSel);
+    }
+
+    function find($alertElem, $alertContainer) {
+        return findVisibleAlerts($alertContainer).filter($alertElem);
+    }
+
+    function findByTitle(title, $alertContainer) {
+        return findVisibleAlerts($alertContainer).filter(
+            function(){
+                return $(this).find(".alert-title").text() === title;
+            });
+    }
+
+    function findByHTML(alertHTML, $alertContainer) {
+        return findVisibleAlerts($alertContainer).filter(
+            function(){
+                return $(this).html() === alertHTML;
+            });
+    }
+
+    function exactExistentAlert($alertElem, $alertContainer) {
+        return findByHTML($alertElem.html(), $alertContainer).first();
+    }
 
     function show(arg) {
 
@@ -90,12 +126,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .remove();
         }
 
-        if ( $alertElem.html() === $alertContainer.find("div.alert").first().html() ){
-            // The exact same alert is the most recent one.
-            // Nothing to do.
-            return true;
-        }
+        var $exactExistentAlert = exactExistentAlert($alertElem, $alertContainer);
 
+        if ($exactExistentAlert.foundAny()){
+            // The exact same alert (i.e. by HTML) already exists in this container.
+            // Nothing to do.
+            return $exactExistentAlert;
+        }
 
         configureCustomDismissAnimation($alertElem);
 
@@ -110,7 +147,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             scheduleAlertDismiss($alertElem);
         }
 
-        return true;
+        return $alertElem;
     }
 
     function showOfType(container, type, titleOrMsg, msg) {
@@ -148,6 +185,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         showInfoFixed: function (titleOrMsg, msg) {
             return showOfType("fixed", "info", titleOrMsg, msg);
+        },
+        dismissByTitle: function (title) {
+            dismiss(findByTitle(title));
         }
     };
 
