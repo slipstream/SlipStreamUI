@@ -12,6 +12,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $$.util.recurrentJob.restart(autoupdateRunPageJobName);
         });
 
+    $("#ss-section-group").on("shown.bs.collapse", runModel.processRunHTML);
+    $("#ss-section-group").on("shown.bs.tab", runModel.processRunHTML);
+
     var run = {
 
         initialState: '...',
