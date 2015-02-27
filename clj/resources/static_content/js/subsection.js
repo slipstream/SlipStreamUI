@@ -87,10 +87,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $(tabAnchorSel).data(onShowCallbackKey, callback);
         },
         triggerOnShowOnOpenSubsection: function() {
-            $(".panel .panel-collapse.collapse.in")         // The open section
-                .find(".ss-subsection-group li.active > a") // The open subsection
-                    .trigger("show.bs.tab")
-                    .trigger("shown.bs.tab");
+            $(".panel .panel-collapse.collapse.in")                         // The open section
+                .find(".ss-subsection-group, .ss-subsection-group-stacked") // Its subsections (horizontal, vertical or combobox)
+                    .find("li.active > a")                                  // The open subsection
+                        .trigger("show.bs.tab")
+                        .trigger("shown.bs.tab");
        }
 
     };
