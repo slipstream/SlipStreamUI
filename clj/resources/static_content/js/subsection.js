@@ -88,7 +88,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         triggerOnShowOnOpenSubsection: function() {
             $(".panel .panel-collapse.collapse.in")                         // The open section
-                .find(".ss-subsection-group, .ss-subsection-group-stacked") // Its subsection (horizontal or vertical)
+                .find(".ss-subsection-group, .ss-subsection-group-stacked") // Its subsections (horizontal, vertical or combobox)
                     .find("li.active > a")                                  // The open subsection
                         .trigger("show.bs.tab")
                         .trigger("shown.bs.tab");
