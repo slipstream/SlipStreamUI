@@ -461,16 +461,16 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         var $serviceURLAnchor = $("[id^='parameter-ss:url.service']", lastRefreshData);
                         if ($$.util.string.isNotEmpty($serviceURLAnchor.text())) {
 
-                            var $clonedServiceURLAnchor = $serviceURLAnchor.clone().removeAttr("id");
-                            var serviceURLAnchorHTML = $clonedServiceURLAnchor[0].outerHTML;
-                            var alertTitle = "The service is ready";
-                            var alertMessage = "<strong><code>ss:url.service</code></strong>- " + serviceURLAnchorHTML;
+                            var $clonedServiceURLAnchor = $serviceURLAnchor.clone().removeAttr("id"),
+                                serviceURLAnchorHTML = $clonedServiceURLAnchor[0].outerHTML,
+                                isReadyState = (state === "Ready"),
+                                alertTitle = "The service is ready",
+                                alertMessage = "<strong><code>ss:url.service</code></strong>- " + serviceURLAnchorHTML;
 
-                            var previousAlert = $$.alert.findAlert(alertTitle);
-                            if ( ! previousAlert && state == "Ready") {
+                            if ( isReadyState ) {
                                 $$.alert.showInfoFixed(alertTitle, alertMessage);
-                            } else if (previousAlert && state != "Ready") {
-                                previousAlert.remove();
+                            } else {
+                                $$.alert.dismissByTitle(alertTitle);
                             }
                         }
                     },
