@@ -900,6 +900,7 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Paramètres globaux"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.fail-tolerance-allowed-checkbox.label  "Tolérer erreurs de déploiement"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Paramètres des noeuds"
 
    :slipstream.ui.views.run.page-title                      "Exécution %1$s" ;; %1$s = [run id]

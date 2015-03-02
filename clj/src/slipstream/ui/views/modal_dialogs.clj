@@ -134,6 +134,7 @@
     [:#ss-run-deployment-id]                      (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     [:.ss-run-deployment-global-section-title]    (html/html-content  (t :global-section.title))
     [:.ss-run-deployment-mutable-checkbox-label]  (html/html-content  (t :mutable-checkbox.label))
+    [:.ss-run-deployment-fail-tolerance-allowed-checkbox-label]  (html/html-content  (t :fail-tolerance-allowed-checkbox.label))
     [:.ss-run-deployment-nodes-section-title]     (html/html-content  (t :nodes-section.title))
     [:.ss-run-deployment-nodes-section-content]   (html/content       (-> deployment-metadata :nodes t/run-deployment-node-parameters-table))
     footnote-sel                                  (html/html-content  (t :footnote))
