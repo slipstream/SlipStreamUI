@@ -907,6 +907,7 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.fail-tolerance-allowed-checkbox.label  "Tolerate deployment failures"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
    :slipstream.ui.views.run.page-title                      "Run %1$s" ;; %1$s = [run id]
