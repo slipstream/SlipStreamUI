@@ -108,3 +108,8 @@ dl.ss-footer-versions-popover {
 .ss-validation-help-hint {
   font-weight: 300;
 }
+
+div.popover[role=tooltip] {
+  /* Override text color of the popovers, to prevent them using the color of the target element. */
+  color: black;
+}

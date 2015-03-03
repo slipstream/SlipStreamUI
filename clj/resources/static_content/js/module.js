@@ -40,4 +40,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         });
 
+
+    // Hint on how to go to the latest version
+
+    var $breadcrumbToLastestModuleVersion = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
+                                                .not(".disabled")
+                                                    .last()
+                                                        .find("a");
+
+    // TODO: Retrieve text form clojure
+    $breadcrumbToLastestModuleVersion.popover({ content:    "The module name in the breadcrumbs brings you always to the latest module version.",
+                                                trigger:    "manual",
+                                                placement:  "bottom"});
+    $breadcrumbToLastestModuleVersion.tooltip({ title:      "Latest module version",
+                                                trigger:    "hover focus",
+                                                placement:  "bottom"});
+
+    $(".alert-msg a[href^='module']")
+        .hover(
+            // TODO: Investigate why it doesn't work with 'partial()'
+            //       $breadcrumbToLastestModuleVersion.popover.partial("show"),
+            //       $breadcrumbToLastestModuleVersion.popover.partial("hide")
+            function() {
+                $breadcrumbToLastestModuleVersion.popover("show");
+            },
+            function() {
+                $breadcrumbToLastestModuleVersion.popover("hide");
+            }
+        );
+
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
