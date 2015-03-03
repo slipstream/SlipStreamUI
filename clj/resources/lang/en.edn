@@ -830,7 +830,7 @@
    :slipstream.ui.views.module.header.title.new                "New %1$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s" ; %1$s = version
    :slipstream.ui.views.module.header.subtitle.new             "Add the information to create a new %1$s."
-   :slipstream.ui.views.module.alert.old-version.msg           "This is not the latest version of this %1$s." ;  %1$s = category: image, project or deployment
+   :slipstream.ui.views.module.alert.old-version.msg           "This is not the latest version of this %1$s. ([go to the lastest version](%2$s))" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
    :slipstream.ui.views.module.alert.edit-published.title      "Editing a published %1$s version" ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.alert.edit-published.msg        "Please note that the changes will not be reflected in the [App Store](/) until you publish the new saved version of this %1$s." ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
