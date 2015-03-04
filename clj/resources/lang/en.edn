@@ -499,6 +499,16 @@
    :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
+   :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
+   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
+
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Enabling this option reveals a field in each node to specify how many instances (i.e. the `multiplicity` value) you tolerate to fail to properly start without SlipStream flagging the whole deployment as failed. This makes specially sense for _mutable_ deployments with a _big_ initial multiplicity."
+
+   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Auto-terminate application after deployment"
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if SlipStream should automatically terminate the application after performing the deployment. E.g. for a production deployment, you might want to set `Never`, whereas during the development phase of an application, `On Error` might be more useful."
+
+
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or IP address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Provided at runtime by SlipStream"
@@ -639,6 +649,11 @@
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.price               "Price"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.suppliers-catalogue "Suppliers catalogue"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other               "Other"
+
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.always      "Always"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.on-success  "On Success"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.on-error    "On Error"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.never       "Never"
 
    ;; Time
 
@@ -906,8 +921,6 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Run deployment"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.fail-tolerance-allowed-checkbox.label  "Tolerate deployment failures"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
    :slipstream.ui.views.run.page-title                      "Run %1$s" ;; %1$s = [run id]

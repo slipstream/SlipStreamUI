@@ -497,6 +497,16 @@
    :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
+   :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
+   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _mutable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
+
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour devoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _mutables_ avec une _grande mutliplicité initiale."
+
+   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Arrêt automatique de l'application"
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définire si SlipStream doit arrêter l'application après l'avoir déploiyée. Par example, pour un déploiement en production, selectionnez l'option `Jamais`, tandis que pendant la phase de dévélopement du déploiement, l'option `En cas d'erreur` peut-être plus utile. "
+
+
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Adresse IP ou nom d'hôte de l'image."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "Ce paramètre est un paramètre par défaut des déploiements. Il est remplis par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Fournis par SlipStream à l'exécution"
@@ -578,7 +588,7 @@
 
    :slipstream.ui.views.tables.run-tags.success-help-hint                             "Les étiquettes ont été mises à jour correctement."
    :slipstream.ui.views.tables.run-tags.warning-help-hint                             "Presser 'ENTER' pour sauvegarder les modifications."
-   :slipstream.ui.views.tables.run-tags.error-help-hint                               "Une erreur est survenue lors de la sauvegarde des étiquettes. Réessayez"
+   :slipstream.ui.views.tables.run-tags.error-help-hint                               "Une erreur est survenue lors de la sauvegarde des étiquettes. Veuillez réessayez svp."
    :slipstream.ui.util.pattern.error-help-hint.run-tags.comma-separated-words         :pattern.default-error-help-hint.comma-separated-words
 
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-empty               :pattern.default-error-help-hint.not-empty
@@ -637,6 +647,11 @@
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.price               "Prix"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.suppliers-catalogue "Fournisseurs catalogue"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other               "Autre"
+
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.always      "Toujours"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.on-success  "En cas de succès"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.on-error    "En cas d'erreur"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.never       "Jamais"
 
    ;; Time
 
@@ -899,8 +914,6 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Exécuter"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Paramètres globaux"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.fail-tolerance-allowed-checkbox.label  "Tolérer erreurs de déploiement"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Paramètres des noeuds"
 
    :slipstream.ui.views.run.page-title                      "Exécution %1$s" ;; %1$s = [run id]
