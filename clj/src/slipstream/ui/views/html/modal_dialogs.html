@@ -368,11 +368,15 @@
             </div>
             <div class="modal-body">
               <h4 class="ss-run-deployment-global-section-title">Global deployment parameters</h4>
-                <table class="ss-table table-condensed table table-responsive table-hover">
+                <table class="ss-table table-condensed table table-responsive table-hover ss-run-deployment-global-section-table">
                   <tbody>
                     <tr class="ss-run-deployment-mutable-checkbox-row">
                       <td><span class="ss-run-deployment-mutable-checkbox-label">Launch a mutable deployment</span></td>
-                      <td><input id="mutable" name="mutable" type="checkbox" value="true"></td>
+                      <td><input id="mutable" name="mutable" type="checkbox"></td>
+                    </tr>
+                    <tr class="ss-run-deployment-fail-tolerance-allowed-checkbox-row">
+                      <td><span class="ss-run-deployment-fail-tolerance-allowed-checkbox-label">Allow to define failure tolerance at node level</span></td>
+                      <td><input id="ss-run-deployment-fail-tolerance-allowed-checkbox" type="checkbox"></td>
                     </tr>
                   </tbody>
                 </table>

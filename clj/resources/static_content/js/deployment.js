@@ -377,7 +377,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var maxProvisioningFailuresInputIdSuffix    = "--max-provisioning-failures",
         multiplicityInputIdSuffix               = "--multiplicity",
         $multiplicityInputs                     = $("input[id$='" + multiplicityInputIdSuffix + "']"),
-        $mutabilityCheckbox                     = $("input#mutable");
+        $maxProvisioningFailuresInputs          = $("[id$='" + maxProvisioningFailuresInputIdSuffix + "']"),
+        $mutabilityCheckbox                     = $("input#mutable"),
+        $toleranceCheckbox                      = $("input#ss-run-deployment-fail-tolerance-allowed-checkbox");
+
+    $toleranceCheckbox
+        .change(function() {
+            var isToleranceAllowed = this.checked;
+            if (isToleranceAllowed) {
+                $maxProvisioningFailuresInputs
+                    .closest("tr")
+                        .slideDownRow();
+            } else {
+                $maxProvisioningFailuresInputs
+                    .val("0")
+                    .clearFormInputValidationState()
+                    .closest("tr")
+                        .slideUpRow();
+            }
+        });
+
+    // Sync $maxProvisioningFailuresInputs initial state with the checkbox
+    $toleranceCheckbox.change();
 
     $mutabilityCheckbox
         .change(function() {
@@ -441,7 +462,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     }
 
-    $("[id$='" + maxProvisioningFailuresInputIdSuffix + "']")
+    $maxProvisioningFailuresInputs
         .each(function(index, elem){
             var $maxProvisioningFailuresInput = $(this),
                 $multiplicityInput = $correspondingMultiplicityInputElem($maxProvisioningFailuresInput);

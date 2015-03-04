@@ -507,6 +507,44 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return ! this.hasClass(this.disabledRowCls);
         },
 
+        slidedUpRowCls: "ss-slided-up-row",
+        tmpDivToSlidedUpRowCls: "ss-tmp-div-to-slide-up-row",
+
+        // NOTE: <tr> tags cannot be used with jQuery's 'slideUp()' and 'slideDown()'
+        //       functions.
+        //       Source: http://stackoverflow.com/a/920480
+        //       The used solution wraps the content in a <div> tag and applies the
+        //       functions on that.
+        //       Inspired from: http://stackoverflow.com/a/3410943
+
+        slideUpRow: function(duration) {
+            var $row = this;
+            $row
+                .filter("tr")
+                .find('td')
+                .wrapInner("<div class='" + $row.tmpDivToSlidedUpRowCls + "'style='display: block;' />")
+                .parent()
+                .find('td > div')
+                .slideUp(duration, function(){
+                    var $tmpInnerDiv = $(this);
+                    $tmpInnerDiv
+                        .closest("tr")
+                            .addClass($row.slidedUpRowCls);
+                });
+            return this;
+        },
+
+        slideDownRow: function(duration) {
+            this
+                .filter("tr." + this.slidedUpRowCls)
+                .find("td > div." + this.tmpDivToSlidedUpRowCls)
+                .slideDown(duration, function(){
+                    var $tmpInnerDiv = $(this);
+                    $tmpInnerDiv.replaceWith($tmpInnerDiv.contents());
+                });
+            return this;
+        },
+
         onRowStateChange: function(callbackAfterRowStateChange) {
             this.each(function() {
                 var $this = $(this),
