@@ -650,10 +650,18 @@
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.suppliers-catalogue "Suppliers catalogue"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other               "Other"
 
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.always      "Always"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.on-success  "On Success"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.on-error    "On Error"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour.never       "Never"
+   ; Values for default behaviour defined in user profile
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.always              "Always"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.on-success          "On Success"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.on-error            "On Error"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.never               "Never"
+
+   ; Values for spot behaviour for each deployment defined in the 'Run deployment' dialog
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.always       "Yes"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-success   "On Success"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-error     "On Error"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never        "No"
+
 
    ;; Time
 
