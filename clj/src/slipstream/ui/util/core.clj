@@ -83,6 +83,14 @@
                                     ;          "Suppliers catalogue"
                                     ;          "Other"]
                                     ;        in slipstream.ui.views.tables
+    :keep-running-behaviour-default         ; Values: [:always
+                                            ;          :on-success
+                                            ;          :on-error
+                                            ;          :never]
+    :keep-running-behaviour-for-deployment  ; Values: [:always
+                                            ;          :on-success
+                                            ;          :on-error
+                                            ;          :never]
     })
 
 (defn- enum-text

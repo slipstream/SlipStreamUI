@@ -195,14 +195,18 @@
 
 (defn build-parameters-table
   "The last columns are always value and hint. The first ones might change."
-  [first-cols-keywords parameters]
+  [first-cols-keywords parameters & {:keys [include-headers?] :or {include-headers? true}}]
   (table/build
-    {:headers (concat first-cols-keywords [:value nil])
+    {:headers (when include-headers? (concat first-cols-keywords [:value nil]))
      :rows (map-indexed (partial parameter-row first-cols-keywords) parameters)}))
 
 (defn parameters-table
   [parameters]
   (build-parameters-table [:description] parameters))
+
+(defn headerless-parameters-table
+  [parameters]
+  (build-parameters-table [:description] parameters :include-headers? false))
 
 (defn runtime-parameters-table
   [parameters]
@@ -669,6 +673,20 @@
       {:rows (->> deployment-nodes
                   (map #(assoc % :target :deployment-run-dialog))
                   (map-indexed deployment-node-row))}))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/with-prefixed-t :run-deployment-global-parameters-table
+
+  (defn run-deployment-global-section-table
+    [parameters]
+    (headerless-parameters-table
+      (p/map->parameter-list parameters
+        :launch-mutable-run?            {:type :cell/boolean, :editable? true, :id-format-fn (constantly "mutable")}
+        :tolerate-deployment-failures?  {:type :cell/boolean, :editable? true, :id-format-fn (constantly "ss-run-deployment-fail-tolerance-allowed-checkbox")}
+        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")})))
 
 ) ;; End of prefixed t scope
 

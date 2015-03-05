@@ -126,6 +126,17 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (-> run-type name (str ".button") keyword t))))
 
+(defn- run-deployment-global-parameters
+  [deployment-metadata]
+  {:launch-mutable-run?           false
+   :tolerate-deployment-failures? false
+   :keep-running-behaviour        (u/enum [:always
+                                           :on-success
+                                           :on-error
+                                           :never]
+                                          :keep-running-behaviour-for-deployment)})
+
+
 (localization/with-prefixed-t :run-deployment-dialog
   (html/defsnippet ^:private run-deployment-dialog template-filename [:#ss-run-deployment-dialog]
     [deployment-metadata resource-id module-version]
@@ -133,8 +144,7 @@
     title-sel                                     (html/content       (t :title))
     [:#ss-run-deployment-id]                      (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     [:.ss-run-deployment-global-section-title]    (html/html-content  (t :global-section.title))
-    [:.ss-run-deployment-mutable-checkbox-label]  (html/html-content  (t :mutable-checkbox.label))
-    [:.ss-run-deployment-fail-tolerance-allowed-checkbox-label]  (html/html-content  (t :fail-tolerance-allowed-checkbox.label))
+    [:.ss-run-deployment-global-section-content]  (html/content       (-> deployment-metadata run-deployment-global-parameters t/run-deployment-global-section-table))
     [:.ss-run-deployment-nodes-section-title]     (html/html-content  (t :nodes-section.title))
     [:.ss-run-deployment-nodes-section-content]   (html/content       (-> deployment-metadata :nodes t/run-deployment-node-parameters-table))
     footnote-sel                                  (html/html-content  (t :footnote))

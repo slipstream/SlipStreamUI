@@ -398,7 +398,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
 
     // Sync $maxProvisioningFailuresInputs initial state with the checkbox
-    $toleranceCheckbox.change();
+    $toleranceCheckbox
+        .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required
+        .change();
 
     $mutabilityCheckbox
         .change(function() {
