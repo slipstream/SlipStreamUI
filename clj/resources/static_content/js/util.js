@@ -521,6 +521,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var $row = this;
             $row
                 .filter("tr")
+                .not(this.slidedUpRowCls.asSel())
                 .find('td')
                 .wrapInner("<div class='" + $row.tmpDivToSlidedUpRowCls + "'style='display: block;' />")
                 .parent()
@@ -537,6 +538,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         slideDownRow: function(duration) {
             this
                 .filter("tr." + this.slidedUpRowCls)
+                .removeClass(this.slidedUpRowCls)
                 .find("td > div." + this.tmpDivToSlidedUpRowCls)
                 .slideDown(duration, function(){
                     var $tmpInnerDiv = $(this);

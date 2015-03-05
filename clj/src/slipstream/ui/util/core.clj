@@ -63,7 +63,11 @@
 
 (defn- type-enum
   [enum]
-  (with-meta enum {:type :enum}))
+  (vary-meta enum assoc :type :enum))
+
+(defn- name-enum
+  [enum-name enum]
+  (vary-meta enum assoc :name enum-name))
 
 (def ^:private enums-with-localization
   "By default we display the values itselves in the combobox of a 'select' form
@@ -93,9 +97,16 @@
                                             ;          :never]
     })
 
+
+(def ^:private enum-options-with-localization
+  "Same than enums-with-localization above, but for idividual options."
+  #{:specify-for-each-node})
+
 (defn- enum-text
   [enum-name option]
-  (if-not (enums-with-localization enum-name)
+  (if-not (or
+            (enums-with-localization enum-name)
+            (enum-options-with-localization option))
     option
     (->> option
          uc/keywordize
@@ -119,7 +130,8 @@
   (->> enum
        (map (partial toggle-option (enum-value selected-option)))
        ensure-one-selected
-       type-enum))
+       type-enum
+       (name-enum (-> enum meta :name))))
 
 (defn- parse-enum-option
   [enum-name option]
@@ -129,7 +141,14 @@
   [options enum-name & [selected-option]]
   (let [enum-base (map (partial parse-enum-option enum-name) options)]
     (-> enum-base
+        (with-meta {:name enum-name})
         (enum-select (or selected-option (first options))))))
+
+(defn enum-append-option
+  [enum option]
+  (let [enum-name         (-> enum meta :name)
+        option-to-append  (parse-enum-option enum-name option)]
+    (concat enum [option-to-append])))
 
 (defn assoc-enum-details
   [m parameter]

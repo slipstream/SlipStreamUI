@@ -397,10 +397,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         });
 
-    // Sync $maxProvisioningFailuresInputs initial state with the checkbox
     $toleranceCheckbox
         .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required
-        .change();
+        .change();          // Sync $maxProvisioningFailuresInputs initial state with the checkbox
 
     $mutabilityCheckbox
         .change(function() {
@@ -476,5 +475,31 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 toggleMaxProvisioningFailuresInputState.partial($multiplicityInput, $maxProvisioningFailuresInput)
             );
         });
+
+    // Synchronization of the cloud comboboxes
+
+    var $globalCloudServiceCombobox         = $("#global-cloud-service"),
+        specifyForEachNodeOption            = "specify-for-each-node",
+        nodeCloudServiceComboboxIdSuffix    = "--cloudservice",
+        $nodeCloudServiceComboboxes         = $("select[id$='" + nodeCloudServiceComboboxIdSuffix + "']");
+
+    $globalCloudServiceCombobox
+        .change(function() {
+            if ( $globalCloudServiceCombobox.val() === specifyForEachNodeOption ) {
+                $nodeCloudServiceComboboxes
+                    .closest("tr")
+                        .slideDownRow();
+            } else {
+                $nodeCloudServiceComboboxes
+                    .closest("tr")
+                        .slideUpRow()
+                        .end()
+                    .val($globalCloudServiceCombobox.val());
+            }
+        })
+        .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required
+        .change();          // Sync $nodeCloudServiceComboboxes initial state with the checkbox
+
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

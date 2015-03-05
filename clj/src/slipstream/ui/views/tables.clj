@@ -684,9 +684,11 @@
     [parameters]
     (headerless-parameters-table
       (p/map->parameter-list parameters
+        :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service")}
         :launch-mutable-run?            {:type :cell/boolean, :editable? true, :id-format-fn (constantly "mutable")}
         :tolerate-deployment-failures?  {:type :cell/boolean, :editable? true, :id-format-fn (constantly "ss-run-deployment-fail-tolerance-allowed-checkbox")}
-        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")})))
+        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")}
+        )))
 
 ) ;; End of prefixed t scope
 

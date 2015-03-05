@@ -128,7 +128,10 @@
 
 (defn- run-deployment-global-parameters
   [deployment-metadata]
-  {:launch-mutable-run?           false
+  {:deployment-target-cloud       (-> deployment-metadata
+                                      :available-clouds
+                                      (u/enum-append-option :specify-for-each-node))
+   :launch-mutable-run?           false
    :tolerate-deployment-failures? false
    :keep-running-behaviour        (u/enum [:always
                                            :on-success
