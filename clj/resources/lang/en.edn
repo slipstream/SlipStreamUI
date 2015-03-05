@@ -499,6 +499,8 @@
    :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
+   ;; Parameters for the global section of the 'Run deployment' dialog
+
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
@@ -512,6 +514,9 @@
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Auto-terminate application after deployment"
    :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if SlipStream should automatically terminate the application after performing the deployment. E.g. for a production deployment, you might want to set `Never`, whereas during the development phase of an application, `On Error` might be more useful."
 
+   :slipstream.ui.models.parameters.need-ssh-access?.description                "Enable SSH access"
+   :slipstream.ui.models.parameters.need-ssh-access?.help-hint                  "Enable this option if you want SlipStream to install the SSH keys defined in your profile into the deployed machines. If you are not sure about this option, you can probably leave it unchecked."
+   :slipstream.ui.views.tables.run-deployment-global-parameters-table.need-ssh-access?.missing-ssh-key.error-help-hint "No SSH key configured in your [user profile](%1$s)." ; %1$s = user profile URL
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or IP address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."

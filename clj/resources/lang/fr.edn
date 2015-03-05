@@ -497,6 +497,8 @@
    :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
+   ;; Parameters for the global section of the 'Run deployment' dialog
+
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _mutable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
 
@@ -510,6 +512,9 @@
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Arrêt automatique de l'application"
    :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définire si SlipStream doit arrêter l'application après l'avoir déploiyée. Par example, pour un déploiement en production, selectionnez l'option `Jamais`, tandis que pendant la phase de dévélopement du déploiement, l'option `En cas d'erreur` peut-être plus utile. "
 
+   :slipstream.ui.models.parameters.need-ssh-access?.description                "Accès SSH"
+   :slipstream.ui.models.parameters.need-ssh-access?.help-hint                  "Activez cette option si vous désirez que SlipStream installe sur les machines deployées les clés SSH définies dans votre profile. Si vous n'êtes pas sûr de cette option, vous pouvez certainement la laisse désactivée."
+   :slipstream.ui.views.tables.run-deployment-global-parameters-table.need-ssh-access?.missing-ssh-key.error-help-hint "Pas de clé SSH configurée dans [votre profile](%1$s)." ; %1$s = user profile URL
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Adresse IP ou nom d'hôte de l'image."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "Ce paramètre est un paramètre par défaut des déploiements. Il est remplis par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get hostname'."
