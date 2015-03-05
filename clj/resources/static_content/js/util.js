@@ -1495,6 +1495,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Enable popovers
                 .find("[data-toggle='popover']")
                     .popover({
+                        html: true,
                         delay: 200
                     })
                     .end()
