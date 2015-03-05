@@ -501,5 +501,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .change();          // Sync $nodeCloudServiceComboboxes initial state with the checkbox
 
 
+    // SSH option
+
+    var $needSSHAccessElem = $("#need-ssh-access");
+
+    $needSSHAccessElem
+        .change(function(){
+            if ( ! this.checked ) {
+                $needSSHAccessElem.clearFormInputValidationState();
+            } else {
+                $needSSHAccessElem.setFormInputValidationState(false);
+            }
+        });
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

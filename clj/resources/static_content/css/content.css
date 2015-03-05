@@ -17,7 +17,8 @@ code {
   color: #4499ce;
 }
 
-.alert a {
+.alert a,
+.ss-validation-help-hint a {
   color: inherit;
   font-weight: 600;
 }
@@ -27,16 +28,19 @@ code {
   background-color: transparent;
 }
 .has-success code,
+.has-success .ss-validation-help-hint a,
 .alert-success code {
   color: #3c763d;
   background-color: transparent;
 }
 .has-warning code,
+.has-warning .ss-validation-help-hint a,
 .alert-warning code {
   color: #8a6d3b;
   background-color: transparent;
 }
 .has-error code,
+.has-error .ss-validation-help-hint a,
 .alert-danger code {
   color: #a94442;
   background-color: transparent;
@@ -93,6 +97,9 @@ dl.ss-footer-versions-popover {
 
 .ss-form-group-with-validation .form-control-feedback {
   top: 0;     /* NOTE: Input validation icon top must be adjusted. */
+}
+.ss-table-cell-boolean-editable .ss-form-group-with-validation .form-control-feedback {
+  top: -6px;  /* NOTE: Input validation icon top must be adjusted for checkboxes. */
 }
 .table .ss-form-group-with-validation .form-control-feedback {
   z-index: 0; /* NOTE: Otherwise it goes on top of popover menus.

@@ -137,7 +137,8 @@
                                            :on-success
                                            :on-error
                                            :never]
-                                          :keep-running-behaviour-for-deployment)})
+                                          :keep-running-behaviour-for-deployment)
+   :need-ssh-access?              false})
 
 
 (localization/with-prefixed-t :run-deployment-dialog
