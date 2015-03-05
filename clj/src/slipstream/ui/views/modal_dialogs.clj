@@ -133,6 +133,7 @@
                                       (u/enum-append-option :specify-for-each-node))
    :launch-mutable-run?           false
    :tolerate-deployment-failures? false
+   :tags                          nil
    :keep-running-behaviour        (u/enum [:always
                                            :on-success
                                            :on-error

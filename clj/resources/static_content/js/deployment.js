@@ -514,5 +514,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         });
 
+    // Tags field
+
+    var $tagsInputElem = $("#tags");
+
+    $tagsInputElem.focusout(function(){
+        if ( $tagsInputElem.isValidFormInput() ) {
+            var sanitizedTags = $tagsInputElem.val().asCommaSeparatedListOfUniqueTags();
+            $tagsInputElem.val(sanitizedTags);
+        }
+    });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

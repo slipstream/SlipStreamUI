@@ -599,6 +599,7 @@
    :slipstream.ui.views.tables.run-tags.warning-help-hint                             "Presser 'ENTER' pour sauvegarder les modifications."
    :slipstream.ui.views.tables.run-tags.error-help-hint                               "Une erreur est survenue lors de la sauvegarde des étiquettes. Veuillez réessayez svp."
    :slipstream.ui.util.pattern.error-help-hint.run-tags.comma-separated-words         :pattern.default-error-help-hint.comma-separated-words
+   :slipstream.ui.util.pattern.error-help-hint.run-start-tags.comma-separated-words   :pattern.default-error-help-hint.comma-separated-words
 
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-empty               :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.dot-separated-words     :pattern.default-error-help-hint.dot-separated-words

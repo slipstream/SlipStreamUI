@@ -161,6 +161,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         asInt: function() {
             return parseInt(this, 10);
+        },
+
+        asCommaSeparatedListOfUniqueTags: function() {
+            return this
+                    .trim()
+                    .split(/[^\w-]+/) // tags can only contain [a-zA-Z0-9-]
+                    .sort()
+                    .unique()
+                    .filter($$.util.string.notEmpty)
+                    .join(", ");
         }
 
     });

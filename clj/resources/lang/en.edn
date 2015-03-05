@@ -601,6 +601,7 @@
    :slipstream.ui.views.tables.run-tags.warning-help-hint                             "Press `Enter` to save modification."
    :slipstream.ui.views.tables.run-tags.error-help-hint                               "Something went wrong when trying to save the tags. Please retry."
    :slipstream.ui.util.pattern.error-help-hint.run-tags.comma-separated-words         :pattern.default-error-help-hint.comma-separated-words
+   :slipstream.ui.util.pattern.error-help-hint.run-start-tags.comma-separated-words   :pattern.default-error-help-hint.comma-separated-words
 
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-empty               :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.dot-separated-words     :pattern.default-error-help-hint.dot-separated-words
