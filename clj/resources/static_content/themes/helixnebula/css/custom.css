@@ -16,7 +16,7 @@
 
 /* Menubar */
 .navbar .ss-menubar-logged-in {
-  color: #091117;
+  color: #174b77; /*.color-primary-3*/
   background-color: white;
   border-bottom-color: #2178c0;
 }
