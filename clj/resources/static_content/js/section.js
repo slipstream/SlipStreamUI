@@ -144,13 +144,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
 
         $bsPanelToOpen
-            .closest(".panel-group")
-            .find(".collapse.in")
-            .collapse("hide");
-
-        $bsPanelToOpen
-            .find(".collapse")
-            .collapse("show");
+            .find("a.ss-section-activator")
+                .click();
 
         return "sucessfully selected";
     }
