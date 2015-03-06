@@ -43,15 +43,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Hint on how to go to the latest version
 
-    var $breadcrumbToLastestModuleVersion   = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
+    var $linkToLatestVersion                = $(".alert-msg a[href^='module']"),
+        $notLastVersionAlert                = $linkToLatestVersion.closest(".alert"),
+        breadcrumbToLastVersionHelpHint     = $notLastVersionAlert.dataIn("context.helpHints.breadcrumbToLastVersion"),
+        linkToHistoryHelpHint               = $notLastVersionAlert.dataIn("context.helpHints.linkToHistory"),
+        $breadcrumbToLastestModuleVersion   = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
                                                     .not(".disabled")
                                                         .last()
                                                             .find("a"),
         $linkToHistoryElem                  = $(".ss-table-cell-module-version a[href^='module']");
 
-    // TODO: Retrieve text form clojure
-    $breadcrumbToLastestModuleVersion.bsAddDynamicHelpHint("The module name in the breadcrumbs brings you always to the latest module version.");
-    $linkToHistoryElem.bsAddDynamicHelpHint("The version history allows you to select a previous version of this module.");
+    $breadcrumbToLastestModuleVersion.bsAddDynamicHelpHint(breadcrumbToLastVersionHelpHint);
+    $linkToHistoryElem.bsAddDynamicHelpHint(linkToHistoryHelpHint);
 
     $(".alert-msg a[href^='module']")
         .hover(

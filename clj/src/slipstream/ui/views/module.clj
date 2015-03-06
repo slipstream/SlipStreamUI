@@ -42,6 +42,8 @@
   (when-not latest-version?
     {:type :warning
      :container :fixed
+     :data-context {:help-hints {:breadcrumb-to-last-version  (t :help-hint.breadcrumb-to-last-version)
+                                 :link-to-history             (t :help-hint.link-to-history)}}
      :msg (t :alert.old-version.msg
              (u/t-module-category category s/lower-case)
              (uc/trim-last-path-segment uri))}))

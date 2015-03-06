@@ -47,10 +47,11 @@
            [:> :div] (html/remove-attr :id)))
 
 (defmethod alert :custom
-  [{:keys [type title msg dismissible] :or {dismissible (is-floating? alert) type :info} :as alert}]
+  [{:keys [type title msg dismissible data-context] :or {dismissible (is-floating? alert) type :info} :as alert}]
   (html/at (html/select alerts (alert-sel type))
            [:> :div] (html/remove-attr :id)
            dismiss-button-sel (when dismissible identity)
+           ue/this   (ue/when-set-data :context data-context)
            title-sel (ue/if-content (not-empty title)
                                     title
                                     (-> type name (str ".title") keyword t))

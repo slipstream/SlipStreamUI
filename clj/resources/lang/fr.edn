@@ -824,6 +824,8 @@
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s"
    :slipstream.ui.views.module.header.subtitle.new             "Ajouter les informations pour créer un nouveau module de type '%1$s'."
    :slipstream.ui.views.module.alert.old-version.msg           "Vous n'êtes pas sur la dernière version de ce module. ([aller vers la dernière version](%2$s))" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
+   :slipstream.ui.views.module.help-hint.breadcrumb-to-last-version "Le nom du module dans le menu de navigation vous emmène toujours vers sa version la plus récente."
+   :slipstream.ui.views.module.help-hint.link-to-history            "L'historique vous permet d'avoir un apérçu de toutes les versions de ce module et d'en choisir une autre."
    :slipstream.ui.views.module.alert.edit-published.title      "Edition d'une version publiée de ce/cette %1$s" ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.alert.edit-published.msg        "Les changements ne seront pas appliqués à la version publié dans le [catalogue d'applications](/) tant que vous n'aurez pas publié la nouvelle version de ce/cette %1$s." ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
