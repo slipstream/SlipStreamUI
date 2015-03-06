@@ -82,9 +82,6 @@ body.ss-standalone-webapp-mobile > .navbar::before {
 .ss-menubar-logged-in .navbar-nav li > a:active {
   color: inherit;
   background-color: #800;
-  -webkit-box-shadow: inset 0 0 8px 6px #700000;
-     -moz-box-shadow: inset 0 0 8px 6px #700000;
-          box-shadow: inset 0 0 8px 6px #700000;
 }
 
 /* Pushed down effet on other than mobile (!xs) */
@@ -95,9 +92,6 @@ body.ss-standalone-webapp-mobile > .navbar::before {
   .ss-menubar-logged-in .navbar-nav li.open > a:focus {
     color: inherit;
     background-color: #800;
-    -webkit-box-shadow: inset 0 0 8px 6px #700000;
-       -moz-box-shadow: inset 0 0 8px 6px #700000;
-            box-shadow: inset 0 0 8px 6px #700000;
   }
 }
 
@@ -108,9 +102,6 @@ body.ss-standalone-webapp-mobile > .navbar::before {
   .ss-menubar-logged-in .navbar-nav li.dropdown.open {
     color: inherit;
     background-color: #800;
-    -webkit-box-shadow: inset 0 0 8px 6px #700000;
-       -moz-box-shadow: inset 0 0 8px 6px #700000;
-            box-shadow: inset 0 0 8px 6px #700000;
   }
 
   .ss-menubar-logged-in .navbar-nav li.open > a,
@@ -126,9 +117,6 @@ body.ss-standalone-webapp-mobile > .navbar::before {
 
   .ss-menubar-logged-in .navbar-nav > .dropdown > .dropdown-menu > li > a:active {
     background-color: #500000;
-    -webkit-box-shadow: inset 0 0 8px 6px #600000;
-       -moz-box-shadow: inset 0 0 8px 6px #600000;
-            box-shadow: inset 0 0 8px 6px #600000;
   }
 
 }
