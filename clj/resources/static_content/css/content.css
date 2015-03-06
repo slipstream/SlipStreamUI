@@ -113,3 +113,26 @@ div.popover[role=tooltip] {
   /* Override text color of the popovers, to prevent them using the color of the target element. */
   color: black;
 }
+
+/* Dynamic help hints */
+.popover.ss-dynamic-help-hint {
+  background-color: #d9edf7; /* Froms Bootstrap's .bg-info*/
+}
+.popover.ss-dynamic-help-hint>.arrow:after {
+  border-bottom-color: #d9edf7; /* Froms Bootstrap's .bg-info*/
+}
+.popover-content.bg-info.text-info::before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e086 "; /* .glyphicon-info-sign */
+  font-size: 12px;
+  font-style: normal;
+  font-weight: lighter;
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  top: 1px;
+  left: 0;
+  padding-right: 5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

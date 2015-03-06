@@ -1517,6 +1517,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        bsAddDynamicHelpHint: function(helpHintStr, placement) {
+            return this.popover(
+                {content:    helpHintStr,
+                 trigger:    "manual",
+                 container:  "body",
+                 template:   "<div class=\"popover ss-dynamic-help-hint\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-info text-info\"></div></div>",
+                 placement:  placement || "bottom"});
+        },
+
         // Image Preloader utils
         //
         // '.imagesLoaded()' requires following library:

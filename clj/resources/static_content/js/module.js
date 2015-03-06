@@ -43,18 +43,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Hint on how to go to the latest version
 
-    var $breadcrumbToLastestModuleVersion = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
-                                                .not(".disabled")
-                                                    .last()
-                                                        .find("a");
+    var $breadcrumbToLastestModuleVersion   = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
+                                                    .not(".disabled")
+                                                        .last()
+                                                            .find("a"),
+        $linkToHistoryElem                  = $(".ss-table-cell-module-version a[href^='module']");
 
     // TODO: Retrieve text form clojure
-    $breadcrumbToLastestModuleVersion.popover({ content:    "The module name in the breadcrumbs brings you always to the latest module version.",
-                                                trigger:    "manual",
-                                                placement:  "bottom"});
-    $breadcrumbToLastestModuleVersion.tooltip({ title:      "Latest module version",
-                                                trigger:    "hover focus",
-                                                placement:  "bottom"});
+    $breadcrumbToLastestModuleVersion.bsAddDynamicHelpHint("The module name in the breadcrumbs brings you always to the latest module version.");
+    $linkToHistoryElem.bsAddDynamicHelpHint("The version history allows you to select a previous version of this module.");
 
     $(".alert-msg a[href^='module']")
         .hover(
@@ -63,9 +60,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             //       $breadcrumbToLastestModuleVersion.popover.partial("hide")
             function() {
                 $breadcrumbToLastestModuleVersion.popover("show");
+                $$.section.select(1); // Open 'Summary' section
+                $linkToHistoryElem.popover("show");
             },
             function() {
                 $breadcrumbToLastestModuleVersion.popover("hide");
+                $linkToHistoryElem.popover("hide");
             }
         );
 
