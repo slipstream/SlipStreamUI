@@ -196,6 +196,143 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; parse-boolean
+
+(expect
+  nil
+  (parse-boolean nil))
+
+(expect
+  java.lang.AssertionError
+  (parse-boolean :not-a-string-or-nil))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "some string"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "12 and some string"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "12"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "ttrue"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "True."))
+
+(expect
+  true
+  (parse-boolean "true"))
+
+(expect
+  true
+  (parse-boolean "True"))
+
+(expect
+  true
+  (parse-boolean "TRUE"))
+
+(expect
+  true
+  (parse-boolean "     tRue  "))
+
+(expect
+  true
+  (parse-boolean "on"))
+
+(expect
+  true
+  (parse-boolean "On"))
+
+(expect
+  true
+  (parse-boolean "ON"))
+
+(expect
+  true
+  (parse-boolean "          oN  "))
+
+(expect
+  true
+  (parse-boolean "yes"))
+
+(expect
+  true
+  (parse-boolean "Yes"))
+
+(expect
+  true
+  (parse-boolean "YES"))
+
+(expect
+  true
+  (parse-boolean "        yEs    "))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "ffalse"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "False."))
+
+(expect
+  false
+  (parse-boolean "false"))
+
+(expect
+  false
+  (parse-boolean "False"))
+
+(expect
+  false
+  (parse-boolean "FALSE"))
+
+(expect
+  false
+  (parse-boolean "     faLSe  "))
+
+(expect
+  false
+  (parse-boolean "off"))
+
+(expect
+  false
+  (parse-boolean "Off"))
+
+(expect
+  false
+  (parse-boolean "OFF"))
+
+(expect
+  false
+  (parse-boolean "     oFf  "))
+
+(expect
+  false
+  (parse-boolean "no"))
+
+(expect
+  false
+  (parse-boolean "No"))
+
+(expect
+  false
+  (parse-boolean "NO"))
+
+(expect
+  false
+  (parse-boolean "     nO  "))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; parse-pos-int
 
 (expect

@@ -160,8 +160,9 @@
 
 ;; NOTE: Memoizing this function decreases performance
 (defn parse-boolean
-  "Casts 'true' and 'false' strings to their corresponding boolean
-  values, both case insensitive and after trimming whitespace right
+  "Casts 'true', 'on' and 'yes' strings to the boolean value 'true',
+  and 'false', 'off' and 'no' string to the boolean value 'false'.
+  All cases are case insensitive and after trimming whitespace right
   and left, but leaving nil and empty string to nil, which is equivalent
   to false, but allows to detect if a value was set or not. All other
   strings will trigger an IllegalArgumentException."
@@ -170,8 +171,12 @@
   (when (not-empty s)
     (cond
       ; NOTE: (?i) means case-insensitive
-      (re-matches #"(?i)^\s*true\s*$" s)  true
-      (re-matches #"(?i)^\s*false\s*$" s) false
+      (re-matches #"(?i)^\s*true\s*$"   s)  true
+      (re-matches #"(?i)^\s*false\s*$"  s)  false
+      (re-matches #"(?i)^\s*on\s*$"     s)  true
+      (re-matches #"(?i)^\s*off\s*$"    s)  false
+      (re-matches #"(?i)^\s*yes\s*$"    s)  true
+      (re-matches #"(?i)^\s*no\s*$"     s)  false
       :else (throw (IllegalArgumentException.
                      (str "Cannot parse boolean from string: " s))))))
 
