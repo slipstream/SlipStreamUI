@@ -169,16 +169,16 @@
   [s]
   {:pre [(or (nil? s) (string? s))]}
   (when (not-empty s)
-    (cond
+    (condp re-matches s
       ; NOTE: (?i) means case-insensitive
-      (re-matches #"(?i)^\s*true\s*$"   s)  true
-      (re-matches #"(?i)^\s*false\s*$"  s)  false
-      (re-matches #"(?i)^\s*on\s*$"     s)  true
-      (re-matches #"(?i)^\s*off\s*$"    s)  false
-      (re-matches #"(?i)^\s*yes\s*$"    s)  true
-      (re-matches #"(?i)^\s*no\s*$"     s)  false
-      :else (throw (IllegalArgumentException.
-                     (str "Cannot parse boolean from string: " s))))))
+      #"(?i)^\s*true\s*$"   true
+      #"(?i)^\s*false\s*$"  false
+      #"(?i)^\s*on\s*$"     true
+      #"(?i)^\s*off\s*$"    false
+      #"(?i)^\s*yes\s*$"    true
+      #"(?i)^\s*no\s*$"     false
+      (throw (IllegalArgumentException.
+               (str "Cannot parse boolean from string: " s))))))
 
 (defn update-map-keys
   [x f]
