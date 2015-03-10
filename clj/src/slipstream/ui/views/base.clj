@@ -97,9 +97,12 @@
 
 (defn- bottom-internal-scripts-snip
   [filenames]
-  (->> (conj filenames "last.js")
-       (map (partial str "js/"))
-       bottom-scripts-snip))
+  (let [extra-files (cond-> []
+                      :always                   (conj "last.js")
+                      (page-type/not-chooser?)  (conj "support.js"))]
+    (->> (concat filenames extra-files)
+         (map (partial str "js/"))
+         bottom-scripts-snip)))
 
 ;; Top CSS link snippet
 
