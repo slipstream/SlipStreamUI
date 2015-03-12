@@ -57,7 +57,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $linkToHistoryElem.bsAddDynamicHelpHint(linkToHistoryHelpHint);
 
     $(".alert-msg a[href^='module']")
-        .hover(
+        .hoverDelayed(
             // TODO: Investigate why it doesn't work with 'partial()'
             //       $breadcrumbToLastestModuleVersion.popover.partial("show"),
             //       $breadcrumbToLastestModuleVersion.popover.partial("hide")
@@ -69,6 +69,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             function() {
                 $breadcrumbToLastestModuleVersion.popover("hide");
                 $linkToHistoryElem.popover("hide");
+            },
+            {
+                enter: 400,
+                leave: 200,
+                alwaysTriggerHandlerOut: false
             }
         );
 

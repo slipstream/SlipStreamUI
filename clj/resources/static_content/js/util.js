@@ -626,6 +626,67 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        hoverDelayed: function(handlerInOrInOutArg, handlerOutArg, delayInMillis) {
+            // If 'delayInMillis' is an int, it's applied for both 'handlerIn' and 'handlerOut' events.
+            // To define different delays, provide an object like: {enter: 100, leave: 0}
+            // Add {alwaysTriggerHandlerOut: false} to trigger the handlerOut only if handlerIn was called.
+            var $this = this,
+                eventParams = {
+                    mouseenter: {
+                        delay:          $.isPlainObject(delayInMillis) ? delayInMillis.enter : delayInMillis,
+                        timeoutIDKey:   "timeoutMouseEnterIDKeyForHover",
+                        handler:        handlerInOrInOutArg,
+                        handlerWasTriggeredDataKey: "handlerInWasTriggered"
+                    },
+                    mouseleave: {
+                        delay:          $.isPlainObject(delayInMillis) ? delayInMillis.leave : delayInMillis,
+                        timeoutIDKey:   "timeoutMouseLeaveIDKeyForHover",
+                        handler:        handlerOutArg || handlerInOrInOutArg,
+                        alwaysTrigger:  $.isPlainObject(delayInMillis) ? delayInMillis.alwaysTriggerHandlerOut : true,
+                        handlerWasTriggeredDataKey: "handlerOutWasTriggered"
+                    }
+                };
+            function scheduleHandlerForEvent(e, params) {
+             if ( $this.data(params.timeoutIDKey) === undefined ) {
+                    $this.data(
+                        params.timeoutIDKey,
+                        setTimeout(
+                            function(){
+                                params.handler.call($this.get(0), e);
+                                $this
+                                    .removeData(params.timeoutIDKey)
+                                    .data(params.handlerWasTriggeredDataKey, true);
+                            },
+                            params.delay
+                        )
+                    );
+                }
+            }
+
+            function stopHandlerForEvent(e, params) {
+                if ( $this.data(params.timeoutIDKey) !== undefined ) {
+                    clearTimeout($this.data(params.timeoutIDKey));
+                    $this.removeData(params.timeoutIDKey);
+                }
+                $this.removeData(params.handlerWasTriggeredDataKey);
+            }
+
+            return this
+                    .hover(
+                        function(e) {
+                            scheduleHandlerForEvent(e, eventParams.mouseenter);
+                            stopHandlerForEvent(    e, eventParams.mouseleave);
+                        },
+                        function(e) {
+                            if ( $this.data(eventParams.mouseenter.handlerWasTriggeredDataKey) ||
+                                eventParams.mouseleave.alwaysTrigger ) {
+                                scheduleHandlerForEvent(e, eventParams.mouseleave);
+                            }
+                            stopHandlerForEvent(    e, eventParams.mouseenter);
+                        }
+                    );
+        },
+
         enableBufferedTextInputChangeEvent: function() {
             // The event is bound to the 'body' so that it's enabled for all relevant elements, present or future.
             var $staticParent = this.closest("body"),
