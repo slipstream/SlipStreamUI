@@ -665,10 +665,10 @@
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.never               "Jamais"
 
    ; Values for spot behaviour for each deployment defined in the 'Run deployment' dialog
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.always       "Oui"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.always       "Toujours"
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-success   "En cas de succès"
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-error     "En cas d'erreur"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never        "Non"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never        "Jamais"
 
    ;; Time
 
