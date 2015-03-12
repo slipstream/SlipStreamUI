@@ -29,3 +29,8 @@
 # with 'ZZ' or ':wq'. If you exit without modifing the message or
 # with a blank message, the commit is aborted.
 #
+# To let git automatically load this template into the default editor
+# when doing 'git commit [-a]' set it up with:
+#
+#   $ git config --local commit.template .gitmessage
+#
