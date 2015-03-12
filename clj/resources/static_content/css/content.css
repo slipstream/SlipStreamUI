@@ -109,9 +109,17 @@ dl.ss-footer-versions-popover {
   font-weight: 300;
 }
 
+/* All popovers (parameter help hints and dynamic help hints) */
 div.popover[role=tooltip] {
-  /* Override text color of the popovers, to prevent them using the color of the target element. */
+  /* Override text color of the popovers, to prevent them using the color of the
+     target element. */
   color: black;
+}
+div.popover[role=tooltip] code {
+  /* Override text and background color of the <code> tags in popovers, to prevent
+     that they look like clickable links. */
+  color: black;
+  background-color: #eee;
 }
 
 /* Dynamic help hints */
