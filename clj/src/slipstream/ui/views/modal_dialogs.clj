@@ -130,7 +130,8 @@
   [deployment-metadata]
   {:deployment-target-cloud       (-> deployment-metadata
                                       :available-clouds
-                                      (u/enum-append-option :specify-for-each-node))
+                                      (u/enum-append-option :specify-for-each-node)
+                                      (u/enum-select (current-user/configuration :cloud)))
    :launch-mutable-run?           false
    :tolerate-deployment-failures? false
    :tags                          nil
