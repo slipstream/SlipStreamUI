@@ -1,20 +1,27 @@
 (ns slipstream.ui.models.user
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.current-user :as current-user]))
+            [slipstream.ui.models.parameters :as parameters]))
 
 (defn parse
   [metadata]
-  (let [attrs (:attrs metadata)]
-    (-> attrs
-        (select-keys [:email
-                      :organization
-                      :state
-                      :creation])
-        (assoc        :username   (-> attrs :name u/not-default-new-name)
-                      :first-name (:firstName attrs)
-                      :last-name  (:lastName attrs)
-                      :uri        (:resourceUri attrs)
-                      :super?     (-> attrs :issuper uc/parse-boolean)
-                      :deleted?   (-> attrs :deleted uc/parse-boolean)
-                      :loggedin?  (= (:name attrs) (current-user/username))))))
+  (when (not-empty metadata)
+    (let [attrs       (:attrs metadata)
+          parameters  (parameters/parse metadata)]
+      (-> attrs
+          (select-keys [:email
+                        :organization
+                        :state
+                        :creation])
+          (assoc        :username   (-> attrs :name u/not-default-new-name)
+                        :first-name (:firstName attrs)
+                        :last-name  (:lastName attrs)
+                        :uri        (:resourceUri attrs)
+                        :super?     (-> attrs :issuper uc/parse-boolean)
+                        :deleted?   (-> attrs :deleted uc/parse-boolean)
+                        :configuration {:cloud   (-> parameters
+                                                     (parameters/value-for "General.default.cloud.service")
+                                                     u/enum-selection
+                                                     :value)
+                                        :ssh-keys (-> parameters
+                                                     (parameters/value-for "General.ssh.public.key"))})))))
