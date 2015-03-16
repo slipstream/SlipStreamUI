@@ -133,6 +133,24 @@
        type-enum
        (name-enum (-> enum meta :name))))
 
+(defn- enum-flag-option-default
+  [enum option-default]
+  (into (empty enum) ;; NOTE: 'empty preserves meta and type rather than using {}
+        (reverse
+          (for [option enum]
+            (if (-> option :value (= option-default))
+              (-> option
+                  (update-in [:text] str " *")
+                  (assoc :default? true))
+              option)))))
+
+(defn enum-select-default
+  "Like enum-select but appends ' *' to the text of the selected option."
+  [enum selected-option]
+  (-> enum
+      (enum-flag-option-default selected-option)
+      (enum-select selected-option)))
+
 (defn- parse-enum-option
   [enum-name option]
   {:value (enum-value option), :text (enum-text enum-name option)})

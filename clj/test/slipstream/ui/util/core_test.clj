@@ -142,6 +142,53 @@
         enum-selection)))
 
 (expect
+  {:value  "debian",   :text   "Debian", :selected? true}
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms "fedora")
+        (enum-select "debian")
+        enum-selection)))
+
+(expect
+  [{:value  "centos",   :text   "CentOS"}
+   {:value  "debian",   :text   "Debian *", :default? true}
+   {:value  "fedora",   :text   "Fedora"}
+   {:value  "opensuse", :text   "OpenSuse"}
+   {:value  "redhat",   :text   "RedHat"}
+   {:value  "sles",     :text   "Sles"}
+   {:value  "ubuntu",   :text   "Ubuntu"}
+   {:value  "windows",  :text   "Windows"}
+   {:value  "other",    :text   "Other", :selected? true}]
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms)
+        (enum-select-default "debian")
+        (enum-select "other"))))
+
+(expect
+  [{:value  "centos",   :text   "CentOS"}
+   {:value  "debian",   :text   "Debian *", :selected? true, :default? true}
+   {:value  "fedora",   :text   "Fedora"}
+   {:value  "opensuse", :text   "OpenSuse"}
+   {:value  "redhat",   :text   "RedHat"}
+   {:value  "sles",     :text   "Sles"}
+   {:value  "ubuntu",   :text   "Ubuntu"}
+   {:value  "windows",  :text   "Windows"}
+   {:value  "other",    :text   "Other"}]
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms "fedora")
+        (enum-select-default "debian"))))
+
+(expect
+  {:value  "debian",   :text   "Debian *", :selected? true, :default? true}
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms "fedora")
+        (enum-select-default "debian")
+        enum-selection)))
+
+(expect
  "centos"
   (localization/with-lang :en
     (-> expected-enum
