@@ -18,3 +18,6 @@ README.html
 .lein-failures
 .lein-plugins
 test_config.edn
+
+# Generated on dev mode by the UI part
+raw-metadata-str.xml
