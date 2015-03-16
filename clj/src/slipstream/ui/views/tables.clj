@@ -685,17 +685,17 @@
     [parameters]
     (headerless-parameters-table
       (p/map->parameter-list parameters
+        :launch-mutable-run?            {:type :cell/boolean, :editable? true, :id-format-fn (constantly "mutable")}
+        :tolerate-deployment-failures?  {:type :cell/boolean, :editable? true, :id-format-fn (constantly "ss-run-deployment-fail-tolerance-allowed-checkbox")}
+        :need-ssh-access?               {:type :cell/boolean, :editable? true, :id-format-fn (constantly "need-ssh-access")
+                                         :validation {:generic-help-hints {:error (t :need-ssh-access?.missing-ssh-key.error-help-hint (current-user/uri))}}}
         :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service")}
+        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")}
         :tags                           {:type :cell/text
                                          :editable? true
                                          :id-format-fn (constantly "tags")
                                          :required? false
                                          :validation {:requirements (pattern/requirements :run-start-tags)}}
-        :launch-mutable-run?            {:type :cell/boolean, :editable? true, :id-format-fn (constantly "mutable")}
-        :tolerate-deployment-failures?  {:type :cell/boolean, :editable? true, :id-format-fn (constantly "ss-run-deployment-fail-tolerance-allowed-checkbox")}
-        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")}
-        :need-ssh-access?               {:type :cell/boolean, :editable? true, :id-format-fn (constantly "need-ssh-access")
-                                         :validation {:generic-help-hints {:error (t :need-ssh-access?.missing-ssh-key.error-help-hint (current-user/uri))}}}
         )))
 
 ) ;; End of prefixed t scope
