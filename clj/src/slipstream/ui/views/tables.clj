@@ -554,6 +554,7 @@
     (when-not (:mapped-value? mapping)
       {:cells [{:type :cell/html, :editable? false, :content {:text   (t :parameter.input (:name mapping))}}
                {:type :cell/text, :editable? true,  :content {:text   (-> mapping :value uc/ensure-unquoted)
+                                                              :class  "ss-value-must-be-single-quoted"
                                                               :id     (format "parameter--node--%s--%s" node-name (:name mapping))
                                                               :placeholder (t :new-parameter-mapping.placeholder.value)}}]}))
 

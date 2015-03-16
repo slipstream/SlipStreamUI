@@ -110,11 +110,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // We disable the fields by removing the 'name' attr, so that
                 // they are not sent in the form:
                 $this.removeAttr("name");
-                if($this.is("input[type=text]")) { // TODO: Use a class like 'ss-value-must-be-single-quoted'
-                    // We add a hidden field with the quoted valued:
+                if($this.is(".ss-value-must-be-single-quoted input")) {
+                    // We add a hidden field with the quoted value
                     $form.addFormHiddenField(fieldName, rawValue.ensureSingleQuoted());
-                } else if($this.is("select")) {
-                    // We add a hidden field with the quoted valued:
+                } else {
+                    // We add a hidden field with the value (without adding quotes)
                     $form.addFormHiddenField(fieldName, rawValue);
                 }
             });
