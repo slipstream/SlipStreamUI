@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.representation
   (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.dev :as ud]
+            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
@@ -82,8 +82,8 @@
 
 (defmacro guard-exceptions
   [& body]
-  `(if ud/*dev?*
-    ; In dev mode let the stacktrace be printed on the browser:
+  `(if (mode/headless?)
+    ; In headless mode let the stacktrace be printed on the browser:
     ~@body
     (try
       ; In prod render a proper error page reporting the expection:
@@ -106,6 +106,13 @@
   [raw-metadata-str pagename {:strs [type request] :as options}]
   (let [lang (lang-from-request request)
         metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
+    (mode/when-dev
+      ; NOTE: In dev mode, save a file into SlipStreamServer/war/raw-metadata-str.xml
+      ;       with the XML metadata received from the server.
+      ;       These XMLs files can then be used as mockups for UI tests. They can be
+      ;       saved with this command:
+      ;       $ cp war/raw-metadata-str.txt ../SlipStreamUI/clj/test/slipstream/ui/mockup_data/metadata_{$NAME_OF_THE_METADATA}.xml
+      (spit "raw-metadata-str.xml" raw-metadata-str))
     (localization/with-lang lang
       (current-user/with-user-from-metadata
         (page-type/with-page-type (or (page-types pagename) type)

@@ -23,9 +23,9 @@
     [user]
     {:icon icons/user
      :title     (cond
-                  (page-type/new?)  (t :title.new-user)
-                  (:loggedin? user) (t :title.loggedin)
-                  :else             (t :title.not-loggedin (:username user)))
+                  (page-type/new?)        (t :title.new-user)
+                  (current-user/is? user) (t :title.loggedin)
+                  :else                   (t :title.not-loggedin (:username user)))
      :subtitle  (cond
                   (page-type/new?)  (t :subtitle.new-user)
                   (:super? user)    (t :subtitle.super)
