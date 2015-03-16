@@ -134,11 +134,14 @@
    :launch-mutable-run?           false
    :tolerate-deployment-failures? false
    :tags                          nil
-   :keep-running-behaviour        (u/enum [:always
-                                           :on-success
-                                           :on-error
-                                           :never]
-                                          :keep-running-behaviour-for-deployment)
+   :keep-running-behaviour        (-> [:always
+                                       :on-success
+                                       :on-error
+                                       :never]
+                                    (u/enum :keep-running-behaviour-for-deployment)
+                                    (u/enum-select (or
+                                                     (current-user/configuration :keep-running)
+                                                     :on-success)))
    :need-ssh-access?              false})
 
 
