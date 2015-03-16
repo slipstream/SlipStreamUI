@@ -19,8 +19,9 @@
    :creation      "2015-03-12 18:15:20.983 CET"
    :deleted?      false
    :super?        false
-   :configuration {:cloud     "Cloud3"       ; General.default.cloud.service
-                   :ssh-keys  "some-ssh-key" ; General.ssh.public.key
+   :configuration {:cloud         "Cloud3"       ; General.default.cloud.service
+                   :keep-running  :on-success    ; General.keep-running
+                   :ssh-keys      "some-ssh-key" ; General.ssh.public.key
                   }}
   (localization/with-lang :en
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse)))

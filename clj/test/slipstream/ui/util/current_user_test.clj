@@ -60,8 +60,9 @@
    :creation      "2015-03-13 11:22:59.220 CET"
    :deleted?      false
    :super?        true
-   :configuration {:cloud     "Cloud2"  ; General.default.cloud.service
-                   :ssh-keys  nil       ; General.ssh.public.key
+   :configuration {:cloud         "Cloud2"    ; General.default.cloud.service
+                   :keep-running  :on-success ; General.keep-running
+                   :ssh-keys      nil         ; General.ssh.public.key
                   }}
   (let [metadata user-metadata]
     (localization/with-lang :en
@@ -83,8 +84,9 @@
         (current-user/get-in [:configuration :cloud])))))
 
 (expect
-  {:cloud     "Cloud2"
-   :ssh-keys  nil}
+  {:cloud         "Cloud2"
+   :keep-running  :on-success
+   :ssh-keys      nil}
   (let [metadata user-metadata]
     (localization/with-lang :en
       (with-user-from-metadata

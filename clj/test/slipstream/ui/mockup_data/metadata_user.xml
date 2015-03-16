@@ -31,6 +31,12 @@
          </parameter>
       </entry>
       <entry>
+         <string>Cloud1.password</string>
+         <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
+            <value><![CDATA[cloud1_password]]></value>
+         </parameter>
+      </entry>
+      <entry>
          <string>AmazonEC2.access.id</string>
          <parameter category="AmazonEC2" description="Access id" mandatory="true" name="AmazonEC2.access.id" order="0" order_="0" readonly="false" type="String">
             <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
@@ -38,15 +44,15 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud1.password</string>
-         <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
-            <value><![CDATA[cloud1_password]]></value>
-         </parameter>
-      </entry>
-      <entry>
          <string>Exoscale.quota.vm</string>
          <parameter category="Exoscale" description="Number of VMs the user can start for this cloud" mandatory="true" name="Exoscale.quota.vm" order="0" order_="0" readonly="true" type="String">
             <value><![CDATA[12]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.quota.vm</string>
+         <parameter category="Cloud3" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[20]]></value>
          </parameter>
       </entry>
       <entry>
@@ -57,9 +63,16 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud3.quota.vm</string>
-         <parameter category="Cloud3" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Auto-terminate application after deployment" mandatory="true" name="General.keep-running" order="15" order_="15" readonly="false" type="Enum">
+            <instructions><![CDATA[Set the action to take in the Ready state. <br/>This parameter doesn't apply to <code>mutable</code> Runs and to <code>build image</code> Runs. <br/><strong>On success</strong> is useful for deployment or long tests. </br><strong>On error</strong> is useful to investigate an error if any.]]></instructions>
+            <enumValues length="4">
+               <string>always</string>
+               <string>never</string>
+               <string>on-success</string>
+               <string>on-error</string>
+            </enumValues>
+            <value><![CDATA[on-success]]></value>
          </parameter>
       </entry>
       <entry>
@@ -87,13 +100,6 @@
          </parameter>
       </entry>
       <entry>
-         <string>AmazonEC2.secret.key</string>
-         <parameter category="AmazonEC2" description="Secret key" mandatory="true" name="AmazonEC2.secret.key" order="0" order_="0" readonly="false" type="Password">
-            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
-            <value><![CDATA[amazonec2_secret_key]]></value>
-         </parameter>
-      </entry>
-      <entry>
          <string>Cloud4.access.id</string>
          <parameter category="Cloud4" description="Access id" mandatory="true" name="Cloud4.access.id" order="0" order_="0" readonly="false" type="String">
             <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
@@ -101,8 +107,15 @@
          </parameter>
       </entry>
       <entry>
+         <string>AmazonEC2.secret.key</string>
+         <parameter category="AmazonEC2" description="Secret key" mandatory="true" name="AmazonEC2.secret.key" order="0" order_="0" readonly="false" type="Password">
+            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
+            <value><![CDATA[amazonec2_secret_key]]></value>
+         </parameter>
+      </entry>
+      <entry>
          <string>General.Verbosity Level</string>
-         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="99" order_="99" readonly="false" type="Enum">
+         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
             <instructions><![CDATA[0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging]]></instructions>
             <enumValues length="4">
                <string>0</string>
@@ -128,7 +141,7 @@
       </entry>
       <entry>
          <string>General.Timeout</string>
-         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="90" order_="90" readonly="false" type="String">
+         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="40" order_="40" readonly="false" type="String">
             <instructions><![CDATA[If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.]]></instructions>
             <value><![CDATA[30]]></value>
          </parameter>
@@ -141,15 +154,15 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud2.quota.vm</string>
-         <parameter category="Cloud2" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud2.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
-         </parameter>
-      </entry>
-      <entry>
          <string>Cloud3.username</string>
          <parameter category="Cloud3" description="Key" mandatory="true" name="Cloud3.username" order="10" order_="10" readonly="false" type="RestrictedString">
             <value><![CDATA[cloud3_key]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.quota.vm</string>
+         <parameter category="Cloud2" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud2.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[20]]></value>
          </parameter>
       </entry>
       <entry>
@@ -185,7 +198,7 @@
       </entry>
       <entry>
          <string>General.ssh.public.key</string>
-         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="40" order_="40" readonly="false" type="RestrictedText">
+         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
             <instructions><![CDATA[Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.]]></instructions>
             <value><![CDATA[some-ssh-key]]></value>
          </parameter>
@@ -203,7 +216,7 @@
          </parameter>
       </entry>
    </parameters>
-<user activeSince="2015-03-13 11:22:59.223 CET" creation="2015-03-13 11:22:59.220 CET" deleted="false" email="bob@example.com" firstName="Bob" issuper="true" lastName="O'Manager" lastOnline="2015-03-13 11:23:29.188 CET" name="bob" organization="Example Corp" resourceUri="user/bob" state="ACTIVE">
+<user activeSince="2015-03-13 11:22:59.223 CET" creation="2015-03-13 11:22:59.220 CET" deleted="false" email="bob@example.com" firstName="Bob" issuper="true" lastName="O'Manager" lastOnline="2015-03-16 12:05:01.887 CET" name="bob" organization="Example Corp" resourceUri="user/bob" state="ACTIVE">
    <parameters class="org.hibernate.collection.internal.PersistentMap">
       <entry>
          <string>Cloud3.password</string>
@@ -218,6 +231,12 @@
          </parameter>
       </entry>
       <entry>
+         <string>Cloud3.quota.vm</string>
+         <parameter category="Cloud3" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
          <string>General.On Error Run Forever</string>
          <parameter category="General" description="If ANY error occurs, keep the execution running" mandatory="true" name="General.On Error Run Forever" order="30" order_="30" readonly="false" type="Boolean">
             <instructions><![CDATA[This value is useful to investigate the error.]]></instructions>
@@ -225,9 +244,16 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud3.quota.vm</string>
-         <parameter category="Cloud3" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Auto-terminate application after deployment" mandatory="true" name="General.keep-running" order="15" order_="15" readonly="false" type="Enum">
+            <instructions><![CDATA[Set the action to take in the Ready state. <br/>This parameter doesn't apply to <code>mutable</code> Runs and to <code>build image</code> Runs. <br/><strong>On success</strong> is useful for deployment or long tests. </br><strong>On error</strong> is useful to investigate an error if any.]]></instructions>
+            <enumValues length="4">
+               <string>always</string>
+               <string>never</string>
+               <string>on-success</string>
+               <string>on-error</string>
+            </enumValues>
+            <value><![CDATA[on-success]]></value>
          </parameter>
       </entry>
       <entry>
@@ -251,7 +277,7 @@
       </entry>
       <entry>
          <string>General.Verbosity Level</string>
-         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="99" order_="99" readonly="false" type="Enum">
+         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
             <instructions><![CDATA[0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging]]></instructions>
             <enumValues length="4">
                <string>0</string>
@@ -271,7 +297,7 @@
       </entry>
       <entry>
          <string>General.Timeout</string>
-         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="90" order_="90" readonly="false" type="String">
+         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="40" order_="40" readonly="false" type="String">
             <instructions><![CDATA[If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.]]></instructions>
             <value><![CDATA[30]]></value>
          </parameter>
@@ -328,14 +354,14 @@
       </entry>
       <entry>
          <string>General.ssh.public.key</string>
-         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="40" order_="40" readonly="false" type="RestrictedText">
+         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
             <instructions><![CDATA[Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.]]></instructions>
             <value/>
          </parameter>
       </entry>
    </parameters>
-</user><serviceConfiguration creation="2015-03-12 17:13:15.121 CET" deleted="false">
-   <parameters class="org.hibernate.collection.internal.PersistentMap">
+</user><serviceConfiguration creation="2015-03-16 12:32:52.45 CET" deleted="false">
+   <parameters class="java.util.concurrent.ConcurrentHashMap">
       <entry>
          <string>Cloud1.max.iaas.workers</string>
          <parameter category="Cloud1" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud1.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
@@ -406,21 +432,21 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud1.update.clienturl</string>
-         <parameter category="Cloud1" description="URL with the cloud client specific connector" mandatory="true" name="Cloud1.update.clienturl" order="0" order_="0" readonly="false" type="String">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
          <string>AmazonEC2.max.iaas.workers</string>
          <parameter category="AmazonEC2" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="AmazonEC2.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
             <value><![CDATA[20]]></value>
          </parameter>
       </entry>
       <entry>
+         <string>Cloud1.update.clienturl</string>
+         <parameter category="Cloud1" description="URL with the cloud client specific connector" mandatory="true" name="Cloud1.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
          <string>slipstream.mail.username</string>
          <parameter category="SlipStream_Support" description="Username for SMTP server." mandatory="true" name="slipstream.mail.username" order="0" order_="0" readonly="false" type="String">
-            <instructions><![CDATA[Username of the mail server account you wan to use to send registration emails.]]></instructions>
+            <instructions><![CDATA[Username of the mail server account you want to use to send registration emails.]]></instructions>
             <value><![CDATA[sender]]></value>
          </parameter>
       </entry>
@@ -462,6 +488,12 @@
          </parameter>
       </entry>
       <entry>
+         <string>StratusLab.max.iaas.workers</string>
+         <parameter category="StratusLab" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="StratusLab.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
          <string>Exoscale.max.iaas.workers</string>
          <parameter category="Exoscale" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Exoscale.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
             <value><![CDATA[200]]></value>
@@ -470,12 +502,6 @@
       <entry>
          <string>Exoscale-2.max.iaas.workers</string>
          <parameter category="Exoscale-2" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Exoscale-2.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
-            <value><![CDATA[20]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>StratusLab.max.iaas.workers</string>
-         <parameter category="StratusLab" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="StratusLab.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
             <value><![CDATA[20]]></value>
          </parameter>
       </entry>
@@ -534,7 +560,7 @@
       <entry>
          <string>slipstream.registration.email</string>
          <parameter category="SlipStream_Support" description="Email address for account approvals, etc." mandatory="true" name="slipstream.registration.email" order="0" order_="0" readonly="false" type="String">
-            <instructions><![CDATA[<h1>email address</h1> to use for registration]]></instructions>
+            <instructions><![CDATA[Email address to use for registration.]]></instructions>
             <value><![CDATA[register@example.com]]></value>
          </parameter>
       </entry>
@@ -546,14 +572,14 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud4.update.clienturl</string>
-         <parameter category="Cloud4" description="URL with the cloud client specific connector" mandatory="true" name="Cloud4.update.clienturl" order="0" order_="0" readonly="false" type="String">
+         <string>Exoscale.zone</string>
+         <parameter category="Exoscale" description="Zone" mandatory="true" name="Exoscale.zone" order="0" order_="0" readonly="false" type="String">
             <value/>
          </parameter>
       </entry>
       <entry>
-         <string>Exoscale.zone</string>
-         <parameter category="Exoscale" description="Zone" mandatory="true" name="Exoscale.zone" order="0" order_="0" readonly="false" type="String">
+         <string>Cloud4.update.clienturl</string>
+         <parameter category="Cloud4" description="URL with the cloud client specific connector" mandatory="true" name="Cloud4.update.clienturl" order="0" order_="0" readonly="false" type="String">
             <value/>
          </parameter>
       </entry>
@@ -767,14 +793,14 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud1.quota.vm</string>
-         <parameter category="Cloud1" description="VM quota for Cloud1 (i.e. maximum number number of VM allowed)" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="false" type="String">
+         <string>StratusLab.quota.vm</string>
+         <parameter category="StratusLab" description="VM quota for StratusLab (i.e. maximum number number of VM allowed)" mandatory="true" name="StratusLab.quota.vm" order="0" order_="0" readonly="false" type="String">
             <value/>
          </parameter>
       </entry>
       <entry>
-         <string>StratusLab.quota.vm</string>
-         <parameter category="StratusLab" description="VM quota for StratusLab (i.e. maximum number number of VM allowed)" mandatory="true" name="StratusLab.quota.vm" order="0" order_="0" readonly="false" type="String">
+         <string>Cloud1.quota.vm</string>
+         <parameter category="Cloud1" description="VM quota for Cloud1 (i.e. maximum number number of VM allowed)" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="false" type="String">
             <value/>
          </parameter>
       </entry>
@@ -810,14 +836,14 @@
          </parameter>
       </entry>
       <entry>
-         <string>Cloud3.zone</string>
-         <parameter category="Cloud3" description="Zone" mandatory="true" name="Cloud3.zone" order="0" order_="0" readonly="false" type="String">
+         <string>StratusLab.orchestrator.imageid</string>
+         <parameter category="StratusLab" description="Image Id of the orchestrator for StratusLab" mandatory="true" name="StratusLab.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
             <value/>
          </parameter>
       </entry>
       <entry>
-         <string>StratusLab.orchestrator.imageid</string>
-         <parameter category="StratusLab" description="Image Id of the orchestrator for StratusLab" mandatory="true" name="StratusLab.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+         <string>Cloud3.zone</string>
+         <parameter category="Cloud3" description="Zone" mandatory="true" name="Cloud3.zone" order="0" order_="0" readonly="false" type="String">
             <value/>
          </parameter>
       </entry>
@@ -836,22 +862,3 @@
       </entry>
    </parameters>
 </serviceConfiguration></user>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -659,10 +659,10 @@
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other               "Autre"
 
    ; Values for default behaviour defined in user profile
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.always              "Toujours"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.on-success          "En cas de succès"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.on-error            "En cas d'erreur"
-   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-default.never               "Jamais"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.always                        "Toujours"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.on-success                    "En cas de succès"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.on-error                      "En cas d'erreur"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.never                         "Jamais"
 
    ; Values for spot behaviour for each deployment defined in the 'Run deployment' dialog
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.always       "Toujours"

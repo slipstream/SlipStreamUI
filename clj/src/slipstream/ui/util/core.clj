@@ -74,6 +74,14 @@
   input. However, for some known enum parameters we use de localized string."
   #{:cloud-platforms                ; Values in slipstream.ui.models.module.image/platforms
     :general-verbosity-level        ; Values: ["0" "1" "2" "3"]
+    :general-keep-running           ; Values: ["always"
+                                    ;          "on-success"
+                                    ;          "on-error"
+                                    ;          "never]"
+    :keep-running-behaviour-for-deployment  ; Values: [:always
+                                            ;          :on-success
+                                            ;          :on-error
+                                            ;          :never]
     :deployment-parameter-category  ; Values: ["Output" "Input"] in slipstream.ui.views.tables/deployment-parameter-row
     :mapping-options                ; Values: [:parameter.bind-to-output :parameter.bind-to-value]
     :atos-ip-type                   ; Values: ["public" "local" "private"]
@@ -87,14 +95,6 @@
                                     ;          "Suppliers catalogue"
                                     ;          "Other"]
                                     ;        in slipstream.ui.views.tables
-    :keep-running-behaviour-default         ; Values: [:always
-                                            ;          :on-success
-                                            ;          :on-error
-                                            ;          :never]
-    :keep-running-behaviour-for-deployment  ; Values: [:always
-                                            ;          :on-success
-                                            ;          :on-error
-                                            ;          :never]
     })
 
 
