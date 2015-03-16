@@ -509,8 +509,8 @@
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour devoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _mutables_ avec une _grande mutliplicité initiale."
 
-   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Arrêt automatique de l'application"
-   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définire si SlipStream doit arrêter l'application après l'avoir déploiyée. Par example, pour un déploiement en production, selectionnez l'option `Jamais`, tandis que pendant la phase de dévélopement du déploiement, l'option `En cas d'erreur` peut-être plus utile. "
+   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Mantenir actif après deployement"
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit laisser tourner l'application après l'avoir déployée. Par exemple, pendant la phase de développement du déploiement, l'option `En cas d'erreur` peut-être plus utile de façon à ne consomer des resources qu'en cas de déboggage nécessaire. L'option `Jamais` fait que SlipStream arrête l'application dans tous les cas après l'avoir déployée."
 
    :slipstream.ui.models.parameters.need-ssh-access?.description                "Accès SSH"
    :slipstream.ui.models.parameters.need-ssh-access?.help-hint                  "Activez cette option si vous désirez que SlipStream installe sur les machines deployées les clés SSH définies dans votre profile. Si vous n'êtes pas sûr de cette option, vous pouvez certainement la laisse désactivée."
