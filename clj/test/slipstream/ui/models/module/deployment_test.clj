@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.module.deployment-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.module :as model]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]))

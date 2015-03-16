@@ -4,6 +4,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.module.image :as image]
             [slipstream.ui.models.module.project :as project]
@@ -96,11 +97,10 @@
 
 (defn- available-clouds
   [metadata]
-  (let [cloud-default (-> metadata (html/select [:user]) first :attrs :defaultCloud)]
-    (-> metadata
-        (html/select [:cloudNames :string html/text-node])
-        (u/enum :available-clouds)
-        (u/enum-select cloud-default))))
+  (-> metadata
+      (html/select [:cloudNames :string html/text-node])
+      (u/enum :available-clouds)
+      (u/enum-select-default (current-user/configuration :cloud))))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."

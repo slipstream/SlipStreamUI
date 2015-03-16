@@ -181,6 +181,14 @@
         (enum-select-default "debian"))))
 
 (expect
+  {:name :cloud-platforms, :type :enum}
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms "fedora")
+        (enum-select-default "debian")
+        meta)))
+
+(expect
   {:value  "debian",   :text   "Debian *", :selected? true, :default? true}
   (localization/with-lang :en
     (-> platforms
@@ -201,6 +209,13 @@
     (-> platforms
         (enum :cloud-platforms)
         type)))
+
+(expect
+  {:type :enum, :name :cloud-platforms}
+  (localization/with-lang :en
+    (-> platforms
+        (enum :cloud-platforms)
+        meta)))
 
 (expect
   :enum
