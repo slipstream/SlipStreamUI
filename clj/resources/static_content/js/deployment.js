@@ -379,7 +379,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $multiplicityInputs                     = $("input[id$='" + multiplicityInputIdSuffix + "']"),
         $maxProvisioningFailuresInputs          = $("[id$='" + maxProvisioningFailuresInputIdSuffix + "']"),
         $mutabilityCheckbox                     = $("input#mutable"),
-        $toleranceCheckbox                      = $("input#ss-run-deployment-fail-tolerance-allowed-checkbox");
+        $toleranceCheckbox                      = $("input#ss-run-deployment-fail-tolerance-allowed-checkbox"),
+        $keepRunningBehaviourCombobox           = $("#keep-running");
 
     $toleranceCheckbox
         .change(function() {
@@ -405,6 +406,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .change(function() {
             // Adapt multiplicity fields (min value, label and validation) according to the mutability setting
             var isMutable = this.checked;
+            if (isMutable) {
+                $keepRunningBehaviourCombobox
+                    .data("existent-value", $keepRunningBehaviourCombobox.val())
+                    .val("always")
+                    .closest("tr")
+                        .enableRow(false, {disableReason: "Mutable deployments are always kept running."});
+            } else {
+                $keepRunningBehaviourCombobox
+                    .val($keepRunningBehaviourCombobox.data("existent-value"))
+                    .closest("tr")
+                        .enableRow(true);
+            }
             $multiplicityInputs
                 .each(function(index, elem){
                     var $multiplicityInput = $(elem),
