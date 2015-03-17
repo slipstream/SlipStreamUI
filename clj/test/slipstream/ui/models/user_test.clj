@@ -19,7 +19,10 @@
    :creation      "2015-03-12 18:15:20.983 CET"
    :deleted?      false
    :super?        false
-   :configuration {:cloud         "Cloud3"       ; General.default.cloud.service
+   :configuration {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
+                                       {:value "Cloud2", :text "Cloud2"}
+                                       {:value "Cloud3", :text "Cloud3 *", :default? true, :selected? true}
+                                       {:value "Cloud4", :text "Cloud4"}] ; General.default.cloud.service
                    :keep-running  :on-success    ; General.keep-running
                    :ssh-keys      "some-ssh-key" ; General.ssh.public.key
                   }}

@@ -5,13 +5,6 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.runs :as runs]))
 
-(defn- append-template-node-in-edit-mode
-  "To serve as template for new nodes. See tests for expectations."
-  [items]
-  (if (page-type/edit-or-new?)
-    (conj (vec items) {:template-node? true})
-    items))
-
 (defn- parse-parameter-mapping
   [parameter-mapping-metadata]
   (let [attrs (:attrs parameter-mapping-metadata)]

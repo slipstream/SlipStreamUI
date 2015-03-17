@@ -6,9 +6,8 @@
 (defn parse
   [metadata]
   (when (not-empty metadata)
-    (let [attrs       (:attrs metadata)
-          parameters  (parameters/parse metadata)]
-      -
+    (let [attrs             (:attrs metadata)
+          parameters        (parameters/parse metadata)]
       (-> attrs
           (select-keys [:email
                         :organization
@@ -20,14 +19,15 @@
                         :uri        (:resourceUri attrs)
                         :super?     (-> attrs :issuper uc/parse-boolean)
                         :deleted?   (-> attrs :deleted uc/parse-boolean)
-                        :configuration {:cloud        (-> parameters
-                                                          (parameters/value-for "General.default.cloud.service")
-                                                          u/enum-selection
-                                                          :value)
-                                        :keep-running (-> parameters
-                                                          (parameters/value-for "General.keep-running")
-                                                          u/enum-selection
-                                                          :value
-                                                          keyword)
-                                        :ssh-keys     (-> parameters
-                                                         (parameters/value-for "General.ssh.public.key"))})))))
+                        :configuration {:available-clouds (-> parameters
+                                                            (parameters/value-for "General.default.cloud.service")
+                                                            (u/enum-update-name :available-clouds)
+                                                            (u/enum-sort-by :text)
+                                                            u/enum-flag-selected-as-default)
+                                        :keep-running     (-> parameters
+                                                            (parameters/value-for "General.keep-running")
+                                                            u/enum-selection
+                                                            :value
+                                                            keyword)
+                                        :ssh-keys         (-> parameters
+                                                            (parameters/value-for "General.ssh.public.key"))})))))

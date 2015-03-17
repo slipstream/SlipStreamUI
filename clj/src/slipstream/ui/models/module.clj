@@ -95,17 +95,9 @@
      :logo-url          (-> metadata :attrs :logoLink (or ""))
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
 
-(defn- available-clouds
-  [metadata]
-  (-> metadata
-      (html/select [:cloudNames :string html/text-node])
-      (u/enum :available-clouds)
-      (u/enum-select-default (current-user/configuration :cloud))))
-
 (defn parse
   "See tests for structure of the expected parsed metadata."
   [metadata]
   (-> {:summary           (summary metadata)
-       :available-clouds  (available-clouds metadata)
        :authorization     (authorization metadata)}
       (assoc-category-sections metadata)))

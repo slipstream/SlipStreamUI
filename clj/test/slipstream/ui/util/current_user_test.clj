@@ -7,47 +7,29 @@
             [slipstream.ui.models.dashboard-test :as dashboard]
             [slipstream.ui.models.welcome-test :as welcome]))
 
-(def dashboard-metadata
-  (u/clojurify-raw-metadata-str dashboard/raw-metadata-str))
-
-(expect
-  nil
-  (let [metadata dashboard-metadata]
-    (current-user/username)))
-
-(expect
-  ["super" "user/super" true]
-  (let [metadata dashboard-metadata]
-    (with-user-from-metadata
-          (vector
-            (current-user/username)
-            (current-user/uri)
-            (current-user/super?)))))
-
-(def welcome-metadata
-  (u/clojurify-raw-metadata-str welcome/raw-metadata-str))
-
-(expect
-  ["meb" "user/meb" true]
-  (let [metadata welcome-metadata]
-    (with-user-from-metadata
-          (vector
-            (current-user/username)
-            (current-user/uri)
-            (current-user/super?)))))
-
-(expect
-  [true true]
-  (let [metadata welcome-metadata]
-    (with-user-from-metadata
-          (vector
-            (current-user/is? "meb")
-            (current-user/is? {:username "meb"})))))
-
 (def user-metadata
   (-> "slipstream/ui/mockup_data/metadata_user.xml"
        uc/slurp-resource
        u/clojurify-raw-metadata-str))
+
+(expect
+  ["bob" "user/bob" true]
+  (let [metadata user-metadata]
+    (localization/with-lang :en
+      (with-user-from-metadata
+          (vector
+            (current-user/username)
+            (current-user/uri)
+            (current-user/super?))))))
+
+(expect
+  [true true]
+  (let [metadata user-metadata]
+    (localization/with-lang :en
+      (with-user-from-metadata
+          (vector
+            (current-user/is? "bob")
+            (current-user/is? {:username "bob"}))))))
 
 (expect
   {:username      "bob"
@@ -60,9 +42,12 @@
    :creation      "2015-03-13 11:22:59.220 CET"
    :deleted?      false
    :super?        true
-   :configuration {:cloud         "Cloud2"    ; General.default.cloud.service
-                   :keep-running  :on-success ; General.keep-running
-                   :ssh-keys      nil         ; General.ssh.public.key
+   :configuration {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
+                                       {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
+                                       {:value "Cloud3", :text "Cloud3"}
+                                       {:value "Cloud4", :text "Cloud4"}] ; General.default.cloud.service
+                   :keep-running      :on-success ; General.keep-running
+                   :ssh-keys          nil         ; General.ssh.public.key
                   }}
   (let [metadata user-metadata]
     (localization/with-lang :en
@@ -77,14 +62,20 @@
         (current-user/get :creation)))))
 
 (expect
-  "Cloud2"
+  [{:value "Cloud1", :text "Cloud1"}
+   {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
+   {:value "Cloud3", :text "Cloud3"}
+   {:value "Cloud4", :text "Cloud4"}]
   (let [metadata user-metadata]
     (localization/with-lang :en
       (with-user-from-metadata
-        (current-user/get-in [:configuration :cloud])))))
+        (current-user/get-in [:configuration :available-clouds])))))
 
 (expect
-  {:cloud         "Cloud2"
+  {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
+                       {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
+                       {:value "Cloud3", :text "Cloud3"}
+                       {:value "Cloud4", :text "Cloud4"}]
    :keep-running  :on-success
    :ssh-keys      nil}
   (let [metadata user-metadata]
@@ -93,8 +84,40 @@
         (current-user/configuration)))))
 
 (expect
+  [{:value "Cloud1", :text "Cloud1"}
+   {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
+   {:value "Cloud3", :text "Cloud3"}
+   {:value "Cloud4", :text "Cloud4"}]
+  (let [metadata user-metadata]
+    (localization/with-lang :en
+      (with-user-from-metadata
+        (current-user/configuration :available-clouds)))))
+
+(expect
+  {:type :enum, :name :available-clouds}
+  (let [metadata user-metadata]
+    (localization/with-lang :en
+      (with-user-from-metadata
+        (-> :available-clouds
+            current-user/configuration
+            meta)))))
+
+(expect
   "Cloud2"
   (let [metadata user-metadata]
     (localization/with-lang :en
       (with-user-from-metadata
-        (current-user/configuration :cloud)))))
+        (-> :available-clouds
+            current-user/configuration
+            u/enum-selection
+            :value)))))
+
+(expect
+  "Cloud2"
+  (let [metadata user-metadata]
+    (localization/with-lang :en
+      (with-user-from-metadata
+        (-> :available-clouds
+            current-user/configuration
+            u/enum-default-option
+            :value)))))

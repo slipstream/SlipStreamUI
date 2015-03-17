@@ -1,132 +1,64 @@
 (ns slipstream.ui.models.module.project-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.module :as model]))
 
 (def raw-metadata-str
-  "<projectModule description='Another description...' lastModified='2013-05-16 17:04:39.113 CEST' category='Project' deleted='false' resourceUri='module/Public/OtherProject/1' parentUri='module/Public' name='Public/OtherProject' version='1' creation='2013-05-16 17:04:39.113 CEST' shortName='OtherProject' isLatestVersion='true' >
-     <parameters class='org.hibernate.collection.PersistentMap'/>
-     <authz owner='sixsq' ownerGet='true' ownerPut='false' ownerPost='true' ownerDelete='true' ownerCreateChildren='true' groupGet='true' groupPut='true' groupPost='false' groupDelete='false' groupCreateChildren='true' publicGet='true' publicPut='false' publicPost='false' publicDelete='false' publicCreateChildren='false' inheritedGroupMembers='false'>
-        <groupMembers class='java.util.ArrayList'>
-           <string>meb</string>
-           <string>konstan</string>
-           <string>other</string>
-           <string>another</string>
-           <string>xxx</string>
-        </groupMembers>
-     </authz>
-     <comment>ccc</comment>
-     <cloudNames length='2'>
-        <string>stratuslab</string>
-        <string>default</string>
-     </cloudNames>
-     <children>
-        <item category='Project' description='Deployment of tools like Jenkins slave.' name='Tooling' version='54'>
-            <authz groupCreateChildren='false' groupDelete='false' groupGet='false' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='rob' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='false' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='false' publicPost='false' publicPut='false'>
-                <groupMembers/>
-            </authz>
-        </item>
-        <item category='Deployment' name='deploy-slave' version='78'>
-          <authz groupCreateChildren='false' groupDelete='false' groupGet='false' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='test' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='false' publicPost='false' publicPut='false'>
-            <groupMembers/>
-          </authz>
-        </item>
-        <item category='Image' description='CentOS 6.4 Jenkins Slave' name='slave-centos' version='80'>
-          <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='rob' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='false' publicPost='false' publicPut='false'>
-            <groupMembers/>
-          </authz>
-        </item>
-        <item category='Project' description='Deployment of tools like Jenkins slave.' name='a-Tooling' version='123'>
-            <authz groupCreateChildren='false' groupDelete='false' groupGet='false' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='rob' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='false' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='false' publicPost='false' publicPut='false'>
-                <groupMembers/>
-            </authz>
-        </item>
-        <item category='Image' description='CentOS 6.4 Jenkins Slave' name='a-slave-centos' version='345'>
-          <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='thomas' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='false' publicPost='false' publicPut='false'>
-            <groupMembers/>
-          </authz>
-        </item>
-        <item category='Deployment' name='a-deploy-slave' version='234'>
-          <authz groupCreateChildren='false' groupDelete='false' groupGet='false' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='rob' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='false' publicPost='false' publicPut='false'>
-            <groupMembers/>
-          </authz>
-        </item>
-        </children>
-     <user issuper='true' resourceUri='user/super' name='SuperDooper'></user>
-  </projectModule>")
+  (uc/slurp-resource "slipstream/ui/mockup_data/metadata_project.xml"))
 
 (def parsed-metadata
-  {:authorization {:access-rights {:create-children {:public-access? false
+  {:children [{:category "Image"
+             :name "apache_web_server"
+             :description "Apache Web Server on CentOS 6"
+             :owner "bob"
+             :version 132
+             :uri "module/neutral_projects_for_mockup_metadata/apache_web_server/132"}
+            {:category "Image"
+             :name "centos_6_base_image"
+             :description "Base image for CentOS 6"
+             :owner "bob"
+             :version 131
+             :uri "module/neutral_projects_for_mockup_metadata/centos_6_base_image/131"}
+            {:category "Deployment"
+             :name "deployment_01"
+             :description "Multinode deployment with input and output params."
+             :owner "alice"
+             :version 136
+             :uri "module/neutral_projects_for_mockup_metadata/deployment_01/136"}]
+ :summary {:publication nil
+           :deleted? false
+           :published? false
+           :comment "Add SixSq logo."
+           :creation "2015-03-13 19:09:38.116 CET"
+           :name "neutral_projects_for_mockup_metadata"
+           :short-name "neutral_projects_for_mockup_metadata"
+           :owner "bob"
+           :version 133
+           :uri "module/neutral_projects_for_mockup_metadata/133"
+           :latest-version? true
+           :logo-url "http://ww1.prweb.com/prfiles/2014/11/04/12300280/sixsq-high.jpg"
+           :last-modified "2015-03-13 19:36:31.339 CET"
+           :parent-uri "module/"
+           :description "The projects here shouldn't contain any personal or private information, since they are intended to be used as mockup metadata in the SlipStreamUI project."
+           :category "Project"}
+ :authorization {:access-rights {:delete {:public-access? true
+                                          :owner-access? true
+                                          :group-access? true}
+                                 :put {:public-access? true
+                                       :group-access? true
+                                       :owner-access? true}
+                                 :post {:owner-access? false
+                                        :group-access? false
+                                        :public-access? false}
+                                 :create-children {:public-access? true
                                                    :group-access? true
                                                    :owner-access? true}
-                                   :delete {:owner-access? true
-                                            :public-access? false
-                                            :group-access? false}
-                                   :put {:owner-access? false
-                                         :public-access? false
-                                         :group-access? true}
-                                   :post {:group-access? false
-                                          :owner-access? true
-                                          :public-access? false}
-                                   :get {:group-access? true
-                                         :public-access? true
-                                         :owner-access? true}}
-                   :group-members #{"meb" "other" "konstan" "xxx" "another"}
-                   :inherited-group-members? false}
-   :children [{:category "Project"
-               :name "Tooling"
-               :description "Deployment of tools like Jenkins slave."
-               :owner "rob"
-               :version 54
-               :uri "module/Public/OtherProject/Tooling/54"}
-              {:category "Project"
-               :name "a-Tooling"
-               :description "Deployment of tools like Jenkins slave."
-               :owner "rob"
-               :version 123
-               :uri "module/Public/OtherProject/a-Tooling/123"}
-              {:category "Deployment"
-               :name "a-deploy-slave"
-               :description nil
-               :owner "rob"
-               :version 234
-               :uri "module/Public/OtherProject/a-deploy-slave/234"}
-              {:category "Image"
-               :name "a-slave-centos"
-               :description "CentOS 6.4 Jenkins Slave"
-               :owner "thomas"
-               :version 345
-               :uri "module/Public/OtherProject/a-slave-centos/345"}
-              {:category "Deployment"
-               :name "deploy-slave"
-               :description nil
-               :owner "test"
-               :version 78
-               :uri "module/Public/OtherProject/deploy-slave/78"}
-              {:category "Image"
-               :name "slave-centos"
-               :description "CentOS 6.4 Jenkins Slave"
-               :owner "rob"
-               :version 80
-               :uri "module/Public/OtherProject/slave-centos/80"}]
-   :available-clouds [{:selected? true, :value "stratuslab", :text "stratuslab"}
-                      {:value "default", :text "default"}]
-   :summary {:deleted? false
-             :creation "2013-05-16 17:04:39.113 CEST"
-             :comment "ccc"
-             :name "Public/OtherProject"
-             :short-name "OtherProject"
-             :owner "sixsq"
-             :published? false
-             :publication nil
-             :version 1
-             :uri "module/Public/OtherProject/1"
-             :latest-version? true
-             :last-modified "2013-05-16 17:04:39.113 CEST"
-             :parent-uri "module/Public"
-             :description "Another description..."
-             :logo-url ""
-             :category "Project"}})
+                                 :get {:owner-access? true
+                                       :group-access? true
+                                       :public-access? true}}
+                 :group-members #{}
+                 :inherited-group-members? true}})
 
 (expect
   parsed-metadata

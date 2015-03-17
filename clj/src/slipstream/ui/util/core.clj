@@ -61,6 +61,13 @@
        (filter :selected?)
        first))
 
+(defn enum-default-option
+  "Returns the default enum option. See tests for expectations."
+  [enum]
+  (->> enum
+       (filter :default?)
+       first))
+
 (defn- type-enum
   [enum]
   (vary-meta enum assoc :type :enum))
@@ -68,6 +75,10 @@
 (defn- name-enum
   [enum-name enum]
   (vary-meta enum assoc :name enum-name))
+
+(defn enum-update-name
+  [enum enum-name]
+  (name-enum enum-name enum))
 
 (def ^:private enums-with-localization
   "By default we display the values itselves in the combobox of a 'select' form
@@ -133,10 +144,11 @@
        type-enum
        (name-enum (-> enum meta :name))))
 
-(defn- enum-flag-option-default
-  [enum option-default]
+(defn enum-flag-selected-as-default
+  "Appends ' *' to the text of the selected option."
+  [enum]
   (->> enum
-       (map #(if (-> % :value (= option-default))
+       (map #(if (:selected? %)
                (-> %
                    (update-in [:text] str " *")
                    (assoc :default? true))
@@ -148,8 +160,8 @@
   "Like enum-select but appends ' *' to the text of the selected option."
   [enum selected-option]
   (-> enum
-      (enum-flag-option-default selected-option)
-      (enum-select selected-option)))
+      (enum-select selected-option)
+      enum-flag-selected-as-default))
 
 (defn- parse-enum-option
   [enum-name option]
@@ -167,6 +179,13 @@
   (let [enum-name         (-> enum meta :name)
         option-to-append  (parse-enum-option enum-name option)]
     (concat enum [option-to-append])))
+
+(defn enum-sort-by
+  [enum k]
+  (->> enum
+       (sort-by k)
+       type-enum
+       (name-enum (-> enum meta :name))))
 
 (defn assoc-enum-details
   [m parameter]

@@ -112,7 +112,7 @@
       ;       These XMLs files can then be used as mockups for UI tests. They can be
       ;       saved with this command:
       ;       $ cp war/raw-metadata-str.xml ../SlipStreamUI/clj/test/slipstream/ui/mockup_data/metadata_{$NAME_OF_THE_METADATA}.xml
-      (spit "raw-metadata-str.xml" raw-metadata-str))
+      (spit (format "raw-metadata-str-page_%s-type_%s.xml" pagename type) raw-metadata-str))
     (localization/with-lang lang
       (current-user/with-user-from-metadata
         (page-type/with-page-type (or (page-types pagename) type)

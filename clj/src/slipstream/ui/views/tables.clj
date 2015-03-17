@@ -608,7 +608,7 @@
                                                                                          :warning (t :max-provisioning-failures.warning-help-hint)}
                                                                     :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :cloud.label)}
-              {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
+              {:type :cell/enum,             :content {:enum (current-user/configuration :available-clouds)
                                                        :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
 
   (defn- deployment-node-cell-inner-table-mapping-header
