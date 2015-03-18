@@ -112,11 +112,11 @@
 
 (localization/with-prefixed-t :run-image-dialog
   (html/defsnippet ^:private run-image-dialog template-filename [:#ss-run-image-dialog]
-    [run-type resource-id module-version available-clouds]
+    [run-type resource-id module-version]
     ue/this                   (-> run-type dialog-id ue/set-id)
     title-sel                 (html/content       (-> run-type name (str ".title") keyword t))
     [:#ss-run-image-cloud-label] (html/content (t :cloud-service.label))
-    [:select]                 (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} available-clouds]
+    [:select]                 (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
                                               ue/this (ue/set-value value)
                                               ue/this (ue/set-selected selected?)
                                               ue/this (html/content text))
@@ -126,6 +126,26 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (-> run-type name (str ".button") keyword t))))
 
+(defn- run-deployment-global-parameters
+  [deployment-metadata]
+  {:deployment-target-cloud       (-> :available-clouds
+                                      current-user/configuration
+                                      (u/enum-append-option :specify-for-each-node))
+   :launch-mutable-run?           false
+   :tolerate-deployment-failures? false
+   :tags                          nil
+   :keep-running-behaviour        (-> [:always
+                                       :on-success
+                                       :on-error
+                                       :never]
+                                    (u/enum :keep-running-behaviour-for-deployment)
+                                    (u/enum-select (or
+                                                     (current-user/configuration :keep-running)
+                                                     :on-success))
+                                    u/enum-flag-selected-as-default)
+   :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))})
+
+
 (localization/with-prefixed-t :run-deployment-dialog
   (html/defsnippet ^:private run-deployment-dialog template-filename [:#ss-run-deployment-dialog]
     [deployment-metadata resource-id module-version]
@@ -133,8 +153,7 @@
     title-sel                                     (html/content       (t :title))
     [:#ss-run-deployment-id]                      (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     [:.ss-run-deployment-global-section-title]    (html/html-content  (t :global-section.title))
-    [:.ss-run-deployment-mutable-checkbox-label]  (html/html-content  (t :mutable-checkbox.label))
-    [:.ss-run-deployment-fail-tolerance-allowed-checkbox-label]  (html/html-content  (t :fail-tolerance-allowed-checkbox.label))
+    [:.ss-run-deployment-global-section-content]  (html/content       (-> deployment-metadata run-deployment-global-parameters t/run-deployment-global-section-table))
     [:.ss-run-deployment-nodes-section-title]     (html/html-content  (t :nodes-section.title))
     [:.ss-run-deployment-nodes-section-content]   (html/content       (-> deployment-metadata :nodes t/run-deployment-node-parameters-table))
     footnote-sel                                  (html/html-content  (t :footnote))
@@ -216,6 +235,6 @@
         (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
                                                   (unpublish-module-confirmation-dialog resource-name resource-id module-version))
         (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
-        (run-image-required? context)       (conj (run-image-dialog :run    resource-id module-version (-> context :parsed-metadata :available-clouds))
-                                                  (run-image-dialog :build  resource-id module-version (-> context :parsed-metadata :available-clouds)))
+        (run-image-required? context)       (conj (run-image-dialog :run    resource-id module-version)
+                                                  (run-image-dialog :build  resource-id module-version))
         (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))))))

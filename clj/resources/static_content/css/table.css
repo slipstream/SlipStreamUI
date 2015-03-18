@@ -91,12 +91,6 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   width: 250px;
 }
 
-.ss-run-module-dialog .ss-run-deployment-global-section-table tr td:first-of-type {
-  /*
-    TODO: Do this in Javascript, since the lenght is unknown in advance
-  */
-  padding-left: 70px;
-}
 .ss-run-module-dialog .ss-inner-table tr td:first-of-type,
 .ss-run-module-dialog tr.ss-run-deployment-mutable-checkbox-row td:first-of-type {
   vertical-align: middle;

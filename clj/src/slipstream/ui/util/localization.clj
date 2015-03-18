@@ -2,7 +2,7 @@
   "Util functions only related to the string localization."
   (:require [clojure.java.io :as io]
             [taoensso.tower :as tower]
-            [slipstream.ui.util.dev :as ud]
+            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.theme :as theme])
   (:import  java.io.File))
@@ -150,7 +150,7 @@
   (let [k-or-ks (if-let [theme (theme/current)]
                   [(prefix-with-theme theme k) k]
                   k)]
-    (if ud/*dev?*
+    (if (mode/headless?)
       (or (apply t-dev  *lang* k-or-ks args) (apply t-fallback-dev  *lang* k-or-ks args))
       (or (apply t-prod *lang* k-or-ks args) (apply t-fallback-prod *lang* k-or-ks args)))))
 

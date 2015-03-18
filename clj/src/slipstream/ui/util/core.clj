@@ -61,15 +61,38 @@
        (filter :selected?)
        first))
 
+(defn enum-default-option
+  "Returns the default enum option. See tests for expectations."
+  [enum]
+  (->> enum
+       (filter :default?)
+       first))
+
 (defn- type-enum
   [enum]
-  (with-meta enum {:type :enum}))
+  (vary-meta enum assoc :type :enum))
+
+(defn- name-enum
+  [enum-name enum]
+  (vary-meta enum assoc :name enum-name))
+
+(defn enum-update-name
+  [enum enum-name]
+  (name-enum enum-name enum))
 
 (def ^:private enums-with-localization
   "By default we display the values itselves in the combobox of a 'select' form
   input. However, for some known enum parameters we use de localized string."
   #{:cloud-platforms                ; Values in slipstream.ui.models.module.image/platforms
     :general-verbosity-level        ; Values: ["0" "1" "2" "3"]
+    :general-keep-running           ; Values: ["always"
+                                    ;          "on-success"
+                                    ;          "on-error"
+                                    ;          "never]"
+    :keep-running-behaviour-for-deployment  ; Values: [:always
+                                            ;          :on-success
+                                            ;          :on-error
+                                            ;          :never]
     :deployment-parameter-category  ; Values: ["Output" "Input"] in slipstream.ui.views.tables/deployment-parameter-row
     :mapping-options                ; Values: [:parameter.bind-to-output :parameter.bind-to-value]
     :atos-ip-type                   ; Values: ["public" "local" "private"]
@@ -85,9 +108,16 @@
                                     ;        in slipstream.ui.views.tables
     })
 
+
+(def ^:private enum-options-with-localization
+  "Same than enums-with-localization above, but for idividual options."
+  #{:specify-for-each-node})
+
 (defn- enum-text
   [enum-name option]
-  (if-not (enums-with-localization enum-name)
+  (if-not (or
+            (enums-with-localization enum-name)
+            (enum-options-with-localization option))
     option
     (->> option
          uc/keywordize
@@ -111,7 +141,27 @@
   (->> enum
        (map (partial toggle-option (enum-value selected-option)))
        ensure-one-selected
-       type-enum))
+       type-enum
+       (name-enum (-> enum meta :name))))
+
+(defn enum-flag-selected-as-default
+  "Appends ' *' to the text of the selected option."
+  [enum]
+  (->> enum
+       (map #(if (:selected? %)
+               (-> %
+                   (update-in [:text] str " *")
+                   (assoc :default? true))
+               %))
+       type-enum
+       (name-enum (-> enum meta :name))))
+
+(defn enum-select-default
+  "Like enum-select but appends ' *' to the text of the selected option."
+  [enum selected-option]
+  (-> enum
+      (enum-select selected-option)
+      enum-flag-selected-as-default))
 
 (defn- parse-enum-option
   [enum-name option]
@@ -121,7 +171,21 @@
   [options enum-name & [selected-option]]
   (let [enum-base (map (partial parse-enum-option enum-name) options)]
     (-> enum-base
+        (with-meta {:name enum-name})
         (enum-select (or selected-option (first options))))))
+
+(defn enum-append-option
+  [enum option]
+  (let [enum-name         (-> enum meta :name)
+        option-to-append  (parse-enum-option enum-name option)]
+    (concat enum [option-to-append])))
+
+(defn enum-sort-by
+  [enum k]
+  (->> enum
+       (sort-by k)
+       type-enum
+       (name-enum (-> enum meta :name))))
 
 (defn assoc-enum-details
   [m parameter]

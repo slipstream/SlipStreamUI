@@ -279,6 +279,8 @@
     <div class="modal fade ss-run-module-dialog" id="ss-run-image-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-run-image-dialog-label" aria-hidden="true">
       <div class="modal-dialog">
         <form class="form-horizontal ss-run-module-form" role="form">
+          <!-- The UI always bypasses the SSH check, i.e. launching a deployment without SSH keys won't fail -->
+          <input type="hidden" class="form-control" id="bypass-ssh-check" name="bypass-ssh-check" value="true">
           <input type="hidden" class="form-control" id="ss-run-image-id" name="refqname" value="module/the/source/module/uri/123">
           <input type="hidden" class="form-control" id="ss-run-image-type" name="type" value="Machine">
           <div class="modal-content panel-primary">
@@ -360,6 +362,8 @@
       <!-- <div class="modal-dialog modal-lg"> -->
       <div class="modal-dialog">
         <form class="ss-run-module-form" role="form">
+          <!-- The UI always bypasses the SSH check, i.e. launching a deployment without SSH keys won't fail -->
+          <input type="hidden" class="form-control" id="bypass-ssh-check" name="bypass-ssh-check" value="true">
           <input type="hidden" class="form-control" id="ss-run-deployment-id" name="refqname" value="module/the/source/module/uri/123">
           <div class="modal-content panel-primary">
             <div class="modal-header panel-heading">
@@ -368,18 +372,9 @@
             </div>
             <div class="modal-body">
               <h4 class="ss-run-deployment-global-section-title">Global deployment parameters</h4>
-                <table class="ss-table table-condensed table table-responsive table-hover ss-run-deployment-global-section-table">
-                  <tbody>
-                    <tr class="ss-run-deployment-mutable-checkbox-row">
-                      <td><span class="ss-run-deployment-mutable-checkbox-label">Launch a mutable deployment</span></td>
-                      <td><input id="mutable" name="mutable" type="checkbox"></td>
-                    </tr>
-                    <tr class="ss-run-deployment-fail-tolerance-allowed-checkbox-row">
-                      <td><span class="ss-run-deployment-fail-tolerance-allowed-checkbox-label">Allow to define failure tolerance at node level</span></td>
-                      <td><input id="ss-run-deployment-fail-tolerance-allowed-checkbox" type="checkbox"></td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="ss-run-deployment-global-section-content">
+                  Here comes the table with the global parameters.
+                </div>
               <hr>
               <h4 class="ss-run-deployment-nodes-section-title">Node parameters</h4>
               <div class="ss-run-deployment-nodes-section-content">

@@ -38,11 +38,15 @@
                                     (str " - " comment)))))})))
 
 (defn- old-version-alert
-  [{:keys [category latest-version?]}]
+  [{:keys [category latest-version? uri]}]
   (when-not latest-version?
     {:type :warning
      :container :fixed
-     :msg (t :alert.old-version.msg (u/t-module-category category s/lower-case))}))
+     :data-context {:help-hints {:breadcrumb-to-last-version  (t :help-hint.breadcrumb-to-last-version)
+                                 :link-to-history             (t :help-hint.link-to-history)}}
+     :msg (t :alert.old-version.msg
+             (u/t-module-category category s/lower-case)
+             (uc/trim-last-path-segment uri))}))
 
 (defn- edit-published-alert
   [{:keys [category published?]}]

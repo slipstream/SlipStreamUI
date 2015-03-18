@@ -68,10 +68,12 @@
                      :not-new
                      :begin-with-letter]
 
-   :run-tags      [[:comma-separated-words  {:when-true   "warning"}]]
+   :run-tags       [[:comma-separated-words  {:when-true   "warning"}]]
 
-   :ssh-public-keys [:not-empty
-                     [:ssh-public-keys      {:when-false   "warning"}]]
+   ; Same than :run-tags but for the 'Run deployment dialog'
+   :run-start-tags [:comma-separated-words]
+
+   :ssh-public-keys [[:ssh-public-keys      {:when-false   "warning"}]]
 
    :picture-url   [:url
                    [:picture-file           {:when-true   "validating"}]]

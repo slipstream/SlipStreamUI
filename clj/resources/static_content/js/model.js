@@ -327,12 +327,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         return $elem
                                     .find("#tags")
                                         .val()
-                                        .trim()
-                                        .split(/[^\w-]+/) // tags can only contain [a-zA-Z0-9-]
-                                        .sort()
-                                        .unique()
-                                        .filter($$.util.string.notEmpty)
-                                        .join(", ");
+                                        .asCommaSeparatedListOfUniqueTags();
                     },
 
                     commitTags: function(callback) {

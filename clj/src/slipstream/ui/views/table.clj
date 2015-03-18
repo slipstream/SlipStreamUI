@@ -177,6 +177,7 @@
   [:input] (ue/toggle-checked value)
   [:input] (ue/set-id id)
   [:input] (ue/set-name id)
+  [:input]  (ue/add-requirements cell-content)
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Enum cell

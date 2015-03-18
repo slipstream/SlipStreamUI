@@ -2,7 +2,7 @@
   (:require [clojure.string :as s]
             [ring.util.response :as resp]
             [ring.middleware.resource :as resource]
-            [slipstream.ui.util.dev :as ud]
+            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.views.representation :as representation])
   (:use [net.cgrand.moustache :only [app]]))
@@ -29,7 +29,7 @@
 
 (defn- render
   [& {:keys [raw-metadata-ns pagename type]}]
-  (ud/with-dev-environment
+  (mode/with-headless-environment
     (-> raw-metadata-ns
         raw-metadata-str
         (representation/-toHtml pagename {"type" type})
@@ -39,7 +39,7 @@
 
 (defn- render-error
   [& {:keys [raw-metadata-ns message code]}]
-  (ud/with-dev-environment
+  (mode/with-headless-environment
     (-> raw-metadata-ns
         raw-metadata-str
         (representation/-toHtmlError message code nil)
@@ -48,7 +48,7 @@
 
 (defn- render-file
   [file-data-file]
-  (ud/with-dev-environment
+  (mode/with-headless-environment
     (-> (str "test/slipstream/ui/mockup_data/" file-data-file)
         slurp
         resp/response

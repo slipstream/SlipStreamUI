@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.base
   (:require [net.cgrand.enlive-html :as html :refer [deftemplate defsnippet]]
             [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.dev :as ud]
+            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.theme :as theme]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
@@ -9,7 +9,6 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.version :as version]
-            [slipstream.ui.models.user.loggedin :as user-loggedin]
             [slipstream.ui.models.configuration :as configuration]
             [slipstream.ui.views.messages :as messages]
             [slipstream.ui.views.header :as header]
@@ -56,6 +55,7 @@
 
 
 (def error-page-cls "ss-error-page")
+(def headless-mode-page-cls "ss-headless-mode-page")
 (def dev-mode-page-cls "ss-dev-mode-page")
 (def beta-page-cls "ss-beta-page")
 (def placeholder-page-cls "ss-placeholder-page")
@@ -183,7 +183,11 @@
     :as context}]
   [:head]               (prepend-ss-meta-info context)
   [:body]               (ue/enable-class error-page? error-page-cls)
-  [:body]               (ue/enable-class ud/*dev?* dev-mode-page-cls)
+  [:body]               (cond
+                          (mode/headless?)  (html/add-class     headless-mode-page-cls)
+                          (mode/dev?)       (html/add-class     dev-mode-page-cls)
+                          :else             (html/remove-class  headless-mode-page-cls
+                                                                dev-mode-page-cls))
   [:body]               (ue/enable-class placeholder-page? placeholder-page-cls)
   [:body]               (ue/enable-class beta-page? beta-page-cls)
   [:body]               (ue/enable-class in-progress-page? in-progress-page-cls)
@@ -248,7 +252,7 @@
 
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]
-  (when ud/*dev?*
+  (when (mode/dev?)
     (println "Generating base from ns" (:view-ns context)
              "- View name" (:view-name context)
              "- Title" (-> context :header :title)

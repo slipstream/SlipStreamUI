@@ -195,14 +195,18 @@
 
 (defn build-parameters-table
   "The last columns are always value and hint. The first ones might change."
-  [first-cols-keywords parameters]
+  [first-cols-keywords parameters & {:keys [include-headers?] :or {include-headers? true}}]
   (table/build
-    {:headers (concat first-cols-keywords [:value nil])
+    {:headers (when include-headers? (concat first-cols-keywords [:value nil]))
      :rows (map-indexed (partial parameter-row first-cols-keywords) parameters)}))
 
 (defn parameters-table
   [parameters]
   (build-parameters-table [:description] parameters))
+
+(defn headerless-parameters-table
+  [parameters]
+  (build-parameters-table [:description] parameters :include-headers? false))
 
 (defn runtime-parameters-table
   [parameters]
@@ -550,6 +554,7 @@
     (when-not (:mapped-value? mapping)
       {:cells [{:type :cell/html, :editable? false, :content {:text   (t :parameter.input (:name mapping))}}
                {:type :cell/text, :editable? true,  :content {:text   (-> mapping :value uc/ensure-unquoted)
+                                                              :class  "ss-value-must-be-single-quoted"
                                                               :id     (format "parameter--node--%s--%s" node-name (:name mapping))
                                                               :placeholder (t :new-parameter-mapping.placeholder.value)}}]}))
 
@@ -603,7 +608,7 @@
                                                                                          :warning (t :max-provisioning-failures.warning-help-hint)}
                                                                     :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :cloud.label)}
-              {:type :cell/enum,             :content {:enum (:default-cloud deployment-node)
+              {:type :cell/enum,             :content {:enum (current-user/configuration :available-clouds)
                                                        :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
 
   (defn- deployment-node-cell-inner-table-mapping-header
@@ -669,6 +674,32 @@
       {:rows (->> deployment-nodes
                   (map #(assoc % :target :deployment-run-dialog))
                   (map-indexed deployment-node-row))}))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/with-prefixed-t :run-deployment-global-parameters-table
+
+  (defn run-deployment-global-section-table
+    [parameters]
+    (headerless-parameters-table
+      (p/map->parameter-list parameters
+        :launch-mutable-run?            {:type :cell/boolean, :editable? true, :id-format-fn (constantly "mutable")}
+        :tolerate-deployment-failures?  {:type :cell/boolean, :editable? true, :id-format-fn (constantly "ss-run-deployment-fail-tolerance-allowed-checkbox")}
+        :ssh-key-available?             {:type :cell/boolean
+                                         :as-parameter (if (-> parameters :ssh-key-available?) :ssh-key-available :ssh-key-not-available)
+                                         :editable? (-> parameters :ssh-key-available? not)
+                                         :id-format-fn (constantly "ssh-access-enabled")
+                                         :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
+        :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service")}
+        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")}
+        :tags                           {:type :cell/text
+                                         :editable? true
+                                         :id-format-fn (constantly "tags")
+                                         :required? false
+                                         :validation {:requirements (pattern/requirements :run-start-tags)}}
+        )))
 
 ) ;; End of prefixed t scope
 

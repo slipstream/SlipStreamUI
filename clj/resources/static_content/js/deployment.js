@@ -379,7 +379,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $multiplicityInputs                     = $("input[id$='" + multiplicityInputIdSuffix + "']"),
         $maxProvisioningFailuresInputs          = $("[id$='" + maxProvisioningFailuresInputIdSuffix + "']"),
         $mutabilityCheckbox                     = $("input#mutable"),
-        $toleranceCheckbox                      = $("input#ss-run-deployment-fail-tolerance-allowed-checkbox");
+        $toleranceCheckbox                      = $("input#ss-run-deployment-fail-tolerance-allowed-checkbox"),
+        $keepRunningBehaviourCombobox           = $("#keep-running");
 
     $toleranceCheckbox
         .change(function() {
@@ -397,13 +398,26 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         });
 
-    // Sync $maxProvisioningFailuresInputs initial state with the checkbox
-    $toleranceCheckbox.change();
+    $toleranceCheckbox
+        .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required
+        .change();          // Sync $maxProvisioningFailuresInputs initial state with the checkbox
 
     $mutabilityCheckbox
         .change(function() {
             // Adapt multiplicity fields (min value, label and validation) according to the mutability setting
             var isMutable = this.checked;
+            if (isMutable) {
+                $keepRunningBehaviourCombobox
+                    .data("existent-value", $keepRunningBehaviourCombobox.val())
+                    .val("always")
+                    .closest("tr")
+                        .enableRow(false, {disableReason: "Mutable deployments are always kept running."});
+            } else {
+                $keepRunningBehaviourCombobox
+                    .val($keepRunningBehaviourCombobox.data("existent-value"))
+                    .closest("tr")
+                        .enableRow(true);
+            }
             $multiplicityInputs
                 .each(function(index, elem){
                     var $multiplicityInput = $(elem),
@@ -474,5 +488,54 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 toggleMaxProvisioningFailuresInputState.partial($multiplicityInput, $maxProvisioningFailuresInput)
             );
         });
+
+    // Synchronization of the cloud comboboxes
+
+    var $globalCloudServiceCombobox         = $("#global-cloud-service"),
+        specifyForEachNodeOption            = "specify-for-each-node",
+        nodeCloudServiceComboboxIdSuffix    = "--cloudservice",
+        $nodeCloudServiceComboboxes         = $("select[id$='" + nodeCloudServiceComboboxIdSuffix + "']");
+
+    $globalCloudServiceCombobox
+        .change(function() {
+            if ( $globalCloudServiceCombobox.val() === specifyForEachNodeOption ) {
+                $nodeCloudServiceComboboxes
+                    .closest("tr")
+                        .slideDownRow();
+            } else {
+                $nodeCloudServiceComboboxes
+                    .closest("tr")
+                        .slideUpRow()
+                        .end()
+                    .val($globalCloudServiceCombobox.val());
+            }
+        })
+        .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required
+        .change();          // Sync $nodeCloudServiceComboboxes initial state with the checkbox
+
+
+    // SSH option
+    var $needSSHAccessElem = $("#ssh-access-enabled");
+
+    $needSSHAccessElem
+        .change(function(){
+            if ( ! this.checked ) {
+                $needSSHAccessElem.clearFormInputValidationState();
+            } else {
+                $needSSHAccessElem.setFormInputValidationState(false);
+            }
+        })
+        .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
+
+    // Tags field
+
+    var $tagsInputElem = $("#tags");
+
+    $tagsInputElem.focusout(function(){
+        if ( $tagsInputElem.isValidFormInput() ) {
+            var sanitizedTags = $tagsInputElem.val().asCommaSeparatedListOfUniqueTags();
+            $tagsInputElem.val(sanitizedTags);
+        }
+    });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

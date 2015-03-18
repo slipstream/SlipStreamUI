@@ -161,6 +161,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         asInt: function() {
             return parseInt(this, 10);
+        },
+
+        asCommaSeparatedListOfUniqueTags: function() {
+            return this
+                    .trim()
+                    .split(/[^\w-]+/) // tags can only contain [a-zA-Z0-9-]
+                    .sort()
+                    .unique()
+                    .filter($$.util.string.notEmpty)
+                    .join(", ");
         }
 
     });
@@ -521,6 +531,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var $row = this;
             $row
                 .filter("tr")
+                .not(this.slidedUpRowCls.asSel())
                 .find('td')
                 .wrapInner("<div class='" + $row.tmpDivToSlidedUpRowCls + "'style='display: block;' />")
                 .parent()
@@ -537,6 +548,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         slideDownRow: function(duration) {
             this
                 .filter("tr." + this.slidedUpRowCls)
+                .removeClass(this.slidedUpRowCls)
                 .find("td > div." + this.tmpDivToSlidedUpRowCls)
                 .slideDown(duration, function(){
                     var $tmpInnerDiv = $(this);
@@ -612,6 +624,67 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 }, delayInMillis));
             }
             return this;
+        },
+
+        hoverDelayed: function(handlerInOrInOutArg, handlerOutArg, delayInMillis) {
+            // If 'delayInMillis' is an int, it's applied for both 'handlerIn' and 'handlerOut' events.
+            // To define different delays, provide an object like: {enter: 100, leave: 0}
+            // Add {alwaysTriggerHandlerOut: false} to trigger the handlerOut only if handlerIn was called.
+            var $this = this,
+                eventParams = {
+                    mouseenter: {
+                        delay:          $.isPlainObject(delayInMillis) ? delayInMillis.enter : delayInMillis,
+                        timeoutIDKey:   "timeoutMouseEnterIDKeyForHover",
+                        handler:        handlerInOrInOutArg,
+                        handlerWasTriggeredDataKey: "handlerInWasTriggered"
+                    },
+                    mouseleave: {
+                        delay:          $.isPlainObject(delayInMillis) ? delayInMillis.leave : delayInMillis,
+                        timeoutIDKey:   "timeoutMouseLeaveIDKeyForHover",
+                        handler:        handlerOutArg || handlerInOrInOutArg,
+                        alwaysTrigger:  $.isPlainObject(delayInMillis) ? delayInMillis.alwaysTriggerHandlerOut : true,
+                        handlerWasTriggeredDataKey: "handlerOutWasTriggered"
+                    }
+                };
+            function scheduleHandlerForEvent(e, params) {
+             if ( $this.data(params.timeoutIDKey) === undefined ) {
+                    $this.data(
+                        params.timeoutIDKey,
+                        setTimeout(
+                            function(){
+                                params.handler.call($this.get(0), e);
+                                $this
+                                    .removeData(params.timeoutIDKey)
+                                    .data(params.handlerWasTriggeredDataKey, true);
+                            },
+                            params.delay
+                        )
+                    );
+                }
+            }
+
+            function stopHandlerForEvent(e, params) {
+                if ( $this.data(params.timeoutIDKey) !== undefined ) {
+                    clearTimeout($this.data(params.timeoutIDKey));
+                    $this.removeData(params.timeoutIDKey);
+                }
+                $this.removeData(params.handlerWasTriggeredDataKey);
+            }
+
+            return this
+                    .hover(
+                        function(e) {
+                            scheduleHandlerForEvent(e, eventParams.mouseenter);
+                            stopHandlerForEvent(    e, eventParams.mouseleave);
+                        },
+                        function(e) {
+                            if ( $this.data(eventParams.mouseenter.handlerWasTriggeredDataKey) ||
+                                eventParams.mouseleave.alwaysTrigger ) {
+                                scheduleHandlerForEvent(e, eventParams.mouseleave);
+                            }
+                            stopHandlerForEvent(    e, eventParams.mouseenter);
+                        }
+                    );
         },
 
         enableBufferedTextInputChangeEvent: function() {
@@ -1495,6 +1568,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Enable popovers
                 .find("[data-toggle='popover']")
                     .popover({
+                        html: true,
                         delay: 200
                     })
                     .end()
@@ -1502,6 +1576,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .find("[data-toggle='tooltip']")
                     .tooltip();
             return this;
+        },
+
+        bsAddDynamicHelpHint: function(helpHintStr, placement) {
+            return this.popover(
+                {content:    helpHintStr,
+                 trigger:    "manual",
+                 container:  "body",
+                 template:   "<div class=\"popover ss-dynamic-help-hint\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-info text-info\"></div></div>",
+                 placement:  placement || "bottom"});
         },
 
         // Image Preloader utils

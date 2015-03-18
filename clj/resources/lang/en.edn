@@ -499,6 +499,27 @@
    :slipstream.ui.models.parameters.mutable?.description                        :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.mutable?.help-hint                          ""
 
+   ;; Parameters for the global section of the 'Run deployment' dialog
+
+   :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
+   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
+
+   :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to deploy to. The cloud flagged with a `*` is the default configured in your user profile. The option `Specify for each node` will reveal this menu for each of the nodes below."
+   :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
+
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Enabling this option reveals a field in each node to specify how many instances (i.e. the `multiplicity` value) you tolerate to fail to properly start without SlipStream flagging the whole deployment as failed. This makes specially sense for _mutable_ deployments with a _big_ initial multiplicity."
+
+   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Keep running after deployment"
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if and when SlipStream should leave the application running after performing the deployment. `On success` is useful for production deployments or long tests. `On Error` might be useful so that resources are consumed only when debugging is needed. `Never` ensures that SlipStream automatically terminates the application after performing the deployment. The option flagged with a `*` is the default configured in your user profile.  Note: This parameter doesn't apply to `mutable deployment` Runs and to `build image` Runs."
+
+   :slipstream.ui.models.parameters.ssh-key-available.description               "SSH access"
+   :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "There are SSH keys configured in your user profile. SlipStream will install the keys into the deployed machines so that you can use SSH to access them."
+   :slipstream.ui.models.parameters.ssh-key-not-available.description           "SSH access"
+   :slipstream.ui.models.parameters.ssh-key-not-available.help-hint             "Currently there are no SSH keys configured in your user profile. If SSH keys were provided in your user profile, SlipStream would install the keys into the deployed machines so that you can use SSH to access them. If you are not sure about the meaning of this setting, you can probably leave it unchecked."
+   :slipstream.ui.views.tables.run-deployment-global-parameters-table.missing-ssh-key.error-help-hint! "To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page." ; %1$s = user profile URL
+
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or IP address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Provided at runtime by SlipStream"
@@ -582,6 +603,7 @@
    :slipstream.ui.views.tables.run-tags.warning-help-hint                             "Press `Enter` to save modification."
    :slipstream.ui.views.tables.run-tags.error-help-hint                               "Something went wrong when trying to save the tags. Please retry."
    :slipstream.ui.util.pattern.error-help-hint.run-tags.comma-separated-words         :pattern.default-error-help-hint.comma-separated-words
+   :slipstream.ui.util.pattern.error-help-hint.run-start-tags.comma-separated-words   :pattern.default-error-help-hint.comma-separated-words
 
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.not-empty               :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.parameter-name.dot-separated-words     :pattern.default-error-help-hint.dot-separated-words
@@ -639,6 +661,19 @@
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.price               "Price"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.suppliers-catalogue "Suppliers catalogue"
    :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other               "Other"
+
+   ; Values for default behaviour defined in user profile
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.always                        "Always"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.on-success                    "On Success"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.on-error                      "On Error"
+   :slipstream.ui.util.core.enum.option.text.general-keep-running.never                         "Never"
+
+   ; Values for spot behaviour for each deployment defined in the 'Run deployment' dialog
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.always       "Always"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-success   "On Success"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-error     "On Error"
+   :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never        "Never"
+
 
    ;; Time
 
@@ -797,7 +832,9 @@
    :slipstream.ui.views.module.header.title.new                "New %1$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s" ; %1$s = version
    :slipstream.ui.views.module.header.subtitle.new             "Add the information to create a new %1$s."
-   :slipstream.ui.views.module.alert.old-version.msg           "This is not the latest version of this %1$s." ;  %1$s = category: image, project or deployment
+   :slipstream.ui.views.module.alert.old-version.msg           "This is not the most recent version of this %1$s. [Are you looking for the lastest version?](%2$s)" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
+   :slipstream.ui.views.module.help-hint.breadcrumb-to-last-version "The module name in the breadcrumbs brings you always to the latest version of the module."
+   :slipstream.ui.views.module.help-hint.link-to-history            "The version history gives you an overview of all versions of this module and allows you to switch to a different version."
    :slipstream.ui.views.module.alert.edit-published.title      "Editing a published %1$s version" ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.alert.edit-published.msg        "Please note that the changes will not be reflected in the [App Store](/) until you publish the new saved version of this %1$s." ;  %1$s = category: image, project or deployment
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
@@ -906,8 +943,6 @@
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Run deployment"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.mutable-checkbox.label            :global.nouns.mutable-deployment
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.fail-tolerance-allowed-checkbox.label  "Tolerate deployment failures"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
 
    :slipstream.ui.views.run.page-title                      "Run %1$s" ;; %1$s = [run id]
