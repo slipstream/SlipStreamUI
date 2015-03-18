@@ -514,9 +514,11 @@
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Keep running after deployment"
    :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if and when SlipStream should leave the application running after performing the deployment. `On success` is useful for production deployments or long tests. `On Error` might be useful so that resources are consumed only when debugging is needed. `Never` ensures that SlipStream automatically terminates the application after performing the deployment. Note: This parameter doesn't apply to `mutable deployment` Runs and to `build image` Runs."
 
-   :slipstream.ui.models.parameters.need-ssh-access?.description                "Enable SSH access"
-   :slipstream.ui.models.parameters.need-ssh-access?.help-hint                  "Enable this option if you want SlipStream to install the SSH keys defined in your profile into the deployed machines. If you are not sure about this option, you can probably leave it unchecked."
-   :slipstream.ui.views.tables.run-deployment-global-parameters-table.need-ssh-access?.missing-ssh-key.error-help-hint "No SSH key configured in your [user profile](%1$s)." ; %1$s = user profile URL
+   :slipstream.ui.models.parameters.ssh-key-available.description               "SSH access"
+   :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "There are SSH keys configured in your user profile. SlipStream will install the keys into the deployed machines so that you can use SSH to access them."
+   :slipstream.ui.models.parameters.ssh-key-not-available.description           "SSH access"
+   :slipstream.ui.models.parameters.ssh-key-not-available.help-hint             "Currently there are no SSH keys configured in your user profile. If SSH keys were provided in your user profile, SlipStream would install the keys into the deployed machines so that you can use SSH to access them. If you are not sure about the meaning of this setting, you can probably leave it unchecked."
+   :slipstream.ui.views.tables.run-deployment-global-parameters-table.missing-ssh-key.error-help-hint! "To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page." ; %1$s = user profile URL
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or IP address of the image"
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."

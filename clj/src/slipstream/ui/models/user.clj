@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.user
-  (:require [slipstream.ui.util.core :as u]
+  (:require [clojure.string :as s]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.parameters :as parameters]))
 
@@ -30,4 +31,7 @@
                                                             :value
                                                             keyword)
                                         :ssh-keys         (-> parameters
-                                                            (parameters/value-for "General.ssh.public.key"))})))))
+                                                            (parameters/value-for "General.ssh.public.key")
+                                                            (or "")
+                                                            s/trim
+                                                            not-empty)})))))

@@ -142,7 +142,7 @@
                                     (u/enum-select (or
                                                      (current-user/configuration :keep-running)
                                                      :on-success)))
-   :need-ssh-access?              false})
+   :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))})
 
 
 (localization/with-prefixed-t :run-deployment-dialog

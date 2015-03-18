@@ -515,8 +515,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     // SSH option
-
-    var $needSSHAccessElem = $("#need-ssh-access");
+    var $needSSHAccessElem = $("#ssh-access-enabled");
 
     $needSSHAccessElem
         .change(function(){
@@ -525,7 +524,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             } else {
                 $needSSHAccessElem.setFormInputValidationState(false);
             }
-        });
+        })
+        .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
 
     // Tags field
 

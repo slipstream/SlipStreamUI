@@ -144,3 +144,8 @@ div.popover[role=tooltip] code {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* In Run Deployment dialog */
+#ssh-access-enabled + .help-block {
+  max-width: 204px;
+}
