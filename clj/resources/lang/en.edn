@@ -505,7 +505,7 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to deploy to. The option `Specify for each node` will reveal this menu for each of the nodes below."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to deploy to. The cloud flagged with a `*` is the default configured in your user profile. The option `Specify for each node` will reveal this menu for each of the nodes below."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
