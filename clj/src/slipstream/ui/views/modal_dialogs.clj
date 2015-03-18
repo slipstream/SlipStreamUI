@@ -141,7 +141,8 @@
                                     (u/enum :keep-running-behaviour-for-deployment)
                                     (u/enum-select (or
                                                      (current-user/configuration :keep-running)
-                                                     :on-success)))
+                                                     :on-success))
+                                    u/enum-flag-selected-as-default)
    :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))})
 
 

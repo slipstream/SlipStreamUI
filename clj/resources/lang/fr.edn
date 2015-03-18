@@ -503,14 +503,14 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _mutable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
 
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est le défaut configuré dans votre profile. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ce dessous."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ce dessous."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Spécifier pour chaque noeud."
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour devoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _mutables_ avec une _grande mutliplicité initiale."
 
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Mantenir actif après le déploiement"
-   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder active l'application après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des long tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consomer des resources Cloud que dans le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. Note: Ce paramètre ne s'applique pas aux `déploiements mutables` et aux `constructions d'images`."
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder active l'application après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des long tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consomer des resources Cloud que dans le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. L'option marquée avec `*` est la valeur par défaut configurée dans votre profile. Note: Ce paramètre ne s'applique pas aux `déploiements mutables` et aux `constructions d'images`."
 
    :slipstream.ui.models.parameters.ssh-key-available.description               "Accès SSH"
    :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "Des clés SSH sont configurées dans votre profile. SlipStream va les installer sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder."
