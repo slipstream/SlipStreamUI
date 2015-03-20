@@ -128,9 +128,9 @@
 
 (defn- run-deployment-global-parameters
   [deployment-metadata]
-  {:deployment-target-cloud       (-> :available-clouds
-                                      current-user/configuration
-                                      (u/enum-append-option :specify-for-each-node))
+  {:deployment-target-cloud       (some-> :available-clouds
+                                          current-user/configuration
+                                          (u/enum-append-option :specify-for-each-node))
    :launch-mutable-run?           false
    :tolerate-deployment-failures? false
    :tags                          nil
