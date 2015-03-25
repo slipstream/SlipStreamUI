@@ -371,7 +371,7 @@
    :cells [{:type :cell/icon,      :content {:icon (icons/icon-for display-status)}}
            {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
-           {:type :cell/url,       :content module-uri}
+           {:type :cell/link,      :content {:text (u/module-name module-uri), :href module-uri}}
            {:type :cell/text,      :content status}
            {:type :cell/timestamp, :content start-time}
            {:type :cell/text,      :content cloud-names}
