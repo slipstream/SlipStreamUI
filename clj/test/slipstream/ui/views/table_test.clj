@@ -83,7 +83,7 @@
    :cell/url                [             :content/map  :content/plain]
    :cell/external-url       [             :content/map                ]
    :cell/username           [             :content/map  :content/plain]
-   :cell/icon               [:content/any                             ]
+   :cell/icon               [             :content/map  :content/plain]
    :cell/module-version     [                           :content/plain]
    :cell/help-hint          [             :content/map                ]
    :cell/reference-module   [             :content/map  :content/plain]
@@ -494,18 +494,70 @@
 ;;       specify a custom behaviour.
 
 (expect
-  (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Home\" class=\"glyphicon glyphicon-home ss-icon-tooltip\"></span>"
-       "\n          </td>")
+  {:type :icon/symbol}
   (localization/with-lang :en
-   (cell-html {:type :cell/icon, :content icons/home})))
+   (meta icons/project)))
+
+(expect
+  {:type :icon/computed}
+  (localization/with-lang :en
+   (meta (icons/project))))
+
+(expect
+  {:class-suffix "folder-open"
+   :style nil
+   :overlay nil
+   :tooltip-placement nil
+   :description "Project"}
+  (localization/with-lang :en
+   (icons/project)))
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span class=\"glyphicon glyphicon-home\"></span>"
+       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
        "\n          </td>")
   (localization/with-lang :en
-   (cell-html {:type :cell/icon, :content (icons/home)})))
+   (cell-html {:type :cell/icon, :content icons/run-successfully-ready})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span class=\"text-success glyphicon-ok glyphicon\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content (icons/run-successfully-ready)})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span class=\"text-success glyphicon-ok glyphicon\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content {:icon (icons/run-successfully-ready)}})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content {:icon icons/run-successfully-ready}})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-danger glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content {:icon icons/run-successfully-ready
+                                           :style :danger
+                                           :tooltip-placement "bottom"}})))
+
+(expect
+  (str "<td class=\"ss-table-cell-icon\">"
+       "\n              <span class=\"text-success glyphicon-ok glyphicon\"></span>"
+       "\n          </td>")
+  (localization/with-lang :en
+   (cell-html {:type :cell/icon, :content {:icon (icons/run-successfully-ready)
+                                           ; NOTE: Compiled icons are not affected by additional tweaks like :style and :position
+                                           :style :danger
+                                           :tooltip-placement "bottom"}})))
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"

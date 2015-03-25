@@ -23,22 +23,42 @@ code {
   font-weight: 600;
 }
 
+tr.text-info a,
+tr.text-success a,
+tr.text-warning a,
+tr.text-danger a {
+  font-weight: inherit;
+}
+
+
+.ss-alert-popover-info code,
+.text-info a,
+.ss-alert-popover-info a,
 .alert-info code {
   color: #31708f;
   background-color: transparent;
 }
+.ss-alert-popover-success code,
+.ss-alert-popover-success a,
+.text-success a,
 .has-success code,
 .has-success .ss-validation-help-hint a,
 .alert-success code {
   color: #3c763d;
   background-color: transparent;
 }
+.ss-alert-popover-warning code,
+.ss-alert-popover-warning a,
+.text-warning a,
 .has-warning code,
 .has-warning .ss-validation-help-hint a,
 .alert-warning code {
   color: #8a6d3b;
   background-color: transparent;
 }
+.ss-alert-popover-error code,
+.ss-alert-popover-error a,
+.text-danger a,
 .has-error code,
 .has-error .ss-validation-help-hint a,
 .alert-danger code {
@@ -110,12 +130,12 @@ dl.ss-footer-versions-popover {
 }
 
 /* All popovers (parameter help hints and dynamic help hints) */
-div.popover[role=tooltip] {
+div.popover[role=tooltip]:not(.ss-alert-popover) {
   /* Override text color of the popovers, to prevent them using the color of the
      target element. */
   color: black;
 }
-div.popover[role=tooltip] code {
+div.popover[role=tooltip]:not(.ss-alert-popover) code {
   /* Override text and background color of the <code> tags in popovers, to prevent
      that they look like clickable links. */
   color: black;
@@ -123,15 +143,34 @@ div.popover[role=tooltip] code {
 }
 
 /* Dynamic help hints */
-.popover.ss-dynamic-help-hint {
-  background-color: #d9edf7; /* Froms Bootstrap's .bg-info*/
+
+.popover.ss-alert-popover-info {
+  background-color:     #d9edf7;  /* From Bootstrap's .bg-info */
 }
-.popover.ss-dynamic-help-hint>.arrow:after {
-  border-bottom-color: #d9edf7; /* Froms Bootstrap's .bg-info*/
+.popover.ss-alert-popover-info>.arrow:after {
+  border-bottom-color:  #d9edf7;  /* From Bootstrap's .bg-info */
 }
-.popover-content.bg-info.text-info::before {
+.popover.ss-alert-popover-success {
+  background-color:     #dff0d8;  /* From Bootstrap's .bg-success */
+}
+.popover.ss-alert-popover-success>.arrow:after {
+  border-bottom-color:  #dff0d8;  /* From Bootstrap's .bg-success */
+}
+.popover.ss-alert-popover-warning {
+  background-color:     #fcf8e3;  /* From Bootstrap's .bg-warning */
+}
+.popover.ss-alert-popover-warning>.arrow:after {
+  border-bottom-color:  #fcf8e3;  /* From Bootstrap's .bg-warning */
+}
+.popover.ss-alert-popover-error {
+  background-color:     #f2dede;  /* From Bootstrap's .bg-danger */
+}
+.popover.ss-alert-popover-error>.arrow:after {
+  border-bottom-color:  #f2dede;  /* From Bootstrap's .bg-danger */
+}
+
+.ss-alert-popover .popover-content::before {
   font-family: 'Glyphicons Halflings';
-  content: "\e086 "; /* .glyphicon-info-sign */
   font-size: 12px;
   font-style: normal;
   font-weight: lighter;
@@ -143,6 +182,19 @@ div.popover[role=tooltip] code {
   padding-right: 5px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ss-alert-popover-info .popover-content::before {
+  content: "\e086 "; /* .glyphicon-info-sign */
+}
+.ss-alert-popover-success .popover-content::before {
+  content: "\e013 "; /* .glyphicon-ok */
+}
+.ss-alert-popover-warning .popover-content::before {
+  content: "\e209 "; /* .glyphicon-alert */
+}
+.ss-alert-popover-error .popover-content::before {
+  content: "\e101 "; /* .glyphicon-exclamation-sign */
 }
 
 /* In Run Deployment dialog */

@@ -726,6 +726,11 @@
    :slipstream.ui.models.run.type.run                              "Exécution d'une image"      ; Was 'Simple Run'
    :slipstream.ui.models.run.type.orchestration                    "Exécution d'un déploiement" ; Was 'Deployment'
 
+   :slipstream.ui.util.icons.description.run-in-transitional-state  "En état de transition"
+   ; :slipstream.ui.util.icons.description.run-with-abort-flag-set    "Abort flag set"
+   :slipstream.ui.util.icons.description.run-successfully-ready     "Prêt"
+   :slipstream.ui.util.icons.description.run-terminated             "Arrêté"
+
    ; Secondary action icon descriptions
 
    :slipstream.ui.util.icons.description.action-build              :global.verbs.build
