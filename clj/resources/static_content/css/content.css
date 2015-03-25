@@ -147,26 +147,62 @@ div.popover[role=tooltip]:not(.ss-alert-popover) code {
 .popover.ss-alert-popover-info {
   background-color:     #d9edf7;  /* From Bootstrap's .bg-info */
 }
-.popover.ss-alert-popover-info>.arrow:after {
+.popover.bottom.ss-alert-popover-info>.arrow:after {
   border-bottom-color:  #d9edf7;  /* From Bootstrap's .bg-info */
+}
+.popover.top.ss-alert-popover-info>.arrow:after {
+  border-top-color:     #d9edf7;  /* From Bootstrap's .bg-info */
+}
+.popover.left.ss-alert-popover-info>.arrow:after {
+  border-left-color:    #d9edf7;  /* From Bootstrap's .bg-info */
+}
+.popover.right.ss-alert-popover-info>.arrow:after {
+  border-right-color:   #d9edf7;  /* From Bootstrap's .bg-info */
 }
 .popover.ss-alert-popover-success {
   background-color:     #dff0d8;  /* From Bootstrap's .bg-success */
 }
-.popover.ss-alert-popover-success>.arrow:after {
+.popover.bottom.ss-alert-popover-success>.arrow:after {
   border-bottom-color:  #dff0d8;  /* From Bootstrap's .bg-success */
+}
+.popover.top.ss-alert-popover-success>.arrow:after {
+  border-top-color:     #dff0d8;  /* From Bootstrap's .bg-success */
+}
+.popover.left.ss-alert-popover-success>.arrow:after {
+  border-left-color:    #dff0d8;  /* From Bootstrap's .bg-success */
+}
+.popover.right.ss-alert-popover-success>.arrow:after {
+  border-right-color:   #dff0d8;  /* From Bootstrap's .bg-success */
 }
 .popover.ss-alert-popover-warning {
   background-color:     #fcf8e3;  /* From Bootstrap's .bg-warning */
 }
-.popover.ss-alert-popover-warning>.arrow:after {
+.popover.bottom.ss-alert-popover-warning>.arrow:after {
   border-bottom-color:  #fcf8e3;  /* From Bootstrap's .bg-warning */
+}
+.popover.top.ss-alert-popover-warning>.arrow:after {
+  border-top-color:     #fcf8e3;  /* From Bootstrap's .bg-warning */
+}
+.popover.left.ss-alert-popover-warning>.arrow:after {
+  border-left-color:    #fcf8e3;  /* From Bootstrap's .bg-warning */
+}
+.popover.right.ss-alert-popover-warning>.arrow:after {
+  border-right-color:   #fcf8e3;  /* From Bootstrap's .bg-warning */
 }
 .popover.ss-alert-popover-error {
   background-color:     #f2dede;  /* From Bootstrap's .bg-danger */
 }
-.popover.ss-alert-popover-error>.arrow:after {
+.popover.bottom.ss-alert-popover-error>.arrow:after {
   border-bottom-color:  #f2dede;  /* From Bootstrap's .bg-danger */
+}
+.popover.top.ss-alert-popover-error>.arrow:after {
+  border-top-color:     #f2dede;  /* From Bootstrap's .bg-danger */
+}
+.popover.left.ss-alert-popover-error>.arrow:after {
+  border-left-color:    #f2dede;  /* From Bootstrap's .bg-danger */
+}
+.popover.right.ss-alert-popover-error>.arrow:after {
+  border-right-color:   #f2dede;  /* From Bootstrap's .bg-danger */
 }
 
 .ss-alert-popover .popover-content::before {

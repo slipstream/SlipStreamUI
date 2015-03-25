@@ -365,9 +365,10 @@
             :run-successfully-ready     :success
             :text-muted)
    :data  (when (= display-status :run-with-abort-flag-set)
-            {:alert-popover-options {:type :error,
-                                     :message (str "<strong><code>ss:abort</code></strong>- " abort-msg),
-                                     :html true}})
+            {:alert-popover-options {:type      :error,
+                                     :placement "top"
+                                     :content   (str "<strong><code>ss:abort</code></strong>- " abort-msg),
+                                     :html      true}})
    :cells [{:type :cell/icon,      :content {:icon (icons/icon-for display-status)}}
            {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}

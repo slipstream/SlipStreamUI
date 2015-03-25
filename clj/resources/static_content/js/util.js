@@ -1566,7 +1566,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         bsAddDynamicHelpHint: function(helpHintStr) {
             return this.bsAddAlertPopover({
                 type:       "info",
-                message:    helpHintStr,
+                content:    helpHintStr,
                 trigger:    "manual hover",
                 placement:  "bottom"
             });
@@ -1578,23 +1578,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     type:       "info",
                     trigger:    "hover",
                     placement:  "bottom",
-                    message:    ""
+                    container:  "body",
+                    content:    ""
                 },
                 optionsObject
-                ),
-                template = {
-                    info:       "<div class=\"popover ss-alert-popover ss-alert-popover-info\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-info text-info\"></div></div>",
-                    success:    "<div class=\"popover ss-alert-popover ss-alert-popover-success\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-success text-success\"></div></div>",
-                    warning:    "<div class=\"popover ss-alert-popover ss-alert-popover-warning\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-warning text-warning\"></div></div>",
-                    error:      "<div class=\"popover ss-alert-popover ss-alert-popover-error\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-danger text-danger\"></div></div>"
-                }[options.type];
-            return this.popover(
-                {content:    options.message,
-                 trigger:    options.trigger,
-                 container:  "body",
-                 html:       options.html,
-                 template:   template,
-                 placement:  options.placement});
+                );
+            options.template = {
+                info:       "<div class=\"popover ss-alert-popover ss-alert-popover-info\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-info text-info\"></div></div>",
+                success:    "<div class=\"popover ss-alert-popover ss-alert-popover-success\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-success text-success\"></div></div>",
+                warning:    "<div class=\"popover ss-alert-popover ss-alert-popover-warning\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-warning text-warning\"></div></div>",
+                error:      "<div class=\"popover ss-alert-popover ss-alert-popover-error\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-danger text-danger\"></div></div>"
+            }[options.type];
+            return this.popover(options);
         },
 
         bsEnableAlertPopovers: function() {
