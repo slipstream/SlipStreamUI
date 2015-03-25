@@ -58,7 +58,6 @@
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
-(deficon documentation          "book")
 
 (deficon action-new-project     project)
 (deficon action-new-image       image)

@@ -63,8 +63,6 @@
 
     ["logout"]                (render :pagename "logout")
 
-    ["documentation"]         (render :pagename "documentation")
-
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
     ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
