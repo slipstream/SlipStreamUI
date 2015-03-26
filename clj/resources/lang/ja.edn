@@ -11,6 +11,7 @@
                     :deployment     "展開"
                     :description    "説明"
                     :documentation  "ドキュメンテーション"
+                    :knowledge-base "ドキュメンテーション"
                     :email          "電子メール"
                     :epub           "ePub"
                     :error          "エラー"

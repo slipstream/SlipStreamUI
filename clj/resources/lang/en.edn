@@ -40,6 +40,7 @@
                     :description      "Description"
                     :details          "Details"
                     :documentation    "Documentation"
+                    :knowledge-base   "Knowledge Base"
                     :email            "Email"
                     :end              "End"
                     :epub             "ePub"
@@ -169,6 +170,7 @@
    :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
    :slipstream.ui.views.menubar.unlogged.action.reset-password       "Reset password"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
+   :slipstream.ui.views.menubar.unlogged.action.knowledge-base       :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contact us"
 
    :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
@@ -179,6 +181,7 @@
    :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
    :slipstream.ui.views.menubar.logged-in.action.help                :global.nouns.help
    :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
+   :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
    :slipstream.ui.views.menubar.logged-in.action.logout              :global.verbs.logout
 
@@ -353,10 +356,6 @@
    :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
 
    :slipstream.ui.views.tables.run.uuid.unknown               :global.adjectives.unknown
-
-   :slipstream.ui.views.tables.documentation.open-html        "Open HTML"
-   :slipstream.ui.views.tables.documentation.open-pdf         "Open PDF"
-   :slipstream.ui.views.tables.documentation.open-epub        "Download ePub"
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "This right allows users to find and see this project."
@@ -722,6 +721,7 @@
    :slipstream.ui.util.icons.description.config                    :global.nouns.config
    :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
+   :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
 
    :slipstream.ui.util.icons.description.image-build               "Image Build"
    :slipstream.ui.util.icons.description.image-run                 "Image Run"
@@ -800,13 +800,6 @@
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
    :slipstream.ui.views.users.content.title                    :global.nouns.users
-
-   :slipstream.ui.views.documentation.header.title             :global.nouns.documentation
-   :slipstream.ui.views.documentation.header.subtitle          "SlipStream technical documentation at a glance"
-   :slipstream.ui.views.documentation.content.title            :global.nouns.documentation
-   :slipstream.ui.views.documentation.tutorial.title           "User Guide and Tutorial"
-   :slipstream.ui.views.documentation.administrator-manual.title  "Administrator Manual"
-   :slipstream.ui.views.documentation.terms-of-service.title   "Terms of Service"
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"

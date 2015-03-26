@@ -7,7 +7,6 @@
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
-            [slipstream.ui.views.documentation :as documentation]
             [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.welcome :as welcome]
             [slipstream.ui.views.module :as module]
@@ -41,7 +40,6 @@
 (def pages
   {"login"            login/page
    "logout"           byebye/page
-   "documentation"    documentation/page
    "service_catalog"  service-catalog/page
    "welcome"          welcome/page
    "module"           module/page
