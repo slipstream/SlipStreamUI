@@ -19,6 +19,8 @@
 
 (def action-login-sel [:.ss-action-login])
 (def action-reset-password-sel [:.ss-action-reset-password])
+(def action-documentation-sel [:.ss-action-documentation])
+(def action-faq-sel [:.ss-action-faq])
 (def action-contact-us-sel [:.ss-action-contact-us])
 (def action-dashboard-sel [:.ss-action-dashboard])
 (def action-configuration-sel [:.ss-action-configuration])
@@ -61,6 +63,8 @@
             input-password-sel  (ue/set-placeholder (t :unlogged.input.password.placeholder))
             action-login-sel          (html/content (t :unlogged.action.login))
             action-reset-password-sel (html/content (t :unlogged.action.reset-password))
+            action-documentation-sel  (html/content (t :unlogged.action.documentation))
+            action-faq-sel            (html/content (t :unlogged.action.faq))
             action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
 
 (defmethod menubar :logged-in
@@ -77,5 +81,7 @@
             action-users-sel            (html/content (t :logged-in.action.users))
             action-help-sel             (html/content (t :logged-in.action.help))
             action-profile-sel          (html/content (t :logged-in.action.profile))
+            action-documentation-sel    (html/content (t :logged-in.action.documentation))
+            action-faq-sel              (html/content (t :logged-in.action.faq))
             action-contact-us-sel       (html/content (t :logged-in.action.contact-us))
             action-logout-sel           (html/content (t :logged-in.action.logout))))
