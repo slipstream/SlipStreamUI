@@ -168,6 +168,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .closest(".panel")
             );
         },
+        collapseAll: function (index) {
+            return $(".panel-collapse.collapse.in")
+                        .closest(".ss-section")
+                        .find("a.ss-section-activator")
+                        .click();
+        },
         // Callback with the signature: function(sectionTitle, $sectionContent)
         onShow: function(callback) {
             $sectionPanels.data(onShowCallbackKey, callback);
