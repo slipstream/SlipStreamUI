@@ -312,3 +312,12 @@
       (.replace "<" "&lt;")
       (.replace ">" "&gt;")
       (.replace "\"" "&quot;")))
+
+(defn ensure-vector
+  [v]
+  (when v
+    (cond
+      (vector?  v)  v
+      (map?     v)  (vector v)
+      (coll?    v)  (vec v)
+      :else         (vector v))))

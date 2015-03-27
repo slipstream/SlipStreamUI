@@ -1170,3 +1170,47 @@
 (expect
   "some string &lt;a href=&quot;#&quot;&gt;with html tags&lt;/a&gt;"
   (html-safe-str "some string <a href=\"#\">with html tags</a>"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; ensure-vector
+
+(expect
+  nil
+  (ensure-vector nil))
+
+(expect
+  [1]
+  (ensure-vector 1))
+
+(expect
+  [1]
+  (ensure-vector [1]))
+
+(expect
+  [1]
+  (ensure-vector '(1)))
+
+(expect
+  [:a]
+  (ensure-vector :a))
+
+(expect
+  [:a]
+  (ensure-vector [:a]))
+
+(expect
+  [:a]
+  (ensure-vector '(:a)))
+
+(expect
+  [{:a 1}]
+  (ensure-vector {:a 1}))
+
+(expect
+  [{:a 1}]
+  (ensure-vector [{:a 1}]))
+
+(expect
+  [{:a 1}]
+  (ensure-vector '({:a 1})))
