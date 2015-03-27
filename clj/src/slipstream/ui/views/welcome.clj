@@ -100,6 +100,26 @@
          :header {:icon icons/home
                   :title (t :header.title)
                   :subtitle (t :header.subtitle)}
+         :html-dependencies {:internal-js-filenames ["welcome.js"]}
+         :tour [
+                :#ss-section-app-store
+                {:title "Applications"
+                 :content "Here you can find a curated list of deployable applications."}
+
+                :#ss-content
+                {:title "Main sections"
+                 :content (str "There are three main section on the welcome page of SlipStream. "
+                               "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")}
+
+                [:#ss-section-app-store :> :div :> :div :> [:div (html/nth-child 1)] :> :div]
+                {:title "Application"
+                 :content "This is a plublished application. Click NEXT to learn how to deploy it."}
+
+                [:#ss-section-app-store :> :div :> :div :> [:div (html/nth-child 1)] :> :div :.ss-app-image-container]
+                {:title "Deploy"
+                 :content "Click the \"Deploy\" button in the bottom right part of the application logo to deploy."
+                 :width "300px"}
+                ]
          ; :alerts [{:msg "aie" :title "Tada!"}]
          :secondary-menu-actions [action/new-project]
          :content (sections welcome-metadata)
