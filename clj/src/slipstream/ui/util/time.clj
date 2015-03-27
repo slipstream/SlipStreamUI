@@ -44,7 +44,10 @@
     (org.joda.time.DateTimeZone/getAvailableIDs)"
   [s]
   (-> s
-      (s/replace "CEST" "CET")))
+      (s/replace "CET"  "Europe/Paris")
+      (s/replace "CEST" "Europe/Paris")
+      (s/replace "BST"  "Europe/London")
+      (s/replace "GMT"  "Europe/London")))
 
 
 (defn- formatters
