@@ -388,3 +388,51 @@
   (localization/with-lang :en
     (format :human-readable-long nil)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Sommer time special cases
+
+;; CET and CEST are equivalent: what counts is the month, not the extra 'S'
+
+(expect
+  "Saturday, 5 January 2013, 00:27:12 CET"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-01-05 00:27:12.471 CET")))
+
+(expect
+  "Saturday, 5 January 2013, 00:27:12 CET"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-01-05 00:27:12.471 CEST")))
+
+(expect
+  "Wednesday, 5 June 2013, 00:27:12 CEST"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-06-05 00:27:12.471 CET")))
+
+(expect
+  "Wednesday, 5 June 2013, 00:27:12 CEST"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-06-05 00:27:12.471 CEST")))
+
+
+;; Same thing for GMT and BST
+
+(expect
+  "Saturday, 5 January 2013, 00:27:12 GMT"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-01-05 00:27:12.471 GMT")))
+
+(expect
+  "Saturday, 5 January 2013, 00:27:12 GMT"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-01-05 00:27:12.471 BST")))
+
+(expect
+  "Wednesday, 5 June 2013, 00:27:12 BST"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-06-05 00:27:12.471 GMT")))
+
+(expect
+  "Wednesday, 5 June 2013, 00:27:12 BST"
+  (localization/with-lang :en
+    (format :human-readable-long "2013-06-05 00:27:12.471 BST")))
