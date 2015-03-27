@@ -3,6 +3,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.theme :as theme]
+            [slipstream.ui.util.tour :as tour]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
@@ -178,7 +179,8 @@
            content
            page-type
            alerts
-           involved-templates]
+           involved-templates
+           tour]
     {:keys [css-filenames internal-js-filenames external-js-filenames]} :html-dependencies
     :as context}]
   [:head]               (prepend-ss-meta-info context)
@@ -236,6 +238,8 @@
   css-container-sel             (ue/when-append theme (css-links-snip ["custom.css"] theme))
   [[:img theme/themable-sel]]   (ue/prepend-to-src  (theme/static-content-folder theme))
   [[:link theme/themable-sel]]  (ue/prepend-to-href (theme/static-content-folder theme))
+  ;; Add tour info at the end, if need be
+  [:body]                       (tour/add tour)
   )
 
 (defn- templates
