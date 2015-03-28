@@ -493,6 +493,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
 
                         function refreshCallback(data, textStatus, jqXHR) {
                             lastRefreshData = $(data);
+                            $$.run.lastRefreshData = lastRefreshData;
 
                             runModel.processRunHTML();
 
