@@ -11,7 +11,10 @@
       (assoc        :username           (-> vm-metadata :user))
       (assoc        :cloud-instance-id  (-> vm-metadata :instanceId))
       (assoc        :run-uuid           (-> vm-metadata :runUuid))
-      (assoc        :cloud-name         (-> vm-metadata :cloud))))
+      (assoc        :cloud-name         (-> vm-metadata :cloud))
+      (assoc        :ip-address         (-> vm-metadata :ip))
+      (assoc        :node-name          (-> vm-metadata :nodeName))
+      (assoc        :node-instance-id   (-> vm-metadata :nodeInstanceId))))
 
 (defn parse
   [metadata]
