@@ -20,6 +20,7 @@
 (def action-login-sel [:.ss-action-login])
 (def action-reset-password-sel [:.ss-action-reset-password])
 (def action-documentation-sel [:.ss-action-documentation])
+(def action-knowledge-base-sel [:.ss-action-knowledge-base])
 (def action-contact-us-sel [:.ss-action-contact-us])
 (def action-dashboard-sel [:.ss-action-dashboard])
 (def action-configuration-sel [:.ss-action-configuration])
@@ -63,6 +64,7 @@
             action-login-sel          (html/content (t :unlogged.action.login))
             action-reset-password-sel (html/content (t :unlogged.action.reset-password))
             action-documentation-sel  (html/content (t :unlogged.action.documentation))
+            action-knowledge-base-sel (html/content (t :unlogged.action.knowledge-base))
             action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
 
 (defmethod menubar :logged-in
@@ -80,5 +82,6 @@
             action-help-sel             (html/content (t :logged-in.action.help))
             action-profile-sel          (html/content (t :logged-in.action.profile))
             action-documentation-sel    (html/content (t :logged-in.action.documentation))
+            action-knowledge-base-sel   (html/content (t :logged-in.action.knowledge-base))
             action-contact-us-sel       (html/content (t :logged-in.action.contact-us))
             action-logout-sel           (html/content (t :logged-in.action.logout))))

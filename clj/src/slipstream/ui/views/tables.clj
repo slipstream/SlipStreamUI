@@ -69,26 +69,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- doc-row
-  [{:keys [title basename] :as doc}]
-  {:style nil
-   :cells [{:type :cell/icon, :content icons/documentation}
-           {:type :cell/text, :content title}
-           {:type :cell/external-link, :content {:text (t :documentation.open-html)
-                                                 :href (str "/html/" basename ".html")}}
-           {:type :cell/external-link, :content {:text (t :documentation.open-pdf)
-                                                 :href (str "/pdf/" basename ".pdf")}}
-           {:type :cell/external-link, :content {:text (t :documentation.open-epub)
-                                                 :href (str "/epub/" basename ".epub")}}]})
-
-(defn docs-table
-  [docs]
-  (table/build
-    {:headers nil
-     :rows (map doc-row docs)}))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defn- version-row
   [icon {:keys [version uri commit] :as version}]
   {:style nil
