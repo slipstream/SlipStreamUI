@@ -138,8 +138,8 @@
   /*color: #b1d9ed;*/
   color: #b3d6ff;
 }
-.ss-secondary-btn:hover,
-.ss-secondary-btn:focus {
+.ss-secondary-btn:hover:not(.ss-action-disabled),
+.ss-secondary-btn:focus:not(.ss-action-disabled) {
   /*color: #b1d9ed;*/
   color: #b3d6ff;
   background-color: #0f2a48;
