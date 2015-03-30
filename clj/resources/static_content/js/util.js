@@ -1995,4 +1995,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         }
     };
 
+    util.touch = {
+
+        isTouchDevice: function () {
+            // Source: http://stackoverflow.com/a/4819886
+            return  'ontouchstart'         in window ||    // works on most browsers
+                    'onmsgesturechange'    in window;      // works on ie10
+        }
+
+    };
+
 }( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});
