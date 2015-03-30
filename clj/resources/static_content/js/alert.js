@@ -77,6 +77,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return findByHTML($alertElem.html(), $alertContainer).first();
     }
 
+    function existentAlertSameTitle(title, $alertContainer) {
+        return findByTitle(title, $alertContainer).first();
+    }
+
     function show(arg) {
 
         var settings,
@@ -103,14 +107,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
             throw "alert: No container '" + settings.container + "' found in page!";
         }
 
-        $alertElem = $("#alert-" + settings.type)
-                            .clone()
-                                .removeClass("hidden") // Bootstrap class
-                                .hide()
-                                .removeAttr("id")
-                                .find("button.close")
-                                    .removeAttr("data-dismiss")
-                                    .end();
+        if (settings.title && existentAlertSameTitle(settings.title, $alertContainer).foundAny()) {
+            $alertElem = existentAlertSameTitle(settings.title, $alertContainer);
+        } else {
+            $alertElem = $("#alert-" + settings.type)
+                                .clone()
+                                    .removeClass("hidden") // Bootstrap class
+                                    .hide()
+                                    .removeAttr("id")
+                                    .find("button.close")
+                                        .removeAttr("data-dismiss")
+                                        .end();
+        }
 
         $alertElem
             .find(".alert-msg")
