@@ -856,6 +856,7 @@
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Identifiant d'image Cloud et héritage d'image"
    :slipstream.ui.views.module.image.section.os-details.title                           "Détails sur le système d'exploitation"
+   :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "Ceci est une image native: elle ne peut être pas construite."
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Configuration Cloud"
    :slipstream.ui.views.module.image.section.image-creation.title                       "Recette de création d'image"
    :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe

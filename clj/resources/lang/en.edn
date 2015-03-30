@@ -857,6 +857,7 @@
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
+   :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "This is a native image: it cannot be built."
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Cloud Configuration"
    :slipstream.ui.views.module.image.section.image-creation.title                       "Image Creation Recipes"
    :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe
