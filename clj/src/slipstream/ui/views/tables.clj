@@ -713,16 +713,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- vm-row
-  [{:keys [cloud-name run-uuid cloud-instance-id username state ip-address node-name node-instance-id] :as vm}]
+  [{:keys [cloud-name run-uuid cloud-instance-id username state ip-address name] :as vm}]
   {:style  nil
    :cells [(if (and (not-empty run-uuid) (not= run-uuid "Unknown"))
                {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
                {:type :cell/html, :content {:text (t :run.uuid.unknown)}})
-           {:type :cell/text,     :content (when (and (not-empty node-name) (not-empty node-name))
-                                             (str node-name "." node-instance-id))}
-           {:type :cell/text,     :content ip-address}
            {:type :cell/text,     :content (localization/with-prefixed-t :run.state
                                              (-> (or state :unknown) uc/keywordize t))}
+           {:type :cell/text,     :content ip-address}
+           {:type :cell/text,     :content name}
            {:type :cell/text,     :content cloud-instance-id}
            {:type :cell/username, :content username}]})
 
@@ -730,7 +729,7 @@
   [vms & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers [:run-id :state :user :cloud-instance-id :ip-address :node-name :node-instance-id]
+     :headers [:run-id :state :ip-address :name :cloud-instance-id :user]
      :rows (map vm-row vms)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
