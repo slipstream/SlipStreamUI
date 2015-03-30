@@ -52,7 +52,7 @@
   (let [metadata user-metadata]
     (localization/with-lang :en
       (with-user-from-metadata
-        (current-user/get)))))
+        (dissoc (current-user/get) :parameters)))))
 
 (expect
   "2015-03-13 11:22:59.220 CET"

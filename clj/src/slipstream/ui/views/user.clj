@@ -6,7 +6,6 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.base :as base]))
@@ -44,4 +43,4 @@
        :content (into [{:title (t :summary)
                         :selected? true
                         :content (t/user-summary-table user)}]
-                      (map category-section (parameters/parse metadata)))})))
+                      (map category-section (:parameters user)))})))

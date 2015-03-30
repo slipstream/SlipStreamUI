@@ -45,12 +45,17 @@
       u/normalize-value
       (u/assoc-enum-details parameter)))
 
-(def ^:private deployment-categories #{"Input" "Output"})
+(defn- category-type
+  [category]
+  (case category
+    ("Input" "Output")  :deployment
+    "General"           :general
+    :global))
 
 (defn- group
   [parameters]
   (uc/coll-grouped-by :category parameters
-                      :group-type-fn #(if (deployment-categories %) :deployment :global)
+                      :group-type-fn category-type
                       :items-keyword :parameters
                       :items-sort-fn (juxt :order :name)))
 
@@ -58,7 +63,8 @@
   [metadata]
   (->> (html/select metadata parameter-sel)
        (map parse-parameter)
-       group))
+       group
+       (sort-by :category-type)))
 
 (defn parse
   "Parameters are always grouped by category. To extract an ungrouped list of
