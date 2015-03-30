@@ -140,23 +140,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
               enable: true,
               onShow: function(tip, node) {
                 tip.innerHTML = "";
-                ctx = ($$.run.lastRefreshData && $$.util.string.isNotEmpty($$.run.lastRefreshData))? $$.run.lastRefreshData : $(":root");
+                var context = $$.util.string.isEmpty($$.run.lastRefreshData) ? $(":root") : $$.run.lastRefreshData;
                 
                 //display node info in tooltip
                 if(node.data.type === "slipstream") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state", ctx) + "</b></div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state", context) + "</b></div>";
                 }
                 if(node.data.type === "orchestrator") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + runModel.getNodeRuntimeValue(node.name, "hostname", ctx) + "</b></div>" +
-                        "<div class=\"tip-text\">instance id: " + runModel.getNodeRuntimeValue(node.name, "instanceid", ctx) + "</div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + runModel.getNodeRuntimeValue(node.name, "hostname", context) + "</b></div>" +
+                        "<div class=\"tip-text\">instance id: " + runModel.getNodeRuntimeValue(node.name, "instanceid", context) + "</div>";
                 }
                 if(node.data.type === "node") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + runModel.getNodeRuntimeValue(node.name, "multiplicity", ctx) + "</b></div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + runModel.getNodeRuntimeValue(node.name, "multiplicity", context) + "</b></div>";
                 }
                 if(node.data.type === "vm") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + runModel.getNodeRuntimeValue(node.name, "hostname", ctx) + "</b></div>" +
-                        "<div class=\"tip-text\">instance id: " + runModel.getNodeRuntimeValue(node.name, "instanceid", ctx) + "</div>" +
-                        "<div class=\"tip-text\">msg: " + runModel.getNodeRuntimeValue(node.name, "statecustom", ctx) + "</div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + runModel.getNodeRuntimeValue(node.name, "hostname", context) + "</b></div>" +
+                        "<div class=\"tip-text\">instance id: " + runModel.getNodeRuntimeValue(node.name, "instanceid", context) + "</div>" +
+                        "<div class=\"tip-text\">msg: " + runModel.getNodeRuntimeValue(node.name, "statecustom", context) + "</div>";
                 }
               }
             },
