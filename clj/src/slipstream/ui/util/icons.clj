@@ -61,6 +61,7 @@
 (deficon run                    deployment)
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
+(deficon cloud                  "cloud")
 (deficon service-catalog        "th-list")
 (deficon documentation          "book")
 
