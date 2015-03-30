@@ -1593,15 +1593,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         bsEnableAlertPopovers: function() {
-            $("[data-from-server]")
-                .each(function(i, elem){
-                    var $elem = $(elem),
-                        popoverOptions = $elem.dataIn("fromServer.alertPopoverOptions");
-                    if ( $.isPlainObject(popoverOptions) ){
-                        $elem.bsAddAlertPopover(popoverOptions);
-                    }
-                });
-            return this;
+            return this
+                .find("[data-from-server]")
+                    .each(function(i, elem){
+                        var $elem = $(elem),
+                            popoverOptions = $elem.dataIn("fromServer.alertPopoverOptions");
+                        if ( $.isPlainObject(popoverOptions) ){
+                            $elem.bsAddAlertPopover(popoverOptions);
+                        }
+                    });
         },
 
         bsEnableDynamicElements: function() {
