@@ -60,9 +60,9 @@
                        {:name "input_param_2"
                         :mapped-value? true
                         :value "node1:output_param_2"}]}]
- :summary {:publication nil
+ :summary {:publication "2015-03-16 17:23:00.901 CET"
            :deleted? false
-           :published? false
+           :published? true
            :comment "Initial version of this deployment."
            :creation "2015-03-16 17:23:00.876 CET"
            :name "neutral_projects_for_mockup_metadata/deployment_01"

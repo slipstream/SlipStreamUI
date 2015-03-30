@@ -5,6 +5,7 @@
    <commit author="alice">
       <comment>Initial version of this deployment.</comment>
    </commit>
+   <published publicationDate="2015-03-16 17:23:00.901 CET"/>
    <cloudNames length="5">
       <string>Cloud3</string>
       <string>Cloud4</string>

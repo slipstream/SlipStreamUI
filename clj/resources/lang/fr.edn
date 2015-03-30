@@ -833,8 +833,14 @@
    :slipstream.ui.views.module.alert.old-version.msg           "Vous n'êtes pas sur la version la plus récente de ce module. [Vous cherchez la dernière version ?](%2$s)" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
    :slipstream.ui.views.module.help-hint.breadcrumb-to-last-version "Le nom du module dans le menu de navigation vous emmène toujours vers sa version la plus récente."
    :slipstream.ui.views.module.help-hint.link-to-history            "L'historique vous permet d'avoir un apérçu de toutes les versions de ce module et d'en choisir une autre."
-   :slipstream.ui.views.module.alert.edit-published.title      "Edition d'une version publiée de ce/cette %1$s" ;  %1$s = category: image, project or deployment
-   :slipstream.ui.views.module.alert.edit-published.msg        "Les changements ne seront pas appliqués à la version publié dans le [catalogue d'applications](/) tant que vous n'aurez pas publié la nouvelle version de ce/cette %1$s." ;  %1$s = category: image, project or deployment
+
+   :slipstream.ui.views.module.alert.view-published.title           "Version publiée" ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-published.msg!            "Cette version (%2$s) du/de la %1$s est actuellement publiée dans le <a href='/'>catalogue d'applications</a>." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-chooser-published.title   "Version publiée" ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-chooser-published.msg!    "Cette version (%2$s) du/de la %1$s est actuellement publiée dans le <a href='/'>catalogue d'applications</a>." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.edit-published.title           "Edition d'une version publiée de ce/cette %1$s" ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.edit-published.msg!            "Les changements ne seront pas appliqués à la version publiée dans le <a href='/' target='_blank'>catalogue d'applications</a> tant que vous n'aurez pas publié la nouvelle version de ce/cette %1$s." ;  %1$s = category: image, project or deployment; %2$s = version
+
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
