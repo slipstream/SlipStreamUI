@@ -1,11 +1,7 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     var runModel = $("body").getSlipStreamModel().run;
-
-    var getRuntimeValue = function(nodeName, parameterName) {
-        return runModel.getNodeRuntimeValue(nodeName, parameterName);
-    };
-
+    
     var cloudServiceNodesMap = function() {
         var map = {},
             nodeGroups = $("[id*='ss:groups']").text().split(",");
@@ -144,21 +140,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
               enable: true,
               onShow: function(tip, node) {
                 tip.innerHTML = "";
+                var context = $$.util.string.isEmpty($$.run.lastRefreshData) ? $(":root") : $$.run.lastRefreshData;
+                
                 //display node info in tooltip
                 if(node.data.type === "slipstream") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state") + "</b></div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>global state: " + runModel.getGlobalRuntimeValue("state", context) + "</b></div>";
                 }
                 if(node.data.type === "orchestrator") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
-                        "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + runModel.getNodeRuntimeValue(node.name, "hostname", context) + "</b></div>" +
+                        "<div class=\"tip-text\">instance id: " + runModel.getNodeRuntimeValue(node.name, "instanceid", context) + "</div>";
                 }
                 if(node.data.type === "node") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + getRuntimeValue(node.name, "multiplicity") + "</b></div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>multiplicity: " + runModel.getNodeRuntimeValue(node.name, "multiplicity", context) + "</b></div>";
                 }
                 if(node.data.type === "vm") {
-                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + getRuntimeValue(node.name, "hostname") + "</b></div>" +
-                        "<div class=\"tip-text\">instance id: " + getRuntimeValue(node.name, "instanceid") + "</div>" +
-                        "<div class=\"tip-text\">msg: " + getRuntimeValue(node.name, "statecustom") + "</div>";
+                    tip.innerHTML += "<div class=\"tip-text\"><b>ip: " + runModel.getNodeRuntimeValue(node.name, "hostname", context) + "</b></div>" +
+                        "<div class=\"tip-text\">instance id: " + runModel.getNodeRuntimeValue(node.name, "instanceid", context) + "</div>" +
+                        "<div class=\"tip-text\">msg: " + runModel.getNodeRuntimeValue(node.name, "statecustom", context) + "</div>";
                 }
               }
             },
@@ -184,11 +182,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             // Node as in grouping of vms
             nodeNodeCssClass: function(nodeName) {
                 return $$.run.nodeNodeCssClass(nodeName);
-            },
-
-            getTruncatedState: function(nodeName) {
-                var state = getRuntimeValue(nodeName, 'state');
-                return $$.run.truncate(state);
             },
 
             //This method is called on DOM label creation.

@@ -19,6 +19,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         initialState: '...',
         nodesInfo: {},
+        lastRefreshData: "",
 
         translateState: function(state) {
             var stateMap = {};
