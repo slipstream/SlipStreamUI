@@ -102,29 +102,33 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.copy resource-name))))
 
-(def ^:private dialog-id
-  {:run   "ss-run-module-dialog"
-   :build "ss-build-module-dialog"})
-
-(def ^:private image-run-type
-  {:run   "Run"
-   :build "Machine"})
-
 (localization/with-prefixed-t :run-image-dialog
   (html/defsnippet ^:private run-image-dialog template-filename [:#ss-run-image-dialog]
     [run-type resource-id module-version]
-    ue/this                   (-> run-type dialog-id ue/set-id)
-    title-sel                 (html/content       (-> run-type name (str ".title") keyword t))
-    [:#ss-run-image-cloud-label] (html/content (t :cloud-service.label))
-    [:select]                 (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
-                                              ue/this (ue/set-value value)
-                                              ue/this (ue/set-selected selected?)
-                                              ue/this (html/content text))
-    [:input#ss-run-image-type] (ue/set-value (image-run-type run-type))
-    footnote-sel              (html/html-content  (-> run-type name (str ".footnote") keyword (t resource-id module-version)))
-    [:#ss-run-image-id]       (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
-    first-button-sel          (html/content       (t :button.cancel))
-    last-button-sel           (html/content       (-> run-type name (str ".button") keyword t))))
+    title-sel                     (html/content       (t :title))
+    [:#ss-run-image-cloud-label]  (html/content       (t :cloud-service.label))
+    [:select]                     (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
+                                                      ue/this (ue/set-value value)
+                                                      ue/this (ue/set-selected selected?)
+                                                      ue/this (html/content text))
+    footnote-sel                  (html/html-content  (t :footnote resource-id module-version))
+    [:#ss-run-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
+    first-button-sel              (html/content       (t :button.cancel))
+    last-button-sel               (html/content       (t :button))))
+
+(localization/with-prefixed-t :build-image-dialog
+  (html/defsnippet ^:private build-image-dialog template-filename [:#ss-build-image-dialog]
+    [run-type resource-id module-version]
+    title-sel                       (html/content       (t :title))
+    [:#ss-build-image-cloud-label]  (html/content       (t :cloud-service.label))
+    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
+                                                        ue/this (ue/set-value value)
+                                                        ue/this (ue/set-selected selected?)
+                                                        ue/this (html/content text))
+    footnote-sel                    (html/html-content  (t :footnote resource-id module-version))
+    [:#ss-build-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
+    first-button-sel                (html/content       (t :button.cancel))
+    last-button-sel                 (html/content       (t :button))))
 
 (defn- run-deployment-global-parameters
   [deployment-metadata]
@@ -235,6 +239,6 @@
         (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
                                                   (unpublish-module-confirmation-dialog resource-name resource-id module-version))
         (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
-        (run-image-required? context)       (conj (run-image-dialog :run    resource-id module-version)
-                                                  (run-image-dialog :build  resource-id module-version))
+        (run-image-required? context)       (conj (run-image-dialog   resource-id module-version)
+                                                  (build-image-dialog resource-id module-version))
         (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))))))
