@@ -471,14 +471,15 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     },
 
                     handleOrchestratorStatecustom: function(state){
-                        var alertTitle = "Provisioning details";
-                        var alertMessage = "";
+                        var alertTitle = "Provisioning details",
+                            alertMessage;
 
-                        if (state == "Provisioning") {
-                            $("[id^='parameter-orchestrator'][id*=':statecustom']", lastRefreshData).each(function(index) {
-                                var statecustom = $(this).text();
+                        if (state === "Provisioning") {
+                            $("[id^='parameter-orchestrator'][id*=':statecustom']", lastRefreshData).each(function() {
+                                var $this = $(this),
+                                    statecustom = $this.text();
                                 if ($$.util.string.isNotEmpty(statecustom)) {
-                                    var orchestratorName = $(this).id().replace(/^parameter-([^:]+):statecustom.*$/, "$1") ;
+                                    var orchestratorName = $this.id().replace(/^parameter-([^:]+):statecustom.*$/, "$1") ;
                                     alertMessage += "<strong><code>" + orchestratorName + "</code></strong> " + statecustom + "<br/>";
                                 }
                             });

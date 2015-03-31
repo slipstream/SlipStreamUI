@@ -1,6 +1,6 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var visibleAlertSel = "div.alert:visible";
+    var visibleAlertSel     = "div.alert:visible";
 
     function dismiss($alertElem) {
         $alertElem
@@ -30,15 +30,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Configure alerts already present on page load
 
+    function configureSettings($alertElem) {
+        var type =  ( $alertElem.hasClass("alert-info")     && "info" )     ||
+                    ( $alertElem.hasClass("alert-success")  && "success" )  ||
+                    ( $alertElem.hasClass("alert-warning")  && "warning" )  ||
+                    ( $alertElem.hasClass("alert-danger")   && "error" );
+        $alertElem.data("settings",
+            {
+                type: type
+            });
+    }
+
     $("#ss-alert-container-floating div[role=alert]:not(.hidden)").each(function (index, alertElem) {
         var $alertElem = $(alertElem);
         scheduleAlertDismiss($alertElem);
         configureCustomDismissAnimation($alertElem);
+        configureSettings($alertElem);
     });
 
     $("#ss-alert-container-fixed div[role=alert]:not(.hidden)").each(function (index, alertElem) {
         var $alertElem = $(alertElem);
         configureCustomDismissAnimation($alertElem);
+        configureSettings($alertElem);
     });
 
     var alertDefaultOptions = {
@@ -77,8 +90,25 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return findByHTML($alertElem.html(), $alertContainer).first();
     }
 
-    function existentAlertSameTitle(title, $alertContainer) {
-        return findByTitle(title, $alertContainer).first();
+    function isAlertOfType($alertElem, type) {
+        return $alertElem.dataIn("settings.type") === type;
+    }
+
+    function alertToUpdate(settings, $alertContainer) {
+        if ( $$.util.string.isEmpty(settings.title) ) {
+            // We try to update an existing alert only if the caller
+            // explicitely specifies a title.
+            return undefined;
+        }
+        var $existentAlertSameTitleAndType = findByTitle(settings.title, $alertContainer)
+                                                .filter(function(idx, elem){
+                                                    return isAlertOfType($(elem), settings.type);
+                                                })
+                                                    .first();
+        if ( $existentAlertSameTitleAndType.foundNothing() ) {
+            return undefined;
+        }
+        return $existentAlertSameTitleAndType;
     }
 
     function show(arg) {
@@ -107,18 +137,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
             throw "alert: No container '" + settings.container + "' found in page!";
         }
 
-        if (settings.title && existentAlertSameTitle(settings.title, $alertContainer).foundAny()) {
-            $alertElem = existentAlertSameTitle(settings.title, $alertContainer);
-        } else {
-            $alertElem = $("#alert-" + settings.type)
-                                .clone()
-                                    .removeClass("hidden") // Bootstrap class
-                                    .hide()
-                                    .removeAttr("id")
-                                    .find("button.close")
-                                        .removeAttr("data-dismiss")
-                                        .end();
-        }
+        $alertElem =    alertToUpdate(settings, $alertContainer) ||
+                        // If no alert can be updated, create a new one
+                        $("#alert-" + settings.type)
+                            .clone()
+                                .removeClass("hidden") // Bootstrap class
+                                .hide()
+                                .data("settings", settings)
+                                .removeAttr("id")
+                                .find("button.close")
+                                    .removeAttr("data-dismiss")
+                                    .end();
 
         $alertElem
             .find(".alert-msg")
