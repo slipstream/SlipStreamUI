@@ -268,6 +268,7 @@
    :slipstream.ui.views.table.header.group                    :global.nouns.group
    :slipstream.ui.views.table.header.html                     :global.nouns.html
    :slipstream.ui.views.table.header.id                       "Id du Run"
+   :slipstream.ui.views.table.header.ip-address               "Adresse IP"
    :slipstream.ui.views.table.header.key                      :global.nouns.key
    :slipstream.ui.views.table.header.last-name                :global.nouns.last-name
    :slipstream.ui.views.table.header.last-online              "Dernière fois conncté"
