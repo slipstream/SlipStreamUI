@@ -1,6 +1,6 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var visibleAlertSel     = "div.alert:visible";
+    var visibleAlertSel = "div.alert:visible";
 
     function dismiss($alertElem) {
         $alertElem
