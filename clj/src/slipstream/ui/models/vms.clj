@@ -13,6 +13,7 @@
       (assoc        :run-uuid           (-> vm-metadata :runUuid))
       (assoc        :cloud-name         (-> vm-metadata :cloud))
       (assoc        :ip-address         (-> vm-metadata :ip))
+      (assoc        :run-owner          (-> vm-metadata :runOwner))
       (assoc        :name               (-> vm-metadata :name))))
 
 (defn parse

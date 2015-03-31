@@ -257,6 +257,7 @@
    :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
+   :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
    :slipstream.ui.views.table.header.cloud-names              :global.nouns.clouds
    :slipstream.ui.views.table.header.date                     :global.nouns.date
@@ -279,6 +280,9 @@
    :slipstream.ui.views.table.header.pdf                      :global.nouns.pdf
    :slipstream.ui.views.table.header.public                   :global.nouns.public
    :slipstream.ui.views.table.header.repository               :global.nouns.repository
+   :slipstream.ui.views.table.header.run-id                   "Id du Run"
+   :slipstream.ui.views.table.header.run-owner                "Propriétaire du Run"
+   :slipstream.ui.views.table.header.slipstream-id            "Id du Run"
    :slipstream.ui.views.table.header.start-time               "Date de début"
    :slipstream.ui.views.table.header.state                    :global.nouns.state
    :slipstream.ui.views.table.header.status                   :global.nouns.state
@@ -287,9 +291,6 @@
    :slipstream.ui.views.table.header.username                 :global.nouns.username
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
-   :slipstream.ui.views.table.header.slipstream-id            "Id du Run"
-   :slipstream.ui.views.table.header.run-id                   "Id du Run"
-   :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Image de référence"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Multiplicité par défaut"

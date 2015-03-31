@@ -281,6 +281,7 @@
    :slipstream.ui.views.table.header.public                   :global.nouns.public
    :slipstream.ui.views.table.header.repository               :global.nouns.repository
    :slipstream.ui.views.table.header.run-id                   "Run Id"
+   :slipstream.ui.views.table.header.run-owner                "Run Owner"
    :slipstream.ui.views.table.header.slipstream-id            "SlipStream ID"
    :slipstream.ui.views.table.header.start-time               "Start Time"
    :slipstream.ui.views.table.header.state                    :global.nouns.state

@@ -713,23 +713,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- vm-row
-  [{:keys [cloud-name run-uuid cloud-instance-id username state ip-address name] :as vm}]
+  [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
   {:style  nil
    :cells [(if (and (not-empty run-uuid) (not= run-uuid "Unknown"))
+             (if (or (= run-owner username) (current-user/super?))
                {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-               {:type :cell/html, :content {:text (t :run.uuid.unknown)}})
+               {:type :cell/html, :content {:text (uc/trim-from run-uuid \-)}})
+             {:type :cell/html,   :content {:text (t :run.uuid.unknown)}})
            {:type :cell/text,     :content (localization/with-prefixed-t :run.state
                                              (-> (or state :unknown) uc/keywordize t))}
            {:type :cell/text,     :content ip-address}
            {:type :cell/text,     :content name}
            {:type :cell/text,     :content cloud-instance-id}
-           {:type :cell/username, :content username}]})
+           {:type :cell/username, :content run-owner}
+           (when (current-user/super?)
+             {:type :cell/username, :content username})]})
 
 (defn vms-table
   [vms & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers [:run-id :state :ip-address :name :cloud-instance-id :user]
+     :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
+                          (current-user/super?) (conj :user))
      :rows (map vm-row vms)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
