@@ -1579,7 +1579,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     trigger:    "hover",
                     placement:  "bottom",
                     container:  "body",
-                    content:    ""
+                    content:    "",
+                    html:       false,
+                    delay:      {show: 600, hide: 100}
                 },
                 optionsObject
                 );
