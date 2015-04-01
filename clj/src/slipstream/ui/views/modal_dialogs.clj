@@ -104,10 +104,12 @@
 
 
 (defn- run-module-global-parameters
-  [module-metadata]
+  [[module-metadata module]]
   {:deployment-target-cloud       (some-> :available-clouds
                                           current-user/configuration
                                           (u/enum-append-option :specify-for-each-node))
+   :image-target-cloud            (some-> :available-clouds
+                                          current-user/configuration)
    :launch-mutable-run?           false
    :tolerate-deployment-failures? false
    :tags                          nil
@@ -128,7 +130,7 @@
 
 (localization/with-prefixed-t :run-image-dialog
   (html/defsnippet ^:private run-image-dialog template-filename [:#ss-run-image-dialog]
-    [resource-id module-version]
+    [image-metadata resource-id module-version]
     ue/this                       (-> :run dialog-id ue/set-id)
     title-sel                     (html/content       (t :title))
     [:#ss-run-image-cloud-label]  (html/content       (t :cloud-service.label))
@@ -137,9 +139,9 @@
                                                       ue/this (ue/set-selected selected?)
                                                       ue/this (html/content text))
     [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
-    [:.ss-run-image-global-section-content]            (html/content       (-> nil run-module-global-parameters t/run-image-global-section-table))
+    [:.ss-run-image-global-section-content]            (html/content       (-> [image-metadata :image] run-module-global-parameters t/run-image-global-section-table))
     [:.ss-run-image-input-parameters-section-title]    (html/html-content  (t :input-parameters-section.title))
-    [:.ss-run-image-input-parameters-section-content]  (html/content       (-> [] t/run-deployment-node-parameters-table))
+    [:.ss-run-image-input-parameters-section-content]  (html/content       (-> image-metadata :deployment :parameters t/run-image-input-parameters-table))
     footnote-sel                  (html/html-content  (t :footnote resource-id module-version))
     [:#ss-run-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     first-button-sel              (html/content       (t :button.cancel))
@@ -167,7 +169,7 @@
     title-sel                                     (html/content       (t :title))
     [:#ss-run-deployment-id]                      (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     [:.ss-run-deployment-global-section-title]    (html/html-content  (t :global-section.title))
-    [:.ss-run-deployment-global-section-content]  (html/content       (-> deployment-metadata run-module-global-parameters t/run-deployment-global-section-table))
+    [:.ss-run-deployment-global-section-content]  (html/content       (-> [deployment-metadata :deployment] run-module-global-parameters t/run-deployment-global-section-table))
     [:.ss-run-deployment-nodes-section-title]     (html/html-content  (t :nodes-section.title))
     [:.ss-run-deployment-nodes-section-content]   (html/content       (-> deployment-metadata :nodes t/run-deployment-node-parameters-table))
     footnote-sel                                  (html/html-content  (t :footnote))
@@ -249,6 +251,6 @@
         (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
                                                   (unpublish-module-confirmation-dialog resource-name resource-id module-version))
         (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
-        (run-image-required? context)       (conj (run-image-dialog   resource-id module-version)
+        (run-image-required? context)       (conj (run-image-dialog   (:parsed-metadata context) resource-id module-version)
                                                   (build-image-dialog resource-id module-version))
         (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))))))

@@ -711,19 +711,39 @@
     [parameters]
     (headerless-parameters-table
       (p/map->parameter-list parameters
-        :ssh-key-available?             {:type :cell/boolean
-                                         :as-parameter (if (-> parameters :ssh-key-available?) :ssh-key-available :ssh-key-not-available)
-                                         :editable? (-> parameters :ssh-key-available? not)
-                                         :id-format-fn (constantly "ssh-access-enabled")
-                                         :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
-        :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service")}
-        :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")}
-        :tags                           {:type :cell/text
-                                         :editable? true
-                                         :id-format-fn (constantly "tags")
-                                         :required? false
-                                         :validation {:requirements (pattern/requirements :run-start-tags)}}
+        :ssh-key-available? {:type :cell/boolean
+                             :as-parameter (if (-> parameters :ssh-key-available?) :ssh-key-available :ssh-key-not-available)
+                             :editable? (-> parameters :ssh-key-available? not)
+                             :id-format-fn (constantly "ssh-access-enabled")
+                             :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
+        :image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloud-service")}
+        :tags               {:type :cell/text
+                             :editable? true
+                             :id-format-fn (constantly "tags")
+                             :required? false
+                             :validation {:requirements (pattern/requirements :run-start-tags)}}
         )))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/with-prefixed-t :run-image-input-parameters-table
+
+  (defn- run-image-input-parameter-row
+    [{:keys [value description name] :as input-parameter}]
+    {:style  nil
+     :cells [{:type :cell/html,       :content (t :param-name name)}
+             {:type :cell/text,       :content {:text value
+                                                :id (format "parameter--%s" name)}, :editable? true}
+             {:type :cell/help-hint,  :content {:title    name
+                                                :content  description}}]})
+
+  (defn run-image-input-parameters-table
+    [parameters]
+    (let [input-parameters (p/parameters-of-category parameters "Input")]
+      (table/build
+        {:rows (map run-image-input-parameter-row input-parameters)})))
 
 ) ;; End of prefixed t scope
 
