@@ -738,6 +738,11 @@
    :slipstream.ui.models.run.type.run                              "Image Run"         ; Was 'Simple Run'
    :slipstream.ui.models.run.type.orchestration                    "Deployment Run"    ; Was 'Deployment'
 
+   :slipstream.ui.util.icons.description.run-in-transitional-state  "Run in transitional state"
+   :slipstream.ui.util.icons.description.run-with-abort-flag-set    "Abort flag set"
+   :slipstream.ui.util.icons.description.run-successfully-ready     "Ready"
+   :slipstream.ui.util.icons.description.run-terminated             "Terminated"
+
    ; Secondary action icon descriptions
 
    :slipstream.ui.util.icons.description.action-build              :global.verbs.build
@@ -835,8 +840,14 @@
    :slipstream.ui.views.module.alert.old-version.msg           "This is not the most recent version of this %1$s. [Are you looking for the lastest version?](%2$s)" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
    :slipstream.ui.views.module.help-hint.breadcrumb-to-last-version "The module name in the breadcrumbs brings you always to the latest version of the module."
    :slipstream.ui.views.module.help-hint.link-to-history            "The version history gives you an overview of all versions of this module and allows you to switch to a different version."
-   :slipstream.ui.views.module.alert.edit-published.title      "Editing a published %1$s version" ;  %1$s = category: image, project or deployment
-   :slipstream.ui.views.module.alert.edit-published.msg        "Please note that the changes will not be reflected in the [App Store](/) until you publish the new saved version of this %1$s." ;  %1$s = category: image, project or deployment
+
+   :slipstream.ui.views.module.alert.view-published.title           "Published %1$s version" ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-published.msg!            "This version (%2$s) of the %1$s is currently published in the <a href='/'>App Store</a>." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-chooser-published.title   "Published %1$s version" ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-chooser-published.msg!    "This version (%2$s) of the %1$s is currently published in the <a href='/'>App Store</a>." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.edit-published.title           "Editing a published %1$s version" ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.edit-published.msg!            "Please note that the changes will not be reflected in the <a href='/' target='_blank'>App Store</a> until you publish the new saved version of this %1$s." ;  %1$s = category: image, project or deployment; %2$s = version
+
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
@@ -846,6 +857,7 @@
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
+   :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "This is a native image: it cannot be built."
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Cloud Configuration"
    :slipstream.ui.views.module.image.section.image-creation.title                       "Image Creation Recipes"
    :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe

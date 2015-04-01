@@ -348,11 +348,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-names uri module-uri start-time username uuid status tags type] :as run}]
-  {:style nil
-   :cells [{:type :cell/icon,      :content (icons/icon-for (or type :run))}
+  [{:keys [cloud-names uri module-uri start-time username uuid status display-status tags type abort-msg abort-flag?] :as run}]
+  {:style (case display-status
+            :run-with-abort-flag-set    :danger
+            :run-in-transitional-state  nil
+            :run-successfully-ready     :success
+            :text-muted)
+   :data  (when abort-flag?
+            {:alert-popover-options {:type      :error,
+                                     :placement "top"
+                                     :content   (str "<strong><code>ss:abort</code></strong>- " abort-msg),
+                                     :html      true}})
+   :cells [{:type :cell/icon,      :content {:icon (icons/icon-for display-status)}}
+           {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
-           {:type :cell/url,       :content module-uri}
+           {:type :cell/link,      :content {:text (u/module-name module-uri), :href module-uri}}
            {:type :cell/text,      :content status}
            {:type :cell/timestamp, :content start-time}
            {:type :cell/text,      :content cloud-names}
@@ -363,7 +373,7 @@
   [runs & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers     [nil :id :module :status :start-time :cloud-names :user :tags]
+     :headers     [nil nil :id :module :status :start-time :cloud-names :user :tags]
      :rows        (map run-row runs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

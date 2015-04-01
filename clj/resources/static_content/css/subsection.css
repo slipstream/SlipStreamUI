@@ -46,6 +46,12 @@ select.ss-subsection-activator-xs-group:focus {
   border-radius: 4px 0 0 4px;
 }
 
+.ss-subsection-group-stacked ul.ss-subsection-activator-group > li > a {
+  height: auto;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
 .ss-subsection-group-stacked ul.ss-subsection-activator-group > li.active > a,
 .ss-subsection-group-stacked ul.ss-subsection-activator-group > li.active > a:hover,
 .ss-subsection-group-stacked ul.ss-subsection-activator-group > li.active > a:focus {

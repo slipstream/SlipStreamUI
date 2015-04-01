@@ -49,12 +49,34 @@
              (uc/trim-last-path-segment uri))}))
 
 (defn- edit-published-alert
-  [{:keys [category published?]}]
-  (when (and (page-type/edit?) published?)
+  [category-name version]
+  {:type      :info
+   :container :fixed
+   :title     (t :alert.edit-published.title  category-name version)
+   :msg       (t :alert.edit-published.msg    category-name version)})
+
+(defn- view-published-alert
+  [category-name version]
+  {:type      :info
+   :container :fixed
+   :title     (t :alert.view-published.title  category-name version)
+   :msg       (t :alert.view-published.msg    category-name version)})
+
+(defn- view-chooser-published-alert
+  [category-name version]
+  {:type      :info
+   :container :fixed
+   :title     (t :alert.view-chooser-published.title  category-name version)
+   :msg       (t :alert.view-chooser-published.msg    category-name version)})
+
+(defn- published-alert
+  [{:keys [category published? version]}]
+  (when published?
     (let [category-name (u/t-module-category category s/lower-case)]
-      {:type  :info
-       :title (t :alert.edit-published.title  category-name)
-       :msg   (t :alert.edit-published.msg    category-name)})))
+      (cond
+        (page-type/edit?)     (edit-published-alert         category-name version)
+        (page-type/chooser?)  (view-chooser-published-alert category-name version)
+        :else                 (view-published-alert         category-name version)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -172,7 +194,7 @@
       {:parsed-metadata module
        :header (header summary)
        :alerts [(old-version-alert summary)
-                (edit-published-alert summary)]
+                (published-alert summary)]
        :resource-uri (:uri summary)
        :html-dependencies (merge-with (comp vec concat)
                             {:internal-js-filenames ["module.js"]}

@@ -126,6 +126,17 @@
                  1px  1px 1px white;
 }
 
+.ss-icon-overlay-play:after {
+  content: "\e072";
+  color: #245269; /* From Bootstrap's a.text-info:hover */
+  font-size: 60%;
+  margin-left: -60%;
+  text-shadow:  -1px -1px 1px white,
+                 1px -1px 1px white,
+                -1px  1px 1px white,
+                 1px  1px 1px white;
+}
+
 @-webkit-keyframes rotation { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(359deg); } }
    @-moz-keyframes rotation { from {    -mox-transform: rotate(0deg); } to {    -mox-transform: rotate(359deg); } }
      @-o-keyframes rotation { from {      -o-transform: rotate(0deg); } to {      -o-transform: rotate(359deg); } }

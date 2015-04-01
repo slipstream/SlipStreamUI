@@ -85,8 +85,8 @@ body.ss-error-page #ss-secondary-menubar-container {
   padding-left: 10px;
 }
 
-.ss-secondary-btn:hover,
-.ss-secondary-btn:focus {
+.ss-secondary-btn:hover:not(.ss-action-disabled),
+.ss-secondary-btn:focus:not(.ss-action-disabled) {
   color: #50a7de;
   background-color: #252525;
 }

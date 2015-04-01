@@ -38,7 +38,8 @@
   right: 0;
 }
 
-.thumbnail:hover .ss-app-image-container .btn {
+.thumbnail:hover .ss-app-image-container .btn,
+.thumbnail .ss-app-image-container .btn.ss-force-hovered-style {
   opacity: 1;
   -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
   -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
@@ -49,7 +50,7 @@
   text-shadow: none;
 }
 
-.thumbnail .ss-app-image-container .ss-app-deploy-btn:empty::before {
+.thumbnail .ss-app-image-container .ss-app-deploy-btn-label:empty::before {
   content: "Deploy";
 }
 

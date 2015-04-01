@@ -1563,8 +1563,53 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        bsAddDynamicHelpHint: function(helpHintStr) {
+            return this.bsAddAlertPopover({
+                type:       "info",
+                content:    helpHintStr,
+                trigger:    "manual hover",
+                placement:  "bottom"
+            });
+        },
+
+        bsAddAlertPopover: function(optionsObject) {
+            var options = $.extend(
+                {
+                    type:       "info",
+                    trigger:    "hover",
+                    placement:  "bottom",
+                    container:  "body",
+                    content:    "",
+                    html:       false,
+                    delay:      {show: 600, hide: 100}
+                },
+                optionsObject
+                );
+            options.template = {
+                info:       "<div class=\"popover ss-alert-popover ss-alert-popover-info\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-info text-info\"></div></div>",
+                success:    "<div class=\"popover ss-alert-popover ss-alert-popover-success\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-success text-success\"></div></div>",
+                warning:    "<div class=\"popover ss-alert-popover ss-alert-popover-warning\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-warning text-warning\"></div></div>",
+                error:      "<div class=\"popover ss-alert-popover ss-alert-popover-error\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-danger text-danger\"></div></div>"
+            }[options.type];
+            return this.popover(options);
+        },
+
+        bsEnableAlertPopovers: function() {
+            this
+                .find("[data-from-server]")
+                    .each(function(i, elem){
+                        var $elem = $(elem),
+                            popoverOptions = $elem.dataIn("fromServer.alertPopoverOptions");
+                        if ( $.isPlainObject(popoverOptions) ){
+                            $elem.bsAddAlertPopover(popoverOptions);
+                        }
+                    });
+            return this;
+        },
+
         bsEnableDynamicElements: function() {
             this
+                .bsEnableAlertPopovers()
                 // Enable popovers
                 .find("[data-toggle='popover']")
                     .popover({
@@ -1576,15 +1621,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .find("[data-toggle='tooltip']")
                     .tooltip();
             return this;
-        },
-
-        bsAddDynamicHelpHint: function(helpHintStr, placement) {
-            return this.popover(
-                {content:    helpHintStr,
-                 trigger:    "manual",
-                 container:  "body",
-                 template:   "<div class=\"popover ss-dynamic-help-hint\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-info text-info\"></div></div>",
-                 placement:  placement || "bottom"});
         },
 
         // Image Preloader utils
@@ -1960,6 +1996,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             $.each(this.jobs, this.clear.bind(this));
             return this;
         }
+    };
+
+    util.touch = {
+
+        isTouchDevice: function () {
+            // Source: http://stackoverflow.com/a/4819886
+            return  'ontouchstart'         in window ||    // works on most browsers
+                    'onmsgesturechange'    in window;      // works on ie10
+        }
+
     };
 
 }( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});

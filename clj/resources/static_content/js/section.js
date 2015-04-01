@@ -57,7 +57,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         // Ensure correct chevrons when opening the section
         var $sectionContent = $(e.target),
-            chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
+            chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon-chevron-down";
         $(chevron_sel)
             .removeClass('glyphicon-chevron-down')
             .addClass('glyphicon-chevron-up');
@@ -94,8 +94,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // active tab and the new soon-to-be-active tab, respectively.
     $sectionPanels.on("hide.bs.collapse", function (e) {
         // Ensure correct chevrons when closing the section
-        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon";
-        $(chevron_sel).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon-chevron-up";
+        $(chevron_sel)
+            .removeClass('glyphicon-chevron-up')
+            .addClass('glyphicon-chevron-down');
         if (window.location.hash.trimPrefix("#") == e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
             // Remove the hash from URL if it contains still the hash of the closing section
             window.location.hash = "";

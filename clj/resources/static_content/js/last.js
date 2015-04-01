@@ -21,5 +21,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // $("body").getSlipStreamModel().module.dump();
     // $("body").getSlipStreamModel().run.dump();
 
+    if ( $$.util.touch.isTouchDevice() ) {
+        $(".ss-force-hovered-style-on-touch-devices")
+            .addClass("ss-force-hovered-style");
+    }
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
