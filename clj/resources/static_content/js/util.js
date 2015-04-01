@@ -1595,7 +1595,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         bsEnableAlertPopovers: function() {
-            return this
+            this
                 .find("[data-from-server]")
                     .each(function(i, elem){
                         var $elem = $(elem),
@@ -1604,6 +1604,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                             $elem.bsAddAlertPopover(popoverOptions);
                         }
                     });
+            return this;
         },
 
         bsEnableDynamicElements: function() {
