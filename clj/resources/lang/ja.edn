@@ -79,7 +79,7 @@
    :slipstream.ui.views.login.input.pick-username.placeholder  "ユーザー名を選択"
    :slipstream.ui.views.login.input.email.placeholder          "あなたのメールアドレスを入力"
    :slipstream.ui.views.login.signup.button.label              "スリップストリームで登録"
-   :slipstream.ui.views.login.signup.terms-hint                "クリックするとあなたが私たちの[利用規約](https://slipstream.sixsq.com/html/terms-of-service.html)に同意し、「スリップストリームで登録」"
+   :slipstream.ui.views.login.signup.terms-hint                "クリックするとあなたが私たちの[利用規約](http://ssdocs.sixsq.com/documentation/terms_and_conditions.html)に同意し、「スリップストリームで登録」"
 
    :slipstream.ui.views.user.header.title.loggedin             "あなたのプロフィール"
    :slipstream.ui.views.user.header.title.not-loggedin         "%sのユーザープロファイル"
