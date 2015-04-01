@@ -354,8 +354,8 @@
    :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
    :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
 
-   :slipstream.ui.views.tables.run.uuid.unknown.tooltip       "Cette VM n'a pas été démarée par SlipStream mais l'a été soit directement sur le Cloud, soit par une application tièrce avec vos identifiants Cloud. Par conséquent, il n'y a pas de Run associé à cette machine virtuelle."
-   :slipstream.ui.views.tables.run.uuid.no-link.tooltip       "Cette VM a été demarée par un autre utilisateur avec SlipStream, mais avec les mêmes identifiants Cloud que les votres. Par conséquent, vous n'avez pas access sur la page du Run, mais vous avez éventuellement access à la machine elle même."
+   :slipstream.ui.views.tables.run.uuid.unknown.tooltip       "SlipStream n'a pas encore connaissance de l'association de cette VM à un Run ou cette machine virtuelle n'a pas été créée par SlipStream. Dans ce cas elle a été créée soit directement sur le Cloud, soit par une application tièrce avec vos identifiants Cloud."
+   :slipstream.ui.views.tables.run.uuid.no-link.tooltip       "Cette machine virtuelle a été créée par un autre utilisateur. Elle s'affiche dans cette liste soit parceque un autre utilisateur utilise le mêmes identifiants Cloud que vous, soit parceque un autre utilisateur partage des resources Cloud avec vous."
 
    :slipstream.ui.views.tables.run.ip.unknown.tooltip         "L'adresse IP n'est pas encore disponible."
 
