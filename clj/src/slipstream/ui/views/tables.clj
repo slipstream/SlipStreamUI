@@ -358,13 +358,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-names uri module-uri start-time username uuid status display-status tags type abort-msg] :as run}]
+  [{:keys [cloud-names uri module-uri start-time username uuid status display-status tags type abort-msg abort-flag?] :as run}]
   {:style (case display-status
             :run-with-abort-flag-set    :danger
             :run-in-transitional-state  nil
             :run-successfully-ready     :success
             :text-muted)
-   :data  (when (= display-status :run-with-abort-flag-set)
+   :data  (when abort-flag?
             {:alert-popover-options {:type      :error,
                                      :placement "top"
                                      :content   (str "<strong><code>ss:abort</code></strong>- " abort-msg),
