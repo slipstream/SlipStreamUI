@@ -18,8 +18,10 @@
 (defn- cell-unknown
   "Generic cell with text 'Unknown' in italics. It must be called as a function
   to take into account the localization."
-  []
-  {:type :cell/html, :content {:text (t :unknown), :class "text-muted"}})
+  [& [reason]]
+  {:type :cell/html, :content {:text (t :unknown)
+                               :tooltip (not-empty reason) ;; TODO: Use a popover instead, since it's a long text
+                               :class "text-muted"}})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -726,15 +728,15 @@
         run-uuid-as-link?   (and run-uuid accessible?)]
     {:style  nil
      :cells (cond-> [(cond
-                       (not run-uuid)     (cell-unknown)
+                       (not run-uuid)     (cell-unknown (t :run.uuid.unknown.reason))
                        run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-                       :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip run-uuid}})
+                       :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run.uuid.no-link.reason)}})
                      (if state
                        {:type :cell/text,     :content (localization/with-prefixed-t :run.state (-> state uc/keywordize t))}
                        (cell-unknown))
-                     (if ip-address
-                       {:type :cell/text,     :content ip-address}
-                       (cell-unknown))
+                     (if (and run-uuid (not ip-address))
+                       (cell-unknown (when run-uuid (t :run.ip.unknown.reason)))
+                       {:type :cell/text,     :content ip-address})
                      {:type :cell/text,       :content name}
                      {:type :cell/text,       :content cloud-instance-id}
                      {:type :cell/username,   :content run-owner}]
