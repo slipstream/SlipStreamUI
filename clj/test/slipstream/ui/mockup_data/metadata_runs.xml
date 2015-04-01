@@ -1,422 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><deploymentModule category="Deployment" creation="2015-03-16 17:23:00.876 CET" deleted="false" description="Multinode deployment with input and output params." isLatestVersion="true" lastModified="2015-03-16 17:23:00.901 CET" logoLink="https://newevolutiondesigns.com/images/freebies/vibrant-wallpaper-preview-16.jpg" name="neutral_projects_for_mockup_metadata/deployment_01" parentUri="module/neutral_projects_for_mockup_metadata" resourceUri="module/neutral_projects_for_mockup_metadata/deployment_01/136" shortName="deployment_01" version="136">
-   <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="alice" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
-      <groupMembers class="java.util.ArrayList"/>
-   </authz>
-   <commit author="alice">
-      <comment>Initial version of this deployment.</comment>
-   </commit>
-   <published publicationDate="2015-03-16 17:23:00.901 CET"/>
-   <cloudNames length="5">
-      <string>Cloud3</string>
-      <string>Cloud4</string>
-      <string>Cloud1</string>
-      <string>Cloud2</string>
-      <string>default</string>
-   </cloudNames>
-   <runs count="0" limit="20" offset="0" totalCount="0"/>
-   <nodes class="org.hibernate.collection.internal.PersistentMap">
-      <entry>
-         <string>node1</string>
-         <node cloudService="default" creation="2015-03-16 17:23:00.877 CET" deleted="false" imageUri="module/neutral_projects_for_mockup_metadata/apache_web_server" maxProvisioningFailures="0" multiplicity="1" name="node1" network="Public">
-            <parameterMappings class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_2']]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node2:output_param_1]]></value>
-                  </parameter>
-               </entry>
-            </parameterMappings>
-            <parameters class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_2']]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node2:output_param_1]]></value>
-                  </parameter>
-               </entry>
-            </parameters>
-            <image category="Image" creation="2015-03-13 19:35:03.629 CET" deleted="false" description="Apache Web Server on CentOS 6" isBase="false" isLatestVersion="true" lastModified="2015-03-13 19:35:03.652 CET" loginUser="centos_username" logoLink="http://kaleidos.net/files/images/apache318x260.png" moduleReferenceUri="module/neutral_projects_for_mockup_metadata/centos_6_base_image/131" name="neutral_projects_for_mockup_metadata/apache_web_server" parentUri="module/neutral_projects_for_mockup_metadata" platform="centos" resourceUri="module/neutral_projects_for_mockup_metadata/apache_web_server/132" shortName="apache_web_server" version="132">
-               <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="bob" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
-                  <groupMembers class="java.util.ArrayList"/>
-               </authz>
-               <commit author="bob">
-                  <comment>Initial version of this image.</comment>
-               </commit>
-               <targets class="org.hibernate.collection.internal.PersistentSet">
-                  <target name="report"/>
-                  <target name="execute"><![CDATA[deployement recipe]]></target>
-                  <target name="onvmadd"/>
-                  <target name="onvmremove"/>
-               </targets>
-               <packages class="org.hibernate.collection.internal.PersistentSet">
-                  <package key="key_2" name="package_2" repository="repo_2"/>
-                  <package key="key_1" name="package_1" repository="repo_1"/>
-               </packages>
-               <prerecipe/>
-               <recipe/>
-               <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
-               <parameters class="org.hibernate.collection.internal.PersistentMap">
-                  <entry>
-                     <string>Cloud1.cpu</string>
-                     <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>instanceid</string>
-                     <parameter category="Output" description="Cloud instance id" isSet="false" mandatory="true" name="instanceid" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>extra.disk.volatile</string>
-                     <parameter category="Cloud" description="Volatile extra disk in GB" isSet="false" mandatory="true" name="extra.disk.volatile" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.security.groups</string>
-                     <parameter category="Cloud4" description="Security groups (comma separated list)" isSet="true" mandatory="true" name="Cloud4.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.instance.type</string>
-                     <parameter category="Cloud2" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud2.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.instance.type</string>
-                     <parameter category="Cloud1" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud1.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="7">
-                           <string>m1.small</string>
-                           <string>c1.medium</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.xlarge</string>
-                           <string>t1.micro</string>
-                           <string>standard.xsmall</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.instance.type</string>
-                     <parameter category="Cloud3" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud3.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.disks.bus.type</string>
-                     <parameter category="Cloud1" description="VM disks bus type" isSet="true" mandatory="true" name="Cloud1.disks.bus.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>virtio</string>
-                           <string>scsi</string>
-                        </enumValues>
-                        <value><![CDATA[virtio]]></value>
-                        <defaultValue><![CDATA[virtio]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>input_param_2</string>
-                     <parameter category="Input" description="The input param 2" isSet="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.instance.type</string>
-                     <parameter category="Cloud4" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud4.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="10">
-                           <string>m1.small</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.medium</string>
-                           <string>c1.xlarge</string>
-                           <string>m2.xlarge</string>
-                           <string>m2.2xlarge</string>
-                           <string>m2.4xlarge</string>
-                           <string>cc1.4xlarge</string>
-                           <string>t1.micro</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.ram</string>
-                     <parameter category="Cloud1" description="Amount of RAM, in GB" isSet="false" mandatory="true" name="Cloud1.ram" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>input_param_1</string>
-                     <parameter category="Input" description="The input param 1" isSet="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>network</string>
-                     <parameter category="Cloud" description="Network type" isSet="true" mandatory="true" name="network" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>Public</string>
-                           <string>Private</string>
-                        </enumValues>
-                        <value><![CDATA[Public]]></value>
-                        <defaultValue><![CDATA[Public]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>hostname</string>
-                     <parameter category="Output" description="hostname/ip of the image" isSet="false" mandatory="true" name="hostname" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.security.groups</string>
-                     <parameter category="Cloud3" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud3.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_1</string>
-                     <parameter category="Output" description="The output param 1" isSet="true" mandatory="false" name="output_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.security.groups</string>
-                     <parameter category="Cloud2" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud2.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_2</string>
-                     <parameter category="Output" description="The output param 2" isSet="true" mandatory="false" name="output_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-               </parameters>
-            </image>
-         </node>
-      </entry>
-      <entry>
-         <string>node2</string>
-         <node cloudService="default" creation="2015-03-16 17:23:00.876 CET" deleted="false" imageUri="module/neutral_projects_for_mockup_metadata/apache_web_server" maxProvisioningFailures="0" multiplicity="1" name="node2" network="Public">
-            <parameterMappings class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node1:output_param_2]]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_1']]></value>
-                  </parameter>
-               </entry>
-            </parameterMappings>
-            <parameters class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node1:output_param_2]]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_1']]></value>
-                  </parameter>
-               </entry>
-            </parameters>
-            <image category="Image" creation="2015-03-13 19:35:03.629 CET" deleted="false" description="Apache Web Server on CentOS 6" isBase="false" isLatestVersion="true" lastModified="2015-03-13 19:35:03.652 CET" loginUser="centos_username" logoLink="http://kaleidos.net/files/images/apache318x260.png" moduleReferenceUri="module/neutral_projects_for_mockup_metadata/centos_6_base_image/131" name="neutral_projects_for_mockup_metadata/apache_web_server" parentUri="module/neutral_projects_for_mockup_metadata" platform="centos" resourceUri="module/neutral_projects_for_mockup_metadata/apache_web_server/132" shortName="apache_web_server" version="132">
-               <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="bob" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
-                  <groupMembers class="java.util.ArrayList"/>
-               </authz>
-               <commit author="bob">
-                  <comment>Initial version of this image.</comment>
-               </commit>
-               <targets class="org.hibernate.collection.internal.PersistentSet">
-                  <target name="execute"><![CDATA[deployement recipe]]></target>
-                  <target name="onvmremove"/>
-                  <target name="onvmadd"/>
-                  <target name="report"/>
-               </targets>
-               <packages class="org.hibernate.collection.internal.PersistentSet">
-                  <package key="key_2" name="package_2" repository="repo_2"/>
-                  <package key="key_1" name="package_1" repository="repo_1"/>
-               </packages>
-               <prerecipe/>
-               <recipe/>
-               <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
-               <parameters class="org.hibernate.collection.internal.PersistentMap">
-                  <entry>
-                     <string>Cloud1.cpu</string>
-                     <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>instanceid</string>
-                     <parameter category="Output" description="Cloud instance id" isSet="false" mandatory="true" name="instanceid" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>extra.disk.volatile</string>
-                     <parameter category="Cloud" description="Volatile extra disk in GB" isSet="false" mandatory="true" name="extra.disk.volatile" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.security.groups</string>
-                     <parameter category="Cloud4" description="Security groups (comma separated list)" isSet="true" mandatory="true" name="Cloud4.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.instance.type</string>
-                     <parameter category="Cloud2" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud2.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.instance.type</string>
-                     <parameter category="Cloud1" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud1.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="7">
-                           <string>m1.small</string>
-                           <string>c1.medium</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.xlarge</string>
-                           <string>t1.micro</string>
-                           <string>standard.xsmall</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.instance.type</string>
-                     <parameter category="Cloud3" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud3.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.disks.bus.type</string>
-                     <parameter category="Cloud1" description="VM disks bus type" isSet="true" mandatory="true" name="Cloud1.disks.bus.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>virtio</string>
-                           <string>scsi</string>
-                        </enumValues>
-                        <value><![CDATA[virtio]]></value>
-                        <defaultValue><![CDATA[virtio]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>input_param_2</string>
-                     <parameter category="Input" description="The input param 2" isSet="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.instance.type</string>
-                     <parameter category="Cloud4" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud4.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="10">
-                           <string>m1.small</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.medium</string>
-                           <string>c1.xlarge</string>
-                           <string>m2.xlarge</string>
-                           <string>m2.2xlarge</string>
-                           <string>m2.4xlarge</string>
-                           <string>cc1.4xlarge</string>
-                           <string>t1.micro</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.ram</string>
-                     <parameter category="Cloud1" description="Amount of RAM, in GB" isSet="false" mandatory="true" name="Cloud1.ram" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>input_param_1</string>
-                     <parameter category="Input" description="The input param 1" isSet="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>network</string>
-                     <parameter category="Cloud" description="Network type" isSet="true" mandatory="true" name="network" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>Public</string>
-                           <string>Private</string>
-                        </enumValues>
-                        <value><![CDATA[Public]]></value>
-                        <defaultValue><![CDATA[Public]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>hostname</string>
-                     <parameter category="Output" description="hostname/ip of the image" isSet="false" mandatory="true" name="hostname" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.security.groups</string>
-                     <parameter category="Cloud3" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud3.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_1</string>
-                     <parameter category="Output" description="The output param 1" isSet="true" mandatory="false" name="output_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.security.groups</string>
-                     <parameter category="Cloud2" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud2.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_2</string>
-                     <parameter category="Output" description="The output param 2" isSet="true" mandatory="false" name="output_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-               </parameters>
-            </image>
-         </node>
-      </entry>
-   </nodes>
-   <parameters class="org.hibernate.collection.internal.PersistentMap"/>
-<user activeSince="2015-03-12 18:15:21.8 CET" creation="2015-03-12 18:15:20.983 CET" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastName="Persona" lastOnline="2015-03-16 17:23:02.114 CET" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><runs count="20" limit="20" offset="0" totalCount="26">
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/6269f657-3311-402b-a71b-528ef76fea05" startTime="2015-03-02 18:50:18.263 CET" status="Initializing" tags="tag-initializing-without-abort-flag" type="Orchestration" username="alice" uuid="6269f657-3311-402b-a71b-528ef76fea05"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/53ea9de1-fff2-44d7-b053-f4fd4307b53a" startTime="2015-02-09 11:37:28.811 CET" status="Initializing" tags="tag-initializing-with-abort-flag" type="Orchestration" username="alice" uuid="53ea9de1-fff2-44d7-b053-f4fd4307b53a"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/e4a03073-e964-4e20-a3ab-ae0bf06c6354" startTime="2015-02-06 11:12:13.486 CET" status="Provisioning" tags="tag-provisioning-without-abort-flag" type="Orchestration" username="alice" uuid="e4a03073-e964-4e20-a3ab-ae0bf06c6354"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/b8dd73f1-c673-451b-b95c-33fbd6b550ea" startTime="2015-02-05 14:43:10.205 CET" status="Provisioning" tags="tag-provisioning-with-abort-flag" type="Machine" username="alice" uuid="b8dd73f1-c673-451b-b95c-33fbd6b550ea"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/ec745e78-be4b-43a7-83fa-6536c9d7fc92" startTime="2015-02-05 14:43:02.430 CET" status="Executing" tags="tag-executing-without-abort-flag" type="Machine" username="alice" uuid="ec745e78-be4b-43a7-83fa-6536c9d7fc92"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/60d038d2-4069-41b5-a747-99d901f426cf" startTime="2015-02-05 14:42:57.113 CET" status="Executing" tags="tag-executing-with-abort-flag" type="Machine" username="alice" uuid="60d038d2-4069-41b5-a747-99d901f426cf"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/d0ac87b8-d150-40b1-9bbb-1c8cbaf90bad" startTime="2015-02-05 14:42:51.593 CET" status="Sending reports" tags="tag-sending-reports-without-abort-flag" type="Machine" username="alice" uuid="d0ac87b8-d150-40b1-9bbb-1c8cbaf90bad"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/5151dc47-4bb5-4b72-990e-ab6cbd565cfc" startTime="2015-02-05 14:42:43.866 CET" status="Sending reports" tags="tag-sending-reports-with-abort-flag" type="Machine" username="alice" uuid="5151dc47-4bb5-4b72-990e-ab6cbd565cfc"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/c03075a0-da00-42bf-a5ad-41d13170e64e" startTime="2015-02-05 14:42:38.369 CET" status="Ready" tags="tag-ready-without-abort-flag" type="Machine" username="alice" uuid="c03075a0-da00-42bf-a5ad-41d13170e64e"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/3b559cb9-1769-4c6d-aca8-9c5aea9c1662" startTime="2015-02-05 14:42:32.591 CET" status="Ready" tags="tag-ready-with-abort-flag" type="Machine" username="alice" uuid="3b559cb9-1769-4c6d-aca8-9c5aea9c1662"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/5842acd7-ce29-47ef-8f21-403e10db11ed" startTime="2015-02-05 14:42:25.603 CET" status="Finalizing" tags="tag-finalizing-without-abort-flag" type="Machine" username="alice" uuid="5842acd7-ce29-47ef-8f21-403e10db11ed"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/555dccf8-4312-4328-8c70-b01e20a9ffa8" startTime="2015-02-04 14:58:54.543 CET" status="Finalizing" tags="tag-finalizing-with-abort-flag" type="Orchestration" username="alice" uuid="555dccf8-4312-4328-8c70-b01e20a9ffa8"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/4589cc93-4c28-4362-873a-3dc84a3be58e" startTime="2015-02-04 11:46:09.704 CET" status="Done" tags="tag-done-without-abort-flag" type="Orchestration" username="alice" uuid="4589cc93-4c28-4362-873a-3dc84a3be58e"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/07596eb7-f1f7-4e45-8561-5dbbc55cc817" startTime="2015-02-03 13:36:35.374 CET" status="Done" tags="tag-done-with-abort-flag" type="Orchestration" username="alice" uuid="07596eb7-f1f7-4e45-8561-5dbbc55cc817"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/8ded8e5b-46ad-4bec-bcff-d761155f0e2e" startTime="2015-01-20 11:06:13.675 CET" status="Aborted" tags="tag-aborted-without-abort-flag" type="Orchestration" username="alice" uuid="8ded8e5b-46ad-4bec-bcff-d761155f0e2e"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="StratusLab" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae" startTime="2015-01-14 17:23:18.262 CET" status="Aborted" tags="tag-aborted-with-abort-flag" type="Orchestration" username="alice" uuid="36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/b36dfcc0-b77b-4746-b7fd-0acd7038a02d" startTime="2015-01-07 13:36:32.26 CET" status="Cancelled" tags="tag-cancelled-without-abort-flag" type="Machine" username="alice" uuid="b36dfcc0-b77b-4746-b7fd-0acd7038a02d"/>
+   <item abort="Marketplace endpoint should be set for StratusLab" cloudServiceNames="StratusLab" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/0aa79e3f-878a-40b1-8e88-bb6808a183cc" startTime="2014-12-16 12:40:30.118 CET" status="Cancelled" tags="tag-cancelled-with-abort-flag" type="Orchestration" username="alice" uuid="0aa79e3f-878a-40b1-8e88-bb6808a183cc"/>
+   <item cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/079dd5c1-85af-4387-95a7-b24fc0b2be53" startTime="2014-12-15 01:03:45.240 CET" status="Cancelled" tags="tag-cancelled-without-abort-flag" type="Machine" username="alice" uuid="079dd5c1-85af-4387-95a7-b24fc0b2be53"/>
+   <item abort="Cloud Username cannot be empty, please edit your &lt;a href='/user/bob'&gt; user account&lt;/a&gt;" cloudServiceNames="Exoscale" moduleResourceUri="module/first-project/newdeployment/24" resourceUri="run/672c2946-578e-4093-8d7a-af3e0f432bac" startTime="2014-12-11 14:41:15.310 CET" status="Cancelled" tags="tag-cancelled-with-abort-flag" type="Orchestration" username="alice" uuid="672c2946-578e-4093-8d7a-af3e0f432bac"/>
+<user activeSince="2015-03-13 11:22:59.223 CET" creation="2015-03-13 11:22:59.220 CET" deleted="false" email="bob@example.com" firstName="Bob" issuper="true" lastName="O'Manager" lastOnline="2015-03-20 16:25:26.651 CET" name="bob" organization="Example Corp" resourceUri="user/bob" state="ACTIVE">
    <parameters class="org.hibernate.collection.internal.PersistentMap">
-      <entry>
-         <string>Exoscale.username</string>
-         <parameter category="Exoscale" description="Key" mandatory="true" name="Exoscale.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value><![CDATA[keyforexoscale]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Exoscale-2.quota.vm</string>
-         <parameter category="Exoscale-2" description="Number of VMs the user can start for this cloud" mandatory="true" name="Exoscale-2.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Exoscale-2.password</string>
-         <parameter category="Exoscale-2" description="Secret" mandatory="true" name="Exoscale-2.password" order="20" order_="20" readonly="false" type="Password">
-            <value/>
-         </parameter>
-      </entry>
       <entry>
          <string>Cloud3.password</string>
          <parameter category="Cloud3" description="Secret" mandatory="true" name="Cloud3.password" order="20" order_="20" readonly="false" type="Password">
@@ -424,28 +28,9 @@
          </parameter>
       </entry>
       <entry>
-         <string>StratusLab.username</string>
-         <parameter category="StratusLab" description="StratusLab account username" mandatory="true" name="StratusLab.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
          <string>Cloud1.password</string>
          <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
-            <value><![CDATA[cloud1_password]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.access.id</string>
-         <parameter category="AmazonEC2" description="Access id" mandatory="true" name="AmazonEC2.access.id" order="0" order_="0" readonly="false" type="String">
-            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
-            <value><![CDATA[amazonec2_access_id]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Exoscale.quota.vm</string>
-         <parameter category="Exoscale" description="Number of VMs the user can start for this cloud" mandatory="true" name="Exoscale.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[12]]></value>
+            <value/>
          </parameter>
       </entry>
       <entry>
@@ -471,31 +56,19 @@
                <string>on-success</string>
                <string>on-error</string>
             </enumValues>
-            <value><![CDATA[on-success]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Cloud2.username</string>
-         <parameter category="Cloud2" description="Key" mandatory="true" name="Cloud2.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value><![CDATA[cloud2_key]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Exoscale.password</string>
-         <parameter category="Exoscale" description="Secret" mandatory="true" name="Exoscale.password" order="20" order_="20" readonly="false" type="Password">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
-         <string>StratusLab.password</string>
-         <parameter category="StratusLab" description="StratusLab account password" mandatory="true" name="StratusLab.password" order="20" order_="20" readonly="false" type="Password">
-            <value/>
+            <value><![CDATA[always]]></value>
          </parameter>
       </entry>
       <entry>
          <string>Cloud2.password</string>
          <parameter category="Cloud2" description="Secret" mandatory="true" name="Cloud2.password" order="20" order_="20" readonly="false" type="Password">
-            <value><![CDATA[cloud2_secret]]></value>
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.username</string>
+         <parameter category="Cloud2" description="Key" mandatory="true" name="Cloud2.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value/>
          </parameter>
       </entry>
       <entry>
@@ -503,13 +76,6 @@
          <parameter category="Cloud4" description="Access id" mandatory="true" name="Cloud4.access.id" order="0" order_="0" readonly="false" type="String">
             <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
             <value/>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.secret.key</string>
-         <parameter category="AmazonEC2" description="Secret key" mandatory="true" name="AmazonEC2.secret.key" order="0" order_="0" readonly="false" type="Password">
-            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
-            <value><![CDATA[amazonec2_secret_key]]></value>
          </parameter>
       </entry>
       <entry>
@@ -526,16 +92,10 @@
          </parameter>
       </entry>
       <entry>
-         <string>AmazonEC2.quota.vm</string>
-         <parameter category="AmazonEC2" description="Number of VMs the user can start for this cloud" mandatory="true" name="AmazonEC2.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
-         </parameter>
-      </entry>
-      <entry>
          <string>Cloud4.secret.key</string>
          <parameter category="Cloud4" description="Secret key" mandatory="true" name="Cloud4.secret.key" order="0" order_="0" readonly="false" type="Password">
             <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
-            <value><![CDATA[cloud4_secret_key]]></value>
+            <value/>
          </parameter>
       </entry>
       <entry>
@@ -555,7 +115,7 @@
       <entry>
          <string>Cloud3.username</string>
          <parameter category="Cloud3" description="Key" mandatory="true" name="Cloud3.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value><![CDATA[cloud3_key]]></value>
+            <value/>
          </parameter>
       </entry>
       <entry>
@@ -577,9 +137,9 @@
          </parameter>
       </entry>
       <entry>
-         <string>StratusLab.quota.vm</string>
-         <parameter category="StratusLab" description="Number of VMs the user can start for this cloud" mandatory="true" name="StratusLab.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
+         <string>Cloud1.username</string>
+         <parameter category="Cloud1" description="StratusLab account username" mandatory="true" name="Cloud1.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value/>
          </parameter>
       </entry>
       <entry>
@@ -592,30 +152,18 @@
                <string>Cloud1</string>
                <string>Cloud2</string>
             </enumValues>
-            <value><![CDATA[Cloud3]]></value>
+            <value><![CDATA[Cloud2]]></value>
          </parameter>
       </entry>
       <entry>
          <string>General.ssh.public.key</string>
          <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
             <instructions><![CDATA[Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.]]></instructions>
-            <value><![CDATA[some-ssh-key]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Exoscale-2.username</string>
-         <parameter category="Exoscale-2" description="Key" mandatory="true" name="Exoscale-2.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
-         <string>Cloud1.username</string>
-         <parameter category="Cloud1" description="StratusLab account username" mandatory="true" name="Cloud1.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value><![CDATA[cloud1_username]]></value>
+            <value><![CDATA[asdfasdf]]></value>
          </parameter>
       </entry>
    </parameters>
-</user><serviceConfiguration creation="2015-03-16 16:00:32.184 CET" deleted="false">
+</user><serviceConfiguration creation="2015-03-20 16:25:11.52 CET" deleted="false">
    <parameters class="java.util.concurrent.ConcurrentHashMap">
       <entry>
          <string>Cloud1.max.iaas.workers</string>
@@ -671,7 +219,7 @@
          <string>slipstream.reports.location</string>
          <parameter category="SlipStream_Advanced" description="Location where the deployments and build reports are saved" mandatory="true" name="slipstream.reports.location" order="0" order_="0" readonly="false" type="String">
             <instructions/>
-            <value><![CDATA[/SlipStream/tmp/slipstream/reports]]></value>
+            <value><![CDATA[/Users/sixsq_rob/Dropbox/dev/projects/2014/SlipStream/tmp/slipstream/reports]]></value>
          </parameter>
       </entry>
       <entry>
@@ -709,7 +257,7 @@
          <string>slipstream.version</string>
          <parameter category="SlipStream_Advanced" description="Installed SlipStream version" mandatory="true" name="slipstream.version" order="0" order_="0" readonly="true" type="String">
             <instructions/>
-            <value><![CDATA[2.5.0-SNAPSHOT]]></value>
+            <value><![CDATA[2.5-SNAPSHOT]]></value>
          </parameter>
       </entry>
       <entry>
@@ -889,7 +437,7 @@
          <string>cloud.connector.orchestrator.publicsshkey</string>
          <parameter category="SlipStream_Advanced" description="Path to the SSH public key to put in the orchestrator" mandatory="true" name="cloud.connector.orchestrator.publicsshkey" order="0" order_="0" readonly="false" type="String">
             <instructions/>
-            <value><![CDATA[/root/.ssh/id_rsa_slipstream_test.pub]]></value>
+            <value><![CDATA[/Users/sixsq_rob/.ssh/id_rsa_slipstream_test.pub]]></value>
          </parameter>
       </entry>
       <entry>
@@ -1116,4 +664,4 @@
          </parameter>
       </entry>
    </parameters>
-</serviceConfiguration></deploymentModule>
+</serviceConfiguration></runs>

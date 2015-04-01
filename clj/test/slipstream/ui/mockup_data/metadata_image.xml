@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><deploymentModule category="Deployment" creation="2015-03-16 17:23:00.876 CET" deleted="false" description="Multinode deployment with input and output params." isLatestVersion="true" lastModified="2015-03-16 17:23:00.901 CET" logoLink="https://newevolutiondesigns.com/images/freebies/vibrant-wallpaper-preview-16.jpg" name="neutral_projects_for_mockup_metadata/deployment_01" parentUri="module/neutral_projects_for_mockup_metadata" resourceUri="module/neutral_projects_for_mockup_metadata/deployment_01/136" shortName="deployment_01" version="136">
-   <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="alice" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><imageModule category="Image" creation="2015-03-13 19:35:03.629 CET" deleted="false" description="Apache Web Server on CentOS 6" isBase="false" isLatestVersion="false" lastModified="2015-03-13 19:35:03.652 CET" loginUser="centos_username" logoLink="http://kaleidos.net/files/images/apache318x260.png" moduleReferenceUri="module/neutral_projects_for_mockup_metadata/centos_6_base_image/131" name="neutral_projects_for_mockup_metadata/apache_web_server" parentUri="module/neutral_projects_for_mockup_metadata" platform="centos" resourceUri="module/neutral_projects_for_mockup_metadata/apache_web_server/132" shortName="apache_web_server" version="132">
+   <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="bob" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
       <groupMembers class="java.util.ArrayList"/>
    </authz>
-   <commit author="alice">
-      <comment>Initial version of this deployment.</comment>
+   <commit author="bob">
+      <comment>Initial version of this image.</comment>
    </commit>
-   <published publicationDate="2015-03-16 17:23:00.901 CET"/>
    <cloudNames length="5">
       <string>Cloud3</string>
       <string>Cloud4</string>
@@ -14,390 +13,156 @@
       <string>default</string>
    </cloudNames>
    <runs count="0" limit="20" offset="0" totalCount="0"/>
-   <nodes class="org.hibernate.collection.internal.PersistentMap">
+   <targets class="org.hibernate.collection.internal.PersistentSet">
+      <target name="onvmremove"/>
+      <target name="report"/>
+      <target name="execute"><![CDATA[deployement recipe]]></target>
+      <target name="onvmadd"/>
+   </targets>
+   <packages class="org.hibernate.collection.internal.PersistentSet">
+      <package key="key_2" name="package_2" repository="repo_2"/>
+      <package key="key_1" name="package_1" repository="repo_1"/>
+   </packages>
+   <prerecipe/>
+   <recipe/>
+   <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
+   <parameters class="org.hibernate.collection.internal.PersistentMap">
       <entry>
-         <string>node1</string>
-         <node cloudService="default" creation="2015-03-16 17:23:00.877 CET" deleted="false" imageUri="module/neutral_projects_for_mockup_metadata/apache_web_server" maxProvisioningFailures="0" multiplicity="1" name="node1" network="Public">
-            <parameterMappings class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_2']]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node2:output_param_1]]></value>
-                  </parameter>
-               </entry>
-            </parameterMappings>
-            <parameters class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_2']]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node2:output_param_1]]></value>
-                  </parameter>
-               </entry>
-            </parameters>
-            <image category="Image" creation="2015-03-13 19:35:03.629 CET" deleted="false" description="Apache Web Server on CentOS 6" isBase="false" isLatestVersion="true" lastModified="2015-03-13 19:35:03.652 CET" loginUser="centos_username" logoLink="http://kaleidos.net/files/images/apache318x260.png" moduleReferenceUri="module/neutral_projects_for_mockup_metadata/centos_6_base_image/131" name="neutral_projects_for_mockup_metadata/apache_web_server" parentUri="module/neutral_projects_for_mockup_metadata" platform="centos" resourceUri="module/neutral_projects_for_mockup_metadata/apache_web_server/132" shortName="apache_web_server" version="132">
-               <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="bob" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
-                  <groupMembers class="java.util.ArrayList"/>
-               </authz>
-               <commit author="bob">
-                  <comment>Initial version of this image.</comment>
-               </commit>
-               <targets class="org.hibernate.collection.internal.PersistentSet">
-                  <target name="report"/>
-                  <target name="execute"><![CDATA[deployement recipe]]></target>
-                  <target name="onvmadd"/>
-                  <target name="onvmremove"/>
-               </targets>
-               <packages class="org.hibernate.collection.internal.PersistentSet">
-                  <package key="key_2" name="package_2" repository="repo_2"/>
-                  <package key="key_1" name="package_1" repository="repo_1"/>
-               </packages>
-               <prerecipe/>
-               <recipe/>
-               <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
-               <parameters class="org.hibernate.collection.internal.PersistentMap">
-                  <entry>
-                     <string>Cloud1.cpu</string>
-                     <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>instanceid</string>
-                     <parameter category="Output" description="Cloud instance id" isSet="false" mandatory="true" name="instanceid" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>extra.disk.volatile</string>
-                     <parameter category="Cloud" description="Volatile extra disk in GB" isSet="false" mandatory="true" name="extra.disk.volatile" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.security.groups</string>
-                     <parameter category="Cloud4" description="Security groups (comma separated list)" isSet="true" mandatory="true" name="Cloud4.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.instance.type</string>
-                     <parameter category="Cloud2" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud2.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.instance.type</string>
-                     <parameter category="Cloud1" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud1.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="7">
-                           <string>m1.small</string>
-                           <string>c1.medium</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.xlarge</string>
-                           <string>t1.micro</string>
-                           <string>standard.xsmall</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.instance.type</string>
-                     <parameter category="Cloud3" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud3.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.disks.bus.type</string>
-                     <parameter category="Cloud1" description="VM disks bus type" isSet="true" mandatory="true" name="Cloud1.disks.bus.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>virtio</string>
-                           <string>scsi</string>
-                        </enumValues>
-                        <value><![CDATA[virtio]]></value>
-                        <defaultValue><![CDATA[virtio]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>input_param_2</string>
-                     <parameter category="Input" description="The input param 2" isSet="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.instance.type</string>
-                     <parameter category="Cloud4" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud4.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="10">
-                           <string>m1.small</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.medium</string>
-                           <string>c1.xlarge</string>
-                           <string>m2.xlarge</string>
-                           <string>m2.2xlarge</string>
-                           <string>m2.4xlarge</string>
-                           <string>cc1.4xlarge</string>
-                           <string>t1.micro</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.ram</string>
-                     <parameter category="Cloud1" description="Amount of RAM, in GB" isSet="false" mandatory="true" name="Cloud1.ram" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>input_param_1</string>
-                     <parameter category="Input" description="The input param 1" isSet="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>network</string>
-                     <parameter category="Cloud" description="Network type" isSet="true" mandatory="true" name="network" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>Public</string>
-                           <string>Private</string>
-                        </enumValues>
-                        <value><![CDATA[Public]]></value>
-                        <defaultValue><![CDATA[Public]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>hostname</string>
-                     <parameter category="Output" description="hostname/ip of the image" isSet="false" mandatory="true" name="hostname" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.security.groups</string>
-                     <parameter category="Cloud3" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud3.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_1</string>
-                     <parameter category="Output" description="The output param 1" isSet="true" mandatory="false" name="output_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.security.groups</string>
-                     <parameter category="Cloud2" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud2.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_2</string>
-                     <parameter category="Output" description="The output param 2" isSet="true" mandatory="false" name="output_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-               </parameters>
-            </image>
-         </node>
+         <string>Cloud1.cpu</string>
+         <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
       </entry>
       <entry>
-         <string>node2</string>
-         <node cloudService="default" creation="2015-03-16 17:23:00.876 CET" deleted="false" imageUri="module/neutral_projects_for_mockup_metadata/apache_web_server" maxProvisioningFailures="0" multiplicity="1" name="node2" network="Public">
-            <parameterMappings class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node1:output_param_2]]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_1']]></value>
-                  </parameter>
-               </entry>
-            </parameterMappings>
-            <parameters class="org.hibernate.collection.internal.PersistentMap">
-               <entry>
-                  <string>input_param_2</string>
-                  <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node1:output_param_2]]></value>
-                  </parameter>
-               </entry>
-               <entry>
-                  <string>input_param_1</string>
-                  <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_1']]></value>
-                  </parameter>
-               </entry>
-            </parameters>
-            <image category="Image" creation="2015-03-13 19:35:03.629 CET" deleted="false" description="Apache Web Server on CentOS 6" isBase="false" isLatestVersion="true" lastModified="2015-03-13 19:35:03.652 CET" loginUser="centos_username" logoLink="http://kaleidos.net/files/images/apache318x260.png" moduleReferenceUri="module/neutral_projects_for_mockup_metadata/centos_6_base_image/131" name="neutral_projects_for_mockup_metadata/apache_web_server" parentUri="module/neutral_projects_for_mockup_metadata" platform="centos" resourceUri="module/neutral_projects_for_mockup_metadata/apache_web_server/132" shortName="apache_web_server" version="132">
-               <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="bob" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
-                  <groupMembers class="java.util.ArrayList"/>
-               </authz>
-               <commit author="bob">
-                  <comment>Initial version of this image.</comment>
-               </commit>
-               <targets class="org.hibernate.collection.internal.PersistentSet">
-                  <target name="execute"><![CDATA[deployement recipe]]></target>
-                  <target name="onvmremove"/>
-                  <target name="onvmadd"/>
-                  <target name="report"/>
-               </targets>
-               <packages class="org.hibernate.collection.internal.PersistentSet">
-                  <package key="key_2" name="package_2" repository="repo_2"/>
-                  <package key="key_1" name="package_1" repository="repo_1"/>
-               </packages>
-               <prerecipe/>
-               <recipe/>
-               <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
-               <parameters class="org.hibernate.collection.internal.PersistentMap">
-                  <entry>
-                     <string>Cloud1.cpu</string>
-                     <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>instanceid</string>
-                     <parameter category="Output" description="Cloud instance id" isSet="false" mandatory="true" name="instanceid" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>extra.disk.volatile</string>
-                     <parameter category="Cloud" description="Volatile extra disk in GB" isSet="false" mandatory="true" name="extra.disk.volatile" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.security.groups</string>
-                     <parameter category="Cloud4" description="Security groups (comma separated list)" isSet="true" mandatory="true" name="Cloud4.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.instance.type</string>
-                     <parameter category="Cloud2" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud2.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.instance.type</string>
-                     <parameter category="Cloud1" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud1.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="7">
-                           <string>m1.small</string>
-                           <string>c1.medium</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.xlarge</string>
-                           <string>t1.micro</string>
-                           <string>standard.xsmall</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.instance.type</string>
-                     <parameter category="Cloud3" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud3.instance.type" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.disks.bus.type</string>
-                     <parameter category="Cloud1" description="VM disks bus type" isSet="true" mandatory="true" name="Cloud1.disks.bus.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>virtio</string>
-                           <string>scsi</string>
-                        </enumValues>
-                        <value><![CDATA[virtio]]></value>
-                        <defaultValue><![CDATA[virtio]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>input_param_2</string>
-                     <parameter category="Input" description="The input param 2" isSet="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud4.instance.type</string>
-                     <parameter category="Cloud4" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud4.instance.type" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="10">
-                           <string>m1.small</string>
-                           <string>m1.large</string>
-                           <string>m1.xlarge</string>
-                           <string>c1.medium</string>
-                           <string>c1.xlarge</string>
-                           <string>m2.xlarge</string>
-                           <string>m2.2xlarge</string>
-                           <string>m2.4xlarge</string>
-                           <string>cc1.4xlarge</string>
-                           <string>t1.micro</string>
-                        </enumValues>
-                        <value><![CDATA[m1.small]]></value>
-                        <defaultValue><![CDATA[m1.small]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud1.ram</string>
-                     <parameter category="Cloud1" description="Amount of RAM, in GB" isSet="false" mandatory="true" name="Cloud1.ram" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>input_param_1</string>
-                     <parameter category="Input" description="The input param 1" isSet="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_input_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_input_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>network</string>
-                     <parameter category="Cloud" description="Network type" isSet="true" mandatory="true" name="network" order="0" order_="0" readonly="false" type="Enum">
-                        <enumValues length="2">
-                           <string>Public</string>
-                           <string>Private</string>
-                        </enumValues>
-                        <value><![CDATA[Public]]></value>
-                        <defaultValue><![CDATA[Public]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>hostname</string>
-                     <parameter category="Output" description="hostname/ip of the image" isSet="false" mandatory="true" name="hostname" order="0" order_="0" readonly="false" type="String"/>
-                  </entry>
-                  <entry>
-                     <string>Cloud3.security.groups</string>
-                     <parameter category="Cloud3" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud3.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_1</string>
-                     <parameter category="Output" description="The output param 1" isSet="true" mandatory="false" name="output_param_1" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_1]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_1]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>Cloud2.security.groups</string>
-                     <parameter category="Cloud2" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud2.security.groups" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default]]></value>
-                        <defaultValue><![CDATA[default]]></defaultValue>
-                     </parameter>
-                  </entry>
-                  <entry>
-                     <string>output_param_2</string>
-                     <parameter category="Output" description="The output param 2" isSet="true" mandatory="false" name="output_param_2" order="0" order_="0" readonly="false" type="String">
-                        <value><![CDATA[default_value_for_output_param_2]]></value>
-                        <defaultValue><![CDATA[default_value_for_output_param_2]]></defaultValue>
-                     </parameter>
-                  </entry>
-               </parameters>
-            </image>
-         </node>
+         <string>instanceid</string>
+         <parameter category="Output" description="Cloud instance id" isSet="false" mandatory="true" name="instanceid" order="0" order_="0" readonly="false" type="String"/>
       </entry>
-   </nodes>
-   <parameters class="org.hibernate.collection.internal.PersistentMap"/>
-<user activeSince="2015-03-12 18:15:21.8 CET" creation="2015-03-12 18:15:20.983 CET" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastName="Persona" lastOnline="2015-03-16 17:23:02.114 CET" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
+      <entry>
+         <string>extra.disk.volatile</string>
+         <parameter category="Cloud" description="Volatile extra disk in GB" isSet="false" mandatory="true" name="extra.disk.volatile" order="0" order_="0" readonly="false" type="String"/>
+      </entry>
+      <entry>
+         <string>Cloud4.security.groups</string>
+         <parameter category="Cloud4" description="Security groups (comma separated list)" isSet="true" mandatory="true" name="Cloud4.security.groups" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default]]></value>
+            <defaultValue><![CDATA[default]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.instance.type</string>
+         <parameter category="Cloud2" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud2.instance.type" order="0" order_="0" readonly="false" type="String"/>
+      </entry>
+      <entry>
+         <string>Cloud1.instance.type</string>
+         <parameter category="Cloud1" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud1.instance.type" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="7">
+               <string>m1.small</string>
+               <string>c1.medium</string>
+               <string>m1.large</string>
+               <string>m1.xlarge</string>
+               <string>c1.xlarge</string>
+               <string>t1.micro</string>
+               <string>standard.xsmall</string>
+            </enumValues>
+            <value><![CDATA[m1.small]]></value>
+            <defaultValue><![CDATA[m1.small]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.instance.type</string>
+         <parameter category="Cloud3" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud3.instance.type" order="0" order_="0" readonly="false" type="String"/>
+      </entry>
+      <entry>
+         <string>Cloud1.disks.bus.type</string>
+         <parameter category="Cloud1" description="VM disks bus type" isSet="true" mandatory="true" name="Cloud1.disks.bus.type" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="2">
+               <string>virtio</string>
+               <string>scsi</string>
+            </enumValues>
+            <value><![CDATA[virtio]]></value>
+            <defaultValue><![CDATA[virtio]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>input_param_2</string>
+         <parameter category="Input" description="The input param 2" isSet="true" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default_value_for_input_param_2]]></value>
+            <defaultValue><![CDATA[default_value_for_input_param_2]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.instance.type</string>
+         <parameter category="Cloud4" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud4.instance.type" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="10">
+               <string>m1.small</string>
+               <string>m1.large</string>
+               <string>m1.xlarge</string>
+               <string>c1.medium</string>
+               <string>c1.xlarge</string>
+               <string>m2.xlarge</string>
+               <string>m2.2xlarge</string>
+               <string>m2.4xlarge</string>
+               <string>cc1.4xlarge</string>
+               <string>t1.micro</string>
+            </enumValues>
+            <value><![CDATA[m1.small]]></value>
+            <defaultValue><![CDATA[m1.small]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.ram</string>
+         <parameter category="Cloud1" description="Amount of RAM, in GB" isSet="false" mandatory="true" name="Cloud1.ram" order="0" order_="0" readonly="false" type="String"/>
+      </entry>
+      <entry>
+         <string>input_param_1</string>
+         <parameter category="Input" description="The input param 1" isSet="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default_value_for_input_param_1]]></value>
+            <defaultValue><![CDATA[default_value_for_input_param_1]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>network</string>
+         <parameter category="Cloud" description="Network type" isSet="true" mandatory="true" name="network" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="2">
+               <string>Public</string>
+               <string>Private</string>
+            </enumValues>
+            <value><![CDATA[Public]]></value>
+            <defaultValue><![CDATA[Public]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>hostname</string>
+         <parameter category="Output" description="hostname/ip of the image" isSet="false" mandatory="true" name="hostname" order="0" order_="0" readonly="false" type="String"/>
+      </entry>
+      <entry>
+         <string>Cloud3.security.groups</string>
+         <parameter category="Cloud3" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud3.security.groups" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default]]></value>
+            <defaultValue><![CDATA[default]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>output_param_1</string>
+         <parameter category="Output" description="The output param 1" isSet="true" mandatory="false" name="output_param_1" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default_value_for_output_param_1]]></value>
+            <defaultValue><![CDATA[default_value_for_output_param_1]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.security.groups</string>
+         <parameter category="Cloud2" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud2.security.groups" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default]]></value>
+            <defaultValue><![CDATA[default]]></defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>output_param_2</string>
+         <parameter category="Output" description="The output param 2" isSet="true" mandatory="false" name="output_param_2" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default_value_for_output_param_2]]></value>
+            <defaultValue><![CDATA[default_value_for_output_param_2]]></defaultValue>
+         </parameter>
+      </entry>
+   </parameters>
+<user activeSince="2015-03-12 18:15:21.8 CET" creation="2015-03-12 18:15:20.983 CET" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastName="Persona" lastOnline="2015-03-21 23:31:51.513 CET" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
    <parameters class="org.hibernate.collection.internal.PersistentMap">
       <entry>
          <string>Exoscale.username</string>
@@ -615,7 +380,7 @@
          </parameter>
       </entry>
    </parameters>
-</user><serviceConfiguration creation="2015-03-16 16:00:32.184 CET" deleted="false">
+</user><serviceConfiguration creation="2015-03-20 16:25:11.52 CET" deleted="false">
    <parameters class="java.util.concurrent.ConcurrentHashMap">
       <entry>
          <string>Cloud1.max.iaas.workers</string>
@@ -671,7 +436,7 @@
          <string>slipstream.reports.location</string>
          <parameter category="SlipStream_Advanced" description="Location where the deployments and build reports are saved" mandatory="true" name="slipstream.reports.location" order="0" order_="0" readonly="false" type="String">
             <instructions/>
-            <value><![CDATA[/SlipStream/tmp/slipstream/reports]]></value>
+            <value><![CDATA[/Users/sixsq_rob/Dropbox/dev/projects/2014/SlipStream/tmp/slipstream/reports]]></value>
          </parameter>
       </entry>
       <entry>
@@ -709,7 +474,7 @@
          <string>slipstream.version</string>
          <parameter category="SlipStream_Advanced" description="Installed SlipStream version" mandatory="true" name="slipstream.version" order="0" order_="0" readonly="true" type="String">
             <instructions/>
-            <value><![CDATA[2.5.0-SNAPSHOT]]></value>
+            <value><![CDATA[2.5-SNAPSHOT]]></value>
          </parameter>
       </entry>
       <entry>
@@ -889,7 +654,7 @@
          <string>cloud.connector.orchestrator.publicsshkey</string>
          <parameter category="SlipStream_Advanced" description="Path to the SSH public key to put in the orchestrator" mandatory="true" name="cloud.connector.orchestrator.publicsshkey" order="0" order_="0" readonly="false" type="String">
             <instructions/>
-            <value><![CDATA[/root/.ssh/id_rsa_slipstream_test.pub]]></value>
+            <value><![CDATA[/Users/sixsq_rob/.ssh/id_rsa_slipstream_test.pub]]></value>
          </parameter>
       </entry>
       <entry>
@@ -1116,4 +881,4 @@
          </parameter>
       </entry>
    </parameters>
-</serviceConfiguration></deploymentModule>
+</serviceConfiguration></imageModule>

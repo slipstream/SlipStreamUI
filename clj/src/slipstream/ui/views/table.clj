@@ -266,10 +266,12 @@
 ; Icon cell
 
 (html/defsnippet ^:private cell-icon-snip-view template-filename (sel-for-cell :icon)
-  [icon]
+  [{:keys [icon overlay tooltip-placement style]}]
   [:span] (icons/set (case (type icon)
                        :icon/computed icon
-                       :icon/symbol   (icon :tooltip-placement "left"))))
+                       :icon/symbol   (icon :tooltip-placement (or tooltip-placement "left")
+                                            :overlay overlay
+                                            :style style))))
 
 ; Module version cell
 
@@ -629,9 +631,15 @@
       (cell-link-snip-view (assoc content-base :href (u/user-uri username)))
       (cell-text-snip-view content-base))))
 
-(defmethod cell-snip [:cell/icon :mode/any :content/any]
+(defmethod cell-snip [:cell/icon :mode/any :content/plain]
   [{icon :content}]
-  (cell-icon-snip-view icon))
+  (cell-icon-snip-view {:icon icon}))
+
+(defmethod cell-snip [:cell/icon :mode/any :content/map]
+  [{icon :content}]
+  (if (-> icon type (= :icon/computed))
+    (cell-icon-snip-view {:icon icon})
+    (cell-icon-snip-view icon)))
 
 (defmethod cell-snip [:cell/module-version :mode/any :content/plain]
   [{uri :content}]
@@ -710,7 +718,12 @@
   [rows]
   ue/this (html/clone-for [{:keys [style cells class data hidden?]} rows]
            ue/this (ue/set-data :from-server data)
-           ue/this (ue/when-add-class style (name style))
+           ue/this (ue/when-add-class style (case style
+                                              :info     "info text-info"
+                                              :success  "success text-success"
+                                              :warning  "warning text-warning"
+                                              :danger   "danger text-danger"
+                                              (name style)))
            ue/this (ue/when-add-class class)
            ue/this (ue/enable-class hidden? "hidden")
            ue/this (html/content (map cell-snip cells))))
@@ -751,13 +764,13 @@
 
 (html/defsnippet ^:private table-snip template-filename table-sel
   [{:keys [headers] :as table}]
-  ue/this        (html/add-class (:class table))
-  ue/this        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
-  ue/this        (ue/when-add-class (paginated? table) "ss-table-with-pagination")
-  table-head-sel (ue/when-content (not-empty headers) (head-snip headers))
-  table-body-sel (html/content (->> (rows table)
-                                    (remove :remove?)
-                                    rows-snip)))
+  ue/this         (html/add-class (:class table))
+  ue/this         (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
+  ue/this         (ue/when-add-class (paginated? table) "ss-table-with-pagination")
+  table-head-sel  (ue/when-content (not-empty headers) (head-snip headers))
+  table-body-sel  (html/content (->> (rows table)
+                                     (remove :remove?)
+                                     rows-snip)))
 
 (defn build
   [table]

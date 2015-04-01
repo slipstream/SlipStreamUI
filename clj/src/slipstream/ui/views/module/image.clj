@@ -131,7 +131,8 @@
 (defn actions
   [module]
   [action/run
-   action/build
+   (action/build      :disabled?        (-> module :cloud-image-details :native-image?)
+                      :disabled-reason  (t :action-disabled-reason.native-image-cannot-be-built))
    action/edit
    action/copy
    (action/publish    :hidden? (-> module :summary :published?))

@@ -17,22 +17,26 @@
 ;; TODO: Overlays are still beta. They disrupt the layout, specially next to text.
 
 (defmacro deficon
-  [icon-symbol icon & {:keys [overlay]}]
+  [icon-symbol icon & {:keys [overlay style]}]
   (let [tooltip-placement-symbol  (symbol "tooltip-placement")
-        description-symbol        (symbol "description")]
+        description-symbol        (symbol "description")
+        overlay-symbol            (symbol "overlay")
+        style-symbol              (symbol "style")]
    `(def ~icon-symbol
        ^{:type :icon/symbol}
-       (fn [& {:keys [~tooltip-placement-symbol]}]
+       (fn [& {:keys [~tooltip-placement-symbol ~overlay-symbol ~style-symbol]}]
          (let [~description-symbol (uc/title-case (t ~(str "description." (name icon-symbol))))]
            ~(if (symbol? icon)
               `(assoc (~icon :tooltip-placement ~tooltip-placement-symbol)
-                      :description  ~description-symbol
-                      :overlay      ~overlay)
+                      :description    ~description-symbol
+                      :overlay        (or ~overlay-symbol ~overlay)
+                      :style          (or ~style-symbol   ~style))
                `(with-meta
                   {:tooltip-placement ~tooltip-placement-symbol
                    :class-suffix      ~icon
                    :description       ~description-symbol
-                   :overlay           ~overlay}
+                   :overlay           (or ~overlay-symbol ~overlay)
+                   :style             (or ~style-symbol   ~style)}
                   {:type :icon/computed})))))))
 
 (deficon unknown                "question-sign")
@@ -57,6 +61,7 @@
 (deficon run                    deployment)
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
+(deficon cloud                  "cloud")
 (deficon service-catalog        "th-list")
 
 (deficon action-new-project     project)
@@ -80,6 +85,13 @@
 (deficon action-ok              "ok")
 (deficon action-export-users    "download")
 
+(deficon run-in-transitional-state  "refresh"           :style :info)
+(deficon run-with-abort-flag-set    "exclamation-sign"  :style :danger)
+(deficon run-successfully-ready     "ok"                :style :success)
+(deficon run-terminated             "off"               :style :muted)
+
+(deficon no-icon                nil)
+
 (defn- icon-get
   [icon-symbol]
   (if-let [icon-resolved-symbol (resolve icon-symbol)]
@@ -91,9 +103,9 @@
 (defn icon-for
   "Returns the icon keywords given a keyword or a string.
   E.g. given :deployment, 'deployment' or 'Deployment' returns :slipstream.ui.util.icons :as/th.
-  Useful to retrieve icons for module categories."
+  Useful to retrieve icons for module categories. If 'item' is 'nil', the icon will be removed."
   [item]
-  (->> (or item "unknown")
+  (->> (or item "no-icon")
        uc/keywordize
        name
        s/lower-case
@@ -116,18 +128,20 @@
   (let [icon-computed (case (type icon)
                         :icon/computed   icon
                         :icon/symbol     (icon))
-        {:keys [tooltip-placement class-suffix description overlay]} icon-computed
+        {:keys [tooltip-placement class-suffix description overlay style]} icon-computed
         show-tooltip? (not-empty tooltip-placement)]
     (fn [icon-node]
-      (html/at icon-node
-        ue/this   (ue/replace-class
-                    (current-glyphicon-icon-cls icon-node)
-                    (glyphicon-icon-cls class-suffix))
-        ue/this   (ue/when-add-class            show-tooltip? "ss-icon-tooltip")
-        ue/this   (ue/when-add-class            (not-empty overlay) (str "ss-icon-overlay-" overlay))
-        ue/this   (ue/when-set-title            show-tooltip? description)
-        ue/this   (ue/when-set-data :toggle     show-tooltip? "tooltip")
-        ue/this   (ue/when-set-data :placement  show-tooltip? tooltip-placement)))))
+      (when (not-empty class-suffix)
+        (html/at icon-node
+              ue/this   (ue/replace-class
+                          (current-glyphicon-icon-cls icon-node)
+                          (glyphicon-icon-cls class-suffix))
+              ue/this   (ue/when-add-class            show-tooltip? "ss-icon-tooltip")
+              ue/this   (ue/when-add-class            (not-empty overlay) (str "ss-icon-overlay-" overlay))
+              ue/this   (ue/when-add-class            style               (str "text-" (name style)))
+              ue/this   (ue/when-set-title            show-tooltip? description)
+              ue/this   (ue/when-set-data :toggle     show-tooltip? "tooltip")
+              ue/this   (ue/when-set-data :placement  show-tooltip? tooltip-placement))))))
 
 (defn set
   "Sets the icon in the given node. If icon is nil, the icon node (i.e. <span> element) is removed."

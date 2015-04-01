@@ -6,7 +6,6 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.tables :as t]
-            [slipstream.ui.models.parameters :as parameters]
             [slipstream.ui.models.user :as user]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.base :as base]))
@@ -14,8 +13,12 @@
 (localization/def-scoped-t)
 
 (defn- category-section
-  [{:keys [category parameters]}]
-  {:title category
+  [{:keys [category category-type parameters]}]
+  {:icon (case category-type
+           :general icons/config
+           :global  icons/cloud
+           nil)
+   :title category
    :content (t/parameters-table parameters)})
 
 (localization/with-prefixed-t :header
@@ -41,7 +44,8 @@
        :secondary-menu-actions [action/edit
                                 action/delete]
        :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
-       :content (into [{:title (t :summary)
-                        :selected? true
-                        :content (t/user-summary-table user)}]
-                      (map category-section (parameters/parse metadata)))})))
+       :content (into [{:icon       icons/user
+                        :title      (t :summary)
+                        :selected?  true
+                        :content    (t/user-summary-table user)}]
+                      (map category-section (:parameters user)))})))

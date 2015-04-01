@@ -15,6 +15,16 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- cell-unknown
+  "Generic cell with text 'Unknown' in italics. It must be called as a function
+  to take into account the localization."
+  [& [reason]]
+  {:type :cell/html, :content {:text (t :unknown)
+                               :tooltip (not-empty reason) ;; TODO: Use a popover instead, since it's a long text
+                               :class "text-muted"}})
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- remove-button-cell
   [& {:keys [item-name size]}]
   (when (page-type/edit-or-new?)
@@ -338,11 +348,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-names uri module-uri start-time username uuid status tags type] :as run}]
-  {:style nil
-   :cells [{:type :cell/icon,      :content (icons/icon-for (or type :run))}
+  [{:keys [cloud-names uri module-uri start-time username uuid status display-status tags type abort-msg abort-flag?] :as run}]
+  {:style (case display-status
+            :run-with-abort-flag-set    :danger
+            :run-in-transitional-state  nil
+            :run-successfully-ready     :success
+            :text-muted)
+   :data  (when abort-flag?
+            {:alert-popover-options {:type      :error,
+                                     :placement "top"
+                                     :content   (str "<strong><code>ss:abort</code></strong>- " abort-msg),
+                                     :html      true}})
+   :cells [{:type :cell/icon,      :content {:icon (icons/icon-for display-status)}}
+           {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
-           {:type :cell/url,       :content module-uri}
+           {:type :cell/link,      :content {:text (u/module-name module-uri), :href module-uri}}
            {:type :cell/text,      :content status}
            {:type :cell/timestamp, :content start-time}
            {:type :cell/text,      :content cloud-names}
@@ -353,7 +373,7 @@
   [runs & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers     [nil :id :module :status :start-time :cloud-names :user :tags]
+     :headers     [nil nil :id :module :status :start-time :cloud-names :user :tags]
      :rows        (map run-row runs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -712,30 +732,37 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- vm-row
-  [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
-  {:style  nil
-   :cells [(if (and (not-empty run-uuid) (not= run-uuid "Unknown"))
-             (if (or (= run-owner username) (current-user/super?))
-               {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-               {:type :cell/html, :content {:text (uc/trim-from run-uuid \-)}})
-             {:type :cell/html,   :content {:text (t :run.uuid.unknown)}})
-           {:type :cell/text,     :content (localization/with-prefixed-t :run.state
-                                             (-> (or state :unknown) uc/keywordize t))}
-           {:type :cell/text,     :content ip-address}
-           {:type :cell/text,     :content name}
-           {:type :cell/text,     :content cloud-instance-id}
-           {:type :cell/username, :content run-owner}
-           (when (current-user/super?)
-             {:type :cell/username, :content username})]})
+(localization/with-prefixed-t :vms-table
 
-(defn vms-table
-  [vms & [pagination]]
-  (table/build
-    {:pagination  pagination
-     :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
-                          (current-user/super?) (conj :user))
-     :rows (map vm-row vms)}))
+  (defn- vm-row
+    [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
+    (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
+          run-uuid-as-link?   (and run-uuid accessible?)]
+      {:style  nil
+       :cells (cond-> [(cond
+                         (not run-uuid)     (cell-unknown (t :run-uuid.unknown.reason))
+                         run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
+                         :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run-uuid.no-link.reason)}})
+                       (if state
+                         {:type :cell/text,     :content (->> state uc/keywordize clojure.core/name (str "state.") t)}
+                         (cell-unknown))
+                       (if (and run-uuid (not ip-address))
+                         (cell-unknown (when run-uuid (t :ip.unknown.reason)))
+                         {:type :cell/text,     :content ip-address})
+                       {:type :cell/text,       :content name}
+                       {:type :cell/text,       :content cloud-instance-id}
+                       {:type :cell/username,   :content run-owner}]
+                (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
+
+  (defn vms-table
+    [vms & [pagination]]
+    (table/build
+      {:pagination  pagination
+       :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
+                      (current-user/super?) (conj :user))
+       :rows (map vm-row vms)}))
+
+) ;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
