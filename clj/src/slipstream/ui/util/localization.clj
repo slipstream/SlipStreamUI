@@ -29,7 +29,7 @@
 (def lang-default
   (or
     (-> "slipstream.ui.util.localization.lang-default" System/getProperty keyword available-languages)
-    :fr))
+    :en))
 
 (def ^:dynamic *lang*
   "The lang is configured with a local thread-bound binding with the macro
