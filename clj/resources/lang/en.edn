@@ -947,6 +947,11 @@
    :slipstream.ui.views.modal-dialogs.run-image-dialog.cloud-service.label                    "Cloud service"
    :slipstream.ui.views.modal-dialogs.run-image-dialog.button.cancel                          :global.verbs.cancel
 
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.global-section.title                   "Run parameters"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.input-parameters-section.title         "Input parameters"
+
+   ; :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint "blah"
+
    :slipstream.ui.views.modal-dialogs.build-image-dialog.title                                "Build image"
    :slipstream.ui.views.modal-dialogs.build-image-dialog.footnote                             "Build a new native image from `%1$s` (v %2$s) on the selected cloud service.\n\nAt the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)." ; %1$s: module id ;  %2$s: module version
    :slipstream.ui.views.modal-dialogs.build-image-dialog.button                               "Build image"

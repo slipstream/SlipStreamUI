@@ -136,12 +136,10 @@
                                                       ue/this (ue/set-value value)
                                                       ue/this (ue/set-selected selected?)
                                                       ue/this (html/content text))
-    [:.ss-run-image-content]      (html/content       (-> nil
-                                                          run-module-global-parameters
-                                                          (dissoc :launch-mutable-run?
-                                                                  :tolerate-deployment-failures?
-                                                                  )
-                                                          t/run-image-global-section-table))
+    [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
+    [:.ss-run-image-global-section-content]            (html/content       (-> nil run-module-global-parameters t/run-image-global-section-table))
+    [:.ss-run-image-input-parameters-section-title]    (html/html-content  (t :input-parameters-section.title))
+    [:.ss-run-image-input-parameters-section-content]  (html/content       (-> [] t/run-deployment-node-parameters-table))
     footnote-sel                  (html/html-content  (t :footnote resource-id module-version))
     [:#ss-run-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     first-button-sel              (html/content       (t :button.cancel))
