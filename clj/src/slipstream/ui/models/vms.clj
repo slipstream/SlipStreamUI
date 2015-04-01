@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.vms
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.pagination :as pagination]))
 
@@ -8,13 +9,13 @@
   (-> vm-metadata
       (select-keys [:state
                     :measurement])
-      (assoc        :username           (-> vm-metadata :user))
-      (assoc        :cloud-instance-id  (-> vm-metadata :instanceId))
-      (assoc        :run-uuid           (-> vm-metadata :runUuid))
-      (assoc        :cloud-name         (-> vm-metadata :cloud))
-      (assoc        :ip-address         (-> vm-metadata :ip))
-      (assoc        :run-owner          (-> vm-metadata :runOwner))
-      (assoc        :name               (-> vm-metadata :name))))
+      (assoc        :username           (-> vm-metadata :user       not-empty))
+      (assoc        :cloud-instance-id  (-> vm-metadata :instanceId not-empty))
+      (assoc        :run-uuid           (-> vm-metadata :runUuid    (s/replace "Unknown" "") not-empty))
+      (assoc        :cloud-name         (-> vm-metadata :cloud      not-empty))
+      (assoc        :ip-address         (-> vm-metadata :ip         not-empty))
+      (assoc        :run-owner          (-> vm-metadata :runOwner   not-empty))
+      (assoc        :name               (-> vm-metadata :name       not-empty))))
 
 (defn parse
   [metadata]

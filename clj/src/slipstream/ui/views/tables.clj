@@ -15,6 +15,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- cell-unknown
+  "Generic cell with text 'Unknown' in italics. It must be called as a function
+  to take into account the localization."
+  []
+  {:type :cell/html, :content {:text (t :unknown), :class "text-muted"}})
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- remove-button-cell
   [& {:keys [item-name size]}]
   (when (page-type/edit-or-new?)
@@ -714,27 +722,30 @@
 
 (defn- vm-row
   [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
-  {:style  nil
-   :cells [(if (and (not-empty run-uuid) (not= run-uuid "Unknown"))
-             (if (or (= run-owner username) (current-user/super?))
-               {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-               {:type :cell/html, :content {:text (uc/trim-from run-uuid \-)}})
-             {:type :cell/html,   :content {:text (t :run.uuid.unknown)}})
-           {:type :cell/text,     :content (localization/with-prefixed-t :run.state
-                                             (-> (or state :unknown) uc/keywordize t))}
-           {:type :cell/text,     :content ip-address}
-           {:type :cell/text,     :content name}
-           {:type :cell/text,     :content cloud-instance-id}
-           {:type :cell/username, :content run-owner}
-           (when (current-user/super?)
-             {:type :cell/username, :content username})]})
+  (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
+        run-uuid-as-link?   (and run-uuid accessible?)]
+    {:style  nil
+     :cells (cond-> [(cond
+                       (not run-uuid)     (cell-unknown)
+                       run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
+                       :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip run-uuid}})
+                     (if state
+                       {:type :cell/text,     :content (localization/with-prefixed-t :run.state (-> state uc/keywordize t))}
+                       (cell-unknown))
+                     (if ip-address
+                       {:type :cell/text,     :content ip-address}
+                       (cell-unknown))
+                     {:type :cell/text,       :content name}
+                     {:type :cell/text,       :content cloud-instance-id}
+                     {:type :cell/username,   :content run-owner}]
+              (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
 
 (defn vms-table
   [vms & [pagination]]
   (table/build
     {:pagination  pagination
      :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
-                          (current-user/super?) (conj :user))
+                    (current-user/super?) (conj :user))
      :rows (map vm-row vms)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

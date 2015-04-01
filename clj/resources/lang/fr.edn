@@ -351,11 +351,10 @@
    :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
 
    :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
-   :slipstream.ui.views.tables.run.state.unknown              :global.vm-states.unknown
    :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
    :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
 
-   :slipstream.ui.views.tables.run.uuid.unknown               :global.adjectives.unknown
+   :slipstream.ui.views.tables.unknown                        :global.adjectives.unknown
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "Cette permission autorise les utilisateurs à trouver et voir ce projet."
