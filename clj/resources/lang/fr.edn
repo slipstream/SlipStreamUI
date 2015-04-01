@@ -347,19 +347,19 @@
    :slipstream.ui.views.table.pagination.action.tooltip.next-page         "Page suivante"
    :slipstream.ui.views.table.pagination.action.tooltip.last-page         "Dernière page"
 
-   :slipstream.ui.views.tables.deployment-nodes-table.mapping     :global.nouns.mapping
-   :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
+   :slipstream.ui.views.tables.deployment-nodes-table.mapping         :global.nouns.mapping
+   :slipstream.ui.views.tables.deployment-nodes-table.node            :global.nouns.node
 
-   :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
-   :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
-   :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
+   :slipstream.ui.views.tables.vms-table.state.running                :global.vm-states.running
+   :slipstream.ui.views.tables.vms-table.state.stopped                :global.vm-states.stopped
+   :slipstream.ui.views.tables.vms-table.state.terminated             :global.vm-states.terminated
 
-   :slipstream.ui.views.tables.run.uuid.unknown.tooltip       "SlipStream n'a pas encore connaissance de l'association de cette VM à un Run ou cette machine virtuelle n'a pas été créée par SlipStream. Dans ce cas elle a été créée soit directement sur le Cloud, soit par une application tièrce avec vos identifiants Cloud."
-   :slipstream.ui.views.tables.run.uuid.no-link.tooltip       "Cette machine virtuelle a été créée par un autre utilisateur. Elle s'affiche dans cette liste soit parceque un autre utilisateur utilise le mêmes identifiants Cloud que vous, soit parceque un autre utilisateur partage des resources Cloud avec vous."
+   :slipstream.ui.views.tables.vms-table.run-uuid.unknown.reason      "SlipStream n'a pas encore connaissance de l'association de cette VM à un Run ou cette machine virtuelle n'a pas été créée par SlipStream. Dans ce cas elle a été créée soit directement sur le Cloud, soit par une application tièrce avec vos identifiants Cloud."
+   :slipstream.ui.views.tables.vms-table.run-uuid.no-link.reason      "Cette machine virtuelle a été créée par un autre utilisateur. Elle s'affiche dans cette liste soit parce que un autre utilisateur utilise le mêmes identifiants Cloud que vous, soit parceque un autre utilisateur partage des resources Cloud avec vous."
 
-   :slipstream.ui.views.tables.run.ip.unknown.tooltip         "L'adresse IP n'est pas encore disponible."
+   :slipstream.ui.views.tables.vms-table.ip.unknown.reason            "L'adresse IP n'est pas encore disponible."
 
-   :slipstream.ui.views.tables.unknown                        :global.adjectives.unknown
+   :slipstream.ui.views.tables.unknown                                :global.adjectives.unknown
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "Cette permission autorise les utilisateurs à trouver et voir ce projet."

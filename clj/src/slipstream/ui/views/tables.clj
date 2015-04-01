@@ -722,33 +722,37 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- vm-row
-  [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
-  (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
-        run-uuid-as-link?   (and run-uuid accessible?)]
-    {:style  nil
-     :cells (cond-> [(cond
-                       (not run-uuid)     (cell-unknown (t :run.uuid.unknown.reason))
-                       run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-                       :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run.uuid.no-link.reason)}})
-                     (if state
-                       {:type :cell/text,     :content (localization/with-prefixed-t :run.state (-> state uc/keywordize t))}
-                       (cell-unknown))
-                     (if (and run-uuid (not ip-address))
-                       (cell-unknown (when run-uuid (t :run.ip.unknown.reason)))
-                       {:type :cell/text,     :content ip-address})
-                     {:type :cell/text,       :content name}
-                     {:type :cell/text,       :content cloud-instance-id}
-                     {:type :cell/username,   :content run-owner}]
-              (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
+(localization/with-prefixed-t :vms-table
 
-(defn vms-table
-  [vms & [pagination]]
-  (table/build
-    {:pagination  pagination
-     :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
-                    (current-user/super?) (conj :user))
-     :rows (map vm-row vms)}))
+  (defn- vm-row
+    [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
+    (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
+          run-uuid-as-link?   (and run-uuid accessible?)]
+      {:style  nil
+       :cells (cond-> [(cond
+                         (not run-uuid)     (cell-unknown (t :run-uuid.unknown.reason))
+                         run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
+                         :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run-uuid.no-link.reason)}})
+                       (if state
+                         {:type :cell/text,     :content (->> state uc/keywordize clojure.core/name (str "state.") t)}
+                         (cell-unknown))
+                       (if (and run-uuid (not ip-address))
+                         (cell-unknown (when run-uuid (t :ip.unknown.reason)))
+                         {:type :cell/text,     :content ip-address})
+                       {:type :cell/text,       :content name}
+                       {:type :cell/text,       :content cloud-instance-id}
+                       {:type :cell/username,   :content run-owner}]
+                (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
+
+  (defn vms-table
+    [vms & [pagination]]
+    (table/build
+      {:pagination  pagination
+       :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
+                      (current-user/super?) (conj :user))
+       :rows (map vm-row vms)}))
+
+) ;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -349,20 +349,20 @@
    :slipstream.ui.views.table.pagination.action.tooltip.next-page         "Show next page"
    :slipstream.ui.views.table.pagination.action.tooltip.last-page         "Show last page"
 
-   :slipstream.ui.views.tables.deployment-nodes-table.mapping     :global.nouns.mapping
-   :slipstream.ui.views.tables.deployment-nodes-table.node        :global.nouns.node
+   :slipstream.ui.views.tables.deployment-nodes-table.mapping             :global.nouns.mapping
+   :slipstream.ui.views.tables.deployment-nodes-table.node                :global.nouns.node
 
-   :slipstream.ui.views.tables.run.state.running              :global.vm-states.running
-   :slipstream.ui.views.tables.run.state.stopped              :global.vm-states.stopped
-   :slipstream.ui.views.tables.run.state.terminated           :global.vm-states.terminated
+   :slipstream.ui.views.tables.vms-table.state.running                    :global.vm-states.running
+   :slipstream.ui.views.tables.vms-table.state.stopped                    :global.vm-states.stopped
+   :slipstream.ui.views.tables.vms-table.state.terminated                 :global.vm-states.terminated
 
-   :slipstream.ui.views.tables.run.uuid.unknown.reason       "Either SlipStream has not yet been notified about the association of this VM to a Run or this VM was not started by SlipStream. In the latter case the VM has been directly created on the cloud or via a third party using your cloud credentials."
-   :slipstream.ui.views.tables.run.uuid.no-link.reason       "This VM was started by another user with SlipStream and thus you don't have access to the run page. It is listed here because the other user is either using the same cloud credentials as yours or sharing cloud resources with you."
+   :slipstream.ui.views.tables.vms-table.run-uuid.unknown.reason          "Either SlipStream has not yet been notified about the association of this VM to a Run or this VM was not started by SlipStream. In the latter case the VM has been directly created on the cloud or via a third party using your cloud credentials."
+   :slipstream.ui.views.tables.vms-table.run-uuid.no-link.reason          "This VM was started by another user with SlipStream and thus you don't have access to the run page. It is listed here because the other user is either using the same cloud credentials as yours or sharing cloud resources with you."
 
 
-   :slipstream.ui.views.tables.run.ip.unknown.reason         "The IP is not yet available."
+   :slipstream.ui.views.tables.vms-table.ip.unknown.reason                "The IP is not yet available."
 
-   :slipstream.ui.views.tables.unknown                        :global.adjectives.unknown
+   :slipstream.ui.views.tables.unknown                                    :global.adjectives.unknown
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "This right allows users to find and see this project."
