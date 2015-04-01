@@ -289,17 +289,8 @@
               <h4 class="modal-title" id="ss-run-image-dialog-label"><!-- <span class="glyphicon glyphicon-picture"></span>  -->Run image</h4>
             </div>
             <div class="modal-body">
-              <div class="form-group">
-                <label id="ss-run-image-cloud-label" for="parameter--cloudservice" class="col-sm-3 control-label">Cloud service</label>
-                <div class="col-sm-9">
-                  <select class="form-control" id="parameter--cloudservice" name="parameter--cloudservice">
-                    <option>cloud-1</option>
-                    <option>cloud-2</option>
-                    <option>cloud-3</option>
-                    <option>cloud-4</option>
-                    <option>cloud-5</option>
-                  </select>
-                </div>
+              <div class="ss-run-image-content">
+                blah
               </div>
               <div class="ss-dialog-footnote text-muted">
                 This dialog is used only for the run action for images.
@@ -322,9 +313,9 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade ss-run-module-dialog" id="ss-build-image-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-build-image-dialog-label" aria-hidden="true">
+    <div class="modal fade ss-build-module-dialog" id="ss-build-image-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-build-image-dialog-label" aria-hidden="true">
       <div class="modal-dialog">
-        <form class="form-horizontal ss-run-module-form" role="form">
+        <form class="form-horizontal ss-build-module-form" role="form">
           <!-- The UI always bypasses the SSH check, i.e. launching a deployment without SSH keys won't fail -->
           <input type="hidden" class="form-control" id="bypass-ssh-check" name="bypass-ssh-check" value="true">
           <input type="hidden" class="form-control" id="ss-build-image-id" name="refqname" value="module/the/source/module/uri/123">
@@ -418,9 +409,9 @@
             </div>
             <div class="modal-body">
               <h4 class="ss-run-deployment-global-section-title">Global deployment parameters</h4>
-                <div class="ss-run-deployment-global-section-content">
-                  Here comes the table with the global parameters.
-                </div>
+              <div class="ss-run-deployment-global-section-content">
+                Here comes the table with the global parameters.
+              </div>
               <hr>
               <h4 class="ss-run-deployment-nodes-section-title">Node parameters</h4>
               <div class="ss-run-deployment-nodes-section-content">
