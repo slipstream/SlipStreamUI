@@ -716,7 +716,7 @@
                              :editable? (-> parameters :ssh-key-available? not)
                              :id-format-fn (constantly "ssh-access-enabled")
                              :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
-        :image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloud-service")}
+        :image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloudservice")}
         :tags               {:type :cell/text
                              :editable? true
                              :id-format-fn (constantly "tags")
@@ -740,10 +740,9 @@
                                                 :content  description}}]})
 
   (defn run-image-input-parameters-table
-    [parameters]
-    (let [input-parameters (p/parameters-of-category parameters "Input")]
-      (table/build
-        {:rows (map run-image-input-parameter-row input-parameters)})))
+    [input-parameters]
+    (table/build
+      {:rows (map run-image-input-parameter-row input-parameters)}))
 
 ) ;; End of prefixed t scope
 

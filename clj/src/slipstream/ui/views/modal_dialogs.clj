@@ -8,6 +8,7 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.models.parameters :as p]
             [slipstream.ui.views.tables :as t]))
 
 (localization/def-scoped-t)
@@ -140,8 +141,10 @@
                                                       ue/this (html/content text))
     [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
     [:.ss-run-image-global-section-content]            (html/content       (-> [image-metadata :image] run-module-global-parameters t/run-image-global-section-table))
-    [:.ss-run-image-input-parameters-section-title]    (html/html-content  (t :input-parameters-section.title))
-    [:.ss-run-image-input-parameters-section-content]  (html/content       (-> image-metadata :deployment :parameters t/run-image-input-parameters-table))
+    [:.ss-run-image-input-parameters-section]          (when-let [input-parameters (-> image-metadata :deployment :parameters (p/parameters-of-category "Input") not-empty)]
+                                                         (ue/at-match
+                                                          [:.ss-run-image-input-parameters-section-title]    (html/html-content  (t :input-parameters-section.title))
+                                                          [:.ss-run-image-input-parameters-section-content]  (html/content       (t/run-image-input-parameters-table input-parameters))))
     footnote-sel                  (html/html-content  (t :footnote resource-id module-version))
     [:#ss-run-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     first-button-sel              (html/content       (t :button.cancel))

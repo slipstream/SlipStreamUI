@@ -137,6 +137,12 @@
      ~form-when-true
      ~form-when-false))
 
+(defmacro at-match
+  [& rules]
+  `(fn [match#]
+    (html/at match#
+             ~@rules)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Data fn family
