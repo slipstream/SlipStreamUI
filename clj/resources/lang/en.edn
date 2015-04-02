@@ -535,6 +535,7 @@
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance ID"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
+   :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page." ; %1$s = user profile URL
 
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "New parameter name"
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.description.placeholder   :global.nouns.description
