@@ -729,6 +729,10 @@
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
 
+   :slipstream.ui.util.icons.description.user-section-summary      "Information personnelle"
+   :slipstream.ui.util.icons.description.user-section-general      "Paramètres généraux"
+   :slipstream.ui.util.icons.description.user-section-cloud        "Paramètres du connecteur"
+
    :slipstream.ui.util.icons.description.image-build               "Construction d'une image"
    :slipstream.ui.util.icons.description.image-run                 "Exécution d'une image"
    :slipstream.ui.util.icons.description.deployment-run            "Exécution d'un déploiement"

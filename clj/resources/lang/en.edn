@@ -730,10 +730,14 @@
    :slipstream.ui.util.icons.description.image                     :global.nouns.image
    :slipstream.ui.util.icons.description.node                      :global.nouns.node
    :slipstream.ui.util.icons.description.orchestrator              :global.nouns.orchestrator
-   :slipstream.ui.util.icons.description.config                    :global.nouns.config
+   :slipstream.ui.util.icons.description.config                    :global.nouns.configuration
    :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
+
+   :slipstream.ui.util.icons.description.user-section-summary      "Personal information"
+   :slipstream.ui.util.icons.description.user-section-general      "General parameters"
+   :slipstream.ui.util.icons.description.user-section-cloud        "Connector parameters"
 
    :slipstream.ui.util.icons.description.image-build               "Image Build"
    :slipstream.ui.util.icons.description.image-run                 "Image Run"
