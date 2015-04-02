@@ -50,7 +50,8 @@
     app-image-preloader-sel        (ue/set-src image)
     app-image-container-sel        (ue/enable-class updated? app-updated-cls)
     app-image-container-sel        (ue/enable-class new? app-new-cls)
-    app-name-deploy-btn-sel        (ue/set-onclick "location = '" (u/uri uri :action "run") "'; return false;")
+    app-name-deploy-btn-sel        (when (page-type/not-chooser?)
+                                     (ue/set-onclick "location = '" (u/uri uri :action "run") "'; return false;"))
     app-name-deploy-btn-label-sel  (html/content (t :app.label.deploy))
     app-name-container-sel         (ue/set-href uri)
     app-name-sel                   (html/content (str name))
@@ -87,7 +88,7 @@
 (defn- sections
   [welcome-metadata]
   (cond-> []
-    (page-type/not-chooser?)  (conj (app-store-section       welcome-metadata))
+    :always                   (conj (app-store-section       welcome-metadata))
     :always                   (conj (projects-section        welcome-metadata))
     (page-type/not-chooser?)  (conj (service-catalog-section welcome-metadata))))
 
