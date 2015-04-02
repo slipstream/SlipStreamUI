@@ -11,7 +11,7 @@
                     :measurement])
       (assoc        :username           (-> vm-metadata :user       not-empty))
       (assoc        :cloud-instance-id  (-> vm-metadata :instanceId not-empty))
-      (assoc        :run-uuid           (-> vm-metadata :runUuid    (s/replace "Unknown" "") not-empty))
+      (assoc        :run-uuid           (some-> vm-metadata :runUuid  (s/replace "Unknown" "") not-empty))
       (assoc        :cloud-name         (-> vm-metadata :cloud      not-empty))
       (assoc        :ip-address         (-> vm-metadata :ip         not-empty))
       (assoc        :run-owner          (-> vm-metadata :runOwner   not-empty))
