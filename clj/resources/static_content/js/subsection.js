@@ -62,7 +62,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     .replace(/\d+-/, ""), // remove digits of the unique prefix
             $subsectionContent  = $(subsectionId),
             onShowCallback      = $tabAnchor.data(onShowCallbackKey);
-        history.replaceState(null, document.title, window.location.hash.trimFromLastIndexOf(sep) 
+        history.replaceState(null, document.title, $$.util.url.getCurrentURLWithoutHash()
+                                                   + window.location.hash.trimFromLastIndexOf(sep) 
                                                    + sep + subsectionIdTrimmed);
 
         // Run on-show-callback if present
