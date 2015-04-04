@@ -70,3 +70,8 @@ select.ss-subsection-activator-xs-group:focus {
   border-right-style: solid;
   border-right-color: #ddd;
 }
+
+.ss-subsection-group-stacked .ss-section-content {
+    padding: 0;
+}
+

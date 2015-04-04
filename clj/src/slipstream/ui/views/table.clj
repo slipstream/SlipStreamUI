@@ -19,8 +19,10 @@
 (declare cell-snip)
 
 (def table-cls "ss-table")
+(def responsive-table-cls "ss-responsive-table")
 
 (def table-sel [(html/has-class table-cls)])
+(def responsive-table-sel [(html/has-class responsive-table-cls)])
 (def table-head-sel [:.ss-table-head :> :tr])
 (def table-header-sel (concat table-head-sel [:> [:th html/first-of-type]]))
 (def table-body-sel [:.ss-table-body])
@@ -772,6 +774,10 @@
                                      (remove :remove?)
                                      rows-snip)))
 
+(html/defsnippet ^:private responsive-table-snip template-filename responsive-table-sel
+  [table]
+  ue/this (html/content (table-snip table)))
+
 (defn build
   [table]
-  (table-snip table))
+  (responsive-table-snip table))

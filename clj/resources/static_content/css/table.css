@@ -215,3 +215,12 @@ td[id*=':abort']:empty::before {
   /* Prevent hover effect on row with pagination controls */
   background-color: inherit;
 }
+
+.ss-table-cell-pagination .text-left {
+  padding-left: 0;
+}
+
+.ss-table-cell-pagination .text-right {
+  padding-right: 0;
+}
+
