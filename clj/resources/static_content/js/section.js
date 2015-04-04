@@ -74,7 +74,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var $sectionContent = $(e.target);
 
         // Update hash in URL
-        window.location.hash = e.delegateTarget.id.trimPrefix(sectionIdPrefix);
+        history.replaceState(null, document.title, $$.util.url.getCurrentURLWithoutHash()
+                                                   + "#"
+                                                   + e.delegateTarget.id.trimPrefix(sectionIdPrefix));
 
         // Run on-show-callback if present
         var onShowCallback = $sectionContent.data(onShowCallbackKey),
@@ -100,7 +102,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addClass('glyphicon-chevron-down');
         if (window.location.hash.trimPrefix("#") == e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
             // Remove the hash from URL if it contains still the hash of the closing section
-            window.location.hash = "";
+            history.replaceState(null, document.title, $$.util.url.getCurrentURLWithoutHash());
         }
     });
 
