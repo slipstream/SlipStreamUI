@@ -1,0 +1,3 @@
+429 - Too Many Requests
+You did too many requests.
+Please wait some time before retrying.
