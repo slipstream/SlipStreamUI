@@ -209,7 +209,7 @@
    :slipstream.ui.views.error.header.title.status-code-415     "Unsupported media type"
    :slipstream.ui.views.error.header.title.status-code-416     "Requested range not satisfiable"
    :slipstream.ui.views.error.header.title.status-code-417     "Expectation failed"
-   :slipstream.ui.views.error.header.title.status-code-418     "I'm a teapot"
+   :slipstream.ui.views.error.header.title.status-code-418     "Je suis une théière"
    :slipstream.ui.views.error.header.title.status-code-422     "Unprocessable entity"
    :slipstream.ui.views.error.header.title.status-code-423     "Locked"
    :slipstream.ui.views.error.header.title.status-code-424     "Failed dependency"
