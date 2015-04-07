@@ -152,7 +152,6 @@
     <connection>${scm.read}/SlipStreamUI.git</connection>
     <developerConnection>${scm.write}/SlipStreamUI.git</developerConnection>
     <url>${scm.public}/SlipStreamUI</url>
-    <tag>v2.6-community</tag>
   </scm>
 
 </project>
