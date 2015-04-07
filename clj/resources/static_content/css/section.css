@@ -30,25 +30,3 @@ span.row span {
   color: #8a6d3b;   /* Bootstrap's .text-warning */
   content: "\e209"; /* Bootstrap's glyphicon-alert */
 }
-
-@media (max-width: 767px) {
-  /* Phone (xs) */
-
-  .ss-section-content > .ss-responsive-table,
-  .ss-section-content > .ss-table {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: auto;
-  }
-
-  .ss-section-content > .ss-responsive-table:first-child,
-  .ss-section-content > .ss-table:first-child {
-    margin-top: -15px;
-  }
-
-  .ss-section-content > .ss-responsive-table:last-child,
-  .ss-section-content > .ss-table:last-child {
-    margin-bottom: -15px;
-  }
-}
-
