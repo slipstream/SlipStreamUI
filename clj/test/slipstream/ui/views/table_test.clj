@@ -207,49 +207,49 @@
 (expect
   [{:tag :td
     :attrs {:class "ss-table-cell-text-editable"}
-    :content ["\n            "
+    :content ["\n              "
               {:tag :input
                :attrs {:value rand-str
                        :class "form-control"
                        :type "text"}
                        :content []}
-              "\n          "]}]
+              "\n            "]}]
   (@#'slipstream.ui.views.table/cell-text-snip-edit {:text rand-str}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-          </td>")
+              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            </td>")
   (cell-html {:type :cell/text, :content {:text rand-str}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-          </td>")
+              <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :disabled? true}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
-          </td>")
+              <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
+            </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :placeholder "Text"}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"\" class=\"form-control\" type=\"text\" />
-          </td>")
+              <input value=\"\" class=\"form-control\" type=\"text\" />
+            </td>")
   (cell-html {:type :cell/text, :content {:text ""}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"\" class=\"form-control\" type=\"text\" />
-          </td>")
+              <input value=\"\" class=\"form-control\" type=\"text\" />
+            </td>")
   (cell-html {:type :cell/text, :content {:text nil}, :editable? true}))
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-          </td>")
+              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            </td>")
   (cell-html {:type :cell/text, :content rand-str, :editable? true}))
 
 ; When a parameter is available in the cell content, we append the hidden
@@ -257,8 +257,8 @@
 
 (expect
   (str "<td class=\"ss-table-cell-text-editable\">
-            <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
-          <span>"
+              <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
+            <span>"
             "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
@@ -285,8 +285,8 @@
 
 (expect
   "<td class=\"ss-table-cell-password-editable\">
-            <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
-          </td>"
+              <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
+            </td>"
   (cell-html {:type :cell/password, :editable? true, :content {:text rand-str}}))
 
 ; When a parameter is available in the cell content, we append the hidden
@@ -294,8 +294,8 @@
 
 (expect
   (str "<td class=\"ss-table-cell-password-editable\">
-            <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
-          <span>"
+              <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
+            <span>"
             "<input name=\"parameter-stratuslab.cpu--0--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--0--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--0--category\" value=\"stratuslab\" type=\"hidden\" />"
@@ -343,47 +343,47 @@
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
-            <select class=\"form-control\">
-              <option value=\"other-choice\">Other choice</option>
-              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
-            </select>
-          </td>")
+              <select class=\"form-control\">
+                <option value=\"other-choice\">Other choice</option>
+                <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+              </select>
+            </td>")
   (cell-html {:type :cell/enum, :editable? true, :content enum}))
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
-            <select class=\"form-control\">
-              <option value=\"other-choice\">Other choice</option>
-              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
-            </select>
-          </td>")
+              <select class=\"form-control\">
+                <option value=\"other-choice\">Other choice</option>
+                <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+              </select>
+            </td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum}}))
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
-            <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
-              <option value=\"other-choice\">Other choice</option>
-              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
-            </select>
-          </td>")
+              <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
+                <option value=\"other-choice\">Other choice</option>
+                <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+              </select>
+            </td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id"}}))
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
-            <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
-              <option value=\"other-choice\">Other choice</option>
-              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
-            </select>
-          <input name=\"some-id\" id=\"some-id\" value=\"" rand-url "\" type=\"hidden\" /></td>")
+              <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
+                <option value=\"other-choice\">Other choice</option>
+                <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+              </select>
+            <input name=\"some-id\" id=\"some-id\" value=\"" rand-url "\" type=\"hidden\" /></td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id", :read-only? true}}))
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
-            <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
-              <option value=\"other-choice\">Other choice</option>
-              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
-            </select>
-          </td>")
+              <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
+                <option value=\"other-choice\">Other choice</option>
+                <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+              </select>
+            </td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id", :disabled? true}}))
 
 
@@ -392,11 +392,11 @@
 
 (expect
   (str "<td class=\"ss-table-cell-enum-editable\">
-            <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
-              <option value=\"other-choice\">Other choice</option>
-              <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
-            </select>
-          <span>"
+              <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
+                <option value=\"other-choice\">Other choice</option>
+                <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
+              </select>
+            <span>"
             "<input name=\"parameter-stratuslab.cpu--7--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--7--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--7--category\" value=\"stratuslab\" type=\"hidden\" />"
@@ -413,8 +413,8 @@
 
 (expect
   (str "<td class=\"ss-table-cell-map\">
-            <dl class=\"dl-horizontal\"><dt>Second-key</dt><dd id=\"Second-key\">will come first since sorted alphabetically</dd><dt>first-key</dt><dd id=\"first-key\">" rand-str "</dd></dl>
-          </td>")
+              <dl class=\"dl-horizontal\"><dt>Second-key</dt><dd id=\"Second-key\">will come first since sorted alphabetically</dd><dt>first-key</dt><dd id=\"first-key\">" rand-str "</dd></dl>
+            </td>")
   (cell-html {:type :cell/map, :content {"first-key" rand-str, "Second-key" "will come first since sorted alphabetically"}}))
 
 
@@ -514,36 +514,36 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
-       "\n          </td>")
+       "\n                <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content icons/run-successfully-ready})))
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span class=\"text-success glyphicon-ok glyphicon\"></span>"
-       "\n          </td>")
+       "\n                <span class=\"text-success glyphicon-ok glyphicon\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content (icons/run-successfully-ready)})))
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span class=\"text-success glyphicon-ok glyphicon\"></span>"
-       "\n          </td>")
+       "\n                <span class=\"text-success glyphicon-ok glyphicon\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content {:icon (icons/run-successfully-ready)}})))
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
-       "\n          </td>")
+       "\n                <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content {:icon icons/run-successfully-ready}})))
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-danger glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
-       "\n          </td>")
+       "\n                <span data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-danger glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content {:icon icons/run-successfully-ready
                                            :style :danger
@@ -551,8 +551,8 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span class=\"text-success glyphicon-ok glyphicon\"></span>"
-       "\n          </td>")
+       "\n                <span class=\"text-success glyphicon-ok glyphicon\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content {:icon (icons/run-successfully-ready)
                                            ; NOTE: Compiled icons are not affected by additional tweaks like :style and :position
@@ -561,8 +561,8 @@
 
 (expect
   (str "<td class=\"ss-table-cell-icon\">"
-       "\n              <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Import\" class=\"glyphicon ss-icon-tooltip glyphicon-floppy-open\"></span>"
-       "\n          </td>")
+       "\n                <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Import\" class=\"glyphicon ss-icon-tooltip glyphicon-floppy-open\"></span>"
+       "\n            </td>")
   (localization/with-lang :en
     (cell-html {:type :cell/icon, :content icons/action-import})))
 
@@ -575,20 +575,20 @@
 
 (expect
   "<td class=\"ss-table-cell-boolean\">
-            <input disabled=\"\" checked=\"\" type=\"checkbox\" />
-          </td>"
+              <input disabled=\"\" checked=\"\" type=\"checkbox\" />
+            </td>"
   (cell-html {:type :cell/boolean, :content true}))
 
 (expect
   "<td class=\"ss-table-cell-boolean\">
-            <input disabled=\"\" type=\"checkbox\" />
-          </td>"
+              <input disabled=\"\" type=\"checkbox\" />
+            </td>"
   (cell-html {:type :cell/boolean, :content false}))
 
 (expect
   "<td class=\"ss-table-cell-boolean\">
-            <input disabled=\"\" type=\"checkbox\" />
-          </td>"
+              <input disabled=\"\" type=\"checkbox\" />
+            </td>"
   (cell-html {:type :cell/boolean, :content nil}))
 
 
@@ -596,20 +596,20 @@
 
 (expect
   "<td class=\"ss-table-cell-boolean-editable\">
-            <input checked=\"\" type=\"checkbox\" />
-          </td>"
+              <input checked=\"\" type=\"checkbox\" />
+            </td>"
   (cell-html {:type :cell/boolean, :content true, :editable? true}))
 
 (expect
   "<td class=\"ss-table-cell-boolean-editable\">
-            <input type=\"checkbox\" />
-          </td>"
+              <input type=\"checkbox\" />
+            </td>"
   (cell-html {:type :cell/boolean, :content false, :editable? true}))
 
 (expect
   "<td class=\"ss-table-cell-boolean-editable\">
-            <input type=\"checkbox\" />
-          </td>"
+              <input type=\"checkbox\" />
+            </td>"
   (cell-html {:type :cell/boolean, :content nil, :editable? true}))
 
 ; When a parameter is available in the cell content, we append the hidden
@@ -617,8 +617,8 @@
 
 (expect
   (str "<td class=\"ss-table-cell-boolean-editable\">
-            <input checked=\"\" type=\"checkbox\" />
-          <span>"
+              <input checked=\"\" type=\"checkbox\" />
+            <span>"
             "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
@@ -646,14 +646,14 @@
 
 (expect
   (str "<td class=\"ss-table-cell-help-hint\">"
-       "\n              <span data-content=\"" rand-str "\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
-       "\n          </td>")
+       "\n                <span data-content=\"" rand-str "\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
+       "\n            </td>")
   (cell-html {:type :cell/help-hint, :content {:content rand-str}}))
 
 (expect
   (str "<td class=\"ss-table-cell-help-hint\">"
-       "\n              <span data-content=\"" rand-str "\" title=\"The title\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
-       "\n          </td>")
+       "\n                <span data-content=\"" rand-str "\" title=\"The title\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
+       "\n            </td>")
   (cell-html {:type :cell/help-hint, :content {:title "The title", :content rand-str}}))
 
 
@@ -676,16 +676,16 @@
 
 (expect
   (str "<td class=\"ss-table-cell-reference-module-editable\">
-            <div class=\"input-group\">
-              <input value=\"" rand-url "\" name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
-              <span class=\"ss-reference-module-name\">
-                <a target=\"_blank\" class=\"btn btn-link\" href=\"/module" rand-url "\">" (remove-first-char rand-url) "</a>
-              </span>
-              <span class=\"ss-reference-module-chooser-button\">
-                <button type=\"button\" class=\"btn btn-primary\">Choose reference</button>
-              </span>
-            </div><!-- /input-group -->
-          </td>")
+              <div class=\"input-group\">
+                <input value=\"" rand-url "\" name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
+                <span class=\"ss-reference-module-name\">
+                  <a target=\"_blank\" class=\"btn btn-link\" href=\"/module" rand-url "\">" (remove-first-char rand-url) "</a>
+                </span>
+                <span class=\"ss-reference-module-chooser-button\">
+                  <button type=\"button\" class=\"btn btn-primary\">Choose reference</button>
+                </span>
+              </div><!-- /input-group -->
+            </td>")
   (localization/with-lang :en
     (cell-html {:type :cell/reference-module, :content rand-url, :editable? true})))
 
@@ -701,13 +701,13 @@
 
 (expect
   (str  "<td class=\"ss-table-cell-toggle-button-editable\">
-            <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"" rand-str "\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">" rand-str "</button>
-          </td>")
+              <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"" rand-str "\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">" rand-str "</button>
+            </td>")
   (cell-html {:type :cell/toggle-button, :content {:text rand-str, :id "ss-some-button-id"}}))
 
 (expect
   (str  "<td class=\"ss-table-cell-toggle-button-editable\">
-            <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"Will be removed\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">Remove</button>
-          </td>")
+              <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"Will be removed\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">Remove</button>
+            </td>")
   (cell-html {:type :cell/toggle-button, :content {:text "Remove", :text-pressed "Will be removed" :id "ss-some-button-id"}}))
 
