@@ -18,11 +18,8 @@
 (declare build)
 (declare cell-snip)
 
-(def table-cls "ss-table")
-(def responsive-table-cls "ss-responsive-table")
+(def table-sel [:.ss-table])
 
-(def table-sel [(html/has-class table-cls)])
-(def responsive-table-sel [(html/has-class responsive-table-cls)])
 (def table-head-sel [:.ss-table-head :> :tr])
 (def table-header-sel (concat table-head-sel [:> [:th html/first-of-type]]))
 (def table-body-sel [:.ss-table-body])
@@ -766,18 +763,14 @@
 
 (html/defsnippet ^:private table-snip template-filename table-sel
   [{:keys [headers] :as table}]
-  ue/this         (html/add-class (:class table))
-  ue/this         (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
-  ue/this         (ue/when-add-class (paginated? table) "ss-table-with-pagination")
+  [:table]        (html/add-class (:class table))
+  [:table]        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
+  [:table]        (ue/when-add-class (paginated? table) "ss-table-with-pagination")
   table-head-sel  (ue/when-content (not-empty headers) (head-snip headers))
   table-body-sel  (html/content (->> (rows table)
                                      (remove :remove?)
                                      rows-snip)))
 
-(html/defsnippet ^:private responsive-table-snip template-filename responsive-table-sel
-  [table]
-  ue/this (html/content (table-snip table)))
-
 (defn build
   [table]
-  (responsive-table-snip table))
+  (table-snip table))
