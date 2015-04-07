@@ -1,4 +1,4 @@
 504 - Gateway Time-out
-SlipStream didn't replied in time.
+SlipStream didn't reply in time.
 It is probably overloaded.
 Please try again later.

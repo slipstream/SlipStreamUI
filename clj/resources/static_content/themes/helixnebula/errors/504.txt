@@ -1,4 +1,4 @@
 504 - Gateway Time-out
-The HelixNebula Marketplace didn't replied in time.
+The HelixNebula Marketplace didn't reply in time.
 It is probably overloaded.
 Please try again later.

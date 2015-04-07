@@ -1,4 +1,4 @@
- #!/usr/bin/env python
+#!/usr/bin/env python
 
 import copy
 import json
@@ -24,7 +24,7 @@ ss_errors = [
      'specificationUri': 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4'},
 
     {'code': '504', 'reason': 'Gateway Time-out',
-     'detail': "SlipStream didn't replied in time.\nIt is probably overloaded.\nPlease try again later.",
+     'detail': "SlipStream didn't reply in time.\nIt is probably overloaded.\nPlease try again later.",
      'specificationUri': 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.5'}
 ]
 
@@ -48,7 +48,7 @@ bb_errors = [
      'specificationUri': 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4'},
 
     {'code': '504', 'reason': 'Gateway Time-out', 
-     'detail': "The HelixNebula Marketplace didn't replied in time.\nIt is probably overloaded.\nPlease try again later.",
+     'detail': "The HelixNebula Marketplace didn't reply in time.\nIt is probably overloaded.\nPlease try again later.",
      'specificationUri': 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.5'}
 ]
 
