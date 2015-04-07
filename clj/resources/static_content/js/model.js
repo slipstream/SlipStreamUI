@@ -471,8 +471,8 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     },
 
                     handleOrchestratorStatecustom: function(state){
-                        var alertTitle = "Provisioning details",
-                            alertMessage;
+                        var alertTitle      = "Provisioning details",
+                            alertMessage    = "";
 
                         if (state === "Provisioning") {
                             $("[id^='parameter-orchestrator'][id*=':statecustom']", lastRefreshData).each(function() {
