@@ -1759,6 +1759,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             return path;
         },
+        getCurrentURLWithoutHash: function () {
+            return window.location.href.split('#')[0];
+        },
         getParentResourceURL: function () {
             var path = window.location.pathname; // URL without query params
             return path.trimLastURLSegment();
@@ -1772,7 +1775,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.redirectTo(window.location.href);
         },
         reloadPageWithoutHashInURL: function () {
-            return this.redirectTo(window.location.href.split('#')[0]);
+            return this.redirectTo(this.getCurrentURLWithoutHash());
         },
         redirectToCurrentURLBase: function (withHash) {
             return this.redirectTo(this.getCurrentURLBase(withHash));
