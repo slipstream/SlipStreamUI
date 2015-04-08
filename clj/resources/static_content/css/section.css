@@ -34,6 +34,10 @@ span.row span {
 @media (max-width: 767px) {
   /* Phone (xs) */
   .ss-section-content {
-    padding: 0;
+    padding: 8px;
   }
+}
+
+.ss-dynamic-subsection > .ss-section-content {
+  padding: 0;
 }

@@ -158,6 +158,17 @@ td[id*=':abort']:empty::before {
     text-align: center;
   }
 
+  /* Remove extra margin because section already have enough margin */
+  .ss-section-content > .ss-table {
+    margin-left:  -8px;
+    margin-right: -8px;
+    width: auto;
+  }
+
+  .ss-section-content > .ss-table:last-child {
+    margin-bottom: -4px;
+  }
+
   .table-responsive {
     border: none;
   }
