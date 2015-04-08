@@ -30,3 +30,10 @@ span.row span {
   color: #8a6d3b;   /* Bootstrap's .text-warning */
   content: "\e209"; /* Bootstrap's glyphicon-alert */
 }
+
+@media (max-width: 767px) {
+  /* Phone (xs) */
+  .ss-section-content {
+    padding: 0;
+  }
+}
