@@ -798,7 +798,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .each(function () {
                         var $form = $(this);
                         // Clean up hidden field with the same name before adding it.
-                        $form.children("input:hidden[name=" + fieldName + "]").remove();
+                        $form.children("input:hidden[name='" + fieldName + "']").remove();
                         $("<input>")
                             .addClass($form.formHiddenFieldCls)
                             .attr("type", "hidden")

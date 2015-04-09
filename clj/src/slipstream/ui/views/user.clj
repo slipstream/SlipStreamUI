@@ -15,8 +15,8 @@
 (defn- category-section
   [{:keys [category category-type parameters]}]
   {:icon (case category-type
-           :general icons/config
-           :global  icons/cloud
+           :general icons/user-section-general
+           :global  icons/user-section-cloud
            nil)
    :title category
    :content (t/parameters-table parameters)})
@@ -44,7 +44,7 @@
        :secondary-menu-actions [action/edit
                                 action/delete]
        :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
-       :content (into [{:icon       icons/user
+       :content (into [{:icon       icons/user-section-summary
                         :title      (t :summary)
                         :selected?  true
                         :content    (t/user-summary-table user)}]
