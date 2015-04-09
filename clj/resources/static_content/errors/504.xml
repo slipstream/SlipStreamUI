@@ -1,0 +1,5 @@
+<error code="504" detail="SlipStream didn't reply in time. It is probably overloaded. Please try again later." reason="Gateway Time-out" specificationUri="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.5">
+SlipStream didn't reply in time.
+It is probably overloaded.
+Please try again later.
+</error>

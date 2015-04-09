@@ -1,0 +1,8 @@
+{
+    "error": {
+        "reason": "Not Found", 
+        "code": "404", 
+        "detail": "The server has not found anything matching the request URI", 
+        "specificationUri": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5"
+    }
+}

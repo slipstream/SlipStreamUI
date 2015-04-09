@@ -209,7 +209,7 @@
    :slipstream.ui.views.error.header.title.status-code-415     "Unsupported media type"
    :slipstream.ui.views.error.header.title.status-code-416     "Requested range not satisfiable"
    :slipstream.ui.views.error.header.title.status-code-417     "Expectation failed"
-   :slipstream.ui.views.error.header.title.status-code-418     "I'm a teapot"
+   :slipstream.ui.views.error.header.title.status-code-418     "Je suis une théière"
    :slipstream.ui.views.error.header.title.status-code-422     "Unprocessable entity"
    :slipstream.ui.views.error.header.title.status-code-423     "Locked"
    :slipstream.ui.views.error.header.title.status-code-424     "Failed dependency"
@@ -242,7 +242,7 @@
    :slipstream.ui.views.login.input.email.placeholder          "Enter votre adresse de courriel"
    :slipstream.ui.views.login.signup.button.label              "Créer un compte sur SlipStream"
    :slipstream.ui.views.login.signup.terms-hint                "En cliquant sur 'Créer un compte sur SlipStream', vous acceptez nos
-                                                               [conditions d'utilisation](https://slipstream.sixsq.com/html/terms-of-service.html)."
+                                                               [conditions d'utilisation](http://ssdocs.sixsq.com/documentation/terms_and_conditions.html)."
 
    :slipstream.ui.views.user.header.title.loggedin             "Votre profile"
    :slipstream.ui.views.user.header.title.not-loggedin         "Profil utilisateur de %s"

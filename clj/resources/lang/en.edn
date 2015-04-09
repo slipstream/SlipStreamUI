@@ -242,7 +242,7 @@
    :slipstream.ui.views.login.input.email.placeholder          "Enter your email"
    :slipstream.ui.views.login.signup.button.label              "Sign up for SlipStream"
    :slipstream.ui.views.login.signup.terms-hint                "By clicking 'Sign up for SlipStream', you agree to our
-                                                               [terms of service](https://slipstream.sixsq.com/html/terms-of-service.html)."
+                                                               [terms of service](http://ssdocs.sixsq.com/documentation/terms_and_conditions.html)."
 
    :slipstream.ui.views.user.header.title.loggedin             "Your profile"
    :slipstream.ui.views.user.header.title.not-loggedin         "%s's user profile"

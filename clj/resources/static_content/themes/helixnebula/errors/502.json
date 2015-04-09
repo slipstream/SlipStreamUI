@@ -1,0 +1,8 @@
+{
+    "error": {
+        "reason": "Bad Gateway", 
+        "code": "502", 
+        "detail": "The HelixNebula Marketplace is not running.\nPlease try again later.", 
+        "specificationUri": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.3"
+    }
+}

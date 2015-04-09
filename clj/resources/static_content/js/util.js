@@ -1613,8 +1613,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Enable popovers
                 .find("[data-toggle='popover']")
                     .popover({
-                        html: true,
-                        delay: 200
+                        container:  "body",
+                        html:       true,
+                        delay:      200
                     })
                     .end()
                 // Enable tooltips
@@ -1759,6 +1760,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
             return path;
         },
+        getCurrentURLWithoutHash: function () {
+            return window.location.href.split('#')[0];
+        },
         getParentResourceURL: function () {
             var path = window.location.pathname; // URL without query params
             return path.trimLastURLSegment();
@@ -1772,7 +1776,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.redirectTo(window.location.href);
         },
         reloadPageWithoutHashInURL: function () {
-            return this.redirectTo(window.location.href.split('#')[0]);
+            return this.redirectTo(this.getCurrentURLWithoutHash());
         },
         redirectToCurrentURLBase: function (withHash) {
             return this.redirectTo(this.getCurrentURLBase(withHash));
