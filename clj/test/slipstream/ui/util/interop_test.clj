@@ -212,6 +212,14 @@
   (->clj (java.util.HashMap. {(java.util.HashMap. {:a 1}) 1})))
 
 (expect
+  {{:a 1} 1}
+  (->clj (java.util.HashMap. {(java.util.HashMap. {:a 1}) 1})))
+
+(expect
+  map?
+  (ffirst (->clj (java.util.HashMap. {(java.util.HashMap. {:a 1}) 1}))))
+
+(expect
   (complement map?)
   (java.util.HashMap. {:a 1}))
 

@@ -17,7 +17,7 @@
   (->clj [o]
     (let [entries (.entrySet o)]
       (reduce (fn [m [k v]]
-                  (assoc m (keyword k) (->clj v)))
+                  (assoc m (if (string? k) (keyword k) (->clj k)) (->clj v)))
         {}
         entries)))
 
