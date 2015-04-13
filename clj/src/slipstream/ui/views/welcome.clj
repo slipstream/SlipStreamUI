@@ -35,6 +35,10 @@
 (def app-updated-cls "ss-app-updated")
 (def app-new-cls "ss-app-new")
 
+(defn- suitable-for-tour?
+  [app]
+  (->> app :name (re-find #"(?i)wordpress")))
+
 (defn app-thumbnail-nodes
   [app-metadata-list]
   (html/clone-for [{:keys [name
@@ -47,6 +51,7 @@
                            publication-date
                            image]
                     :as app} app-metadata-list]
+    ue/this                        (ue/when-add-class (suitable-for-tour? app) "ss-example-app-in-tour")
     app-image-preloader-sel        (ue/set-src image)
     app-image-container-sel        (ue/enable-class updated? app-updated-cls)
     app-image-container-sel        (ue/enable-class new? app-new-cls)

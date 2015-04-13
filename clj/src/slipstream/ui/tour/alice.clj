@@ -1,6 +1,7 @@
 (ns slipstream.ui.tour.alice
   "Tours for Alice."
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.enlive :as ue]))
 
 (def intro
   "Tour to lead Alice to the 'AHA!' moment."
@@ -16,11 +17,11 @@
       {:title "Applications"
        :content "Here you can find a curated list of deployable applications."}
 
-      [:#ss-section-app-store :> :div :> :div :> [:div (html/nth-child 1)] :> :div]
+      [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div]
       {:title "Application"
        :content "This is a plublished application. Click NEXT to learn how to deploy it."}
 
-      [:#ss-section-app-store :> :div :> :div :> [:div (html/nth-child 1)] :> :div :.ss-app-image-container]
+      [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
        :content "Click the \"Deploy\" button in the bottom right part of the application logo to deploy."
        :width "300px"}
