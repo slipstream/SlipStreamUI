@@ -70,21 +70,12 @@
     (add tour-scenes)
     identity))
 
-; (defn e [x]
-;   (println)
-;   (println ">>>>>>>>")
-;   (prn x)
-;   (println ">>>>>>>>")
-;   (println)
-;   x)
-
 (defn- get-tour-name
   [context]
   (let [options (-> context :metadata meta)]
     (ex/guard "get the tour name"
       (case (:view-name context)
         "welcome"       "alice.intro.welcome"
-        ; "module"       "alice.intro.deploying-wordpress"
         (-> options :request :query-parameters :tour not-empty)))))
 
 (defn- extract-coordinates
