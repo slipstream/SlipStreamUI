@@ -2032,6 +2032,58 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .remove();
         },
 
+        // Bootstro's Options
+
+        // nextButton
+        // nextButtonText
+        // prevButton
+        // prevButtonText
+        // finishButton
+        // finishButtonText
+        // stopOnBackdropClick
+        // stopOnEsc
+        // margin
+        // onComplete
+        // onExit
+        // onStep
+
+        // Bootstro's public methods
+
+        // bootstro.start(selector, options)
+        // bootstro.go_to(i)
+        // bootstro.stop()
+        // bootstro.next()
+        // bootstro.prev()
+        // bootstro.bind()
+        // bootstro.unbind()
+
+        defaultOptions: {
+            prevButton:   "<button class=\"btn btn-primary btn-xs bootstro-prev-btn\">« Prev</button>",
+            nextButton:   "<button class=\"btn btn-primary btn-xs bootstro-next-btn\">Next »</button>",
+            finishButton: "<button class=\"btn btn-xs btn-link bootstro-finish-btn\">Exit guided tour</button>",
+            stopOnBackdropClick: false,
+            beforeStart: undefined, // NOTE: This is not from bootstro
+            onExit: function(){
+                $$.util.tour.disableMouseShield();
+            }
+        },
+
+        setup: function (options) {
+            this.customOptions = options;
+        },
+
+        start: function() {
+            var options = $.extend({}, this.defaultOptions, this.customOptions);
+            if ( $.type(options.beforeStart) === "function" ) {
+                options.beforeStart();
+            }
+            bootstro.start(".bootstro", options);
+        },
+
+        stop: function() {
+            bootstro.stop();
+        },
+
         cookiePrefix: "launch-tour.",
 
         shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
