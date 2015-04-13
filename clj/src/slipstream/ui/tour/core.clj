@@ -107,6 +107,9 @@
   [[_ persona play act]]
   [(format "tours/%s-%s-%s.js" persona play act)])
 
+(defn- help-menu-action?
+  [{:keys [view-name]}]
+  (= view-name "welcome"))
 
 (defn tour
   "Returns the tour scenes and necessary JS and CSS files for the given context."
@@ -116,4 +119,5 @@
       {:name      tour-name
        :scenes    (scenes coordinates)
        :js-files  (js-files coordinates)
-       :css-files ["tour.css"]})))
+       :css-files ["tour.css"]
+       :help-menu-action? (help-menu-action? context)})))

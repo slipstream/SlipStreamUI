@@ -38,7 +38,7 @@
 }
 
 .ss-start-tour-dialog-title {
-  padding-top: 15px;
+  padding-top: 10px;
 }
 .ss-start-tour-dialog-text-body {
   padding: 15px;
@@ -53,4 +53,7 @@
 }
 .ss-take-tour-btn-container {
   padding-bottom: 35px;
+}
+#ss-start-tour-dialog .ss-dialog-footnote {
+  padding-top: 15px;
 }

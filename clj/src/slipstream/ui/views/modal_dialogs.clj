@@ -30,7 +30,8 @@
     [:.ss-start-tour-dialog-text-body]  (html/html-content  (t :text-body (current-user/username)))
     [:.ss-take-tour-btn]                (html/content       (t :button.take-tour))
     [:.ss-no-tour-btn]                  (html/content       (t :button.dont-take-tour-dont-ask-again))
-    [:.ss-ask-next-time-btn]            (html/content       (t :button.dont-take-tour-but-ask-again))))
+    [:.ss-ask-next-time-btn]            (html/content       (t :button.dont-take-tour-but-ask-again))
+    footnote-sel                        (html/html-content  (t :footnote))))
 
 (localization/with-prefixed-t :reset-password-dialog
   (html/defsnippet ^:private reset-password-dialog template-filename [:#ss-reset-password-dialog]

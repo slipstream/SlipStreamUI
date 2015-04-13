@@ -180,6 +180,7 @@
    :slipstream.ui.views.menubar.logged-in.action.users               :global.nouns.users
    :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
    :slipstream.ui.views.menubar.logged-in.action.help                :global.nouns.help
+   :slipstream.ui.views.menubar.logged-in.action.start-tour          "Tour guidé"
    :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
    :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contactez-nous"
@@ -887,6 +888,7 @@
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour                     "Oui, j'aimerais suivre le tour!"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again  "Pas maintenant, merci"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "J'ai pas besoin du tour, merci"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.footnote                              "No stress : vous pouvez toujours le démarrer depuis le menu `Aide` en haut de la page." ;; NOTE: Shortened text to fit within one line in the dialog.
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 

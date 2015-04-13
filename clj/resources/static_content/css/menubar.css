@@ -53,6 +53,10 @@ body.ss-standalone-webapp-mobile > .navbar::before {
   background-color: #a00;
 }
 
+.ss-menubar-logged-in .dropdown-menu>li>a {
+  cursor: pointer;
+}
+
 .ss-menubar-logged-in .navbar-nav li > a:hover,
 .ss-menubar-logged-in .navbar-nav li > a:focus,
 .ss-menubar-logged-in .navbar-nav li > a:active,

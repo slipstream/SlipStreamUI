@@ -200,7 +200,7 @@
   ; base-sel              (ue/when-set-href (not *dev?*) "/") ;; TODO: Is that needed eventually??!
   base-sel              (ue/set-href "/") ;; TODO: Is that needed eventually??!
   ; base-sel              nil ;; TODO: Is that needed eventually??!
-  menubar-sel           (html/substitute (menubar/menubar configuration))
+  menubar-sel           (html/substitute (menubar/menubar context))
   topbar-sel            (ue/remove-if (page-type/chooser?))
   breadcrumbs-sel       (breadcrumbs/transform context)
   secondary-menu-sel    (when-not (page-type/chooser?)
