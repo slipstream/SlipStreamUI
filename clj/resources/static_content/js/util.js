@@ -2024,6 +2024,26 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         disableMouseShield: function () {
             $(".ss-tour-mouse-shield")
                 .remove();
+        },
+
+        cookiePrefix: "launch-tour-",
+
+        shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
+            var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName);
+            if ( $.type(persistedShouldLaunchBehaviour) === "boolean" ) {
+                // Return the currently stored value
+                return persistedShouldLaunchBehaviour;
+            } else if ( $.type(shouldLaunchIfUndefined) === "boolean" ) {
+                // Persist the wanted behaviour
+                $$.util.cookie.set(this.cookiePrefix + tourName, shouldLaunchIfUndefined);
+                return shouldLaunchIfUndefined;
+            } else {
+                throw "'shouldLaunchIfUndefined' must be a boolean.";
+            }
+        },
+
+        persistDismissal: function(tourName) {
+            return $$.util.cookie.set(this.cookiePrefix + tourName, false);
         }
 
     };
@@ -2043,7 +2063,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             for(var i=0; i<ca.length; i++) {
                 var c = ca[i];
                 while (c.charAt(0)===' ') c = c.substring(1);
-                if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+                if (c.indexOf(name) === 0) {
+                    var cvalue = c.substring(name.length, c.length);
+                    switch (cvalue) {
+                        case "true":    return true;
+                        case "false":   return false;
+                        default:        return cvalue;
+                    }
+                }
             }
             return "";
         },

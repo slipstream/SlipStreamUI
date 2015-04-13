@@ -880,6 +880,14 @@
    :slipstream.ui.views.reports.no-reports-yet                                   "Il n'y a pas encore de rapports disponibles."
    :slipstream.ui.views.reports.no-need-to-refresh                               "Cette section sera mise à jour automatiquement quand les rpports arriveront. Pas besoin de refraîchir la page."
 
+   ;; Modal dialogs
+
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.title                                "Bienvenue sur SlipStream!"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Salut, `%1$s`! Nous aimerions montrer comment on peut déployer une application avec SlipStream avec un tour guidé de 5min." ;  %1$s: username
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour                     "Oui, j'aimerais suivre le tour!"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again  "Pas maintenant, merci"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "J'ai pas besoin du tour, merci"
+
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 
    :slipstream.ui.views.modal-dialogs.reset-password-dialog.title                 "Réinitialiser le mot de passe"

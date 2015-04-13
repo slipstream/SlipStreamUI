@@ -27,60 +27,67 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // bootstro.start(".bootstro[data-bootstro-step=0]");
 
-    $$.section.collapseAll();
+    // Uncomment following line to force asking for tour (for dev purposes):
+    // SlipStream.util.cookie.delete("launch-tour-alice.intro.welcome");
 
-    var buttonPreparedToContinueTourCls = "ss-button-prepared-to-continue-tour",
-        onclickStringReplacement        = ["run';", "run&tour=alice.intro.deploying-wordpress';"];
+     $$.util.tour.shouldLaunch("alice.intro.welcome", true) && $('#ss-start-tour-dialog').askConfirmation(function () {
 
-    function prepareButtonToContinueTour() {
-        $(".bootstro-highlight a[role=button]")
-            .addClass(buttonPreparedToContinueTourCls)
-            .updateAttr("onclick", function(s) {
-                return s.replace.apply(s, onclickStringReplacement);
-            });
-    }
+        // If the user chooses to take the tour, don't ask it again next time
+        $$.util.tour.persistDismissal('alice.intro.welcome');
 
-    function unprepareButtonToContinueTour() {
-        $(buttonPreparedToContinueTourCls.asSel())
-            .removeClass(buttonPreparedToContinueTourCls)
-            .updateAttr("onclick", function(s) {
-                return s.replace.apply(s, onclickStringReplacement.reverse());
-            });
-    }
+        $$.section.collapseAll();
 
-    bootstro.start(".bootstro",{
-        prevButton:   "<button class=\"btn btn-primary btn-xs bootstro-prev-btn\">« Prev</button>",
-        nextButton:   "<button class=\"btn btn-primary btn-xs bootstro-next-btn\">Next »</button>",
-        finishButton: "<button class=\"btn btn-xs btn-link bootstro-finish-btn\">Exit tour</button>",
-        stopOnBackdropClick: false,
-        onStep: function (args) {
-            var prevStepIndex = args.direction === "next" ? args.idx - 1 : args.idx + 1;
-            switch (args.idx) {
-                case 0:
-                    $$.section.collapseAll();
-                    $$.util.tour.disableMouseShield();
-                    break;
-                case 1:
-                    $$.section.select(1);
-                    $$.util.tour.enableMouseShield();
-                    break;
-                case 2:
-                    $$.util.tour.enableMouseShield();
-                    break;
-                case 3:
-                default:
-                    prepareButtonToContinueTour();
-                    $$.util.tour.disableMouseShield();
-                    break;
-            }
-        },
-        onExit: function(){
-            unprepareButtonToContinueTour();
-            $$.util.tour.disableMouseShield();
+        var buttonPreparedToContinueTourCls = "ss-button-prepared-to-continue-tour",
+            onclickStringReplacement        = ["run';", "run&tour=alice.intro.deploying-wordpress';"];
 
+        function prepareButtonToContinueTour() {
+            $(".bootstro-highlight a[role=button]")
+                .addClass(buttonPreparedToContinueTourCls)
+                .updateAttr("onclick", function(s) {
+                    return s.replace.apply(s, onclickStringReplacement);
+                });
         }
+
+        function unprepareButtonToContinueTour() {
+            $(buttonPreparedToContinueTourCls.asSel())
+                .removeClass(buttonPreparedToContinueTourCls)
+                .updateAttr("onclick", function(s) {
+                    return s.replace.apply(s, onclickStringReplacement.reverse());
+                });
+        }
+
+        bootstro.start(".bootstro",{
+            prevButton:   "<button class=\"btn btn-primary btn-xs bootstro-prev-btn\">« Prev</button>",
+            nextButton:   "<button class=\"btn btn-primary btn-xs bootstro-next-btn\">Next »</button>",
+            finishButton: "<button class=\"btn btn-xs btn-link bootstro-finish-btn\">Exit tour</button>",
+            stopOnBackdropClick: false,
+            onStep: function (args) {
+                var prevStepIndex = args.direction === "next" ? args.idx - 1 : args.idx + 1;
+                switch (args.idx) {
+                    case 0:
+                        $$.section.collapseAll();
+                        $$.util.tour.disableMouseShield();
+                        break;
+                    case 1:
+                        $$.section.select(1);
+                        $$.util.tour.enableMouseShield();
+                        break;
+                    case 2:
+                        $$.util.tour.enableMouseShield();
+                        break;
+                    case 3:
+                    default:
+                        prepareButtonToContinueTour();
+                        $$.util.tour.disableMouseShield();
+                        break;
+                }
+            },
+            onExit: function(){
+                unprepareButtonToContinueTour();
+                $$.util.tour.disableMouseShield();
+            }
+        });
     });
 
-    // $$.util.tour.enableMouseShield();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

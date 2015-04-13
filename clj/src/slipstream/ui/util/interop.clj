@@ -25,7 +25,6 @@
   (->clj [o]
     (vec (map ->clj o)))
 
-
   java.lang.Object
   (->clj [o]
     o)
