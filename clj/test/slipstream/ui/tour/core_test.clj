@@ -1,6 +1,6 @@
-(ns slipstream.ui.util.tour-test
+(ns slipstream.ui.tour.core-test
   (:use [expectations]
-        [slipstream.ui.util.tour])
+        [slipstream.ui.tour.core])
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.localization :as localization]))
 

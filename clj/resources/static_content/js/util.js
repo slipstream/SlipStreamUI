@@ -2012,4 +2012,46 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     };
 
+    util.tour = {
+
+        enableMouseShield: function () {
+            if ( $(".ss-tour-mouse-shield").foundNothing() ) {
+                $("<div class=\"bootstro-backdrop ss-tour-mouse-shield\"></div>")
+                    .appendTo("body");
+            }
+        },
+
+        disableMouseShield: function () {
+            $(".ss-tour-mouse-shield")
+                .remove();
+        }
+
+    };
+
+    util.cookie = {
+        // Inspired from: http://www.w3schools.com/js/js_cookies.asp
+        set: function (cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + ((exdays || 365)*24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        },
+
+        get: function (cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)===' ') c = c.substring(1);
+                if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        },
+
+        delete: function (cname) {
+            document.cookie = cname + "=;expires=Wed; 01 Jan 1970";
+        }
+
+    };
+
 }( window.SlipStream = window.SlipStream || {}, window.SlipStream.util = {}, jQuery ));});

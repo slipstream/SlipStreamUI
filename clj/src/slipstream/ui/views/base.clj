@@ -3,7 +3,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.theme :as theme]
-            [slipstream.ui.util.tour :as tour]
+            [slipstream.ui.tour.core :as tour]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.page-type :as page-type]
@@ -239,7 +239,9 @@
   [[:img theme/themable-sel]]   (ue/prepend-to-src  (theme/static-content-folder theme))
   [[:link theme/themable-sel]]  (ue/prepend-to-href (theme/static-content-folder theme))
   ;; Add tour info at the end, if need be
-  [:body]                       (tour/add tour)
+  css-container-sel             (ue/when-append tour (-> tour :css-files css-links-snip))
+  bottom-scripts-container-sel  (ue/when-append tour (-> tour :js-files  bottom-internal-scripts-snip))
+  [:body]                       (tour/when-add  tour)
   )
 
 (defn- templates
@@ -254,26 +256,38 @@
     :always                   (conj code-area/template-filename)        ;; TODO: only if body has code-areas.
     :always                   (conj current-template-filename)))
 
+(defn- trim-context
+  "Remove unnecessary data. Specially useful to remove noise from logs if the context is dumped."
+  [context]
+  (dissoc context :parsed-metadata
+                  :content))
+
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]
-  (when (mode/dev?)
-    (println "Generating base from ns" (:view-ns context)
-             "- View name" (:view-name context)
-             "- Title" (-> context :header :title)
-             "- Template:" template-filename
-             "- Metadata available?" (-> context :metadata boolean)
-             "- Service Catalogue enabled?" (-> context
-                                                :metadata
-                                                configuration/parse
-                                                configuration/service-catalog-enabled?)))
-  (base
-    (cond-> context
-      :always               (assoc :theme (theme/current))
-      (page-type/edit?)     (assoc :secondary-menu-actions  edit-page-actions)
-      (page-type/new?)      (assoc :secondary-menu-actions  new-page-actions)
-      (save-page? context)  (assoc :secondary-menu-actions  save-page-actions)
-      :always               (assoc :configuration           (-> context :metadata configuration/parse))
-      :always               (assoc :involved-templates      (templates template-filename)))))
+  (let [context (cond-> context
+                        :always               (assoc :theme (theme/current))
+                        :always               (assoc :tour  (-> context trim-context tour/tour))
+                        (page-type/edit?)     (assoc :secondary-menu-actions  edit-page-actions)
+                        (page-type/new?)      (assoc :secondary-menu-actions  new-page-actions)
+                        (save-page? context)  (assoc :secondary-menu-actions  save-page-actions)
+                        :always               (assoc :configuration           (-> context :metadata configuration/parse))
+                        :always               (assoc :involved-templates      (templates template-filename)))]
+    (when (mode/dev?)
+      (println)
+      (println ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
+      (println ";; Generating base with context:")
+      (println ";;   - View ns:             " (:view-ns context))
+      (println ";;   - View name:           " (:view-name context))
+      (println ";;   - Title:               " (-> context :header :title))
+      (println ";;   - Template:            " template-filename)
+      (println ";;   - Request options:     " (-> context :metadata meta str))
+      (println ";;   - Theme:               " (theme/current))
+      (println ";;   - Metadata available?  " (-> context :metadata boolean))
+      (println ";;   - Service Catalogue?   " (-> context :configuration configuration/service-catalog-enabled? boolean))
+      (println ";;   - Tour:                " (-> context :tour :name))
+      (println ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
+      (println))
+    (base context)))
 
 (defmacro generate
   "This macro includes info about the caller into the 'context' map argument."

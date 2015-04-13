@@ -3,6 +3,7 @@
   expected all the time. E.g. a java.util.HashMap cannot be used as clj meta.")
 
 (defprotocol ConvertibleToClojure
+  "See tests for expectations."
   ;; NOTE: Inspired from
   ;;       http://grokbase.com/t/gg/clojure/11afb4wmb3/recursively-convert-java-map-to-clojure-map
   ;;       http://clojure.org/protocols

@@ -1,13 +1,16 @@
-(ns slipstream.ui.util.tour
+(ns slipstream.ui.tour.core
   "Util functions for the UI onboarding tour.
   Currently using bootstro.js - https://clu3.github.io/bootstro.js/#"
-  (:require [net.cgrand.enlive-html :as html]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
-            [slipstream.ui.util.clojure :as uc]))
+            [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.exception :as ex]
+            [slipstream.ui.tour.alice :as alice]))
 
 (defn- add-step-index
-  [tour-steps]
-  (->> tour-steps
+  [tour-scenes]
+  (->> tour-scenes
        (partition 2)
        (map-indexed #(assoc-in (vec %2) [1 :step] %1))
        not-empty))
@@ -33,15 +36,15 @@
                         str)))
 
 
-(defn add
+(defn- add
   "See tests for expectations."
-  [tour-steps]
+  [tour-scenes]
   (fn [match]
-    (if-let [tour-steps-indexed (add-step-index tour-steps)]
-      ; For each of the steps, we apply an enlive transformation
+    (let [tour-scenes-indexed (add-step-index tour-scenes)]
+      ; For each of the scenes, we apply an enlive transformation
       (loop [m                match
-             [sel step-info]  (first tour-steps-indexed)
-             next-steps       (next tour-steps-indexed)]
+             [sel step-info]  (first tour-scenes-indexed)
+             next-scenes       (next tour-scenes-indexed)]
         (let [sel-v        (uc/ensure-vector sel)
               updated-node (html/transform (html/as-nodes m)
                               sel-v  (html/do->
@@ -53,10 +56,64 @@
                                        (set-bootstro    :nextButtonText step-info)
                                        (set-bootstro    :html           {:html true})
                                        (set-bootstro    :step           step-info)))]
-          (if next-steps
+          (if next-scenes
             (recur updated-node
-                   (first next-steps)
-                   (next next-steps))
-            updated-node)))
-      ; If no steps are defined, don't change the matched nodes.
-      identity)))
+                   (first next-scenes)
+                   (next next-scenes))
+            updated-node))))))
+
+(defn when-add
+  "Apply the transformations for the tour, if there is one. If not, don't change
+  the matched nodes."
+  [tour]
+  (if-let [tour-scenes (-> tour :scenes not-empty)]
+    (add tour-scenes)
+    identity))
+
+; (defn e [x]
+;   (println)
+;   (println ">>>>>>>>")
+;   (prn x)
+;   (println ">>>>>>>>")
+;   (println)
+;   x)
+
+(defn- get-tour-name
+  [context]
+  (let [options (-> context :metadata meta)]
+    (ex/guard "get the tour name"
+      (case (:view-name context)
+        "welcome"       "alice.intro.welcome"
+        ; "module"       "alice.intro.deploying-wordpress"
+        (-> options :request :query-parameters :tour not-empty)))))
+
+(defn- extract-coordinates
+  [tour-name]
+   (some->> tour-name (re-matches  #"([^.]+)\.([^.]+)\.([^.]+)")))
+
+(defn- acts
+  [persona play]
+  (ex/guard "get the map with the acts for the 'play' for the given 'persona'"
+    (-> (str "slipstream.ui.tour." persona)
+        (symbol play)
+        resolve
+        var-get)))
+
+(defn- scenes
+  [[_ persona play act]]
+  (get (acts persona play) (keyword act)))
+
+(defn- js-files
+  [[_ persona play act]]
+  [(format "tours/%s-%s-%s.js" persona play act)])
+
+
+(defn tour
+  "Returns the tour scenes and necessary JS and CSS files for the given context."
+  [context]
+  (ex/quietly-guard "get the tour for the given 'context'"
+    (when-let [[tour-name :as coordinates] (some-> context get-tour-name extract-coordinates)]
+      {:name      tour-name
+       :scenes    (scenes coordinates)
+       :js-files  (js-files coordinates)
+       :css-files ["tour.css"]})))

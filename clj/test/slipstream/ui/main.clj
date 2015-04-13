@@ -32,7 +32,7 @@
   (mode/with-headless-environment
     (-> raw-metadata-ns
         raw-metadata-str
-        (representation/-toHtml pagename {"type" type})
+        (representation/-toHtml pagename {:type type})
         resp/response
         constantly
         (resource/wrap-resource "public"))))
