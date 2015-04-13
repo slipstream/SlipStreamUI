@@ -113,7 +113,7 @@
       (current-user/with-user-from-metadata
         (page-type/with-page-type (or (page-types pagename) type)
           (guard-exceptions
-            (render-page pagename (with-meta metadata options))))))))
+            (render-page pagename (some-> metadata (with-meta options)))))))))
 
 (defn- lang-from-request
   [request]

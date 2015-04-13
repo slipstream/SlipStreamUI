@@ -160,6 +160,7 @@
       (select-keys [:view-ns :view-name])
       (assoc :page-type (name page-type/*current-page-type*)
              :user-type (current-user/type-name)
+             :username  (current-user/username)
              :navigate-away-confirmation-msg (t :navigate-away-confirmation-msg))
       (ue/map->meta-tag-snip :name-prefix "ss-")
       html/prepend))

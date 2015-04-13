@@ -1813,11 +1813,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.meta = {
         getMetaValue: function (name, $elem) {
+            var metaFieldSelector = "meta[name=" + name + "]",
+                $metaFieldElem;
             if ($elem) {
-                return $elem.find("meta[name=" + name + "]").attr("content");
+                $metaFieldElem = $elem.find(metaFieldSelector);
             } else {
-                return $("meta[name=" + name + "]").attr("content");
+                $metaFieldElem = $(metaFieldSelector);
             }
+            return $$.util.string.notEmpty($metaFieldElem.attr("content"));
         },
         getPageType: function ($elem) {
             // Page type is one of 'view', 'edit', 'new', 'chooser', etc...
@@ -1832,6 +1835,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // User type is one of 'super' or 'regular',
             // as in the slipstream.ui.util.curent-user/type-name Clojure fn.
             return this.getMetaValue("ss-user-type", $elem);
+        },
+        getUsername: function ($elem) {
+            return this.getMetaValue("ss-username", $elem);
         },
         isSuperUserLoggegIn: function ($elem) {
             return util.string.caseInsensitiveEqual(this.getUserType($elem), "super");
@@ -2026,7 +2032,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .remove();
         },
 
-        cookiePrefix: "launch-tour-",
+        cookiePrefix: "launch-tour.",
 
         shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
             var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName);
@@ -2050,15 +2056,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.cookie = {
         // Inspired from: http://www.w3schools.com/js/js_cookies.asp
+
+        // cookies are scoped to the looged user
+        scopePrefix: ($$.util.meta.getUsername() || "unlogged") + ".",
+
         set: function (cname, cvalue, exdays) {
             var d = new Date();
             d.setTime(d.getTime() + ((exdays || 365)*24*60*60*1000));
             var expires = "expires="+d.toUTCString();
-            document.cookie = cname + "=" + cvalue + "; " + expires;
+            document.cookie = this.scopePrefix + cname + "=" + cvalue + "; " + expires;
         },
 
         get: function (cname) {
-            var name = cname + "=";
+            var name = this.scopePrefix + cname + "=";
             var ca = document.cookie.split(';');
             for(var i=0; i<ca.length; i++) {
                 var c = ca[i];
