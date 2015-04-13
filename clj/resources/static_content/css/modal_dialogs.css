@@ -37,20 +37,20 @@
   box-shadow:         0 0 30px 5px rgba(0,0,0,.6);
 }
 
-.ss-take-tour-btn-container {
-  padding-top: 35px;
-  padding-bottom: 45px;
+.ss-start-tour-dialog-title {
+  padding-top: 15px;
 }
 .ss-start-tour-dialog-text-body {
-  padding-top: 25px;
+  padding: 15px;
 }
 .ss-start-tour-dialog-text-body code {
   background: transparent;
   color: inherit;
 }
-.ss-start-tour-dialog-title {
-  padding-top: 15px;
-}
 .ss-start-tour-dialog-buttons-container {
+  padding-top: 10px;
   padding-bottom: 10px;
+}
+.ss-take-tour-btn-container {
+  padding-bottom: 35px;
 }
