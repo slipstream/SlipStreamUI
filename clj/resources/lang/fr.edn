@@ -585,7 +585,7 @@
    :slipstream.ui.util.pattern.error-help-hint.last-name.not-empty              "Nom"
 
    :slipstream.ui.util.pattern.error-help-hint.picture-url.url                  "Fournir l'URL d'une image."
-   :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Fournir l'URL d'une image de type .png ou .jpg."
+   :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Fournir l'URL d'une image de type `.png`, `.jpg` ou `.svg`."
 
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-empty                  :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash-dot  :pattern.default-error-help-hint.alpha-num-underscore-dash-dot
