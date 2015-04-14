@@ -31,24 +31,24 @@
    :deploying-wordpress
    [
       [:#ss-run-module-dialog :> :div.modal-dialog :div.modal-content ]
-      {:title "Input parameters"
-       :content (str "There are three main section on the welcome page of SlipStream. ")
+      {:title "Deployment options"
+       :content "Here you can specify some parameters of the deployment."
        :placement "left"
        :container-sel "#ss-run-module-dialog"}
 
       [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 4)] :> [:td (html/nth-child 2)]]
       {:title "Choose the cloud"
-       :content "Here you can find a curated list of deployable applications."
+       :content "Choose where you want WordPress to be deployed. Please note that you have to have the corresponding cloud credentials configured in your profile."
        :container-sel "#ss-run-module-dialog"}
 
       [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 6)] :> [:td (html/nth-child 2)]]
       {:title "Give it a name"
-       :content "This is a plublished application. Click NEXT to learn how to deploy it."
+       :content "Try something like <code>tour-test</code>."
        :container-sel "#ss-run-module-dialog"}
 
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn.ss-build-btn]
       {:title "Ready to deploy"
-       :content "Click the \"Deploy\" button in the bottom right part of the application logo to deploy."
+       :content "Click on <code>Run deployment</code> when you are ready to go."
        :container-sel "#ss-run-module-dialog"
        :wrap-in-elem   [:span]}
       ]
