@@ -314,7 +314,7 @@ $(document).ready(function(){
             selector = selector || '.bootstro';
 
             $elements = $(selector);
-            count  = $elements.size();
+            count  = $elements.first().attr('data-bootstro-count') || $elements.size();
             if (count > 0 && $('div.bootstro-backdrop').length === 0)
             {
                 // Prevents multiple copies

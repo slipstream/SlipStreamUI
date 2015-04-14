@@ -51,14 +51,15 @@
                               sel-v  (html/do->
                                        (ue/when-wrap wrap-in-elem)
                                        (html/add-class  "bootstro")
-                                       (set-bootstro    :title          step-info)
-                                       (set-bootstro    :content        step-info)
-                                       (set-bootstro    :placement      step-info)
-                                       (set-bootstro    :width          step-info)
-                                       (set-bootstro    :nextButtonText step-info)
-                                       (ue/set-data     :html           true)
-                                       (ue/when-set-data :container      (:container-sel step-info))
-                                       (set-bootstro    :step           step-info)))]
+                                       (set-bootstro     :title          step-info)
+                                       (set-bootstro     :content        step-info)
+                                       (set-bootstro     :placement      step-info)
+                                       (set-bootstro     :width          step-info)
+                                       (set-bootstro     :nextButtonText step-info)
+                                       (set-bootstro     :count          step-info)
+                                       (set-bootstro     :step           step-info)
+                                       (ue/set-data      :html           true)
+                                       (ue/when-set-data :container      (:container-sel step-info))))]
           (if next-scenes
             (recur updated-node
                    (first next-scenes)
@@ -94,9 +95,27 @@
         resolve
         var-get)))
 
+(defn- count-scenes
+  [acts]
+  (->> acts
+       (mapcat val)
+       (partition 2)
+       count))
+
+(defn- inject-scenes-count
+  [scenes-count sel-or-step-info]
+  (if (map? sel-or-step-info)
+    (assoc sel-or-step-info :count scenes-count)
+    sel-or-step-info))
+
 (defn- scenes
   [[_ persona play act]]
-  (get (acts persona play) (keyword act)))
+  (ex/guard "get scenes"
+    (let [acts (acts persona play)
+          scenes-count (count-scenes acts)]
+      (->> (keyword act)
+           (get acts)
+           (map (partial inject-scenes-count scenes-count))))))
 
 (defn- js-files
   [[_ persona play act]]
