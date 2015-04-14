@@ -85,10 +85,14 @@
     (html/html-content (str html-content))))
 
 (defmacro when-wrap
-  [test wrapping-tag-if-truthy & attrs-map]
+  ([wrap-in-elem]
+   `(if (not-empty ~wrap-in-elem)
+     (apply html/wrap ~wrap-in-elem)
+     identity))
+  ([test wrapping-tag-if-truthy & attrs-map]
    `(if ~test
      (apply html/wrap ~wrapping-tag-if-truthy [~@attrs-map])
-     identity))
+     identity)))
 
 (defmacro when-add-class
   "Consider using (enable-class enable? cls) function below, instead of this one,

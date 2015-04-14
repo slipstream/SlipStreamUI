@@ -46,9 +46,10 @@
              [sel step-info]  (first tour-scenes-indexed)
              next-scenes       (next tour-scenes-indexed)]
         (let [sel-v        (uc/ensure-vector sel)
+              wrap-in-elem (-> step-info :wrap-in-elem not-empty)
               updated-node (html/transform (html/as-nodes m)
                               sel-v  (html/do->
-                                       ; (html/wrap :div {:class "bootstro"})
+                                       (ue/when-wrap wrap-in-elem)
                                        (html/add-class  "bootstro")
                                        (set-bootstro    :title          step-info)
                                        (set-bootstro    :content        step-info)
@@ -56,7 +57,6 @@
                                        (set-bootstro    :width          step-info)
                                        (set-bootstro    :nextButtonText step-info)
                                        (ue/set-data     :html           true)
-                                       ; (ue/set-data     :container      "body")
                                        (ue/when-set-data :container      (:container-sel step-info))
                                        (set-bootstro    :step           step-info)))]
           (if next-scenes

@@ -49,7 +49,8 @@
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn.ss-build-btn]
       {:title "Ready to deploy"
        :content "Click the \"Deploy\" button in the bottom right part of the application logo to deploy."
-       :container-sel "#ss-run-module-dialog"}
+       :container-sel "#ss-run-module-dialog"
+       :wrap-in-elem   [:span]}
       ]
 
    :waiting-for-wordpress
