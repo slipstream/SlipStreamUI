@@ -2020,6 +2020,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.tour = {
 
+        alice: {
+            intro: {
+                welcome:                "alice.intro.welcome",
+                deployingWordpress:     "alice.intro.deploying-wordpress",
+                waitingForWordpress:    "alice.intro.waiting-for-wordpress"
+            }
+        },
+
         enableMouseShield: function () {
             if ( $(".ss-tour-mouse-shield").foundNothing() ) {
                 $("<div class=\"bootstro-backdrop ss-tour-mouse-shield\"></div>")
@@ -2095,9 +2103,17 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Persist the wanted behaviour
                 $$.util.cookie.set(this.cookiePrefix + tourName, shouldLaunchIfUndefined);
                 return shouldLaunchIfUndefined;
-            } else {
+            } else if ( shouldLaunchIfUndefined !== undefined ) {
                 throw "'shouldLaunchIfUndefined' must be a boolean.";
             }
+        },
+
+        queueLaunch: function(tourName) {
+            return $$.util.cookie.setShortLived(this.cookiePrefix + tourName, true, 180);
+        },
+
+        dequeueLaunch: function(tourName) {
+            return $$.util.cookie.delete(this.cookiePrefix + tourName);
         },
 
         persistDismissal: function(tourName) {
@@ -2112,11 +2128,17 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         // cookies are scoped to the looged user
         scopePrefix: ($$.util.meta.getUsername() || "unlogged") + ".",
 
-        set: function (cname, cvalue, exdays) {
+        setShortLived: function (cname, cvalue, ttl_in_secs) {
+            // ttl_in_secs defaults to 5 min
             var d = new Date();
-            d.setTime(d.getTime() + ((exdays || 365)*24*60*60*1000));
+            d.setTime(d.getTime() + ((ttl_in_secs || 300)*1000));
             var expires = "expires="+d.toUTCString();
-            document.cookie = this.scopePrefix + cname + "=" + cvalue + "; " + expires;
+            document.cookie = this.scopePrefix + cname + "=" + cvalue + "; " + expires + ";path=/";
+        },
+
+        set: function (cname, cvalue, ttl_in_days) {
+            // TTL defaults to 1 year
+            return this.setShortLived(cname, cvalue, ((ttl_in_days || 365)*24*60*60));
         },
 
         get: function (cname) {
@@ -2130,11 +2152,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     switch (cvalue) {
                         case "true":    return true;
                         case "false":   return false;
-                        default:        return cvalue;
+                        default:        return $$.util.string.notEmpty(cvalue);
                     }
                 }
             }
-            return "";
+            return undefined;
         },
 
         delete: function (cname) {

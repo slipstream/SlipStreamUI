@@ -15,7 +15,8 @@
 */
 
 .bootstro-backdrop {
-  z-index: 1035; /* Between affixed topbar (1030) and popovers (1060) */
+  /*z-index: 1035;*/ /* Between affixed topbar (1030) and popovers (1060) */
+  z-index: 1015; /* Below affixed topbar (1030) */
 }
 
 .ss-tour-mouse-shield {

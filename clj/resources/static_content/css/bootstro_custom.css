@@ -1,0 +1,47 @@
+.bootstro-next-btn {
+    float:right;
+}
+.bootstro-prev-btn {
+    float:left;
+}
+.bootstro-backdrop {
+    opacity: 0.5;
+    background-color: #000000;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    filter: alpha(opacity=50);
+}
+.bootstro-highlight {
+    z-index: 9999;
+    position: relative;
+    background: inherit;
+    padding: 10px;
+    margin: -10px;
+/*    -webkit-box-shadow: 0 0 12px 8px rgba(255, 255, 255, .7);
+       -moz-box-shadow: 0 0 12px 8px rgba(255, 255, 255, .7);
+            box-shadow: 0 0 12px 8px rgba(255, 255, 255, .7);*/
+/*    -webkit-box-shadow: inset 0 0 10px 8px rgba(0,0,0,.5);
+       -moz-box-shadow: inset 0 0 10px 8px rgba(0,0,0,.5);
+            box-shadow: inset 0 0 10px 8px rgba(0,0,0,.5);*/
+
+}
+
+.bootstro-finish-btn-wrapper {
+    padding-top:10px;
+    text-align:center;
+    clear:both;
+}
+
+.bootstro-nav-wrapper {
+    margin-top:10px;
+}
+
+.bootstro-nav-wrapper button, .bootstro-finish-btn-wrapper button {
+    font-size:12px !important;
+    padding : 3px 5px 3px 5px !important;
+    font-weight:bold;
+}

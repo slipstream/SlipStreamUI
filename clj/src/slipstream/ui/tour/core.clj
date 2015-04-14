@@ -48,13 +48,16 @@
         (let [sel-v        (uc/ensure-vector sel)
               updated-node (html/transform (html/as-nodes m)
                               sel-v  (html/do->
+                                       ; (html/wrap :div {:class "bootstro"})
                                        (html/add-class  "bootstro")
                                        (set-bootstro    :title          step-info)
                                        (set-bootstro    :content        step-info)
                                        (set-bootstro    :placement      step-info)
                                        (set-bootstro    :width          step-info)
                                        (set-bootstro    :nextButtonText step-info)
-                                       (set-bootstro    :html           {:html true})
+                                       (ue/set-data     :html           true)
+                                       ; (ue/set-data     :container      "body")
+                                       (ue/when-set-data :container      (:container-sel step-info))
                                        (set-bootstro    :step           step-info)))]
           (if next-scenes
             (recur updated-node
@@ -76,6 +79,7 @@
     (ex/guard "get the tour name"
       (case (:view-name context)
         "welcome"       "alice.intro.welcome"
+        "run"           "alice.intro.waiting-for-wordpress"
         (-> options :request :query-parameters :tour not-empty)))))
 
 (defn- extract-coordinates

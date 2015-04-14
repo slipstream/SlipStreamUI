@@ -17,6 +17,17 @@ code {
   color: #4499ce;
 }
 
+/* NOTE: Prevent unexplicit transparent backgrounds, because it doesn't play well
+         in some unexpected cases (e.g. with bootstro.js) */
+#ss-content,
+.panel-group,
+.ss-app-thumbnail,
+.modal-dialog,
+.modal-dialog > div,
+.modal-dialog > form {
+    background: white;
+}
+
 .alert a,
 .ss-validation-help-hint a {
   color: inherit;
@@ -130,12 +141,12 @@ dl.ss-footer-versions-popover {
 }
 
 /* All popovers (parameter help hints and dynamic help hints) */
-div.popover[role=tooltip]:not(.ss-alert-popover) {
+div.popover:not(.ss-alert-popover) {
   /* Override text color of the popovers, to prevent them using the color of the
      target element. */
   color: black;
 }
-div.popover[role=tooltip]:not(.ss-alert-popover) code {
+div.popover:not(.ss-alert-popover) code {
   /* Override text and background color of the <code> tags in popovers, to prevent
      that they look like clickable links. */
   color: black;
