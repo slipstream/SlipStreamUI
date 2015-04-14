@@ -250,7 +250,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
             useToSubmitForm: function (sel, preSubmitCallback) {
                 var request = this,
-                    $form = $("form" + sel);
+                    $form = $(sel);
                 $form.enableLiveInputValidation();
                 request
                     // .serialization("json") // NOTE: Uncomment to send a JSON to the server
