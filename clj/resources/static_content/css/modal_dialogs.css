@@ -1,3 +1,7 @@
+#ss-start-tour-dialog button.close {
+  margin-top: -5px;
+}
+
 #ss-image-chooser-dialog .modal-body,
 #ss-copy-module-dialog .modal-body {
     padding: 0;
