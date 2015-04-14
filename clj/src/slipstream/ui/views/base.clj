@@ -97,10 +97,12 @@
        bottom-scripts-snip))
 
 (defn- bottom-internal-scripts-snip
-  [filenames]
+  [filenames & {:keys [append-final-scripts] :or {append-final-scripts true}}]
   (let [extra-files (cond-> []
-                      :always                   (conj "last.js")
-                      (page-type/not-chooser?)  (conj "support.js"))]
+                      append-final-scripts         (conj "last.js")
+                      (and
+                        append-final-scripts
+                        (page-type/not-chooser?))  (conj "support.js"))]
     (->> (concat filenames extra-files)
          (map (partial str "js/"))
          bottom-scripts-snip)))
@@ -241,7 +243,7 @@
   [[:link theme/themable-sel]]  (ue/prepend-to-href (theme/static-content-folder theme))
   ;; Add tour info at the end, if need be
   css-container-sel             (ue/when-append tour (-> tour :css-files css-links-snip))
-  bottom-scripts-container-sel  (ue/when-append tour (-> tour :js-files  bottom-internal-scripts-snip))
+  bottom-scripts-container-sel  (ue/when-append tour (-> tour :js-files  (bottom-internal-scripts-snip :append-final-scripts false)))
   [:body]                       (tour/when-add  tour)
   )
 
