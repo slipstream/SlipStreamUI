@@ -14,7 +14,7 @@
           :content "content2"}])
 
 (expect
-  (str "<span data-bootstro-step=\"0\" data-html=\"true\" data-bootstro-content=\"content1\" data-bootstro-title=\"title1\" class=\"bootstro\" id=\"one\">i'm one</span>"
-       "<span data-bootstro-step=\"1\" data-html=\"true\" data-bootstro-content=\"content2\" data-bootstro-title=\"title2\" class=\"bootstro\" id=\"two\">i'm two</span>")
+  (str "<span data-html=\"true\" data-bootstro-step=\"0\" data-bootstro-content=\"content1\" data-bootstro-title=\"title1\" class=\"bootstro\" id=\"one\">i'm one</span>"
+       "<span data-html=\"true\" data-bootstro-step=\"1\" data-bootstro-content=\"content2\" data-bootstro-title=\"title2\" class=\"bootstro\" id=\"two\">i'm two</span>")
   (html/sniptest "<span id=one>i'm one</span><span id=two>i'm two</span>"
     (@#'slipstream.ui.tour.core/add tour-steps)))
