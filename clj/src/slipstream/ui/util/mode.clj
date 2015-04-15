@@ -1,5 +1,6 @@
 (ns slipstream.ui.util.mode
-  "Utils for different modes of how the UI can run.")
+  "Utils for different modes of how the UI can run."
+  (:require [slipstream.ui.util.dev-traces :as dev-traces]))
 
 (def ^:private available-modes
   "Flags available for different modes of how the UI can run. These flags might
@@ -16,6 +17,8 @@
     (-> "slipstream.ui.util.dev.mode" System/getProperty keyword)
     :prod))
 
+(dev-traces/enable-globally (= *mode* :dev))
+
 (def ^:private ^:dynamic *headless?*
   "For dev and testing purposes, the UI can be launched without the server part
   (headless) with 'slipstream.ui.main/run-test-server. In that mode, there is no
@@ -27,8 +30,9 @@
 
 (defmacro with-headless-environment
   [& body]
-  `(binding [*headless?*  true
-             *mode*       :dev]
+  `(binding [*headless?*          true
+             *mode*               :dev
+             dev-traces/*enabled* true]
      ~@body))
 
 (defn prod?
