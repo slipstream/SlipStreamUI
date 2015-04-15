@@ -83,7 +83,8 @@
   [& body]
   `(if (mode/headless?)
     ; In headless mode let the stacktrace be printed on the browser:
-    ~@body
+    (do
+      ~@body)
     (try
       ; In prod render a proper error page reporting the expection:
       ~@body

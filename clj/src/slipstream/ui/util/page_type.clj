@@ -32,7 +32,8 @@
   `(if-let [page-type# (->> (or ~page-type "view") (keyword "page-type") valid-page-types)]
      (binding [*current-page-type* page-type#]
        ~@body)
-     ~@body))
+     (do
+       ~@body)))
 
 (defn- is?
   [& page-types]
