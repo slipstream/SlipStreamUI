@@ -57,6 +57,7 @@
                                        (set-bootstro     :width          step-info)
                                        (set-bootstro     :nextButtonText step-info)
                                        (set-bootstro     :count          step-info)
+                                       (set-bootstro     :offset         step-info)
                                        (set-bootstro     :step           step-info)
                                        (ue/set-data      :html           true)
                                        (ue/when-set-data :container      (:container-sel step-info))))]
@@ -102,20 +103,30 @@
        (partition 2)
        count))
 
+(defn- scenes-count-offset
+  [acts act-keyword]
+  (->> acts
+       (take-while (comp not #{act-keyword} first))
+       count-scenes))
+
 (defn- inject-scenes-count
-  [scenes-count sel-or-step-info]
+  [scenes-count scenes-count-offset sel-or-step-info]
   (if (map? sel-or-step-info)
-    (assoc sel-or-step-info :count scenes-count)
+    (assoc sel-or-step-info
+      :count  scenes-count
+      :offset scenes-count-offset)
     sel-or-step-info))
 
 (defn- scenes
   [[_ persona play act]]
   (ex/guard "get scenes"
     (let [acts (acts persona play)
-          scenes-count (count-scenes acts)]
-      (->> (keyword act)
+          act-keyword (keyword act)
+          scenes-count (count-scenes acts)
+          scenes-count-offset (scenes-count-offset acts act-keyword)]
+      (->> act-keyword
            (get acts)
-           (map (partial inject-scenes-count scenes-count))))))
+           (map (partial inject-scenes-count scenes-count scenes-count-offset))))))
 
 (defn- js-files
   [[_ persona play act]]

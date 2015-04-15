@@ -16,6 +16,8 @@ $(document).ready(function(){
     (function( bootstro, $, undefined ) {
         var $elements; //jquery elements to be highlighted
         var count;
+        var totalCount;
+        var countOffset = 0;
         var popovers = []; //contains array of the popovers data
         var activeIndex = null; //index of active item
         var bootstrapVersion = 3;
@@ -174,9 +176,9 @@ $(document).ready(function(){
             var $el = get_element(i);
             //p.selector = selector;
             var t = '';
-            if (count > 1)
+            if (totalCount > 1)
             {
-                t = "<span class='label label-success'>" + (i +1)  + "/" + count + "</span>";
+                t = "<span class='label label-success'>" + (i + 1 + countOffset)  + "/" + totalCount + "</span>";
             }
             p.title = $el.attr('data-bootstro-title') || '';
             if (p.title != '' && t != '')
@@ -314,7 +316,9 @@ $(document).ready(function(){
             selector = selector || '.bootstro';
 
             $elements = $(selector);
-            count  = $elements.first().attr('data-bootstro-count') || $elements.size();
+            count  =  $elements.size();
+            totalCount = $elements.first().attr('data-bootstro-count') || count;
+            countOffset = parseInt($elements.first().attr('data-bootstro-offset'), 10) || 0
             if (count > 0 && $('div.bootstro-backdrop').length === 0)
             {
                 // Prevents multiple copies
