@@ -22,7 +22,7 @@
     :min-3-chars                    ".{3}"
     :min-6-chars                    ".{6}"
     :url                            "^https?://\\w+"
-    :picture-file                   "\\.(?:png|jpg|jpeg|PNG|JPG|JPEG)$"
+    :picture-file                   "\\.(?:png|jpg|jpeg|svg|PNG|JPG|JPEG|SVG)$"
     :comma-separated-words          "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
     :dot-separated-words            "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
     :ssh-public-keys                "^((([^ \\n]+[ ]+)?((ssh-(rsa|dss)|ecdsa-sha2-nistp(256|384|512))[ ]+[^ \\n]+|\\d+[ ]+\\d+[ ]+\\d+)([ ]+.*)?)|(#.*))?(\\n((([^ \\n]+[ ]+)?((ssh-(rsa|dss)|ecdsa-sha2-nistp(256|384|512))[ ]+[^ \\n]+|\\d+[ ]+\\d+[ ]+\\d+)([ ]+.*)?)|(#.*))?)*$" ; complex regex for non-multiline match

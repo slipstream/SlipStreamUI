@@ -705,6 +705,49 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(localization/with-prefixed-t :run-image-global-parameters-table
+
+  (defn run-image-global-section-table
+    [parameters]
+    (headerless-parameters-table
+      (p/map->parameter-list parameters
+        :ssh-key-available? {:type :cell/boolean
+                             :as-parameter (if (-> parameters :ssh-key-available?) :ssh-key-available :ssh-key-not-available)
+                             :editable? (-> parameters :ssh-key-available? not)
+                             :id-format-fn (constantly "ssh-access-enabled")
+                             :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
+        :image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloudservice")}
+        :tags               {:type :cell/text
+                             :editable? true
+                             :id-format-fn (constantly "tags")
+                             :required? false
+                             :validation {:requirements (pattern/requirements :run-start-tags)}}
+        )))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/with-prefixed-t :run-image-input-parameters-table
+
+  (defn- run-image-input-parameter-row
+    [{:keys [value description name] :as input-parameter}]
+    {:style  nil
+     :cells [{:type :cell/html,       :content (t :param-name name)}
+             {:type :cell/text,       :content {:text value
+                                                :id (format "parameter--%s" name)}, :editable? true}
+             {:type :cell/help-hint,  :content {:title    name
+                                                :content  description}}]})
+
+  (defn run-image-input-parameters-table
+    [input-parameters]
+    (table/build
+      {:rows (map run-image-input-parameter-row input-parameters)}))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn run-summary-table
   [run]
   (parameters-table

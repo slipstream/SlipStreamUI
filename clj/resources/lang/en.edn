@@ -511,8 +511,11 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
+   :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
+   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile."
+
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to deploy to. The cloud flagged with a `*` is the default configured in your user profile. The option `Specify for each node` will reveal this menu for each of the nodes below."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The option `Specify for each node` will reveal this menu for each of the nodes below."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
@@ -533,6 +536,7 @@
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance ID"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
+   :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page." ; %1$s = user profile URL
 
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "New parameter name"
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.description.placeholder   :global.nouns.description
@@ -548,6 +552,8 @@
 
    :slipstream.ui.views.tables.deployment-nodes-table.node.name.placeholder                 "Node name"
    :slipstream.ui.views.tables.deployment-nodes-table.template-node.name.placeholder        "New node name"
+
+   :slipstream.ui.views.tables.run-image-input-parameters-table.param-name      "Input `%1$s`" ;  %1$s: input parameter name
 
    ;; Error help hints for required table fields
 
@@ -583,7 +589,7 @@
    :slipstream.ui.util.pattern.error-help-hint.last-name.not-empty              "This will really help you later."
 
    :slipstream.ui.util.pattern.error-help-hint.picture-url.url                  "Provide the URL for an image."
-   :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Please provide a URL for a `.png` or `.jpg` image file."
+   :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Please provide a URL for a `.png`, `.jpg` or `.svg` image file."
 
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-empty                  :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash-dot  :pattern.default-error-help-hint.alpha-num-underscore-dash-dot
@@ -726,10 +732,14 @@
    :slipstream.ui.util.icons.description.image                     :global.nouns.image
    :slipstream.ui.util.icons.description.node                      :global.nouns.node
    :slipstream.ui.util.icons.description.orchestrator              :global.nouns.orchestrator
-   :slipstream.ui.util.icons.description.config                    :global.nouns.config
+   :slipstream.ui.util.icons.description.config                    :global.nouns.configuration
    :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
+
+   :slipstream.ui.util.icons.description.user-section-summary      "Personal information"
+   :slipstream.ui.util.icons.description.user-section-general      "General parameters"
+   :slipstream.ui.util.icons.description.user-section-cloud        "Connector parameters"
 
    :slipstream.ui.util.icons.description.image-build               "Image Build"
    :slipstream.ui.util.icons.description.image-run                 "Image Run"
@@ -952,14 +962,20 @@
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.default-suffix       "-v%1$s-copy" ;  %1$s: module version
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.footnote                             "Choose the target project to copy this %1$s to." ;  %1$s: module category
 
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.build.title                            "Build image"
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.build.footnote                         "Build a new native image from `%1$s` (v %2$s) on the selected cloud service.\n\nAt the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)." ; %1$s: module id ;  %2$s: module version
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.build.button                           "Build image"
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.run.title                              "Run image"
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.run.footnote                           "Run image `%1$s` (v %2$s) on the selected cloud service." ; %1$s: module id ;  %2$s: module version
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.run.button                             "Run image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.title                                  "Run image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.footnote                               "Run image `%1$s` (v %2$s) on the selected cloud service." ; %1$s: module id ;  %2$s: module version
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.button                                 "Run image"
    :slipstream.ui.views.modal-dialogs.run-image-dialog.cloud-service.label                    "Cloud service"
    :slipstream.ui.views.modal-dialogs.run-image-dialog.button.cancel                          :global.verbs.cancel
+
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.global-section.title                   "Global parameters"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.input-parameters-section.title         "Input parameters"
+
+   :slipstream.ui.views.modal-dialogs.build-image-dialog.title                                "Build image"
+   :slipstream.ui.views.modal-dialogs.build-image-dialog.footnote                             "Build a new native image from `%1$s` (v %2$s) on the selected cloud service.\n\nAt the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)." ; %1$s: module id ;  %2$s: module version
+   :slipstream.ui.views.modal-dialogs.build-image-dialog.button                               "Build image"
+   :slipstream.ui.views.modal-dialogs.build-image-dialog.cloud-service.label                  "Cloud service"
+   :slipstream.ui.views.modal-dialogs.build-image-dialog.button.cancel                        :global.verbs.cancel
 
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.title                             "Run deployment"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote                          "Choose the cloud where each node instance will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."

@@ -127,7 +127,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .always(function (){
             $(".ss-run-module-dialog").modal("hide");
         })
-        .useToSubmitForm(".ss-run-module-form", updateRequestForRunDeployment);
+        .useToSubmitForm(".ss-run-module-form, .ss-build-module-form", updateRequestForRunDeployment);
 
 
     // Public functions

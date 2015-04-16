@@ -99,6 +99,11 @@
   [parameters & types]
   (filter #((set types) (get % :category-type)) parameters))
 
+(defn parameters-of-category
+  "It must be a flattened list of parameters"
+  [parameters category]
+  (filter #(-> % :category (= category)) parameters))
+
 (defn flatten
   "The parse function returns the parameters grouped by category.
   This flattens this list. The category is still in each parameters."

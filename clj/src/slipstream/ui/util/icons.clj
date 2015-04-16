@@ -61,8 +61,11 @@
 (deficon run                    deployment)
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
-(deficon cloud                  "cloud")
 (deficon service-catalog        "th-list")
+
+(deficon user-section-summary   user)
+(deficon user-section-general   config)
+(deficon user-section-cloud     "cloud")
 
 (deficon action-new-project     project)
 (deficon action-new-image       image)

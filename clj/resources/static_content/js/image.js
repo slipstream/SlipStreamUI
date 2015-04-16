@@ -22,4 +22,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Trigger the 'change' event for set up the correct state of the forms.
     $isBaseCheckbox.change();
 
+    // SSH option
+    var $needSSHAccessElem = $("#ssh-access-enabled");
+
+    $needSSHAccessElem
+        .change(function(){
+            if ( ! this.checked ) {
+                $needSSHAccessElem.clearFormInputValidationState();
+            } else {
+                $needSSHAccessElem.setFormInputValidationState(false);
+            }
+        })
+        .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
+
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
