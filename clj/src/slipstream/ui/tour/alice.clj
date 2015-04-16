@@ -30,21 +30,17 @@
 
    :deploying-wordpress
    [
-      [:#ss-run-module-dialog :> :div.modal-dialog :div.modal-content ]
-      {:title "Deployment options"
-       :content "Here you can specify some parameters of the deployment."
-       :placement "left"
-       :container-sel "#ss-run-module-dialog"}
-
       [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 4)] :> [:td (html/nth-child 2)]]
       {:title "Choose the cloud"
-       :content "Choose where you want WordPress to be deployed. Please note that you have to have the corresponding cloud credentials configured in your profile."
-       :container-sel "#ss-run-module-dialog"}
+       :content "In this dialog you can specify some parameters for the deployment. In this case, please choose where you want WordPress to be deployed. Please note that you have to have the corresponding cloud credentials configured in your profile."
+       :container-sel "#ss-run-module-dialog"
+       :placement "bottom"}
 
       [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 6)] :> [:td (html/nth-child 2)]]
       {:title "Give it a name"
-       :content "Try something like <code>tour-test</code>."
-       :container-sel "#ss-run-module-dialog"}
+       :content "You can assing some <code>tags</code> to the deployment. This will be useful to recognise it later on. Try something like <code>wp-tour-test</code>. Don't worry, you can update it at any time."
+       :container-sel "#ss-run-module-dialog"
+       :placement "bottom"}
 
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn.ss-build-btn]
       {:title "Ready to deploy"
