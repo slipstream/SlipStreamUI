@@ -75,14 +75,35 @@
     (add tour-scenes)
     identity))
 
-(defn- get-tour-name
+; (defmulti ^:private tour-name-for-view
+;   identity)
+
+; (defmethod tour-name-for-view ""
+;   [])
+
+; (defn- get-tour-name
+;   [context]
+;   (let [options (-> context :metadata meta)]
+;     (ex/guard "get the tour name"
+;       (case (:view-name context)
+;         "welcome"       "alice.intro.welcome"
+;         "run"           "alice.intro.waiting-for-wordpress"
+;         (-> options :request :query-parameters :tour not-empty)))))
+
+(defmulti ^:private get-tour-name
+  (fn [context] (:view-name context)))
+
+(defmethod get-tour-name "welcome"
   [context]
-  (let [options (-> context :metadata meta)]
-    (ex/guard "get the tour name"
-      (case (:view-name context)
-        "welcome"       "alice.intro.welcome"
-        "run"           "alice.intro.waiting-for-wordpress"
-        (-> options :request :query-parameters :tour not-empty)))))
+  "alice.intro.welcome")
+
+(defmethod get-tour-name "run"
+  [context]
+  "alice.intro.waiting-for-wordpress")
+
+(defmethod get-tour-name :default
+  [context]
+  (some-> context :metadata meta :request :query-parameters :tour not-empty))
 
 (defn- extract-coordinates
   [tour-name]
