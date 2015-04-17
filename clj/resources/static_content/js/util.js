@@ -12,6 +12,17 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return (this.match(str + "$") == str);
         },
 
+        trimToMaxLength: function(maxLength, trimmingIndicatorStr) {
+            var trimWith = trimmingIndicatorStr === undefined ? "..." : trimmingIndicatorStr;
+            if ( trimWith.length >= maxLength ) {
+                throw "maxLength (" + maxLength + ") must be greater than the length of the trimmingIndicatorStr ('" + trimWith + "')";
+            } else if ( this.length > maxLength ) {
+                return this.substring(0, maxLength - trimWith.length).trimRight() + trimWith;
+            } else {
+                return this.toString();
+            }
+        },
+
         trimFromLastIndexOf: function(str) {
             var lastIndexOfStr = this.lastIndexOf(str);
             if (lastIndexOfStr === -1) {
