@@ -45,3 +45,8 @@
     padding : 3px 5px 3px 5px !important;
     font-weight:bold;
 }
+
+.bootstro-popover .progress {
+    height: 4px;
+    margin-bottom: 0;
+}

@@ -626,10 +626,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        hoverDelayed: function(handlerInOrInOutArg, handlerOutArg, delayInMillis) {
+        hoverDelayed: function(handlerInOrInOutArg, handlerOutArg, delayInMillis, selector) {
             // If 'delayInMillis' is an int, it's applied for both 'handlerIn' and 'handlerOut' events.
             // To define different delays, provide an object like: {enter: 100, leave: 0}
             // Add {alwaysTriggerHandlerOut: false} to trigger the handlerOut only if handlerIn was called.
+            // Selector behaves like in jQuery's .on() function.
             var $this = this,
                 eventParams = {
                     mouseenter: {
@@ -647,20 +648,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     }
                 };
             function scheduleHandlerForEvent(e, params) {
-             if ( $this.data(params.timeoutIDKey) === undefined ) {
-                    $this.data(
-                        params.timeoutIDKey,
-                        setTimeout(
-                            function(){
-                                params.handler.call($this.get(0), e);
-                                $this
-                                    .removeData(params.timeoutIDKey)
-                                    .data(params.handlerWasTriggeredDataKey, true);
-                            },
-                            params.delay
-                        )
-                    );
-                }
+                var that = this;
+                 if ( $this.data(params.timeoutIDKey) === undefined ) {
+                        $this.data(
+                            params.timeoutIDKey,
+                            setTimeout(
+                                function(){
+                                    params.handler.call(that, e);
+                                    $this
+                                        .removeData(params.timeoutIDKey)
+                                        .data(params.handlerWasTriggeredDataKey, true);
+                                },
+                                params.delay
+                            )
+                        );
+                    }
             }
 
             function stopHandlerForEvent(e, params) {
@@ -672,19 +674,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
 
             return this
-                    .hover(
+                    .on("mouseenter",
+                        selector,
                         function(e) {
-                            scheduleHandlerForEvent(e, eventParams.mouseenter);
-                            stopHandlerForEvent(    e, eventParams.mouseleave);
-                        },
+                            scheduleHandlerForEvent.call(this, e, eventParams.mouseenter);
+                            stopHandlerForEvent.call(    this, e, eventParams.mouseleave);
+                        })
+                    .on("mouseleave",
+                        selector,
                         function(e) {
                             if ( $this.data(eventParams.mouseenter.handlerWasTriggeredDataKey) ||
                                 eventParams.mouseleave.alwaysTrigger ) {
-                                scheduleHandlerForEvent(e, eventParams.mouseleave);
+                                scheduleHandlerForEvent.call(this, e, eventParams.mouseleave);
                             }
-                            stopHandlerForEvent(    e, eventParams.mouseenter);
-                        }
-                    );
+                            stopHandlerForEvent.call(        this, e, eventParams.mouseenter);
+                        });
         },
 
         enableBufferedTextInputChangeEvent: function() {
@@ -1605,6 +1609,22 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                         }
                     });
             return this;
+        },
+
+        bsEnableExpandableProgressBars: function() {
+            return this
+                .hoverDelayed(
+                    function () {
+                        $(this).animate({height: "20px"}, 'fast');
+                    },
+                    function () {
+                        $(this).animate({height: "4px"}, 'fast');
+                    },
+                    {
+                        enter: 100,
+                        leave: 400
+                    },
+                    ".progress.expand-on-hover");
         },
 
         bsEnableDynamicElements: function() {

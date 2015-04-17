@@ -145,6 +145,10 @@ div.popover:not(.ss-alert-popover) {
   /* Override text color of the popovers, to prevent them using the color of the
      target element. */
   color: black;
+  /* Increase backdrop shadow to enhance contrast of the popover (specially on white backgraound) */
+  -webkit-box-shadow: 0px 5px 20px rgba(0,0,0,0.6);
+     -moz-box-shadow: 0px 5px 20px rgba(0,0,0,0.6);
+          box-shadow: 0px 5px 20px rgba(0,0,0,0.6);
 }
 div.popover:not(.ss-alert-popover) code {
   /* Override text and background color of the <code> tags in popovers, to prevent

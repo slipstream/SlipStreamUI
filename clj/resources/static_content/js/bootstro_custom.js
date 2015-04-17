@@ -176,13 +176,20 @@ $(document).ready(function(){
             var $el = get_element(i);
             //p.selector = selector;
             var t = '';
+            var progressBar = '';
             if (totalCount > 1)
             {
-                t = "<span class='label label-success'>" + (i + 1 + countOffset)  + "/" + totalCount + "</span>";
+                var step = (i + 1 + countOffset);
+                var progressPercentageStr = Math.round(step / totalCount * 100)+ '%';
+                t = step  + ".";
+                progressBar = '<div class="progress expand-on-hover" title="Step ' + step + ' of ' + totalCount +'">' +
+                              '<div class="progress-bar" role="progressbar" aria-valuenow="' + step + '" aria-valuemin="1" aria-valuemax="' + totalCount + '" style="width:' + progressPercentageStr + ';min-width:21px">' +
+                              progressPercentageStr +
+                              '</div></div>';
             }
             p.title = $el.attr('data-bootstro-title') || '';
             if (p.title != '' && t != '')
-                p.title = t + ' - ' + p.title;
+                p.title = t + ' ' + p.title;
             else if (p.title == '')
                 p.title = t;
 
@@ -204,10 +211,14 @@ $(document).ready(function(){
 
             p.html = $el.attr('data-bootstro-html') || 'top';
 
+
             //resize popover if it's explicitly specified
             //note: this is ugly. Could have been best if popover supports width & height
-            p.template = '<div class="popover" style="' + style + '"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>' +
-             '</div>';
+            p.template = '<div class="popover bootstro-popover" style="' + style + '">' +
+                progressBar +
+                '<div class="arrow"></div>' +
+                '<div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>' +
+                '</div>';
 
             return p;
 

@@ -14,7 +14,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // The click action is still available for touch devices.
         .bsOpenDropdownOnMouseOver()
         .bsEnableDynamicElements()
-        .reloadAllImages();
+        .reloadAllImages()
+        .bsEnableExpandableProgressBars();
 
     $$.section.triggerOnShowOnOpenSection();
 
