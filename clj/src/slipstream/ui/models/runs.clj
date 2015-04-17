@@ -54,8 +54,7 @@
 (defn- parse-run-items
   [metadata]
   (->> (html/select metadata [:runs :item])
-       (map parse-run-item)
-       (sort-by :cloud-names)))
+       (map parse-run-item)))
 
 (defn parse
   [metadata]
