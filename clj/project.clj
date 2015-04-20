@@ -42,7 +42,16 @@
                          []
                          '(do
                             (require '[slipstream.ui.main :as s] :reload-all)
-                            @s/run-test-server))
+                            (if (some-> 'headless-app-server resolve bound?)
+                              (let [server (some-> 'headless-app-server resolve var-get)]
+                                ;; Reset up server state:
+                                (.stop server)
+                                (.start server))
+                              (let [server @s/run-test-server]
+                                (def headless-app-server server)
+                                (println "The var" (resolve 'headless-app-server) "contains the server object" server)))
+                            ;; headless-app-server always returns nil.
+                            nil))
                  }
 
   ; :aot [slipstream.ui.views.representation

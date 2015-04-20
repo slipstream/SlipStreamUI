@@ -19,7 +19,7 @@
 (defn- raw-metadata-str
   [raw-metadata-ns]
   (when raw-metadata-ns
-    (-> raw-metadata-ns full-metadata-ns symbol require)
+    (-> raw-metadata-ns full-metadata-ns symbol (require :reload-all))
     (if-let [raw-metadata-symbol (-> (full-metadata-ns raw-metadata-ns)
                                      (symbol "raw-metadata-str")
                                      resolve)]
@@ -157,15 +157,16 @@
 
 (defonce run-test-server
   (delay
-    (and
-      (utils/run-server routes :port test-server-port)
-      (println
-        (str
-         "\n"
-         "Headless test server loaded successfully.\n"
-         "Go to following URL for a list of existent test pages:\n"
-         "\n"
-         " - http://localhost:" test-server-port "/\n"
-         "\n"
-         "If you change the enlive code, just reload the concerned namespace (or the main one as above).\n"
-         "If you change the HTML templates, you'll have to restart the server, i.e. the REPL.")))))
+    (if-let [test-server (utils/run-server routes :port test-server-port)]
+      (do
+        (println
+          (str
+           "\n"
+           "The headless test server has started successfully on port " test-server-port ".\n"
+           "Go to following URL for a list of existent test pages:\n"
+           "\n"
+           "  http://localhost:" test-server-port "/\n"
+           "\n"
+           "If code changes (in clojure or HTML) are not taken into account, just reload the headless app."))
+        test-server)
+      (throw (IllegalStateException. "run-test-server failed to start")))))
