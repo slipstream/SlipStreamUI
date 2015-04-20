@@ -1,8 +1,10 @@
 (ns slipstream.ui.main
+  (:use slipstream.ui.util.dev-traces)
   (:require [clojure.string :as s]
             [ring.util.response :as resp]
             [ring.middleware.resource :as resource]
             [slipstream.ui.util.mode :as mode]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.utils :as utils]
             [slipstream.ui.views.representation :as representation])
   (:use [net.cgrand.moustache :only [app]]))
@@ -55,8 +57,23 @@
         (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
         constantly)))
 
-(def routes
-  (app
+(defmacro app-routes
+  [& routes]
+  (let [index-page (->> routes
+                        (take-nth 2)
+                        flatten
+                        (remove #{'&})
+                        (partition-by first)
+                        (uc/mmap #(str "<div><a href='/" % "'>" % "</a></div>"))
+                        (interpose ["<br>"])
+                        flatten
+                        s/join)]
+    `(def ~(symbol "routes")
+       (app
+         [""] (fn [req#]  (resp/response ~index-page))
+         ~@routes))))
+
+(app-routes
     ["login"]                 (render :pagename "login")
 
     ["login-chooser"]         (render :pagename "login" :type "chooser")
@@ -129,7 +146,7 @@
     [&] (fn [req] (resp/file-response (req :uri) {:root "resources/static_content"}))
     ; [&]                       (render-error :raw-metadata-ns "module.project"
     ;                                         :code 404)
-    ))
+    )
 
 ;; =============================================================================
 ;; Local test app
