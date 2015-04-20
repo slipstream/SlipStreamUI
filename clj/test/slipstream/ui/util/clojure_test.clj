@@ -1141,6 +1141,36 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; mmap
+
+(expect
+  AssertionError
+  (mmap nil nil))
+
+(expect
+  AssertionError
+  (mmap nil [:a :b]))
+
+(expect
+  AssertionError
+  (mmap nil [:a [:b]]))
+
+(expect
+  AssertionError
+  (mmap str [:a [:b]]))
+
+(expect
+  '((":a") (":b"))
+  (mmap str [[:a] [:b]]))
+
+;; NOTE: Compare to normal 'map:
+
+(expect
+  '("[:a]" "[:b]")
+  (map str [[:a] [:b]]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; html-safe-str
 
 (expect

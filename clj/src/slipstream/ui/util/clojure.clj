@@ -303,6 +303,13 @@
 (def map-in   (partial map-fn-in map))
 (def mapv-in  (partial map-fn-in mapv))
 
+(defn mmap
+  "Like 'ffirst for 'map. See tests for expectations."
+  [f s]
+  {:pre [(coll? s)
+         (every? coll? s)]}
+  (map #(map f %) s))
+
 (defn html-safe-str
  "Like clojure.core/str but escapes < > & and \"."
  [x]
