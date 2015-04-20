@@ -9,6 +9,12 @@ expect:
 	$(info )
 	(cd clj; lein autoexpect)
 
+expectandnotify:
+	$(info )
+	$(info After creating a new clj file, quit (CTRL-C) and reload.)
+	$(info )
+	(cd clj; lein autoexpect :notify)
+
 repl:
 	$(info )
 	$(info Execute following forms to start the test server:)
