@@ -152,5 +152,20 @@
 ;; Local test app
 ;; =============================================================================
 
+(def test-server-port
+  8082)
+
 (defonce run-test-server
-  (delay (utils/run-server routes)))
+  (delay
+    (and
+      (utils/run-server routes :port test-server-port)
+      (println
+        (str
+         "\n"
+         "Headless test server loaded successfully.\n"
+         "Go to following URL for a list of existent test pages:\n"
+         "\n"
+         " - http://localhost:" test-server-port "/\n"
+         "\n"
+         "If you change the enlive code, just reload the concerned namespace (or the main one as above).\n"
+         "If you change the HTML templates, you'll have to restart the server, i.e. the REPL.")))))

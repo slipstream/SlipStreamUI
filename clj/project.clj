@@ -23,6 +23,28 @@
 
   :resource-paths ["resources"]
 
+  :repl-options {;; What to print when the repl session starts.
+                  :welcome
+                  (println (str
+                    ;; These first lines are the default ones:
+                    "\n"
+                    "      Docs: (doc function-name-here)\n"
+                    "            (find-doc \"part-of-name-here\")\n"
+                    "    Source: (source function-name-here)\n"
+                    "   Javadoc: (javadoc java-object-or-class-here)\n"
+                    "      Exit: Control+D or (exit) or (quit)\n"
+                    "   Results: Stored in vars *1, *2, *3, an exception in *e\n"
+                    "\n"
+                    ;; This line is related to the SlipStream project:
+                    "SlipStream: (reload-headless-app) to start the headless test server.\n"))
+                 ;; This expression will run when first opening a REPL
+                 :init (defmacro reload-headless-app
+                         []
+                         '(do
+                            (require '[slipstream.ui.main :as s] :reload-all)
+                            @s/run-test-server))
+                 }
+
   ; :aot [slipstream.ui.views.representation
   ;       slipstream.ui.config]
   )

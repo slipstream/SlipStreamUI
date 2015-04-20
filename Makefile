@@ -16,18 +16,6 @@ expectandnotify:
 	(cd clj; lein autoexpect :notify)
 
 repl:
-	$(info )
-	$(info Execute following forms to start the test server:)
-	$(info ;  (require '[slipstream.ui.main :as s] :reload-all) @s/run-test-server)
-	$(info )
-	$(info If the test server starts correctly, you'll find test pages at port 8082.)
-	$(info Go to following URL for a list of existent test pages:)
-	$(info )
-	$(info  - http://localhost:8082/ )
-	$(info )
-	$(info If you change the enlive code, just reload the concerned namespace (or the main one as above).)
-	$(info If you change the HTML templates, you'll have to restart the server, i.e. the REPL.)
-	$(info )
 	(cd clj; lein repl)
 
 compile:

@@ -47,8 +47,8 @@
         (wrap-stacktrace))
       {:port port :join? false})))
 
-(defmacro run-server [app]
-  `(run-server* (var ~app)))
+(defmacro run-server [app & opts]
+  `(run-server* (var ~app) ~@opts))
 
 (defmulti parse-int type)
 (defmethod parse-int java.lang.Integer [n] n)
