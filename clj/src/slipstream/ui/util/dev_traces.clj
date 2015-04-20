@@ -1,7 +1,7 @@
 (ns slipstream.ui.util.dev-traces)
 
 ; NOTE: To copy&paste to the wanted ns for dev:
-; (:use slipstream.ui.util.dev)
+; (:use slipstream.ui.util.dev-traces)
 
 (def ^:dynamic *enabled*
   false)
