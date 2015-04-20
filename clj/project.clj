@@ -15,7 +15,7 @@
                  [clj-json "0.5.3"]
                  [org.clojure/data.xml "0.0.8"]
                  [clj-time "0.8.0"]]
-  :plugins [[lein-expectations "0.0.7"]
+  :plugins [[lein-expectations "0.0.8"]
             [lein-autoexpect "1.4.2"]]
 
   :source-paths ["src"]
