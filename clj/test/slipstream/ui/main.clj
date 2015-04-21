@@ -152,21 +152,38 @@
 ;; Local test app
 ;; =============================================================================
 
-(def test-server-port
+(def ^:private ^:dynamic *test-server-port*
   8082)
 
-(defonce run-test-server
+(defonce test-server
   (delay
-    (if-let [test-server (utils/run-server routes :port test-server-port)]
+    (if-let [test-server (utils/run-server routes :port *test-server-port*)]
       (do
         (println
           (str
            "\n"
-           "The headless test server has started successfully on port " test-server-port ".\n"
+           "\033[1;32mThe headless test server has started successfully on port " *test-server-port* ".\033[0m\n"
            "Go to following URL for a list of existent test pages:\n"
            "\n"
-           "  http://localhost:" test-server-port "/\n"
+           "  http://localhost:" *test-server-port* "/\n"
            "\n"
            "If code changes (in clojure or HTML) are not taken into account, just reload the headless app."))
         test-server)
       (throw (IllegalStateException. "run-test-server failed to start")))))
+
+(defn reload-headless-app
+  [& {:keys [port]}]
+  (when-let [^org.eclipse.jetty.server.Server server (and
+                                                       (realized? test-server)
+                                                       @test-server)]
+    (let [current-port (-> server .getConnectors first .getPort)]
+      (printf "Test server already running on port %s.\n" current-port)
+      (if (and port (not= port current-port))
+        (printf "\033[1;33mPort %s ignored.\033[0m\n" port)))
+    (println "Restarting...")
+    (flush)
+    (.stop  server)
+    (.start server)
+    (println "\033[1;32mRestarted successfully.\033[0m"))
+  (binding [*test-server-port* (or port *test-server-port*)]
+    @test-server))

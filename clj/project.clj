@@ -39,19 +39,10 @@
                     "SlipStream: (reload-headless-app) to start the headless test server.\n"))
                  ;; This expression will run when first opening a REPL
                  :init (defmacro reload-headless-app
-                         []
-                         '(do
+                         [& {:keys [port]}]
+                         `(do
                             (require '[slipstream.ui.main :as s] :reload-all)
-                            (if (some-> 'headless-app-server resolve bound?)
-                              (let [server (some-> 'headless-app-server resolve var-get)]
-                                ;; Reset up server state:
-                                (.stop server)
-                                (.start server))
-                              (let [server @s/run-test-server]
-                                (def headless-app-server server)
-                                (println "The var" (resolve 'headless-app-server) "contains the server object" server)))
-                            ;; headless-app-server always returns nil.
-                            nil))
+                            (slipstream.ui.main/reload-headless-app ~@(when port `(:port ~port)))))
                  }
 
   ; :aot [slipstream.ui.views.representation
