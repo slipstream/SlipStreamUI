@@ -219,10 +219,6 @@
   (shorten-long-words "someword" 7))
 
 (expect
-  "someword"
-  (shorten-long-words "someword" 8))
-
-(expect
   "a startsomewordsomewordsomewordsomewordend"
   (shorten-long-words "a startsomewordsomewordsomewordsomewordend"))
 
