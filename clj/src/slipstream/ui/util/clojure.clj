@@ -66,6 +66,33 @@
       s
       (str prefix s))))
 
+(def ^:private ^String shorten-indicator-str "...")
+(def ^:private shorten-char-threshold-default 50)
+
+(defn- shorten-long-word
+  [^String word char-threshold]
+  {:pre [(integer? char-threshold)
+         (pos? char-threshold)
+         (> (dec char-threshold) (.length shorten-indicator-str))]}
+  (if (-> word .length (> char-threshold))
+    (let [chars-per-side (-> char-threshold (- (.length shorten-indicator-str)) (/ 2) int)]
+      (str
+        (subs word 0 chars-per-side)
+        shorten-indicator-str
+        (subs word (- (.length word) chars-per-side))))
+    word))
+
+(defn shorten-long-words
+  "Trims words with more than 'char-threshold' characters in the middle. Note
+  that words containing dots, dashes, slahes or backslahes are handled are one
+  word. See tests for expectations."
+  ([^String s]
+    (shorten-long-words s shorten-char-threshold-default))
+  ([^String s char-threshold]
+    (if (and s (> (.length s) char-threshold))
+      (s/replace s #"\b\w[\w./\\-]*\b" #(shorten-long-word % char-threshold))
+      s)))
+
 (defn trim-prefix
   "See tests for expectations."
   [s prefix]

@@ -196,6 +196,70 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; shorten-long-words
+
+(expect
+  nil
+  (shorten-long-words nil 10))
+
+(expect
+  "someword"
+  (shorten-long-words "someword"))
+
+(expect
+  "someword"
+  (shorten-long-words "someword" 50))
+
+(expect
+  "someword"
+  (shorten-long-words "someword" 8))
+
+(expect
+  "so...rd"
+  (shorten-long-words "someword" 7))
+
+(expect
+  "someword"
+  (shorten-long-words "someword" 8))
+
+(expect
+  "a startsomewordsomewordsomewordsomewordend"
+  (shorten-long-words "a startsomewordsomewordsomewordsomewordend"))
+
+(expect
+  "a st...nd"
+  (shorten-long-words "a startsomewordsomewordsomewordsomewordend" 7))
+
+(expect
+  "a /st...nd"
+  (shorten-long-words "a /startsomewordsomewordsomewordsomewordend" 7))
+
+(expect
+  "a st...nd"
+  (shorten-long-words "a start-someword-someword-someword-someword-end" 7))
+
+(expect
+  "a st...nd"
+  (shorten-long-words "a start_someword_someword_someword_someword_end" 7))
+
+(expect
+  "a st...nd"
+  (shorten-long-words "a start.someword-someword_someword/someword\\end" 7))
+
+(expect
+  "this is an example with a /very/long/and/deep...d/be/shortened.txt"
+  (shorten-long-words "this is an example with a /very/long/and/deep/path/that/should/be/shortened.txt" 40))
+
+(expect
+  "startsomewordsomewordso...wordsomewordsomewordend"
+  (shorten-long-words "startsomewordsomewordsomewordsomewordsomewordsomewordsomewordsomewordend"))
+
+(expect
+  "startsomewordsomewordsomewordsomewordsomewordsomewordsomewordsomewordend"
+  (shorten-long-words "startsomewordsomewordsomewordsomewordsomewordsomewordsomewordsomewordend" 100))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; parse-boolean
 
 (expect
