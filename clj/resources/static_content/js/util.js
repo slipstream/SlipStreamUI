@@ -1584,7 +1584,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         bsAddAlertPopover: function(optionsObject) {
-            var options = $.extend(
+            var contentMaxLength = 500,
+                options = $.extend(
                 {
                     type:       "info",
                     trigger:    "hover",
@@ -1602,6 +1603,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 warning:    "<div class=\"popover ss-alert-popover ss-alert-popover-warning\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-warning text-warning\"></div></div>",
                 error:      "<div class=\"popover ss-alert-popover ss-alert-popover-error\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content bg-danger text-danger\"></div></div>"
             }[options.type];
+            options.content = ( $.type(options.content) === 'string' ) ? options.content.trimToMaxLength(contentMaxLength) : "";
             return this.popover(options);
         },
 
