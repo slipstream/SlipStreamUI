@@ -1,11 +1,14 @@
 (ns slipstream.ui.tour.core
   "Util functions for the UI onboarding tour.
   Currently using bootstro.js - https://clu3.github.io/bootstro.js/#"
+  (:use slipstream.ui.util.dev-traces)
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.exception :as ex]
+            [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.tour.alice :as alice]))
 
 (defn- add-step-index
@@ -60,6 +63,7 @@
                                        (set-bootstro     :offset         step-info)
                                        (set-bootstro     :step           step-info)
                                        (ue/set-data      :html           true)
+                                       (ue/enable-class  (:preserve-padding step-info) "preserve-padding")
                                        (ue/when-set-data :container      (:container-sel step-info))))]
           (if next-scenes
             (recur updated-node
@@ -75,35 +79,32 @@
     (add tour-scenes)
     identity))
 
-; (defmulti ^:private tour-name-for-view
-;   identity)
-
-; (defmethod tour-name-for-view ""
-;   [])
-
-; (defn- get-tour-name
-;   [context]
-;   (let [options (-> context :metadata meta)]
-;     (ex/guard "get the tour name"
-;       (case (:view-name context)
-;         "welcome"       "alice.intro.welcome"
-;         "run"           "alice.intro.waiting-for-wordpress"
-;         (-> options :request :query-parameters :tour not-empty)))))
+(defn- tour-in-query-param
+  [context]
+  (some-> context :metadata meta :request :query-parameters :tour not-empty))
 
 (defmulti ^:private get-tour-name
-  (fn [context] (:view-name context)))
+  (fn [context] [(:view-name context) (page-type/current)]))
 
-(defmethod get-tour-name "welcome"
+(defmethod get-tour-name ["welcome" :page-type/view]
   [context]
-  "alice.intro.welcome")
+  (if-let [tour (tour-in-query-param context)]
+    tour
+    (if (current-user/configuration :configured-clouds)
+      "alice.intro.welcome"
+      "alice.intro-without-connectors.go-to-profile")))
 
-(defmethod get-tour-name "run"
+(defmethod get-tour-name ["user" :page-type/view]
+  [context]
+  "alice.intro-without-connectors.navigate-back-to-welcome")
+
+(defmethod get-tour-name ["run" :page-type/any]
   [context]
   "alice.intro.waiting-for-wordpress")
 
 (defmethod get-tour-name :default
   [context]
-  (some-> context :metadata meta :request :query-parameters :tour not-empty))
+  (tour-in-query-param context))
 
 (defn- extract-coordinates
   [tour-name]
@@ -112,15 +113,17 @@
 (defn- acts
   [persona play]
   (ex/guard "get the map with the acts for the 'play' for the given 'persona'"
-    (-> (str "slipstream.ui.tour." persona)
-        (symbol play)
+    (>>> ->> play
+        (symbol (str "slipstream.ui.tour." persona))
         resolve
-        var-get)))
+        var-get
+        (partition 2)
+        (map vec))))
 
 (defn- count-scenes
   [acts]
-  (->> acts
-       (mapcat val)
+  (>>> ->> acts
+       (mapcat second)
        (partition 2)
        count))
 
@@ -141,7 +144,7 @@
 (defn- scenes
   [[_ persona play act]]
   (ex/guard "get scenes"
-    (let [acts (acts persona play)
+    (let [acts (into {} (acts persona play))
           act-keyword (keyword act)
           scenes-count (count-scenes acts)
           scenes-count-offset (scenes-count-offset acts act-keyword)]
@@ -149,9 +152,19 @@
            (get acts)
            (map (partial inject-scenes-count scenes-count scenes-count-offset))))))
 
+(defn- js-filenames-aliases
+  [js-filename]
+  (case js-filename
+    "tours/alice-intro-without-connectors-welcome.js"                 "tours/alice-intro-welcome.js"
+    "tours/alice-intro-without-connectors-deploying-wordpress.js"     "tours/alice-intro-deploying-wordpress.js"
+    "tours/alice-intro-without-connectors-waitting-for-wordpress.js"  "tours/alice-intro-waitting-for-wordpress.js"
+    js-filename))
+
 (defn- js-files
   [[_ persona play act]]
-  [(format "tours/%s-%s-%s.js" persona play act)])
+  (-> (format "tours/%s-%s-%s.js" persona play act)
+      js-filenames-aliases
+      vector))
 
 (defn- help-menu-action?
   [{:keys [view-name]}]

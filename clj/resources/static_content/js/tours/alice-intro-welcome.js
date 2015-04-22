@@ -1,34 +1,9 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // Bootstro's Options
-
-    // nextButton
-    // nextButtonText
-    // prevButton
-    // prevButtonText
-    // finishButton
-    // finishButtonText
-    // stopOnBackdropClick
-    // stopOnEsc
-    // margin
-    // onComplete
-    // onExit
-    // onStep
-
-    // Bootstro's public methods
-
-    // bootstro.start(selector, options)
-    // bootstro.go_to(i)
-    // bootstro.stop()
-    // bootstro.next()
-    // bootstro.prev()
-    // bootstro.bind()
-    // bootstro.unbind()
-
-    // bootstro.start(".bootstro[data-bootstro-step=0]");
-
     var buttonPreparedToContinueTourCls = "ss-button-prepared-to-continue-tour",
-        onclickStringReplacement        = ["run';", "run&tour=alice.intro.deploying-wordpress';"];
+        queryParamTourName              = $$.util.urlQueryParams.getValue("tour"),
+        tourBaseName                    = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
+        onclickStringReplacement        = ["run';", "run&tour=" + tourBaseName + ".deploying-wordpress';"];
 
     function prepareButtonToContinueTour() {
         $(".bootstro-highlight a[role=button]")
@@ -58,25 +33,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $$.section.collapseAll();
         },
 
-        onStep: function (args) {
-            var prevStepIndex = args.direction === "next" ? args.idx - 1 : args.idx + 1;
-            switch (args.idx) {
-                case 0:
-                    $$.section.collapseAll();
-                    $$.util.tour.disableMouseShield();
-                    break;
-                case 1:
-                    $$.section.select(1);
-                    $$.util.tour.enableMouseShield();
-                    break;
-                case 2:
-                    $$.util.tour.enableMouseShield();
-                    break;
-                case 3:
-                default:
-                    prepareButtonToContinueTour();
-                    $$.util.tour.disableMouseShield();
-                    break;
+        beforeStep: {
+            0: function() {
+                $$.section.collapseAll();
+                $$.util.tour.disableMouseShield();
+            },
+            1: function() {
+                $$.section.selectWithoutAnimation(1);
+                $$.util.tour.enableMouseShield();
+            },
+            2: function() {
+                $$.util.tour.enableMouseShield();
+            },
+            3: function() {
+                prepareButtonToContinueTour();
+                $$.util.tour.disableMouseShield();
             }
         },
         onExit: function(){
@@ -85,11 +56,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunch("alice.intro.welcome", true) ) {
-        $('#ss-start-tour-dialog').askConfirmation(function () {
+    if ( $$.util.tour.shouldLaunchAny("alice.intro.welcome, alice.intro-without-connectors.welcome", true) ) {
+        if ( $$.util.tour.shouldShowOptInDialog() ) {
+            $('#ss-start-tour-dialog').askConfirmation(function () {
+                $$.util.tour.start();
+            });
+        } else {
             $$.util.tour.start();
-        });
+        }
     }
-
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

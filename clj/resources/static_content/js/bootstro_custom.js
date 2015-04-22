@@ -290,36 +290,32 @@ $(document).ready(function(){
             }
         };
 
-        bootstro.next = function()
-        {
-            if (activeIndex + 1 == count)
-            {
-                if (typeof settings.onComplete == 'function')
+        bootstro.moveTowards = function(direction) {
+            var expected = ( direction === "next" ) ? {idx: activeIndex + 1, direction: 'next'} : {idx: activeIndex - 1, direction: 'prev'},
+                before   = settings.beforeStep && settings.beforeStep[expected.idx],
+                after    = settings.onStep && settings.onStep[expected.idx];
+            if (expected.idx == count) {
+                if (expected.direction === "next" && typeof settings.onComplete === "function") {
                     settings.onComplete.call(this, {idx : activeIndex});//
-            }
-            else
-            {
-                bootstro.go_to(activeIndex + 1);
-                if (typeof settings.onStep == 'function')
-                    settings.onStep.call(this, {idx : activeIndex, direction : 'next'});//
+                }
+            } else {
+                if (typeof before === "function") {
+                    before.call(this, expected);//
+                }
+                bootstro.go_to(expected.idx);
+                if (typeof after === "function") {
+                    after.call(this, expected);//
+                }
+
             }
         };
 
-        bootstro.prev = function()
-        {
-            if (activeIndex == 0)
-            {
-                /*
-                if (typeof settings.onRewind == 'function')
-                    settings.onRewind.call(this, {idx : activeIndex, direction : 'prev'});//
-                */
-            }
-            else
-            {
-                bootstro.go_to(activeIndex -1);
-                if (typeof settings.onStep == 'function')
-                    settings.onStep.call(this, {idx : activeIndex, direction : 'prev'});//
-            }
+        bootstro.next = function() {
+            bootstro.moveTowards("next");
+        };
+
+        bootstro.prev = function() {
+            bootstro.moveTowards("prev");
         };
 
         bootstro._start = function(selector)

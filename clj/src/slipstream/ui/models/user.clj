@@ -4,6 +4,16 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.parameters :as parameters]))
 
+(defn- configured-clouds
+  "List the names of the cloud (i.e. connectors) for which all parameters have a
+  configured value."
+  [parameters]
+  (->> (parameters/categories-of-type parameters :global)
+      (uc/map-in [:parameters] :value)
+      (filter #(->> % :parameters (not-any? nil?)))
+      (mapv :category)
+      not-empty))
+
 (defn parse
   [metadata]
   (when (not-empty metadata)
@@ -21,17 +31,18 @@
                         :super?     (-> attrs :issuper uc/parse-boolean)
                         :deleted?   (-> attrs :deleted uc/parse-boolean)
                         :parameters     parameters
-                        :configuration  {:available-clouds (some-> parameters
-                                                                   (parameters/value-for "General.default.cloud.service")
-                                                                   (u/enum-update-name :available-clouds)
-                                                                   (u/enum-sort-by :text)
-                                                                   u/enum-flag-selected-as-default)
-                                         :keep-running     (some-> parameters
-                                                                   (parameters/value-for "General.keep-running")
-                                                                   u/enum-selection
-                                                                   :value
-                                                                   keyword)
-                                         :ssh-keys         (some-> parameters
-                                                                   (parameters/value-for "General.ssh.public.key")
-                                                                   s/trim
-                                                                   not-empty)})))))
+                        :configuration  {:configured-clouds (configured-clouds parameters)
+                                         :available-clouds  (some-> parameters
+                                                                    (parameters/value-for "General.default.cloud.service")
+                                                                    (u/enum-update-name :available-clouds)
+                                                                    (u/enum-sort-by :text)
+                                                                    u/enum-flag-selected-as-default)
+                                         :keep-running      (some-> parameters
+                                                                    (parameters/value-for "General.keep-running")
+                                                                    u/enum-selection
+                                                                    :value
+                                                                    keyword)
+                                         :ssh-keys          (some-> parameters
+                                                                    (parameters/value-for "General.ssh.public.key")
+                                                                    s/trim
+                                                                    not-empty)})))))

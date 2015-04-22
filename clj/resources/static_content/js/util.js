@@ -2045,6 +2045,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 welcome:                "alice.intro.welcome",
                 deployingWordpress:     "alice.intro.deploying-wordpress",
                 waitingForWordpress:    "alice.intro.waiting-for-wordpress"
+            },
+            introWithoutConnectors: {
+                goToProfile:            "alice.intro-without-connectors.go-to-profile",
+                editProfile:            "alice.intro-without-connectors.edit-profile",
+                navigateBackToWelcome:  "alice.intro-without-connectors.navigate-back-to-welcome",
+                welcome:                "alice.intro-without-connectors.welcome",
+                deployingWordpress:     "alice.intro-without-connectors.deploying-wordpress",
+                waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress"
             }
         },
 
@@ -2114,6 +2122,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         cookiePrefix: "launch-tour.",
 
+        shouldLaunchAny: function(tourNames, shouldLaunchIfUndefined) {
+            var launchAny = false;
+            $.each(tourNames.split(/,+\s*/),
+                function(i, tourName) {
+                     launchAny = $$.util.tour.shouldLaunch(tourName, shouldLaunchIfUndefined);
+                     if ( launchAny ) {
+                        // Break the 'each' loop
+                        return false;
+                     }
+                })
+            return launchAny;
+        },
+
         shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
             var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName);
             if ( $.type(persistedShouldLaunchBehaviour) === "boolean" ) {
@@ -2126,6 +2147,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             } else if ( shouldLaunchIfUndefined !== undefined ) {
                 throw "'shouldLaunchIfUndefined' must be a boolean.";
             }
+        },
+
+        optInDialogMutedKey: "optInDialogMuted",
+
+        muteNextOptInDialog: function() {
+            return $$.util.cookie.setShortLived(this.cookiePrefix + this.optInDialogMutedKey, true, 300);
+        },
+
+        shouldShowOptInDialog: function() {
+            var persistedMuteOptInDialogBehaviour = $$.util.cookie.get(this.cookiePrefix + this.optInDialogMutedKey);
+            $$.util.cookie.delete(this.cookiePrefix + this.optInDialogMutedKey);
+            if ( persistedMuteOptInDialogBehaviour === true ) {
+                return false; // I.e. if 'mute' is true, do show dialog
+            }
+            return true;
         },
 
         queueLaunch: function(tourName) {

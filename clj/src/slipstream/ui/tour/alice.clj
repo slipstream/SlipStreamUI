@@ -5,7 +5,7 @@
 
 (def intro
   "Tour to lead Alice to the 'AHA!' moment."
-  {
+  [
    :welcome
    [
       :#ss-section-group
@@ -26,7 +26,7 @@
       {:title "Deploy"
        :content "Click the \"Deploy\" button in the bottom right part of the application logo to deploy."
        :width "300px"}
-      ]
+    ]
 
    :deploying-wordpress
    [
@@ -46,7 +46,8 @@
       {:title "Ready to deploy"
        :content "Click on <code>Run deployment</code> when you are ready to go."
        :container-sel "#ss-run-module-dialog"
-       :wrap-in-elem   [:span]}
+       :wrap-in-elem   [:span]
+       }
       ]
 
    :waiting-for-wordpress
@@ -71,5 +72,61 @@
        :content "Go to the dashboard to have an overview of the applications you have running."
        :placement "bottom"}
     ]
-   }
+   ]
   )
+
+(def ^:private detour-to-set-up-cloud-credentials
+  [
+     :go-to-profile
+     [
+        :#ss-menubar-user-profile-anchor
+        {:title "First things first"
+         :content "Let's configure your first cloud account. Go to your user profile clicking this menu here. Note that you are also able to logout from this menu."
+         :placement "left"
+         :container-sel "body"
+         :preserve-padding true
+         }
+      ]
+
+     :edit-profile
+     [
+        [:#ss-section-group :> :div.panel.ss-section-selected.ss-section.panel-default]
+        {:title "Edit your profile"
+         :content "This is your SlipStream user profile. Please take this moment to make sure that your information is correct, and click 'Next' when you are ready."
+         :placement "top"
+         ; :container-sel "body"
+         }
+
+        [:#ss-section-group :> [:div (html/nth-child 3)]]
+        {:title "Cloud credentials"
+         :content "This is the configuration section for your cloud account. Please enter your credentials for that cloud here. If you do not have yet any account you might want to look at our partner <a href='http://exoscale.com' target='_blank'>Exoscale</a> or any other cloud provider of your choice."
+         :placement "top"
+         ; :container-sel "body"
+         }
+
+        :#ss-secondary-menu-action-save
+        {:title "Save your profile"
+         :content "Click here to... well, save the chages you just made."
+         :placement "bottom"
+         ; :container-sel "body"
+         :preserve-padding true
+         }
+      ]
+
+     :navigate-back-to-welcome
+     [
+        [:#topbar :> :div :> :div :> :div.navbar-header :> :a]
+        {:title "Back to the main page"
+         :content "Now that you have a cloud configured, click on the logo to back to the AppStore on the main page and select your first app to deploy."
+         :placement "bottom"
+         :preserve-padding true
+         }
+      ]
+
+     ])
+
+(def intro-without-connectors
+  "Tour to lead Alice to the 'AHA!' moment, but when she does not have any connector
+  credentials configured."
+  (concat detour-to-set-up-cloud-credentials
+          intro))

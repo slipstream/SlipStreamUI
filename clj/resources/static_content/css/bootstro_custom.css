@@ -19,8 +19,6 @@
     z-index: 9999;
     position: relative;
     background: inherit;
-    padding: 10px;
-    margin: -10px;
 /*    -webkit-box-shadow: 0 0 12px 8px rgba(255, 255, 255, .7);
        -moz-box-shadow: 0 0 12px 8px rgba(255, 255, 255, .7);
             box-shadow: 0 0 12px 8px rgba(255, 255, 255, .7);*/
@@ -28,6 +26,10 @@
        -moz-box-shadow: inset 0 0 10px 8px rgba(0,0,0,.5);
             box-shadow: inset 0 0 10px 8px rgba(0,0,0,.5);*/
 
+}
+.bootstro-highlight:not(.preserve-padding) {
+    padding: 10px;
+    margin: -10px;
 }
 
 .bootstro-finish-btn-wrapper {
