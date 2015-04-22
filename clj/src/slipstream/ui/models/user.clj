@@ -9,10 +9,11 @@
   configured value."
   [parameters]
   (->> (parameters/categories-of-type parameters :global)
-      (uc/map-in [:parameters] :value)
-      (filter #(->> % :parameters (not-any? nil?)))
-      (mapv :category)
-      not-empty))
+       ; TODO: Take into account only parameters with {:mandatory true}
+       (uc/map-in [:parameters] :value)
+       (filter #(->> % :parameters (not-any? nil?)))
+       (mapv :category)
+       not-empty))
 
 (defn parse
   [metadata]
