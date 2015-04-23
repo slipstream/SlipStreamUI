@@ -170,7 +170,22 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.replace(/\W/g, "").length;
         },
 
-        asInt: function() {
+        asInt: function(pattern) {
+            // By default, parseInt() will stop parsing the string
+            // before the first non-digit char. That means that both
+            // "1234" and "1234abc" will be parsed as 1234. A regexp
+            // pattern can be provided to extract the int from
+            // somewhere else.
+            if ( $.type(pattern) === "regexp" ) {
+                var matched = this.match(pattern);
+                if ( ! matched ) {
+                    return NaN;
+                }
+                if ( matched.length !== 2 ) {
+                    throw "One (and only one) capturing group is expected in pattern.";
+                }
+                return matched[1].asInt();
+            }
             return parseInt(this, 10);
         },
 
@@ -182,6 +197,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .unique()
                     .filter($$.util.string.notEmpty)
                     .join(", ");
+        },
+
+        width: function self(font) {
+            // Inspired from: http://stackoverflow.com/a/21015393
+            if ( ! font ) {
+                throw "Cannot calculate string width without a given font! Try with '12px arial'.";
+            }
+            // re-use canvas object for better performance
+            var canvas   = self.canvas || (self.canvas = document.createElement("canvas"));
+            var context  = canvas.getContext("2d");
+            context.font = font;
+            var metrics  = context.measureText(this);
+            return Math.ceil(metrics.width);
         }
 
     });
@@ -419,6 +447,23 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             isNodeWithOverflow: function( index, element ) {
                 // Works only for visible elements (i.e. not with display: none).
                 return this.offsetWidth < this.scrollWidth;
+            },
+
+            isNodeWithOverflowText: function( index, element ) {
+                // Like (predicates.isNodeWithOnlyText AND predicates.isNodeWithOverflow)
+                // but tries to guess it even for not visible elements.
+                var $elem = $(this);
+                if ( ! $elem.predicates.isNodeWithOnlyText.call(this, index, element) ) {
+                    return false;
+                }
+                if ( $elem.is(":visible") ) {
+                    return $elem.predicates.isNodeWithOverflow.call(this, index, element);
+                }
+                // If the element is NOT visible, try to foresee the
+                // overflow if a fix width is specified in CSS.
+                var elemWidthStr = $elem.css("width") || $elem.css("max-width") || "",
+                    elemWidth    = elemWidthStr.asInt(/^(\d+)px$/);
+                return elemWidth && elemWidth < $elem.renderedTextWidth();
             }
         },
 
@@ -1505,16 +1550,27 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        renderedTextWidth: function() {
+            // Returns the length of the string for the first matched
+            // element which is a text-only node.
+            var $textNodeElem = this
+                                    .filters(this.predicates.isNodeWithOnlyText)
+                                        .first();
+            if ( $textNodeElem.foundOne() ) {
+                return $textNodeElem.text().width($textNodeElem.css("font"));
+            }
+            return undefined;
+        },
+
         enableTooltipOnEllipsedTexts: function() {
             var showingFullTextCls = "ss-showing-full-text-on-hover",
                 paddingTopBottomPx = 2,
                 paddingLeftRightPx = 6,
                 borderPx  = 1;
             this
-                .find("*:visible:not(.sr-only)")
+                .find("*:not(.sr-only)")
                     .filters(
-                        this.predicates.isNodeWithOnlyText,
-                        this.predicates.isNodeWithOverflow
+                        this.predicates.isNodeWithOverflowText
                     )
                         .each(function(){
                             var $this = $(this),
