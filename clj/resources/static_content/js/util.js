@@ -383,6 +383,44 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .add(this.takeLast(numberOfElementsToTakeFromBothEnds));
         },
 
+        filters: function() {
+            // Like $().filter(function), but taking any number of be
+            // predicate functions. They will be applied in order
+            // following AND semantics (i.e. the first 'false' will
+            // stop evaluation of following predicates). Only elements
+            // returning true for all predicates will be included in
+            // the result. See this.predicates for a number of useful
+            // predicates.
+            var predicates = Array.prototype.slice.call(arguments);
+            return this
+                    .filter(function( index, element ) {
+                        return $$.util.boolean.cast(predicates.call(this, index, element ));
+                    });
+        },
+
+        predicates: {
+            // As per $.filter(), predicates receive (Integer index, Element element)
+            // as arguments.
+            isVisibleNode: function( index, element ) {
+                // This is to be used with $.filters() above. In most
+                // cases though, using $(... + ":visible") might be
+                // faster.
+                return $(this).is(":visible");
+            },
+
+            isNodeWithOnlyText: function( index, element ) {
+                var $contents = $(this).contents(),
+                    containtedElem = $contents.get(0);
+                return $contents.foundOne() &&
+                         containtedElem.nodeType === Node.TEXT_NODE &&
+                         $$.util.string.isEmpty(containtedElem.nodeValue).not();
+            },
+
+            isNodeWithOverflow: function( index, element ) {
+                return this.offsetWidth < this.scrollWidth;
+            }
+        },
+
         addOfClass: function(cls) {
             // Helper to add elements to the selection by class, to make it equivalent to hasClass(), addClass()...
             return this.add(cls.asSel());
@@ -1295,6 +1333,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        realOpacity: function() {
+            var opacity = this.css("opacity");
+            this
+                .parents()
+                    .each(function() {
+                        opacity *= $(this).css("opacity");
+                    });
+            return opacity;
+        },
+
         captureInlineOpacity: function() {
             var inlineStyle = this.attr("style");
             if (/\bopacity\b/.test(inlineStyle)) {
@@ -1453,6 +1501,48 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     scrollTop: Math.max(0, this.offset().top - topOffset)
                 }, 800);
             }
+            return this;
+        },
+
+        enableTooltipOnEllipsedTexts: function() {
+            var paddingTopBottomPx = 2,
+                paddingLeftRightPx = 6,
+                borderPx  = 1;
+            this
+                .find("*:visible")
+                    .filters(
+                        this.predicates.isNodeWithOnlyText,
+                        this.predicates.isNodeWithOverflow
+                    )
+                        .each(function(){
+                            var $this = $(this),
+                                $thisFullForHover = $("<span class='ss-full-text-for-hover'></span>")
+                                                .text($this.text())
+                                                .css({
+                                                    position:       "absolute",
+                                                    pointerEvents:  "none",
+                                                    border:         borderPx + "px solid #777",
+                                                    background:     "rgba(255,255,255,0.9)",
+                                                    font:           $this.css("font"),
+                                                    padding:        paddingTopBottomPx + "px " + paddingLeftRightPx + "px"
+                                                });
+                            $this
+                                .hoverDelayed(
+                                    function(){
+                                        var pos = $this.position();
+                                        $thisFullForHover
+                                            .css({
+                                                top:        pos.top  - paddingTopBottomPx - borderPx,
+                                                left:       pos.left - paddingLeftRightPx - borderPx,
+                                                opacity:    $this.realOpacity()
+                                            })
+                                            .appendTo("body");
+                                    },
+                                    function() {
+                                        $thisFullForHover.remove();
+                                    },
+                                    200);
+                        });
             return this;
         },
 
@@ -1622,6 +1712,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         bsEnableDynamicElements: function() {
             this
+                .enableTooltipOnEllipsedTexts()
                 .bsEnableAlertPopovers()
                 // Enable popovers
                 .find("[data-toggle='popover']")
@@ -1756,6 +1847,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         }
 
     };
+
+    util.boolean = {
+        cast: function (x) {
+            // Returns a boolean from a 'booly' value.
+            return !! x;
+        }
+    };
+
 
     util.url = {
         hash: {
