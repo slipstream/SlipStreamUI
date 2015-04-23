@@ -14,7 +14,7 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-table-cell-map dt,
 .ss-table-cell-map-editable dt,
 .ss-table-cell-deployment-node dt {
-  width: 130px;
+  width: 180px;
   text-align: left;
   clear: left;
   float: left;
@@ -22,7 +22,7 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 
 .ss-table-cell-map dd,
 .ss-table-cell-map-editable dd {
-  margin-left: 135px;
+  margin-left: 185px;
   text-overflow:ellipsis;
   overflow: hidden;
 }
