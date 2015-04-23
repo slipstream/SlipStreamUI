@@ -9,7 +9,7 @@
       <string>Cloud3</string>
       <string>Cloud4</string>
       <string>Cloud1</string>
-      <string>Cloud2</string>
+      <string>Cloud2-with-veeeery-long-name</string>
       <string>default</string>
    </cloudNames>
    <runs count="0" limit="20" offset="0" totalCount="0"/>
