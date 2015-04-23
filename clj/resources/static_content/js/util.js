@@ -417,6 +417,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             },
 
             isNodeWithOverflow: function( index, element ) {
+                // Works only for visible elements (i.e. not with display: none).
                 return this.offsetWidth < this.scrollWidth;
             }
         },
@@ -1510,7 +1511,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 paddingLeftRightPx = 6,
                 borderPx  = 1;
             this
-                .find("*:visible")
+                .find("*:visible:not(.sr-only)")
                     .filters(
                         this.predicates.isNodeWithOnlyText,
                         this.predicates.isNodeWithOverflow
