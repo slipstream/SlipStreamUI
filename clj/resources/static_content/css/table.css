@@ -27,6 +27,13 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   overflow: hidden;
 }
 
+.ss-table-cell-map .dl-horizontal > dt:hover:not(.ss-showing-full-text-on-hover) {
+  border-top:     1px solid #777;
+  border-bottom:  1px solid #777;
+  margin-top:     -1px;
+  margin-bottom:  -1px;
+}
+
 .ss-table-cell-reference-module-editable .input-group {
   width: 100%;
 }

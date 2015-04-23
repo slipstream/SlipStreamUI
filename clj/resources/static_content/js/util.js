@@ -1505,7 +1505,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         enableTooltipOnEllipsedTexts: function() {
-            var paddingTopBottomPx = 2,
+            var showingFullTextCls = "ss-showing-full-text-on-hover",
+                paddingTopBottomPx = 2,
                 paddingLeftRightPx = 6,
                 borderPx  = 1;
             this
@@ -1530,6 +1531,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                 .hoverDelayed(
                                     function(){
                                         var pos = $this.position();
+                                        $this.addClass(showingFullTextCls);
                                         $thisFullForHover
                                             .css({
                                                 top:        pos.top  - paddingTopBottomPx - borderPx,
@@ -1539,6 +1541,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                             .appendTo("body");
                                     },
                                     function() {
+                                        $this.removeClass(showingFullTextCls);
                                         $thisFullForHover.remove();
                                     },
                                     200);
