@@ -158,8 +158,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         select: function (index) {
             return toggleCollapsible(
                 $(".panel-group .panel")
-                    [index - 1]
-                    .closest(".panel")
+                    .eq(index - 1)
+                        .closest(".panel")
             );
         },
         selectWithoutAnimation: function (index) {
