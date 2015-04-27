@@ -2,6 +2,7 @@
   (:use [expectations]
         [slipstream.ui.views.table])
   (:require [clojure.string :as s]
+            [slipstream.ui.utils :as u :refer [expect-html]]
             [net.cgrand.enlive-html :as html]
             [clj-time.core :as t]
             [clj-time.format :as f]
@@ -512,35 +513,35 @@
   (localization/with-lang :en
    (icons/project)))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
        "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content icons/run-successfully-ready})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span class=\"text-success glyphicon-ok glyphicon\"></span>"
        "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content (icons/run-successfully-ready)})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span class=\"text-success glyphicon-ok glyphicon\"></span>"
        "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content {:icon (icons/run-successfully-ready)}})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-success glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
        "\n            </td>")
   (localization/with-lang :en
    (cell-html {:type :cell/icon, :content {:icon icons/run-successfully-ready}})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Ready\" class=\"text-danger glyphicon-ok glyphicon ss-icon-tooltip\"></span>"
        "\n            </td>")
@@ -549,7 +550,7 @@
                                            :style :danger
                                            :tooltip-placement "bottom"}})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span class=\"text-success glyphicon-ok glyphicon\"></span>"
        "\n            </td>")
@@ -559,7 +560,7 @@
                                            :style :danger
                                            :tooltip-placement "bottom"}})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-icon\">"
        "\n                <span data-placement=\"left\" data-toggle=\"tooltip\" title=\"Import\" class=\"glyphicon ss-icon-tooltip glyphicon-floppy-open\"></span>"
        "\n            </td>")
@@ -699,13 +700,13 @@
 
 ;; Toggle button cell
 
-(expect
+(expect-html
   (str  "<td class=\"ss-table-cell-toggle-button-editable\">
               <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"" rand-str "\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">" rand-str "</button>
             </td>")
   (cell-html {:type :cell/toggle-button, :content {:text rand-str, :id "ss-some-button-id"}}))
 
-(expect
+(expect-html
   (str  "<td class=\"ss-table-cell-toggle-button-editable\">
               <button id=\"ss-some-button-id\" autocomplete=\"off\" aria-pressed=\"false\" data-active-text=\"Will be removed\" data-toggle=\"button\" class=\"ss-toggle-btn btn-primary btn\" type=\"button\">Remove</button>
             </td>")

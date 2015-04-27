@@ -2,7 +2,8 @@
   (:use [expectations]
         [slipstream.ui.util.enlive])
   (:require [clojure.string :as s]
-            [net.cgrand.enlive-html :as html]))
+            [net.cgrand.enlive-html :as html]
+            [slipstream.ui.utils :as u :refer [expect-html]]))
 
 (defn- replace-quotes
   "For readability only."
@@ -634,7 +635,7 @@
               [:a]    (set-href (:uri link))
               [:a]    (set-target "_blank")))
 
-(expect
+(expect-html
   (str "<ul id=\"list-id\">"
            "<li class=\"list-item-class\">"
                "<span class=\"some-span-class\">"
@@ -777,7 +778,7 @@
               [:input]    (add-requirements input)
               [:input]    (set-value (:value input))))
 
-(expect
+(expect-html
   (str "<ul id=\"input-list-id\">"
            "<li class=\"input-list-item-class\">"
                "<input value=\"foo\" />" ; NOTE: This one is not wrapped into a div.form-group because is not 'required?'.
