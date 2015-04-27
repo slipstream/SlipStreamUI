@@ -42,7 +42,8 @@
    :creation      "2015-03-13 11:22:59.220 CET"
    :deleted?      false
    :super?        true
-   :configuration {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
+   :configuration {:configured-clouds nil
+                   :available-clouds  [{:value "Cloud1", :text "Cloud1"}
                                        {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
                                        {:value "Cloud3", :text "Cloud3"}
                                        {:value "Cloud4", :text "Cloud4"}] ; General.default.cloud.service
@@ -72,7 +73,8 @@
         (current-user/get-in [:configuration :available-clouds])))))
 
 (expect
-  {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
+  {:configured-clouds nil
+   :available-clouds  [{:value "Cloud1", :text "Cloud1"}
                        {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
                        {:value "Cloud3", :text "Cloud3"}
                        {:value "Cloud4", :text "Cloud4"}]
