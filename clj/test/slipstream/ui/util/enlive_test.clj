@@ -115,7 +115,7 @@
 ;; NOTE: Map keys are camelCase'd, including the idiomatic transformation of Clojure :is-some-boolean? keys.
 
 (expect
-  "<input data-from-server=\"{'someText':'foo bar','isFooBar':false}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  "<input data-from-server=\"{'isFooBar':false,'someText':'foo bar'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server {:some-text "foo bar", :foo-bar? false})))
 
@@ -723,10 +723,11 @@
        (apply str)))
 
 (expect
-  (str "<meta content=\"false\" name=\"boolean-value\" />"
+  (str "<meta content=\"\" name=\"blank-string-value\" />"
+       "<meta content=\"false\" name=\"boolean-value\" />"
        "<meta content=\":some-keyword\" name=\"keyword-value\" />"
-       "<meta content=\"\" name=\"blank-string-value\" />"
-       "<meta content=\"\" name=\"nil-value\" />")
+       "<meta content=\"\" name=\"nil-value\" />"
+       )
   (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword})
        html/emit*
        (apply str)))
@@ -756,10 +757,11 @@
        (apply str)))
 
 (expect
-  (str "<meta content=\"false\" name=\"ss-boolean-value\" />"
+  (str "<meta content=\"\" name=\"ss-blank-string-value\" />"
+       "<meta content=\"false\" name=\"ss-boolean-value\" />"
        "<meta content=\":some-keyword\" name=\"ss-keyword-value\" />"
-       "<meta content=\"\" name=\"ss-blank-string-value\" />"
-       "<meta content=\"\" name=\"ss-nil-value\" />")
+       "<meta content=\"\" name=\"ss-nil-value\" />"
+       )
   (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword} :name-prefix "ss-")
        html/emit*
        (apply str)))
@@ -803,7 +805,7 @@
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group has-feedback ss-form-group-with-validation\">"
-                   "<input value=\"foobar\" data-validation=\"{'requirements':[{'somePattern':'\\\\w+'}],'genericHelpHints':{'error':'foo bar','warning':'bar baz'}}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" />"
+                   "<input value=\"foobar\" data-validation=\"{'genericHelpHints':{'error':'foo bar','warning':'bar baz'},'requirements':[{'somePattern':'\\\\w+'}]}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" />"
                    "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                    "<span class=\"glyphicon glyphicon-ok form-control-feedback hidden\"></span>"
                "</div>"

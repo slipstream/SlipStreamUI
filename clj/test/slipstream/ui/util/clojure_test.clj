@@ -14,6 +14,79 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ->sorted
+
+(expect
+  nil
+  (->sorted nil))
+
+(expect
+  "some string"
+  (->sorted "some string"))
+
+(expect
+  1234
+  (->sorted 1234))
+
+(expect
+  [:d :A :a :c]
+  (->sorted [:d :A :a :c]))
+
+(expect
+  [:d :A :a :c]
+  (->sorted '(:d :A :a :c)))
+
+(expect
+  {:a 1 :b 2}
+  (->sorted {:b 2 :a 1}))
+
+(expect
+  [[:a 1] [:b 2]]
+  (seq (->sorted {:b 2 :a 1})))
+
+(expect
+  IllegalArgumentException
+  (->sorted {"b" 2 :a 1}))
+
+(expect
+  IllegalArgumentException
+  (->sorted #{:b 2 :a 1}))
+
+(expect
+  #{:c :d :A :a}
+  (->sorted #{:c :d :A :a}))
+
+(expect
+  #{:A :a :c :d}
+  (->sorted #{:c :d :A :a}))
+
+(expect
+  [:A :a :c :d]
+  (seq (->sorted #{:c :d :A :a})))
+
+(expect
+  [:A :a :c :d]
+  (seq (->sorted (sorted-set :c :d :A :a))))
+
+(expect
+  [0 1 2 3]
+  (seq (->sorted #{1 3 2 0})))
+
+; Note that the original sorting is overidden by ->sorted :
+
+(def a-decreasingly-sorted-set
+  (sorted-set-by > 1 3 2 0))
+
+(expect
+  [3 2 1 0]
+  (seq a-decreasingly-sorted-set))
+
+(expect
+  [0 1 2 3]
+  (seq (->sorted a-decreasingly-sorted-set)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; ensure-prefix
 
 (expect
@@ -801,11 +874,13 @@
   (->json ""))
 
 (expect
-  "{\"oneKey\":\"foo\",\"isSomeOtherKey\":true}"
+  "{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"}"
   (->json {:one-key "foo", :some-other-key? true}))
 
 (expect
-  "[{\"oneKey\":\"foo\",\"isSomeOtherKey\":true},{\"oneKey\":\"foo\",\"isSomeOtherKey\":true},{\"oneKey\":\"foo\",\"isSomeOtherKey\":true}]"
+  (str "[{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"},"
+        "{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"},"
+        "{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"}]")
   (->json [{:one-key "foo", :some-other-key? true}
            {:one-key "foo", :some-other-key? true}
            {:one-key "foo", :some-other-key? true}]))

@@ -402,7 +402,7 @@
 
 (def-blank-snippet map->meta-tag-snip :meta
   [m & {:keys [name-prefix]}]
-  this (html/clone-for [[k v] m]
+  this (html/clone-for [[k v] (uc/->sorted m)]
          this (set-name (name k))
          this (->> k name (str name-prefix) set-name)
          this (-> v str  set-content)))
