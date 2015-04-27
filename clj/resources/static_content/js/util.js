@@ -170,7 +170,22 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.replace(/\W/g, "").length;
         },
 
-        asInt: function() {
+        asInt: function(pattern) {
+            // By default, parseInt() will stop parsing the string
+            // before the first non-digit char. That means that both
+            // "1234" and "1234abc" will be parsed as 1234. A regexp
+            // pattern can be provided to extract the int from
+            // somewhere else.
+            if ( $.type(pattern) === "regexp" ) {
+                var matched = this.match(pattern);
+                if ( ! matched ) {
+                    return NaN;
+                }
+                if ( matched.length !== 2 ) {
+                    throw "One (and only one) capturing group is expected in pattern.";
+                }
+                return matched[1].asInt();
+            }
             return parseInt(this, 10);
         },
 
@@ -182,6 +197,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     .unique()
                     .filter($$.util.string.notEmpty)
                     .join(", ");
+        },
+
+        width: function self(font) {
+            // Inspired from: http://stackoverflow.com/a/21015393
+            if ( ! font ) {
+                throw "Cannot calculate string width without a given font! Try with '12px arial'.";
+            }
+            // re-use canvas object for better performance
+            var canvas   = self.canvas || (self.canvas = document.createElement("canvas"));
+            var context  = canvas.getContext("2d");
+            context.font = font;
+            var metrics  = context.measureText(this);
+            return Math.ceil(metrics.width);
         }
 
     });
@@ -381,6 +409,62 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this
                     .take(numberOfElementsToTakeFromBothEnds)
                     .add(this.takeLast(numberOfElementsToTakeFromBothEnds));
+        },
+
+        filters: function() {
+            // Like $().filter(function), but taking any number of be
+            // predicate functions. They will be applied in order
+            // following AND semantics (i.e. the first 'false' will
+            // stop evaluation of following predicates). Only elements
+            // returning true for all predicates will be included in
+            // the result. See this.predicates for a number of useful
+            // predicates.
+            var predicates = Array.prototype.slice.call(arguments);
+            return this
+                    .filter(function( index, element ) {
+                        return $$.util.boolean.cast(predicates.call(this, index, element ));
+                    });
+        },
+
+        predicates: {
+            // As per $.filter(), predicates receive (Integer index, Element element)
+            // as arguments.
+            isVisibleNode: function( index, element ) {
+                // This is to be used with $.filters() above. In most
+                // cases though, using $(... + ":visible") might be
+                // faster.
+                return $(this).is(":visible");
+            },
+
+            isNodeWithOnlyText: function( index, element ) {
+                var $contents = $(this).contents(),
+                    containtedElem = $contents.get(0);
+                return $contents.foundOne() &&
+                         containtedElem.nodeType === Node.TEXT_NODE &&
+                         $$.util.string.isEmpty(containtedElem.nodeValue).not();
+            },
+
+            isNodeWithOverflow: function( index, element ) {
+                // Works only for visible elements (i.e. not with display: none).
+                return this.offsetWidth < this.scrollWidth;
+            },
+
+            isNodeWithOverflowText: function( index, element ) {
+                // Like (predicates.isNodeWithOnlyText AND predicates.isNodeWithOverflow)
+                // but tries to guess it even for not visible elements.
+                var $elem = $(this);
+                if ( ! $elem.predicates.isNodeWithOnlyText.call(this, index, element) ) {
+                    return false;
+                }
+                if ( $elem.is(":visible") ) {
+                    return $elem.predicates.isNodeWithOverflow.call(this, index, element);
+                }
+                // If the element is NOT visible, try to foresee the
+                // overflow if a fix width is specified in CSS.
+                var elemWidthStr = $elem.css("width") || $elem.css("max-width") || "",
+                    elemWidth    = elemWidthStr.asInt(/^(\d+)px$/);
+                return elemWidth && elemWidth < $elem.renderedTextWidth();
+            }
         },
 
         addOfClass: function(cls) {
@@ -1295,6 +1379,16 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        realOpacity: function() {
+            var opacity = this.css("opacity");
+            this
+                .parents()
+                    .each(function() {
+                        opacity *= $(this).css("opacity");
+                    });
+            return opacity;
+        },
+
         captureInlineOpacity: function() {
             var inlineStyle = this.attr("style");
             if (/\bopacity\b/.test(inlineStyle)) {
@@ -1453,6 +1547,62 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     scrollTop: Math.max(0, this.offset().top - topOffset)
                 }, 800);
             }
+            return this;
+        },
+
+        renderedTextWidth: function() {
+            // Returns the length of the string for the first matched
+            // element which is a text-only node.
+            var $textNodeElem = this
+                                    .filters(this.predicates.isNodeWithOnlyText)
+                                        .first();
+            if ( $textNodeElem.foundOne() ) {
+                return $textNodeElem.text().width($textNodeElem.css("font"));
+            }
+            return undefined;
+        },
+
+        enableTooltipOnEllipsedTexts: function() {
+            var showingFullTextCls = "ss-showing-full-text-on-hover",
+                paddingTopBottomPx = 2,
+                paddingLeftRightPx = 6,
+                borderPx  = 1;
+            this
+                .find("*:not(.sr-only)")
+                    .filters(
+                        this.predicates.isNodeWithOverflowText
+                    )
+                        .each(function(){
+                            var $this = $(this),
+                                $thisFullForHover = $("<span class='ss-full-text-for-hover'></span>")
+                                                .text($this.text())
+                                                .css({
+                                                    position:       "absolute",
+                                                    pointerEvents:  "none",
+                                                    border:         borderPx + "px solid #777",
+                                                    background:     "rgba(255,255,255,0.9)",
+                                                    font:           $this.css("font"),
+                                                    padding:        paddingTopBottomPx + "px " + paddingLeftRightPx + "px"
+                                                });
+                            $this
+                                .hoverDelayed(
+                                    function(){
+                                        var pos = $this.position();
+                                        $this.addClass(showingFullTextCls);
+                                        $thisFullForHover
+                                            .css({
+                                                top:        pos.top  - paddingTopBottomPx - borderPx,
+                                                left:       pos.left - paddingLeftRightPx - borderPx,
+                                                opacity:    $this.realOpacity()
+                                            })
+                                            .appendTo("body");
+                                    },
+                                    function() {
+                                        $this.removeClass(showingFullTextCls);
+                                        $thisFullForHover.remove();
+                                    },
+                                    200);
+                        });
             return this;
         },
 
@@ -1622,6 +1772,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         bsEnableDynamicElements: function() {
             this
+                .enableTooltipOnEllipsedTexts()
                 .bsEnableAlertPopovers()
                 // Enable popovers
                 .find("[data-toggle='popover']")
@@ -1756,6 +1907,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         }
 
     };
+
+    util.boolean = {
+        cast: function (x) {
+            // Returns a boolean from a 'booly' value.
+            return !! x;
+        }
+    };
+
 
     util.url = {
         hash: {

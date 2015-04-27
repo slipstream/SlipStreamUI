@@ -14,7 +14,7 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 .ss-table-cell-map dt,
 .ss-table-cell-map-editable dt,
 .ss-table-cell-deployment-node dt {
-  width: 130px;
+  width: 180px;
   text-align: left;
   clear: left;
   float: left;
@@ -22,9 +22,16 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 
 .ss-table-cell-map dd,
 .ss-table-cell-map-editable dd {
-  margin-left: 135px;
+  margin-left: 185px;
   text-overflow:ellipsis;
   overflow: hidden;
+}
+
+.ss-table-cell-map .dl-horizontal > dt:hover:not(.ss-showing-full-text-on-hover) {
+  border-top:     1px solid #777;
+  border-bottom:  1px solid #777;
+  margin-top:     -1px;
+  margin-bottom:  -1px;
 }
 
 .ss-table-cell-reference-module-editable .input-group {
