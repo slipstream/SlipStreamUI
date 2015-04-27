@@ -2,7 +2,8 @@
   (:use [expectations]
         [slipstream.ui.util.enlive])
   (:require [clojure.string :as s]
-            [net.cgrand.enlive-html :as html]))
+            [net.cgrand.enlive-html :as html]
+            [slipstream.ui.utils :as u :refer [expect-html]]))
 
 (defn- replace-quotes
   "For readability only."
@@ -60,73 +61,73 @@
 
 (def input-html "<input data-test=\"foo\" class=\"some-class\" type=\"text\" />")
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server nil)))
 
-(expect
+(expect-html
   "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server 1)))
 
-(expect
+(expect-html
   "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" data-test=\"1\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server 1)
                    this (set-data :test 1)))
 
-(expect
+(expect-html
   "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server 1)
                    this (set-data :test nil)))
 
-(expect
+(expect-html
   "<input data-from-server=\"1\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server "1")))
 
-(expect
+(expect-html
   "<input data-from-server=\"blah\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server "blah")))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server [])))
 
-(expect
+(expect-html
   "<input data-from-server=\"['a','b','c']\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server [:a :b "c"])))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server {})))
 
-(expect
+(expect-html
   "<input data-from-server=\"{'a':1}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server {:a 1})))
 
 ;; NOTE: Map keys are camelCase'd, including the idiomatic transformation of Clojure :is-some-boolean? keys.
 
-(expect
-  "<input data-from-server=\"{'someText':'foo bar','isFooBar':false}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+(expect-html
+  "<input data-from-server=\"{'isFooBar':false,'someText':'foo bar'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server {:some-text "foo bar", :foo-bar? false})))
 
 ;; NOTE: Clojure sets are transformed into JSON vectors.
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server #{})))
 
-(expect
+(expect-html
   "<input data-from-server=\"['a','b']\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server #{:a :b})))
@@ -138,7 +139,7 @@
   (sniptest-quoted input-html
                    this (set-data :from-server {:uncompiled-pattern #"\w+"})))
 
-(expect
+(expect-html
   "<input data-from-server=\"{'uncompiledPattern':'\\\\w+'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server {:uncompiled-pattern (str #"\w+")})))
@@ -146,53 +147,53 @@
 ;; NOTE: That the map keys are camelCase'd. This allows to use dot notation on Javascript
 ;;       when retrieving the data with jQuery.fn.data()
 
-(expect
+(expect-html
   "<input data-from-server=\"{'someKey':'some-value'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (set-data :from-server {:some-key "some-value"})))
 
 ;; when-set-data
 
-(expect
+(expect-html
   "<input data-from-server=\"{'a':1}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server true {:a 1})))
 
-(expect
+(expect-html
   "<input data-from-server=\"{'a':1}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server {:a 1})))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server false {:a 1})))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server false {:a 1})
                    this (when-set-data :test nil)))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server false {:a 1})
                    this (when-set-data :test true nil)))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"{'a':1}\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server false {:a 1})
                    this (when-set-data :test {:a 1})))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"{'a':1}\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server false {:a 1})
                    this (when-set-data :test true {:a 1})))
 
-(expect
+(expect-html
   "<input type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
                    this (when-set-data :from-server false {:a 1})
@@ -205,112 +206,112 @@
 
 (def anchor-html "<a href=\"#\"></a>")
 
-(expect
+(expect-html
   "<a href=\"http://some.url.com\">some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (set-href "http://some.url.com")))
 
-(expect
+(expect-html
   "<a>some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (set-href nil)))
 
-(expect
+(expect-html
   "<a href=\"the.url.if.true\"></a>"
   (html/sniptest anchor-html
                  this (if-set-href true
                         "the.url.if.true"
                         "xxxxxxxxxxxxx")))
 
-(expect
+(expect-html
   "<a href=\"the.url.if.false\"></a>"
   (html/sniptest anchor-html
                  this (if-set-href false
                         "xxxxxxxxxxxxx"
                         "the.url.if.false")))
 
-(expect
+(expect-html
   "<a href=\"the.url.if.true\"></a>"
   (html/sniptest anchor-html
                  this (when-set-href true
                         "the.url.if.true")))
 
-(expect
+(expect-html
   "<a href=\"#\"></a>"
   (html/sniptest anchor-html
                  this (when-set-href false
                         "the.url.if.true")))
 
-(expect
+(expect-html
   "<a disabled=\"\" href=\"#\">some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (toggle-disabled true)))
 
-(expect
+(expect-html
   "<a disabled=\"disabled\" href=\"#\">some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (toggle-disabled true "disabled")))
 
-(expect
+(expect-html
   "<a disabled=\"disabled-and-more\" href=\"#\">some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (toggle-disabled true "disabled" "-and-more")))
 
-(expect
+(expect-html
   "<a href=\"#\">some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (toggle-disabled false)))
 
-(expect
+(expect-html
   "<a href=\"#\">some text</a>"
   (html/sniptest anchor-html
                  this (html/content "some text")
                  this (toggle-disabled false "disabled" "-and-more")))
 
-(expect
+(expect-html
   "<a href=\"#\">some text</a>"
   (html/sniptest (html/sniptest anchor-html this (toggle-disabled true))
                  this (html/content "some text")
                  this (toggle-disabled false)))
 
-(expect
+(expect-html
   "<a href=\"#\">some text</a>"
   (html/sniptest (html/sniptest anchor-html this (toggle-disabled true))
                  this (html/content "some text")
                  this (toggle-disabled false "disabled" "-and-more")))
 
-(expect
+(expect-html
   "<a href=\"#\">some text</a>"
   (html/sniptest "<a disabled=\"disabled\" href=\"#\"></a>"
                  this (html/content "some text")
                  this (toggle-disabled false)))
 
-(expect
+(expect-html
   "<a href=\"#\">some text</a>"
   (html/sniptest "<a disabled=\"disabled\" href=\"#\"></a>"
                  this (html/content "some text")
                  this (toggle-disabled false "disabled" "-and-more")))
 
-(expect
+(expect-html
   "<a href=\"some/url?query-param=value\">some text</a>"
   (html/sniptest "<a disabled=\"disabled\" href=\"some/url\"></a>"
                  this (html/content "some text")
                  this (toggle-disabled false)
                  this (append-to-href "?query-param=value")))
 
-(expect
+(expect-html
   "<a href=\"sxmx/xrl?qxxry-pxrxm=vxlxx\">some text</a>"
   (html/sniptest "<a href=\"some/url\"></a>"
                  this (html/content "some text")
                  this (append-to-href "?query-param=value")
                  this (update-href s/replace #"[aeiou]" "x")))
-(expect
+(expect-html
   "<a href=\"some/url\">some text</a>"
   (html/sniptest "<a href=\"some/url?query-param=value\">some text</a>"
                  this (update-href s/replace #"\?.*" "")))
@@ -343,7 +344,7 @@
    </html>")
 
 
-(expect
+(expect-html
   example-html-page-with-new-list-items
   (html/sniptest example-html-page
                  [[:ul html/first-of-type]] (content-for [[:li (first-of-class "class-one")]] [item ["one" "two" "three" "four" "five"]]
@@ -420,7 +421,7 @@
     [content]
     [:li] (html/content content)))
 
-(expect
+(expect-html
   "<ul>
               <li class=\"class-one class-two\">some item</li>
               <li class=\"class-one class-three\">some item</li>
@@ -439,7 +440,7 @@
     [content]
     this (html/content content)))
 
-(expect
+(expect-html
   (str
     "<li class=\"class-one class-two\">some item</li>"
     "<li class=\"class-one class-three\">some item</li>"
@@ -456,7 +457,7 @@
     [content]
     this (html/content content)))
 
-(expect
+(expect-html
   "<li class=\"class-two\">some item</li>"
   (->> "some item" one-li-snip html/emit* (apply str)))
 
@@ -466,7 +467,7 @@
     [content]
     this (html/content content)))
 
-(expect
+(expect-html
   "<li class=\"extra-class\">some item</li><li class=\"extra-class\">some item</li>"
   (->> "some item" one-separated-li-snip html/emit* (apply str)))
 
@@ -477,7 +478,7 @@
     this (content-for [[:li (first-of-class "extra-class")]] [item items]
                        this (html/content (str item)))))
 
-(expect
+(expect-html
   "<ul>
               <li class=\"extra-class\">item1</li>
               <li class=\"extra-class\">item2</li>
@@ -494,26 +495,26 @@
 
 ;; blank-node
 
-(expect
+(expect-html
   "<div></div>"
   (->> (blank-node :div)
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<blah></blah>"
   (->> (blank-node :blah)
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div id=\"blah\"></div>"
   (->> (blank-node :div
                    :id "blah")
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div class=\"some-class\" id=\"blah\"></div>"
   (->> (blank-node :div
                    :id "blah"
@@ -523,13 +524,13 @@
 
 ;; Envlive handles the correct rendering of self-closing tags for us
 
-(expect
+(expect-html
   "<br />"
   (->> (blank-node :br)
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<img id=\"some-img-id\" />"
   (->> (blank-node :img
                    :id "some-img-id")
@@ -538,19 +539,19 @@
 
 ;; blank node with parent nodes
 
-(expect
+(expect-html
   "<blah></blah>"
   (->> (blank-node [:blah])
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div><span><blah></blah></span></div>"
   (->> (blank-node [:div :span :blah])
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div><blah class=\"test\"></blah></div>"
   (->> (blank-node [:div :blah] :class "test")
        html/emit*
@@ -578,7 +579,7 @@
     :content ["the link name"]}]
   (some-link-snip some-link))
 
-(expect
+(expect-html
   "<a target=\"_blank\" href=\"http://some.uri.com\">the link name</a>"
   (->> some-link
        some-link-snip
@@ -595,7 +596,7 @@
   [:a]    (set-href (:uri link))
   [:a]    (set-target "_blank"))
 
-(expect
+(expect-html
   (str "<li id=\"top-level-id\"><span class=\"some-span-class\"><a target=\"_bla"
        "nk\" href=\"http://some.uri.com\">the link name</a></span></li>")
   (->> some-link
@@ -613,7 +614,7 @@
   [:img]  (set-title (:name img))
   [:img]  (set-src (:uri img)))
 
-(expect
+(expect-html
   (str "<li id=\"top-level-img-id-for-img-the-image-name\"><span class=\"some-sp"
        "an-img-class\"><img title=\"the image name\" class=\"some-img-class\" />"
        "</span></li>")
@@ -634,7 +635,7 @@
               [:a]    (set-href (:uri link))
               [:a]    (set-target "_blank")))
 
-(expect
+(expect-html
   (str "<ul id=\"list-id\">"
            "<li class=\"list-item-class\">"
                "<span class=\"some-span-class\">"
@@ -668,28 +669,28 @@
 
 ; text-div-snip
 
-(expect
+(expect-html
   "<div></div>"
   (->> nil
        text-div-snip
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div></div>"
   (->> ""
        text-div-snip
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div>blah</div>"
   (->> "blah"
        text-div-snip
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<div class=\"ss-some-class\">tada</div>"
   (->> (text-div-snip "tada" :css-class "ss-some-class")
        html/emit*
@@ -710,22 +711,22 @@
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<meta content=\"1\" name=\"a\" />"
   (->> (map->meta-tag-snip {:a 1})
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<meta content=\"1\" name=\"a\" /><meta content=\"the string value\" name=\"some-string\" />"
   (->> (map->meta-tag-snip {:a 1, :some-string "the string value"})
        html/emit*
        (apply str)))
 
-(expect
-  (str "<meta content=\"false\" name=\"boolean-value\" />"
+(expect-html
+  (str "<meta content=\"\" name=\"blank-string-value\" />"
+       "<meta content=\"false\" name=\"boolean-value\" />"
        "<meta content=\":some-keyword\" name=\"keyword-value\" />"
-       "<meta content=\"\" name=\"blank-string-value\" />"
        "<meta content=\"\" name=\"nil-value\" />")
   (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword})
        html/emit*
@@ -743,22 +744,22 @@
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<meta content=\"1\" name=\"ss-a\" />"
   (->> (map->meta-tag-snip {:a 1} :name-prefix "ss-")
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<meta content=\"1\" name=\"ss-a\" /><meta content=\"the string value\" name=\"ss-some-string\" />"
   (->> (map->meta-tag-snip {:a 1, :some-string "the string value"} :name-prefix "ss-")
        html/emit*
        (apply str)))
 
-(expect
-  (str "<meta content=\"false\" name=\"ss-boolean-value\" />"
+(expect-html
+  (str "<meta content=\"\" name=\"ss-blank-string-value\" />"
+       "<meta content=\"false\" name=\"ss-boolean-value\" />"
        "<meta content=\":some-keyword\" name=\"ss-keyword-value\" />"
-       "<meta content=\"\" name=\"ss-blank-string-value\" />"
        "<meta content=\"\" name=\"ss-nil-value\" />")
   (->> (map->meta-tag-snip {:nil-value nil, :blank-string-value "", :boolean-value false, :keyword-value :some-keyword} :name-prefix "ss-")
        html/emit*
@@ -775,7 +776,7 @@
               [:input]    (add-requirements input)
               [:input]    (set-value (:value input))))
 
-(expect
+(expect-html
   (str "<ul id=\"input-list-id\">"
            "<li class=\"input-list-item-class\">"
                "<input value=\"foo\" />" ; NOTE: This one is not wrapped into a div.form-group because is not 'required?'.
@@ -803,7 +804,7 @@
            "</li>"
            "<li class=\"input-list-item-class\">"
                "<div class=\"form-group has-feedback ss-form-group-with-validation\">"
-                   "<input value=\"foobar\" data-validation=\"{'requirements':[{'somePattern':'\\\\w+'}],'genericHelpHints':{'error':'foo bar','warning':'bar baz'}}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" />"
+                   "<input value=\"foobar\" data-validation=\"{'genericHelpHints':{'error':'foo bar','warning':'bar baz'},'requirements':[{'somePattern':'\\\\w+'}]}\" class=\"ss-required-input ss-input-has-requirements ss-input-needs-validation\" />"
                    "<span class=\"ss-validation-help-hint help-block hidden\"></span>"
                    "<span class=\"glyphicon glyphicon-ok form-control-feedback hidden\"></span>"
                "</div>"

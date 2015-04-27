@@ -2,6 +2,7 @@
   (:require [clojure.string :as s]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [clojure.walk :as walk]
             [clj-json.core :as json])
   (:import  [java.io FileNotFoundException]))
 
@@ -21,6 +22,36 @@
   `(def ~fname
      (memoize
        (fn ~@body))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defprotocol ConvertibleToSortable
+  "Note that the original sorting will be overidden (if any). See tests for expectations."
+  (->sorted [o]))
+
+(extend-protocol ConvertibleToSortable
+
+  java.util.Map
+  (->sorted [o]
+    (when (some->> o not-empty keys (map type) (apply not=))
+      (throw (IllegalArgumentException. (str "All keys of the map must be of the same type: " (pr-str o)))))
+    (into (sorted-map) o))
+
+  java.util.Set
+  (->sorted [o]
+    (when (some->> o not-empty (map type) (apply not=))
+      (throw (IllegalArgumentException. (str "All items in the set must be of the same type: " (pr-str o)))))
+    (into (sorted-set) o))
+
+  java.lang.Object
+  (->sorted [o]
+    o)
+
+  nil
+  (->sorted [_]
+    nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn slurp-resource
   [path-str]
@@ -212,11 +243,18 @@
         (s/replace #"(\w)[-\.](\w)" "$1 $2") ; NOTE: dash-separated and dot.separated words become space separated.
         (s/replace #"(?:^|\b)\w" s/upper-case))))
 
+(defn- normalise-sorting
+  "In order to generate a deterministic string, we sort all naturally unsorted
+  data types."
+  [x]
+  (walk/postwalk ->sorted x))
+
 (defn ->camelCaseString
   "Takes anything and returns a camelCase'd string. See tests for expectations."
   [x]
   (when x
     (-> x
+        normalise-sorting
         str
         keywordize
         name
@@ -240,6 +278,7 @@
     (-> x
         (update-map-keys key?->isKey)
         (update-map-keys ->camelCaseString)
+        normalise-sorting
         json/generate-string)))
 
 (defn coll-grouped-by
