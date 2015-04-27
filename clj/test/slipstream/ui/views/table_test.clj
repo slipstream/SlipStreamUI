@@ -34,7 +34,7 @@
 
 (def ^:private row-index 2)
 
-(expect
+(expect-html
   (str "<span>"
          "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
          "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
@@ -158,27 +158,27 @@
     :content [rand-str]}]
   (@#'slipstream.ui.views.table/cell-text-snip-view {:text rand-str}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">" rand-str "</td>")
   (cell-html {:type :cell/text, :content {:text rand-str}}))
 
-(expect
+(expect-html
   (str "<td id=\"some-id\" class=\"ss-table-cell-text\">" rand-str "</td>")
   (cell-html {:type :cell/text, :content {:text rand-str :id "some-id"}}))
 
-(expect
+(expect-html
   (str "<td id=\"some:id.1\" class=\"ss-table-cell-text\">" rand-str "</td>")
   (cell-html {:type :cell/text, :content {:text rand-str :id "some:id.1"}}))
 
-(expect
+(expect-html
   (str "<td style=\"word-wrap: break-word; max-width: 500px;\" class=\"ss-table-cell-text\">" rand-str-long "</td>")
   (cell-html {:type :cell/text, :content {:text rand-str-long}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">" rand-str "</td>")
   (cell-html {:type :cell/text, :content rand-str}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">" (s/join ", " ["1" "A" rand-str]) "</td>")
   (cell-html {:type :cell/set, :content #{"A" rand-str "1"}}))
 
@@ -217,37 +217,37 @@
               "\n            "]}]
   (@#'slipstream.ui.views.table/cell-text-snip-edit {:text rand-str}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
             </td>")
   (cell-html {:type :cell/text, :content {:text rand-str}, :editable? true}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input disabled=\"\" value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
             </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :disabled? true}, :editable? true}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"" rand-str "\" placeholder=\"Text\" class=\"form-control\" type=\"text\" />
             </td>")
   (cell-html {:type :cell/text, :content {:text rand-str, :placeholder "Text"}, :editable? true}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"\" class=\"form-control\" type=\"text\" />
             </td>")
   (cell-html {:type :cell/text, :content {:text ""}, :editable? true}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"\" class=\"form-control\" type=\"text\" />
             </td>")
   (cell-html {:type :cell/text, :content {:text nil}, :editable? true}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
             </td>")
@@ -256,7 +256,7 @@
 ; When a parameter is available in the cell content, we append the hidden
 ; input fields in editable mode required by the current form structure.
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
             <span>"
@@ -273,18 +273,18 @@
 
 ;; Password cell
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">•••••</td>")
   (cell-html {:type :cell/password, :content rand-str}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">•••••</td>")
   (cell-html {:type :cell/password, :content {:text rand-str}}))
 
 
 ;; Editable password cell
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-password-editable\">
               <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
             </td>"
@@ -293,7 +293,7 @@
 ; When a parameter is available in the cell content, we append the hidden
 ; input fields in editable mode required by the current form structure.
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-password-editable\">
               <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
             <span>"
@@ -318,21 +318,21 @@
     :selected? true
     :text   rand-str}])
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">"
           "<span title=\"Possible values: Other choice, " rand-str "\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" rand-str "</span>"
        "</td>")
   (localization/with-lang :en
     (cell-html {:type :cell/enum, :content enum})))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-text\">"
           "<span title=\"Possible values: Other choice, " rand-str "\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" rand-str "</span>"
        "</td>")
   (localization/with-lang :en
     (cell-html {:type :cell/enum, :content {:enum enum}})))
 
-(expect
+(expect-html
   (str "<td id=\"the-id\" class=\"ss-table-cell-text\">"
           "<span title=\"Possible values: Other choice, " rand-str "\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" rand-str "</span>"
        "</td>")
@@ -342,7 +342,7 @@
 
 ;; Editable enum cell
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-enum-editable\">
               <select class=\"form-control\">
                 <option value=\"other-choice\">Other choice</option>
@@ -351,7 +351,7 @@
             </td>")
   (cell-html {:type :cell/enum, :editable? true, :content enum}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-enum-editable\">
               <select class=\"form-control\">
                 <option value=\"other-choice\">Other choice</option>
@@ -360,7 +360,7 @@
             </td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-enum-editable\">
               <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
                 <option value=\"other-choice\">Other choice</option>
@@ -369,7 +369,7 @@
             </td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id"}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-enum-editable\">
               <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
                 <option value=\"other-choice\">Other choice</option>
@@ -378,7 +378,7 @@
             <input name=\"some-id\" id=\"some-id\" value=\"" rand-url "\" type=\"hidden\" /></td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum, :id "some-id", :read-only? true}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-enum-editable\">
               <select disabled=\"\" name=\"some-id\" id=\"some-id\" class=\"form-control\">
                 <option value=\"other-choice\">Other choice</option>
@@ -391,7 +391,7 @@
 ; When a parameter is available in the cell content, we append the hidden
 ; input fields in editable mode required by the current form structure.
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-enum-editable\">
               <select name=\"some-id\" id=\"some-id\" class=\"form-control\">
                 <option value=\"other-choice\">Other choice</option>
@@ -412,7 +412,7 @@
 
 ;; Map cell
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-map\">
               <dl class=\"dl-horizontal\"><dt>Second-key</dt><dd id=\"Second-key\">will come first since sorted alphabetically</dd><dt>first-key</dt><dd id=\"first-key\">" rand-str "</dd></dl>
             </td>")
@@ -421,68 +421,68 @@
 
 ;; Link cell
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a href=\"#\">" rand-str "</a></td>")
   (cell-html {:type :cell/link, :content {:text rand-str :href "#"}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a href=\"#\">" rand-str "</a></td>")
   (cell-html {:type :cell/link, :content {:text rand-str :href "#" :open-in-new-window? false}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a target=\"_blank\" href=\"#\">" rand-str "</a></td>")
   (cell-html {:type :cell/link, :content {:text rand-str :href "#" :open-in-new-window? true}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a target=\"_blank\" href=\"" rand-url "\">" rand-str "</a></td>")
   (cell-html {:type :cell/external-link, :content {:text rand-str :href rand-url}}))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-link\"><a href=\"mailto:some@email.com\">some@email.com</a></td>"
   (cell-html {:type :cell/email, :content "some@email.com"}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a target=\"_blank\" id=\"the-id\" href=\"" rand-url "\">" rand-url "</a></td>")
   (cell-html {:type :cell/external-url, :content {:url rand-url, :id "the-id"}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a href=\"" rand-url "\">" rand-url "</a></td>")
   (cell-html {:type :cell/url, :content rand-url}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a href=\"" rand-url "\">" rand-url "</a></td>")
   (cell-html {:type :cell/url, :content {:url rand-url}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a id=\"the-id\" href=\"" rand-url "\">" rand-url "</a></td>")
   (cell-html {:type :cell/url, :content {:url rand-url, :id "the-id"}}))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-link\"><a href=\"/user/testusername\">testusername</a></td>"
   (current-user/with-user {:super? true}
     (cell-html {:type :cell/username, :content "testusername"})))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-text\">testusername</td>"
   (current-user/with-user {:super? false}
     (cell-html {:type :cell/username, :content "testusername"})))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-link\"><a href=\"/user/testusername\">testusername</a></td>"
   (current-user/with-user {:super? true}
     (cell-html {:type :cell/username, :content {:username "testusername"}})))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-text\">testusername</td>"
   (current-user/with-user {:super? false}
     (cell-html {:type :cell/username, :content {:username "testusername"}})))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-link\"><a id=\"some-id\" href=\"/user/testusername\">testusername</a></td>"
   (current-user/with-user {:super? true}
     (cell-html {:type :cell/username, :content {:username "testusername" :id "some-id"}})))
 
-(expect
+(expect-html
   "<td id=\"some-id\" class=\"ss-table-cell-text\">testusername</td>"
   (current-user/with-user {:super? false}
     (cell-html {:type :cell/username, :content {:username "testusername" :id "some-id"}})))
@@ -574,19 +574,19 @@
 
 ;; Boolean cell
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-boolean\">
               <input disabled=\"\" checked=\"\" type=\"checkbox\" />
             </td>"
   (cell-html {:type :cell/boolean, :content true}))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-boolean\">
               <input disabled=\"\" type=\"checkbox\" />
             </td>"
   (cell-html {:type :cell/boolean, :content false}))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-boolean\">
               <input disabled=\"\" type=\"checkbox\" />
             </td>"
@@ -595,19 +595,19 @@
 
 ;; Editable boolean cell
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-boolean-editable\">
               <input checked=\"\" type=\"checkbox\" />
             </td>"
   (cell-html {:type :cell/boolean, :content true, :editable? true}))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-boolean-editable\">
               <input type=\"checkbox\" />
             </td>"
   (cell-html {:type :cell/boolean, :content false, :editable? true}))
 
-(expect
+(expect-html
   "<td class=\"ss-table-cell-boolean-editable\">
               <input type=\"checkbox\" />
             </td>"
@@ -616,7 +616,7 @@
 ; When a parameter is available in the cell content, we append the hidden
 ; input fields in editable mode required by the current form structure.
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-boolean-editable\">
               <input checked=\"\" type=\"checkbox\" />
             <span>"
@@ -634,7 +634,7 @@
 ;; Module version cell
 
 (let [[_ history version] (re-matches #"(.*/)(\d+)" rand-url)]
-  (expect
+  (expect-html
     (str "<td class=\"ss-table-cell-module-version\"><span>"
          version
          "</span> (<a href=\""
@@ -645,13 +645,13 @@
 
 ;; Help hint cell
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-help-hint\">"
        "\n                <span data-content=\"" rand-str "\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
        "\n            </td>")
   (cell-html {:type :cell/help-hint, :content {:content rand-str}}))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-help-hint\">"
        "\n                <span data-content=\"" rand-str "\" title=\"The title\" data-trigger=\"hover\" data-placement=\"left\" data-toggle=\"popover\" data-container=\"body\" class=\"glyphicon glyphicon-question-sign\"></span>"
        "\n            </td>")
@@ -664,7 +664,7 @@
   [s]
   (->> s rest (apply str)))
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-link\"><a class=\"ss-reference-module-name\" href=\"/module"
        rand-url
        "\">"
@@ -675,7 +675,7 @@
 
 ;; Editable reference module cell
 
-(expect
+(expect-html
   (str "<td class=\"ss-table-cell-reference-module-editable\">
               <div class=\"input-group\">
                 <input value=\"" rand-url "\" name=\"moduleReference\" id=\"module-reference\" type=\"hidden\" />
@@ -693,7 +693,7 @@
 
 ;; Hidden form input cell
 
-(expect
+(expect-html
   (str "<input name=\"ss-some-field-name\" id=\"ss-some-field-name\" value=\"" rand-str "\" type=\"hidden\" />")
   (cell-html {:type :cell/hidden-input, :content {:value rand-str, :id "ss-some-field-name"}}))
 
