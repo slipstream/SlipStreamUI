@@ -357,7 +357,8 @@
    :data  (when abort-flag?
             {:alert-popover-options {:type      :error,
                                      :placement "top"
-                                     :content   (str "<strong><code>ss:abort</code></strong>- " abort-msg),
+                                     :content   (str "<strong><code>ss:abort</code></strong>- "
+                                                     (uc/shorten-long-words abort-msg 32)),
                                      :html      true}})
    :cells [{:type :cell/icon,      :content {:icon (icons/icon-for display-status)}}
            {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}

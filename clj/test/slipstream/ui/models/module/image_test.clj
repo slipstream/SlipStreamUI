@@ -264,7 +264,7 @@
                               :text "Other"}]
                     :login-username "centos_username"}
       :cloud-image-details {:native-image? false
-                            :cloud-identifiers {"Cloud2" nil
+                            :cloud-identifiers {"Cloud2-with-veeeery-long-name" nil
                                                 "Cloud1" nil
                                                 "Cloud4" nil
                                                 "Cloud3" nil}

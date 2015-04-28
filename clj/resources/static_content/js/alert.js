@@ -59,7 +59,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         container: "floating",
         autoDismiss: true,
         title: undefined,
-        msg: undefined
+        titleMaxLength: 500,
+        msg: undefined,
+        msgMaxLength: 1500
     };
 
     function findVisibleAlerts($alertContainer) {
@@ -151,10 +153,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         $alertElem
             .find(".alert-msg")
-            .html(settings.msg);
+                .html(settings.msg.trimToMaxLength(settings.msgMaxLength));
 
         if (settings.title) {
-            $alertElem.find(".alert-title").html(settings.title);
+            $alertElem
+                .find(".alert-title")
+                    .html(settings.title.trimToMaxLength(settings.titleMaxLength));
         }
 
         if (! settings.isDismissible) {

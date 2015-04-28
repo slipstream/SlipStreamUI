@@ -252,3 +252,7 @@ div.popover:not(.ss-alert-popover) code {
 #ssh-access-enabled + .help-block {
   max-width: 204px;
 }
+
+.ss-showing-full-text-on-hover {
+  color: transparent; /* hide real text */
+}

@@ -25,6 +25,7 @@
          :type :deployment-run
          :abort-flag? false
          :tags "tag-initializing-without-abort-flag"}
+
         {:status "Initializing"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
@@ -37,6 +38,7 @@
          :type :deployment-run
          :abort-flag? true
          :tags "tag-initializing-with-abort-flag"}
+
         {:status "Provisioning"
          :display-status :run-in-transitional-state
          :module-uri "module/first-project/newdeployment/24"
@@ -49,6 +51,7 @@
          :type :deployment-run
          :abort-flag? false
          :tags "tag-provisioning-without-abort-flag"}
+
         {:status "Provisioning"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
@@ -61,6 +64,7 @@
          :type :image-build
          :abort-flag? true
          :tags "tag-provisioning-with-abort-flag"}
+
         {:status "Executing"
          :display-status :run-in-transitional-state
          :module-uri "module/first-project/newdeployment/24"
@@ -73,6 +77,7 @@
          :type :image-build
          :abort-flag? false
          :tags "tag-executing-without-abort-flag"}
+
         {:status "Executing"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
@@ -85,6 +90,7 @@
          :type :image-build
          :abort-flag? true
          :tags "tag-executing-with-abort-flag"}
+
         {:status "Sending reports"
          :display-status :run-in-transitional-state
          :module-uri "module/first-project/newdeployment/24"
@@ -97,6 +103,7 @@
          :type :image-build
          :abort-flag? false
          :tags "tag-sending-reports-without-abort-flag"}
+
         {:status "Sending reports"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
@@ -109,6 +116,7 @@
          :type :image-build
          :abort-flag? true
          :tags "tag-sending-reports-with-abort-flag"}
+
         {:status "Ready"
          :display-status :run-successfully-ready
          :module-uri "module/first-project/newdeployment/24"
@@ -121,6 +129,7 @@
          :type :image-build
          :abort-flag? false
          :tags "tag-ready-without-abort-flag"}
+
         {:status "Ready"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
@@ -133,6 +142,7 @@
          :type :image-build
          :abort-flag? true
          :tags "tag-ready-with-abort-flag"}
+
         {:status "Finalizing"
          :display-status :run-in-transitional-state
          :module-uri "module/first-project/newdeployment/24"
@@ -145,18 +155,20 @@
          :type :image-build
          :abort-flag? false
          :tags "tag-finalizing-without-abort-flag"}
+
         {:status "Finalizing"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
          :cloud-names "Exoscale"
-         :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a>"
+         :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a> b9638f6cj-d19b0jd4e6-2jdb2f6jd-498843e7aa7e6869be33jd9fe4jd4c80jdbbb1jd1665f6bad443ab7953e9jd2812-jd4591jdbc8fjd194a95b9f70ed3caa272jd97a7jd4a25jd8a2ajdb13f3fd16851eb8eb8aajd163ejd4a87jd86a2jdafb2a4eb3982"
          :start-time "2015-02-04 14:58:54.543 CET"
          :uri "run/555dccf8-4312-4328-8c70-b01e20a9ffa8"
          :username "alice"
          :uuid "555dccf8-4312-4328-8c70-b01e20a9ffa8"
          :type :deployment-run
          :abort-flag? true
-         :tags "tag-finalizing-with-abort-flag"}
+         :tags "tag-finalizing-with-very-long-abort-flag"}
+
         {:status "Done"
          :display-status :run-terminated
          :module-uri "module/first-project/newdeployment/24"
@@ -169,6 +181,7 @@
          :type :deployment-run
          :abort-flag? false
          :tags "tag-done-without-abort-flag"}
+
         {:status "Done"
          :display-status :run-with-abort-flag-set
          :module-uri "module/first-project/newdeployment/24"
@@ -181,6 +194,7 @@
          :type :deployment-run
          :abort-flag? true
          :tags "tag-done-with-abort-flag"}
+
         {:status "Aborted"
          :display-status :run-terminated
          :module-uri "module/first-project/newdeployment/24"
@@ -193,64 +207,71 @@
          :type :deployment-run
          :abort-flag? false
          :tags "tag-aborted-without-abort-flag"}
-        {:status "Cancelled"
-         :display-status :run-terminated
+
+        {:display-status :run-terminated
          :module-uri "module/first-project/newdeployment/24"
-         :cloud-names "Exoscale"
-         :abort-msg nil
-         :start-time "2015-01-07 13:36:32.26 CET"
-         :uri "run/b36dfcc0-b77b-4746-b7fd-0acd7038a02d"
          :username "alice"
-         :uuid "b36dfcc0-b77b-4746-b7fd-0acd7038a02d"
-         :type :image-build
-         :abort-flag? false
-         :tags "tag-cancelled-without-abort-flag"}
-        {:status "Cancelled"
-         :display-status :run-terminated
-         :module-uri "module/first-project/newdeployment/24"
-         :cloud-names "Exoscale"
-         :abort-msg nil
-         :start-time "2014-12-15 01:03:45.240 CET"
-         :uri "run/079dd5c1-85af-4387-95a7-b24fc0b2be53"
-         :username "alice"
-         :uuid "079dd5c1-85af-4387-95a7-b24fc0b2be53"
-         :type :image-build
-         :abort-flag? false
-         :tags "tag-cancelled-without-abort-flag"}
-        {:status "Cancelled"
-         :display-status :run-terminated
-         :module-uri "module/first-project/newdeployment/24"
-         :cloud-names "Exoscale"
-         :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a>"
-         :start-time "2014-12-11 14:41:15.310 CET"
-         :uri "run/672c2946-578e-4093-8d7a-af3e0f432bac"
-         :username "alice"
-         :uuid "672c2946-578e-4093-8d7a-af3e0f432bac"
-         :type :deployment-run
-         :abort-flag? true
-         :tags "tag-cancelled-with-abort-flag"}
-        {:status "Aborted"
-         :display-status :run-terminated
-         :module-uri "module/first-project/newdeployment/24"
+         :status "Aborted"
          :cloud-names "StratusLab"
-         :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a>"
+         :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a> b9638f6cjd19b0jd4e62jdb2f6jd498843e7aa7e6869be33jd9fe4jd4c80jdbbb1jd1665f6bad443ab7953e9jd2812jd4591jdbc8fjd194a95b9f70ed3caa272jd97a7jd4a25jd8a2ajdb13f3fd16851eb8eb8aajd163ejd4a87jd86a2jdafb2a4eb3982"
          :start-time "2015-01-14 17:23:18.262 CET"
          :uri "run/36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae"
-         :username "alice"
          :uuid "36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae"
          :type :deployment-run
          :abort-flag? true
-         :tags "tag-aborted-with-abort-flag"}
+         :tags "tag-aborted-with-very-long-abort-flag"}
+
         {:status "Cancelled"
          :display-status :run-terminated
          :module-uri "module/first-project/newdeployment/24"
+         :cloud-names "Exoscale"
+         :abort-msg nil
+         :username "alice"
+         :type :image-build
+         :abort-flag? false
+         :tags "tag-cancelled-without-abort-flag"
+         :start-time "2015-01-07 13:36:32.26 CET"
+         :uri "run/b36dfcc0-b77b-4746-b7fd-0acd7038a02d"
+         :uuid "b36dfcc0-b77b-4746-b7fd-0acd7038a02d"}
+
+        {:status "Cancelled"
+         :display-status :run-terminated
+         :module-uri "module/first-project/newdeployment/24"
+         :username "alice"
+         :type :deployment-run
+         :abort-flag? true
          :cloud-names "StratusLab"
          :abort-msg "Marketplace endpoint should be set for StratusLab"
          :start-time "2014-12-16 12:40:30.118 CET"
          :uri "run/0aa79e3f-878a-40b1-8e88-bb6808a183cc"
-         :username "alice"
          :uuid "0aa79e3f-878a-40b1-8e88-bb6808a183cc"
+         :tags "tag-cancelled-with-abort-flag-1"}
+
+        {:display-status :run-terminated
+         :module-uri "module/first-project/newdeployment/24"
+         :username "alice"
+         :status "Cancelled"
+         :cloud-names "Exoscale"
+         :abort-msg nil
+         :start-time "2014-12-15 01:03:45.240 CET"
+         :uri "run/079dd5c1-85af-4387-95a7-b24fc0b2be53"
+         :uuid "079dd5c1-85af-4387-95a7-b24fc0b2be53"
+         :type :image-build
+         :abort-flag? false
+         :tags "tag-cancelled-without-abort-flag"}
+
+        {:status "Cancelled"
+         :display-status :run-terminated
+         :module-uri "module/first-project/newdeployment/24"
+         :username "alice"
          :type :deployment-run
          :abort-flag? true
-         :tags "tag-cancelled-with-abort-flag"}]}
+         :tags "tag-cancelled-with-very-long-abort-flag"
+         :cloud-names "Exoscale"
+         :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a> b9638f6cjd19b0jd4e62jdb2f6jd498843e7aa7e6869be33jd9fe4jd4c80jdbbb1jd1665f6bad443ab7953e9jd2812jd4591jdbc8fjd194a95b9f70ed3caa272jd97a7jd4a25jd8a2ajdb13f3fd16851eb8eb8aajd163ejd4a87jd86a2jdafb2a4eb3982"
+         :start-time "2014-12-10 14:00:00.110 CET"
+         :uri "run/672c2946-578e-4093-8d7a-af3e0f432bac"
+         :uuid "672c2946-578e-4093-8d7a-af3e0f432bac"}
+
+        ]}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))

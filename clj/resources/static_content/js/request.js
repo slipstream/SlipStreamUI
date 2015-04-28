@@ -218,8 +218,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
                             }
                             $$.alert.showError(
-                                "Error " + jqXHR.status + " - " + errorThrown,
-                                responseDetail);
+                                responseDetail,
+                                "<code>Error " + jqXHR.status + " - " + errorThrown + "</code>"
+                                );
                         } else {
                             $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
                         }
