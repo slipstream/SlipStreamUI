@@ -235,8 +235,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(mappingOptionsComboBoxesSel).enable(shouldEnable);
     }
 
-    function isMappedValue(value) {
-        return value.match(/\w+:.*/) ? true : false;
+    function isMappedValue($inputElem) {
+        return $inputElem.closest("tr").find(".ss-mapping-options").val() === parameterBindToOutput;
     }
 
     // Next to each mapping input[type=text] we place a hidden combo for output bindings
@@ -252,7 +252,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .val(inputElemVal)
                 .end()
             .appendTo($mappingValueCell);
-        if (isMappedValue(inputElemVal)) {
+        if (isMappedValue($inputElem)) {
             // The value is nodename:outputname, so we can remove the content of the input[type=text]
             $inputElem.val("");
         }
