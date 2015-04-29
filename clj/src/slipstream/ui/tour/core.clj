@@ -28,6 +28,8 @@
 ;;    data-bootstro-html            true|false . Whether or not the popover content will be displayed as HTML or text. Refer to popovers html option.
 ;;    data-bootstro-step            The stack index of the intro'ed popover.
 
+
+
 (defn- set-bootstro
   [bootstro-data-key step-info]
   {:pre (keyword? bootstro-data-key)}
@@ -54,17 +56,18 @@
                               sel-v  (html/do->
                                        (ue/when-wrap wrap-in-elem)
                                        (html/add-class  "bootstro")
-                                       (set-bootstro     :title          step-info)
-                                       (set-bootstro     :content        step-info)
-                                       (set-bootstro     :placement      step-info)
-                                       (set-bootstro     :width          step-info)
-                                       (set-bootstro     :nextButtonText step-info)
-                                       (set-bootstro     :count          step-info)
-                                       (set-bootstro     :offset         step-info)
-                                       (set-bootstro     :step           step-info)
-                                       (ue/set-data      :html           true)
+                                       (set-bootstro     :title               step-info)
+                                       (set-bootstro     :content             step-info)
+                                       (set-bootstro     :placement           step-info)
+                                       (set-bootstro     :placement-distance  step-info)
+                                       (set-bootstro     :width               step-info)
+                                       (set-bootstro     :nextButtonText      step-info)
+                                       (set-bootstro     :count               step-info)
+                                       (set-bootstro     :offset              step-info)
+                                       (set-bootstro     :step                step-info)
+                                       (ue/set-data      :html                true)
                                        (ue/enable-class  (:preserve-padding step-info) "preserve-padding")
-                                       (ue/when-set-data :container      (:container-sel step-info))))]
+                                       (ue/when-set-data :container           (:container-sel step-info))))]
           (if next-scenes
             (recur updated-node
                    (first next-scenes)

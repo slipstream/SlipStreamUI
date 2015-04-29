@@ -34,20 +34,25 @@
       {:title "Choose the cloud"
        :content "In this dialog you can specify some parameters for the deployment. In this case, please choose where you want WordPress to be deployed. Please note that you have to have the corresponding cloud credentials configured in your profile."
        :container-sel "#ss-run-module-dialog"
-       :placement "bottom"}
+       :preserve-padding true
+       :placement "right"
+       :placement-distance "larger"}
 
       [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 6)] :> [:td (html/nth-child 2)]]
       {:title "Give it a name"
        :content "You can assing some <code>tags</code> to the deployment. This will be useful to recognise it later on. Try something like <code>wp-tour-test</code>. Don't worry, you can update it at any time."
        :container-sel "#ss-run-module-dialog"
-       :placement "bottom"}
+       :preserve-padding true
+       :placement "right"
+       :placement-distance "larger"}
 
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn.ss-build-btn]
       {:title "Ready to deploy"
        :content "Click on <code>Run deployment</code> when you are ready to go."
        :container-sel "#ss-run-module-dialog"
        :wrap-in-elem   [:span]
-       }
+       :placement "right"
+       :placement-distance "larger"}
       ]
 
    :waiting-for-wordpress

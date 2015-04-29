@@ -104,6 +104,7 @@
     ["image-new"]             (render :pagename "module"          :raw-metadata-ns "module.image-new" :type "new")
 
     ["deployment-view"]       (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "view")
+    ["deployment-view-tour-intro-without-connectors"] (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "view"  :query-parameters {:action "run" :tour "alice.intro-without-connectors.deploying-wordpress"})
     ["deployment-view-super"] (render :pagename "module"          :raw-metadata-ns "module.deployment-super"  :type "view")
     ["deployment-chooser"]    (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "chooser")
     ["deployment-edit"]       (render :pagename "module"          :raw-metadata-ns "module.deployment"  :type "edit")

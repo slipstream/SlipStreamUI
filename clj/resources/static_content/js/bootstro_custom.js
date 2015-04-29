@@ -209,12 +209,14 @@ $(document).ready(function(){
             }
             p.trigger = 'manual'; //always set to manual.
 
-            p.html = $el.attr('data-bootstro-html') || 'top';
+            p.html = $el.attr('data-bootstro-html') || 'false';
 
+            var placementDistance = $el.attr('data-bootstro-placement-distance') || 'default',
+                placementDistanceCls = 'bootstro-placement-distance-' + placementDistance;
 
             //resize popover if it's explicitly specified
             //note: this is ugly. Could have been best if popover supports width & height
-            p.template = '<div class="popover bootstro-popover" style="' + style + '">' +
+            p.template = '<div class="popover bootstro-popover ' + placementDistanceCls + '" style="' + style + '">' +
                 progressBar +
                 '<div class="arrow"></div>' +
                 '<div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>' +

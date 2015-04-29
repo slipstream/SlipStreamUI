@@ -52,3 +52,29 @@
     height: 4px;
     margin-bottom: 0;
 }
+
+.bootstro-popover.bootstro-placement-distance-larger.top {
+    margin-top: -50px;
+}
+.bootstro-popover.bootstro-placement-distance-larger.right {
+    margin-left: 50px;
+}
+.bootstro-popover.bootstro-placement-distance-larger.bottom {
+    margin-top: 50px;
+}
+.bootstro-popover.bootstro-placement-distance-larger.left {
+    margin-left: -50px;
+}
+
+.bootstro-popover.bootstro-placement-distance-large.top {
+    margin-top: -30px;
+}
+.bootstro-popover.bootstro-placement-distance-large.right {
+    margin-left: 30px;
+}
+.bootstro-popover.bootstro-placement-distance-large.bottom {
+    margin-top: 30px;
+}
+.bootstro-popover.bootstro-placement-distance-large.left {
+    margin-left: -30px;
+}
