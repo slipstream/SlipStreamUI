@@ -22,7 +22,7 @@
                <entry>
                   <string>input_param_2</string>
                   <parameter category="General" description="" isMappedValue="false" mandatory="false" name="input_param_2" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA['default_value_for_input_param_2']]></value>
+                     <value><![CDATA['default:value_for_input_param_2_with_colon_in_the_name']]></value>
                   </parameter>
                </entry>
                <entry>
