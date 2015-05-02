@@ -126,10 +126,17 @@
         <dependency>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>ring</groupId>
             <artifactId>ring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ring</groupId>
+            <artifactId>ring-core</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.cgrand</groupId>
