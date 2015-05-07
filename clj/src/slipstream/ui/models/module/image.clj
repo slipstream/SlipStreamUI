@@ -45,10 +45,6 @@
 
 ;; Image creation metadata section
 
-(defn- parse-recipe
-  [recipe-type metadata]
-  {:code (-> metadata (html/select [recipe-type html/text-node]) first)})
-
 (defn- parse-package
   [package-metadata]
   (let [attrs (:attrs package-metadata)]
@@ -57,19 +53,19 @@
                       :name
                       :repository]))))
 
-(defn- image-creation
+(defn- packages
   [metadata]
-  {:recipe      (parse-recipe :recipe metadata)
-   :packages    (->> (html/select metadata [:package])
-                     (map parse-package)
-                     (sort-by :name))
-   :pre-recipe  (parse-recipe :prerecipe metadata)})
+  (->> (html/select metadata [:package])
+       (map parse-package)
+       (sort-by :name)))
 
 
 ;; Deployment metadata section
 
 (def ^:private target-names
-  {:execute       "execute"
+  {:recipe        "recipe"
+   :pre-recipe     "prerecipe"
+   :execute       "execute"
    :report        "report"
    :parameters    "parameters"
    :on-vm-add     "onvmadd"
@@ -107,12 +103,14 @@
        (sort-by (juxt :order :category :name))
        vec))
 
-(defn- deployment
+(defn- scripts
   [metadata parameters]
-  (-> {:parameters (deployment-parameters parameters)}
-      (assoc-target :execute metadata)
-      (assoc-target :report metadata)
-      (assoc-target :on-vm-add metadata)
+  (-> {}
+      (assoc-target :execute      metadata)
+      (assoc-target :report       metadata)
+      (assoc-target :pre-recipe   metadata)
+      (assoc-target :recipe       metadata)
+      (assoc-target :on-vm-add    metadata)
       (assoc-target :on-vm-remove metadata)))
 
 
@@ -120,12 +118,17 @@
 
 (defn sections
   [metadata]
-  (let [parameters (parameters/parse metadata)]
+  (let [parameters (parameters/parse metadata)
+        scripts (scripts metadata parameters)]
     (cond->
         {:cloud-image-details         (cloud-image-details metadata)
          :os-details                  (os-details metadata)
          :cloud-configuration         (parameters/categories-of-type parameters :global)
-         :image-creation              (image-creation metadata)
-         :deployment                  (deployment metadata parameters)}
+         :image-creation              (-> scripts
+                                          (select-keys [:pre-recipe :recipe])
+                                          (assoc :packages (packages metadata)))
+         :deployment                  (-> scripts
+                                          (select-keys [:execute :report :on-vm-add :on-vm-remove])
+                                          (assoc :parameters (deployment-parameters parameters)))}
       (page-type/view?) (assoc :runs  (runs/parse metadata)))))
 
