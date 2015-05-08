@@ -117,20 +117,6 @@
             <groupId>clj-json</groupId>
             <artifactId>clj-json</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>expectations</groupId>
-            <artifactId>expectations</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jline</groupId>
-            <artifactId>jline</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ring</groupId>
-            <artifactId>ring</artifactId>
-        </dependency>
         <dependency>
             <groupId>net.cgrand</groupId>
             <artifactId>moustache</artifactId>
@@ -139,14 +125,29 @@
             <groupId>org.clojure</groupId>
             <artifactId>data.xml</artifactId>
         </dependency>
+
+        <!-- test and debugging dependencies -->
+        <dependency>
+            <groupId>expectations</groupId>
+            <artifactId>expectations</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ring</groupId>
+            <artifactId>ring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ring</groupId>
+            <artifactId>ring-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>maven-restlet</id>
-            <name>Public online Restlet repository</name>
-            <url>http://maven.restlet.org</url>
-        </repository>
-    </repositories>
 
   <scm>
     <connection>${scm.read}/SlipStreamUI.git</connection>
