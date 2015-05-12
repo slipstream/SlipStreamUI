@@ -37,7 +37,7 @@
                       :value "node2:output_param_1"}
                     {:name "input_param_2"
                      :mapped-value? false
-                     :value "'default_value_for_input_param_2'"}]}
+                     :value "'default:value_for_input_param_2_with_colon_in_the_name'"}]}
           {:name "node2"
              :template-node? nil
              :reference-image "neutral_projects_for_mockup_metadata/apache_web_server"

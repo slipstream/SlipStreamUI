@@ -125,7 +125,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         .addClass(discardedFormInputCls)
                         .disable();
             $(".ss-mapping-value input[type=text], .ss-mapping-value select")
-                .filter(":visible")
                 .not(":disabled")
                 .not(discardedFormInputCls.asSel())
                     .each(function (){
