@@ -40,14 +40,19 @@
 
 (defn- normalize-timezone
   "The timezone code CEST is not recognized as standard by org.joda.time.
-  For a complete list of supported timezones run:
-    (org.joda.time.DateTimeZone/getAvailableIDs)"
+  For a complete list of supported timezones run in the REPL:
+    (org.joda.time.DateTimeZone/getAvailableIDs)
+  For a list of timezone abbreviations visit:
+    http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations"
   [s]
   (-> s
       (s/replace "CET"  "Europe/Paris")
       (s/replace "CEST" "Europe/Paris")
       (s/replace "BST"  "Europe/London")
-      (s/replace "GMT"  "Europe/London")))
+      (s/replace "GMT"  "Europe/London")
+      (s/replace "EET"  "Europe/Athens")
+      (s/replace "EEDT" "Europe/Athens")
+      (s/replace "EEST" "Europe/Athens")))
 
 
 (defn- formatters
