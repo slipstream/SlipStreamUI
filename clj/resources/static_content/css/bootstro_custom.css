@@ -78,3 +78,15 @@
 .bootstro-popover.bootstro-placement-distance-large.left {
     margin-left: -30px;
 }
+
+.bootstro-orphan-step-container {
+    display: none;
+}
+.bootstro-orphan-step {
+    position: fixed;
+    top: calc(50% - 138px) !important; /* 138px is half width of the popover */
+    left: calc(50% - 138px) !important;
+}
+.bootstro-orphan-step .arrow {
+    display: none;
+}

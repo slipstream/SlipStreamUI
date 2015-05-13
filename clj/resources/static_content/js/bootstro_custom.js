@@ -214,9 +214,14 @@ $(document).ready(function(){
             var placementDistance = $el.attr('data-bootstro-placement-distance') || 'default',
                 placementDistanceCls = 'bootstro-placement-distance-' + placementDistance;
 
+            var orphanStepCls = "";
+            if ( $el.attr('data-bootstro-orphan-step') === "true" ) {
+                orphanStepCls = "bootstro-orphan-step";
+            }
+
             //resize popover if it's explicitly specified
             //note: this is ugly. Could have been best if popover supports width & height
-            p.template = '<div class="popover bootstro-popover ' + placementDistanceCls + '" style="' + style + '">' +
+            p.template = '<div class="popover bootstro-popover ' + placementDistanceCls + ' ' + orphanStepCls + '" style="' + style + '">' +
                 progressBar +
                 '<div class="arrow"></div>' +
                 '<div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div>' +

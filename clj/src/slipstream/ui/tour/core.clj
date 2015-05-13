@@ -29,7 +29,6 @@
 ;;    data-bootstro-step            The stack index of the intro'ed popover.
 
 
-
 (defn- set-bootstro
   [bootstro-data-key step-info]
   {:pre (keyword? bootstro-data-key)}
@@ -40,6 +39,33 @@
                         bootstro-data-key
                         str)))
 
+(def ^:private bootstro-info-fields
+  #{:title
+    :content
+    :placement
+    :placement-distance
+    :width
+    :nextButtonText
+    :count
+    :offset
+    :step})
+
+(defmacro  ^:private process-step-node
+  [step-info]
+  `(html/do->
+    (ue/when-wrap     (-> ~step-info :wrap-in-elem not-empty))
+    (html/add-class   "bootstro")
+    ~@(for [field bootstro-info-fields]
+        `(set-bootstro ~field ~step-info))
+    (ue/set-data      :html                true)
+    (ue/enable-class  (:preserve-padding ~step-info)  "preserve-padding")
+    (ue/when-set-data :container             (:container-sel ~step-info))))
+
+(ue/def-blank-snippet ^:private orphan-step-container-snip :div
+  [step-info]
+  ue/this   (process-step-node (assoc step-info :container "body"))
+  ue/this   (ue/set-data      :bootstro-orphan-step true)
+  ue/this   (html/add-class   "bootstro-orphan-step-container"))
 
 (defn- add
   "See tests for expectations."
@@ -50,24 +76,13 @@
       (loop [m                match
              [sel step-info]  (first tour-scenes-indexed)
              next-scenes       (next tour-scenes-indexed)]
-        (let [sel-v        (uc/ensure-vector sel)
-              wrap-in-elem (-> step-info :wrap-in-elem not-empty)
-              updated-node (html/transform (html/as-nodes m)
-                              sel-v  (html/do->
-                                       (ue/when-wrap wrap-in-elem)
-                                       (html/add-class  "bootstro")
-                                       (set-bootstro     :title               step-info)
-                                       (set-bootstro     :content             step-info)
-                                       (set-bootstro     :placement           step-info)
-                                       (set-bootstro     :placement-distance  step-info)
-                                       (set-bootstro     :width               step-info)
-                                       (set-bootstro     :nextButtonText      step-info)
-                                       (set-bootstro     :count               step-info)
-                                       (set-bootstro     :offset              step-info)
-                                       (set-bootstro     :step                step-info)
-                                       (ue/set-data      :html                true)
-                                       (ue/enable-class  (:preserve-padding step-info) "preserve-padding")
-                                       (ue/when-set-data :container           (:container-sel step-info))))]
+        (let [orphan-step? (nil? sel)
+              sel-v        (-> sel (or :body) uc/ensure-vector)
+              updated-node (if orphan-step?
+                             (html/transform (html/as-nodes m)
+                                sel-v  (html/prepend (orphan-step-container-snip step-info)))
+                             (html/transform (html/as-nodes m)
+                                sel-v (process-step-node step-info)))]
           (if next-scenes
             (recur updated-node
                    (first next-scenes)
