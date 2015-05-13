@@ -84,13 +84,31 @@
   [
      :go-to-profile
      [
+        nil
+        {
+         :title "First things first"
+         :content (str "To begin using SlipStream you need to tell it where to deploy your applications to. "
+                       "For that, you need to have an account with at least one cloud provider and set up your credentials in your SlipStream profile.")
+         }
+
+        nil
+        {
+         :title "Cloud credentials"
+         :content (str "If you already have an account with a cloud provider, just prepare its credentials (usually a user/password or a key/secret pair). "
+                       "If not, please create one following the indications in our <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>. "
+                       "<br>"
+                       "<br>"
+                       "When your cloud account is ready, go to the next step to learn how to set the credentials in your user SlipStream account.")
+         }
+
         :#ss-menubar-user-profile-anchor
-        {:title "First things first"
+        {:title "Go to your profile"
          :content "Let's configure your first cloud account. Go to your user profile clicking this menu here. Note that you are also able to logout from this menu."
          :placement "left"
          :container-sel "body"
          :preserve-padding true
          }
+
       ]
 
      :edit-profile

@@ -7,7 +7,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     $$.util.tour.setup({
-        beforeStart: function() {
+        beforeStep: {
+            2: function() {
             $userProfileMenu
                 .updateAttr("href", function(s) {
                     return s.replace.apply(s, hrefStringReplacement);
@@ -15,8 +16,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $userProfileMenu
                 .parent()
                     .bsOpenDropdown();
+            },
         },
-
         onExit: function() {
             $userProfileMenu
                 .updateAttr("href", function(s) {
