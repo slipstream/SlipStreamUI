@@ -300,18 +300,22 @@ $(document).ready(function(){
         bootstro.moveTowards = function(direction) {
             var expected = ( direction === "next" ) ? {idx: activeIndex + 1, direction: 'next'} : {idx: activeIndex - 1, direction: 'prev'},
                 before   = settings.beforeStep && settings.beforeStep[expected.idx],
-                after    = settings.onStep && settings.onStep[expected.idx];
+                after    = settings.onStep && settings.onStep[expected.idx],
+                onExit   = settings.onExitStep && settings.onExitStep[activeIndex];
+            if (typeof onExit === "function") {
+                onExit.call(this, expected);
+            }
             if (expected.idx == count) {
                 if (expected.direction === "next" && typeof settings.onComplete === "function") {
                     settings.onComplete.call(this, {idx : activeIndex});//
                 }
             } else {
                 if (typeof before === "function") {
-                    before.call(this, expected);//
+                    before.call(this, expected);
                 }
                 bootstro.go_to(expected.idx);
                 if (typeof after === "function") {
-                    after.call(this, expected);//
+                    after.call(this, expected);
                 }
 
             }
