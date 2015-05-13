@@ -14,6 +14,10 @@
 (def normalize-timezone @#'slipstream.ui.util.time/normalize-timezone)
 
 (expect
+  "2013-07-05 00:27:12.471 America/Chicago"
+  (normalize-timezone "2013-07-05 00:27:12.471 CST"))
+
+(expect
   "2013-07-05 00:27:12.471 Europe/Paris"
   (normalize-timezone "2013-07-05 00:27:12.471 CEST"))
 
@@ -26,9 +30,13 @@
   (normalize-timezone "2013-01-05T01:27:12.471+0100"))
 
 (expect
-  {"Europe/London" 5
-   "Europe/Paris"  6
-   "Europe/Athens" 3}
+  {"America/Los_Angeles"  2
+   "America/Denver"       2
+   "America/Chicago"      2
+   "America/Montreal"     2
+   "Europe/London"        5
+   "Europe/Paris"         6
+   "Europe/Athens"        3}
   (->> @#'slipstream.ui.util.time/timezone-abbreviations
        keys
        (map normalize-timezone)

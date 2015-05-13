@@ -39,23 +39,35 @@
   #"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\d(?:Z|[\+-]\d\d(?:\:?\d\d)?)")
 
 (def ^:private timezone-abbreviations
-  {;; Western European Time
-   "WEDT" "Europe/London"   ;; Western European Daylight Time
-   "WEST" "Europe/London"   ;; Western European Summer Time
-   "WET"  "Europe/London"   ;; Western European Time
-   "BST"  "Europe/London"   ;; British Summer Time
-   "GMT"  "Europe/London"   ;; Greenwich Mean Time
+  {;; Pacific Time (North America)
+   "PDT" "America/Los_Angeles"  ;;Pacific Daylight Time (North America)
+   "PST" "America/Los_Angeles"  ;;Pacific Standard Time (North America)
+   ;; Mountain Time (North America)
+   "MDT" "America/Denver"       ;; Mountain Daylight Time (North America)
+   "MST" "America/Denver"       ;; Mountain Standard Time (North America)
+   ;; Central Time (North America)
+   "CDT" "America/Chicago"      ;; Central Daylight Time (North America)
+   "CST" "America/Chicago"      ;; Central Standard Time (North America)
+   ;; Eastern Time (North America)
+   "EDT" "America/Montreal"     ;; Eastern Daylight Time (North America)
+   "EST" "America/Montreal"     ;; Eastern Standard Time (North America)
+   ;; Western European Time
+   "WEDT" "Europe/London"       ;; Western European Daylight Time
+   "WEST" "Europe/London"       ;; Western European Summer Time
+   "WET"  "Europe/London"       ;; Western European Time
+   "BST"  "Europe/London"       ;; British Summer Time
+   "GMT"  "Europe/London"       ;; Greenwich Mean Time
    ;; Central European Time
-   "CEDT" "Europe/Paris"    ;; Central European Daylight Time
-   "CEST" "Europe/Paris"    ;; Central European Summer Time (Cf. HAEC)
-   "CET"  "Europe/Paris"    ;; Central European Time
-   "HAEC" "Europe/Paris"    ;; Heure Avancée d'Europe Centrale francised name for CEST
-   "MET"  "Europe/Paris"    ;; Middle European Time, same zone as CET
-   "MEST" "Europe/Paris"    ;; Middle European Saving Time, same zone as CEST
+   "CEDT" "Europe/Paris"        ;; Central European Daylight Time
+   "CEST" "Europe/Paris"        ;; Central European Summer Time (Cf. HAEC)
+   "CET"  "Europe/Paris"        ;; Central European Time
+   "HAEC" "Europe/Paris"        ;; Heure Avancée d'Europe Centrale francised name for CEST
+   "MET"  "Europe/Paris"        ;; Middle European Time, same zone as CET
+   "MEST" "Europe/Paris"        ;; Middle European Saving Time, same zone as CEST
    ;; Eastern European Time
-   "EEDT" "Europe/Athens"   ;; Eastern European Daylight Time
-   "EEST" "Europe/Athens"   ;; Eastern European Summer Time
-   "EET"  "Europe/Athens"   ;; Eastern European Time
+   "EEDT" "Europe/Athens"       ;; Eastern European Daylight Time
+   "EEST" "Europe/Athens"       ;; Eastern European Summer Time
+   "EET"  "Europe/Athens"       ;; Eastern European Time
   })
 
 (definline ^:private normalize-timezone
