@@ -9,6 +9,33 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; private fn normalize-timezone
+
+(def normalize-timezone @#'slipstream.ui.util.time/normalize-timezone)
+
+(expect
+  "2013-07-05 00:27:12.471 Europe/Paris"
+  (normalize-timezone "2013-07-05 00:27:12.471 CEST"))
+
+(expect
+  "2013-07-05 00:27:12.471 Europe/Athens"
+  (normalize-timezone "2013-07-05 00:27:12.471 EEST"))
+
+(expect
+  "2013-01-05T01:27:12.471+0100"
+  (normalize-timezone "2013-01-05T01:27:12.471+0100"))
+
+(expect
+  {"Europe/London" 5
+   "Europe/Paris"  6
+   "Europe/Athens" 3}
+  (->> @#'slipstream.ui.util.time/timezone-abbreviations
+       keys
+       (map normalize-timezone)
+       frequencies))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; parse SlipStream timestamp format
 
 (expect

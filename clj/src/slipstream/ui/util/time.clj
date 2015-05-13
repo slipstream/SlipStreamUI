@@ -38,22 +38,36 @@
   "Corresponds to (clj-time.format/formatters :date-time)."
   #"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\d(?:Z|[\+-]\d\d(?:\:?\d\d)?)")
 
-(defn- normalize-timezone
+(def ^:private timezone-abbreviations
+  {;; Western European Time
+   "WEDT" "Europe/London"   ;; Western European Daylight Time
+   "WEST" "Europe/London"   ;; Western European Summer Time
+   "WET"  "Europe/London"   ;; Western European Time
+   "BST"  "Europe/London"   ;; British Summer Time
+   "GMT"  "Europe/London"   ;; Greenwich Mean Time
+   ;; Central European Time
+   "CEDT" "Europe/Paris"    ;; Central European Daylight Time
+   "CEST" "Europe/Paris"    ;; Central European Summer Time (Cf. HAEC)
+   "CET"  "Europe/Paris"    ;; Central European Time
+   "HAEC" "Europe/Paris"    ;; Heure Avancée d'Europe Centrale francised name for CEST
+   "MET"  "Europe/Paris"    ;; Middle European Time, same zone as CET
+   "MEST" "Europe/Paris"    ;; Middle European Saving Time, same zone as CEST
+   ;; Eastern European Time
+   "EEDT" "Europe/Athens"   ;; Eastern European Daylight Time
+   "EEST" "Europe/Athens"   ;; Eastern European Summer Time
+   "EET"  "Europe/Athens"   ;; Eastern European Time
+  })
+
+(definline ^:private normalize-timezone
   "The timezone code CEST is not recognized as standard by org.joda.time.
   For a complete list of supported timezones run in the REPL:
     (org.joda.time.DateTimeZone/getAvailableIDs)
   For a list of timezone abbreviations visit:
     http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations"
   [s]
-  (-> s
-      (s/replace "CET"  "Europe/Paris")
-      (s/replace "CEST" "Europe/Paris")
-      (s/replace "BST"  "Europe/London")
-      (s/replace "GMT"  "Europe/London")
-      (s/replace "EET"  "Europe/Athens")
-      (s/replace "EEDT" "Europe/Athens")
-      (s/replace "EEST" "Europe/Athens")))
-
+  `(-> ~s
+     ~@(for [[timezone abbreviations] (group-by val timezone-abbreviations)]
+      `(s/replace ~(->> abbreviations (map first) (s/join "|") re-pattern) ~timezone))))
 
 (defn- formatters
   [formatter]
