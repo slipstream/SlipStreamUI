@@ -298,12 +298,11 @@
   point notation (i.e. object.key) instead of object['key-string'].
   See tests for expectations."
   [x]
-  (when x
-    (-> x
-        (update-keys key?->isKey)
-        (update-keys ->camelCaseString)
-        normalise-sorting
-        json/generate-string)))
+  (some-> x
+          (update-keys key?->isKey)
+          (update-keys ->camelCaseString)
+          normalise-sorting
+          json/generate-string))
 
 (defn coll-grouped-by
   "Primary intended to 'better' group a coll of maps sorting the result by the

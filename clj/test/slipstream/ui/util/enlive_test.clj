@@ -199,6 +199,12 @@
                    this (when-set-data :from-server false {:a 1})
                    this (when-set-data :test false {:a 1})))
 
+(expect-html
+  "<input type=\"text\" class=\"some-class\" data-some-boolean-2=true data-test=\"foo\"/>"
+  (sniptest-quoted input-html
+                   this (when-set-data :some-boolean-1 false)
+                   this (when-set-data :some-boolean-2 true)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

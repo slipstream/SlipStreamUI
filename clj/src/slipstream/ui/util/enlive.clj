@@ -165,7 +165,7 @@
 
 (defmacro when-set-data
   ([k v]
-   `(when-set-data ~k (not-empty ~v) ~v))
+   `(when-set-data ~k (if (coll? ~v) (not-empty ~v) ~v) ~v))
   ([k test v]
    `(if ~test
       (set-data ~k ~v)
