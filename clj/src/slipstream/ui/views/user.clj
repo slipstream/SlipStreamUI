@@ -14,12 +14,14 @@
 
 (defn- category-section
   [{:keys [category category-type parameters]}]
-  {:icon (case category-type
-           :general icons/user-section-general
-           :global  icons/user-section-cloud
-           nil)
-   :title category
-   :content (t/parameters-table parameters)})
+  (with-meta
+    {:icon (case category-type
+             :general icons/user-section-general
+             :global  icons/user-section-cloud
+             nil)
+     :title category
+     :content (t/parameters-table parameters)}
+    (when (= category-type :global) {:section-group :cloud})))
 
 (localization/with-prefixed-t :header
   (defn- header
