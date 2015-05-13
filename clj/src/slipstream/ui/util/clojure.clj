@@ -238,13 +238,10 @@
       (throw (IllegalArgumentException.
                (str "Cannot parse boolean from string: " s))))))
 
-(defn update-map-keys
-  [x f]
-  (cond
-    (map? x)    (into (empty x) (for [[k v] x] [(f k) (update-map-keys v f)]))
-    (list? x)   (into (empty x) (for [item (reverse x)] (update-map-keys item f)))
-    (coll? x)   (into (empty x) (for [item x] (update-map-keys item f)))
-    :else x))
+(defn update-keys
+  "Recursively applies f to all map keys."
+  [m f]
+  (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(f k) v])) x)) m))
 
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
@@ -303,8 +300,8 @@
   [x]
   (when x
     (-> x
-        (update-map-keys key?->isKey)
-        (update-map-keys ->camelCaseString)
+        (update-keys key?->isKey)
+        (update-keys ->camelCaseString)
         normalise-sorting
         json/generate-string)))
 

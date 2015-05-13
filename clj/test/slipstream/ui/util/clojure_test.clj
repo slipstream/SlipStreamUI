@@ -948,47 +948,47 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; update-map-keys
+;; update-keys
 
 (expect
   nil
-  (update-map-keys nil name))
+  (update-keys nil name))
 
 (expect
   1
-  (update-map-keys 1 name))
+  (update-keys 1 name))
 
 (expect
   {"a" 1}
-  (update-map-keys {:a 1} name))
+  (update-keys {:a 1} name))
 
 (expect
   [{"a" 1}]
-  (update-map-keys [{:a 1}] name))
+  (update-keys [{:a 1}] name))
 
 (expect
   '({"a" 1} {"b" 2})
-  (update-map-keys (list {:a 1} {:b 2}) name))
+  (update-keys (list {:a 1} {:b 2}) name))
 
 (expect
   [[[{"a" 1}]]]
-  (update-map-keys [[[{:a 1}]]] name))
+  (update-keys [[[{:a 1}]]] name))
 
 (expect
   [[[{"a" 1}]{"b" 1}]]
-  (update-map-keys [[[{:a 1}]{:b 1}]] name))
+  (update-keys [[[{:a 1}]{:b 1}]] name))
 
 (expect
   [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar"}}}]]
-  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] name))
+  (update-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] name))
 
 (expect
   [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar" "b-two-two" #{{"even-here" "the key is updated"}}}}}]]
-  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] name))
+  (update-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] name))
 
 (expect
   [[[{"a" 1}]{"b" {"bOne" "foo" "bTwo" {"bTwoOne" "bar" "bTwoTwo" #{{"evenHere" "the key is updated"}}}}}]]
-  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] ->camelCaseString))
+  (update-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] ->camelCaseString))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
