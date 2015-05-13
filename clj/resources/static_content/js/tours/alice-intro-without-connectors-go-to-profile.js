@@ -7,15 +7,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     $$.util.tour.setup({
-        beforeStep: {
-            2: function() {
+        beforeStart: function() {
             $userProfileMenu
                 .updateAttr("href", function(s) {
                     return s.replace.apply(s, hrefStringReplacement);
                 });
+        },
+        beforeStep: {
+            2: function() {
             $userProfileMenu
                 .parent()
                     .bsOpenDropdown();
+            },
+        },
+        onExitStep: {
+            2: function() {
+            $userProfileMenu
+                .parent()
+                    .bsCloseDropdown();
             },
         },
         onExit: function() {
