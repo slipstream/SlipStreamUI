@@ -253,6 +253,14 @@
    :slipstream.ui.views.user.header.subtitle.new-user          "Ajouter les informations du nouvel utilisateur."
    :slipstream.ui.views.user.summary                           :global.nouns.summary
 
+   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.title       "Aucun Cloud configuré!"
+   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.msg!        "Vous ne pourrez pas effectuer aucun déploiement jusqu'à ce que vous aurez configuré au moins un compte Cloud dans les sections <span class='glyphicon glyphicon-cloud'></span>ci dessous. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>."
+   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.title    "Aucun Cloud configuré pour cet utilisateur!"
+   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "Cet utilisateur ne pourra pas effectuer aucun déploiement jusqu'à ce qu'au moins un compte Cloud soit configuré dans ce profil. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>."
+
+   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title  "Acune clef SSH configuré pour cet utilisateur!"
+   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg    "Cet utilisateur ne pourra pas acceder par SSH aux machines déployées jusqu'à ce qu'au moins une clef SSH soit configurée dans ce profil."
+
 
    :slipstream.ui.views.table.header.access-right             "Autorisations d'accès"
    :slipstream.ui.views.table.header.action                   :global.nouns.action
