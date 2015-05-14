@@ -8,12 +8,12 @@
   [
    :welcome
    [
-      :#ss-section-group
+      :#ss-section-group-0
       {:title "Main sections"
        :content (str "There are three main section on the welcome page of SlipStream. "
                      "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")}
 
-      [:#ss-section-group :> html/first-child]
+      [:#ss-section-group-0 :> html/first-child]
       ; :#ss-section-app-store
       {:title "Applications"
        :content "Here you can find a curated list of deployable applications."}
@@ -62,7 +62,7 @@
        :content "This is the page containing all the information about the run. In the header you can have an overview of the main info, like the state."
        :placement "bottom"}
 
-      [:#ss-section-group :> :div.panel.ss-section-selected.ss-section.panel-default]
+      [:#ss-section-group-0 :> :div.panel.ss-section-selected.ss-section.panel-default]
       {:title "Run overview"
        :content "This offers you a graphical overview of the running machines and global info about each one, like state, IP address and custom message."
        :placement "top"}
@@ -113,25 +113,30 @@
 
      :edit-profile
      [
-        [:#ss-section-group :> :div.panel.ss-section-selected.ss-section.panel-default]
-        {:title "Edit your profile"
-         :content "This is your SlipStream user profile. Please take this moment to make sure that your information is correct, and click 'Next' when you are ready."
-         :placement "top"
-         ; :container-sel "body"
+        nil
+        {:title "Your user profile"
+         :content (str "This is your SlipStream user profile page. "
+                       "First you will learn how to update your personal information, "
+                       "and then you will be able to configure one or more clouds by providing the corresponding credentials. "
+                       "Click 'Next' when you are ready to continue.")
          }
 
-        [:#ss-section-group :> [:div (html/nth-child 3)]]
-        {:title "Cloud credentials"
-         :content "This is the configuration section for your cloud account. Please enter your credentials for that cloud here. If you do not have yet any account you might want to look at our partner <a href='http://exoscale.com' target='_blank'>Exoscale</a> or any other cloud provider of your choice."
+        [:#ss-section-group-0 :> :div.panel.ss-section-selected.ss-section.panel-default]
+        {:title "Edit your personal information"
+         :content "First of all, please take this moment to make sure that your information is correct."
          :placement "top"
-         ; :container-sel "body"
+         }
+
+        [:#ss-section-group-1]
+        {:title "Cloud credentials"
+         :content "This is the configuration section for your cloud accounts. Please enter your credentials for at least one cloud here."
+         :placement "top"
          }
 
         :#ss-secondary-menu-action-save
         {:title "Save your profile"
-         :content "Click here to... well, save the chages you just made."
+         :content "Click here to... exactly: save the chages you just made."
          :placement "bottom"
-         ; :container-sel "body"
          :preserve-padding true
          }
       ]
@@ -140,7 +145,7 @@
      [
         [:#topbar :> :div :> :div :> :div.navbar-header :> :a]
         {:title "Back to the main page"
-         :content "Now that you have a cloud configured, click on the logo to back to the AppStore on the main page and select your first app to deploy."
+         :content "Now that you have at least one cloud configured, click on the logo to back to the AppStore on the main page and select your first app to deploy."
          :placement "bottom"
          :preserve-padding true
          }

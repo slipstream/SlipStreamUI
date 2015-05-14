@@ -34,15 +34,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.util.tour.setup({
         beforeStep: {
-            0: function() {
+            1: function() {
                 $$.section.selectWithoutAnimation(1);
             },
-            1: function() {
+            2: function() {
                 $$.section.selectWithoutAnimation(3);
             }
         },
         onStep: {
-            2: function() {
+            3: function() {
                 $$.util.tour.queueLaunch("alice.intro-without-connectors.navigate-back-to-welcome");
             }
         }
