@@ -121,9 +121,11 @@
     ["metrics" "render"]      (render-file "metrics.json")
     ; ["metrics" "render"]      (render-file "metrics_2_lots_of_clouds.json")
 
-    ["user-view"]             (render :pagename "user"            :raw-metadata-ns "user" :type "view")
+    ["user-view"]                 (render :pagename "user"            :raw-metadata-ns "user" :type "view")
+    ["user-view-without-clouds"]  (render :pagename "user"            :raw-metadata-ns "user-without-clouds" :type "view")
     ["user-view-tour-intro-without-connectors"] (render :pagename "user"            :raw-metadata-ns "user" :type "view" :query-parameters {:tour "alice.intro-without-connectors.navigate-back-to-welcome"})
     ["user-edit"]             (render :pagename "user"            :raw-metadata-ns "user" :type "edit")
+    ["user-edit-without-clouds"]  (render :pagename "user"            :raw-metadata-ns "user-without-clouds" :type "edit")
     ["user-edit-tour-intro-without-connectors"] (render :pagename "user"            :raw-metadata-ns "user" :type "edit" :query-parameters {:tour "alice.intro-without-connectors.edit-profile"})
     ["user-new"]              (render :pagename "user"            :raw-metadata-ns "user" :type "new")
     ["users"]                 (render :pagename "users"           :raw-metadata-ns "users")
