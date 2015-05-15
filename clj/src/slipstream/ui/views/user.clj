@@ -84,8 +84,9 @@
                                 action/delete]
        :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
        :alerts (when (page-type/view?)
-                 [(no-cloud-configured-alert          user own-profile?)
-                  (cloud-default-not-configured-alert user own-profile?)
+                 [(or
+                    (no-cloud-configured-alert          user own-profile?)
+                    (cloud-default-not-configured-alert user own-profile?))
                   (no-ssh-keys-configured-alert       user own-profile?)])
        :content (into [{:icon       icons/user-section-summary
                         :title      (t :summary)
