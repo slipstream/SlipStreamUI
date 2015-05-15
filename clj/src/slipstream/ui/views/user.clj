@@ -39,7 +39,7 @@
 (defn- no-cloud-configured-alert
   [user own-profile?]
   (when-not (-> user :configuration :configured-clouds)
-    {:type      :warning
+    {:type      :error
      :container :fixed
      :title     (t (if own-profile?
                      :alert.no-clouds-configured.own-profile.title
