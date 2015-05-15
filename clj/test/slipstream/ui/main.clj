@@ -1,5 +1,4 @@
 (ns slipstream.ui.main
-  (:use slipstream.ui.util.dev-traces)
   (:require [clojure.string :as s]
             [ring.util.response :as resp]
             [ring.middleware.resource :as resource]

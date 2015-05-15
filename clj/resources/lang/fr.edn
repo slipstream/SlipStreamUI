@@ -517,10 +517,10 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _mutable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
-   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile."
+   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés."
 
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ce dessous."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ce dessous."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Spécifier pour chaque noeud."
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"
@@ -750,6 +750,8 @@
    :slipstream.ui.models.run.type.machine                          "Construction d'une image"   ; Was 'Build'
    :slipstream.ui.models.run.type.run                              "Exécution d'une image"      ; Was 'Simple Run'
    :slipstream.ui.models.run.type.orchestration                    "Exécution d'un déploiement" ; Was 'Deployment'
+
+   :slipstream.ui.models.user.cloud-not-configured.label           "(non configuré)"
 
    :slipstream.ui.util.icons.description.run-in-transitional-state  "En état de transition"
    ; :slipstream.ui.util.icons.description.run-with-abort-flag-set    "Abort flag set"

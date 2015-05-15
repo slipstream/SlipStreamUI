@@ -1,7 +1,6 @@
 (ns slipstream.ui.tour.core
   "Util functions for the UI onboarding tour.
   Currently using bootstro.js - https://clu3.github.io/bootstro.js/#"
-  (:use slipstream.ui.util.dev-traces)
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
@@ -131,7 +130,7 @@
 (defn- acts
   [persona play]
   (ex/guard "get the map with the acts for the 'play' for the given 'persona'"
-    (>>> ->> play
+    (->> play
         (symbol (str "slipstream.ui.tour." persona))
         resolve
         var-get
@@ -140,7 +139,7 @@
 
 (defn- count-scenes
   [acts]
-  (>>> ->> acts
+  (->> acts
        (mapcat second)
        (partition 2)
        count))

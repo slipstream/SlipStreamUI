@@ -2,7 +2,10 @@
   (:require [clojure.string :as s]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.parameters :as parameters]))
+
+(localization/def-scoped-t)
 
 (defn- configured-clouds
   "List the names of the cloud (i.e. connectors) for which all parameters have a
@@ -13,13 +16,28 @@
        (uc/map-in [:parameters] :value)
        (filter #(->> % :parameters (not-any? nil?)))
        (mapv :category)
+       set
        not-empty))
+
+(defn- flag-configured-cloud
+  [configured-clouds cloud]
+  {:pre [(-> configured-clouds nil? not)]}
+  (let [configured? (-> cloud :value configured-clouds boolean)]
+    (cond-> cloud
+       :always           (assoc :configured? configured?)
+       (not configured?) (update-in [:text] str " " (t :cloud-not-configured.label)))))
+       ;; TODO: In user profile warn if the default cloud is not configured.
+
+(defn- flag-configured-clouds
+  [available-clouds-enum configured-clouds]
+  (map (partial flag-configured-cloud (or configured-clouds #{})) available-clouds-enum))
 
 (defn parse
   [metadata]
   (when (not-empty metadata)
     (let [attrs             (:attrs metadata)
-          parameters        (parameters/parse metadata)]
+          parameters        (parameters/parse metadata)
+          configured-clouds (configured-clouds parameters)]
       (-> attrs
           (select-keys [:email
                         :organization
@@ -32,12 +50,14 @@
                         :super?     (-> attrs :issuper uc/parse-boolean)
                         :deleted?   (-> attrs :deleted uc/parse-boolean)
                         :parameters     parameters
-                        :configuration  {:configured-clouds (configured-clouds parameters)
+                        :configuration  {:configured-clouds configured-clouds
                                          :available-clouds  (some-> parameters
                                                                     (parameters/value-for "General.default.cloud.service")
+                                                                    (flag-configured-clouds configured-clouds)
                                                                     (u/enum-update-name :available-clouds)
                                                                     (u/enum-sort-by :text)
-                                                                    u/enum-flag-selected-as-default)
+                                                                    u/enum-flag-selected-as-default
+                                                                    (u/enum-disable-by (complement :configured?)))
                                          :keep-running      (some-> parameters
                                                                     (parameters/value-for "General.keep-running")
                                                                     u/enum-selection

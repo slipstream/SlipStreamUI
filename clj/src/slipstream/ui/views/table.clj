@@ -198,8 +198,9 @@
   ;       since disabled fields are NOT submitted with the form.
   [:select] (ue/toggle-disabled (or disabled? read-only?))
   ue/this   (ue/when-append read-only? (hidden-input-for-disabled-select-snip (u/enum-selection enum) id))
-  [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected?]} enum]
+  [:select] (ue/content-for [[:option html/first-of-type]] [{:keys [value text selected? disabled?]} enum]
                             ue/this (ue/set-value value)
+                            ue/this (ue/toggle-disabled disabled? "disabled")
                             ue/this (html/content (str text))
                             ue/this (ue/toggle-selected selected?))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))

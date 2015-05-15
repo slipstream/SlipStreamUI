@@ -166,8 +166,9 @@
     ue/this                         (-> :build dialog-id ue/set-id)
     title-sel                       (html/content       (t :title))
     [:#ss-build-image-cloud-label]  (html/content       (t :cloud-service.label))
-    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
+    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected? disabled?]} (current-user/configuration :available-clouds)]
                                                         ue/this (ue/set-value value)
+                                                        ue/this (ue/toggle-disabled disabled? "disabled")
                                                         ue/this (ue/set-selected selected?)
                                                         ue/this (html/content text))
     footnote-sel                    (html/html-content  (t :footnote resource-id module-version))

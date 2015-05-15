@@ -156,6 +156,15 @@
        type-enum
        (name-enum (-> enum meta :name))))
 
+(defn enum-disable-by
+  "Adds ':disabled? true' to the enum-options for which pred is true, and
+  ':disabled? true' for the others."
+  [enum pred]
+  (->> enum
+       (map #(assoc % :disabled? (pred %)))
+       type-enum
+       (name-enum (-> enum meta :name))))
+
 (defn enum-select-default
   "Like enum-select but appends ' *' to the text of the selected option."
   [enum selected-option]
