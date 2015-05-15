@@ -70,16 +70,23 @@
    "EET"  "Europe/Athens"       ;; Eastern European Time
   })
 
-(definline ^:private normalize-timezone
+(defmacro ^:private generate-string-replacement-code
+  ;; NOTE: Done in a separated macro instead of this 'definline' since definline-defined
+  ;;       functions do not behave as expected when AOT compiled, and it breaks mvn tests.
+  ;;       Source: http://dev.clojure.org/jira/browse/CLJ-1227
+  [s]
+  `(-> ~s
+     ~@(for [[timezone abbreviations] (group-by val timezone-abbreviations)]
+      `(s/replace ~(->> abbreviations (map first) (s/join "|") re-pattern) ~timezone))))
+
+(defn- normalize-timezone
   "The timezone code CEST is not recognized as standard by org.joda.time.
   For a complete list of supported timezones run in the REPL:
     (org.joda.time.DateTimeZone/getAvailableIDs)
   For a list of timezone abbreviations visit:
     http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations"
   [s]
-  `(-> ~s
-     ~@(for [[timezone abbreviations] (group-by val timezone-abbreviations)]
-      `(s/replace ~(->> abbreviations (map first) (s/join "|") re-pattern) ~timezone))))
+  (generate-string-replacement-code s))
 
 (defn- formatters
   [formatter]
