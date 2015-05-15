@@ -38,15 +38,19 @@
 
 (defn- no-cloud-configured-alert
   [user own-profile?]
-  (when-not (-> user :configuration :configured-clouds)
-    {:type      :error
-     :container :fixed
-     :title     (t (if own-profile?
-                     :alert.no-clouds-configured.own-profile.title
-                     :alert.no-clouds-configured.others-profile.title))
-     :msg       (t (if own-profile?
-                     :alert.no-clouds-configured.own-profile.msg
-                     :alert.no-clouds-configured.others-profile.msg))}))
+  (let [cloud-default (->> user :configuration :available-clouds (filter :default?) first)]
+    (when-not (-> user :configuration :configured-clouds)
+      {:type      :error
+       :container :fixed
+       :title     (t (if own-profile?
+                       :alert.no-clouds-configured.own-profile.title
+                       :alert.no-clouds-configured.others-profile.title))
+       :msg       (t (if own-profile?
+                       :alert.no-clouds-configured.own-profile.msg
+                       :alert.no-clouds-configured.others-profile.msg)
+                     (:value cloud-default)
+                     (current-user/username)
+                     (some-> cloud-default :value uc/keywordize name))})))
 
 (defn- cloud-default-not-configured-alert
   [user own-profile?]
