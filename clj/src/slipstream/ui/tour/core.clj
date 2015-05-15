@@ -100,23 +100,23 @@
   [context]
   (some-> context :metadata meta :request :query-parameters :tour not-empty))
 
-(defn- enable-tour?
+(defn- start-tour?
+  "The tour for the welcome page appears only if the URL contains a query parameter
+  'start-tour' with a value equal to 'yes' ('1' and 'true' are also understood)."
   [context]
-  (some-> context :metadata meta :request :query-parameters :enable-tour #{"1" "yes" "y" "true"}))
+  (some-> context :metadata meta :request :query-parameters :start-tour #{"1" "yes" "y" "true"}))
 
 (defmulti ^:private get-tour-name
-  (fn [context]
-    (if (enable-tour? context)
-      [(:view-name context) (page-type/current)]
-      :no-tour)))
+  (fn [context] [(:view-name context) (page-type/current)]))
 
 (defmethod get-tour-name ["welcome" :page-type/view]
   [context]
   (if-let [tour (tour-in-query-param context)]
     tour
-    (if (current-user/configuration :configured-clouds)
-      "alice.intro.welcome"
-      "alice.intro-without-connectors.go-to-profile")))
+    (when (start-tour? context)
+      (if (current-user/configuration :configured-clouds)
+        "alice.intro.welcome"
+        "alice.intro-without-connectors.go-to-profile"))))
 
 (defmethod get-tour-name ["user" :page-type/view]
   [context]
@@ -129,10 +129,6 @@
 (defmethod get-tour-name :default
   [context]
   (tour-in-query-param context))
-
-(defmethod get-tour-name :no-tour
-  [_]
-  nil)
 
 (defn- extract-coordinates
   [tour-name]

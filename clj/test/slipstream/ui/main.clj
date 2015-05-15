@@ -81,7 +81,7 @@
     ["logout"]                (render :pagename "logout")
 
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
-    ["welcome-with-tour"]     (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view" :query-parameters {:enable-tour "yes"})
+    ["welcome-with-tour"]     (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view" :query-parameters {:start-tour "yes"})
     ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 
