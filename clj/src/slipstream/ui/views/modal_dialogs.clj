@@ -145,10 +145,6 @@
     ue/this                       (-> :run dialog-id ue/set-id)
     title-sel                     (html/content       (t :title))
     [:#ss-run-image-cloud-label]  (html/content       (t :cloud-service.label))
-    [:select]                     (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
-                                                      ue/this (ue/set-value value)
-                                                      ue/this (ue/set-selected selected?)
-                                                      ue/this (html/content text))
     [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
     [:.ss-run-image-global-section-content]            (html/content       (-> [image-metadata :image] run-module-global-parameters t/run-image-global-section-table))
     [:.ss-run-image-input-parameters-section]          (when-let [input-parameters (-> image-metadata :deployment :parameters (p/parameters-of-category "Input") not-empty)]
