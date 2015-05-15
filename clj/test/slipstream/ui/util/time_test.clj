@@ -100,7 +100,7 @@
     (format :human-readable-long "2013-07-05 02:27:12.471 CEST")))
 
 (expect
-  "divendres, 5 juliol 2013, 02:27:12 CEST"
+  #"divendres, 5(?: de)? juliol 2013, 02:27:12 CEST"
   (localization/with-lang :ca
     (format :human-readable-long "2013-07-05 02:27:12.471 CEST")))
 
