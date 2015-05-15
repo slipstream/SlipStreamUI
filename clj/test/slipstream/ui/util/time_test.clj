@@ -4,7 +4,8 @@
         [slipstream.ui.util.time])
   (:require [clj-time.core :as t]
             [clj-time.format :as f]
-            [slipstream.ui.util.localization :as localization]))
+            [slipstream.ui.util.localization :as localization])
+  (:import [org.joda.time DateTime DateTimeZone]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -47,17 +48,17 @@
 ;; parse SlipStream timestamp format
 
 (expect
-  org.joda.time.DateTime
+  DateTime
   (parse "2013-07-05 00:27:12.471 CEST"))
 
 ; CEST – Central European Summer Time: +0200
 (expect
-  (org.joda.time.DateTime. 2013 07 05 00 27 12 471 (org.joda.time.DateTimeZone/UTC))
+  (DateTime. 2013 07 05 00 27 12 471 (DateTimeZone/UTC))
   (parse "2013-07-05 02:27:12.471 CEST"))
 
 ; CET – Central European Time: +0100
 (expect
-  (org.joda.time.DateTime. 2013 01 05 00 27 12 471 (org.joda.time.DateTimeZone/UTC))
+  (DateTime. 2013 01 05 00 27 12 471 (DateTimeZone/UTC))
   (parse "2013-01-05 01:27:12.471 CET"))
 
 
@@ -66,17 +67,17 @@
 ;; parse iso8601 timestamp format
 
 (expect
-  org.joda.time.DateTime
+  DateTime
   (parse "2013-07-05T00:27:12.471Z"))
 
 ; CEST – Central European Summer Time: +0200
 (expect
-  (org.joda.time.DateTime. 2013 07 05 00 27 12 471 (org.joda.time.DateTimeZone/UTC))
+  (DateTime. 2013 07 05 00 27 12 471 (DateTimeZone/UTC))
   (parse "2013-07-05T02:27:12.471+0200"))
 
 ; CET – Central European Time: +0100
 (expect
-  (org.joda.time.DateTime. 2013 01 05 00 27 12 471 (org.joda.time.DateTimeZone/UTC))
+  (DateTime. 2013 01 05 00 27 12 471 (DateTimeZone/UTC))
   (parse "2013-01-05T01:27:12.471+0100"))
 
 
@@ -295,60 +296,66 @@
 
 ;; relative
 
+(defmacro ^:private expect-with-frozen-time
+  "Freeze time to allow consistent tests involving relative dates.
+  References:
+  - http://blog.jayfields.com/2012/11/clojure-freezing-time-added-to.html
+  - http://jayfields.com/expectations/freeze-time.html"
+  [expected-form actual-form]
+  `(expect
+      ~expected-form
+      (freeze-time (DateTime.) ; Freeze time to now
+        ~actual-form)))
+
 (expect
   String
   (localization/with-lang :en
     (format :relative "2013-07-05T00:27:12.471Z")))
 
 (defn- date-in
-  "The compensation-fn adds (or removes, depending on the direction) a bit of
-  time to ensure that the result is expected, even if there is a bit of random
-  delay during test execution."
   [units period direction]
-  (let [compensation-fn (if (= direction t/ago) t/minus t/plus)]
-    (f/unparse (f/formatters :date-time)
-               (-> units period direction (compensation-fn (t/millis 1))))))
+  (f/unparse (f/formatters :date-time) (-> units period direction)))
 
 (defn- date-periods-ago
   [units period]
   (date-in units period t/ago))
 
-(expect
+(expect-with-frozen-time
   "1 minute ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 60 t/seconds))))
 
-(expect
+(expect-with-frozen-time
   "1 minute and 10 seconds ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 70 t/seconds))))
 
-(expect
+(expect-with-frozen-time
   "5 minutes ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 5 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "59 minutes ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 59 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "1 hour ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 60 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "1 hour and 1 minute ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 61 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "1 hour and 2 minutes ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 62 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "1 year and 3 months ago"
   (localization/with-lang :en
     (format :relative (date-periods-ago 15 t/months))))
@@ -358,42 +365,42 @@
   [units period]
   (date-in units period t/from-now))
 
-(expect
+(expect-with-frozen-time
   "in 1 minute"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 60 t/seconds))))
 
-(expect
+(expect-with-frozen-time
   "in 1 minute and 10 seconds"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 70 t/seconds))))
 
-(expect
+(expect-with-frozen-time
   "in 5 minutes"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 5 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "in 59 minutes"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 59 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "in 1 hour"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 60 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "in 1 hour and 1 minute"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 61 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "in 1 hour and 2 minutes"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 62 t/minutes))))
 
-(expect
+(expect-with-frozen-time
   "in 1 year and 3 months"
   (localization/with-lang :en
     (format :relative (date-periods-from-now 15 t/months))))
