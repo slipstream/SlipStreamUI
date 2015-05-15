@@ -1,0 +1,38 @@
+/*
+    z-indexes:
+
+    Bootstrap
+          .popover          1060
+          .modal            1040
+          .navbar-fixed-top 1030
+
+    bootstro
+        .bootstro-highlight 1055
+        .bootstro-backdrop  1035
+
+    SlipStream
+        #ss-secondary-menubar-container 1025
+*/
+
+.bootstro-backdrop {
+  /*z-index: 1035;*/ /* Between affixed topbar (1030) and popovers (1060) */
+  z-index: 1015; /* Below affixed topbar (1030) */
+}
+
+.ss-tour-mouse-shield {
+  z-index: 1056; /* Between .bootstro-highlight (1055) and popovers (1060) */
+  background: transparent;
+}
+
+.bootstro-highlight {
+  z-index: 1055; /* Between .bootstro-backdrop (1035) and .ss-tour-mouse-shield (1056) */
+}
+
+.btn-primary.bootstro-highlight {
+    background-color: #337ab7;
+}
+
+/*.collapsing {
+    -webkit-transition: none;
+    transition: none;
+}*/

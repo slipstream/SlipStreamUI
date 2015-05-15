@@ -24,6 +24,16 @@
 (def ^:private last-button-sel [:.modal-footer [:button html/last-of-type]])
 
 
+(localization/with-prefixed-t :start-tour-dialog
+  (html/defsnippet ^:private start-tour-dialog template-filename [:#ss-start-tour-dialog]
+    []
+    [:.ss-start-tour-dialog-title]      (html/content       (t :title))
+    [:.ss-start-tour-dialog-text-body]  (html/html-content  (t :text-body (current-user/username)))
+    [:.ss-take-tour-btn]                (html/content       (t :button.take-tour))
+    [:.ss-no-tour-btn]                  (html/content       (t :button.dont-take-tour-dont-ask-again))
+    [:.ss-ask-next-time-btn]            (html/content       (t :button.dont-take-tour-but-ask-again))
+    footnote-sel                        (html/html-content  (t :footnote))))
+
 (localization/with-prefixed-t :reset-password-dialog
   (html/defsnippet ^:private reset-password-dialog template-filename [:#ss-reset-password-dialog]
     []
@@ -135,10 +145,6 @@
     ue/this                       (-> :run dialog-id ue/set-id)
     title-sel                     (html/content       (t :title))
     [:#ss-run-image-cloud-label]  (html/content       (t :cloud-service.label))
-    [:select]                     (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
-                                                      ue/this (ue/set-value value)
-                                                      ue/this (ue/set-selected selected?)
-                                                      ue/this (html/content text))
     [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
     [:.ss-run-image-global-section-content]            (html/content       (-> [image-metadata :image] run-module-global-parameters t/run-image-global-section-table))
     [:.ss-run-image-input-parameters-section]          (when-let [input-parameters (-> image-metadata :deployment :parameters (p/parameters-of-category "Input") not-empty)]
@@ -156,9 +162,10 @@
     ue/this                         (-> :build dialog-id ue/set-id)
     title-sel                       (html/content       (t :title))
     [:#ss-build-image-cloud-label]  (html/content       (t :cloud-service.label))
-    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected?]} (current-user/configuration :available-clouds)]
+    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected? disabled?]} (current-user/configuration :available-clouds)]
                                                         ue/this (ue/set-value value)
-                                                        ue/this (ue/set-selected selected?)
+                                                        ue/this (ue/toggle-disabled disabled? "disabled")
+                                                        ue/this (ue/toggle-selected (and selected? (not disabled?)))
                                                         ue/this (html/content text))
     footnote-sel                    (html/html-content  (t :footnote resource-id module-version))
     [:#ss-build-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
@@ -235,6 +242,12 @@
     (page-type/view?)
     (module-category? context :deployment)))
 
+(defn- start-tour-required?
+  [{:keys [view-name tour]}]
+  (and
+    (= "welcome" view-name)
+    tour))
+
 (defn required
   [context]
   (when (page-type/not-chooser?)
@@ -243,6 +256,7 @@
           module-version (module-version context)]
       (cond-> []
         (current-user/not-logged-in?)       (conj (reset-password-dialog))
+        (start-tour-required? context)      (conj (start-tour-dialog))
         (page-type/edit?)                   (conj (save-dialog resource-name)
                                                   (delete-dialog resource-name resource-id))
         (page-type/view?)                   (conj (delete-dialog resource-name resource-id))

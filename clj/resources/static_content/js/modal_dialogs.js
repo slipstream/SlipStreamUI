@@ -13,7 +13,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(this).focusFirstInput();
     });
 
-
     // Configure reset password dialog
 
     $$.request

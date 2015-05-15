@@ -1,3 +1,7 @@
+#ss-start-tour-dialog button.close {
+  margin-top: -5px;
+}
+
 #ss-image-chooser-dialog .modal-body,
 #ss-copy-module-dialog .modal-body {
     padding: 0;
@@ -35,4 +39,25 @@
   -webkit-box-shadow: 0 0 30px 5px rgba(0,0,0,.6);
   -moz-box-shadow:    0 0 30px 5px rgba(0,0,0,.6);
   box-shadow:         0 0 30px 5px rgba(0,0,0,.6);
+}
+
+.ss-start-tour-dialog-title {
+  padding-top: 10px;
+}
+.ss-start-tour-dialog-text-body {
+  padding: 15px;
+}
+.ss-start-tour-dialog-text-body code {
+  background: transparent;
+  color: inherit;
+}
+.ss-start-tour-dialog-buttons-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.ss-take-tour-btn-container {
+  padding-bottom: 35px;
+}
+#ss-start-tour-dialog .ss-dialog-footnote {
+  padding-top: 15px;
 }

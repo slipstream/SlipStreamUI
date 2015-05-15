@@ -42,10 +42,11 @@
    :creation      "2015-03-13 11:22:59.220 CET"
    :deleted?      false
    :super?        true
-   :configuration {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
-                                       {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
-                                       {:value "Cloud3", :text "Cloud3"}
-                                       {:value "Cloud4", :text "Cloud4"}] ; General.default.cloud.service
+   :configuration {:configured-clouds nil
+                   :available-clouds  [{:value "Cloud1", :configured? false, :disabled? true, :text "Cloud1 (not configured)"}
+                                       {:value "Cloud2", :configured? false, :disabled? true, :text "Cloud2 (not configured) *", :default? true, :selected? true}
+                                       {:value "Cloud3", :configured? false, :disabled? true, :text "Cloud3 (not configured)"}
+                                       {:value "Cloud4", :configured? false, :disabled? true, :text "Cloud4 (not configured)"}] ; General.default.cloud.service
                    :keep-running      :on-success ; General.keep-running
                    :ssh-keys          nil         ; General.ssh.public.key
                   }}
@@ -62,20 +63,21 @@
         (current-user/get :creation)))))
 
 (expect
-  [{:value "Cloud1", :text "Cloud1"}
-   {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
-   {:value "Cloud3", :text "Cloud3"}
-   {:value "Cloud4", :text "Cloud4"}]
+  [{:value "Cloud1", :configured? false, :disabled? true, :text "Cloud1 (not configured)"}
+   {:value "Cloud2", :configured? false, :disabled? true, :text "Cloud2 (not configured) *", :default? true, :selected? true}
+   {:value "Cloud3", :configured? false, :disabled? true, :text "Cloud3 (not configured)"}
+   {:value "Cloud4", :configured? false, :disabled? true, :text "Cloud4 (not configured)"}]
   (let [metadata user-metadata]
     (localization/with-lang :en
       (with-user-from-metadata
         (current-user/get-in [:configuration :available-clouds])))))
 
 (expect
-  {:available-clouds  [{:value "Cloud1", :text "Cloud1"}
-                       {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
-                       {:value "Cloud3", :text "Cloud3"}
-                       {:value "Cloud4", :text "Cloud4"}]
+  {:configured-clouds nil
+   :available-clouds  [{:value "Cloud1", :configured? false, :disabled? true, :text "Cloud1 (not configured)"}
+                       {:value "Cloud2", :configured? false, :disabled? true, :text "Cloud2 (not configured) *", :default? true, :selected? true}
+                       {:value "Cloud3", :configured? false, :disabled? true, :text "Cloud3 (not configured)"}
+                       {:value "Cloud4", :configured? false, :disabled? true, :text "Cloud4 (not configured)"}]
    :keep-running  :on-success
    :ssh-keys      nil}
   (let [metadata user-metadata]
@@ -84,10 +86,10 @@
         (current-user/configuration)))))
 
 (expect
-  [{:value "Cloud1", :text "Cloud1"}
-   {:value "Cloud2", :text "Cloud2 *", :default? true, :selected? true}
-   {:value "Cloud3", :text "Cloud3"}
-   {:value "Cloud4", :text "Cloud4"}]
+  [{:value "Cloud1", :configured? false, :disabled? true, :text "Cloud1 (not configured)"}
+   {:value "Cloud2", :configured? false, :disabled? true, :text "Cloud2 (not configured) *", :default? true, :selected? true}
+   {:value "Cloud3", :configured? false, :disabled? true, :text "Cloud3 (not configured)"}
+   {:value "Cloud4", :configured? false, :disabled? true, :text "Cloud4 (not configured)"}]
   (let [metadata user-metadata]
     (localization/with-lang :en
       (with-user-from-metadata

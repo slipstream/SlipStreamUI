@@ -721,10 +721,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        hoverDelayed: function(handlerInOrInOutArg, handlerOutArg, delayInMillis) {
+        hoverDelayed: function(handlerInOrInOutArg, handlerOutArg, delayInMillis, selector) {
             // If 'delayInMillis' is an int, it's applied for both 'handlerIn' and 'handlerOut' events.
             // To define different delays, provide an object like: {enter: 100, leave: 0}
             // Add {alwaysTriggerHandlerOut: false} to trigger the handlerOut only if handlerIn was called.
+            // Selector behaves like in jQuery's .on() function.
             var $this = this,
                 eventParams = {
                     mouseenter: {
@@ -742,20 +743,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     }
                 };
             function scheduleHandlerForEvent(e, params) {
-             if ( $this.data(params.timeoutIDKey) === undefined ) {
-                    $this.data(
-                        params.timeoutIDKey,
-                        setTimeout(
-                            function(){
-                                params.handler.call($this.get(0), e);
-                                $this
-                                    .removeData(params.timeoutIDKey)
-                                    .data(params.handlerWasTriggeredDataKey, true);
-                            },
-                            params.delay
-                        )
-                    );
-                }
+                var that = this;
+                 if ( $this.data(params.timeoutIDKey) === undefined ) {
+                        $this.data(
+                            params.timeoutIDKey,
+                            setTimeout(
+                                function(){
+                                    params.handler.call(that, e);
+                                    $this
+                                        .removeData(params.timeoutIDKey)
+                                        .data(params.handlerWasTriggeredDataKey, true);
+                                },
+                                params.delay
+                            )
+                        );
+                    }
             }
 
             function stopHandlerForEvent(e, params) {
@@ -767,19 +769,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
 
             return this
-                    .hover(
+                    .on("mouseenter",
+                        selector,
                         function(e) {
-                            scheduleHandlerForEvent(e, eventParams.mouseenter);
-                            stopHandlerForEvent(    e, eventParams.mouseleave);
-                        },
+                            scheduleHandlerForEvent.call(this, e, eventParams.mouseenter);
+                            stopHandlerForEvent.call(    this, e, eventParams.mouseleave);
+                        })
+                    .on("mouseleave",
+                        selector,
                         function(e) {
                             if ( $this.data(eventParams.mouseenter.handlerWasTriggeredDataKey) ||
                                 eventParams.mouseleave.alwaysTrigger ) {
-                                scheduleHandlerForEvent(e, eventParams.mouseleave);
+                                scheduleHandlerForEvent.call(this, e, eventParams.mouseleave);
                             }
-                            stopHandlerForEvent(    e, eventParams.mouseenter);
-                        }
-                    );
+                            stopHandlerForEvent.call(        this, e, eventParams.mouseenter);
+                        });
         },
 
         enableBufferedTextInputChangeEvent: function() {
@@ -1770,6 +1774,22 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        bsEnableExpandableProgressBars: function() {
+            return this
+                .hoverDelayed(
+                    function () {
+                        $(this).animate({height: "20px"}, 'fast');
+                    },
+                    function () {
+                        $(this).animate({height: "4px"}, 'fast');
+                    },
+                    {
+                        enter: 100,
+                        leave: 400
+                    },
+                    ".progress.expand-on-hover");
+        },
+
         bsEnableDynamicElements: function() {
             this
                 .enableTooltipOnEllipsedTexts()
@@ -1985,11 +2005,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.meta = {
         getMetaValue: function (name, $elem) {
+            var metaFieldSelector = "meta[name=" + name + "]",
+                $metaFieldElem;
             if ($elem) {
-                return $elem.find("meta[name=" + name + "]").attr("content");
+                $metaFieldElem = $elem.find(metaFieldSelector);
             } else {
-                return $("meta[name=" + name + "]").attr("content");
+                $metaFieldElem = $(metaFieldSelector);
             }
+            return $$.util.string.notEmpty($metaFieldElem.attr("content"));
         },
         getPageType: function ($elem) {
             // Page type is one of 'view', 'edit', 'new', 'chooser', etc...
@@ -2004,6 +2027,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // User type is one of 'super' or 'regular',
             // as in the slipstream.ui.util.curent-user/type-name Clojure fn.
             return this.getMetaValue("ss-user-type", $elem);
+        },
+        getUsername: function ($elem) {
+            return this.getMetaValue("ss-username", $elem);
         },
         isSuperUserLoggegIn: function ($elem) {
             return util.string.caseInsensitiveEqual(this.getUserType($elem), "super");
@@ -2180,6 +2206,189 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             // Source: http://stackoverflow.com/a/4819886
             return  'ontouchstart'         in window ||    // works on most browsers
                     'onmsgesturechange'    in window;      // works on ie10
+        }
+
+    };
+
+    util.tour = {
+
+        alice: {
+            intro: {
+                welcome:                "alice.intro.welcome",
+                deployingWordpress:     "alice.intro.deploying-wordpress",
+                waitingForWordpress:    "alice.intro.waiting-for-wordpress"
+            },
+            introWithoutConnectors: {
+                goToProfile:            "alice.intro-without-connectors.go-to-profile",
+                editProfile:            "alice.intro-without-connectors.edit-profile",
+                navigateBackToWelcome:  "alice.intro-without-connectors.navigate-back-to-welcome",
+                welcome:                "alice.intro-without-connectors.welcome",
+                deployingWordpress:     "alice.intro-without-connectors.deploying-wordpress",
+                waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress"
+            }
+        },
+
+        enableMouseShield: function () {
+            if ( $(".ss-tour-mouse-shield").foundNothing() ) {
+                $("<div class=\"bootstro-backdrop ss-tour-mouse-shield\"></div>")
+                    .appendTo("body");
+            }
+        },
+
+        disableMouseShield: function () {
+            $(".ss-tour-mouse-shield")
+                .remove();
+        },
+
+        // Bootstro's Options
+
+        // nextButton
+        // nextButtonText
+        // prevButton
+        // prevButtonText
+        // finishButton
+        // finishButtonText
+        // stopOnBackdropClick
+        // stopOnEsc
+        // margin
+        // onComplete
+        // onExit
+        // onStep
+
+        // Bootstro's public methods
+
+        // bootstro.start(selector, options)
+        // bootstro.go_to(i)
+        // bootstro.stop()
+        // bootstro.next()
+        // bootstro.prev()
+        // bootstro.bind()
+        // bootstro.unbind()
+
+        defaultOptions: {
+            prevButton:   "<button class=\"btn btn-primary btn-xs bootstro-prev-btn\">« Prev</button>",
+            nextButton:   "<button class=\"btn btn-primary btn-xs bootstro-next-btn\">Next »</button>",
+            finishButton: "<button class=\"btn btn-xs btn-link bootstro-finish-btn\">Exit guided tour</button>",
+            stopOnBackdropClick: false,
+            beforeStart: undefined, // NOTE: This is not from bootstro
+            onExit: function(){
+                $$.util.tour.disableMouseShield();
+            }
+        },
+
+        setup: function (options) {
+            this.customOptions = options;
+        },
+
+        start: function() {
+            var options = $.extend({}, this.defaultOptions, this.customOptions);
+            if ( $.type(options.beforeStart) === "function" ) {
+                options.beforeStart();
+            }
+            bootstro.start(".bootstro", options);
+        },
+
+        stop: function() {
+            bootstro.stop();
+        },
+
+        cookiePrefix: "launch-tour.",
+
+        shouldLaunchAny: function(tourNames, shouldLaunchIfUndefined) {
+            var launchAny = false;
+            $.each(tourNames.split(/,+\s*/),
+                function(i, tourName) {
+                     launchAny = $$.util.tour.shouldLaunch(tourName, shouldLaunchIfUndefined);
+                     if ( launchAny ) {
+                        // Break the 'each' loop
+                        return false;
+                     }
+                })
+            return launchAny;
+        },
+
+        shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
+            var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName);
+            if ( $.type(persistedShouldLaunchBehaviour) === "boolean" ) {
+                // Return the currently stored value
+                return persistedShouldLaunchBehaviour;
+            } else if ( $.type(shouldLaunchIfUndefined) === "boolean" ) {
+                // Persist the wanted behaviour
+                $$.util.cookie.set(this.cookiePrefix + tourName, shouldLaunchIfUndefined);
+                return shouldLaunchIfUndefined;
+            } else if ( shouldLaunchIfUndefined !== undefined ) {
+                throw "'shouldLaunchIfUndefined' must be a boolean.";
+            }
+        },
+
+        optInDialogMutedKey: "optInDialogMuted",
+
+        muteNextOptInDialog: function() {
+            return $$.util.cookie.setShortLived(this.cookiePrefix + this.optInDialogMutedKey, true, 300);
+        },
+
+        shouldShowOptInDialog: function() {
+            var persistedMuteOptInDialogBehaviour = $$.util.cookie.get(this.cookiePrefix + this.optInDialogMutedKey);
+            $$.util.cookie.delete(this.cookiePrefix + this.optInDialogMutedKey);
+            if ( persistedMuteOptInDialogBehaviour === true ) {
+                return false; // I.e. if 'mute' is true, do show dialog
+            }
+            return true;
+        },
+
+        queueLaunch: function(tourName) {
+            return $$.util.cookie.setShortLived(this.cookiePrefix + tourName, true, 180);
+        },
+
+        dequeueLaunch: function(tourName) {
+            return $$.util.cookie.delete(this.cookiePrefix + tourName);
+        },
+
+        persistDismissal: function(tourName) {
+            return $$.util.cookie.set(this.cookiePrefix + tourName, false);
+        }
+
+    };
+
+    util.cookie = {
+        // Inspired from: http://www.w3schools.com/js/js_cookies.asp
+
+        // cookies are scoped to the looged user
+        scopePrefix: ($$.util.meta.getUsername() || "unlogged") + ".",
+
+        setShortLived: function (cname, cvalue, ttl_in_secs) {
+            // ttl_in_secs defaults to 5 min
+            var d = new Date();
+            d.setTime(d.getTime() + ((ttl_in_secs || 300)*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = this.scopePrefix + cname + "=" + cvalue + "; " + expires + ";path=/";
+        },
+
+        set: function (cname, cvalue, ttl_in_days) {
+            // TTL defaults to 1 year
+            return this.setShortLived(cname, cvalue, ((ttl_in_days || 365)*24*60*60));
+        },
+
+        get: function (cname) {
+            var name = this.scopePrefix + cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)===' ') c = c.substring(1);
+                if (c.indexOf(name) === 0) {
+                    var cvalue = c.substring(name.length, c.length);
+                    switch (cvalue) {
+                        case "true":    return true;
+                        case "false":   return false;
+                        default:        return $$.util.string.notEmpty(cvalue);
+                    }
+                }
+            }
+            return undefined;
+        },
+
+        delete: function (cname) {
+            document.cookie = cname + "=;expires=Wed; 01 Jan 1970";
         }
 
     };

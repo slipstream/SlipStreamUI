@@ -2,6 +2,7 @@
   (:require [clojure.string :as s]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [clojure.walk :as walk]
             [clj-json.core :as json])
   (:import  [java.io FileNotFoundException]))
 
@@ -21,6 +22,36 @@
   `(def ~fname
      (memoize
        (fn ~@body))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defprotocol ConvertibleToSortable
+  "Note that the original sorting will be overidden (if any). See tests for expectations."
+  (->sorted [o]))
+
+(extend-protocol ConvertibleToSortable
+
+  java.util.Map
+  (->sorted [o]
+    (when (some->> o not-empty keys (map type) (apply not=))
+      (throw (IllegalArgumentException. (str "All keys of the map must be of the same type: " (pr-str o)))))
+    (into (sorted-map) o))
+
+  java.util.Set
+  (->sorted [o]
+    (when (some->> o not-empty (map type) (apply not=))
+      (throw (IllegalArgumentException. (str "All items in the set must be of the same type: " (pr-str o)))))
+    (into (sorted-set) o))
+
+  java.lang.Object
+  (->sorted [o]
+    o)
+
+  nil
+  (->sorted [_]
+    nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn slurp-resource
   [path-str]
@@ -207,13 +238,10 @@
       (throw (IllegalArgumentException.
                (str "Cannot parse boolean from string: " s))))))
 
-(defn update-map-keys
-  [x f]
-  (cond
-    (map? x)    (into (empty x) (for [[k v] x] [(f k) (update-map-keys v f)]))
-    (list? x)   (into (empty x) (for [item (reverse x)] (update-map-keys item f)))
-    (coll? x)   (into (empty x) (for [item x] (update-map-keys item f)))
-    :else x))
+(defn update-keys
+  "Recursively applies f to all map keys."
+  [m f]
+  (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(f k) v])) x)) m))
 
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
@@ -239,11 +267,18 @@
         (s/replace #"(\w)[-\.](\w)" "$1 $2") ; NOTE: dash-separated and dot.separated words become space separated.
         (s/replace #"(?:^|\b)\w" s/upper-case))))
 
+(defn- normalise-sorting
+  "In order to generate a deterministic string, we sort all naturally unsorted
+  data types."
+  [x]
+  (walk/postwalk ->sorted x))
+
 (defn ->camelCaseString
   "Takes anything and returns a camelCase'd string. See tests for expectations."
   [x]
   (when x
     (-> x
+        normalise-sorting
         str
         keywordize
         name
@@ -263,11 +298,11 @@
   point notation (i.e. object.key) instead of object['key-string'].
   See tests for expectations."
   [x]
-  (when x
-    (-> x
-        (update-map-keys key?->isKey)
-        (update-map-keys ->camelCaseString)
-        json/generate-string)))
+  (some-> x
+          (update-keys key?->isKey)
+          (update-keys ->camelCaseString)
+          normalise-sorting
+          json/generate-string))
 
 (defn coll-grouped-by
   "Primary intended to 'better' group a coll of maps sorting the result by the
@@ -330,6 +365,13 @@
 (def map-in   (partial map-fn-in map))
 (def mapv-in  (partial map-fn-in mapv))
 
+(defn mmap
+  "Like 'ffirst for 'map. See tests for expectations."
+  [f s]
+  {:pre [(coll? s)
+         (every? coll? s)]}
+  (map #(map f %) s))
+
 (defn html-safe-str
  "Like clojure.core/str but escapes < > & and \"."
  [x]
@@ -339,3 +381,12 @@
       (.replace "<" "&lt;")
       (.replace ">" "&gt;")
       (.replace "\"" "&quot;")))
+
+(defn ensure-vector
+  [v]
+  (when v
+    (cond
+      (vector?  v)  v
+      (map?     v)  (vector v)
+      (coll?    v)  (vec v)
+      :else         (vector v))))

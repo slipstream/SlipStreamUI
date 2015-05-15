@@ -180,6 +180,7 @@
    :slipstream.ui.views.menubar.logged-in.action.users               :global.nouns.users
    :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
    :slipstream.ui.views.menubar.logged-in.action.help                :global.nouns.help
+   :slipstream.ui.views.menubar.logged-in.action.start-tour          "Guided tour"
    :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
    :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
@@ -251,6 +252,20 @@
    :slipstream.ui.views.user.header.subtitle.not-super         :global.nouns.regular-user
    :slipstream.ui.views.user.header.subtitle.new-user          "Add the information to create a new user."
    :slipstream.ui.views.user.summary                           :global.nouns.summary
+
+   ;; TODO: gather all used external links (e.g. like here to the documentation) in a common namespace
+   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.title       "No clouds configured!"
+   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.msg!        "Please note that you will not be able to deploy anything until you configure the credentials for at least one cloud in the <span class='glyphicon glyphicon-cloud'></span>sections below. For example, you might want to <a href='/user/%2$s?edit=true#%3$s'>configure the cloud <code>%1$s</code></a>, which is currently set up as default in your profile. For more details about how to solve this please refer to the <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.title    "No clouds configured in this profile!"
+   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "This user will not be able to deploy anything until the credentials for at least one cloud have been configured in this profile. For more details about how to solve this you might want to point to the <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+
+   :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.title       "Default cloud is not configured"
+   :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.msg         "Please note that `%1$s` is selected as the default cloud but you have not provided its credentials. Please [change your default cloud](/user/%2$s?edit=true#general) or [configure its credentials](/user/%2$s?edit=true#%3$s)." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.cloud-default-not-configured.others-profile.title    "Default cloud is not configured in this profile"
+   :slipstream.ui.views.user.alert.cloud-default-not-configured.others-profile.msg      "Please note that `%1$s` is selected as the default cloud but no credentials were provided for it. You might want to invite this user to change the default cloud or configure its credentials." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+
+   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title  "No SSH keys configured in this profile"
+   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg    "This user will not be able to access the deployed machines via SSH until at least one SSH public key has been configured in this profile."
 
 
    :slipstream.ui.views.table.header.access-right             "Access Right"
@@ -511,10 +526,10 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
-   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile."
+   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled."
 
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The option `Specify for each node` will reveal this menu for each of the nodes below."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled. The option `Specify for each node` will reveal this menu for each of the nodes below."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
@@ -748,6 +763,8 @@
    :slipstream.ui.models.run.type.run                              "Image Run"         ; Was 'Simple Run'
    :slipstream.ui.models.run.type.orchestration                    "Deployment Run"    ; Was 'Deployment'
 
+   :slipstream.ui.models.user.cloud-not-configured.label           "(not configured)"
+
    :slipstream.ui.util.icons.description.run-in-transitional-state  "Run in transitional state"
    :slipstream.ui.util.icons.description.run-with-abort-flag-set    "Abort flag set"
    :slipstream.ui.util.icons.description.run-successfully-ready     "Ready"
@@ -897,6 +914,16 @@
    :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes yet."
    :slipstream.ui.views.module.deployment.section.runs.title                    :global.nouns.runs
    :slipstream.ui.views.module.deployment.section.runs.empty-content-hint       "This section will list all runs of this deployment."
+
+
+   ;; Modal dialogs
+
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.title                                "Welcome to SlipStream!"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Hi, `%1$s`! We would like to guide you through the main workflow of SlipStream in a 5min tour. We will show you how to deploy a Wordpress machine." ;  %1$s: username
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour                     "Yes, go for the tour!"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again  "Not now, but please ask me next time"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "I don't need to take the tour, thanks"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.footnote                              "No stress: you can always launch the tour from the `Help` menu on the top of the page." ;; NOTE: Shortened text to fit within one line in the dialog.
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 

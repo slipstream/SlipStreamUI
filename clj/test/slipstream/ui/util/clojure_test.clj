@@ -14,6 +14,79 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ->sorted
+
+(expect
+  nil
+  (->sorted nil))
+
+(expect
+  "some string"
+  (->sorted "some string"))
+
+(expect
+  1234
+  (->sorted 1234))
+
+(expect
+  [:d :A :a :c]
+  (->sorted [:d :A :a :c]))
+
+(expect
+  [:d :A :a :c]
+  (->sorted '(:d :A :a :c)))
+
+(expect
+  {:a 1 :b 2}
+  (->sorted {:b 2 :a 1}))
+
+(expect
+  [[:a 1] [:b 2]]
+  (seq (->sorted {:b 2 :a 1})))
+
+(expect
+  IllegalArgumentException
+  (->sorted {"b" 2 :a 1}))
+
+(expect
+  IllegalArgumentException
+  (->sorted #{:b 2 :a 1}))
+
+(expect
+  #{:c :d :A :a}
+  (->sorted #{:c :d :A :a}))
+
+(expect
+  #{:A :a :c :d}
+  (->sorted #{:c :d :A :a}))
+
+(expect
+  [:A :a :c :d]
+  (seq (->sorted #{:c :d :A :a})))
+
+(expect
+  [:A :a :c :d]
+  (seq (->sorted (sorted-set :c :d :A :a))))
+
+(expect
+  [0 1 2 3]
+  (seq (->sorted #{1 3 2 0})))
+
+; Note that the original sorting is overidden by ->sorted :
+
+(def a-decreasingly-sorted-set
+  (sorted-set-by > 1 3 2 0))
+
+(expect
+  [3 2 1 0]
+  (seq a-decreasingly-sorted-set))
+
+(expect
+  [0 1 2 3]
+  (seq (->sorted a-decreasingly-sorted-set)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; ensure-prefix
 
 (expect
@@ -861,11 +934,13 @@
   (->json ""))
 
 (expect
-  "{\"oneKey\":\"foo\",\"isSomeOtherKey\":true}"
+  "{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"}"
   (->json {:one-key "foo", :some-other-key? true}))
 
 (expect
-  "[{\"oneKey\":\"foo\",\"isSomeOtherKey\":true},{\"oneKey\":\"foo\",\"isSomeOtherKey\":true},{\"oneKey\":\"foo\",\"isSomeOtherKey\":true}]"
+  (str "[{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"},"
+        "{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"},"
+        "{\"isSomeOtherKey\":true,\"oneKey\":\"foo\"}]")
   (->json [{:one-key "foo", :some-other-key? true}
            {:one-key "foo", :some-other-key? true}
            {:one-key "foo", :some-other-key? true}]))
@@ -873,47 +948,47 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; update-map-keys
+;; update-keys
 
 (expect
   nil
-  (update-map-keys nil name))
+  (update-keys nil name))
 
 (expect
   1
-  (update-map-keys 1 name))
+  (update-keys 1 name))
 
 (expect
   {"a" 1}
-  (update-map-keys {:a 1} name))
+  (update-keys {:a 1} name))
 
 (expect
   [{"a" 1}]
-  (update-map-keys [{:a 1}] name))
+  (update-keys [{:a 1}] name))
 
 (expect
   '({"a" 1} {"b" 2})
-  (update-map-keys (list {:a 1} {:b 2}) name))
+  (update-keys (list {:a 1} {:b 2}) name))
 
 (expect
   [[[{"a" 1}]]]
-  (update-map-keys [[[{:a 1}]]] name))
+  (update-keys [[[{:a 1}]]] name))
 
 (expect
   [[[{"a" 1}]{"b" 1}]]
-  (update-map-keys [[[{:a 1}]{:b 1}]] name))
+  (update-keys [[[{:a 1}]{:b 1}]] name))
 
 (expect
   [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar"}}}]]
-  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] name))
+  (update-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] name))
 
 (expect
   [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar" "b-two-two" #{{"even-here" "the key is updated"}}}}}]]
-  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] name))
+  (update-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] name))
 
 (expect
   [[[{"a" 1}]{"b" {"bOne" "foo" "bTwo" {"bTwoOne" "bar" "bTwoTwo" #{{"evenHere" "the key is updated"}}}}}]]
-  (update-map-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] ->camelCaseString))
+  (update-keys [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the key is updated"}}}}}]] ->camelCaseString))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1201,6 +1276,36 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; mmap
+
+(expect
+  AssertionError
+  (mmap nil nil))
+
+(expect
+  AssertionError
+  (mmap nil [:a :b]))
+
+(expect
+  AssertionError
+  (mmap nil [:a [:b]]))
+
+(expect
+  AssertionError
+  (mmap str [:a [:b]]))
+
+(expect
+  '((":a") (":b"))
+  (mmap str [[:a] [:b]]))
+
+;; NOTE: Compare to normal 'map:
+
+(expect
+  '("[:a]" "[:b]")
+  (map str [[:a] [:b]]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; html-safe-str
 
 (expect
@@ -1230,3 +1335,47 @@
 (expect
   "some string &lt;a href=&quot;#&quot;&gt;with html tags&lt;/a&gt;"
   (html-safe-str "some string <a href=\"#\">with html tags</a>"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; ensure-vector
+
+(expect
+  nil
+  (ensure-vector nil))
+
+(expect
+  [1]
+  (ensure-vector 1))
+
+(expect
+  [1]
+  (ensure-vector [1]))
+
+(expect
+  [1]
+  (ensure-vector '(1)))
+
+(expect
+  [:a]
+  (ensure-vector :a))
+
+(expect
+  [:a]
+  (ensure-vector [:a]))
+
+(expect
+  [:a]
+  (ensure-vector '(:a)))
+
+(expect
+  [{:a 1}]
+  (ensure-vector {:a 1}))
+
+(expect
+  [{:a 1}]
+  (ensure-vector [{:a 1}]))
+
+(expect
+  [{:a 1}]
+  (ensure-vector '({:a 1})))

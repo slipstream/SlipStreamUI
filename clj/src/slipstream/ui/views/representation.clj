@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.representation
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.interop :as ui]
             [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
@@ -82,7 +83,8 @@
   [& body]
   `(if (mode/headless?)
     ; In headless mode let the stacktrace be printed on the browser:
-    ~@body
+    (do
+      ~@body)
     (try
       ; In prod render a proper error page reporting the expection:
       ~@body
@@ -94,15 +96,12 @@
         (.printStackTrace t#)
         (render-html error/page-uncaught-exception t#)))))
 
-(defn- lang-from-request
-  [request]
-  (get-in request ["query-parameters" "lang"]))
-
 (defn -toHtml
   "Generate an HTML page from the metadata xml string"
-  ; NOTE: :strs directive used instead of :keys, because keys in options map are strings.
-  [raw-metadata-str pagename {:strs [type request] :as options}]
-  (let [lang (lang-from-request request)
+  [raw-metadata-str pagename args-map]
+  (let [options (ui/->clj args-map)
+        {:keys [type request]}  options
+        lang (-> request :query-parameters :lang)
         metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (mode/when-dev
       ; NOTE: In dev mode, save a file into SlipStreamServer/war/raw-metadata-str.xml
@@ -115,12 +114,16 @@
       (current-user/with-user-from-metadata
         (page-type/with-page-type (or (page-types pagename) type)
           (guard-exceptions
-            (render-page pagename metadata)))))))
+            (render-page pagename (some-> metadata (with-meta options)))))))))
+
+(defn- lang-from-request
+  [request]
+  (get-in request ["query-parameters" "lang"]))
 
 (defn -toHtmlError
   "Generate an HTML error page"
-  ; NOTE: :strs directive used instead of :keys, because keys in options map are strings.
-  [raw-metadata-str message code {:strs [type request] :as options}]
+  ; NOTE: :strs directive used instead of :keys, because keys in args-map map are strings.
+  [raw-metadata-str message code {:strs [type request] :as args-map}]
   (let [lang (lang-from-request request)
         metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang lang

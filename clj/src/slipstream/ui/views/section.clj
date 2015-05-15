@@ -20,7 +20,8 @@
 (def section-content-sel [:.ss-section-content])
 
 (html/defsnippet section-group-snip template-filename section-group-sel
-  [sections]
+  [section-group-index sections]
+  ue/this (ue/append-to-id "-" section-group-index)
   ue/this (ue/content-for section-sel [{:keys [icon title selected? content type] :as section} sections
                    :let [section-uid (->> title uc/keywordize name (str "ss-section-"))
                          unique-section? (-> sections count (= 1))
@@ -37,6 +38,7 @@
     section-anchor-sel  (ue/if-set-href collapsible?
                                        (str "#" section-uid)
                                        nil)
+    section-anchor-sel  (ue/set-data :parent ".panel-group")
     chevron-sel         (ue/remove-if-not collapsible?)
     section-panel-sel   (ue/set-id section-uid)))
 
@@ -45,4 +47,6 @@
   (html/content (->> sections
                      (remove nil?)
                      u/ensure-one-selected
-                     section-group-snip)))
+                     (partition-by (comp :section-group meta))
+                     (map-indexed section-group-snip)
+                     concat)))

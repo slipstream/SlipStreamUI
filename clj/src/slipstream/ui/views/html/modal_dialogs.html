@@ -49,6 +49,50 @@
     <p>
 
     <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-start-tour-dialog">
+      Launch demo <code>#ss-start-tour-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade text-center" id="ss-start-tour-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content panel-primary">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h1 class="ss-start-tour-dialog-title">
+              Welcome to SlipStream!
+            </h1>
+            <h4 class="ss-start-tour-dialog-text-body">
+              Hi, <code>username</code>! We would like to guide you through the main workflow of SlipStream in a 5min tour. We will show you how to deploy a Wordpress machine.
+            </h4>
+            <div class="container-fluid ss-start-tour-dialog-buttons-container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="ss-take-tour-btn-container">
+                    <button type="button" class="btn btn-primary btn-lg ss-ok-btn ss-take-tour-btn" data-dismiss="modal">Yes, go for the tour!</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <button type="button" class="btn btn-default ss-cancel-btn ss-no-tour-btn ss-ask-next-time-btn" data-dismiss="modal">Not now, but please ask me next time</button>
+                </div>
+                <div class="col-sm-6">
+                  <button type="button" class="btn btn-default ss-cancel-btn ss-no-tour-btn" data-dismiss="modal" onclick="SlipStream.util.tour.persistDismissal('alice.intro.welcome')">I don't need to take the tour, thanks</button>
+                </div>
+              </div>
+              <div class="ss-dialog-footnote text-muted">
+                You can always go into the guided tour with the option <code>Guided Tour</code> in the <code>Help</code> menu on the top of the page.
+              </div> <!-- /.ss-save-dialog-footnote -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+
+    <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-save-dialog">
       Launch demo <code>#ss-save-dialog</code> modal
     </button>

@@ -60,7 +60,7 @@
     (let [theme-lang-resource-filename (str (theme/resources-folder theme) lang-resource-filename)
           lang-theme-dict (-> theme-lang-resource-filename
                               (uc/read-resource {})
-                              (uc/update-map-keys (partial prefix-with-theme theme)))
+                              (uc/update-keys (partial prefix-with-theme theme)))
           lang-dict (merge dict lang-theme-dict)]
       (if next-themes
         (recur lang-dict (first next-themes) (next next-themes))

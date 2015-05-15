@@ -85,10 +85,14 @@
     (html/html-content (str html-content))))
 
 (defmacro when-wrap
-  [test wrapping-tag-if-truthy & attrs-map]
+  ([wrap-in-elem]
+   `(if (not-empty ~wrap-in-elem)
+     (apply html/wrap ~wrap-in-elem)
+     identity))
+  ([test wrapping-tag-if-truthy & attrs-map]
    `(if ~test
      (apply html/wrap ~wrapping-tag-if-truthy [~@attrs-map])
-     identity))
+     identity)))
 
 (defmacro when-add-class
   "Consider using (enable-class enable? cls) function below, instead of this one,
@@ -138,10 +142,10 @@
      ~form-when-false))
 
 (defmacro at-match
-  [& rules]
+  [& transformations]
   `(fn [match#]
-    (html/at match#
-             ~@rules)))
+     (html/at match#
+       ~@transformations)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -161,7 +165,7 @@
 
 (defmacro when-set-data
   ([k v]
-   `(when-set-data ~k (not-empty ~v) ~v))
+   `(when-set-data ~k (if (coll? ~v) (not-empty ~v) ~v) ~v))
   ([k test v]
    `(if ~test
       (set-data ~k ~v)
@@ -398,7 +402,7 @@
 
 (def-blank-snippet map->meta-tag-snip :meta
   [m & {:keys [name-prefix]}]
-  this (html/clone-for [[k v] m]
+  this (html/clone-for [[k v] (uc/->sorted m)]
          this (set-name (name k))
          this (->> k name (str name-prefix) set-name)
          this (-> v str  set-content)))

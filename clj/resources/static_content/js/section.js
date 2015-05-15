@@ -157,9 +157,26 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.section = {
         select: function (index) {
             return toggleCollapsible(
-                $(".panel-group .panel:nth-child(" + index + ")")
-                    .closest(".panel")
+                $(".panel-group .panel")
+                    .eq(index - 1)
+                        .closest(".panel")
             );
+        },
+        selectWithoutAnimation: function (index) {
+            var $allSections = $(".panel .collapse"),
+                selectionResult;
+            // NOTE: This could be done modifying the '.collapsing' CSS class
+            //       but it would be permanent.
+            $allSections
+                .css("-webkit-transition", "none")
+                .css(   "-moz-box-shadow", "none")
+                .css(       "-transition", "none");
+            selectionResult = this.select(index);
+            $allSections
+                .css("-webkit-transition", "")
+                .css(   "-moz-box-shadow", "")
+                .css(       "-transition", "");
+            return selectionResult;
         },
         selectByTitle: function (title) {
             return toggleCollapsible(
@@ -167,6 +184,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .filter(function(){return $(this).text().trim() == title.trim();})
                     .closest(".panel")
             );
+        },
+        collapseAll: function (index) {
+            return $(".panel-collapse.collapse.in")
+                        .closest(".ss-section")
+                        .find("a.ss-section-activator")
+                        .click();
         },
         // Callback with the signature: function(sectionTitle, $sectionContent)
         onShow: function(callback) {
