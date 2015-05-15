@@ -100,8 +100,15 @@
   [context]
   (some-> context :metadata meta :request :query-parameters :tour not-empty))
 
+(defn- enable-tour?
+  [context]
+  (some-> context :metadata meta :request :query-parameters :enable-tour #{"1" "yes" "y" "true"}))
+
 (defmulti ^:private get-tour-name
-  (fn [context] [(:view-name context) (page-type/current)]))
+  (fn [context]
+    (if (enable-tour? context)
+      [(:view-name context) (page-type/current)]
+      :no-tour)))
 
 (defmethod get-tour-name ["welcome" :page-type/view]
   [context]
@@ -122,6 +129,10 @@
 (defmethod get-tour-name :default
   [context]
   (tour-in-query-param context))
+
+(defmethod get-tour-name :no-tour
+  [_]
+  nil)
 
 (defn- extract-coordinates
   [tour-name]
