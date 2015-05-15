@@ -48,6 +48,22 @@
                      :alert.no-clouds-configured.own-profile.msg
                      :alert.no-clouds-configured.others-profile.msg))}))
 
+(defn- cloud-default-not-configured-alert
+  [user own-profile?]
+  (let [cloud-default (->> user :configuration :available-clouds (filter :default?) first)]
+    (when-not (:configured? cloud-default)
+      {:type      :warning
+       :container :fixed
+       :title     (t (if own-profile?
+                       :alert.cloud-default-not-configured.own-profile.title
+                       :alert.cloud-default-not-configured.others-profile.title))
+       :msg       (t (if own-profile?
+                       :alert.cloud-default-not-configured.own-profile.msg
+                       :alert.cloud-default-not-configured.others-profile.msg)
+                     (:value cloud-default)
+                     (current-user/username)
+                     (some-> cloud-default :value uc/keywordize name))})))
+
 (defn- no-ssh-keys-configured-alert
   [user own-profile?]
   (when-not (or own-profile? (-> user :configuration :ssh-keys))
@@ -68,8 +84,9 @@
                                 action/delete]
        :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
        :alerts (when (page-type/view?)
-                 [(no-cloud-configured-alert    user own-profile?)
-                  (no-ssh-keys-configured-alert user own-profile?)])
+                 [(no-cloud-configured-alert          user own-profile?)
+                  (cloud-default-not-configured-alert user own-profile?)
+                  (no-ssh-keys-configured-alert       user own-profile?)])
        :content (into [{:icon       icons/user-section-summary
                         :title      (t :summary)
                         :selected?  true

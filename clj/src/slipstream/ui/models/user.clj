@@ -26,7 +26,6 @@
     (cond-> cloud
        :always           (assoc :configured? configured?)
        (not configured?) (update-in [:text] str " " (t :cloud-not-configured.label)))))
-       ;; TODO: In user profile warn if the default cloud is not configured.
 
 (defn- flag-configured-clouds
   [available-clouds-enum configured-clouds]
