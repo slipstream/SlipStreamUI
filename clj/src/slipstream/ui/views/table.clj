@@ -202,7 +202,7 @@
                             ue/this (ue/set-value value)
                             ue/this (ue/toggle-disabled disabled? "disabled")
                             ue/this (html/content (str text))
-                            ue/this (ue/toggle-selected selected?))
+                            ue/this (ue/toggle-selected (and selected? (not disabled?))))
   ue/this   (append-hidden-inputs-when-parameter-in cell-content))
 
 ; Map cell

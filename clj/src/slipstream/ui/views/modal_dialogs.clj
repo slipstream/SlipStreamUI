@@ -169,7 +169,7 @@
     [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected? disabled?]} (current-user/configuration :available-clouds)]
                                                         ue/this (ue/set-value value)
                                                         ue/this (ue/toggle-disabled disabled? "disabled")
-                                                        ue/this (ue/set-selected selected?)
+                                                        ue/this (ue/toggle-selected (and selected? (not disabled?)))
                                                         ue/this (html/content text))
     footnote-sel                    (html/html-content  (t :footnote resource-id module-version))
     [:#ss-build-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
