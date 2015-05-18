@@ -120,6 +120,7 @@
         <dependency>
             <groupId>net.cgrand</groupId>
             <artifactId>moustache</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.clojure</groupId>
