@@ -174,7 +174,7 @@
       <entry>
          <string>Cloud1.quota.vm</string>
          <parameter category="Cloud1" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
+            <value><![CDATA[]]></value>
          </parameter>
       </entry>
       <entry>
@@ -330,7 +330,7 @@
       <entry>
          <string>Cloud1.quota.vm</string>
          <parameter category="Cloud1" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
+            <value><![CDATA[]]></value>
          </parameter>
       </entry>
       <entry>

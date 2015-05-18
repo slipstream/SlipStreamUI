@@ -15,8 +15,10 @@
                  [clj-json "0.5.3"]
                  [org.clojure/data.xml "0.0.8"]
                  [clj-time "0.8.0"]]
-  :plugins [[lein-expectations "0.0.8"]
-            [lein-autoexpect "1.4.2"]]
+  :plugins [[lein-expectations  "0.0.8"]
+            [lein-autoexpect    "1.4.2"]
+            [jonase/eastwood    "0.2.1"]
+            [lein-cloverage     "1.0.3"]]
 
   :source-paths ["src"]
   :target-path "target/%s/"
