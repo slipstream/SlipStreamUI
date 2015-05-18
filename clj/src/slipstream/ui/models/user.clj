@@ -7,12 +7,23 @@
 
 (localization/def-scoped-t)
 
+(defn- credentials-param?
+  [param]
+  (->> param
+       :name
+       (re-find #"\.username|\.password|\.access\.id|\.secret\.key")
+       boolean))
+
+(defn- filter-credentials-params
+  [params]
+  (filter credentials-param? params))
+
 (defn- configured-clouds
-  "List the names of the cloud (i.e. connectors) for which all parameters have a
-  configured value."
+  "List the names of the cloud (i.e. connectors) for which credential parameters
+  have a configured value."
   [parameters]
   (->> (parameters/categories-of-type parameters :global)
-       ; TODO: Take into account only parameters with {:mandatory true}
+       (map #(update-in % [:parameters] filter-credentials-params))
        (uc/map-in [:parameters] :value)
        (filter #(->> % :parameters (not-any? nil?)))
        (mapv :category)
