@@ -67,7 +67,7 @@
                                      file-seq
                                      (map #(.getName %))
                                      (filter #(re-matches #".*\.html" %))
-                                     (mapcat #(str "<div><a href='/template/" % "'>" % "</a></div>"))
+                                     (mapcat #(str "<div><a target='_blank' href='/template/" % "'>" % "</a></div>"))
                                      s/join)
         static-pages-title    (str "<div><h2>Static Pages</h2></div><div>Genetared with test XML files in <code>" path-base "/test/slipstream/ui/mockup_data/</code></div><br>")
         static-pages-links    (->> routes
@@ -75,7 +75,7 @@
                                    flatten
                                    (remove #{'& "template"})
                                    (partition-by first)
-                                   (uc/mmap #(str "<div><a href='/" % "'>" % "</a></div>"))
+                                   (uc/mmap #(str "<div><a target='_blank' href='/" % "'>" % "</a></div>"))
                                    (interpose ["<br>"])
                                    flatten
                                    s/join)
