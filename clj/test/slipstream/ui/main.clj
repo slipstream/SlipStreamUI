@@ -59,15 +59,31 @@
 
 (defmacro app-routes
   [& routes]
-  (let [index-page (->> routes
-                        (take-nth 2)
-                        flatten
-                        (remove #{'&})
-                        (partition-by first)
-                        (uc/mmap #(str "<div><a href='/" % "'>" % "</a></div>"))
-                        (interpose ["<br>"])
-                        flatten
-                        s/join)]
+  (let [path-base             (-> "pwd" clojure.java.shell/sh :out  s/trim-newline)
+        static-templates-path (str path-base "/src/slipstream/ui/views/html/")
+        html-templates-title  (str "<div><h2>HTML Templates</h2></div><div>From <code>" static-templates-path "</code></div><br>")
+        html-templates-links  (->> static-templates-path
+                                     clojure.java.io/file
+                                     file-seq
+                                     (map #(.getName %))
+                                     (filter #(re-matches #".*\.html" %))
+                                     (mapcat #(str "<div><a href='/template/" % "'>" % "</a></div>"))
+                                     s/join)
+        static-pages-title    (str "<div><h2>Static Pages</h2></div><div>Genetared with test XML files in <code>" path-base "/test/slipstream/ui/mockup_data/</code></div><br>")
+        static-pages-links    (->> routes
+                                   (take-nth 2)
+                                   flatten
+                                   (remove #{'& "template"})
+                                   (partition-by first)
+                                   (uc/mmap #(str "<div><a href='/" % "'>" % "</a></div>"))
+                                   (interpose ["<br>"])
+                                   flatten
+                                   s/join)
+        index-page            (str html-templates-title
+                                   html-templates-links
+                                   "<br><hr>"
+                                   static-pages-title
+                                   static-pages-links)]
     `(def ~(symbol "routes")
        (app
          [""] (fn [req#]  (resp/response ~index-page))
@@ -149,9 +165,8 @@
     ["error-401"]             (render-error :raw-metadata-ns "module.project"
                                             :message "I'm afraid you are not allowed to do this."
                                             :code 401)
-    [&] (fn [req] (resp/file-response (req :uri) {:root "resources/static_content"}))
-    ; [&]                       (render-error :raw-metadata-ns "module.project"
-    ;                                         :code 404)
+    ["template" &]  (fn [req] (resp/file-response (-> req :uri (uc/trim-up-to-last \/)) {:root "src/slipstream/ui/views/html"}))
+    [&] (fn [req] (resp/file-response (-> req :uri (uc/trim-prefix "/") (uc/trim-prefix "resources/static_content")) {:root "resources/static_content"}))
     )
 
 ;; =============================================================================
