@@ -400,9 +400,9 @@
                :value "String"}})
 
   (defmethod deployment-parameter-cell :category
-    [row-index {:keys [disabled? placeholder category] :as param} field]
+    [row-index {:keys [disabled? placeholder category blank-row?] :as param} field]
     {:type      :cell/enum
-     :editable? (page-type/edit-or-new?)
+     :editable? blank-row?
      :content {:disabled? disabled?
                :id (when-not disabled? (deployment-parameter-cell-id row-index field))
                :enum (u/enum ["Output" "Input"] :deployment-parameter-category category)}})
