@@ -101,3 +101,34 @@ body.ss-error-page .jumbotron .ss-header .ss-header-icon {
 body.ss-error-page .jumbotron .ss-header .ss-header-icon-error{
   display:  inline-block;
 }
+
+/* No-Javascript alert */
+
+noscript .backdrop {
+  z-index: 10000;
+  opacity: 0.9;
+  background-color: #333;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+noscript .alert {
+  z-index: 10001;
+  position: fixed;
+  width: 50%;
+  left: 25%;
+  top: 25%;
+}
+
+/* Phone (xs) */
+@media (max-width: 767px) {
+
+  noscript .alert {
+    width: 80%;
+    left: 10%;
+    top: 10%;
+  }
+
+}

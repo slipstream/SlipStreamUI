@@ -858,7 +858,7 @@
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
 
    :slipstream.ui.views.base.noscript-error.title              "Error: JavaScript is disabled"
-   :slipstream.ui.views.base.noscript-error.subtitle           "SlipStream requires JavaScript. Please enable it."
+   :slipstream.ui.views.base.noscript-error.subtitle           "SlipStream requires JavaScript. Please enable it and reload the page."
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "New %1$s"
