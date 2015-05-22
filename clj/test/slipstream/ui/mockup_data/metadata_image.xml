@@ -18,6 +18,8 @@
       <target name="report"/>
       <target name="execute"><![CDATA[deployement recipe]]></target>
       <target name="onvmadd"/>
+      <target name="prescale"/>
+      <target name="postscale"/>
    </targets>
    <packages class="org.hibernate.collection.internal.PersistentSet">
       <package key="key_2" name="package_2" repository="repo_2"/>
