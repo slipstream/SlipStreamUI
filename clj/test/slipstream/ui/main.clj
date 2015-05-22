@@ -57,6 +57,10 @@
         (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
         constantly)))
 
+(def ^:private query-parameters
+  "These are the query-parameters used by the JS code on the client browser."
+  {"deployment-view-tour-intro-without-connectors" "?action=run"})
+
 (defmacro app-routes
   [& routes]
   (let [path-base             (-> "pwd" clojure.java.shell/sh :out  s/trim-newline)
@@ -75,7 +79,7 @@
                                    flatten
                                    (remove #{'& "template"})
                                    (partition-by first)
-                                   (uc/mmap #(str "<div><a target='_blank' href='/" % "'>" % "</a></div>"))
+                                   (uc/mmap #(str "<div><a target='_blank' href='/" % (query-parameters %) "'>" % "</a></div>"))
                                    (interpose ["<br>"])
                                    flatten
                                    s/join)
