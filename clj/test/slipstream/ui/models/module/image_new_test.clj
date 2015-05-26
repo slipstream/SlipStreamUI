@@ -101,6 +101,10 @@
                                          :run-in-background nil}
                           :on-vm-add {:code nil
                                       :run-in-background nil}
+                          :pre-scale  {:code nil
+                                      :run-in-background nil}
+                          :post-scale {:code nil
+                                      :run-in-background nil}
                           :report {:code "report target"
                                    :run-in-background false}
                           :execute {:code "execute target"
