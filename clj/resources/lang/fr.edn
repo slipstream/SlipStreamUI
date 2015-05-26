@@ -895,12 +895,16 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "Lors de l'ajout de VMs"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "Lors de la suppression de VMs"
+   :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.title      "Avant la mise à l'échelle"
+   :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.title     "Après la mise à l'échelle"
    :slipstream.ui.views.module.image.section.runs.title                                 :global.nouns.runs
    :slipstream.ui.views.module.image.section.runs.empty-content-hint                    "Cette section contiendra la liste des précédentes exécutions et constructions de cette image."
    :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Recette standard (lancée durant la phase 'Exécution')"
    :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Recueille les journaux et d'autre éléments pour analyse ultérieure (lancé durant la phase 'Envoi des rapports')"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Lancée quand des VMs sont ajoutées au déploiement"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Lancée quand des VMs sont supprimées du déploiement"
+   :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.description    "Lancée avant une mise à l'échelle verticale ou une suppression de VM"
+   :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.description   "Lancée après une mise à l'échelle verticale"
    :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content-hint "Il n'y a pas encore de paquet configuré. Vous pouvez [en ajouter](%1$s) en éditant cette image avec le bouton `Editer` du menu." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "Il n'y a pas encore de rapports disponibles."
