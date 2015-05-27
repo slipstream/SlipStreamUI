@@ -262,35 +262,41 @@ $(document).ready(function(){
                 settings.onExit.call(this,{idx : activeIndex});
         };
 
-        //go to the popover number idx starting from 0
-        bootstro.go_to = function(idx)
-        {
-            //destroy current popover if any
+        // Go to the popover number idx starting from 0
+        bootstro.go_to = function(idx) {
             bootstro.destroy_popover(activeIndex);
-            if (count != 0)
-            {
-                var p = get_popup(idx);
-                var $el = get_element(idx);
+            if (count !== 0) {
+                var p           = get_popup(idx),
+                    $el         = get_element(idx),
+                    showPopover = function(){ $el.popover(p).popover('show'); };
 
-                $el.popover(p).popover('show');
+                // Only scroll the bootstrap modal dialog, if present
+                var modal               = $(".modal:visible"),
+                    isModalPresent      = modal.foundAny(),
+                    elementToScroll     = isModalPresent ? modal : $("html,body");
 
-                //scroll if neccessary
-                var docviewTop = $(window).scrollTop();
-                var top = Math.min($(".popover.in").offset().top, $el.offset().top);
+                var docviewTop = isModalPresent ? modal.scrollTop() : $(window).scrollTop(),
+                    top = $el.offset().top,
+                    topDistance = top - docviewTop;
 
-                //distance between docviewTop & min.
-                var topDistance = top - docviewTop;
-
-                if (topDistance < settings.margin) //the element too up above
-                    $('html,body').animate({
-                        scrollTop: top - settings.margin},
-                    'slow');
-                else if(!is_entirely_visible($(".popover.in")) || !is_entirely_visible($el))
-                    //the element is too down below
-                    $('html,body').animate({
-                        scrollTop: top - settings.margin},
-                    'slow');
-                // html
+                // Scroll if neccessary
+                if ( topDistance < settings.margin ) {
+                    // The element is too up above
+                    elementToScroll.animate(
+                        {scrollTop: top - settings.margin},
+                        "fast",
+                        "swing",
+                        showPopover);
+                } else if ( ! is_entirely_visible($el) ) {
+                    // The element is too down below
+                    elementToScroll.animate(
+                        {scrollTop: top - settings.margin},
+                        "fast",
+                        "swing",
+                        showPopover);
+                } else {
+                    showPopover();
+                }
 
                 $el.addClass('bootstro-highlight');
                 activeIndex = idx;
@@ -302,6 +308,10 @@ $(document).ready(function(){
                 before   = settings.beforeStep && settings.beforeStep[expected.idx],
                 after    = settings.onStep && settings.onStep[expected.idx],
                 onExit   = settings.onExitStep && settings.onExitStep[activeIndex];
+            if (expected.idx < 0) {
+                // Do nothing
+                return;
+            }
             if (typeof onExit === "function") {
                 onExit.call(this, expected);
             }
