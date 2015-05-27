@@ -20,11 +20,11 @@
 (def section-content-sel [:.ss-section-content])
 
 (html/defsnippet section-group-snip template-filename section-group-sel
-  [section-group-index sections]
+  [total-section-count section-group-index sections]
   ue/this (ue/append-to-id "-" section-group-index)
   ue/this (ue/content-for section-sel [{:keys [icon title selected? content type] :as section} sections
                    :let [section-uid (->> title uc/keywordize name (str "ss-section-"))
-                         unique-section? (-> sections count (= 1))
+                         unique-section? (= total-section-count 1)
                          collapsible?    (not unique-section?)]]
     section-sel         (ue/enable-class (uc/first-not-nil selected? unique-section?) section-selected-cls)
     section-sel         (ue/when-add-class type (str "ss-section-" (name type)))
@@ -44,9 +44,10 @@
 
 (defn build
   [sections]
-  (html/content (->> sections
-                     (remove nil?)
-                     u/ensure-one-selected
-                     (partition-by (comp :section-group meta))
-                     (map-indexed section-group-snip)
-                     concat)))
+  (let [relevant-sections   (remove nil? sections)
+        total-section-count (count relevant-sections)]
+    (html/content (->> relevant-sections
+                       u/ensure-one-selected
+                       (partition-by (comp :section-group meta))
+                       (map-indexed (partial section-group-snip total-section-count))
+                       concat))))
