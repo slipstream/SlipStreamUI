@@ -59,7 +59,8 @@
 
 (def ^:private query-parameters
   "These are the query-parameters used by the JS code on the client browser."
-  {"deployment-view-tour-intro-without-connectors" "?action=run"})
+  {"deployment-view-tour-intro-without-connectors"  "?action=run"
+   "image-view-tour-intro-without-connectors"       "?action=run"})
 
 (defmacro app-routes
   [& routes]
@@ -120,6 +121,7 @@
     ["project-root-new"]      (render :pagename "module"          :raw-metadata-ns "module.project-root-new"  :type "new")
 
     ["image-view"]            (render :pagename "module"          :raw-metadata-ns "module.image"     :type "view")
+    ["image-view-tour-intro-without-connectors"]      (render :pagename "module"          :raw-metadata-ns "module.image"  :type "view" :query-parameters {:action "run" :tour "alice.intro-without-connectors.deploying-wordpress"})
     ["image-chooser"]         (render :pagename "module"          :raw-metadata-ns "module.image"     :type "chooser")
     ["image-edit"]            (render :pagename "module"          :raw-metadata-ns "module.image"     :type "edit")
     ["image-new"]             (render :pagename "module"          :raw-metadata-ns "module.image-new" :type "new")
