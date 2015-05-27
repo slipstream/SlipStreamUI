@@ -3,6 +3,9 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]))
 
+(def next-button-label
+  "<code>Next&raquo;</code>")
+
 (def intro
   "Tour to lead Alice to the 'AHA!' moment."
   [
@@ -20,17 +23,24 @@
 
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div]
       {:title "Application"
-       :content "This is a plublished application. Click NEXT to learn how to deploy it."}
+       :content "This is a plublished application. Click " next-button-label " to learn how to deploy it."}
 
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
-       :content "Click the \"Deploy\" button in the bottom right part of the application logo to deploy."
+       :content "Click the <code><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</code> button in the bottom right part of the application logo to deploy."
        :width "300px"}
     ]
 
    :deploying-wordpress
    [
-      [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 4)] :> [:td (html/nth-child 2)]]
+      nil
+      {:title "Run Dialog"
+       :content (str "We are now in the page of the WordPress SlipStream image and the <code>Run image</code> dialog has been automatically open because we are very ."
+                     " If you need to open it again, click on the menu action <code><span class='glyphicon glyphicon-cloud-upload'></span> Run...</code> in the left part of the page."
+                     "<br/><br/>"
+                     "Click " next-button-label " to learn how to configure and launch wordpress.")}
+
+      [:#ss-run-module-dialog #{:#parameter--cloudservice :#global-cloud-service}]
       {:title "Choose the cloud"
        :content "In this dialog you can specify some parameters for the deployment. In this case, please choose where you want WordPress to be deployed. Please note that you have to have the corresponding cloud credentials configured in your profile."
        :container-sel "#ss-run-module-dialog"
@@ -38,7 +48,7 @@
        :placement "right"
        :placement-distance "larger"}
 
-      [:#ss-run-module-dialog :> :div.modal-dialog :div.ss-run-deployment-global-section-content :> :div :> :table :> :tbody :> [:tr (html/nth-child 6)] :> [:td (html/nth-child 2)]]
+      [:#ss-run-module-dialog :#tags]
       {:title "Give it a name"
        :content "You can assing some <code>tags</code> to the deployment. This will be useful to recognise it later on. Try something like <code>wp-tour-test</code>. Don't worry, you can update it at any time."
        :container-sel "#ss-run-module-dialog"
@@ -46,13 +56,13 @@
        :placement "right"
        :placement-distance "larger"}
 
-      [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn.ss-build-btn]
+      [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn]
       {:title "Ready to deploy"
        :content "Click on <code>Run deployment</code> when you are ready to go."
        :container-sel "#ss-run-module-dialog"
        :wrap-in-elem   [:span]
        :placement "right"
-       :placement-distance "larger"}
+       :placement-distance "large"}
       ]
 
    :waiting-for-wordpress
