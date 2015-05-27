@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><user activeSince="2015-04-24 19:33:47.373 CEST" creation="2015-04-24 19:33:47.209 CEST" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastExecute="2015-04-24 20:01:42.902 CEST" lastName="The User" lastOnline="2015-05-14 15:39:10.236 CEST" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
+   <parameters class="org.hibernate.collection.internal.PersistentMap">
+      <entry>
+         <string>Cloud1.password</string>
+         <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Keep running after deployment" mandatory="true" name="General.keep-running" order="15" order_="15" readonly="false" type="Enum">
+            <instructions><![CDATA[Here you can define if and when SlipStream should leave the application running after performing the deployment. <br/><code>On success</code> is useful for production deployments or long tests. </br><code>On Error</code> might be useful so that resources are consumed only when debugging is needed. <br/><code>Never</code> ensures that SlipStream automatically terminates the application after performing the deployment. <br/>Note: This parameter doesn't apply to <code>mutable deployment</code> Runs and to <code>build image</code> Runs.]]></instructions>
+            <enumValues length="4">
+               <string>always</string>
+               <string>on-success</string>
+               <string>on-error</string>
+               <string>never</string>
+            </enumValues>
+            <value><![CDATA[on-success]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Verbosity Level</string>
+         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
+            <instructions><![CDATA[0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging]]></instructions>
+            <enumValues length="4">
+               <string>0</string>
+               <string>1</string>
+               <string>2</string>
+               <string>3</string>
+            </enumValues>
+            <value><![CDATA[0]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Timeout</string>
+         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="40" order_="40" readonly="false" type="String">
+            <instructions><![CDATA[If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.]]></instructions>
+            <value><![CDATA[30]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.username</string>
+         <parameter category="Cloud1" description="StratusLab account username" mandatory="true" name="Cloud1.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.default.cloud.service</string>
+         <parameter category="General" description="Default Cloud" mandatory="true" name="General.default.cloud.service" order="10" order_="10" readonly="false" type="Enum">
+            <instructions><![CDATA[Select the cloud that you want to use as the default.]]></instructions>
+            <enumValues length="4">
+               <string>Cloud1</string>
+            </enumValues>
+            <value><![CDATA[Cloud1]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.ssh.public.key</string>
+         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
+            <instructions><![CDATA[Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.]]></instructions>
+            <value/>
+         </parameter>
+      </entry>
+   </parameters>
+<user activeSince="2015-04-24 19:33:47.373 CEST" creation="2015-04-24 19:33:47.209 CEST" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastExecute="2015-04-24 20:01:42.902 CEST" lastName="The User" lastOnline="2015-05-14 15:38:44.766 CEST" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
+   <parameters class="org.hibernate.collection.internal.PersistentMap">
+      <entry>
+         <string>Cloud1.password</string>
+         <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Keep running after deployment" mandatory="true" name="General.keep-running" order="15" order_="15" readonly="false" type="Enum">
+            <instructions><![CDATA[Here you can define if and when SlipStream should leave the application running after performing the deployment. <br/><code>On success</code> is useful for production deployments or long tests. </br><code>On Error</code> might be useful so that resources are consumed only when debugging is needed. <br/><code>Never</code> ensures that SlipStream automatically terminates the application after performing the deployment. <br/>Note: This parameter doesn't apply to <code>mutable deployment</code> Runs and to <code>build image</code> Runs.]]></instructions>
+            <enumValues length="4">
+               <string>always</string>
+               <string>on-success</string>
+               <string>on-error</string>
+               <string>never</string>
+            </enumValues>
+            <value><![CDATA[on-success]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Verbosity Level</string>
+         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
+            <instructions><![CDATA[0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging]]></instructions>
+            <enumValues length="4">
+               <string>0</string>
+               <string>1</string>
+               <string>2</string>
+               <string>3</string>
+            </enumValues>
+            <value><![CDATA[0]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Timeout</string>
+         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="40" order_="40" readonly="false" type="String">
+            <instructions><![CDATA[If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.]]></instructions>
+            <value><![CDATA[30]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.username</string>
+         <parameter category="Cloud1" description="StratusLab account username" mandatory="true" name="Cloud1.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.default.cloud.service</string>
+         <parameter category="General" description="Default Cloud" mandatory="true" name="General.default.cloud.service" order="10" order_="10" readonly="false" type="Enum">
+            <instructions><![CDATA[Select the cloud that you want to use as the default.]]></instructions>
+            <enumValues length="4">
+               <string>Cloud1</string>
+            </enumValues>
+            <value><![CDATA[Cloud1]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.ssh.public.key</string>
+         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
+            <instructions><![CDATA[Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.]]></instructions>
+            <value/>
+         </parameter>
+      </entry>
+   </parameters>
+</user><serviceConfiguration creation="2015-05-14 15:38:23.971 CEST" deleted="false">
+   <parameters class="java.util.concurrent.ConcurrentHashMap">
+      <entry>
+         <string>Cloud1.max.iaas.workers</string>
+         <parameter category="Cloud1" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud1.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.service.catalog.enable</string>
+         <parameter category="SlipStream_Advanced" description="Enable service catalog feature." mandatory="true" name="slipstream.service.catalog.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.support.email</string>
+         <parameter category="SlipStream_Support" description="Email address for SlipStream support requests" mandatory="true" name="slipstream.support.email" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[support@example.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.reports.location</string>
+         <parameter category="SlipStream_Advanced" description="Location where the deployments and build reports are saved" mandatory="true" name="slipstream.reports.location" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[/home/dev/dev/SlipStream/server/reports]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.update.clienturl</string>
+         <parameter category="Cloud1" description="URL with the cloud client specific connector" mandatory="true" name="Cloud1.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[http://dev.nuc.li/]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.username</string>
+         <parameter category="SlipStream_Support" description="Username for SMTP server." mandatory="true" name="slipstream.mail.username" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[Username of the mail server account you want to use to send registration emails.]]></instructions>
+            <value><![CDATA[sender]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.version</string>
+         <parameter category="SlipStream_Advanced" description="Installed SlipStream version" mandatory="true" name="slipstream.version" order="0" order_="0" readonly="true" type="String">
+            <instructions/>
+            <value><![CDATA[2.9-SNAPSHOT]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.orchestrator.imageid</string>
+         <parameter category="Cloud1" description="Image Id of the orchestrator for Cloud1" mandatory="true" name="Cloud1.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[N-Bu1h1jt3K8ODnCTw4JiyPaH5k]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.class</string>
+         <parameter category="SlipStream_Basics" description="Cloud connector java class name(s) (comma separated for multi-cloud configuration)" mandatory="true" name="cloud.connector.class" order="0" order_="0" readonly="false" type="Text">
+            <instructions/>
+            <value><![CDATA[Cloud1:stratuslab]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.marketplace.endpoint</string>
+         <parameter category="Cloud1" description="Marketplace endpoint" mandatory="true" name="Cloud1.marketplace.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://marketplace.stratuslab.eu/marketplace]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.metering.hostname</string>
+         <parameter category="SlipStream_Advanced" description="Metering server full hostname, including protocol, hostname/ip and port (e.g. http://localhost:2005)." mandatory="true" name="slipstream.metering.hostname" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://localhost:2005]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.update.clienturl</string>
+         <parameter category="SlipStream_Advanced" description="Endpoint of the SlipStream client tarball" mandatory="true" name="slipstream.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://dev.nuc.li/downloads/slipstreamclient.tgz]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.update.clientbootstrapurl</string>
+         <parameter category="SlipStream_Advanced" description="Endpoint of the SlipStream client bootstrap script" mandatory="true" name="slipstream.update.clientbootstrapurl" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://dev.nuc.li/downloads/slipstream.bootstrap]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.registration.email</string>
+         <parameter category="SlipStream_Support" description="Email address for account approvals, etc." mandatory="true" name="slipstream.registration.email" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[Email address to use for registration.]]></instructions>
+            <value><![CDATA[register@example.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.password</string>
+         <parameter category="SlipStream_Support" description="Password for SMTP server." mandatory="true" name="slipstream.mail.password" order="0" order_="0" readonly="false" type="Password">
+            <instructions/>
+            <value><![CDATA[1234]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.pdisk.endpoint</string>
+         <parameter category="Cloud1" description="PDisk endpoint" mandatory="true" name="Cloud1.pdisk.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://pdisk.lal.stratuslab.eu/pdisk]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.ssl</string>
+         <parameter category="SlipStream_Support" description="Use SSL for SMTP server." mandatory="true" name="slipstream.mail.ssl" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.orchestrator.publicsshkey</string>
+         <parameter category="SlipStream_Advanced" description="Path to the SSH public key to put in the orchestrator" mandatory="true" name="cloud.connector.orchestrator.publicsshkey" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[/home/dev/.ssh/id_rsa.pub]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.port</string>
+         <parameter category="SlipStream_Support" description="Port on SMTP server (defaults to standard ports)." mandatory="true" name="slipstream.mail.port" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[465]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.registration.enable</string>
+         <parameter category="SlipStream_Basics" description="Allow user self registration. If checked, user will be able to create accounts themselves." mandatory="true" name="slipstream.registration.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[false]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.quota.enable</string>
+         <parameter category="SlipStream_Advanced" description="Quota enforcement enabled" mandatory="true" name="slipstream.quota.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.orchestrator.instance.type</string>
+         <parameter category="Cloud1" description="Orchestrator instance type" mandatory="true" name="Cloud1.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[c1.medium]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.metering.enable</string>
+         <parameter category="SlipStream_Advanced" description="Metering enabled" mandatory="true" name="slipstream.metering.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.orchestrator.privatesshkey</string>
+         <parameter category="SlipStream_Advanced" description="Path to the SSH private key used to connect to the orchestrator (used only for some Clouds)" mandatory="true" name="cloud.connector.orchestrator.privatesshkey" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[/home/dev/.ssh/id_rsa]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.library.libcloud.url</string>
+         <parameter category="SlipStream_Advanced" description="URL to fetch libcloud library from" mandatory="true" name="cloud.connector.library.libcloud.url" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[URL should point to a valid gzipped tarball.]]></instructions>
+            <value><![CDATA[http://dev.nuc.li/downloads/libcloud.tgz]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.debug</string>
+         <parameter category="SlipStream_Support" description="Debug mail sending." mandatory="true" name="slipstream.mail.debug" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.quota.vm</string>
+         <parameter category="Cloud1" description="VM quota for Cloud1 (i.e. maximum number number of VM allowed)" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.host</string>
+         <parameter category="SlipStream_Support" description="Host for SMTP server for email notifications." mandatory="true" name="slipstream.mail.host" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[smtp.gmail.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.endpoint</string>
+         <parameter category="Cloud1" description="Service endpoint for Cloud1 (e.g. http://example.com:5000)" mandatory="true" name="Cloud1.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://cloud.lal.stratuslab.eu/one-proxy/xmlrpc]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.base.url</string>
+         <parameter category="SlipStream_Basics" description="Default URL and port for the SlipStream RESTlet" mandatory="true" name="slipstream.base.url" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://dev.nuc.li]]></value>
+         </parameter>
+      </entry>
+   </parameters>
+</serviceConfiguration></user>
