@@ -15,6 +15,10 @@
                                          :run-in-background nil}
                           :report       {:code nil
                                          :run-in-background nil}
+                          :pre-scale    {:code nil
+                                         :run-in-background nil}
+                          :post-scale    {:code nil
+                                         :run-in-background nil}
                           :execute      {:code "deployement recipe"
                                          :run-in-background nil}}
                 :parameters [{:help-hint nil

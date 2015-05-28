@@ -79,7 +79,13 @@
                 (-> section-metadata :targets :on-vm-add :code (code-area "onvmadd"))]}
      {:title    (t :on-vm-remove.title)
       :content [(t :on-vm-remove.description)
-                (-> section-metadata :targets :on-vm-remove :code (code-area "onvmremove"))]}]))
+                (-> section-metadata :targets :on-vm-remove :code (code-area "onvmremove"))]}
+     {:title    (t :pre-scale.title)
+      :content [(t :pre-scale.description)
+                (-> section-metadata :targets :pre-scale :code (code-area "prescale"))]}
+     {:title    (t :post-scale.title)
+      :content [(t :post-scale.description)
+                (-> section-metadata :targets :post-scale :code (code-area "postscale"))]}]))
 
 ; Section "runs"
 

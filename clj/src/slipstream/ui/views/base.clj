@@ -222,7 +222,7 @@
   alert-container-floating-sel  (html/content (->> alerts
                                                    (filter alerts/is-floating?)
                                                    (map alerts/alert)))
-  alert-container-fixed-sel     (html/content (->> alerts
+  alert-container-fixed-sel     (html/append (->> alerts
                                                    (filter alerts/is-fixed?)
                                                    (map alerts/alert)))
   alert-container-floating-sel   (html/append (alerts/hidden-templates))

@@ -858,7 +858,7 @@
    :slipstream.ui.views.versions.content.title                 :global.nouns.versions
 
    :slipstream.ui.views.base.noscript-error.title              "Error: JavaScript is disabled"
-   :slipstream.ui.views.base.noscript-error.subtitle           "SlipStream requires JavaScript. Please enable it."
+   :slipstream.ui.views.base.noscript-error.subtitle           "SlipStream requires JavaScript. Please enable it and reload the page."
 
    :slipstream.ui.views.module.header.title                    "%1$s: %2$s"
    :slipstream.ui.views.module.header.title.new                "New %1$s"
@@ -898,12 +898,16 @@
    :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
+   :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.title      "Pre-Scale"
+   :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.title     "Post-Scale"
    :slipstream.ui.views.module.image.section.runs.title                                 :global.nouns.runs
    :slipstream.ui.views.module.image.section.runs.empty-content-hint                    "This section will list all runs and builds of this image."
    :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Standard recipe (fires during Running phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
    :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
+   :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.description    "Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)"
+   :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.description   "Runs on the node instance after scale IaaS action (only after vertical scaling)"
    :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content-hint "There are no packages set up yet. You can [add some](%1$s) by editing this image with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."

@@ -73,7 +73,7 @@
         publication-date (-> metadata (html/select [:published]) first :attrs :publicationDate)]
     {:description       (-> attrs :description)
      :category          (-> attrs :category)
-     :comment           (-> metadata (html/select [:comment html/text]) first)
+     :comment           (-> metadata (html/select [html/root :> :commit :comment html/text]) first)
      :publication       publication-date
      :published?        (boolean publication-date)
      :name              (-> attrs

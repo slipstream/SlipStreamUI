@@ -73,7 +73,9 @@
    :report        "report"
    :parameters    "parameters"
    :on-vm-add     "onvmadd"
-   :on-vm-remove  "onvmremove"})
+   :on-vm-remove  "onvmremove"
+   :pre-scale     "prescale"
+   :post-scale    "postscale"})
 
 (defn- assoc-target
   [m target metadata]
@@ -112,6 +114,8 @@
   (-> {:parameters (deployment-parameters parameters)}
       (assoc-target :execute metadata)
       (assoc-target :report metadata)
+      (assoc-target :pre-scale metadata)
+      (assoc-target :post-scale metadata)
       (assoc-target :on-vm-add metadata)
       (assoc-target :on-vm-remove metadata)))
 
