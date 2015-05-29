@@ -62,43 +62,41 @@ $(document).ready(function(){
 
         function add_nav_btn(content, i)
         {
-            var $el = get_element(i);
-            var nextButton, prevButton, finishButton, defaultBtnClass;
+            var $el = get_element(i),
+                isNextBtnInContent = content.contains("bootstro-next-btn"),
+                isPrevBtnInContent = content.contains("bootstro-prev-btn"),
+                nextButton,
+                prevButton,
+                finishButton,
+                defaultBtnClass;
             if (bootstrapVersion == 2)
                 defaultBtnClass = "btn btn-primary btn-mini";
             else
                 defaultBtnClass = "btn btn-primary btn-xs"; //default bootstrap version 3
             content = content + "<div class='bootstro-nav-wrapper'>";
-            if ($el.attr('data-bootstro-nextButton'))
-            {
+
+            if ($el.attr('data-bootstro-nextButton')) {
                 nextButton = $el.attr('data-bootstro-nextButton');
-            }
-            else if ( $el.attr('data-bootstro-nextButtonText') )
-            {
+            } else if ( $el.attr('data-bootstro-nextButtonText') ) {
                 nextButton = '<button class="' + defaultBtnClass + ' bootstro-next-btn">' + $el.attr('data-bootstro-nextButtonText') +  '</button>';
-            }
-            else
-            {
-                if (typeof settings.nextButton != 'undefined' /*&& settings.nextButton != ''*/)
+            } else {
+                if ( typeof settings.nextButton != 'undefined' ) {
                     nextButton = settings.nextButton;
-                else
+                } else {
                     nextButton = '<button class="' + defaultBtnClass + ' bootstro-next-btn">' + settings.nextButtonText + '</button>';
+                }
             }
 
-            if ($el.attr('data-bootstro-prevButton'))
-            {
+            if ($el.attr('data-bootstro-prevButton')) {
                 prevButton = $el.attr('data-bootstro-prevButton');
-            }
-            else if ( $el.attr('data-bootstro-prevButtonText') )
-            {
+            } else if ( $el.attr('data-bootstro-prevButtonText') ) {
                 prevButton = '<button class="' + defaultBtnClass + ' bootstro-prev-btn">' + $el.attr('data-bootstro-prevButtonText') +  '</button>';
-            }
-            else
-            {
-                if (typeof settings.prevButton != 'undefined' /*&& settings.prevButton != ''*/)
+            } else {
+                if ( typeof settings.prevButton != 'undefined' ) {
                     prevButton = settings.prevButton;
-                else
+                } else {
                     prevButton = '<button class="' + defaultBtnClass + ' bootstro-prev-btn">' + settings.prevButtonText + '</button>';
+                }
             }
 
             if ($el.attr('data-bootstro-finishButton'))
@@ -118,14 +116,15 @@ $(document).ready(function(){
             }
 
 
-            if (count != 1)
-            {
-                if (i == 0)
-                    content = content + nextButton;
-                else if (i == count -1 )
-                    content = content + prevButton;
-                else
-                    content = content + nextButton + prevButton
+            if (count != 1) {
+                if (i == 0) {
+                    content = content + (isNextBtnInContent ? '' : nextButton);
+                } else if (i == count - 1 ) {
+                    content = content + (isPrevBtnInContent ? '' : prevButton);
+                } else {
+                    content = content + (isNextBtnInContent ? '' : nextButton);
+                    content = content + (isPrevBtnInContent ? '' : prevButton);
+                }
             }
             content = content + '</div>';
 

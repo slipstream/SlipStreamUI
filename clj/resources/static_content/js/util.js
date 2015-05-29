@@ -4,6 +4,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     $.extend(String.prototype, {
 
+        contains: function(str) {
+            return (this.match(str) == str);
+        },
+
         startsWith: function(str) {
             return (this.match("^" + str) == str);
         },

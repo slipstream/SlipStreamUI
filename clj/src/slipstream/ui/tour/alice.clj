@@ -4,7 +4,7 @@
             [slipstream.ui.util.enlive :as ue]))
 
 (def next-button-label
-  "<code>Next&raquo;</code>")
+  "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
 (def intro
   "Tour to lead Alice to the 'AHA!' moment."
@@ -35,14 +35,15 @@
    [
       nil
       {:title "Run Dialog"
-       :content (str "We are now in the page of the WordPress SlipStream image and the <code>Run image</code> dialog has been automatically open because we are very ."
-                     " If you need to open it again, click on the menu action <code><span class='glyphicon glyphicon-cloud-upload'></span> Run...</code> in the left part of the page."
+       :content (str "We are now in the page of the WordPress SlipStream image and the <span class='panel-primary'><h4 class='modal-header panel-heading'>Run image</h4></span> dialog behind has been automatically open."
+                     " If you need to open it again, click on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-cloud-upload' style='display:inline;'></span>&nbsp;Run...</span> in the left part of the page."
+                     " In this dialog you can specify some parameters for the deployment."
                      "<br/><br/>"
-                     "Click " next-button-label " to learn how to configure and launch wordpress.")}
+                     "Click " next-button-label " to learn how to configure and launch WordPress.")}
 
       [:#ss-run-module-dialog #{:#parameter--cloudservice :#global-cloud-service}]
       {:title "Choose the cloud"
-       :content "In this dialog you can specify some parameters for the deployment. In this case, please choose where you want WordPress to be deployed. Please note that you have to have the corresponding cloud credentials configured in your profile."
+       :content "Please choose where you want WordPress to be deployed. Please note that you can only choose the clouds for which you have the corresponding credentials configured in your profile."
        :container-sel "#ss-run-module-dialog"
        :preserve-padding true
        :placement "right"
@@ -50,7 +51,7 @@
 
       [:#ss-run-module-dialog :#tags]
       {:title "Give it a name"
-       :content "You can assing some <code>tags</code> to the deployment. This will be useful to recognise it later on. Try something like <code>wp-tour-test</code>. Don't worry, you can update it at any time."
+       :content "You can assing some <code>tags</code> to the deployment. This will be useful to recognise it later on. Try something like <code>wp-tour-test</code>. Don't worry, you will be able to update it later on."
        :container-sel "#ss-run-module-dialog"
        :preserve-padding true
        :placement "right"
@@ -58,7 +59,7 @@
 
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn]
       {:title "Ready to deploy"
-       :content "Click on <code>Run deployment</code> when you are ready to go."
+       :content "Click on <code>Run image</code> when you are ready to go."
        :container-sel "#ss-run-module-dialog"
        :wrap-in-elem   [:span]
        :placement "right"
