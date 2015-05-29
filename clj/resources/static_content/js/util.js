@@ -1554,6 +1554,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        font: function() {
+            // NOTE: this.css("font") is not specified to work as expected.
+            //       Safari and Chrome for example return the whole 'font' string as expected, but not Firefox.
+            //       See http://stackoverflow.com/a/27523553
+            return this.css("font-weight") + " " + this.css("font-size") + " " + this.css("font-family");
+        },
+
         renderedTextWidth: function() {
             // Returns the length of the string for the first matched
             // element which is a text-only node.
@@ -1561,7 +1568,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                     .filters(this.predicates.isNodeWithOnlyText)
                                         .first();
             if ( $textNodeElem.foundOne() ) {
-                return $textNodeElem.text().width($textNodeElem.css("font"));
+                return $textNodeElem.text().width($textNodeElem.font());
             }
             return undefined;
         },
@@ -1585,13 +1592,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                                                     pointerEvents:  "none",
                                                     border:         borderPx + "px solid #777",
                                                     background:     "rgba(255,255,255,0.9)",
-                                                    font:           $this.css("font"),
+                                                    font:           $this.font(),
                                                     padding:        paddingTopBottomPx + "px " + paddingLeftRightPx + "px"
                                                 });
                             $this
                                 .hoverDelayed(
                                     function(){
-                                        var pos = $this.position();
+                                        var pos = $this.offset();
                                         $this.addClass(showingFullTextCls);
                                         $thisFullForHover
                                             .css({
