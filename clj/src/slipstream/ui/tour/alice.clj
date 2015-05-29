@@ -99,17 +99,18 @@
         {
          :title "First things first"
          :content (str "To begin using SlipStream you need to tell it where to deploy your applications to. "
-                       "For that, you need to have an account with at least one cloud provider and set up your credentials in your SlipStream profile.")
+                       "For that, you need to have an account with at least one cloud provider and set up your credentials in your SlipStream profile."
+                       "<br/><br/>"
+                       "Click " next-button-label " to begin the tour by configuring one (or more!) clouds.")
          }
 
         nil
         {
          :title "Cloud credentials"
-         :content (str "If you already have an account with a cloud provider, just prepare its credentials (usually a user/password or a key/secret pair). "
+         :content (str "If you already have an account with a cloud provider, just prepare its credentials (usually a <code>user/password</code> or a <code>key/secret</code> pair). "
                        "If not, please create one following the indications in our <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>. "
-                       "<br>"
-                       "<br>"
-                       "When your cloud account is ready, go to the next step to learn how to set the credentials in your user SlipStream account.")
+                       "<br/><br/>"
+                       "When your cloud account is ready, go to the next step to learn how to set the credentials in your SlipStream user profile.")
          }
 
         :#ss-menubar-user-profile-anchor
