@@ -290,7 +290,7 @@
                 :version 132
                 :uri "module/neutral_projects_for_mockup_metadata/apache_web_server/132"
                 :latest-version? false
-                :logo-url "http://kaleidos.net/files/images/apache318x260.png"
+                :logo-url "http://cubnetwork.com/wp-content/uploads/2014/09/Apache-web-server.jpg"
                 :last-modified "2015-03-13 19:35:03.652 CET"
                 :parent-uri "module/neutral_projects_for_mockup_metadata"
                 :description "Apache Web Server on CentOS 6"
