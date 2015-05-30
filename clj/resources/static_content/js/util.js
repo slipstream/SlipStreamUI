@@ -27,6 +27,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             }
         },
 
+        trimFromFirstIndexOf: function(str) {
+            var firstIndexOfStr = this.indexOf(str);
+            if (firstIndexOfStr === -1) {
+                return this.toString();
+            } else {
+                return this.substring(0, firstIndexOfStr);
+            }
+        },
+
         trimFromLastIndexOf: function(str) {
             var lastIndexOfStr = this.lastIndexOf(str);
             if (lastIndexOfStr === -1) {
@@ -432,6 +441,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this
                     .take(numberOfElementsToTakeFromBothEnds)
                     .add(this.takeLast(numberOfElementsToTakeFromBothEnds));
+        },
+
+        textArray: function() {
+            // Return a javascript native array with the results of
+            // applying $().text() to each of the matched elements.
+            // Compare with applying directly $().text() to the
+            // matched elements, which returns the combined text
+            // contents of each element in the set of matched
+            // elements, including their descendants.
+            // Source: http://api.jquery.com/text/
+            var res = [];
+            this.each( function() {
+                res.push($(this).text());
+            });
+            return res;
         },
 
         filters: function() {
