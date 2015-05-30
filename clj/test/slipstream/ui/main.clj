@@ -62,12 +62,12 @@
   {"deployment-view-tour-intro-without-connectors"  "?action=run"
    "image-view-tour-intro-without-connectors"       "?action=run"
    "run"                                            "?prevent-job-start=true"
+   "run-tour-intro-without-connectors"              "?tour=alice.intro-without-connectors.waiting-for-wordpress"
    "run-25-instances"                               "?prevent-job-start=true"
    "run-200-instances"                              "?prevent-job-start=true"
    "run-263-instances"                              "?prevent-job-start=true"
    "run-1000-instances"                             "?prevent-job-start=true"
-   "run-tour-intro-without-connectors"              "?tour=alice.intro-without-connectors.waiting-for-wordpress"
-   })
+   "dashboard-tour-intro-without-connectors"        "?wordpress-run-id=6269f657&cloud=CloudA"})
 
 (defmacro app-routes
   [& routes]
@@ -143,9 +143,13 @@
     ["versions"]              (render :pagename "versions"        :raw-metadata-ns "versions" :type "view")
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
 
-    ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
+    ["dashboard"]                               (render :pagename "dashboard"   :raw-metadata-ns "dashboard")
+    ["dashboard-tour-intro-without-connectors"] (render :pagename "dashboard"   :raw-metadata-ns "dashboard" :query-parameters {:cloud "CloudA" :wordpress-run-id "6269f657" :tour "alice.intro-without-connectors.wordpress-in-dashboard"})
+
     ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
     ["runs-paginated"]        (render :pagename "runs"            :raw-metadata-ns "runs-paginated")
+
+    ["vms"]                   (render :pagename "vms"             :raw-metadata-ns "vms-super")
     ["vms-super"]             (render :pagename "vms"             :raw-metadata-ns "vms-super")
     ["vms-regular-user"]      (render :pagename "vms"             :raw-metadata-ns "vms-regular-user")
     ["metrics" "render"]      (render-file "metrics.json")

@@ -185,7 +185,8 @@
   (case js-filename
     "tours/alice-intro-without-connectors-welcome.js"                 "tours/alice-intro-welcome.js"
     "tours/alice-intro-without-connectors-deploying-wordpress.js"     "tours/alice-intro-deploying-wordpress.js"
-    "tours/alice-intro-without-connectors-waiting-for-wordpress.js"  "tours/alice-intro-waiting-for-wordpress.js"
+    "tours/alice-intro-without-connectors-waiting-for-wordpress.js"   "tours/alice-intro-waiting-for-wordpress.js"
+    "tours/alice-intro-without-connectors-wordpress-in-dashboard.js"  "tours/alice-intro-wordpress-in-dashboard.js"
     js-filename))
 
 (defn- js-files

@@ -133,6 +133,20 @@
                      "Click on the <span style='color:white;background-color:#a00;font-weight:normal;padding:2px 8px;'>Dashboard</span> above to discover in. We will come back here afterwards to see how the run finished.")
        :placement "bottom"}
     ]
+
+    :wordpress-in-dashboard
+   [
+      nil
+      {:title "Welcome to the Dashboard"
+       :content (str "This page centralizes your activity on all your clouds. You can find all deployments and images you launched, including the WordPress images you just launched."
+                     "<br/><br/>"
+                     "Click " next-button-label " to take a quick tour of this important page.")}
+
+      :#header-content
+      {:title "At a glance"
+       :content "In the header you can have an overview of the main info like the run id, the state, who and when started it and the type of run."
+       :placement "bottom"}
+    ]
    ]
   )
 
