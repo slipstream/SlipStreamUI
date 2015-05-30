@@ -155,6 +155,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     $$.section = {
+
+        count: $(".panel-group .panel").length,
+
         select: function (index) {
             return toggleCollapsible(
                 $(".panel-group .panel")

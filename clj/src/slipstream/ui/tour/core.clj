@@ -124,7 +124,11 @@
 
 (defmethod get-tour-name ["run" :page-type/any]
   [context]
-  "alice.intro.waiting-for-wordpress")
+  ;; TODO: Determine which tour to launch: if the 'intro' version or the 'intro-without-connectors' version.
+  ;;       The step content will be the same in both cases, but the total number of steps of the whole tour
+  ;;       is different, so that the numbering of the steps and the progress bar will differ.
+  "alice.intro-without-connectors.waiting-for-wordpress")
+  ; "alice.intro.waiting-for-wordpress")
 
 (defmethod get-tour-name :default
   [context]
@@ -181,7 +185,7 @@
   (case js-filename
     "tours/alice-intro-without-connectors-welcome.js"                 "tours/alice-intro-welcome.js"
     "tours/alice-intro-without-connectors-deploying-wordpress.js"     "tours/alice-intro-deploying-wordpress.js"
-    "tours/alice-intro-without-connectors-waitting-for-wordpress.js"  "tours/alice-intro-waitting-for-wordpress.js"
+    "tours/alice-intro-without-connectors-waiting-for-wordpress.js"  "tours/alice-intro-waiting-for-wordpress.js"
     js-filename))
 
 (defn- js-files

@@ -259,6 +259,25 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     // Array prototype extensions
 
     $.extend(Array.prototype, {
+
+        first: function() {
+            return this[0];
+        },
+
+        last: function() {
+            return this.length > 0 ? this[this.length - 1] : undefined;
+        },
+
+        butLast: function() {
+            return this.length > 0 ? this.splice(0, this.length - 1) : this;
+        },
+
+        getReversed: function() {
+            // The native Array.prototype.reverse() will mutate the original array.
+            // getReversed() returns a reversed copy, without changing the original.
+            return this.slice().reverse();
+        },
+
         call: function(thisArg, arg1, arg2, arg3, arg4) {
             // Equivalent to Function.prototype.call() on an Array of fns.
             var lastResult;
@@ -2146,6 +2165,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         restart: function(name) {
+            if ( $$.util.urlQueryParams.getValue("prevent-job-start") === "true" ) {
+                console.warn("Job '" + name + "' will not be started because 'prevent-job-start=true' is set in the URL.");
+                return;
+            }
             this.runJobsOnlyOnWindowsFocused();
             var job = this.getJob(name),
                 shouldSchedule = true;
@@ -2227,7 +2250,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             intro: {
                 welcome:                "alice.intro.welcome",
                 deployingWordpress:     "alice.intro.deploying-wordpress",
-                waitingForWordpress:    "alice.intro.waiting-for-wordpress"
+                waitingForWordpress:    "alice.intro.waiting-for-wordpress",
+                wordpressInDashboard:   "alice.intro.wordpress-in-dashboard"
             },
             introWithoutConnectors: {
                 goToProfile:            "alice.intro-without-connectors.go-to-profile",
@@ -2235,8 +2259,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 navigateBackToWelcome:  "alice.intro-without-connectors.navigate-back-to-welcome",
                 welcome:                "alice.intro-without-connectors.welcome",
                 deployingWordpress:     "alice.intro-without-connectors.deploying-wordpress",
-                waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress"
+                waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress",
+                wordpressInDashboard:   "alice.intro-without-connectors.wordpress-in-dashboard"
             }
+        },
+
+        current: function () {
+            return $$.util.meta.getMetaValue("ss-current-tour");
         },
 
         enableMouseShield: function () {
@@ -2305,22 +2334,31 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         cookiePrefix: "launch-tour.",
 
-        shouldLaunchAny: function(tourNames, shouldLaunchIfUndefined) {
-            var launchAny = false;
-            $.each(tourNames.split(/,+\s*/),
+        shouldLaunchAny: function() {
+            var args = Array.prototype.slice.call(arguments),
+                tourNames,
+                shouldLaunchIfUndefined,
+                launchAny = false;
+            if ( $.type(args.last()) === "boolean" ) {
+                shouldLaunchIfUndefined = args.pop();
+            }
+            tourNames = args;
+            $.each(tourNames,
                 function(i, tourName) {
                      launchAny = $$.util.tour.shouldLaunch(tourName, shouldLaunchIfUndefined);
                      if ( launchAny ) {
                         // Break the 'each' loop
                         return false;
                      }
-                })
+                });
             return launchAny;
         },
 
         shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
-            var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName);
+            var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName) ||
+                                                ($$.util.urlQueryParams.getValue("tour") === tourName);
             if ( $.type(persistedShouldLaunchBehaviour) === "boolean" ) {
+                $$.util.tour.dequeueLaunch(tourName);
                 // Return the currently stored value
                 return persistedShouldLaunchBehaviour;
             } else if ( $.type(shouldLaunchIfUndefined) === "boolean" ) {

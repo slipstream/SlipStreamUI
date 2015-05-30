@@ -36,7 +36,7 @@
       nil
       {:title "Run Dialog"
        :content (str "We are now in the page of the WordPress SlipStream image and the <span class='panel-primary'><h4 class='modal-header panel-heading'>Run image</h4></span> dialog behind has been automatically open."
-                     " If you need to open it again, click on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-cloud-upload' style='display:inline;'></span>&nbsp;Run...</span> in the left part of the page."
+                     " If you need to open it again, click on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-cloud-upload' style='display:inline;'></span>&nbsp;Run...</span> in the right part of the page."
                      " In this dialog you can specify some parameters for the deployment."
                      "<br/><br/>"
                      "Click " next-button-label " to learn how to configure and launch WordPress.")}
@@ -68,24 +68,69 @@
 
    :waiting-for-wordpress
    [
-      :#header-content
-      {:title "Welcome to the run page"
-       :content "This is the page containing all the information about the run. In the header you can have an overview of the main info, like the state."
+      nil
+      {:title "Welcome to the <code>Run</code> page"
+       :content (str "This is the page containing all the information about the run you just launched."
+                     "<br/><br/>"
+                     "Click " next-button-label " to take a quick tour of this important page.")
        :placement "bottom"}
+
+      :#header-content
+      {:title "At a glance"
+       :content "In the header you can have an overview of the main info like the run id, the state, who and when started it and the type of run."
+       :placement "bottom"}
+
+      :#ss-breadcrumb-container
+      {:title "The breadcrumbs"
+       :content (str "Across the whole application you can rely in the breadcrumbs to know where you are and navigate up the hierarchy."
+                     " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will bring you always to the welcome page , with the App Store."
+                     "<br/><br/>"
+                     "In this case, you can see which module (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
+       :width "100%"
+       :container-sel "body"
+       :placement "right"}
 
       [:#ss-section-group-0 :> :div.panel.ss-section-selected.ss-section.panel-default]
-      {:title "Run overview"
-       :content "This offers you a graphical overview of the running machines and global info about each one, like state, IP address and custom message."
+      {:title "Overview"
+       :content (str "This offers a graphical overview of the running machines and global info about each one, like state, IP address and custom message."
+                     "<br/><br/>"
+                     "Hover on the different nodes to reveal more details.")
        :placement "top"}
 
-      [:#ss-secondary-menu :> :div]
-      {:title "Terminate run"
-       :content "Clicking here will ask the corresponding cloud infrastructure to stop the deployment and the running machines."
-       :placement "bottom"}
+      [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 2)]]
+      {:title "Summary"
+       :content (str "This section summarizes the top level information about the run: who and when started what."
+                     "<br/><br/>"
+                     "Note that here you can add and modify the runs <code>tags</code>, as we promised in the previous page! &#x1F60E;") ;; &#x1F60E; is :sunglasses: emoji
+       :placement "top"}
+
+      [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 3)]]
+      {:title "Global run parameters"
+       :content (str "This and the following sections contain a lot of detailed information about the run and the deployed machines. Here you can find out IP adresses, error causes and other parameters."
+                     "<br/><br/>"
+                     "Across the whole application you can hover on the <span class='glyphicon glyphicon-question-sign'></span> to reveal a detailed explanation of the corresponding item.")
+       :placement "top"}
+
+      [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default html/last-child]]
+      {:title "Reports"
+       :content (str "For each run, SlipStream collects a series of reports that you will find here."
+                     " You might want to come here and download them specially if your run didn't worked as expected."
+                     "<br/><br/>"
+                     "Note that you don't need to reload the page: the reports will automatically appear here when available.")
+       :placement "top"}
+
+      ; [:#ss-secondary-menu :> :div]
+      ; {:title "Terminate run"
+      ;  :content "Clicking here will ask the corresponding cloud infrastructure to stop the deployment and the running machines."
+      ;  :placement "bottom"}
 
       [:#topbar :> :div :> :div :> :div.navbar-collapse.collapse :> :ul :> [:li (html/nth-child 1)]]
       {:title "Dashboard"
-       :content "Go to the dashboard to have an overview of the applications you have running."
+       :content (str "The deployment will take some minutes, depending on the cloud you selected and its current load."
+                     "<br/><br/>"
+                     "In the meantime we will visit the dashboard, also a very central point of SlipStream where you will have an overview of the applications you have running, including this WordPress you just launched."
+                     "<br/><br/>"
+                     "Click on the <span style='color:white;background-color:#a00;font-weight:normal;padding:2px 8px;'>Dashboard</span> above to discover in. We will come back here afterwards to see how the run finished.")
        :placement "bottom"}
     ]
    ]

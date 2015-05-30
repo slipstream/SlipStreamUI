@@ -238,12 +238,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return ! runModel
                         .refresh()
                         .isInFinalState();
+        },
+
+        startAutoupdatingRunPage: function() {
+            console.log("Starting a recurrent job to auto-update the run page...");
+            $$.util.recurrentJob.start(autoupdateRunPageJobName, run.autoupdateRunPage, 15);
+            return;
+        },
+
+        stopAutoupdatingRunPage: function() {
+            console.log("Stoping the recurrent job to auto-update the run page...");
+            // NOTE: $$.util.recurrentJob.stop() stops the job but does not clear it,
+            //       so that it will be restarted when the browser tab is activated again.
+            //       $$.util.recurrentJob.clear() instead stops and completely clears the job.
+            $$.util.recurrentJob.clear(autoupdateRunPageJobName);
+            return;
         }
+
     };
 
-     $$.util.recurrentJob.start(autoupdateRunPageJobName, run.autoupdateRunPage, 15);
+    run.startAutoupdatingRunPage();
 
-     $$.run = run;
+    $$.run = run;
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
 

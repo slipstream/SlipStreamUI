@@ -17,7 +17,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(buttonPreparedToContinueTourCls.asSel())
             .removeClass(buttonPreparedToContinueTourCls)
             .updateAttr("onclick", function(s) {
-                return s.replace.apply(s, onclickStringReplacement.reverse());
+                return s.replace.apply(s, onclickStringReplacement.getReversed());
             });
     }
 
@@ -56,7 +56,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunchAny("alice.intro.welcome, alice.intro-without-connectors.welcome", true) ) {
+    if ( $$.util.tour.shouldLaunchAny($$.util.tour.alice.intro.welcome, $$.util.tour.alice.introWithoutConnectors.welcome, true) ) {
         if ( $$.util.tour.shouldShowOptInDialog() ) {
             $('#ss-start-tour-dialog').askConfirmation(function () {
                 $$.util.tour.start();

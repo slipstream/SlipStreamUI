@@ -60,7 +60,14 @@
 (def ^:private query-parameters
   "These are the query-parameters used by the JS code on the client browser."
   {"deployment-view-tour-intro-without-connectors"  "?action=run"
-   "image-view-tour-intro-without-connectors"       "?action=run"})
+   "image-view-tour-intro-without-connectors"       "?action=run"
+   "run"                                            "?prevent-job-start=true"
+   "run-25-instances"                               "?prevent-job-start=true"
+   "run-200-instances"                              "?prevent-job-start=true"
+   "run-263-instances"                              "?prevent-job-start=true"
+   "run-1000-instances"                             "?prevent-job-start=true"
+   "run-tour-intro-without-connectors"              "?tour=alice.intro-without-connectors.waiting-for-wordpress"
+   })
 
 (defmacro app-routes
   [& routes]
@@ -156,6 +163,7 @@
     ["users"]                                   (render :pagename "users" :raw-metadata-ns "users")
 
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
+    ["run-tour-intro-without-connectors"]                   (render :pagename "run"             :raw-metadata-ns "run"  :query-parameters {:tour "alice.intro-without-connectors.waiting-for-wordpress"})
     ["run-25-instances"]      (render :pagename "run"             :raw-metadata-ns "run-25-instances")
     ["run-200-instances"]     (render :pagename "run"             :raw-metadata-ns "run-200-instances")
     ["run-263-instances"]     (render :pagename "run"             :raw-metadata-ns "run-263-instances")
