@@ -100,8 +100,7 @@
       [:#ss-section-group-0 :> :div.panel.ss-section-selected.ss-section.panel-default]
       {:title "Overview"
        :content (str "This offers a graphical overview of the running machines and global info about each one, like state, IP address and custom message."
-                     "<br/><br/>"
-                     "Hover on the different nodes to reveal more details.")
+                     " Hover on the different nodes to reveal more details.")
        :placement "top"}
 
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 2)]]
