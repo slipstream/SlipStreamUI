@@ -7,6 +7,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         tourBaseName        = $.type(currentTour) === "string" ? currentTour.trimFromLastIndexOf(".") : "alice.intro",
         nextTourName        = tourBaseName + ".wordpress-running";
 
+    function disableIrrelevantLinks() {
+        $(".ss-dynamic-subsection a")
+            .not("[href^='run/" + wordpressRunId + "']")
+                .removeAttr("href");
+    }
+
     function updateRunHref() {
         $("a[href^='run/" + wordpressRunId + "']")
             .not(updatedRunIdLinkCls.asSel())
@@ -14,6 +20,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .updateAttr("href", function(s) {
                     return s + "?tour=" + nextTourName ;
                 });
+        disableIrrelevantLinks();
     }
 
     $("#runs-" + cloudUsedForTheTour).on("ss-dynamic-subsection-updated", updateRunHref);
