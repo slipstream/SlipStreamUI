@@ -4,12 +4,22 @@ jQuery( function() { ( function( $$, $, undefined ) {
         runModel = $body.getSlipStreamModel().run,
         autoupdateRunPageJobName = "updateRun";
 
+    function autoupdateRunPageJob(stopOrRestart) {
+        try {
+            $$.util.recurrentJob[stopOrRestart](autoupdateRunPageJobName);
+        } catch (e) {
+            // The autoupdate job might not exist (e.g. if cleared during a tour),
+            // but we don't care in this case.
+            console.warn("Recurrent job to autoupdate the run page could not be " + stopOrRestart + "ed, but this is probably ok: ", e);
+        }
+    }
+
     $body
         .on("ssRunTagsSaveStart", function() {
-            $$.util.recurrentJob.stop(autoupdateRunPageJobName);
+            autoupdateRunPageJob("stop");
         })
         .on("ssRunTagsSaveEnd", function() {
-            $$.util.recurrentJob.restart(autoupdateRunPageJobName);
+            autoupdateRunPageJob("restart");
         });
 
     $("#ss-content").on("shown.bs.collapse", runModel.processRunHTML);
