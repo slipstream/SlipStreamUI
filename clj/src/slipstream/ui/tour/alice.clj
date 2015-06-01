@@ -30,11 +30,11 @@
 
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div]
       {:title "Application"
-       :content "This is a plublished application. Click " next-button-label " to learn how to deploy it."}
+       :content "This is a plublished application. Click 'next' to learn how to deploy it."}
 
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
-       :content "Click the <code><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</code> button in the bottom right part of the application logo to deploy."
+       :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo to deploy."
        :width "300px"}
     ]
 
@@ -66,7 +66,7 @@
 
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn]
       {:title "Ready to deploy"
-       :content "Click on <code>Run image</code> when you are ready to go."
+       :content "Click on <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'>Run image</span> when you are ready to go."
        :container-sel "#ss-run-module-dialog"
        :wrap-in-elem   [:span]
        :placement "right"
@@ -225,7 +225,8 @@
          :content (str "This is your SlipStream user profile page. "
                        "First you will learn how to update your personal information, "
                        "and then you will be able to configure one or more clouds by providing the corresponding credentials. "
-                       "Click 'Next' when you are ready to continue.")
+                       "<br/><br/>"
+                       "Click " next-button-label " when you are ready to continue.")
          }
 
         [:#ss-section-group-0 :> :div.panel.ss-section-selected.ss-section.panel-default]
