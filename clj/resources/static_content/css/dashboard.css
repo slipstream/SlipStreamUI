@@ -66,6 +66,7 @@
 }
 */
 .ss-usage-gauge {
+    background-color: white;
     display: inline-block;
     overflow: hidden;
     width: 184px;

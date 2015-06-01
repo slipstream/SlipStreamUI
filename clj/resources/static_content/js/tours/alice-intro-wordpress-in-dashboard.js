@@ -1,62 +1,44 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // var queryParamTourName              = $$.util.tour.current(),
-    //     tourBaseName                    = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
-    //     hrefStringReplacement           = ["/dashboard", "/dashboard&tour=" + tourBaseName + ".wordpress-in-dashboard"];
+    var cloudUsedForTheTour = $$.util.urlQueryParams.getValue("cloud"),
+        wordpressRunId      = $$.util.urlQueryParams.getValue("wordpress-run-id"),
+        updatedRunIdLinkCls = "ss-updated-run-id",
+        queryParamTourName  = $$.util.tour.current(),
+        tourBaseName        = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
+        nextTourName        = tourBaseName + ".wordpress-running";
 
-    // function updateHref(replacement) {
-    //     $(".ss-action-dashboard")
-    //         .updateAttr("href", function(s) {
-    //             return s.replace.apply(s, replacement);
-    //         });
-    // }
+    function updateRunHref() {
+        $("a[href^='run/" + wordpressRunId + "']")
+            .not(updatedRunIdLinkCls.asSel())
+                .addClass(updatedRunIdLinkCls)
+                .updateAttr("href", function(s) {
+                    return s + "?tour=" + nextTourName ;
+                });
+    }
 
-    // function prepareButtonToContinueTour() {
-    //     updateHref(hrefStringReplacement);
-    // }
-
-    // function unprepareButtonToContinueTour() {
-    //     updateHref(hrefStringReplacement.getReversed());
-    // }
+    $("#runs-" + cloudUsedForTheTour).on("ss-dynamic-subsection-updated", updateRunHref);
 
     $$.util.tour.setup({
-        beforeStart: function() {
-            // $$.run.stopAutoupdatingRunPage();
-        },
 
         beforeStep: {
             1: function() {
-                $$.util.tour.enableMouseShield();
+                $$.section.selectWithoutAnimation(1);
             },
             2: function() {
-                $$.util.tour.enableMouseShield();
+                $$.section.selectWithoutAnimation(1);
             },
             3: function() {
-                $$.section.selectWithoutAnimation(1);
-                $$.util.tour.disableMouseShield();
+                var $vmsSection = $$.section.selectWithoutAnimation(3);
+                $$.subsection.selectByTitle($vmsSection, cloudUsedForTheTour);
             },
             4: function() {
-                $$.section.selectWithoutAnimation(2);
-                $$.util.tour.disableMouseShield();
+                $$.section.selectWithoutAnimation(4);
             },
             5: function() {
-                $$.section.selectWithoutAnimation(3);
-                $$.util.tour.disableMouseShield();
-            },
-            6: function() {
-                // unprepareButtonToContinueTour();
-                $$.section.selectWithoutAnimation($$.section.count);
-                $$.util.tour.disableMouseShield();
-            },
-            7: function() {
-                // prepareButtonToContinueTour();
-                $$.util.tour.disableMouseShield();
+                // We visit the runs section at the end, so that we can get back to the WordPress run:
+                var $runsSection = $$.section.selectWithoutAnimation(2);
+                $$.subsection.selectByTitle($runsSection, cloudUsedForTheTour);
             }
-        },
-        onExit: function() {
-            // unprepareButtonToContinueTour();
-            $$.util.tour.disableMouseShield();
-            // $$.run.startAutoupdatingRunPage();
         }
     });
 

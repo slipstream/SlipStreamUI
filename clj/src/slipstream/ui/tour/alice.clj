@@ -6,8 +6,15 @@
 (def next-button-label
   "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
-(def intro
+(defn- query-param-value
+  ;; TODO: Extract the context and this kind of util fn into a ns with a thread value
+  ;;       in the same way than the *current-user* or the language.
+  [context query-param-key]
+  (some-> context :metadata meta :request :query-parameters query-param-key not-empty))
+
+(defn intro
   "Tour to lead Alice to the 'AHA!' moment."
+  [context]
   [
    :welcome
    [
@@ -138,19 +145,48 @@
    [
       nil
       {:title "Welcome to the Dashboard"
-       :content (str "This page centralizes your activity on all your clouds. You can find all deployments and images you launched, including the WordPress images you just launched."
+       :content (str "This page centralizes your activity on all clouds."
+                     " You can check your resource usage per cloud and find all deployments and images you launched, including the WordPress images you just launched."
                      "<br/><br/>"
                      "Click " next-button-label " to take a quick tour of this important page.")}
 
-      :#header-content
-      {:title "At a glance"
-       :content "In the header you can have an overview of the main info like the run id, the state, who and when started it and the type of run."
-       :placement "bottom"}
+      [[:div.panel.ss-section.panel-default (html/nth-child 1)]]
+      {:title "Usage section"
+       :content "Here you see all clouds that are you can have access to and your resource comsumption on each one."
+       :placement "top"}
+
+      (->> :cloud (query-param-value context) (str "#ss-usage-gauge-") keyword)
+      {:title (str "Usage gauge")
+       :content (str  "The big number indicates the number of VMs you have running in <code>" (query-param-value context :cloud) "</code>."
+                      " The top limit is the quota you are allowed to consume at the same time for this cloud."
+                      " Contact the administrator of this SlipStream instance if you need to change it.")
+       :container-sel "body"
+       :preserve-padding true
+       :placement "top"}
+
+      [[:div.panel.ss-section.panel-default (html/nth-child 3)]]
+      {:title "VMs section"
+       :content (str "This are all the individual VMs that are launched using your cloud credentials (i.e. a <code>describe-instance</code> kind of info, if it speaks to you)."
+                     " Note that if some VMs were launched using with your same credentials, they will also be listed here, but without a <code>Run Id</code>, since SlipStream doesn't know them.")
+       :placement "top"}
+
+      [[:div.panel.ss-section.panel-default (html/nth-child 4)]]
+      {:title "Metering section"
+       :content "Here you can see the history of your consumption in several time frames."
+       :placement "top"}
+
+      [[:div.panel.ss-section.panel-default (html/nth-child 2)]]
+      {:title "Runs section"
+       :content (str "Here you can find all the runs grouped by cloud, including the WordPress you launched before."
+                     " Click on its <code>Run Id</code> (we kindly noted it for you: <code>" (query-param-value context :wordpress-run-id) "</code>) to go back to the <code>Run page</code> we where before."
+                     " Note that you can identify your run also with the <code>tag</code> you used.")
+       :placement "top"}
     ]
    ]
   )
 
-(def ^:private detour-to-set-up-cloud-credentials
+(defn- detour-to-set-up-cloud-credentials
+  [context]
   [
      :go-to-profile
      [
@@ -224,8 +260,9 @@
 
      ])
 
-(def intro-without-connectors
+(defn intro-without-connectors
   "Tour to lead Alice to the 'AHA!' moment, but when she does not have any connector
   credentials configured."
-  (concat detour-to-set-up-cloud-credentials
-          intro))
+  [context]
+  (concat (detour-to-set-up-cloud-credentials context)
+          (intro context)))

@@ -138,13 +138,19 @@
   [tour-name]
    (some->> tour-name (re-matches  #"([^.]+)\.([^.]+)\.([^.]+)")))
 
+(defn- call
+  ;; NOTE: Middle fn to inverse the order of the arguments in the ->> usage below.
+  [args tour-fn-var]
+  (tour-fn-var args))
+
 (defn- acts
-  [persona play]
+  [context persona play]
   (ex/guard "get the map with the acts for the 'play' for the given 'persona'"
     (->> play
         (symbol (str "slipstream.ui.tour." persona))
         resolve
         var-get
+        (call context)
         (partition 2)
         (map vec))))
 
@@ -170,9 +176,9 @@
     sel-or-step-info))
 
 (defn- scenes
-  [[_ persona play act]]
+  [context [_ persona play act]]
   (ex/guard "get scenes"
-    (let [acts (into {} (acts persona play))
+    (let [acts (into {} (acts context persona play))
           act-keyword (keyword act)
           scenes-count (count-scenes acts)
           scenes-count-offset (scenes-count-offset acts act-keyword)]
@@ -205,7 +211,7 @@
   (ex/quietly-guard "get the tour for the given 'context'"
     (when-let [[tour-name :as coordinates] (some-> context get-tour-name extract-coordinates)]
       {:name      tour-name
-       :scenes    (scenes coordinates)
+       :scenes    (scenes context coordinates)
        :js-files  (js-files coordinates)
        :css-files ["tour.css"]
        :help-menu-action? (help-menu-action? context)})))

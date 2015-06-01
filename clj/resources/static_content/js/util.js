@@ -2275,7 +2275,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 welcome:                "alice.intro.welcome",
                 deployingWordpress:     "alice.intro.deploying-wordpress",
                 waitingForWordpress:    "alice.intro.waiting-for-wordpress",
-                wordpressInDashboard:   "alice.intro.wordpress-in-dashboard"
+                wordpressInDashboard:   "alice.intro.wordpress-in-dashboard",
+                wordpressRunning:       "alice.intro.wordpress-running"
             },
             introWithoutConnectors: {
                 goToProfile:            "alice.intro-without-connectors.go-to-profile",
@@ -2284,7 +2285,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 welcome:                "alice.intro-without-connectors.welcome",
                 deployingWordpress:     "alice.intro-without-connectors.deploying-wordpress",
                 waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress",
-                wordpressInDashboard:   "alice.intro-without-connectors.wordpress-in-dashboard"
+                wordpressInDashboard:   "alice.intro-without-connectors.wordpress-in-dashboard",
+                wordpressRunning:       "alice.intro-without-connectors.wordpress-running"
             }
         },
 

@@ -15,7 +15,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $section.addClass("in");
             if (subSectionTitle) {
                 // Try to open a subsection
-                if (! $$.subsection.showByTitle($section, subSectionTitle)) {
+                if (! $$.subsection.selectByTitle($section, subSectionTitle)) {
                     // There is no subsection with the give title, so we clean it.
                     document.location.hash = sectionTitle;
                 }
@@ -139,19 +139,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function toggleCollapsible(bsPanel) {
         var $bsPanelToOpen = $(bsPanel);
 
-        if (! $bsPanelToOpen.length){
-            return "nothing to select";
+        if ( $bsPanelToOpen.foundNothing() ){
+            console.log("nothing to select");
+            return undefined;
         }
 
-        if ($bsPanelToOpen.find(".collapse.in").length){
-            return "already selected";
+        if ( $bsPanelToOpen.find(".collapse.in").foundAny() ) {
+            console.log("already selected");
+        } else {
+            $bsPanelToOpen
+                .find("a.ss-section-activator")
+                    .click();
+            console.log("sucessfully selected");
         }
 
-        $bsPanelToOpen
-            .find("a.ss-section-activator")
-                .click();
-
-        return "sucessfully selected";
+        return $bsPanelToOpen;
     }
 
     $$.section = {
@@ -172,12 +174,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             //       but it would be permanent.
             $allSections
                 .css("-webkit-transition", "none")
-                .css(   "-moz-box-shadow", "none")
+                .css(   "-moz-transition", "none")
                 .css(       "-transition", "none");
             selectionResult = this.select(index);
             $allSections
                 .css("-webkit-transition", "")
-                .css(   "-moz-box-shadow", "")
+                .css(   "-moz-transition", "")
                 .css(       "-transition", "");
             return selectionResult;
         },

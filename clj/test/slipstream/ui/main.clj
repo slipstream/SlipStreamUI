@@ -67,7 +67,7 @@
    "run-200-instances"                              "?prevent-job-start=true"
    "run-263-instances"                              "?prevent-job-start=true"
    "run-1000-instances"                             "?prevent-job-start=true"
-   "dashboard-tour-intro-without-connectors"        "?wordpress-run-id=6269f657&cloud=CloudA"})
+   "dashboard-tour-intro-without-connectors"        "?wordpress-run-id=6269f657&cloud=CloudB"})
 
 (defmacro app-routes
   [& routes]
@@ -144,7 +144,7 @@
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
 
     ["dashboard"]                               (render :pagename "dashboard"   :raw-metadata-ns "dashboard")
-    ["dashboard-tour-intro-without-connectors"] (render :pagename "dashboard"   :raw-metadata-ns "dashboard" :query-parameters {:cloud "CloudA" :wordpress-run-id "6269f657" :tour "alice.intro-without-connectors.wordpress-in-dashboard"})
+    ["dashboard-tour-intro-without-connectors"] (render :pagename "dashboard"   :raw-metadata-ns "dashboard" :query-parameters {:cloud "CloudB" :wordpress-run-id "6269f657" :tour "alice.intro-without-connectors.wordpress-in-dashboard"})
 
     ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
     ["runs-paginated"]        (render :pagename "runs"            :raw-metadata-ns "runs-paginated")

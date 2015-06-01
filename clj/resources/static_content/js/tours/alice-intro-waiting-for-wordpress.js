@@ -1,8 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var queryParamTourName              = $$.util.tour.current(),
-        tourBaseName                    = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
-        hrefStringReplacement           = ["/dashboard", "/dashboard&tour=" + tourBaseName + ".wordpress-in-dashboard&wordpress-run-id=" + $$.model.getRun().getShortUUID() + "&cloud=" + $$.model.getRun().getClouds().first()];
+    var currentTour              = $$.util.tour.current(),
+        tourBaseName             = $.type(currentTour) === "string" ? currentTour.trimFromLastIndexOf(".") : "alice.intro",
+        hrefStringReplacement    = ["/dashboard", "/dashboard&tour=" + tourBaseName + ".wordpress-in-dashboard&wordpress-run-id=" + $$.model.getRun().getShortUUID() + "&cloud=" + $$.model.getRun().getClouds().first()];
 
     function updateHref(replacement) {
         $(".ss-action-dashboard")
