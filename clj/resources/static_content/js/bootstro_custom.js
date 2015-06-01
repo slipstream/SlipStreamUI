@@ -428,20 +428,19 @@ $(document).ready(function(){
             //bind the key event
             $(document).on('keydown.bootstro', function(e){
                 var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 39 || code == 40)
+                if (e.altKey && (code == 39 || code == 40))
                     bootstro.next();
-                else if (code == 37 || code == 38)
+                else if (e.altKey && (code == 37 || code == 38))
                     bootstro.prev();
                 else if(code == 27 && settings.stopOnEsc)
                     bootstro.stop();
-            })
+            });
         };
 
-        bootstro.unbind = function()
-        {
+        bootstro.unbind = function() {
             $("html").unbind('click.bootstro');
             $(document).unbind('keydown.bootstro');
-        }
+        };
 
      }( window.bootstro = window.bootstro || {}, jQuery ));
 });
