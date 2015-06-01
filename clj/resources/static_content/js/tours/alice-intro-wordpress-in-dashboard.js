@@ -3,8 +3,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var cloudUsedForTheTour = $$.util.urlQueryParams.getValue("cloud"),
         wordpressRunId      = $$.util.urlQueryParams.getValue("wordpress-run-id"),
         updatedRunIdLinkCls = "ss-updated-run-id",
-        queryParamTourName  = $$.util.tour.current(),
-        tourBaseName        = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
+        currentTour         = $$.util.tour.current(),
+        tourBaseName        = $.type(currentTour) === "string" ? currentTour.trimFromLastIndexOf(".") : "alice.intro",
         nextTourName        = tourBaseName + ".wordpress-running";
 
     function updateRunHref() {

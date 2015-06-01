@@ -1,8 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     var buttonPreparedToContinueTourCls = "ss-button-prepared-to-continue-tour",
-        queryParamTourName              = $$.util.urlQueryParams.getValue("tour"),
-        tourBaseName                    = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
+        currentTour                     = $$.util.tour.current(),
+        tourBaseName                    = $.type(currentTour) === "string" ? currentTour.trimFromLastIndexOf(".") : "alice.intro",
         onclickStringReplacement        = ["run';", "run&tour=" + tourBaseName + ".deploying-wordpress';"];
 
     function prepareButtonToContinueTour() {
