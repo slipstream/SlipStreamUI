@@ -2233,15 +2233,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         stop: function(name){
-            var job;
-            try {
-                job = this.getJob(name);
-                clearTimeout(job.timeoutID);
-                job.timeoutID = 0;
-            } catch (e) {
-                // A job with this name might not exist
-                console.warn(e);
-            }
+            var job = this.getJob(name);
+            clearTimeout(job.timeoutID);
+            job.timeoutID = 0;
             return this;
         },
 
