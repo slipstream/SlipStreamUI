@@ -2033,25 +2033,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     };
 
     util.urlQueryParams = {
-        // If the query param key string in not contained in any other key, this is faster:
         getValue: function (param) {
             try {
-                return window.location.search.split(param+"=")[1].split("&")[0];
+                return window.location.search.split(new RegExp("[?&]" + param + "="))[1].split("&")[0];
             } catch (e) {
                 return undefined;
-            }
-        },
-        getValuePrecise: function (param) {
-            var query = window.location.search;
-            if (!query) {
-                return undefined;
-            }
-            var entries = query.substring(1,query.length).split("&");
-            for (var index in entries){
-                var keyVal = entries[index].split("=");
-                if (keyVal[0] == param){
-                    return keyVal[1];
-                }
             }
         }
         // Create deparam() function from http://stackoverflow.com/questions/1131630/the-param-inverse-function-in-javascript-jquery
