@@ -84,11 +84,7 @@
                             <workingDirectory>cljs</workingDirectory>
                             <executable>lein</executable>
                             <arguments>
-                                <argument>do</argument>
                                 <argument>deps</argument>
-                                <argument>,</argument>
-                                <argument>cljsbuild</argument>
-                                <argument>once</argument>
                             </arguments>
                         </configuration>
                     </execution>
