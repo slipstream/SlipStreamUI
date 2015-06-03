@@ -109,7 +109,8 @@
     ["logout"]                (render :pagename "logout")
 
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
-    ["welcome-with-tour"]     (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view" :query-parameters {:start-tour "yes"})
+    ["welcome-with-tour-with-connectors"]     (render :pagename "welcome" :raw-metadata-ns "welcome-with-connectors"    :type "view" :query-parameters {:start-tour "yes"})
+    ["welcome-with-tour-without-connectors"]  (render :pagename "welcome" :raw-metadata-ns "welcome-without-connectors" :type "view" :query-parameters {:start-tour "yes"})
     ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 

@@ -1,0 +1,562 @@
+<welcome>
+   <modules>
+      <item category="Project" description="Example projects" name="example" resourceUri="module/example/1" version="1">
+         <authz groupCreateChildren="true" groupDelete="true" groupGet="true" groupPost="false" groupPut="true" inheritedGroupMembers="true" owner="super" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="false" ownerPut="true" publicCreateChildren="true" publicDelete="true" publicGet="true" publicPost="false" publicPut="true">
+            <groupMembers class="java.util.ArrayList" />
+         </authz>
+      </item>
+      <item category="Image" class="com.sixsq.slipstream.module.ModuleViewPublished" description="Base CentOS 6 Image" logoLink="https://s3.amazonaws.com/awsmp-logos/centos.png" name="centos-6" published="true" resourceUri="module/example/centos-6/5" version="5">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="true" groupPost="true" groupPut="false" inheritedGroupMembers="true" owner="super" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="true" publicPut="false">
+            <groupMembers class="java.util.ArrayList" />
+         </authz>
+      </item>
+      <item category="Image" class="com.sixsq.slipstream.module.ModuleViewPublished" description="Minimal installation of the Ubuntu 12.04 (LTS) operating system." logoLink="http://design.ubuntu.com/wp-content/uploads/ubuntu-logo14.png" name="ubuntu-12.04" published="true" resourceUri="module/example/ubuntu-12.04/7" version="7">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="true" groupPost="true" groupPut="false" inheritedGroupMembers="true" owner="bob" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="true" publicPut="false">
+            <groupMembers class="java.util.ArrayList" />
+         </authz>
+      </item>
+      <item category="Image" class="com.sixsq.slipstream.module.ModuleViewPublished" description="WordPress image installing and configuring WordPress using Puppet on an Ubuntu 12.04 image." logoLink="https://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png" name="wordpress" published="true" resourceUri="module/example/wordpress/11" version="11">
+         <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="false" owner="super" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="true" publicPut="false">
+            <groupMembers class="java.util.ArrayList">
+               <string>bob</string>
+               <string>super</string>
+            </groupMembers>
+         </authz>
+      </item>
+   </modules>
+   <serviceCatalogs>
+      <serviceCatalog cloud="Cloud1" creation="2015-04-24 19:25:42.584 CEST" deleted="false" resourceUri="service_catalog/Cloud1">
+         <parameters class="org.hibernate.collection.internal.PersistentMap" />
+      </serviceCatalog>
+      <serviceCatalog cloud="Cloud2" creation="2015-04-24 19:25:42.595 CEST" deleted="false" resourceUri="service_catalog/Cloud2">
+         <parameters class="org.hibernate.collection.internal.PersistentMap" />
+      </serviceCatalog>
+      <serviceCatalog cloud="Cloud3" creation="2015-04-24 19:25:42.562 CEST" deleted="false" resourceUri="service_catalog/Cloud3">
+         <parameters class="org.hibernate.collection.internal.PersistentMap" />
+      </serviceCatalog>
+      <serviceCatalog cloud="Cloud4" creation="2015-04-24 19:25:42.573 CEST" deleted="false" resourceUri="service_catalog/Cloud4">
+         <parameters class="org.hibernate.collection.internal.PersistentMap" />
+      </serviceCatalog>
+   </serviceCatalogs>
+<user activeSince="2015-04-24 19:33:47.373 CEST" creation="2015-04-24 19:33:47.209 CEST" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastExecute="2015-06-01 22:44:06.863 CEST" lastName="EndUser" lastOnline="2015-06-02 12:22:38.457 CEST" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
+   <parameters class="org.hibernate.collection.internal.PersistentMap">
+      <entry>
+         <string>Cloud3.password</string>
+         <parameter category="Cloud3" description="Secret" mandatory="true" name="Cloud3.password" order="20" order_="20" readonly="false" type="Password">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.password</string>
+         <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.quota.vm</string>
+         <parameter category="Cloud3" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Keep running after deployment" mandatory="true" name="General.keep-running" order="15" order_="15" readonly="false" type="Enum">
+            <instructions>Here you can define if and when SlipStream should leave the application running after performing the deployment. &lt;br/&gt;&lt;code&gt;On success&lt;/code&gt; is useful for production deployments or long tests. &lt;/br&gt;&lt;code&gt;On Error&lt;/code&gt; might be useful so that resources are consumed only when debugging is needed. &lt;br/&gt;&lt;code&gt;Never&lt;/code&gt; ensures that SlipStream automatically terminates the application after performing the deployment. &lt;br/&gt;Note: This parameter doesn't apply to &lt;code&gt;mutable deployment&lt;/code&gt; Runs and to &lt;code&gt;build image&lt;/code&gt; Runs.</instructions>
+            <enumValues length="4">
+               <string>always</string>
+               <string>on-success</string>
+               <string>on-error</string>
+               <string>never</string>
+            </enumValues>
+            <value>on-success</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.password</string>
+         <parameter category="Cloud2" description="Secret" mandatory="true" name="Cloud2.password" order="20" order_="20" readonly="false" type="Password">
+            <value>somepassword</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.username</string>
+         <parameter category="Cloud2" description="Key" mandatory="true" name="Cloud2.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value>someusername</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.access.id</string>
+         <parameter category="Cloud4" description="Access id" mandatory="true" name="Cloud4.access.id" order="0" order_="0" readonly="false" type="String">
+            <instructions>This is required in order to be able to deploy to this EC2 cloud. You can find the &lt;code&gt;access id&lt;/code&gt; by logging into the AWS Console and going to the Security Credentials page.</instructions>
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Verbosity Level</string>
+         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
+            <instructions>0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging</instructions>
+            <enumValues length="4">
+               <string>0</string>
+               <string>1</string>
+               <string>2</string>
+               <string>3</string>
+            </enumValues>
+            <value>0</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.secret.key</string>
+         <parameter category="Cloud4" description="Secret key" mandatory="true" name="Cloud4.secret.key" order="0" order_="0" readonly="false" type="Password">
+            <instructions>This is required in order to be able to deploy to this EC2 cloud. You can find the &lt;code&gt;secret key&lt;/code&gt; by logging into the AWS Console and going to the Security Credentials page.</instructions>
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Timeout</string>
+         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="40" order_="40" readonly="false" type="String">
+            <instructions>If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.</instructions>
+            <value>30</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.username</string>
+         <parameter category="Cloud3" description="Key" mandatory="true" name="Cloud3.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.quota.vm</string>
+         <parameter category="Cloud2" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud2.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value>10</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.quota.vm</string>
+         <parameter category="Cloud4" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud4.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.quota.vm</string>
+         <parameter category="Cloud1" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.username</string>
+         <parameter category="Cloud1" description="StratusLab account username" mandatory="true" name="Cloud1.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.default.cloud.service</string>
+         <parameter category="General" description="Default Cloud" mandatory="true" name="General.default.cloud.service" order="10" order_="10" readonly="false" type="Enum">
+            <instructions>Select the cloud that you want to use as the default.</instructions>
+            <enumValues length="4">
+               <string>Cloud3</string>
+               <string>Cloud4</string>
+               <string>Cloud1</string>
+               <string>Cloud2</string>
+            </enumValues>
+            <value>Cloud1</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.ssh.public.key</string>
+         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
+            <instructions>Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.</instructions>
+            <value />
+         </parameter>
+      </entry>
+   </parameters>
+</user><serviceConfiguration creation="2015-06-01 18:56:08.467 CEST" deleted="false">
+   <parameters class="java.util.concurrent.ConcurrentHashMap">
+      <entry>
+         <string>Cloud1.max.iaas.workers</string>
+         <parameter category="Cloud1" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud1.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.service.catalog.enable</string>
+         <parameter category="SlipStream_Advanced" description="Enable service catalog feature." mandatory="true" name="slipstream.service.catalog.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions />
+            <value>true</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.support.email</string>
+         <parameter category="SlipStream_Support" description="Email address for SlipStream support requests" mandatory="true" name="slipstream.support.email" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>support@example.com</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.max.iaas.workers</string>
+         <parameter category="Cloud4" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud4.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.native-contextualization</string>
+         <parameter category="Cloud2" description="Use native cloud contextualisation" mandatory="true" name="Cloud2.native-contextualization" order="10" order_="10" readonly="false" type="Enum">
+            <instructions>Here you can define when SlipStream should use the native Cloud contextualization or when it should try other methods like SSH and WinRM. &lt;br/&gt;</instructions>
+            <enumValues length="4">
+               <string>never</string>
+               <string>linux-only</string>
+               <string>windows-only</string>
+               <string>always</string>
+            </enumValues>
+            <value>linux-only</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.orchestrator.instance.type</string>
+         <parameter category="Cloud2" description="Orchestrator instance type" mandatory="true" name="Cloud2.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value>Micro</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.reports.location</string>
+         <parameter category="SlipStream_Advanced" description="Location where the deployments and build reports are saved" mandatory="true" name="slipstream.reports.location" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>/home/dev/dev/SlipStream/server/reports</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.update.clienturl</string>
+         <parameter category="Cloud1" description="URL with the cloud client specific connector" mandatory="true" name="Cloud1.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <value>http://www.example.com/</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.username</string>
+         <parameter category="SlipStream_Support" description="Username for SMTP server." mandatory="true" name="slipstream.mail.username" order="0" order_="0" readonly="false" type="String">
+            <instructions>Username of the mail server account you want to use to send registration emails.</instructions>
+            <value>sender</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.version</string>
+         <parameter category="SlipStream_Advanced" description="Installed SlipStream version" mandatory="true" name="slipstream.version" order="0" order_="0" readonly="true" type="String">
+            <instructions />
+            <value>2.10-SNAPSHOT</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.endpoint</string>
+         <parameter category="Cloud3" description="Service endpoint for Cloud3 (e.g. http://example.com:5000)" mandatory="true" name="Cloud3.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.orchestrator.imageid</string>
+         <parameter category="Cloud4" description="Image Id of the orchestrator for Cloud4" mandatory="true" name="Cloud4.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.orchestrator.imageid</string>
+         <parameter category="Cloud1" description="Image Id of the orchestrator for Cloud1" mandatory="true" name="Cloud1.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value>N-Bu1h1jt3K8ODnCTw4JiyPaH5k</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.max.iaas.workers</string>
+         <parameter category="Cloud2" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud2.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.class</string>
+         <parameter category="SlipStream_Basics" description="Cloud connector java class name(s) (comma separated for multi-cloud configuration)" mandatory="true" name="cloud.connector.class" order="0" order_="0" readonly="false" type="Text">
+            <instructions />
+            <value>Cloud1:stratuslab, Cloud2:cloudstack, Cloud3:cloudstack,
+Cloud4:ec2</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.quota.vm</string>
+         <parameter category="Cloud3" description="VM quota for Cloud3 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.marketplace.endpoint</string>
+         <parameter category="Cloud1" description="Marketplace endpoint" mandatory="true" name="Cloud1.marketplace.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value>https://marketplace.stratuslab.eu/marketplace</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.metering.hostname</string>
+         <parameter category="SlipStream_Advanced" description="Metering server full hostname, including protocol, hostname/ip and port (e.g. http://localhost:2005)." mandatory="true" name="slipstream.metering.hostname" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>http://localhost:2005</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.update.clienturl</string>
+         <parameter category="SlipStream_Advanced" description="Endpoint of the SlipStream client tarball" mandatory="true" name="slipstream.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>http://www.example.com/downloads/slipstreamclient.tgz</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.update.clientbootstrapurl</string>
+         <parameter category="SlipStream_Advanced" description="Endpoint of the SlipStream client bootstrap script" mandatory="true" name="slipstream.update.clientbootstrapurl" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>http://www.example.com/downloads/slipstream.bootstrap</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.registration.email</string>
+         <parameter category="SlipStream_Support" description="Email address for account approvals, etc." mandatory="true" name="slipstream.registration.email" order="0" order_="0" readonly="false" type="String">
+            <instructions>Email address to use for registration.</instructions>
+            <value>register@example.com</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.password</string>
+         <parameter category="SlipStream_Support" description="Password for SMTP server." mandatory="true" name="slipstream.mail.password" order="0" order_="0" readonly="false" type="Password">
+            <instructions />
+            <value>1234</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.update.clienturl</string>
+         <parameter category="Cloud4" description="URL with the cloud client specific connector" mandatory="true" name="Cloud4.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.pdisk.endpoint</string>
+         <parameter category="Cloud1" description="PDisk endpoint" mandatory="true" name="Cloud1.pdisk.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value>https://pdisk.lal.stratuslab.eu/pdisk</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.ssl</string>
+         <parameter category="SlipStream_Support" description="Use SSL for SMTP server." mandatory="true" name="slipstream.mail.ssl" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions />
+            <value>true</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.orchestrator.instance.type</string>
+         <parameter category="Cloud4" description="Orchestrator instance type" mandatory="true" name="Cloud4.orchestrator.instance.type" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="32">
+               <string>t2.micro</string>
+               <string>t2.small</string>
+               <string>t2.medium</string>
+               <string>m3.medium</string>
+               <string>m3.large</string>
+               <string>m3.xlarge</string>
+               <string>m3.2xlarge</string>
+               <string>c4.large</string>
+               <string>c4.xlarge</string>
+               <string>c4.2xlarge</string>
+               <string>c4.4xlarge</string>
+               <string>c4.8xlarge</string>
+               <string>c3.large</string>
+               <string>c3.xlarge</string>
+               <string>c3.2xlarge</string>
+               <string>c3.4xlarge</string>
+               <string>c3.8xlarge</string>
+               <string>r3.large</string>
+               <string>r3.xlarge</string>
+               <string>r3.2xlarge</string>
+               <string>r3.4xlarge</string>
+               <string>r3.8xlarge</string>
+               <string>i2.xlarge</string>
+               <string>i2.2xlarge</string>
+               <string>i2.4xlarge</string>
+               <string>i2.8xlarge</string>
+               <string>d2.xlarge</string>
+               <string>d2.2xlarge</string>
+               <string>d2.4xlarge</string>
+               <string>d2.8xlarge</string>
+               <string>g2.2xlarge</string>
+               <string>g2.8xlarge</string>
+            </enumValues>
+            <value>t2.micro</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.region</string>
+         <parameter category="Cloud4" description="EC2 region" mandatory="true" name="Cloud4.region" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="9">
+               <string>us-east-1</string>
+               <string>us-west-2</string>
+               <string>us-west-1</string>
+               <string>eu-west-1</string>
+               <string>ap-southeast-1</string>
+               <string>ap-southeast-2</string>
+               <string>ap-northeast-1</string>
+               <string>sa-east-1</string>
+               <string>eu-central-1</string>
+            </enumValues>
+            <value>us-east-1</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.zone</string>
+         <parameter category="Cloud2" description="Zone" mandatory="true" name="Cloud2.zone" order="0" order_="0" readonly="false" type="String">
+            <value>CH-GV2</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.orchestrator.publicsshkey</string>
+         <parameter category="SlipStream_Advanced" description="Path to the SSH public key to put in the orchestrator" mandatory="true" name="cloud.connector.orchestrator.publicsshkey" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>/home/dev/.ssh/id_rsa.pub</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.max.iaas.workers</string>
+         <parameter category="Cloud3" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud3.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.orchestrator.imageid</string>
+         <parameter category="Cloud3" description="Image Id of the orchestrator for Cloud3" mandatory="true" name="Cloud3.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.port</string>
+         <parameter category="SlipStream_Support" description="Port on SMTP server (defaults to standard ports)." mandatory="true" name="slipstream.mail.port" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>465</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.registration.enable</string>
+         <parameter category="SlipStream_Basics" description="Allow user self registration. If checked, user will be able to create accounts themselves." mandatory="true" name="slipstream.registration.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions />
+            <value>false</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.quota.vm</string>
+         <parameter category="Cloud2" description="VM quota for Cloud2 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud2.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value>10</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.quota.enable</string>
+         <parameter category="SlipStream_Advanced" description="Quota enforcement enabled" mandatory="true" name="slipstream.quota.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions />
+            <value>true</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.native-contextualization</string>
+         <parameter category="Cloud3" description="Use native cloud contextualisation" mandatory="true" name="Cloud3.native-contextualization" order="10" order_="10" readonly="false" type="Enum">
+            <instructions>Here you can define when SlipStream should use the native Cloud contextualization or when it should try other methods like SSH and WinRM. &lt;br/&gt;</instructions>
+            <enumValues length="4">
+               <string>never</string>
+               <string>linux-only</string>
+               <string>windows-only</string>
+               <string>always</string>
+            </enumValues>
+            <value>linux-only</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.metering.enable</string>
+         <parameter category="SlipStream_Advanced" description="Metering enabled" mandatory="true" name="slipstream.metering.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions />
+            <value>true</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.endpoint</string>
+         <parameter category="Cloud2" description="Service endpoint for Cloud2 (e.g. http://example.com:5000)" mandatory="true" name="Cloud2.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value>https://api.exoscale.ch/compute</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.orchestrator.instance.type</string>
+         <parameter category="Cloud1" description="Orchestrator instance type" mandatory="true" name="Cloud1.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value>c1.medium</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.security.group</string>
+         <parameter category="Cloud4" description="Orchestrator security group" mandatory="true" name="Cloud4.security.group" order="0" order_="0" readonly="false" type="String">
+            <value>default</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.quota.vm</string>
+         <parameter category="Cloud4" description="VM quota for Cloud4 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud4.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.orchestrator.privatesshkey</string>
+         <parameter category="SlipStream_Advanced" description="Path to the SSH private key used to connect to the orchestrator (used only for some Clouds)" mandatory="true" name="cloud.connector.orchestrator.privatesshkey" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>/home/dev/.ssh/id_rsa</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.library.libcloud.url</string>
+         <parameter category="SlipStream_Advanced" description="URL to fetch libcloud library from" mandatory="true" name="cloud.connector.library.libcloud.url" order="0" order_="0" readonly="false" type="String">
+            <instructions>URL should point to a valid gzipped tarball.</instructions>
+            <value>http://www.example.com/downloads/libcloud.tgz</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.debug</string>
+         <parameter category="SlipStream_Support" description="Debug mail sending." mandatory="true" name="slipstream.mail.debug" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions />
+            <value>true</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.quota.vm</string>
+         <parameter category="Cloud1" description="VM quota for Cloud1 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value>20</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.host</string>
+         <parameter category="SlipStream_Support" description="Host for SMTP server for email notifications." mandatory="true" name="slipstream.mail.host" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>smtp.gmail.com</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.orchestrator.instance.type</string>
+         <parameter category="Cloud3" description="Orchestrator instance type" mandatory="true" name="Cloud3.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.endpoint</string>
+         <parameter category="Cloud1" description="Service endpoint for Cloud1 (e.g. http://example.com:5000)" mandatory="true" name="Cloud1.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value>https://cloud.lal.stratuslab.eu/one-proxy/xmlrpc</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.zone</string>
+         <parameter category="Cloud3" description="Zone" mandatory="true" name="Cloud3.zone" order="0" order_="0" readonly="false" type="String">
+            <value />
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.orchestrator.imageid</string>
+         <parameter category="Cloud2" description="Image Id of the orchestrator for Cloud2" mandatory="true" name="Cloud2.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value>605d1ad4-b3b2-4b60-af99-843c7b8278f8</value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.base.url</string>
+         <parameter category="SlipStream_Basics" description="Default URL and port for the SlipStream RESTlet" mandatory="true" name="slipstream.base.url" order="0" order_="0" readonly="false" type="String">
+            <instructions />
+            <value>http://www.example.com</value>
+         </parameter>
+      </entry>
+   </parameters>
+</serviceConfiguration></welcome>
