@@ -6,6 +6,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
+    $(".ss-usage-gauge").click(function(){
+        var $runsSection = $$.section.select(2),
+            targetCloud  = $(this).data("quota-title");
+        $$.subsection.selectByTitle($runsSection, targetCloud);
+    });
+
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
         var $dynamicCloudSubsection = $subsectionContent.find(".ss-dynamic-subsection");
         if ($dynamicCloudSubsection.foundNothing()) {
