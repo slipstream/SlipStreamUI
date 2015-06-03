@@ -1,5 +1,11 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    $$.section.onShow(function(subsectionTitle, $subsectionContent) {
+        if ($subsectionContent.is("#ss-section-usage")) {
+            drawGauges($subsectionContent);
+        }
+    });
+
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
         var $dynamicCloudSubsection = $subsectionContent.find(".ss-dynamic-subsection");
         if ($dynamicCloudSubsection.foundNothing()) {
@@ -18,22 +24,25 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .send();
     });
 
-    function drawGauges(panel) {
-        $(".ss-usage-gauge", panel).each(function(idx, elem) {
-            var $elem = $(elem).empty();
-            new JustGage({
-              id: elem.id,
-              value: $elem.data('quota-current'),
-              min: 0,
-              max: $elem.data('quota-max') || 20,
-              title: $elem.data('quota-title'),
-              levelColorsGradient: true,
-              showInnerShadow: false
-            });
-        });
+    function drawGauges($panel) {
+        var alreadyDrawnCls = "ss-usage-gauge-drawn";
+        $panel
+            .find(".ss-usage-gauge")
+                .not(alreadyDrawnCls.asSel())
+                    .each(function(idx, elem) {
+                        var $elem = $(elem).empty();
+                        $elem.addClass(alreadyDrawnCls);
+                        new JustGage({
+                          id: elem.id,
+                          value: $elem.data('quota-current'),
+                          min: 0,
+                          max: $elem.data('quota-max') || 20,
+                          title: $elem.data('quota-title'),
+                          levelColorsGradient: true,
+                          showInnerShadow: false
+                        });
+                    });
     }
-
-    drawGauges($("#ss-usage-container").newPanel);
 
     function drawHistograms(panel) {
         if (panel === undefined) {
