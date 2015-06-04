@@ -89,7 +89,7 @@
               action-start-tour-sel       (ue/at-match
                                               action-label-sel (html/content (t :logged-in.action.start-tour))
                                               action-start-tour-action-sel (ue/toggle-href    (-> context :view-name #{"welcome"} not) "?start-tour=yes")
-                                              action-start-tour-action-sel (ue/toggle-onclick (-> context :view-name #{"welcome"})     "SlipStream.util.tour.start()"))
+                                              action-start-tour-action-sel (ue/toggle-onclick (-> context :view-name #{"welcome"})     "SlipStream.util.tour.askToStart()"))
               action-documentation-sel    (html/content (t :logged-in.action.documentation))
               action-knowledge-base-sel   (html/content (t :logged-in.action.knowledge-base))
               action-contact-us-sel       (html/content (t :logged-in.action.contact-us))

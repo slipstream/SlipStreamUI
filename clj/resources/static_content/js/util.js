@@ -2340,6 +2340,12 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             bootstro.start(".bootstro", options);
         },
 
+        askToStart: function() {
+            $('#ss-start-tour-dialog').askConfirmation(function () {
+                $$.util.tour.start();
+            });
+        },
+
         stop: function() {
             bootstro.stop();
         },
