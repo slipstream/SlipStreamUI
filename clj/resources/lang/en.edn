@@ -180,7 +180,7 @@
    :slipstream.ui.views.menubar.logged-in.action.users               :global.nouns.users
    :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
    :slipstream.ui.views.menubar.logged-in.action.help                :global.nouns.help
-   :slipstream.ui.views.menubar.logged-in.action.start-tour          "Guided tour"
+   :slipstream.ui.views.menubar.logged-in.action.start-tour          "Start guided tour"
    :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
    :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
