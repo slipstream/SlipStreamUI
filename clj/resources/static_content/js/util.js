@@ -2455,7 +2455,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         delete: function (cname) {
-            document.cookie = cname + "=;expires=Wed; 01 Jan 1970";
+            document.cookie = this.scopePrefix + cname + "=;expires=Wed; 01 Jan 1970";
         }
 
     };
