@@ -32,7 +32,28 @@
     background-color: #337ab7;
 }
 
-/*.collapsing {
-    -webkit-transition: none;
-    transition: none;
-}*/
+
+/* BETA LABEL */
+
+#ss-start-tour-dialog .modal-body {
+  overflow: hidden;
+}
+#ss-start-tour-dialog .modal-body::before {
+  content: "beta";
+  color: black;
+  background-color: yellow;
+  opacity: .9;
+  z-index: 1000;
+  text-align: center;
+  position: absolute;
+  width: 250px;
+  font-size: 20px;
+  top: 30px;
+  left: 410px;
+  -webkit-transform: rotate(35deg);
+     -moz-transform: rotate(35deg);
+          transform: rotate(35deg);
+  -webkit-box-shadow: 0 0 6px 2px #bbb;
+     -moz-box-shadow: 0 0 6px 2px #bbb;
+          box-shadow: 0 0 6px 2px #bbb;
+}
