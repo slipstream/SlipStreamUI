@@ -2409,6 +2409,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         persistDismissal: function(tourName) {
             return $$.util.cookie.set(this.cookiePrefix + tourName, false);
+        },
+
+        forgetDismissal: function(tourName) {
+            return $$.util.cookie.delete(this.cookiePrefix + tourName );
         }
 
     };
