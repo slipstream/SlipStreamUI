@@ -35,7 +35,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunch("alice.intro-without-connectors.go-to-profile", true) ) {
+    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" ||
+         $$.util.tour.shouldLaunch($$.util.tour.alice.introWithoutConnectors.goToProfile, true) ) {
         if ( $$.util.tour.shouldShowOptInDialog() ) {
             $('#ss-start-tour-dialog').askConfirmation(function () {
                 $$.util.tour.start();
@@ -44,6 +45,5 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $$.util.tour.start();
         }
     }
-
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
