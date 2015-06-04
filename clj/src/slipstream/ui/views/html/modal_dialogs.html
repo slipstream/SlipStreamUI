@@ -75,10 +75,10 @@
               </div>
               <div class="row">
                 <div class="col-sm-6">
-                  <button type="button" class="btn btn-default ss-cancel-btn ss-no-tour-btn ss-ask-next-time-btn" data-dismiss="modal" onclick="SlipStream.util.tour.persistDismissal('alice.intro.welcome')">Not now, but please ask me next time</button>
+                  <button type="button" class="btn btn-default ss-cancel-btn ss-no-tour-btn ss-ask-next-time-btn" data-dismiss="modal" onclick="SlipStream.util.tour.forgetDismissal(SlipStream.util.tour.current())">Not now, but please ask me next time</button>
                 </div>
                 <div class="col-sm-6">
-                  <button type="button" class="btn btn-default ss-cancel-btn ss-no-tour-btn" data-dismiss="modal" onclick="SlipStream.util.tour.persistDismissal('alice.intro.welcome')">I don't need to take the tour, thanks</button>
+                  <button type="button" class="btn btn-default ss-cancel-btn ss-no-tour-btn" data-dismiss="modal" onclick="SlipStream.util.tour.persistDismissal(SlipStream.util.tour.current())">I don't need to take the tour, thanks</button>
                 </div>
               </div>
               <div class="ss-dialog-footnote text-muted">
