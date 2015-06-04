@@ -35,8 +35,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" ||
-         $$.util.tour.shouldLaunch($$.util.tour.alice.introWithoutConnectors.goToProfile, true) ) {
+    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" || $$.util.tour.shouldLaunch($$.util.tour.current(), true) ) {
         if ( $$.util.tour.shouldShowOptInDialog() ) {
             $('#ss-start-tour-dialog').askConfirmation(function () {
                 $$.util.tour.start();

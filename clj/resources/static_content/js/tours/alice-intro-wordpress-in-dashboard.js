@@ -49,9 +49,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunchAny($$.util.tour.alice.intro                 .wordpressInDashboard,
-                                      $$.util.tour.alice.introWithoutConnectors.wordpressInDashboard),
-                                      true) {
+    if ( $$.util.tour.shouldLaunch(currentTour, true) ) {
         $$.util.tour.start();
     }
 

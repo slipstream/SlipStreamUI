@@ -56,8 +56,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" ||
-         $$.util.tour.shouldLaunchAny($$.util.tour.alice.intro.welcome, $$.util.tour.alice.introWithoutConnectors.welcome, true) ) {
+    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" || $$.util.tour.shouldLaunch(currentTour, true) ) {
         if ( $$.util.tour.shouldShowOptInDialog() ) {
             $('#ss-start-tour-dialog').askConfirmation(function () {
                 $$.util.tour.start();

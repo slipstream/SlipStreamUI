@@ -60,8 +60,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunchAny($$.util.tour.alice.intro.waitingForWordpress,
-                                      $$.util.tour.alice.introWithoutConnectors.waitingForWordpress)) {
+    if ( $$.util.tour.shouldLaunch(currentTour)) {
         $$.util.tour.start();
     }
 
