@@ -2370,8 +2370,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName),
                 tourNameInURL = $$.util.urlQueryParams.getValue("tour");
             if ( $.type(persistedShouldLaunchBehaviour) === "boolean" ) {
-                $$.util.tour.dequeueLaunch(tourName);
-                // Return the currently stored value
                 return persistedShouldLaunchBehaviour;
             } else if ( tourNameInURL ) {
                 return tourNameInURL === tourName;
