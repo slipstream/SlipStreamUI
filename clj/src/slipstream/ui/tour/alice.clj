@@ -21,7 +21,7 @@
    [
       :#ss-section-group-0
       {:title "Main sections"
-       :content (if (-> context :content count (= 3))
+       :content (if (->> context :content (remove nil?) count (= 3))
                   (str "There are three main sections on the welcome page of SlipStream."
                             "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")
                   (str "There are two main sections on the welcome page of SlipStream."

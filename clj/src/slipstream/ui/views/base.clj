@@ -263,8 +263,7 @@
 (defn- trim-context
   "Remove unnecessary data. Specially useful to remove noise from logs if the context is dumped."
   [context]
-  (dissoc context :parsed-metadata
-                  :content))
+  (dissoc context :parsed-metadata))
 
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]
