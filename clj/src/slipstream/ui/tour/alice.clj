@@ -21,8 +21,11 @@
    [
       :#ss-section-group-0
       {:title "Main sections"
-       :content (str "There are three main sections on the welcome page of SlipStream."
-                     "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")}
+       :content (if (-> context :content count (= 3))
+                  (str "There are three main sections on the welcome page of SlipStream."
+                            "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")
+                  (str "There are two main sections on the welcome page of SlipStream."
+                            "<ol><li>AppStore</li><li>Projects</li></ol>"))}
 
       [:#ss-section-group-0 :> html/first-child]
       ; :#ss-section-app-store
@@ -210,7 +213,7 @@
          [:#ss-alert-container-fixed]
          {:title "Yeah!"
           :content "Your Wordpress is up and running! &#x1F60E; You can now click this service URL to see it live."
-          :placement "bottom"
+          :placement "top"
           :container-sel "body"
           :preserve-padding true
           :hide-prev-button true
