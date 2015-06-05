@@ -15,9 +15,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
             },
         },
         onExitStep: {
+            0: function() {
+                $$.run.stopAutoupdatingRunPage();
+            },
             3: function() {
             $documentationMenu.bsCloseDropdown();
             },
+        },
+        onExit: function() {
+            $$.run.startAutoupdatingRunPage();
         }
     });
 
