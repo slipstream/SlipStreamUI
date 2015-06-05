@@ -9,9 +9,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $$.util.tour.setup({
-        beforeStart: function() {
-            $$.run.stopAutoupdatingRunPage();
-        },
         beforeStep: {
             3: function() {
             $documentationMenu.bsOpenDropdown();
@@ -21,9 +18,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             3: function() {
             $documentationMenu.bsCloseDropdown();
             },
-        },
-        onExit: function() {
-            $$.run.startAutoupdatingRunPage();
         }
     });
 
