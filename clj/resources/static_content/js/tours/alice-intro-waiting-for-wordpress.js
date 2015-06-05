@@ -60,7 +60,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunch(currentTour)) {
+    if ( $$.util.tour.shouldLaunchAny(  // currentTour,
+                                        $$.util.tour.alice.intro.waitingForWordpress,
+                                        $$.util.tour.alice.introWithoutConnectors.waitingForWordpress)) {
+        // FIXME: Currently the UI cannot differenciate between one of the two tours above. See ns 'slipstream.ui.tour.core'.
         $$.util.tour.start();
     }
 
