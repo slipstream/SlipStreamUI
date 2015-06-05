@@ -47,7 +47,9 @@
     :nextButtonText
     :count
     :offset
-    :step})
+    :step
+    :hide-prev-button
+    :hide-next-button})
 
 (defmacro  ^:private process-step-node
   [step-info]
@@ -120,7 +122,9 @@
   ;; TODO: Determine which tour to launch: if the 'intro' version or the 'intro-without-connectors' version.
   ;;       The step content will be the same in both cases, but the total number of steps of the whole tour
   ;;       is different, so that the numbering of the steps and the progress bar will differ.
-  "alice.intro-without-connectors.waiting-for-wordpress")
+  (or
+    (tour-in-query-param context)
+    "alice.intro-without-connectors.waiting-for-wordpress"))
   ; "alice.intro.waiting-for-wordpress")
 
 (defmethod get-tour-name :default
@@ -186,6 +190,7 @@
     "tours/alice-intro-without-connectors-deploying-wordpress.js"     "tours/alice-intro-deploying-wordpress.js"
     "tours/alice-intro-without-connectors-waiting-for-wordpress.js"   "tours/alice-intro-waiting-for-wordpress.js"
     "tours/alice-intro-without-connectors-wordpress-in-dashboard.js"  "tours/alice-intro-wordpress-in-dashboard.js"
+    "tours/alice-intro-without-connectors-wordpress-running.js"       "tours/alice-intro-wordpress-running.js"
     js-filename))
 
 (defn- js-files

@@ -1,6 +1,7 @@
 (ns slipstream.ui.tour.alice
   "Tours for Alice."
   (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]))
 
 (def next-button-label
@@ -181,6 +182,68 @@
                      " Note that you can identify your run also with the <code>tag</code> you used.")
        :placement "top"}
     ]
+
+    :wordpress-running
+   (if (->> context :alerts (remove nil?) (map :type) (some #{:error}))
+     [
+         [:#ss-alert-container-fixed]
+         {:title "Oups! "
+          :content (str "Err... something went wrong! &#x1F631;"
+                        "<br/><br/>"
+                        "Please verify that the credentials you added for the cloud used are valid and launch the tour again."
+                        "<br/><br/>"
+                        "Or contact our support team using the tabs at the bottom and the right part of the page.")
+          :preserve-padding true
+          :placement "bottom"
+          }
+     ]
+     [
+         nil
+         {:title "Please wait"
+          :content (str "<div style='font-size:42px;text-align:center;font-weight:900;opacity:0.8'><span class='glyphicon glyphicon-refresh'></span></div>"
+                        "Please wait until Wordpress is being deployed. It should take less than a couple of minutes.")
+          :hide-prev-button true
+          :hide-next-button true
+          }
+
+
+         [:#ss-alert-container-fixed]
+         {:title "Yeah!"
+          :content "Your Wordpress is up and running! &#x1F60E; You can now click this service URL to see it live."
+          :placement "bottom"
+          :container-sel "body"
+          :preserve-padding true
+          :hide-prev-button true
+          }
+
+         [:#ss-secondary-menu-action-terminate]
+         {:title "Terminate the deployment"
+          :content "Click here to terminate your Wordpress instance and stop using resources in this cloud."
+          :placement "bottom"
+          :width "300px"
+          :preserve-padding true
+          }
+
+         :.ss-action-documentation
+         {:title "Before we leave"
+          :content "Remember that you have access to the SlipStream documentation and other help pointers on all pages."
+          :placement "left"
+          :container-sel "body"
+          :preserve-padding true
+          :placement-distance "larger"}
+
+         nil
+         {:title "Congratulations!"
+          :content (str "<div style='font-size: 64px;text-align:center;'>&#x1F680</div>"
+                        "You completed your first deployment! Now you are all set to go and simply your deployments with SlipStream."
+                        "<br/><br/>"
+                        "We hope you well enjoy using SlipStream. And don't hesitate to contact us if you have any question or concern"
+                        " using the support tabs at the bottom and right parts of any page in the application for a message or a live chat."
+                        "<br/><br/>"
+                        "We would greatly appreciate if you <b><a href='mailto:support@sixsq.com?Subject=%5Balice-tour%5D%20Toughts%20after%20completion&Body=Dear%20SixSq%20Team%2C%0A%0AI%20just%20finished%20the%20discovery%20tour%20in%20SlipStream%20and%20successfully%20deployed%20a%20Wordpress%20application.%0A%0AI%20think%20that%20'>tell us what you think about this tour</a></b>.")
+          }
+
+       ])
    ]
   )
 

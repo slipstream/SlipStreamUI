@@ -63,8 +63,10 @@ $(document).ready(function(){
         function add_nav_btn(content, i)
         {
             var $el = get_element(i),
-                isNextBtnInContent = content.contains("bootstro-next-btn"),
-                isPrevBtnInContent = content.contains("bootstro-prev-btn"),
+                isNextBtnInContent  = content.contains("bootstro-next-btn"),
+                isPrevBtnInContent  = content.contains("bootstro-prev-btn"),
+                isHideNextBtn       = $el.data("bootstro-hide-next-button") === true,
+                isHidePrevBtn       = $el.data("bootstro-hide-prev-button") === true,
                 nextButton,
                 prevButton,
                 finishButton,
@@ -118,12 +120,12 @@ $(document).ready(function(){
 
             if (count != 1) {
                 if (i == 0) {
-                    content = content + (isNextBtnInContent ? '' : nextButton);
+                    content = content + (isNextBtnInContent || isHideNextBtn ? '' : nextButton);
                 } else if (i == count - 1 ) {
-                    content = content + (isPrevBtnInContent ? '' : prevButton);
+                    content = content + (isPrevBtnInContent || isHidePrevBtn ? '' : prevButton);
                 } else {
-                    content = content + (isNextBtnInContent ? '' : nextButton);
-                    content = content + (isPrevBtnInContent ? '' : prevButton);
+                    content = content + (isNextBtnInContent || isHideNextBtn ? '' : nextButton);
+                    content = content + (isPrevBtnInContent || isHidePrevBtn ? '' : prevButton);
                 }
             }
             content = content + '</div>';

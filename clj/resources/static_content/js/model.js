@@ -484,6 +484,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
 
                             if ( isReadyState ) {
                                 $$.alert.showInfoFixed(alertTitle, alertMessage);
+                                $("body").trigger("ss-run-service-is-ready");
                             } else {
                                 $$.alert.dismissByTitle(alertTitle);
                             }
