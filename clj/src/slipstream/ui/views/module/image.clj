@@ -80,12 +80,14 @@
      {:title    (t :on-vm-remove.title)
       :content [(t :on-vm-remove.description)
                 (-> section-metadata :targets :on-vm-remove :code (code-area "onvmremove"))]}
-     {:title    (t :pre-scale.title)
-      :content [(t :pre-scale.description)
-                (-> section-metadata :targets :pre-scale :code (code-area "prescale"))]}
-     {:title    (t :post-scale.title)
-      :content [(t :post-scale.description)
-                (-> section-metadata :targets :post-scale :code (code-area "postscale"))]}]))
+    ;; TODO: Tabs for scale scripts temporarily removed from the UI as the feature is still in beta.
+    ;;  {:title    (t :pre-scale.title)
+    ;;   :content [(t :pre-scale.description)
+    ;;             (-> section-metadata :targets :pre-scale :code (code-area "prescale"))]}
+    ;;  {:title    (t :post-scale.title)
+    ;;   :content [(t :post-scale.description)
+    ;;             (-> section-metadata :targets :post-scale :code (code-area "postscale"))]}
+              ]))
 
 ; Section "runs"
 
