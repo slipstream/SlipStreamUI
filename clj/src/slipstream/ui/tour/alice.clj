@@ -107,7 +107,7 @@
       {:title "Summary"
        :content (str "This section summarizes the top level information about the run."
                      "<br/><br/>"
-                     "Note that here you can add and modify the <code>tags</code>, as we promised in the previously! &#x1F60E;") ;; &#x1F60E; is :sunglasses: emoji
+                     "Note that here you can add and modify the <code>tags</code>, as we promised previously! &#x1F60E;") ;; &#x1F60E; is :sunglasses: emoji
        :placement "top"}
 
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 3)]]
@@ -120,7 +120,7 @@
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default html/last-child]]
       {:title "Reports"
        :content (str "For each run, SlipStream collects a series of reports that you will find here."
-                     " You might want to come here and download them specially if your run didn't work as expected."
+                     " You might want to come here and download them, especially if your run didn't work as expected."
                      "<br/><br/>"
                      "Note that you don't need to reload the page: the reports will automatically appear here when available.")
        :placement "top"}
@@ -132,7 +132,7 @@
 
       [:#topbar :> :div :> :div :> :div.navbar-collapse.collapse :> :ul :> [:li (html/nth-child 1)]]
       {:title "Dashboard"
-       :content (str "The deployment will take some time, depending on the cloud you selected and its current load."
+       :content (str "The deployment may take some time, depending on the cloud you selected and its current load."
                      "<br/><br/>"
                      "In the meantime we will visit the dashboard, also a very central point of SlipStream where you will have an overview of the applications you have running, including the WordPress instance you just launched."
                      "<br/><br/>"
@@ -201,7 +201,7 @@
         nil
         {
          :title "Cloud credentials"
-         :content (str "If you already have an account with a cloud provider, just prepare its credentials (usually a <code>user/password</code> or a <code>key/secret</code> pair). "
+         :content (str "If you already have an account with a cloud provider, have your credentials handy (usually a <code>user/password</code> or a <code>key/secret</code> pair). "
                        "If not, please create one following the procedure in our <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>. "
                        "<br/><br/>"
                        "When your cloud account is ready, go to the next step to learn how to set the credentials in your SlipStream user profile.")
