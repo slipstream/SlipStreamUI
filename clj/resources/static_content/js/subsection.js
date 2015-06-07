@@ -75,10 +75,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.subsection = {
         reenableSubsections: enableSubsections,
 
-        showByTitle: function($section, title) {
+        selectByTitle: function($section, title) {
             return $section
                        .find(".ss-subsection-activator-group")
-                           .find("a[href^='#" + subsectionIdPrefix + "'][href$='" + title + "']")
+                           .find("a[href^='#" + subsectionIdPrefix + "'][href$='" + title.toLowerCase() + "']")
                                .click()
                                .foundOne();
         },

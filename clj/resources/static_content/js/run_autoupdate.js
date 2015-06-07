@@ -4,12 +4,22 @@ jQuery( function() { ( function( $$, $, undefined ) {
         runModel = $body.getSlipStreamModel().run,
         autoupdateRunPageJobName = "updateRun";
 
+    function autoupdateRunPageJob(stopOrRestart) {
+        try {
+            $$.util.recurrentJob[stopOrRestart](autoupdateRunPageJobName);
+        } catch (e) {
+            // The autoupdate job might not exist (e.g. if cleared during a tour),
+            // but we don't care in this case.
+            console.warn("Recurrent job to autoupdate the run page could not be " + stopOrRestart + "ed, but this is probably ok: ", e);
+        }
+    }
+
     $body
         .on("ssRunTagsSaveStart", function() {
-            $$.util.recurrentJob.stop(autoupdateRunPageJobName);
+            autoupdateRunPageJob("stop");
         })
         .on("ssRunTagsSaveEnd", function() {
-            $$.util.recurrentJob.restart(autoupdateRunPageJobName);
+            autoupdateRunPageJob("restart");
         });
 
     $("#ss-content").on("shown.bs.collapse", runModel.processRunHTML);
@@ -238,12 +248,28 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return ! runModel
                         .refresh()
                         .isInFinalState();
+        },
+
+        startAutoupdatingRunPage: function() {
+            console.log("Starting a recurrent job to auto-update the run page...");
+            $$.util.recurrentJob.start(autoupdateRunPageJobName, run.autoupdateRunPage, 15);
+            return;
+        },
+
+        stopAutoupdatingRunPage: function() {
+            console.log("Stoping the recurrent job to auto-update the run page...");
+            // NOTE: $$.util.recurrentJob.stop() stops the job but does not clear it,
+            //       so that it will be restarted when the browser tab is activated again.
+            //       $$.util.recurrentJob.clear() instead stops and completely clears the job.
+            $$.util.recurrentJob.clear(autoupdateRunPageJobName);
+            return;
         }
+
     };
 
-     $$.util.recurrentJob.start(autoupdateRunPageJobName, run.autoupdateRunPage, 15);
+    run.startAutoupdatingRunPage();
 
-     $$.run = run;
+    $$.run = run;
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
 

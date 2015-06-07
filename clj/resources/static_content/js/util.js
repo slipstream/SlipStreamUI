@@ -4,6 +4,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     $.extend(String.prototype, {
 
+        contains: function(str) {
+            return (this.match(str) == str);
+        },
+
         startsWith: function(str) {
             return (this.match("^" + str) == str);
         },
@@ -20,6 +24,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 return this.substring(0, maxLength - trimWith.length).trimRight() + trimWith;
             } else {
                 return this.toString();
+            }
+        },
+
+        trimFromFirstIndexOf: function(str) {
+            var firstIndexOfStr = this.indexOf(str);
+            if (firstIndexOfStr === -1) {
+                return this.toString();
+            } else {
+                return this.substring(0, firstIndexOfStr);
             }
         },
 
@@ -255,6 +268,25 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     // Array prototype extensions
 
     $.extend(Array.prototype, {
+
+        first: function() {
+            return this[0];
+        },
+
+        last: function() {
+            return this.length > 0 ? this[this.length - 1] : undefined;
+        },
+
+        butLast: function() {
+            return this.length > 0 ? this.splice(0, this.length - 1) : this;
+        },
+
+        getReversed: function() {
+            // The native Array.prototype.reverse() will mutate the original array.
+            // getReversed() returns a reversed copy, without changing the original.
+            return this.slice().reverse();
+        },
+
         call: function(thisArg, arg1, arg2, arg3, arg4) {
             // Equivalent to Function.prototype.call() on an Array of fns.
             var lastResult;
@@ -409,6 +441,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this
                     .take(numberOfElementsToTakeFromBothEnds)
                     .add(this.takeLast(numberOfElementsToTakeFromBothEnds));
+        },
+
+        textArray: function() {
+            // Return a javascript native array with the results of
+            // applying $().text() to each of the matched elements.
+            // Compare with applying directly $().text() to the
+            // matched elements, which returns the combined text
+            // contents of each element in the set of matched
+            // elements, including their descendants.
+            // Source: http://api.jquery.com/text/
+            var res = [];
+            this.each( function() {
+                res.push($(this).text());
+            });
+            return res;
         },
 
         filters: function() {
@@ -1986,25 +2033,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     };
 
     util.urlQueryParams = {
-        // If the query param key string in not contained in any other key, this is faster:
         getValue: function (param) {
             try {
-                return window.location.search.split(param+"=")[1].split("&")[0];
+                return window.location.search.split(new RegExp("[?&]" + param + "="))[1].split("&")[0];
             } catch (e) {
                 return undefined;
-            }
-        },
-        getValuePrecise: function (param) {
-            var query = window.location.search;
-            if (!query) {
-                return undefined;
-            }
-            var entries = query.substring(1,query.length).split("&");
-            for (var index in entries){
-                var keyVal = entries[index].split("=");
-                if (keyVal[0] == param){
-                    return keyVal[1];
-                }
             }
         }
         // Create deparam() function from http://stackoverflow.com/questions/1131630/the-param-inverse-function-in-javascript-jquery
@@ -2142,6 +2175,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         restart: function(name) {
+            if ( $$.util.urlQueryParams.getValue("prevent-job-start") === "true" ) {
+                console.warn("Job '" + name + "' will not be started because 'prevent-job-start=true' is set in the URL.");
+                return;
+            }
             this.runJobsOnlyOnWindowsFocused();
             var job = this.getJob(name),
                 shouldSchedule = true;
@@ -2223,7 +2260,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             intro: {
                 welcome:                "alice.intro.welcome",
                 deployingWordpress:     "alice.intro.deploying-wordpress",
-                waitingForWordpress:    "alice.intro.waiting-for-wordpress"
+                waitingForWordpress:    "alice.intro.waiting-for-wordpress",
+                wordpressInDashboard:   "alice.intro.wordpress-in-dashboard",
+                wordpressRunning:       "alice.intro.wordpress-running"
             },
             introWithoutConnectors: {
                 goToProfile:            "alice.intro-without-connectors.go-to-profile",
@@ -2231,8 +2270,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 navigateBackToWelcome:  "alice.intro-without-connectors.navigate-back-to-welcome",
                 welcome:                "alice.intro-without-connectors.welcome",
                 deployingWordpress:     "alice.intro-without-connectors.deploying-wordpress",
-                waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress"
+                waitingForWordpress:    "alice.intro-without-connectors.waiting-for-wordpress",
+                wordpressInDashboard:   "alice.intro-without-connectors.wordpress-in-dashboard",
+                wordpressRunning:       "alice.intro-without-connectors.wordpress-running"
             }
+        },
+
+        current: function () {
+            return $$.util.meta.getMetaValue("ss-current-tour");
         },
 
         enableMouseShield: function () {
@@ -2295,30 +2340,49 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             bootstro.start(".bootstro", options);
         },
 
+        goToStep: function (stepIndex) {
+            bootstro.go_to(stepIndex);
+        },
+
+        askToStart: function() {
+            $('#ss-start-tour-dialog').askConfirmation(function () {
+                $$.util.tour.start();
+            });
+        },
+
         stop: function() {
             bootstro.stop();
         },
 
         cookiePrefix: "launch-tour.",
 
-        shouldLaunchAny: function(tourNames, shouldLaunchIfUndefined) {
-            var launchAny = false;
-            $.each(tourNames.split(/,+\s*/),
+        shouldLaunchAny: function() {
+            var args = Array.prototype.slice.call(arguments),
+                tourNames,
+                shouldLaunchIfUndefined,
+                launchAny = false;
+            if ( $.type(args.last()) === "boolean" ) {
+                shouldLaunchIfUndefined = args.pop();
+            }
+            tourNames = args;
+            $.each(tourNames,
                 function(i, tourName) {
                      launchAny = $$.util.tour.shouldLaunch(tourName, shouldLaunchIfUndefined);
                      if ( launchAny ) {
                         // Break the 'each' loop
                         return false;
                      }
-                })
+                });
             return launchAny;
         },
 
         shouldLaunch: function(tourName, shouldLaunchIfUndefined) {
-            var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName);
+            var persistedShouldLaunchBehaviour = $$.util.cookie.get(this.cookiePrefix + tourName),
+                tourNameInURL = $$.util.urlQueryParams.getValue("tour");
             if ( $.type(persistedShouldLaunchBehaviour) === "boolean" ) {
-                // Return the currently stored value
                 return persistedShouldLaunchBehaviour;
+            } else if ( tourNameInURL ) {
+                return tourNameInURL === tourName;
             } else if ( $.type(shouldLaunchIfUndefined) === "boolean" ) {
                 // Persist the wanted behaviour
                 $$.util.cookie.set(this.cookiePrefix + tourName, shouldLaunchIfUndefined);
@@ -2353,6 +2417,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         persistDismissal: function(tourName) {
             return $$.util.cookie.set(this.cookiePrefix + tourName, false);
+        },
+
+        forgetDismissal: function(tourName) {
+            return $$.util.cookie.delete(this.cookiePrefix + tourName );
         }
 
     };
@@ -2395,7 +2463,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         delete: function (cname) {
-            document.cookie = cname + "=;expires=Wed; 01 Jan 1970";
+            document.cookie = this.scopePrefix + cname + "=;expires=Wed; 01 Jan 1970";
         }
 
     };

@@ -21,6 +21,7 @@
 (def action-login-sel           [:.ss-action-login])
 (def action-reset-password-sel  [:.ss-action-reset-password])
 (def action-start-tour-sel      [:.ss-action-start-tour])
+(def action-start-tour-action-sel [:.ss-action-start-tour :a])
 (def action-label-sel           [:.ss-action-label])
 (def action-documentation-sel   [:.ss-action-documentation])
 (def action-knowledge-base-sel  [:.ss-action-knowledge-base])
@@ -85,9 +86,10 @@
               action-users-sel            (html/content (t :logged-in.action.users))
               action-help-sel             (html/content (t :logged-in.action.help))
               action-profile-sel          (html/content (t :logged-in.action.profile))
-              action-start-tour-sel       (when (-> context :tour :help-menu-action?)
-                                            (ue/at-match
-                                              action-label-sel (html/content (t :logged-in.action.start-tour))))
+              action-start-tour-sel       (ue/at-match
+                                              action-label-sel (html/content (t :logged-in.action.start-tour))
+                                              action-start-tour-action-sel (ue/toggle-href    (-> context :view-name #{"welcome"} not) "?start-tour=yes")
+                                              action-start-tour-action-sel (ue/toggle-onclick (-> context :view-name #{"welcome"})     "SlipStream.util.tour.askToStart()"))
               action-documentation-sel    (html/content (t :logged-in.action.documentation))
               action-knowledge-base-sel   (html/content (t :logged-in.action.knowledge-base))
               action-contact-us-sel       (html/content (t :logged-in.action.contact-us))

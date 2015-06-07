@@ -57,17 +57,45 @@
         (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
         constantly)))
 
+(def ^:private query-parameters
+  "These are the query-parameters used by the JS code on the client browser."
+  {"deployment-view-tour-intro-without-connectors"  "?action=run"
+   "image-view-tour-intro-without-connectors"       "?action=run"
+   "run"                                            "?prevent-job-start=true"
+   "run-tour-intro-without-connectors"              "?tour=alice.intro-without-connectors.waiting-for-wordpress"
+   "run-25-instances"                               "?prevent-job-start=true"
+   "run-200-instances"                              "?prevent-job-start=true"
+   "run-263-instances"                              "?prevent-job-start=true"
+   "run-1000-instances"                             "?prevent-job-start=true"
+   "dashboard-tour-intro-without-connectors"        "?wordpress-run-id=6269f657&cloud=CloudB"})
+
 (defmacro app-routes
   [& routes]
-  (let [index-page (->> routes
-                        (take-nth 2)
-                        flatten
-                        (remove #{'&})
-                        (partition-by first)
-                        (uc/mmap #(str "<div><a href='/" % "'>" % "</a></div>"))
-                        (interpose ["<br>"])
-                        flatten
-                        s/join)]
+  (let [path-base             (-> "pwd" clojure.java.shell/sh :out  s/trim-newline)
+        static-templates-path (str path-base "/src/slipstream/ui/views/html/")
+        html-templates-title  (str "<div><h2>HTML Templates</h2></div><div>From <code>" static-templates-path "</code></div><br>")
+        html-templates-links  (->> static-templates-path
+                                     clojure.java.io/file
+                                     file-seq
+                                     (map #(.getName %))
+                                     (filter #(re-matches #".*\.html" %))
+                                     (mapcat #(str "<div><a target='_blank' href='/template/" % "'>" % "</a></div>"))
+                                     s/join)
+        static-pages-title    (str "<div><h2>Static Pages</h2></div><div>Genetared with test XML files in <code>" path-base "/test/slipstream/ui/mockup_data/</code></div><br>")
+        static-pages-links    (->> routes
+                                   (take-nth 2)
+                                   flatten
+                                   (remove #{'& "template"})
+                                   (partition-by first)
+                                   (uc/mmap #(str "<div><a target='_blank' href='/" % (query-parameters %) "'>" % "</a></div>"))
+                                   (interpose ["<br>"])
+                                   flatten
+                                   s/join)
+        index-page            (str html-templates-title
+                                   html-templates-links
+                                   "<br><hr>"
+                                   static-pages-title
+                                   static-pages-links)]
     `(def ~(symbol "routes")
        (app
          [""] (fn [req#]  (resp/response ~index-page))
@@ -81,7 +109,8 @@
     ["logout"]                (render :pagename "logout")
 
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
-    ["welcome-with-tour"]     (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view" :query-parameters {:start-tour "yes"})
+    ["welcome-with-tour-with-connectors"]     (render :pagename "welcome" :raw-metadata-ns "welcome-with-connectors"    :type "view" :query-parameters {:start-tour "yes"})
+    ["welcome-with-tour-without-connectors"]  (render :pagename "welcome" :raw-metadata-ns "welcome-without-connectors" :type "view" :query-parameters {:start-tour "yes"})
     ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
     ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 
@@ -100,6 +129,7 @@
     ["project-root-new"]      (render :pagename "module"          :raw-metadata-ns "module.project-root-new"  :type "new")
 
     ["image-view"]            (render :pagename "module"          :raw-metadata-ns "module.image"     :type "view")
+    ["image-view-tour-intro-without-connectors"]      (render :pagename "module"          :raw-metadata-ns "module.image"  :type "view" :query-parameters {:action "run" :tour "alice.intro-without-connectors.deploying-wordpress"})
     ["image-chooser"]         (render :pagename "module"          :raw-metadata-ns "module.image"     :type "chooser")
     ["image-edit"]            (render :pagename "module"          :raw-metadata-ns "module.image"     :type "edit")
     ["image-new"]             (render :pagename "module"          :raw-metadata-ns "module.image-new" :type "new")
@@ -114,9 +144,13 @@
     ["versions"]              (render :pagename "versions"        :raw-metadata-ns "versions" :type "view")
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
 
-    ["dashboard"]             (render :pagename "dashboard"       :raw-metadata-ns "dashboard")
+    ["dashboard"]                               (render :pagename "dashboard"   :raw-metadata-ns "dashboard")
+    ["dashboard-tour-intro-without-connectors"] (render :pagename "dashboard"   :raw-metadata-ns "dashboard" :query-parameters {:cloud "CloudB" :wordpress-run-id "6269f657" :tour "alice.intro-without-connectors.wordpress-in-dashboard"})
+
     ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
     ["runs-paginated"]        (render :pagename "runs"            :raw-metadata-ns "runs-paginated")
+
+    ["vms"]                   (render :pagename "vms"             :raw-metadata-ns "vms-super")
     ["vms-super"]             (render :pagename "vms"             :raw-metadata-ns "vms-super")
     ["vms-regular-user"]      (render :pagename "vms"             :raw-metadata-ns "vms-regular-user")
     ["metrics" "render"]      (render-file "metrics.json")
@@ -134,6 +168,8 @@
     ["users"]                                   (render :pagename "users" :raw-metadata-ns "users")
 
     ["run"]                   (render :pagename "run"             :raw-metadata-ns "run")
+    ["run-tour-intro-without-connectors"]                       (render :pagename "run"   :raw-metadata-ns "run"  :query-parameters {:tour "alice.intro-without-connectors.waiting-for-wordpress"})
+    ["run-tour-intro-without-connectors-back-from-dashboard"]   (render :pagename "run"   :raw-metadata-ns "run"  :query-parameters {:tour "alice.intro-without-connectors.wordpress-running"})
     ["run-25-instances"]      (render :pagename "run"             :raw-metadata-ns "run-25-instances")
     ["run-200-instances"]     (render :pagename "run"             :raw-metadata-ns "run-200-instances")
     ["run-263-instances"]     (render :pagename "run"             :raw-metadata-ns "run-263-instances")
@@ -151,9 +187,8 @@
     ["error-401"]             (render-error :raw-metadata-ns "module.project"
                                             :message "I'm afraid you are not allowed to do this."
                                             :code 401)
-    [&] (fn [req] (resp/file-response (req :uri) {:root "resources/static_content"}))
-    ; [&]                       (render-error :raw-metadata-ns "module.project"
-    ;                                         :code 404)
+    ["template" &]  (fn [req] (resp/file-response (-> req :uri (uc/trim-up-to-last \/)) {:root "src/slipstream/ui/views/html"}))
+    [&] (fn [req] (resp/file-response (-> req :uri (uc/trim-prefix "/") (uc/trim-prefix "resources/static_content")) {:root "resources/static_content"}))
     )
 
 ;; =============================================================================

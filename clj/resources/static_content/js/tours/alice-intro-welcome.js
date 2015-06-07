@@ -1,8 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     var buttonPreparedToContinueTourCls = "ss-button-prepared-to-continue-tour",
-        queryParamTourName              = $$.util.urlQueryParams.getValue("tour"),
-        tourBaseName                    = $.type(queryParamTourName) === "string" ? queryParamTourName.trimFromLastIndexOf(".") : "alice.intro",
+        currentTour                     = $$.util.tour.current(),
+        tourBaseName                    = $.type(currentTour) === "string" ? currentTour.trimFromLastIndexOf(".") : "alice.intro",
         onclickStringReplacement        = ["run';", "run&tour=" + tourBaseName + ".deploying-wordpress';"];
 
     function prepareButtonToContinueTour() {
@@ -17,7 +17,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(buttonPreparedToContinueTourCls.asSel())
             .removeClass(buttonPreparedToContinueTourCls)
             .updateAttr("onclick", function(s) {
-                return s.replace.apply(s, onclickStringReplacement.reverse());
+                return s.replace.apply(s, onclickStringReplacement.getReversed());
             });
     }
 
@@ -56,7 +56,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunchAny("alice.intro.welcome, alice.intro-without-connectors.welcome", true) ) {
+    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" || $$.util.tour.shouldLaunch(currentTour, true) ) {
         if ( $$.util.tour.shouldShowOptInDialog() ) {
             $('#ss-start-tour-dialog').askConfirmation(function () {
                 $$.util.tour.start();

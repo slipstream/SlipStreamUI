@@ -62,43 +62,43 @@ $(document).ready(function(){
 
         function add_nav_btn(content, i)
         {
-            var $el = get_element(i);
-            var nextButton, prevButton, finishButton, defaultBtnClass;
+            var $el = get_element(i),
+                isNextBtnInContent  = content.contains("bootstro-next-btn"),
+                isPrevBtnInContent  = content.contains("bootstro-prev-btn"),
+                isHideNextBtn       = $el.data("bootstro-hide-next-button") === true,
+                isHidePrevBtn       = $el.data("bootstro-hide-prev-button") === true,
+                nextButton,
+                prevButton,
+                finishButton,
+                defaultBtnClass;
             if (bootstrapVersion == 2)
                 defaultBtnClass = "btn btn-primary btn-mini";
             else
                 defaultBtnClass = "btn btn-primary btn-xs"; //default bootstrap version 3
             content = content + "<div class='bootstro-nav-wrapper'>";
-            if ($el.attr('data-bootstro-nextButton'))
-            {
+
+            if ($el.attr('data-bootstro-nextButton')) {
                 nextButton = $el.attr('data-bootstro-nextButton');
-            }
-            else if ( $el.attr('data-bootstro-nextButtonText') )
-            {
+            } else if ( $el.attr('data-bootstro-nextButtonText') ) {
                 nextButton = '<button class="' + defaultBtnClass + ' bootstro-next-btn">' + $el.attr('data-bootstro-nextButtonText') +  '</button>';
-            }
-            else
-            {
-                if (typeof settings.nextButton != 'undefined' /*&& settings.nextButton != ''*/)
+            } else {
+                if ( typeof settings.nextButton != 'undefined' ) {
                     nextButton = settings.nextButton;
-                else
+                } else {
                     nextButton = '<button class="' + defaultBtnClass + ' bootstro-next-btn">' + settings.nextButtonText + '</button>';
+                }
             }
 
-            if ($el.attr('data-bootstro-prevButton'))
-            {
+            if ($el.attr('data-bootstro-prevButton')) {
                 prevButton = $el.attr('data-bootstro-prevButton');
-            }
-            else if ( $el.attr('data-bootstro-prevButtonText') )
-            {
+            } else if ( $el.attr('data-bootstro-prevButtonText') ) {
                 prevButton = '<button class="' + defaultBtnClass + ' bootstro-prev-btn">' + $el.attr('data-bootstro-prevButtonText') +  '</button>';
-            }
-            else
-            {
-                if (typeof settings.prevButton != 'undefined' /*&& settings.prevButton != ''*/)
+            } else {
+                if ( typeof settings.prevButton != 'undefined' ) {
                     prevButton = settings.prevButton;
-                else
+                } else {
                     prevButton = '<button class="' + defaultBtnClass + ' bootstro-prev-btn">' + settings.prevButtonText + '</button>';
+                }
             }
 
             if ($el.attr('data-bootstro-finishButton'))
@@ -118,14 +118,15 @@ $(document).ready(function(){
             }
 
 
-            if (count != 1)
-            {
-                if (i == 0)
-                    content = content + nextButton;
-                else if (i == count -1 )
-                    content = content + prevButton;
-                else
-                    content = content + nextButton + prevButton
+            if (count != 1) {
+                if (i == 0) {
+                    content = content + (isNextBtnInContent || isHideNextBtn ? '' : nextButton);
+                } else if (i == count - 1 ) {
+                    content = content + (isPrevBtnInContent || isHidePrevBtn ? '' : prevButton);
+                } else {
+                    content = content + (isNextBtnInContent || isHideNextBtn ? '' : nextButton);
+                    content = content + (isPrevBtnInContent || isHidePrevBtn ? '' : prevButton);
+                }
             }
             content = content + '</div>';
 
@@ -262,35 +263,41 @@ $(document).ready(function(){
                 settings.onExit.call(this,{idx : activeIndex});
         };
 
-        //go to the popover number idx starting from 0
-        bootstro.go_to = function(idx)
-        {
-            //destroy current popover if any
+        // Go to the popover number idx starting from 0
+        bootstro.go_to = function(idx) {
             bootstro.destroy_popover(activeIndex);
-            if (count != 0)
-            {
-                var p = get_popup(idx);
-                var $el = get_element(idx);
+            if (count !== 0) {
+                var p           = get_popup(idx),
+                    $el         = get_element(idx),
+                    showPopover = function(){ $el.popover(p).popover('show'); };
 
-                $el.popover(p).popover('show');
+                // Only scroll the bootstrap modal dialog, if present
+                var modal               = $(".modal:visible"),
+                    isModalPresent      = modal.foundAny(),
+                    elementToScroll     = isModalPresent ? modal : $("html,body");
 
-                //scroll if neccessary
-                var docviewTop = $(window).scrollTop();
-                var top = Math.min($(".popover.in").offset().top, $el.offset().top);
+                var docviewTop = isModalPresent ? modal.scrollTop() : $(window).scrollTop(),
+                    top = $el.offset().top,
+                    topDistance = top - docviewTop;
 
-                //distance between docviewTop & min.
-                var topDistance = top - docviewTop;
-
-                if (topDistance < settings.margin) //the element too up above
-                    $('html,body').animate({
-                        scrollTop: top - settings.margin},
-                    'slow');
-                else if(!is_entirely_visible($(".popover.in")) || !is_entirely_visible($el))
-                    //the element is too down below
-                    $('html,body').animate({
-                        scrollTop: top - settings.margin},
-                    'slow');
-                // html
+                // Scroll if neccessary
+                if ( topDistance < settings.margin ) {
+                    // The element is too up above
+                    elementToScroll.animate(
+                        {scrollTop: top - settings.margin},
+                        "fast",
+                        "swing",
+                        showPopover);
+                } else if ( ! is_entirely_visible($el) ) {
+                    // The element is too down below
+                    elementToScroll.animate(
+                        {scrollTop: top - settings.margin},
+                        "fast",
+                        "swing",
+                        showPopover);
+                } else {
+                    showPopover();
+                }
 
                 $el.addClass('bootstro-highlight');
                 activeIndex = idx;
@@ -302,6 +309,10 @@ $(document).ready(function(){
                 before   = settings.beforeStep && settings.beforeStep[expected.idx],
                 after    = settings.onStep && settings.onStep[expected.idx],
                 onExit   = settings.onExitStep && settings.onExitStep[activeIndex];
+            if (expected.idx < 0) {
+                // Do nothing
+                return;
+            }
             if (typeof onExit === "function") {
                 onExit.call(this, expected);
             }
@@ -419,20 +430,19 @@ $(document).ready(function(){
             //bind the key event
             $(document).on('keydown.bootstro', function(e){
                 var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 39 || code == 40)
+                if (e.altKey && (code == 39 || code == 40))
                     bootstro.next();
-                else if (code == 37 || code == 38)
+                else if (e.altKey && (code == 37 || code == 38))
                     bootstro.prev();
                 else if(code == 27 && settings.stopOnEsc)
                     bootstro.stop();
-            })
+            });
         };
 
-        bootstro.unbind = function()
-        {
+        bootstro.unbind = function() {
             $("html").unbind('click.bootstro');
             $(document).unbind('keydown.bootstro');
-        }
+        };
 
      }( window.bootstro = window.bootstro || {}, jQuery ));
 });

@@ -163,7 +163,8 @@
       (assoc :page-type (name page-type/*current-page-type*)
              :user-type (current-user/type-name)
              :username  (current-user/username)
-             :navigate-away-confirmation-msg (t :navigate-away-confirmation-msg))
+             :navigate-away-confirmation-msg (t :navigate-away-confirmation-msg)
+             :current-tour (-> context :tour :name))
       (ue/map->meta-tag-snip :name-prefix "ss-")
       html/prepend))
 
@@ -262,8 +263,7 @@
 (defn- trim-context
   "Remove unnecessary data. Specially useful to remove noise from logs if the context is dumped."
   [context]
-  (dissoc context :parsed-metadata
-                  :content))
+  (dissoc context :parsed-metadata))
 
 (defn- generate-with-ns
   [{:keys [template-filename] :as context}]

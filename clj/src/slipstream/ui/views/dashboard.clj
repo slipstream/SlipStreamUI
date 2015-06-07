@@ -4,6 +4,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.pagination :as pagination]
@@ -43,7 +44,7 @@
   [:div :div] (html/add-class "ss-dynamic-subsection-content")
   ue/this     (ue/set-data :content-load-url (format "/%s?cloud=%s&offset=0&limit=%s"
                                                      ({::vms "vms"
-                                                       ::runs "run"} metadata-key)
+                                                       ::runs (if (mode/headless?) "runs" "run")} metadata-key)
                                                      cloud-name
                                                      pagination/items-per-page))
   ue/this     (ue/set-id (name metadata-key) "-" cloud-name)

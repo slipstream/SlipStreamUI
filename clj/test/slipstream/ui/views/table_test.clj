@@ -183,12 +183,15 @@
   (cell-html {:type :cell/set, :content #{"A" rand-str "1"}}))
 
 (localization/with-lang :en
-  (let [ss-timestamp (->> 1 t/hours t/ago (f/unparse (f/formatters :date-time)))
-        human-readable (time/format :human-readable ss-timestamp)]
-    (expect
-      (re-pattern (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour.* ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable "</span></td>"))
-      (localization/with-lang :en
-        (cell-html {:type :cell/timestamp, :content ss-timestamp}))))
+    (let [one-date          (t/date-time 2015 05 27 10 00)
+          one-date-minue-1h (t/minus one-date (t/hours 1))
+          ss-timestamp      (f/unparse (f/formatters :date-time) one-date-minue-1h)
+          human-readable    (time/format :human-readable ss-timestamp)]
+      (expect
+        (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable "</span></td>")
+        (localization/with-lang :en
+          (freeze-time one-date ; Freeze time to one-date to allow proper testing of relative date in 'title' attribute
+            (cell-html {:type :cell/timestamp, :content ss-timestamp})))))
 
   (expect
     IllegalArgumentException

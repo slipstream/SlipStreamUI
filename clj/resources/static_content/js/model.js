@@ -235,15 +235,35 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                 finalStates = ["cancelled", "aborted", "done"],
                 checkLoginRequest,
                 refreshRequest,
+                uuid,
                 url,
+                clouds,
                 moduleURL,
                 lastRefreshData = "",
                 runModel = {
+                    getUUID: function() {
+                        if (isRun && ! uuid) {
+                            uuid = $elem.find("#uuid").text();
+                        }
+                        return uuid;
+                    },
+
+                    getShortUUID: function() {
+                        return runModel.getUUID().trimFromFirstIndexOf("-");
+                    },
+
                     getURL: function() {
                         if (isRun && ! url) {
-                            url = "/run/" + $elem.find("#uuid").text();
+                            url = "/run/" + runModel.getUUID();
                         }
                         return url;
+                    },
+
+                    getClouds: function() {
+                        if (isRun && ! clouds) {
+                            clouds = $("[id*=cloudservice]").textArray().unique();
+                        }
+                        return clouds;
                     },
 
                     setGlobalRuntimeValue: function(parameterName, value, flashCategory) {
@@ -464,6 +484,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
 
                             if ( isReadyState ) {
                                 $$.alert.showInfoFixed(alertTitle, alertMessage);
+                                $("body").trigger("ss-run-service-is-ready");
                             } else {
                                 $$.alert.dismissByTitle(alertTitle);
                             }

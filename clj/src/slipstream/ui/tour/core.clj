@@ -47,7 +47,9 @@
     :nextButtonText
     :count
     :offset
-    :step})
+    :step
+    :hide-prev-button
+    :hide-next-button})
 
 (defmacro  ^:private process-step-node
   [step-info]
@@ -100,12 +102,6 @@
   [context]
   (some-> context :metadata meta :request :query-parameters :tour not-empty))
 
-(defn- start-tour?
-  "The tour for the welcome page appears only if the URL contains a query parameter
-  'start-tour' with a value equal to 'yes' ('1' and 'true' are also understood)."
-  [context]
-  (some-> context :metadata meta :request :query-parameters :start-tour #{"1" "yes" "y" "true"}))
-
 (defmulti ^:private get-tour-name
   (fn [context] [(:view-name context) (page-type/current)]))
 
@@ -113,10 +109,9 @@
   [context]
   (if-let [tour (tour-in-query-param context)]
     tour
-    (when (start-tour? context)
-      (if (current-user/configuration :configured-clouds)
-        "alice.intro.welcome"
-        "alice.intro-without-connectors.go-to-profile"))))
+    (if (current-user/configuration :configured-clouds)
+      "alice.intro.welcome"
+      "alice.intro-without-connectors.go-to-profile")))
 
 (defmethod get-tour-name ["user" :page-type/view]
   [context]
@@ -124,7 +119,13 @@
 
 (defmethod get-tour-name ["run" :page-type/any]
   [context]
-  "alice.intro.waiting-for-wordpress")
+  ;; TODO: Determine which tour to launch: if the 'intro' version or the 'intro-without-connectors' version.
+  ;;       The step content will be the same in both cases, but the total number of steps of the whole tour
+  ;;       is different, so that the numbering of the steps and the progress bar will differ.
+  (or
+    (tour-in-query-param context)
+    "alice.intro-without-connectors.waiting-for-wordpress"))
+  ; "alice.intro.waiting-for-wordpress")
 
 (defmethod get-tour-name :default
   [context]
@@ -134,13 +135,19 @@
   [tour-name]
    (some->> tour-name (re-matches  #"([^.]+)\.([^.]+)\.([^.]+)")))
 
+(defn- call
+  ;; NOTE: Middle fn to inverse the order of the arguments in the ->> usage below.
+  [args tour-fn-var]
+  (tour-fn-var args))
+
 (defn- acts
-  [persona play]
+  [context persona play]
   (ex/guard "get the map with the acts for the 'play' for the given 'persona'"
     (->> play
         (symbol (str "slipstream.ui.tour." persona))
         resolve
         var-get
+        (call context)
         (partition 2)
         (map vec))))
 
@@ -166,9 +173,9 @@
     sel-or-step-info))
 
 (defn- scenes
-  [[_ persona play act]]
+  [context [_ persona play act]]
   (ex/guard "get scenes"
-    (let [acts (into {} (acts persona play))
+    (let [acts (into {} (acts context persona play))
           act-keyword (keyword act)
           scenes-count (count-scenes acts)
           scenes-count-offset (scenes-count-offset acts act-keyword)]
@@ -181,7 +188,9 @@
   (case js-filename
     "tours/alice-intro-without-connectors-welcome.js"                 "tours/alice-intro-welcome.js"
     "tours/alice-intro-without-connectors-deploying-wordpress.js"     "tours/alice-intro-deploying-wordpress.js"
-    "tours/alice-intro-without-connectors-waitting-for-wordpress.js"  "tours/alice-intro-waitting-for-wordpress.js"
+    "tours/alice-intro-without-connectors-waiting-for-wordpress.js"   "tours/alice-intro-waiting-for-wordpress.js"
+    "tours/alice-intro-without-connectors-wordpress-in-dashboard.js"  "tours/alice-intro-wordpress-in-dashboard.js"
+    "tours/alice-intro-without-connectors-wordpress-running.js"       "tours/alice-intro-wordpress-running.js"
     js-filename))
 
 (defn- js-files
@@ -200,7 +209,7 @@
   (ex/quietly-guard "get the tour for the given 'context'"
     (when-let [[tour-name :as coordinates] (some-> context get-tour-name extract-coordinates)]
       {:name      tour-name
-       :scenes    (scenes coordinates)
+       :scenes    (scenes context coordinates)
        :js-files  (js-files coordinates)
        :css-files ["tour.css"]
        :help-menu-action? (help-menu-action? context)})))

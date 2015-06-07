@@ -1,37 +1,5 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // var $userMenu               = $("#ss-menubar-username"),
-    //     $userProfileMenu        = $("#ss-menubar-user-profile-anchor"),
-    //     userProfileURL          = $userProfileMenu.attr("href"),
-    //     hrefStringReplacement   = [userProfileURL, userProfileURL + "?edit=true&tour=alice.intro-without-connectors.edit-profile"];
-
-
-    // $$.util.tour.setup({
-    //     beforeStart: function() {
-    //         $userProfileMenu
-    //             .updateAttr("href", function(s) {
-    //                 return s.replace.apply(s, hrefStringReplacement);
-    //             });
-    //         $userProfileMenu
-    //             .parent()
-    //                 .bsOpenDropdown();
-    //     },
-
-    //     onExit: function() {
-    //         $userProfileMenu
-    //             .updateAttr("href", function(s) {
-    //                 return s.replace.apply(s, hrefStringReplacement.reverse());
-    //         });
-    //     }
-    // });
-
-
-
-
-
-
-
-
     $$.util.tour.setup({
         beforeStep: {
             1: function() {
@@ -43,12 +11,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         onStep: {
             3: function() {
-                $$.util.tour.queueLaunch("alice.intro-without-connectors.navigate-back-to-welcome");
+                $$.util.tour.queueLaunch($$.util.tour.alice.introWithoutConnectors.navigateBackToWelcome);
             }
         }
     });
 
-    if ( $$.util.tour.shouldLaunch("alice.intro-without-connectors.edit-profile", true) ) {
+    if ( $$.util.tour.shouldLaunch($$.util.tour.current(), true) ) {
         $$.util.tour.start();
     }
 

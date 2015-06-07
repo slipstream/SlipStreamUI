@@ -23,7 +23,7 @@
                               :ns       ~(str *ns*)
                               :msg      ~msg
                               :forms    (quote ~(->> &form (drop 3) vec))
-                              :bingings ~(if print-bindings?
+                              :bindings ~(if print-bindings?
                                            (into {} (for [sbl (keys &env)] [`(quote ~sbl) sbl]))
                                            :muted)))]
          (println)
