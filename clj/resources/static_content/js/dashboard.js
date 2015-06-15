@@ -7,9 +7,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $(".ss-usage-gauge").click(function(){
-        var $runsSection = $$.section.select(2),
-            targetCloud  = $(this).data("quota-title");
-        $$.subsection.selectByTitle($runsSection, targetCloud);
+        var targetCloud  = $(this).data("quota-title");
+        $$.section.select(2, targetCloud);
     });
 
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
