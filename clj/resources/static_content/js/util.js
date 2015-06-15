@@ -2016,7 +2016,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // the browser history (i.e. the current URL) with the modified hash.
 
                 // Without arguments, 'set()' will remove the hash (see also 'clean()' below)
-                // With one array arguments, 'set()' will set the array items as hash value joined with 'segmentSeparator'.
+                // With one array argument, 'set()' will set the array items as hash value joined with 'segmentSeparator'.
                 // With many arguments, 'set()' will set them as hash value joined with 'segmentSeparator'.
                 var values = ( $.type(valuesArray) === "array" ) ? valuesArray : Array.prototype.slice.call(arguments),
                     updatedURL = $$.util.url.getCurrentURLWithoutHash();
