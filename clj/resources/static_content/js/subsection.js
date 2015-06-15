@@ -48,11 +48,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     enableSubsections();
 
     var subsectionIdPrefix = "ss-subsection-",
-        sep = $$.util.url.hash.segmentSeparator,
         onShowCallbackKey = "on-show-callback",
         tabAnchorSel = ".ss-subsection-activator-group a[role=tab]";
 
-    $(tabAnchorSel).on("shown.bs.tab", function (e) {
+    $(tabAnchorSel).on("shown.bs.tab", function (e, extraParametersArg) {
         // Ensure correct hash when opening subsections
         var $tabAnchor          = $(this),
             subsectionTitle     = $tabAnchor.text(),
@@ -61,10 +60,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     .trimPrefix("#" + subsectionIdPrefix)
                                     .replace(/\d+-/, ""), // remove digits of the unique prefix
             $subsectionContent  = $(subsectionId),
-            onShowCallback      = $tabAnchor.data(onShowCallbackKey);
-        history.replaceState(null, document.title, $$.util.url.getCurrentURLWithoutHash()
-                                                   + window.location.hash.trimFromLastIndexOf(sep) 
-                                                   + sep + subsectionIdTrimmed);
+            onShowCallback      = $tabAnchor.data(onShowCallbackKey),
+            extraParameters = $.extend({
+                    skipHashUpdate: false
+                },
+                extraParametersArg);
+
+        if (! extraParameters.skipHashUpdate) {
+            $$.util.url.hash.updateValues({1: subsectionIdTrimmed});
+        }
 
         // Run on-show-callback if present
         if ($.isFunction(onShowCallback)) {
@@ -87,12 +91,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
         onShow: function(callback) {
             $(tabAnchorSel).data(onShowCallbackKey, callback);
         },
-        triggerOnShowOnOpenSubsection: function() {
+        triggerOnShowOnOpenSubsection: function(skipHashUpdate) {
+            var extraParameters = {
+                skipHashUpdate: skipHashUpdate
+            };
             $(".panel .panel-collapse.collapse.in")                         // The open section
                 .find(".ss-subsection-group, .ss-subsection-group-stacked") // Its subsections (horizontal, vertical or combobox)
                     .find("li.active > a")                                  // The open subsection
-                        .trigger("show.bs.tab")
-                        .trigger("shown.bs.tab");
+                        .trigger("show.bs.tab", extraParameters)
+                        .trigger("shown.bs.tab", extraParameters);
        }
 
     };

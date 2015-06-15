@@ -14,7 +14,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .reloadAllImages()
         .bsEnableExpandableProgressBars();
 
-    $$.section.triggerOnShowOnOpenSection();
+    $$.section.triggerOnShowOnOpenSection(true);
 
     // $("body").getSlipStreamModel().module.dump();
     // $("body").getSlipStreamModel().run.dump();
