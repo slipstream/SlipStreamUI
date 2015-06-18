@@ -2395,7 +2395,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         goToStep: function (stepIndex) {
-            bootstro.go_to(stepIndex);
+            bootstro.goToStep(stepIndex);
         },
 
         askToStart: function() {

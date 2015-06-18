@@ -43,7 +43,6 @@ $(document).ready(function(){
         };
         var settings;
 
-
         //===================PRIVATE METHODS======================
         //http://stackoverflow.com/questions/487073/check-if-element-is-visible-after-scrolling
         function is_entirely_visible($elem)
@@ -263,8 +262,12 @@ $(document).ready(function(){
                 settings.onExit.call(this,{idx : activeIndex});
         };
 
+        bootstro.hasOrphanStep = function($el) {
+            return $el.data("bootstro-orphan-step") === true;
+        };
+
         // Go to the popover number idx starting from 0
-        bootstro.go_to = function(idx) {
+        bootstro.transitionToStep = function(idx) {
             bootstro.destroy_popover(activeIndex);
             if (count !== 0) {
                 var p           = get_popup(idx),
@@ -281,7 +284,9 @@ $(document).ready(function(){
                     topDistance = top - docviewTop;
 
                 // Scroll if neccessary
-                if ( topDistance < settings.margin ) {
+                if ( bootstro.hasOrphanStep($el) ) {
+                    showPopover();
+                } else if ( topDistance < settings.margin ) {
                     // The element is too up above
                     elementToScroll.animate(
                         {scrollTop: top - settings.margin},
@@ -304,32 +309,41 @@ $(document).ready(function(){
             }
         };
 
-        bootstro.moveTowards = function(direction) {
-            var expected = ( direction === "next" ) ? {idx: activeIndex + 1, direction: 'next'} : {idx: activeIndex - 1, direction: 'prev'},
-                before   = settings.beforeStep && settings.beforeStep[expected.idx],
-                after    = settings.onStep && settings.onStep[expected.idx],
-                onExit   = settings.onExitStep && settings.onExitStep[activeIndex];
-            if (expected.idx < 0) {
+        bootstro.move = function(fromStepIndex, toStepIndex) {
+            var before   = settings.beforeStep && settings.beforeStep[toStepIndex],
+                after    = settings.onStep && settings.onStep[toStepIndex],
+                onExit   = settings.onExitStep && settings.onExitStep[fromStepIndex];
+            if (toStepIndex < 0) {
                 // Do nothing
                 return;
             }
             if (typeof onExit === "function") {
-                onExit.call(this, expected);
+                onExit.call(this, fromStepIndex, toStepIndex);
             }
-            if (expected.idx == count) {
-                if (expected.direction === "next" && typeof settings.onComplete === "function") {
-                    settings.onComplete.call(this, {idx : activeIndex});//
+            if (toStepIndex == count) {
+                if (typeof settings.onComplete === "function") {
+                    settings.onComplete.call(this, {idx : fromStepIndex});
                 }
             } else {
                 if (typeof before === "function") {
-                    before.call(this, expected);
+                    before.call(this, fromStepIndex, toStepIndex);
                 }
-                bootstro.go_to(expected.idx);
+                bootstro.transitionToStep(toStepIndex);
                 if (typeof after === "function") {
-                    after.call(this, expected);
+                    after.call(this, fromStepIndex, toStepIndex);
                 }
 
             }
+        };
+
+        bootstro.goToStep = function(idx) {
+            return bootstro.move(activeIndex, idx);
+        };
+
+        bootstro.moveTowards = function(direction) {
+            var fromStepIndex   = activeIndex,
+                toStepIndex     = ( direction === "next" ) ? activeIndex + 1 : activeIndex - 1;
+            return bootstro.move(fromStepIndex, toStepIndex);
         };
 
         bootstro.next = function() {
@@ -353,7 +367,7 @@ $(document).ready(function(){
                 // Prevents multiple copies
                 $('<div class="bootstro-backdrop"></div>').appendTo('body');
                 bootstro.bind();
-                bootstro.go_to(0);
+                bootstro.goToStep(0);
             }
         };
 
