@@ -24,6 +24,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         onExit: function() {
             $$.run.startAutoupdatingRunPage();
+            $$.util.urlQueryParams.remove("tour");
         }
     });
 
