@@ -269,6 +269,14 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     $.extend(Array.prototype, {
 
+        isEmpty: function() {
+            return this.length === 0;
+        },
+
+        notEmpty: function() {
+            return this.length > 0 ? this : undefined;
+        },
+
         first: function() {
             return this[0];
         },
@@ -1992,7 +2000,53 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
     util.url = {
         hash: {
-            segmentSeparator: "+"
+            segmentSeparator: "+",
+
+            getValues: function() {
+                return window.location.hash
+                        .trimPrefix("#")
+                        .split($$.util.url.hash.segmentSeparator)
+                        .filter($$.util.string.notEmpty);
+            },
+
+            setValues: function(valuesArray) {
+                // Setting the hash value directly with 'window.location.hash = value'
+                // adds an entry to the browser history, so that the "back" button
+                // does not work as expected. Instead, we replace the last entry in
+                // the browser history (i.e. the current URL) with the modified hash.
+
+                // Without arguments, 'set()' will remove the hash (see also 'clean()' below)
+                // With one array argument, 'set()' will set the array items as hash value joined with 'segmentSeparator'.
+                // With many arguments, 'set()' will set them as hash value joined with 'segmentSeparator'.
+                var values = ( $.type(valuesArray) === "array" ) ? valuesArray : Array.prototype.slice.call(arguments),
+                    updatedURL = $$.util.url.getCurrentURLWithoutHash();
+
+                values = values.filter($$.util.string.notEmpty);
+
+                if ( values.length > 0 ) {
+                    updatedURL += "#" + values.join($$.util.url.hash.segmentSeparator);
+                }
+
+                return history.replaceState(null, document.title, updatedURL);
+            },
+
+            updateValues: function(newValuesObjet) {
+                if ( ! $.isPlainObject(newValuesObjet) ) {
+                    throw "An object with the indexes values mapped to their new values is expected. Found instead: " + newValuesObjet;
+                }
+                var currentValues = $$.util.url.hash.getValues();
+                $.each(newValuesObjet, function(k,v){
+                    if ( k > currentValues.length ) {
+                        throw "Out of bounds! Current hash only contains " + currentValues.length + " values. Indexes are 0-based.";
+                    }
+                    currentValues[k] = v;
+                });
+                return $$.util.url.hash.setValues(currentValues);
+            },
+
+            clean: function() {
+                return $$.util.url.hash.setValues();
+            }
         },
 
         getCurrentURLBase: function (withHash) {

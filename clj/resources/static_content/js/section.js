@@ -1,32 +1,34 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var hash = document.location.hash,
+    var hashValues = $$.util.url.hash.getValues(),
         sectionIdPrefix = "ss-section-";
 
-    if (hash) {
+    function openDefaultSection() {
+        $(".panel.ss-section-selected .panel-collapse.collapse").addClass("in");
+    }
+
+    if ( hashValues.notEmpty() ) {
         // Try to open section from url hash
-        var hashSegments = hash.trimPrefix("#")
-                                .split($$.util.url.hash.segmentSeparator)
-                                .filter($$.util.string.notEmpty),
-            sectionTitle = hashSegments[0],
-            subSectionTitle = hashSegments[1];
+        var sectionTitle    = hashValues[0],
+            subSectionTitle = hashValues[1];
             $section = $('.panel #' + sectionIdPrefix + sectionTitle);
         if ($section.foundOne()) {
             $section.addClass("in");
             if (subSectionTitle) {
                 // Try to open a subsection
                 if (! $$.subsection.selectByTitle($section, subSectionTitle)) {
-                    // There is no subsection with the give title, so we clean it.
-                    document.location.hash = sectionTitle;
+                    // There is no subsection with the give title, so we clean it from the hash.
+                    $$.util.url.hash.updateValues({1:undefined});
                 }
             }
         } else {
-            // There is no section with the give id (or more than one), so we clean it.
-            $$.util.url.reloadPageWithoutHashInURL();
+            // There is no section with the give id (or more than one) so we clean the hash and
+            // open the default section.
+            $$.util.url.hash.clean();
+            openDefaultSection();
         }
     } else {
-        // Open panel of section by default
-        $(".panel.ss-section-selected .panel-collapse.collapse").addClass("in");
+        openDefaultSection();
     }
 
     // Ensure correct chevrons at page load depending on open/close state
@@ -53,7 +55,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // tab has been shown. Use event.target and event.relatedTarget to
     // target the active tab and the previous active tab (if
     // available) respectively.
-    $sectionPanels.on("show.bs.collapse", function (e) {
+    $sectionPanels.on("show.bs.collapse", function (e, extraParameters) {
 
         // Ensure correct chevrons when opening the section
         var $sectionContent = $(e.target),
@@ -68,15 +70,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // shown. Use event.target and event.relatedTarget to target the
     // active tab and the previous active tab (if available)
     // respectively.
-    $sectionPanels.on("shown.bs.collapse", function (e) {
+    $sectionPanels.on("shown.bs.collapse", function (e, extraParametersArg) {
 
         // Ensure correct chevrons when opening the section
-        var $sectionContent = $(e.target);
+        var showingSectionNameId = e.delegateTarget.id.trimPrefix(sectionIdPrefix),
+            $sectionContent = $(e.target),
+            $sectionParentPanel = $sectionContent.closest(".panel"),
+            subsectionTitleToOpen = $sectionParentPanel.data("subsectionTitleToOpen"),
+            extraParameters = $.extend({
+                    skipHashUpdate: false
+                },
+                extraParametersArg);
 
-        // Update hash in URL
-        history.replaceState(null, document.title, $$.util.url.getCurrentURLWithoutHash()
-                                                   + "#"
-                                                   + e.delegateTarget.id.trimPrefix(sectionIdPrefix));
+        if (! extraParameters.skipHashUpdate) {
+            $$.util.url.hash.setValues(showingSectionNameId);
+        }
 
         // Run on-show-callback if present
         var onShowCallback = $sectionContent.data(onShowCallbackKey),
@@ -85,8 +93,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
             onShowCallback(sectionTitle, $sectionContent);
         }
 
-        // Trigger shown event on open subsection
-        $$.subsection.triggerOnShowOnOpenSubsection();
+
+        if (subsectionTitleToOpen) {
+            var subsectionWasSelected = $$.subsection.selectByTitle($sectionParentPanel, subsectionTitleToOpen);
+            if (! subsectionWasSelected) {
+                console.warn("Subsection " + subsectionTitleToOpen + " was not found in current section. Opening default subsection.");
+                $$.subsection.triggerOnShowOnOpenSubsection(extraParameters.skipHashUpdate);
+            }
+        } else {
+            $$.subsection.triggerOnShowOnOpenSubsection(extraParameters.skipHashUpdate);
+        }
 
     });
 
@@ -96,14 +112,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // active tab and the new soon-to-be-active tab, respectively.
     $sectionPanels.on("hide.bs.collapse", function (e) {
         // Ensure correct chevrons when closing the section
-        var chevron_sel = ".panel-title a[href='#" + e.delegateTarget.id + "'] .glyphicon-chevron-up";
+        var hiddingSectionId = e.delegateTarget.id,
+            chevron_sel = ".panel-title a[href='#" + hiddingSectionId + "'] .glyphicon-chevron-up";
         $(chevron_sel)
             .removeClass('glyphicon-chevron-up')
             .addClass('glyphicon-chevron-down');
-        if (window.location.hash.trimPrefix("#") == e.delegateTarget.id.trimPrefix(sectionIdPrefix)) {
-            // Remove the hash from URL if it contains still the hash of the closing section
-            history.replaceState(null, document.title, $$.util.url.getCurrentURLWithoutHash());
+
+        if ($$.util.url.hash.getValues().first() == hiddingSectionId.trimPrefix(sectionIdPrefix)) {
+            // Remove the hash from URL if we are only closing the open section without opening a new one.
+            $$.util.url.hash.clean();
         }
+
     });
 
     if ($$.util.meta.isPageType("edit new")) {
@@ -160,14 +179,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         count: $(".panel-group .panel").length,
 
-        select: function (index) {
+        select: function (index, subsectionTitleToOpen) {
             return toggleCollapsible(
                 $(".panel-group .panel")
                     .eq(index - 1)
                         .closest(".panel")
+                            .data("subsectionTitleToOpen", subsectionTitleToOpen)
             );
         },
-        selectWithoutAnimation: function (index) {
+        selectWithoutAnimation: function (index, subsectionTitleToOpen) {
             var $allSections = $(".panel .collapse"),
                 selectionResult;
             // NOTE: This could be done modifying the '.collapsing' CSS class
@@ -176,18 +196,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .css("-webkit-transition", "none")
                 .css(   "-moz-transition", "none")
                 .css(       "-transition", "none");
-            selectionResult = this.select(index);
+            selectionResult = this.select(index, subsectionTitleToOpen);
             $allSections
                 .css("-webkit-transition", "")
                 .css(   "-moz-transition", "")
                 .css(       "-transition", "");
             return selectionResult;
         },
-        selectByTitle: function (title) {
+        selectByTitle: function (title, subsectionTitleToOpen) {
             return toggleCollapsible(
                 $(".ss-section-title")
                     .filter(function(){return $(this).text().trim() == title.trim();})
                     .closest(".panel")
+                        .data("subsectionTitleToOpen", subsectionTitleToOpen)
             );
         },
         collapseAll: function (index) {
@@ -200,10 +221,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         onShow: function(callback) {
             $sectionPanels.data(onShowCallbackKey, callback);
         },
-        triggerOnShowOnOpenSection: function() {
-           $(".panel .panel-collapse.collapse.in")
-               .trigger("show.bs.collapse")
-               .trigger("shown.bs.collapse");
+        triggerOnShowOnOpenSection: function(skipHashUpdate) {
+            var extraParameters = {
+                skipHashUpdate: skipHashUpdate
+            };
+            $(".panel .panel-collapse.collapse.in")
+                .trigger("show.bs.collapse", extraParameters)
+                .trigger("shown.bs.collapse", extraParameters);
        }
     };
 

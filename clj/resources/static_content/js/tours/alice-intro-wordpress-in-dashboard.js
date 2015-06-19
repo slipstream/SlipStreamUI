@@ -35,16 +35,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $$.section.selectWithoutAnimation(1);
             },
             3: function() {
-                var $vmsSection = $$.section.selectWithoutAnimation(3);
-                $$.subsection.selectByTitle($vmsSection, cloudUsedForTheTour);
+                $$.section.selectWithoutAnimation(3, cloudUsedForTheTour);
             },
             4: function() {
                 $$.section.selectWithoutAnimation(4);
             },
             5: function() {
                 // We visit the runs section at the end, so that we can get back to the WordPress run:
-                var $runsSection = $$.section.selectWithoutAnimation(2);
-                $$.subsection.selectByTitle($runsSection, cloudUsedForTheTour);
+                $$.section.selectWithoutAnimation(2, cloudUsedForTheTour);
             }
         }
     });
