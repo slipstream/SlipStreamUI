@@ -2093,8 +2093,22 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             } catch (e) {
                 return undefined;
             }
+        },
+        remove: function () {
+            var updatedQuerystring  = window.location.search.trimPrefix("?");
+            $.each(arguments, function (i, param) {
+                updatedQuerystring = updatedQuerystring.replace(new RegExp("(^|&)" + param + "=[^?&]+&?"), "");
+            });
+            if ( ! $$.util.string.isEmpty(updatedQuerystring) ) {
+                updatedQuerystring = updatedQuerystring.ensurePrefix("?");
+            }
+            history.replaceState(
+                null,
+                document.title,
+                window.location.origin + window.location.pathname + updatedQuerystring + window.location.hash
+            );
         }
-        // Create deparam() function from http://stackoverflow.com/questions/1131630/the-param-inverse-function-in-javascript-jquery
+        // TODO: Create deparam() function from http://stackoverflow.com/questions/1131630/the-param-inverse-function-in-javascript-jquery
     };
 
     util.meta = {
@@ -2395,7 +2409,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         goToStep: function (stepIndex) {
-            bootstro.go_to(stepIndex);
+            bootstro.goToStep(stepIndex);
         },
 
         askToStart: function() {

@@ -23,8 +23,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 var $newContent = $(".ss-section-content", html);
                 $dynamicCloudSubsection
                     .children("div:first-of-type")
-                        .updateWith($newContent, {flash: true, flashDuration: 140, flashCategory: "transparent"});
-                $dynamicCloudSubsection.trigger("ss-dynamic-subsection-updated");
+                        .updateWith(
+                            $newContent,
+                            {flash: true, flashDuration: 140, flashCategory: "transparent"},
+                            function() {
+                                $dynamicCloudSubsection.trigger("ss-dynamic-subsection-updated");
+                            });
             })
             .send();
     });

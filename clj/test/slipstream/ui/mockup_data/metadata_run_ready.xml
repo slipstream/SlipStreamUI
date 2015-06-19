@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><run category="Image" cloudServiceNames="Cloud2" creation="2015-06-15 16:48:19.517 CEST" deleted="false" groups="Cloud2:machine" lastStateChangeTime="2015-06-15 16:50:10.175 CEST" moduleResourceUri="module/example/wordpress/11" mutable="false" nodeNames="machine" resourceUri="run/03af8f6d-a544-4b57-a48c-f1f11140634d" startTime="2015-06-15 16:48:19.517 CEST" state="Ready" type="Run" user="bob" uuid="03af8f6d-a544-4b57-a48c-f1f11140634d">
+   <runtimeParameters class="org.hibernate.collection.internal.PersistentMap">
+      <entry>
+         <string><![CDATA[machine:url.service]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Optional service URL for virtual machine" group="machine" isMappedValue="false" isSet="true" key="machine:url.service" mappedRuntimeParameterNames="" mapsOthers="false" name="url.service" type="String"><![CDATA[http://185.19.29.188]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:instanceid]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Cloud instance id" group="machine" isMappedValue="false" isSet="true" key="machine:instanceid" mappedRuntimeParameterNames="" mapsOthers="false" name="instanceid" type="String"><![CDATA[14253e4f-6c2c-4a23-a214-b1868a08bfb5]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:is.orchestrator]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="True if it's an orchestrator" group="machine" isMappedValue="false" isSet="true" key="machine:is.orchestrator" mappedRuntimeParameterNames="" mapsOthers="false" name="is.orchestrator" type="String"><![CDATA[false]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:category]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.522 CEST" deleted="false" description="Module category" group="Global" isMappedValue="false" isSet="true" key="ss:category" mappedRuntimeParameterNames="" mapsOthers="false" name="category" type="String"><![CDATA[Image]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:Cloud2.security.groups]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Security Groups (comma separated list)" group="machine" isMappedValue="false" isSet="true" key="machine:Cloud2.security.groups" mappedRuntimeParameterNames="" mapsOthers="false" name="Cloud2.security.groups" type="String"><![CDATA[default]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:extra.disk.volatile]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Volatile extra disk in GB" group="machine" isMappedValue="false" isSet="false" key="machine:extra.disk.volatile" mappedRuntimeParameterNames="" mapsOthers="false" name="extra.disk.volatile" type="String"/>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:recovery.mode]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.523 CEST" deleted="false" description="Run abort flag, set when aborting" group="Global" isMappedValue="false" isSet="true" key="ss:recovery.mode" mappedRuntimeParameterNames="" mapsOthers="false" name="recovery.mode" type="String"><![CDATA[false]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:abort]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.522 CEST" deleted="false" description="Run abort flag, set when aborting" group="Global" isMappedValue="false" isSet="false" key="ss:abort" mappedRuntimeParameterNames="" mapsOthers="false" name="abort" type="String"/>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:admin_password]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Admin password" group="machine" isMappedValue="false" isSet="true" key="machine:admin_password" mappedRuntimeParameterNames="" mapsOthers="false" name="admin_password" type="String"><![CDATA[nng7qG6sQHXr]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:cloudservice]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Cloud Service where the node resides" group="machine" isMappedValue="false" isSet="true" key="machine:cloudservice" mappedRuntimeParameterNames="" mapsOthers="false" name="cloudservice" type="String"><![CDATA[Cloud2]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:tags]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.523 CEST" deleted="false" description="Comma separated tag values" group="Global" isMappedValue="false" isSet="false" key="ss:tags" mappedRuntimeParameterNames="" mapsOthers="false" name="tags" type="String"/>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:hostname]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="hostname/ip of the image" group="machine" isMappedValue="false" isSet="true" key="machine:hostname" mappedRuntimeParameterNames="" mapsOthers="false" name="hostname" type="String"><![CDATA[185.19.29.188]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:groups]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.523 CEST" deleted="false" description="Comma separated node groups" group="Global" isMappedValue="false" isSet="true" key="ss:groups" mappedRuntimeParameterNames="" mapsOthers="false" name="groups" type="String"><![CDATA[Cloud2:machine]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:abort]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Machine abort flag, set when aborting" group="machine" isMappedValue="false" isSet="false" key="machine:abort" mappedRuntimeParameterNames="" mapsOthers="false" name="abort" type="String"/>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:vmstate]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="State of the VM, according to the cloud layer" group="machine" isMappedValue="false" isSet="true" key="machine:vmstate" mappedRuntimeParameterNames="" mapsOthers="false" name="vmstate" type="String"><![CDATA[Running]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:network]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Network type" group="machine" isMappedValue="false" isSet="true" key="machine:network" mappedRuntimeParameterNames="" mapsOthers="false" name="network" type="String"><![CDATA[Public]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:image.platform]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Platform (eg: ubuntu, windows)" group="machine" isMappedValue="false" isSet="true" key="machine:image.platform" mappedRuntimeParameterNames="" mapsOthers="false" name="image.platform" type="String"><![CDATA[ubuntu]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:pre.scale.done]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Node instance sets to 'true' after running pre-scale script" group="machine" isMappedValue="false" isSet="true" key="machine:pre.scale.done" mappedRuntimeParameterNames="" mapsOthers="false" name="pre.scale.done" type="String"><![CDATA[false]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:image.id]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Cloud image id" group="machine" isMappedValue="false" isSet="true" key="machine:image.id" mappedRuntimeParameterNames="" mapsOthers="false" name="image.id" type="String"><![CDATA[605d1ad4-b3b2-4b60-af99-843c7b8278f8]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:scale.state]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Defined scalability state" group="machine" isMappedValue="false" isSet="true" key="machine:scale.state" mappedRuntimeParameterNames="" mapsOthers="false" name="scale.state" type="String"><![CDATA[operational]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:url.service]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.523 CEST" deleted="false" description="Optional service URL for the deployment" group="Global" isMappedValue="false" isSet="true" key="ss:url.service" mappedRuntimeParameterNames="" mapsOthers="false" name="url.service" type="String"><![CDATA[http://185.19.29.188]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:complete]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="'true' when current state is completed" group="machine" isMappedValue="false" isSet="true" key="machine:complete" mappedRuntimeParameterNames="" mapsOthers="false" name="complete" type="String"><![CDATA[false]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:state]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.522 CEST" deleted="false" description="Global execution state" group="Global" isMappedValue="false" isSet="true" key="ss:state" mappedRuntimeParameterNames="" mapsOthers="false" name="state" type="String"><![CDATA[Ready]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:statecustom]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Custom state" group="machine" isMappedValue="false" isSet="true" key="machine:statecustom" mappedRuntimeParameterNames="" mapsOthers="false" name="statecustom" type="String"><![CDATA[WordPress ready to go!]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:admin_email]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Admin email" group="machine" isMappedValue="false" isSet="true" key="machine:admin_email" mappedRuntimeParameterNames="" mapsOthers="false" name="admin_email" type="String"><![CDATA[admin@example.com]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:wordpress_title]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Title (name) to give to the WordPress instance." group="machine" isMappedValue="false" isSet="true" key="machine:wordpress_title" mappedRuntimeParameterNames="" mapsOthers="false" name="wordpress_title" type="String"><![CDATA[Change Me Please]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:Cloud2.instance.type]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Instance type (flavor)" group="machine" isMappedValue="false" isSet="true" key="machine:Cloud2.instance.type" mappedRuntimeParameterNames="" mapsOthers="false" name="Cloud2.instance.type" type="String"><![CDATA[Micro]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:mysql_password]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="MySQL password" group="machine" isMappedValue="false" isSet="true" key="machine:mysql_password" mappedRuntimeParameterNames="" mapsOthers="false" name="mysql_password" type="String"><![CDATA[udqhSDhN93Gx]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:url.ssh]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="SSH URL to connect to virtual machine" group="machine" isMappedValue="false" isSet="true" key="machine:url.ssh" mappedRuntimeParameterNames="" mapsOthers="false" name="url.ssh" type="String"><![CDATA[ssh://root@185.19.29.188]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:scale.iaas.done]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Orchestrator sets to 'true' after scaling the node instance" group="machine" isMappedValue="false" isSet="true" key="machine:scale.iaas.done" mappedRuntimeParameterNames="" mapsOthers="false" name="scale.iaas.done" type="String"><![CDATA[false]]></runtimeParameter>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:disk.attach.size]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Size of the extra disk to attach to the VM during vertical scaling" group="machine" isMappedValue="false" isSet="false" key="machine:disk.attach.size" mappedRuntimeParameterNames="" mapsOthers="false" name="disk.attach.size" type="String"/>
+      </entry>
+      <entry>
+         <string><![CDATA[ss:complete]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.522 CEST" deleted="false" description="Global complete flag, set when run completed" group="Global" isMappedValue="false" isSet="false" key="ss:complete" mappedRuntimeParameterNames="" mapsOthers="false" name="complete" type="String"/>
+      </entry>
+      <entry>
+         <string><![CDATA[machine:disk.detach.device]]></string>
+         <runtimeParameter creation="2015-06-15 16:48:19.533 CEST" deleted="false" description="Name of the block device to detach from the VM during vertical scaling" group="machine" isMappedValue="false" isSet="false" key="machine:disk.detach.device" mappedRuntimeParameterNames="" mapsOthers="false" name="disk.detach.device" type="String"/>
+      </entry>
+   </runtimeParameters>
+   <module category="Image" class="com.sixsq.slipstream.persistence.ImageModule" creation="2015-04-24 19:31:14.673 CEST" deleted="false" description="WordPress image installing and configuring WordPress using Puppet on an Ubuntu 12.04 image." isBase="false" isLatestVersion="false" lastModified="2015-05-07 20:04:12.491 CEST" loginUser="root" logoLink="https://s.w.org/about/images/logos/wordpress-logo-stacked-rgb.png" moduleReferenceUri="module/example/ubuntu-12.04" name="example/wordpress" parentUri="module/example" platform="ubuntu" resourceUri="module/example/wordpress/11" shortName="wordpress" version="11">
+      <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="false" owner="super" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="true" publicPut="false">
+         <groupMembers class="java.util.ArrayList">
+            <string>bob</string>
+            <string>super</string>
+         </groupMembers>
+      </authz>
+      <commit author="bob">
+         <comment>Add missing recipe script.</comment>
+      </commit>
+      <published publicationDate="2015-05-07 20:04:12.491 CEST"/>
+      <targets class="org.hibernate.collection.internal.PersistentSet">
+         <target name="execute"><![CDATA[#!/bin/sh
+
+export admin_username=admin
+export admin_password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c12)
+ss-set admin_password $admin_password
+export admin_email=`ss-get admin_email`
+# quote the title since it can contain spaces
+export wordpress_title="`ss-get wordpress_title`"
+export FACTER_mysql_password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c12)
+ss-set mysql_password $FACTER_mysql_password
+export public_hostname=`ss-get hostname`
+
+
+
+cat > init.pp << 'EOF'
+exec { 'Perform initial wordpress configuration':
+  command => 'wp-init.sh',
+  path    => ['/etc/puppet/manifests'],
+}
+EOF
+
+cat > wp-init.sh << 'EOF'
+#!/bin/bash
+set -e
+set +x
+
+data_title="weblog_title=${wordpress_title}"
+data_username="user_name=${admin_username}"
+data_admin_password="admin_password=${admin_password}"
+data_admin_passwrod2="admin_password2=${admin_password}"
+data_admin_email="admin_email=${admin_email}"
+data_blog_public="blog_public=1"
+
+base_url=http://${public_hostname}
+
+url=${base_url}/wp-admin/install.php\?step=2
+
+# quote the title since it can contain spaces
+/usr/bin/curl \
+    --data-urlencode "${data_title}" \
+    -d ${data_username} \
+    -d ${data_admin_password} \
+    -d ${data_admin_passwrod2} \
+    -d ${data_admin_email} \
+    -d ${data_blog_public} -v ${url} >> /tmp/curl.out
+
+EOF
+
+chmod +x wp-init.sh
+
+
+ss-display "Configuring WordPress"
+./wp-init.sh
+
+url="http://${public_hostname}"
+ss-set ss:url.service ${url}
+ss-set url.service ${url}
+
+ss-display "WordPress ready to go!"
+]]></target>
+         <target name="report"/>
+         <target name="onvmremove"/>
+         <target name="onvmadd"/>
+      </targets>
+      <packages class="org.hibernate.collection.internal.PersistentSet">
+         <package key="" name="curl" repository=""/>
+         <package key="" name="puppet-common" repository=""/>
+      </packages>
+      <prerecipe/>
+      <recipe><![CDATA[#!/bin/sh
+
+set -e
+
+ss-display "Updating package index"
+apt-get clean
+apt-get update
+
+
+ss-display "Installing WordPress manifest"
+cd /etc/puppet/modules/
+curl -o wordpress.tgz https://forgeapi.puppetlabs.com/v3/files/jonhadfield-wordpress-0.0.6.tar.gz
+tar zxvf wordpress.tgz
+mv jonhadfield-wordpress-0.0.6 wordpress
+
+
+cd /etc/puppet/manifests/
+
+cat > wp.pp << 'EOF'
+class { 'wordpress':
+  wordpress_db_password => $::mysql_password,
+}
+EOF
+
+ss-display "Installing WordPress"
+puppet apply -v wp.pp]]></recipe>
+      <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
+      <parameters class="org.hibernate.collection.internal.PersistentMap">
+         <entry>
+            <string>Cloud1.cpu</string>
+            <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>instanceid</string>
+            <parameter category="Output" description="Cloud instance id" isSet="false" mandatory="true" name="instanceid" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>mysql_password</string>
+            <parameter category="Output" description="MySQL password" isSet="false" mandatory="false" name="mysql_password" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>extra.disk.volatile</string>
+            <parameter category="Cloud" description="Volatile extra disk in GB" isSet="false" mandatory="true" name="extra.disk.volatile" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>Cloud4.security.groups</string>
+            <parameter category="Cloud4" description="Security groups (comma separated list)" isSet="true" mandatory="true" name="Cloud4.security.groups" order="0" order_="0" readonly="false" type="String">
+               <value><![CDATA[default]]></value>
+               <defaultValue><![CDATA[default]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>Cloud2.instance.type</string>
+            <parameter category="Cloud2" description="Instance type (flavor)" isSet="true" mandatory="true" name="Cloud2.instance.type" order="0" order_="0" readonly="false" type="String">
+               <value><![CDATA[Micro]]></value>
+               <defaultValue><![CDATA[Micro]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>admin_email</string>
+            <parameter category="Input" description="Admin email" isSet="true" mandatory="false" name="admin_email" order="0" order_="0" readonly="false" type="String">
+               <value><![CDATA[admin@example.com]]></value>
+               <defaultValue><![CDATA[admin@example.com]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>Cloud1.instance.type</string>
+            <parameter category="Cloud1" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud1.instance.type" order="0" order_="0" readonly="false" type="Enum">
+               <enumValues length="7">
+                  <string>m1.small</string>
+                  <string>c1.medium</string>
+                  <string>m1.large</string>
+                  <string>m1.xlarge</string>
+                  <string>c1.xlarge</string>
+                  <string>t1.micro</string>
+                  <string>standard.xsmall</string>
+               </enumValues>
+               <value><![CDATA[m1.small]]></value>
+               <defaultValue><![CDATA[m1.small]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>admin_password</string>
+            <parameter category="Output" description="Admin password" isSet="false" mandatory="false" name="admin_password" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>Cloud3.instance.type</string>
+            <parameter category="Cloud3" description="Instance type (flavor)" isSet="false" mandatory="true" name="Cloud3.instance.type" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>Cloud1.disks.bus.type</string>
+            <parameter category="Cloud1" description="VM disks bus type" isSet="true" mandatory="true" name="Cloud1.disks.bus.type" order="0" order_="0" readonly="false" type="Enum">
+               <enumValues length="2">
+                  <string>virtio</string>
+                  <string>scsi</string>
+               </enumValues>
+               <value><![CDATA[virtio]]></value>
+               <defaultValue><![CDATA[virtio]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>Cloud4.instance.type</string>
+            <parameter category="Cloud4" description="Cloud instance type" isSet="true" mandatory="true" name="Cloud4.instance.type" order="0" order_="0" readonly="false" type="Enum">
+               <enumValues length="32">
+                  <string>t2.micro</string>
+                  <string>t2.small</string>
+                  <string>t2.medium</string>
+                  <string>m3.medium</string>
+                  <string>m3.large</string>
+                  <string>m3.xlarge</string>
+                  <string>m3.2xlarge</string>
+                  <string>c4.large</string>
+                  <string>c4.xlarge</string>
+                  <string>c4.2xlarge</string>
+                  <string>c4.4xlarge</string>
+                  <string>c4.8xlarge</string>
+                  <string>c3.large</string>
+                  <string>c3.xlarge</string>
+                  <string>c3.2xlarge</string>
+                  <string>c3.4xlarge</string>
+                  <string>c3.8xlarge</string>
+                  <string>r3.large</string>
+                  <string>r3.xlarge</string>
+                  <string>r3.2xlarge</string>
+                  <string>r3.4xlarge</string>
+                  <string>r3.8xlarge</string>
+                  <string>i2.xlarge</string>
+                  <string>i2.2xlarge</string>
+                  <string>i2.4xlarge</string>
+                  <string>i2.8xlarge</string>
+                  <string>d2.xlarge</string>
+                  <string>d2.2xlarge</string>
+                  <string>d2.4xlarge</string>
+                  <string>d2.8xlarge</string>
+                  <string>g2.2xlarge</string>
+                  <string>g2.8xlarge</string>
+               </enumValues>
+               <value><![CDATA[t2.micro]]></value>
+               <defaultValue><![CDATA[t2.micro]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>Cloud1.ram</string>
+            <parameter category="Cloud1" description="Amount of RAM, in GB" isSet="false" mandatory="true" name="Cloud1.ram" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>wordpress_title</string>
+            <parameter category="Input" description="Title (name) to give to the WordPress instance." isSet="true" mandatory="false" name="wordpress_title" order="0" order_="0" readonly="false" type="String">
+               <value><![CDATA[Change Me Please]]></value>
+               <defaultValue><![CDATA[Change Me Please]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>network</string>
+            <parameter category="Cloud" description="Network type" isSet="true" mandatory="true" name="network" order="0" order_="0" readonly="false" type="Enum">
+               <enumValues length="2">
+                  <string>Public</string>
+                  <string>Private</string>
+               </enumValues>
+               <value><![CDATA[Public]]></value>
+               <defaultValue><![CDATA[Public]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>hostname</string>
+            <parameter category="Output" description="hostname/ip of the image" isSet="false" mandatory="true" name="hostname" order="0" order_="0" readonly="false" type="String"/>
+         </entry>
+         <entry>
+            <string>Cloud3.security.groups</string>
+            <parameter category="Cloud3" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud3.security.groups" order="0" order_="0" readonly="false" type="String">
+               <value><![CDATA[default]]></value>
+               <defaultValue><![CDATA[default]]></defaultValue>
+            </parameter>
+         </entry>
+         <entry>
+            <string>Cloud2.security.groups</string>
+            <parameter category="Cloud2" description="Security Groups (comma separated list)" isSet="true" mandatory="true" name="Cloud2.security.groups" order="0" order_="0" readonly="false" type="String">
+               <value><![CDATA[default]]></value>
+               <defaultValue><![CDATA[default]]></defaultValue>
+            </parameter>
+         </entry>
+      </parameters>
+      <notes length="0"/>
+   </module>
+   <parameters class="org.hibernate.collection.internal.PersistentMap">
+      <entry>
+         <string>machine:cloudservice</string>
+         <parameter category="General" description="" mandatory="false" name="machine:cloudservice" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[Cloud2]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>garbage_collected</string>
+         <parameter category="General" description="true if the Run was already garbage collected" mandatory="false" name="garbage_collected" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[false]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Keep running after deployment" mandatory="false" name="General.keep-running" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[on-success]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>machine:run-build-recipes</string>
+         <parameter category="General" description="Define if the SlipStream executor should run build recipes." mandatory="false" name="machine:run-build-recipes" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>machine:admin_email</string>
+         <parameter category="General" description="" mandatory="false" name="machine:admin_email" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[admin@example.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>machine:wordpress_title</string>
+         <parameter category="General" description="" mandatory="false" name="machine:wordpress_title" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[Change Me Please]]></value>
+         </parameter>
+      </entry>
+   </parameters>
+   <cloudServiceNamesList length="1">
+      <string>Cloud2</string>
+   </cloudServiceNamesList>
+<user activeSince="2015-06-05 13:17:16.621 CEST" creation="2015-06-05 13:17:16.609 CEST" deleted="false" email="bob@example.com" firstName="R" issuper="true" lastExecute="2015-06-15 16:48:19.602 CEST" lastName="B" lastOnline="2015-06-15 18:25:17.597 CEST" name="bob" organization="Example Corp." resourceUri="user/bob" state="ACTIVE">
+   <parameters class="org.hibernate.collection.internal.PersistentMap">
+      <entry>
+         <string>Cloud3.password</string>
+         <parameter category="Cloud3" description="Secret" mandatory="true" name="Cloud3.password" order="20" order_="20" readonly="false" type="Password">
+            <value><![CDATA[secret-example]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.password</string>
+         <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
+            <value><![CDATA[password-example]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.quota.vm</string>
+         <parameter category="Cloud3" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.keep-running</string>
+         <parameter category="General" description="Keep running after deployment" mandatory="true" name="General.keep-running" order="15" order_="15" readonly="false" type="Enum">
+            <instructions><![CDATA[Here you can define if and when SlipStream should leave the application running after performing the deployment. <br/><code>On success</code> is useful for production deployments or long tests. </br><code>On Error</code> might be useful so that resources are consumed only when debugging is needed. <br/><code>Never</code> ensures that SlipStream automatically terminates the application after performing the deployment. <br/>Note: This parameter doesn't apply to <code>mutable deployment</code> Runs and to <code>build image</code> Runs.]]></instructions>
+            <enumValues length="4">
+               <string>always</string>
+               <string>on-success</string>
+               <string>on-error</string>
+               <string>never</string>
+            </enumValues>
+            <value><![CDATA[on-success]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.password</string>
+         <parameter category="Cloud2" description="Secret" mandatory="true" name="Cloud2.password" order="20" order_="20" readonly="false" type="Password">
+            <value><![CDATA[secret-example]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.username</string>
+         <parameter category="Cloud2" description="Key" mandatory="true" name="Cloud2.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value><![CDATA[key-example]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.access.id</string>
+         <parameter category="Cloud4" description="Access id" mandatory="true" name="Cloud4.access.id" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Verbosity Level</string>
+         <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
+            <instructions><![CDATA[0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging]]></instructions>
+            <enumValues length="4">
+               <string>0</string>
+               <string>1</string>
+               <string>2</string>
+               <string>3</string>
+            </enumValues>
+            <value><![CDATA[0]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.secret.key</string>
+         <parameter category="Cloud4" description="Secret key" mandatory="true" name="Cloud4.secret.key" order="0" order_="0" readonly="false" type="Password">
+            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
+            <value><![CDATA[secret-example]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.Timeout</string>
+         <parameter category="General" description="Execution timeout (in minutes)" mandatory="true" name="General.Timeout" order="40" order_="40" readonly="false" type="String">
+            <instructions><![CDATA[If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.]]></instructions>
+            <value><![CDATA[30]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.username</string>
+         <parameter category="Cloud3" description="Key" mandatory="true" name="Cloud3.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.quota.vm</string>
+         <parameter category="Cloud2" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud2.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[10]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.quota.vm</string>
+         <parameter category="Cloud4" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud4.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.quota.vm</string>
+         <parameter category="Cloud1" description="Number of VMs the user can start for this cloud" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="true" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.username</string>
+         <parameter category="Cloud1" description="StratusLab account username" mandatory="true" name="Cloud1.username" order="10" order_="10" readonly="false" type="RestrictedString">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.default.cloud.service</string>
+         <parameter category="General" description="Default Cloud" mandatory="true" name="General.default.cloud.service" order="10" order_="10" readonly="false" type="Enum">
+            <instructions><![CDATA[Select the cloud that you want to use as the default.]]></instructions>
+            <enumValues length="4">
+               <string>Cloud3</string>
+               <string>Cloud4</string>
+               <string>Cloud1</string>
+               <string>Cloud2</string>
+            </enumValues>
+            <value><![CDATA[Cloud2]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>General.ssh.public.key</string>
+         <parameter category="General" description="SSH Public Key(s) (one per line)" mandatory="true" name="General.ssh.public.key" order="50" order_="50" readonly="false" type="RestrictedText">
+            <instructions><![CDATA[Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.]]></instructions>
+            <value><![CDATA[ssh-rsa AAAAB bob@example.com]]></value>
+         </parameter>
+      </entry>
+   </parameters>
+</user><serviceConfiguration creation="2015-06-15 15:25:37.229 CEST" deleted="false">
+   <parameters class="java.util.concurrent.ConcurrentHashMap">
+      <entry>
+         <string>Cloud1.max.iaas.workers</string>
+         <parameter category="Cloud1" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud1.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.service.catalog.enable</string>
+         <parameter category="SlipStream_Advanced" description="Enable service catalog feature." mandatory="true" name="slipstream.service.catalog.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.support.email</string>
+         <parameter category="SlipStream_Support" description="Email address for SlipStream support requests" mandatory="true" name="slipstream.support.email" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[support@example.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.max.iaas.workers</string>
+         <parameter category="Cloud4" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud4.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.native-contextualization</string>
+         <parameter category="Cloud2" description="Use native cloud contextualisation" mandatory="true" name="Cloud2.native-contextualization" order="10" order_="10" readonly="false" type="Enum">
+            <instructions><![CDATA[Here you can define when SlipStream should use the native Cloud contextualization or when it should try other methods like SSH and WinRM. <br/>]]></instructions>
+            <enumValues length="4">
+               <string>never</string>
+               <string>linux-only</string>
+               <string>windows-only</string>
+               <string>always</string>
+            </enumValues>
+            <value><![CDATA[linux-only]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.orchestrator.instance.type</string>
+         <parameter category="Cloud2" description="Orchestrator instance type" mandatory="true" name="Cloud2.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[Micro]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.reports.location</string>
+         <parameter category="SlipStream_Advanced" description="Location where the deployments and build reports are saved" mandatory="true" name="slipstream.reports.location" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[/home/dev/dev/SlipStream/server/reports]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.update.clienturl</string>
+         <parameter category="Cloud1" description="URL with the cloud client specific connector" mandatory="true" name="Cloud1.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[http://example.com/]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.username</string>
+         <parameter category="SlipStream_Support" description="Username for SMTP server." mandatory="true" name="slipstream.mail.username" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[Username of the mail server account you want to use to send registration emails.]]></instructions>
+            <value><![CDATA[sender]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.version</string>
+         <parameter category="SlipStream_Advanced" description="Installed SlipStream version" mandatory="true" name="slipstream.version" order="0" order_="0" readonly="true" type="String">
+            <instructions/>
+            <value><![CDATA[2.10-SNAPSHOT]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.endpoint</string>
+         <parameter category="Cloud3" description="Service endpoint for Cloud3 (e.g. http://example.com:5000)" mandatory="true" name="Cloud3.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.orchestrator.imageid</string>
+         <parameter category="Cloud4" description="Image Id of the orchestrator for Cloud4" mandatory="true" name="Cloud4.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.orchestrator.imageid</string>
+         <parameter category="Cloud1" description="Image Id of the orchestrator for Cloud1" mandatory="true" name="Cloud1.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[N-Bu1h1jt3K8ODnCTw4JiyPaH5k]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.max.iaas.workers</string>
+         <parameter category="Cloud2" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud2.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.class</string>
+         <parameter category="SlipStream_Basics" description="Cloud connector java class name(s) (comma separated for multi-cloud configuration)" mandatory="true" name="cloud.connector.class" order="0" order_="0" readonly="false" type="Text">
+            <instructions/>
+            <value><![CDATA[Cloud1:stratuslab, Cloud2:cloudstack, Cloud3:cloudstack,
+Cloud4:ec2]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.quota.vm</string>
+         <parameter category="Cloud3" description="VM quota for Cloud3 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud3.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.marketplace.endpoint</string>
+         <parameter category="Cloud1" description="Marketplace endpoint" mandatory="true" name="Cloud1.marketplace.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://marketplace.stratuslab.eu/marketplace]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.metering.hostname</string>
+         <parameter category="SlipStream_Advanced" description="Metering server full hostname, including protocol, hostname/ip and port (e.g. http://localhost:2005)." mandatory="true" name="slipstream.metering.hostname" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://localhost:2005]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.update.clienturl</string>
+         <parameter category="SlipStream_Advanced" description="Endpoint of the SlipStream client tarball" mandatory="true" name="slipstream.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://example.com/downloads/slipstreamclient.tgz]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.update.clientbootstrapurl</string>
+         <parameter category="SlipStream_Advanced" description="Endpoint of the SlipStream client bootstrap script" mandatory="true" name="slipstream.update.clientbootstrapurl" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://example.com/downloads/slipstream.bootstrap]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.registration.email</string>
+         <parameter category="SlipStream_Support" description="Email address for account approvals, etc." mandatory="true" name="slipstream.registration.email" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[Email address to use for registration.]]></instructions>
+            <value><![CDATA[register@example.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.password</string>
+         <parameter category="SlipStream_Support" description="Password for SMTP server." mandatory="true" name="slipstream.mail.password" order="0" order_="0" readonly="false" type="Password">
+            <instructions/>
+            <value><![CDATA[1234]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.update.clienturl</string>
+         <parameter category="Cloud4" description="URL with the cloud client specific connector" mandatory="true" name="Cloud4.update.clienturl" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.pdisk.endpoint</string>
+         <parameter category="Cloud1" description="PDisk endpoint" mandatory="true" name="Cloud1.pdisk.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://pdisk.lal.stratuslab.eu/pdisk]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.ssl</string>
+         <parameter category="SlipStream_Support" description="Use SSL for SMTP server." mandatory="true" name="slipstream.mail.ssl" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.orchestrator.instance.type</string>
+         <parameter category="Cloud4" description="Orchestrator instance type" mandatory="true" name="Cloud4.orchestrator.instance.type" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="32">
+               <string>t2.micro</string>
+               <string>t2.small</string>
+               <string>t2.medium</string>
+               <string>m3.medium</string>
+               <string>m3.large</string>
+               <string>m3.xlarge</string>
+               <string>m3.2xlarge</string>
+               <string>c4.large</string>
+               <string>c4.xlarge</string>
+               <string>c4.2xlarge</string>
+               <string>c4.4xlarge</string>
+               <string>c4.8xlarge</string>
+               <string>c3.large</string>
+               <string>c3.xlarge</string>
+               <string>c3.2xlarge</string>
+               <string>c3.4xlarge</string>
+               <string>c3.8xlarge</string>
+               <string>r3.large</string>
+               <string>r3.xlarge</string>
+               <string>r3.2xlarge</string>
+               <string>r3.4xlarge</string>
+               <string>r3.8xlarge</string>
+               <string>i2.xlarge</string>
+               <string>i2.2xlarge</string>
+               <string>i2.4xlarge</string>
+               <string>i2.8xlarge</string>
+               <string>d2.xlarge</string>
+               <string>d2.2xlarge</string>
+               <string>d2.4xlarge</string>
+               <string>d2.8xlarge</string>
+               <string>g2.2xlarge</string>
+               <string>g2.8xlarge</string>
+            </enumValues>
+            <value><![CDATA[t2.micro]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.region</string>
+         <parameter category="Cloud4" description="EC2 region" mandatory="true" name="Cloud4.region" order="0" order_="0" readonly="false" type="Enum">
+            <enumValues length="9">
+               <string>us-east-1</string>
+               <string>us-west-2</string>
+               <string>us-west-1</string>
+               <string>eu-west-1</string>
+               <string>ap-southeast-1</string>
+               <string>ap-southeast-2</string>
+               <string>ap-northeast-1</string>
+               <string>sa-east-1</string>
+               <string>eu-central-1</string>
+            </enumValues>
+            <value><![CDATA[us-east-1]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.zone</string>
+         <parameter category="Cloud2" description="Zone" mandatory="true" name="Cloud2.zone" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[CH-GV2]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.orchestrator.publicsshkey</string>
+         <parameter category="SlipStream_Advanced" description="Path to the SSH public key to put in the orchestrator" mandatory="true" name="cloud.connector.orchestrator.publicsshkey" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[/home/dev/.ssh/id_rsa.pub]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.max.iaas.workers</string>
+         <parameter category="Cloud3" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="Cloud3.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.orchestrator.imageid</string>
+         <parameter category="Cloud3" description="Image Id of the orchestrator for Cloud3" mandatory="true" name="Cloud3.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.port</string>
+         <parameter category="SlipStream_Support" description="Port on SMTP server (defaults to standard ports)." mandatory="true" name="slipstream.mail.port" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[465]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.registration.enable</string>
+         <parameter category="SlipStream_Basics" description="Allow user self registration. If checked, user will be able to create accounts themselves." mandatory="true" name="slipstream.registration.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[false]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.quota.vm</string>
+         <parameter category="Cloud2" description="VM quota for Cloud2 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud2.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[10]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.quota.enable</string>
+         <parameter category="SlipStream_Advanced" description="Quota enforcement enabled" mandatory="true" name="slipstream.quota.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.native-contextualization</string>
+         <parameter category="Cloud3" description="Use native cloud contextualisation" mandatory="true" name="Cloud3.native-contextualization" order="10" order_="10" readonly="false" type="Enum">
+            <instructions><![CDATA[Here you can define when SlipStream should use the native Cloud contextualization or when it should try other methods like SSH and WinRM. <br/>]]></instructions>
+            <enumValues length="4">
+               <string>never</string>
+               <string>linux-only</string>
+               <string>windows-only</string>
+               <string>always</string>
+            </enumValues>
+            <value><![CDATA[linux-only]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.metering.enable</string>
+         <parameter category="SlipStream_Advanced" description="Metering enabled" mandatory="true" name="slipstream.metering.enable" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.endpoint</string>
+         <parameter category="Cloud2" description="Service endpoint for Cloud2 (e.g. http://example.com:5000)" mandatory="true" name="Cloud2.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://api.exoscale.ch/compute]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.orchestrator.instance.type</string>
+         <parameter category="Cloud1" description="Orchestrator instance type" mandatory="true" name="Cloud1.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[c1.medium]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.security.group</string>
+         <parameter category="Cloud4" description="Orchestrator security group" mandatory="true" name="Cloud4.security.group" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[default]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud4.quota.vm</string>
+         <parameter category="Cloud4" description="VM quota for Cloud4 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud4.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.orchestrator.privatesshkey</string>
+         <parameter category="SlipStream_Advanced" description="Path to the SSH private key used to connect to the orchestrator (used only for some Clouds)" mandatory="true" name="cloud.connector.orchestrator.privatesshkey" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[/home/dev/.ssh/id_rsa]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>cloud.connector.library.libcloud.url</string>
+         <parameter category="SlipStream_Advanced" description="URL to fetch libcloud library from" mandatory="true" name="cloud.connector.library.libcloud.url" order="0" order_="0" readonly="false" type="String">
+            <instructions><![CDATA[URL should point to a valid gzipped tarball.]]></instructions>
+            <value><![CDATA[http://example.com/downloads/libcloud.tgz]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.debug</string>
+         <parameter category="SlipStream_Support" description="Debug mail sending." mandatory="true" name="slipstream.mail.debug" order="0" order_="0" readonly="false" type="Boolean">
+            <instructions/>
+            <value><![CDATA[true]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.quota.vm</string>
+         <parameter category="Cloud1" description="VM quota for Cloud1 (i.e. maximum number of VMs allowed)" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[20]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.mail.host</string>
+         <parameter category="SlipStream_Support" description="Host for SMTP server for email notifications." mandatory="true" name="slipstream.mail.host" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[smtp.gmail.com]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.orchestrator.instance.type</string>
+         <parameter category="Cloud3" description="Orchestrator instance type" mandatory="true" name="Cloud3.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud1.endpoint</string>
+         <parameter category="Cloud1" description="Service endpoint for Cloud1 (e.g. http://example.com:5000)" mandatory="true" name="Cloud1.endpoint" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[https://cloud.lal.stratuslab.eu/one-proxy/xmlrpc]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud3.zone</string>
+         <parameter category="Cloud3" description="Zone" mandatory="true" name="Cloud3.zone" order="0" order_="0" readonly="false" type="String">
+            <value/>
+         </parameter>
+      </entry>
+      <entry>
+         <string>Cloud2.orchestrator.imageid</string>
+         <parameter category="Cloud2" description="Image Id of the orchestrator for Cloud2" mandatory="true" name="Cloud2.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
+            <value><![CDATA[605d1ad4-b3b2-4b60-af99-843c7b8278f8]]></value>
+         </parameter>
+      </entry>
+      <entry>
+         <string>slipstream.base.url</string>
+         <parameter category="SlipStream_Basics" description="Default URL and port for the SlipStream RESTlet" mandatory="true" name="slipstream.base.url" order="0" order_="0" readonly="false" type="String">
+            <instructions/>
+            <value><![CDATA[http://example.com]]></value>
+         </parameter>
+      </entry>
+   </parameters>
+</serviceConfiguration></run>

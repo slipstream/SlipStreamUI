@@ -195,7 +195,7 @@
                         "<br/><br/>"
                         "Please verify that the credentials you added for the cloud used are valid and launch the tour again."
                         "<br/><br/>"
-                        "Or contact our support team using the tabs at the bottom and the right part of the page.")
+                        "If the problem persists please do not hesitate to contact us!")
           :preserve-padding true
           :placement "bottom"
           }

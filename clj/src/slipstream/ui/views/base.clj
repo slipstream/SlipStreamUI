@@ -97,12 +97,12 @@
        bottom-scripts-snip))
 
 (defn- bottom-internal-scripts-snip
-  [filenames & {:keys [append-final-scripts] :or {append-final-scripts true}}]
+  [filenames & {:keys [append-final-scripts?] :or {append-final-scripts? true}}]
   (let [extra-files (cond-> []
-                      append-final-scripts         (conj "last.js")
+                      append-final-scripts?         (conj "last.js")
                       (and
-                        append-final-scripts
-                        (page-type/not-chooser?))  (conj "support.js"))]
+                        append-final-scripts?
+                        (page-type/not-chooser?))   (conj "support.js"))]
     (->> (concat filenames extra-files)
          (map (partial str "js/"))
          bottom-scripts-snip)))
@@ -231,7 +231,10 @@
   noscript-subtitle-sel (ue/when-content (t :noscript-error.subtitle))
   bottom-scripts-container-sel  (html/append (additional-html bottom-scripts-sel involved-templates))
   bottom-scripts-container-sel  (html/append (bottom-external-scripts-snip external-js-filenames))
-  bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip internal-js-filenames))
+  bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip
+                                               (concat
+                                                 (:js-files tour)
+                                                 internal-js-filenames)))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/required context))
   [:input]              (html/set-attr :autocomplete "off") ; NOTE: Disable 'autocomplete' for all inputs (specially required for Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=654072)
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
@@ -244,7 +247,6 @@
   [[:link theme/themable-sel]]  (ue/prepend-to-href (theme/static-content-folder theme))
   ;; Add tour info at the end, if need be
   css-container-sel             (ue/when-append tour (-> tour :css-files css-links-snip))
-  bottom-scripts-container-sel  (ue/when-append tour (-> tour :js-files  (bottom-internal-scripts-snip :append-final-scripts false)))
   [:body]                       (tour/when-add  tour)
   )
 
