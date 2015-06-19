@@ -233,8 +233,8 @@
   bottom-scripts-container-sel  (html/append (bottom-external-scripts-snip external-js-filenames))
   bottom-scripts-container-sel  (html/append (bottom-internal-scripts-snip
                                                (concat
-                                                 (:js-files tour)
-                                                 internal-js-filenames)))
+                                                 internal-js-filenames
+                                                 (:js-files tour))))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/required context))
   [:input]              (html/set-attr :autocomplete "off") ; NOTE: Disable 'autocomplete' for all inputs (specially required for Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=654072)
   [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
