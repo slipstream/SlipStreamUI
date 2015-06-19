@@ -534,6 +534,9 @@
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Mantenir actif après le déploiement"
    :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder active l'application après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des long tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consomer des resources Cloud que dans le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. L'option marquée avec `*` est la valeur par défaut configurée dans votre profile. Note: Ce paramètre ne s'applique pas aux `déploiements mutables` et aux `constructions d'images`."
 
+   :slipstream.ui.models.parameters.mail-usage.description                      "Recevoir un courriel des consommations sur vos clouds"
+   :slipstream.ui.models.parameters.mail-usage.help-hint                        "Choisissez la fréquence à laquelle vous recevrez un courriel détaillant la consommation de vos resources sur vos clouds."
+
    :slipstream.ui.models.parameters.ssh-key-available.description               "Accès SSH"
    :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "Des clés SSH sont configurées dans votre profile. SlipStream va les installer sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder."
    :slipstream.ui.models.parameters.ssh-key-not-available.description           "Accès SSH"
@@ -697,7 +700,12 @@
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-error     "En cas d'erreur"
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never        "Jamais"
 
-   ;; Time
+   :slipstream.ui.util.core.enum.option.text.mail-usage.never                                   "Jamais"
+   :slipstream.ui.util.core.enum.option.text.mail-usage.daily                                   "Chaque jour"
+   :slipstream.ui.util.core.enum.option.text.mail-usage.weekly                                  "Chaque semaine"
+   :slipstream.ui.util.core.enum.option.text.mail-usage.monthly                                 "Chaque mois"
+
+ ;; Time
 
    :slipstream.ui.util.time.year                                                :global.time.year
    :slipstream.ui.util.time.years                                               :global.time.years

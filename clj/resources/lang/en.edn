@@ -538,6 +538,9 @@
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Keep running after deployment"
    :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if and when SlipStream should leave the application running after performing the deployment. `On success` is useful for production deployments or long tests. `On Error` might be useful so that resources are consumed only when debugging is needed. `Never` ensures that SlipStream automatically terminates the application after performing the deployment. The option flagged with a `*` is the default configured in your user profile.  Note: This parameter doesn't apply to `mutable deployment` Runs and to `build image` Runs."
 
+   :slipstream.ui.models.parameters.mail-usage.description                      "Receive an email with usages on clouds"
+   :slipstream.ui.models.parameters.mail-usage.help-hint                        "Choose the frequency at which you want to receive an email summarizing your usage across your clouds."
+
    :slipstream.ui.models.parameters.ssh-key-available.description               "SSH access"
    :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "There are SSH keys configured in your user profile. SlipStream will install the keys into the deployed machines so that you can use SSH to access them."
    :slipstream.ui.models.parameters.ssh-key-not-available.description           "SSH access"
@@ -701,6 +704,10 @@
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-error     "On Error"
    :slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never        "Never"
 
+   :slipstream.ui.util.core.enum.option.text.mail-usage.never                                   "Never"
+   :slipstream.ui.util.core.enum.option.text.mail-usage.daily                                   "Daily"
+   :slipstream.ui.util.core.enum.option.text.mail-usage.weekly                                  "Weekly"
+   :slipstream.ui.util.core.enum.option.text.mail-usage.monthly                                 "Monthly"
 
    ;; Time
 

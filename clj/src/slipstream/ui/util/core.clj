@@ -93,6 +93,7 @@
                                             ;          :on-success
                                             ;          :on-error
                                             ;          :never]
+    :mail-usage
     :deployment-parameter-category  ; Values: ["Output" "Input"] in slipstream.ui.views.tables/deployment-parameter-row
     :mapping-options                ; Values: [:parameter.bind-to-output :parameter.bind-to-value]
     :atos-ip-type                   ; Values: ["public" "local" "private"]
