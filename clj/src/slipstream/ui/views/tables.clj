@@ -476,15 +476,20 @@
     [row-index package]
     {:style  nil
      :cells [(image-creation-package-cell row-index package :name)
-             (image-creation-package-cell row-index package :repository)
-             (image-creation-package-cell row-index package :key)
+             ; TODO: Re-enable this two columns when the client thakes them into account
+             ; (image-creation-package-cell row-index package :repository)
+             ; (image-creation-package-cell row-index package :key)
              (remove-button-cell)]})
 
   (defn image-creation-packages-table
     [image-creation-packages]
     (table/build
       {:class "ss-table-with-blank-last-row"
-       :headers [:name :repository :key nil]
+       :headers [:name
+                 ; TODO: Re-enable this two columns when the client thakes them into account
+                 ; :repository
+                 ; :key
+                 nil]
        :rows (->> image-creation-packages
                   append-blank-row-in-edit-mode
                   (map-indexed image-creation-package-row))}))
