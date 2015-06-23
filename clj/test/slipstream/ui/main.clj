@@ -109,6 +109,8 @@
     ["logout"]                (render :pagename "logout")
 
     ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
+    ["welcome-nuvla"]         (binding [slipstream.ui.util.theme/*current-theme* "nuvla"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view"))
+    ["welcome-helixnebula"]   (binding [slipstream.ui.util.theme/*current-theme* "helixnebula"] (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view"))
     ["welcome-with-tour-with-connectors"]     (render :pagename "welcome" :raw-metadata-ns "welcome-with-connectors"    :type "view" :query-parameters {:start-tour "yes"})
     ["welcome-with-tour-without-connectors"]  (render :pagename "welcome" :raw-metadata-ns "welcome-without-connectors" :type "view" :query-parameters {:start-tour "yes"})
     ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
