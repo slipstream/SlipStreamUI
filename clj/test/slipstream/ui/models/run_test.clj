@@ -374,7 +374,7 @@
                                              :map-others? false
                                              :order 2147483647
                                              :mapped-value? false
-                                             :value [{:selected? true}]}
+                                             :value [{:selected? true, :original-selection "Public"}]}
                                             {:group "testclient.1"
                                              :deleted? false
                                              :help-hint "Nodename"

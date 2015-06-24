@@ -23,7 +23,7 @@
    :configuration {:configured-clouds #{"AmazonEC2" "Cloud1" "Cloud2"}
                    :available-clouds  [{:value "Cloud1", :configured? true,  :disabled? false, :text "Cloud1"}
                                        {:value "Cloud2", :configured? true,  :disabled? false, :text "Cloud2"}
-                                       {:value "Cloud3", :configured? false, :disabled? true,  :text "Cloud3 (not configured) *", :default? true, :selected? true}
+                                       {:value "Cloud3", :configured? false, :disabled? true,  :text "Cloud3 (not configured) *", :default? true, :selected? true, :original-selection "CloudNotInTheList"}
                                        {:value "Cloud4", :configured? false, :disabled? true,  :text "Cloud4 (not configured)"}] ; General.default.cloud.service
                    :keep-running  :on-success    ; General.keep-running
                    :ssh-keys      "some-ssh-key" ; General.ssh.public.key
@@ -32,7 +32,7 @@
     (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse (dissoc :parameters))))
 
 (expect
-  [{:category-type :general, :category "General", :parameters [{:help-hint "Select the cloud that you want to use as the default.", :mandatory? true, :read-only? false, :order 10, :value [{:selected? true, :value "Cloud3", :text "Cloud3"}
+  [{:category-type :general, :category "General", :parameters [{:help-hint "Select the cloud that you want to use as the default.", :mandatory? true, :read-only? false, :order 10, :value [{:selected? true, :value "Cloud3", :text "Cloud3", :original-selection "CloudNotInTheList"}
                                                             {:value "Cloud4", :text "Cloud4"}
                                                             {:value "Cloud1", :text "Cloud1"}
                                                             {:value "Cloud2", :text "Cloud2"}], :category "General", :description "Default Cloud", :type "Enum", :name "General.default.cloud.service"}
