@@ -193,7 +193,7 @@
                <string>Cloud1</string>
                <string>Cloud2</string>
             </enumValues>
-            <value><![CDATA[Cloud3]]></value>
+            <value><![CDATA[CloudNotInTheList]]></value>
          </parameter>
       </entry>
       <entry>
@@ -349,7 +349,7 @@
                <string>Cloud1</string>
                <string>Cloud2</string>
             </enumValues>
-            <value><![CDATA[Cloud2]]></value>
+            <value><![CDATA[CloudNotInTheList]]></value>
          </parameter>
       </entry>
       <entry>

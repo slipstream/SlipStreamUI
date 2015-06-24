@@ -472,14 +472,15 @@
 (defn- options-str
   [enum]
   (->> enum
-    (map :text)
-    uc/join-as-str))
+       (map :text)
+       uc/join-as-str))
 
 (defn- selected-options-str
   [enum]
   (->> enum
        (filter :selected?)
-       options-str))
+       (map #(or (:original-selection %) (:text %)))
+       uc/join-as-str))
 
 (defmethod cell-snip [:cell/enum :mode/view :content/map]
   [{{:keys [enum id]} :content}]

@@ -136,12 +136,26 @@
           uc/keywordize
           name))))
 
+(defn remember-original-selected-option
+  "In some cases, it might make sense that the selected option is not in the
+  list of options (e.g. in some migration scenarios). In that case, we remember
+  the originally selected option as an additional field in the really selected option."
+  [original-selected-option enum]
+  (if (-> enum enum-selection :value (= original-selected-option))
+    enum
+    (into []
+          (for [option enum]
+            (if (:selected? option)
+              (assoc option :original-selection original-selected-option)
+              option)))))
+
 (defn enum-select
   "If the 'selected-option is not available, the first one will be selected."
   [enum selected-option]
   (->> enum
        (map (partial toggle-option (enum-value selected-option)))
        ensure-one-selected
+       (remember-original-selected-option selected-option)
        type-enum
        (name-enum (-> enum meta :name))))
 
