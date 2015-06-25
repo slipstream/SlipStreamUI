@@ -174,7 +174,7 @@
                                         :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
-                                        :value [{:selected? true, :value "virtio", :text "virtio"}
+                                        :value [{:selected? true, :value "virtio", :text "virtio", :original-selection "VIRTIO"}
                                                 {:value "scsi", :text "scsi"}]
                                         :description "VM disks bus type"
                                         :category "stratuslab"}
@@ -184,7 +184,7 @@
                                         :mandatory? true
                                         :type "Enum"
                                         :order 2147483647
-                                        :value [{:selected? true, :value "m1.small", :text "m1.small"}
+                                        :value [{:selected? true, :value "m1.small", :text "m1.small", :original-selection "M1_SMALL"}
                                                 {:value "c1.medium", :text "c1.medium"}
                                                 {:value "m1.large", :text "m1.large"}
                                                 {:value "m1.xlarge", :text "m1.xlarge"}

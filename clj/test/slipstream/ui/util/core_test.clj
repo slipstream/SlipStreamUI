@@ -127,7 +127,15 @@
         (enum :cloud-platforms "fedora"))))
 
 (expect
-  expected-enum
+  [{:value  "centos",   :text   "CentOS", :selected? true, :original-selection "value-not-available"}
+   {:value  "debian",   :text   "Debian"}
+   {:value  "fedora",   :text   "Fedora"}
+   {:value  "opensuse", :text   "OpenSuse"}
+   {:value  "redhat",   :text   "RedHat"}
+   {:value  "sles",     :text   "Sles"}
+   {:value  "ubuntu",   :text   "Ubuntu"}
+   {:value  "windows",  :text   "Windows"}
+   {:value  "other",    :text   "Other"}]
   (localization/with-lang :en
     (-> platforms
         (enum :cloud-platforms)
