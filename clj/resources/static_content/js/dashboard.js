@@ -1,18 +1,22 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var selectedGagueCls = "ss-selected-gauge";
+    var selectedGagueCls = "ss-selected-gauge",
+        originalAllCloudsString = $("#ss-detailed-info-cloud-name").text();
 
     $(".ss-usage-gauge").click(function(){
         var $gauge      = $(this),
+            isSelected  = $gauge.is(selectedGagueCls.asSel()),
             targetCloud = $gauge.data("quota-title");
         $("#runs, #vms")
             .updateAttr("data-content-load-url", function(s) {
-                    return s.replace(/cloud=[^&]*&/, "cloud=" + targetCloud + "&");
+                    return s.replace(/cloud=[^&]*&/, "cloud=" + (isSelected ? "" : targetCloud) + "&");
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
-        $("#ss-detailed-info-cloud-name").text(targetCloud);
+        $("#ss-detailed-info-cloud-name").text( isSelected ? originalAllCloudsString : targetCloud );
         $(".ss-usage-gauge").removeClass(selectedGagueCls);
-        $gauge.addClass(selectedGagueCls);
+        if ( !isSelected ) {
+            $gauge.addClass(selectedGagueCls);
+        }
     });
 
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
