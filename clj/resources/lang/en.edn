@@ -850,6 +850,7 @@
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"
    :slipstream.ui.views.dashboard.section.quota.title             "Usage"
+   :slipstream.ui.views.dashboard.section.cloud-detailed-info.title! "Runs and VMs for <span id='ss-detailed-info-cloud-name'>all clouds</span>"
    :slipstream.ui.views.dashboard.section.runs.title              "Deployments / Runs / Builds"
    :slipstream.ui.views.dashboard.section.vms.title               :global.nouns.vms
    :slipstream.ui.views.dashboard.section.metering.title          :global.nouns.metering

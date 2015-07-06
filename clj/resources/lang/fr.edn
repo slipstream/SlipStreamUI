@@ -842,6 +842,7 @@
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Controller et surveiller votre activité sur le Cloud"
    :slipstream.ui.views.dashboard.section.quota.title             "Utilisation des ressources Cloud"
+   :slipstream.ui.views.dashboard.section.cloud-detailed-info.title! "Runs et VMs pour <span id='ss-detailed-info-cloud-name'>tous les Clouds</span>"
    :slipstream.ui.views.dashboard.section.runs.title              "Runs (Déploiements / Exécutions / Constructions)"
    :slipstream.ui.views.dashboard.section.vms.title               "Machines virtuelles"
    :slipstream.ui.views.dashboard.section.metering.title          :global.nouns.metering

@@ -58,7 +58,7 @@
 
 (defmethod section ::cloud-detailed-info
   [{:keys [clouds]} metadata-key]
-  {:title   "Cloud detailed info"
+  {:title   (t :section.cloud-detailed-info.title)
    :content (map  cloud-detailed-info-subsection [::runs ::vms])
    :type    :flat-section})
 

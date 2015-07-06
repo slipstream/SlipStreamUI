@@ -39,7 +39,7 @@
     section-sel         (ue/enable-class (uc/first-not-nil selected? unique-section?) section-selected-cls)
     section-sel         (ue/when-add-class type (str "ss-section-" (name type)))
     section-icon-sel    (when icon (icons/set (icon :tooltip-placement "bottom")))
-    section-title-sel   (html/content (str title))
+    section-title-sel   (html/html-content (str title))
     section-header-sel  (ue/remove-if-not title)
     section-content-sel (ue/if-enlive-node content
                           (if (string? content)

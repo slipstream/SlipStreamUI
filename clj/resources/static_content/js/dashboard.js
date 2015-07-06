@@ -10,6 +10,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     return s.replace(/cloud=[^&]*&/, "cloud=" + targetCloud + "&");
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
+        $("#ss-detailed-info-cloud-name").text(targetCloud);
         $(".ss-usage-gauge").removeClass(selectedGagueCls);
         $gauge.addClass(selectedGagueCls);
     });
