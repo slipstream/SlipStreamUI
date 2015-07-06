@@ -5,7 +5,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $(".ss-usage-gauge").click(function(){
         var $gauge      = $(this),
             targetCloud = $gauge.data("quota-title");
-        $("#runs, #vms").
+        $("#runs, #vms")
+            .updateAttr("data-content-load-url", function(s) {
+                    return s.replace(/cloud=[^&]*&/, "cloud=" + targetCloud + "&");
+                });
+        $$.subsection.triggerOnShowOnOpenSubsection();
         $(".ss-usage-gauge").removeClass(selectedGagueCls);
         $gauge.addClass(selectedGagueCls);
     });
@@ -105,5 +109,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
+    $$.subsection.triggerOnShowOnOpenSubsection();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
