@@ -52,6 +52,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         tabAnchorSel = ".ss-subsection-activator-group a[role=tab]";
 
     $(tabAnchorSel).on("shown.bs.tab", function (e, extraParametersArg) {
+        // In flat sections, do not remember the open subsection in the hash
+        if ( $(this).closest(".ss-section-flat").foundAny() ) {
+            return;
+        }
         // Ensure correct hash when opening subsections
         var $tabAnchor          = $(this),
             subsectionTitle     = $tabAnchor.text(),

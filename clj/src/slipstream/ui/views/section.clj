@@ -12,24 +12,35 @@
 
 (def section-group-sel [:#ss-section-group])
 (def section-sel [[:.ss-section (ue/first-of-class "ss-section")]])
+(def section-flat-sel [[:.ss-section (ue/first-of-class "ss-section-flat")]])
 (def section-anchor-sel (concat section-sel [:.ss-section-activator]))
 (def chevron-sel (concat section-anchor-sel [:span [:span (html/nth-child 2)]]))
 (def section-panel-sel [[:.panel-collapse :.collapse]])
+(def section-header-sel [:.ss-section-header])
 (def section-icon-sel [:.ss-section-icon])
 (def section-title-sel [:.ss-section-title])
 (def section-content-sel [:.ss-section-content])
+
+
+
+(html/defsnippet section-flat-snip template-filename section-flat-sel
+  []
+  identity)
 
 (html/defsnippet section-group-snip template-filename section-group-sel
   [total-section-count section-group-index sections]
   ue/this (ue/append-to-id "-" section-group-index)
   ue/this (ue/content-for section-sel [{:keys [icon title selected? content type] :as section} sections
-                   :let [section-uid (->> title uc/keywordize name (str "ss-section-"))
+                   :let [section-uid (->> (or title "untitled") uc/keywordize name (str "ss-section-"))
                          unique-section? (= total-section-count 1)
-                         collapsible?    (not unique-section?)]]
+                         collapsible?    (not unique-section?)
+                         flat-section?   (-> section :type (= :flat-section))]]
+    ue/this             (ue/when-substitute flat-section? (section-flat-snip))
     section-sel         (ue/enable-class (uc/first-not-nil selected? unique-section?) section-selected-cls)
     section-sel         (ue/when-add-class type (str "ss-section-" (name type)))
     section-icon-sel    (when icon (icons/set (icon :tooltip-placement "bottom")))
     section-title-sel   (html/content (str title))
+    section-header-sel  (ue/remove-if-not title)
     section-content-sel (ue/if-enlive-node content
                           (if (string? content)
                             (html/html-content content)
