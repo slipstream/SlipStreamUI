@@ -1,14 +1,13 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    $$.section.onShow(function(subsectionTitle, $subsectionContent) {
-        if ($subsectionContent.is("#ss-section-usage")) {
-            drawGauges($subsectionContent);
-        }
-    });
+    var selectedGagueCls = "ss-selected-gauge";
 
     $(".ss-usage-gauge").click(function(){
-        var targetCloud  = $(this).data("quota-title");
-        $$.section.select(2, targetCloud);
+        var $gauge      = $(this),
+            targetCloud = $gauge.data("quota-title");
+        $("#runs, #vms").
+        $(".ss-usage-gauge").removeClass(selectedGagueCls);
+        $gauge.addClass(selectedGagueCls);
     });
 
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
@@ -104,6 +103,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         drawHistograms();
     });
 
+    drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
