@@ -25,7 +25,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return;
         }
         $$.request
-            .get($dynamicCloudSubsection.data("content-load-url"))
+            .get($dynamicCloudSubsection.attr("data-content-load-url"))
             .dataType("html")
             .onSuccess(function (html){
                 var $newContent = $(".ss-section-content", html);
