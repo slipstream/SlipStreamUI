@@ -10,15 +10,11 @@
 }
 .ss-usage-gauge:hover:not(.ss-selected-gauge) {
     opacity: 0.9;
-    -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-       -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-            box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+    outline: 4px solid #eeeded;
 }
 
 .ss-selected-gauge {
-    background-color: #fafafa;
+    background-color: #fefefe;
     opacity: 1;
-    -webkit-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-       -moz-box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
-            box-shadow: 0 0 6px 2px rgba(80,80,80,.5);
+    outline: 4px solid #aaa;
 }
