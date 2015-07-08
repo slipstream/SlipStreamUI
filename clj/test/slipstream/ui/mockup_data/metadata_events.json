@@ -263,6 +263,72 @@
     } ],
     "resourceURI" : "http://sixsq.com/slipstream/1/Event",
     "timestamp" : "2015-06-11T10:10:14.339Z"
+  }, {
+    "content" : {
+      "state" : "Something critical",
+      "resource" : {
+        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
+      }
+    },
+    "updated" : "2015-06-11T01:10:14.349Z",
+    "type" : "example",
+    "created" : "2015-06-11T01:10:14.349Z",
+    "id" : "Event/45859383-183e-4bcb-9356-8f2a6d0382ab",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "right" : "ALL",
+        "type" : "USER",
+        "principal" : "bob"
+      }, {
+        "right" : "ALL",
+        "type" : "ROLE",
+        "principal" : "ADMIN"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "Event/bedd9fec-25e9-4ee6-bea8-d8ab383bda37"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
+    "timestamp" : "2015-06-11T01:10:14.339Z"
+  }, {
+    "content" : {
+      "state" : "Something high",
+      "resource" : {
+        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
+      }
+    },
+    "updated" : "2015-06-11T00:10:14.349Z",
+    "type" : "example",
+    "created" : "2015-06-11T00:10:14.349Z",
+    "id" : "Event/670d2def-7c49-4281-a03e-289fb0b1f9f4",
+    "severity" : "high",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "right" : "ALL",
+        "type" : "USER",
+        "principal" : "bob"
+      }, {
+        "right" : "ALL",
+        "type" : "ROLE",
+        "principal" : "ADMIN"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "Event/bedd9fec-25e9-4ee6-bea8-d8ab383bda37"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
+    "timestamp" : "2015-06-11T00:10:14.339Z"
   } ],
   "operations" : [ {
     "rel" : "http://sixsq.com/slipstream/1/Action/add",
