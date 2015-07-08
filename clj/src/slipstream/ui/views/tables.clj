@@ -784,7 +784,7 @@
 (localization/with-prefixed-t :vms-table
 
   (defn- vm-row
-    [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name] :as vm}]
+    [{:keys [cloud-name run-uuid run-owner cloud-instance-id cloud-name username state ip-address name] :as vm}]
     (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
           run-uuid-as-link?   (and run-uuid accessible?)]
       {:style  nil
@@ -800,6 +800,7 @@
                          {:type :cell/text,     :content ip-address})
                        {:type :cell/text,       :content name}
                        {:type :cell/text,       :content cloud-instance-id}
+                       {:type :cell/text,       :content cloud-name}
                        {:type :cell/username,   :content run-owner}]
                 (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
 
@@ -807,7 +808,7 @@
     [vms & [pagination]]
     (table/build
       {:pagination  pagination
-       :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :run-owner]
+       :headers     (cond-> [:run-id :state :ip-address :name :cloud-instance-id :cloud :run-owner]
                       (current-user/super?) (conj :user))
        :rows (map vm-row vms)}))
 

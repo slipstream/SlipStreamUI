@@ -271,6 +271,7 @@
    :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
+   :slipstream.ui.views.table.header.cloud                    :global.nouns.cloud
    :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
    :slipstream.ui.views.table.header.cloud-names              :global.nouns.clouds
