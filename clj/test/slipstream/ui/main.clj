@@ -182,6 +182,8 @@
 
     ["configuration"]         (render :pagename "configuration"   :raw-metadata-ns "configuration")
 
+    ["events"]                (render :pagename "events"          :raw-metadata-ns "events")
+
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
 
     ["error"]                 (render-error :raw-metadata-ns "module.project"
