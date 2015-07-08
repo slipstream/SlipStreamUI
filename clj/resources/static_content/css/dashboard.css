@@ -10,6 +10,7 @@
 }
 .ss-usage-gauge:first-child {
     background-color: aliceblue;
+    opacity: 1;
 }
 .ss-usage-gauge:hover:not(.ss-selected-gauge) {
     opacity: 0.9;
