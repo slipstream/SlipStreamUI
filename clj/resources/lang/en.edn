@@ -847,6 +847,8 @@
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
    :slipstream.ui.views.users.content.title                    :global.nouns.users
 
+   :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
+
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"
    :slipstream.ui.views.dashboard.section.quota.title             "Usage"

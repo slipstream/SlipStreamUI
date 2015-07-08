@@ -4,17 +4,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
         originalAllCloudsString = $("#ss-detailed-info-cloud-name").text();
 
     $(".ss-usage-gauge").click(function(){
-        var $gauge      = $(this),
-            isSelected  = $gauge.is(selectedGagueCls.asSel()),
-            targetCloud = $gauge.data("quota-title");
+        var $gauge          = $(this),
+            isGlobalGauge   = ($gauge.index() === 0),
+            isSelected      = $gauge.is(selectedGagueCls.asSel()),
+            targetCloud     = $gauge.data("quota-title");
         $("#runs, #vms")
             .updateAttr("data-content-load-url", function(s) {
-                    return s.replace(/cloud=[^&]*&/, "cloud=" + (isSelected ? "" : targetCloud) + "&");
+                    return s.replace(/cloud=[^&]*&/, "cloud=" + (isGlobalGauge ? "" : targetCloud) + "&");
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
-        $("#ss-detailed-info-cloud-name").text( isSelected ? originalAllCloudsString : targetCloud );
-        $(".ss-usage-gauge").removeClass(selectedGagueCls);
+        $("#ss-detailed-info-cloud-name").text( isGlobalGauge ? originalAllCloudsString : targetCloud );
         if ( !isSelected ) {
+            $(".ss-usage-gauge").removeClass(selectedGagueCls);
             $gauge.addClass(selectedGagueCls);
         }
     });
@@ -114,6 +115,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
-    $$.subsection.triggerOnShowOnOpenSubsection();
+    // $$.subsection.triggerOnShowOnOpenSubsection();
+    $(".ss-usage-gauge:first-child").click();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

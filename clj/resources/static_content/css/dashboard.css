@@ -8,11 +8,13 @@
     cursor: pointer;
     opacity: 0.8;
 }
+.ss-usage-gauge:first-child {
+    background-color: aliceblue;
+}
 .ss-usage-gauge:hover:not(.ss-selected-gauge) {
     opacity: 0.9;
     outline: 4px solid #eeeded;
 }
-
 .ss-selected-gauge {
     background-color: #fefefe;
     opacity: 1;
