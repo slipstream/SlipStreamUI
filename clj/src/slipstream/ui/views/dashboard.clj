@@ -108,7 +108,8 @@
 (defmethod section ::metering
   [dashboard metadata-key]
   {:title   (localization/section-title metadata-key)
-   :content (map metering-subsection metering-metrics)})
+   :content (map metering-subsection metering-metrics)
+   :type    :flat-section})
 
 (defn- sections
   [dashboard]
