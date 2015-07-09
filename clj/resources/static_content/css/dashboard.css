@@ -8,10 +8,6 @@
     cursor: pointer;
     opacity: 0.8;
 }
-.ss-usage-gauge:first-child {
-    background-color: aliceblue;
-    opacity: 1;
-}
 .ss-usage-gauge:hover:not(.ss-selected-gauge) {
     opacity: 0.9;
     outline: 4px solid #eeeded;
@@ -21,3 +17,18 @@
     opacity: 1;
     outline: 4px solid #aaa;
 }
+
+.ss-usage-gauge:first-child {
+    outline: #def2ff solid 4px;
+    opacity: 1;
+}
+.ss-usage-gauge:first-child:hover:not(.ss-selected-gauge) {
+    opacity: 0.9;
+    outline: 4px solid #7cc1ef;
+}
+.ss-selected-gauge:first-child {
+    background-color: #f2faff;
+    outline: #50a7de solid 4px;
+    opacity: 1;
+}
+
