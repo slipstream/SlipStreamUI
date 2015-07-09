@@ -930,3 +930,29 @@
                     (map-indexed (partial service-catalog-parameter-row catalog-id category-enum)))})))
 
 ) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- event-row
+  [{:keys [id target timestamp content severity type] :as event}]
+  {:style (case severity
+            "critical" :danger
+            "high"     :warning
+            "medium"   nil
+            "low"      nil
+            nil)
+   :cells [{:type :cell/icon,       :content icons/event}
+           {:type :cell/text,       :content id}
+           {:type :cell/text,       :content target}
+           {:type :cell/timestamp,  :content timestamp}
+           {:type :cell/text,       :content content}
+           {:type :cell/text,       :content severity}
+           {:type :cell/text,       :content type}]})
+
+(defn events-table
+  [events]
+  (table/build
+    {:headers [nil :event-id :event-target :timestamp :event-content :severity :type]
+     :rows (map event-row events)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
