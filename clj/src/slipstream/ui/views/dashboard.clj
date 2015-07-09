@@ -58,8 +58,7 @@
 
 (defmethod section ::cloud-detailed-info
   [{:keys [clouds]} metadata-key]
-  {:title   (t :section.cloud-detailed-info.title)
-   :content (map  cloud-detailed-info-subsection [::runs ::vms])
+  {:content (map  cloud-detailed-info-subsection [::runs ::vms])
    :type    :flat-section})
 
 ;; Metering section

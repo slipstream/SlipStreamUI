@@ -1,7 +1,6 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var selectedGagueCls = "ss-selected-gauge",
-        originalAllCloudsString = $("#ss-detailed-info-cloud-name").text();
+    var selectedGagueCls = "ss-selected-gauge";
 
     $(".ss-usage-gauge").click(function(){
         var $gauge          = $(this),
@@ -13,7 +12,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     return s.replace(/cloud=[^&]*&/, "cloud=" + (isGlobalGauge ? "" : targetCloud) + "&");
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
-        $("#ss-detailed-info-cloud-name").text( isGlobalGauge ? originalAllCloudsString : targetCloud );
         if ( !isSelected ) {
             $(".ss-usage-gauge").removeClass(selectedGagueCls);
             $gauge.addClass(selectedGagueCls);
