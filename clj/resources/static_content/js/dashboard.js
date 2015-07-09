@@ -113,7 +113,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
-    // $$.subsection.triggerOnShowOnOpenSubsection();
     $(".ss-usage-gauge:first-child").click();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
