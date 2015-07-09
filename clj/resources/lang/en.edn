@@ -34,17 +34,19 @@
                     :clouds           "Clouds"
                     :comment          "Comment"
                     :configuration    "Configuration"
+                    :content          "Content"
                     :dashboard        "Dashboard"
                     :date             "Date"
                     :deployment       "Deployment"
                     :description      "Description"
                     :details          "Details"
                     :documentation    "Documentation"
-                    :knowledge-base   "Knowledge Base"
                     :email            "Email"
                     :end              "End"
                     :epub             "ePub"
                     :error            "Error"
+                    :event            "Event"
+                    :events           "Events"
                     :first-name       "First name"
                     :group            "Group"
                     :help             "Help"
@@ -54,6 +56,7 @@
                     :info             "Information"
                     :input            "Input"
                     :key              "Key"
+                    :knowledge-base   "Knowledge Base"
                     :last-name        "Last name"
                     :mapping          "Mapping"
                     :metering         "Metering"
@@ -88,6 +91,7 @@
                     :run              "Run"
                     :runs             "Runs"
                     :service-catalog  "Service Catalog"
+                    :severity         "Severity"
                     :start            "Start"
                     :state            "State"
                     :success          "Success"
@@ -96,6 +100,9 @@
                     :system           "System"
                     :tag              "Tag"
                     :tags             "Tags"
+                    :target           "Target"
+                    :timestamp        "Timestamp"
+                    :type             "Type"
                     :user             "User"
                     :username         "Username"
                     :users            "Users"
@@ -306,7 +313,12 @@
    :slipstream.ui.views.table.header.username                 :global.nouns.username
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
-
+   :slipstream.ui.views.table.header.event-id                 "Event Id"
+   :slipstream.ui.views.table.header.event-target             :global.nouns.target
+   :slipstream.ui.views.table.header.timestamp                :global.nouns.timestamp
+   :slipstream.ui.views.table.header.event-content            :global.nouns.content
+   :slipstream.ui.views.table.header.severity                 :global.nouns.severity
+   :slipstream.ui.views.table.header.type                     :global.nouns.type
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
@@ -757,6 +769,7 @@
    :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
+   :slipstream.ui.util.icons.description.event                     :global.nouns.event
 
    :slipstream.ui.util.icons.description.user-section-summary      "Personal information"
    :slipstream.ui.util.icons.description.user-section-general      "General parameters"
@@ -846,6 +859,10 @@
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configure the users in the SlipStream service."
    :slipstream.ui.views.users.content.title                    :global.nouns.users
+
+   :slipstream.ui.views.events.header.title                    :global.nouns.events
+   :slipstream.ui.views.events.header.subtitle                 "List of events related to your user."
+   :slipstream.ui.views.events.content.title                   :global.nouns.events
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"

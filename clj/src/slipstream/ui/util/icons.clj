@@ -62,6 +62,7 @@
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
+(deficon event                  "flash")
 
 (deficon user-section-summary   user)
 (deficon user-section-general   config)
