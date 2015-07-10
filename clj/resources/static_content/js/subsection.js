@@ -52,6 +52,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         tabAnchorSel = ".ss-subsection-activator-group a[role=tab]";
 
     $(tabAnchorSel).on("shown.bs.tab", function (e, extraParametersArg) {
+
         // Ensure correct hash when opening subsections
         var $tabAnchor          = $(this),
             subsectionTitle     = $tabAnchor.text(),
@@ -62,7 +63,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $subsectionContent  = $(subsectionId),
             onShowCallback      = $tabAnchor.data(onShowCallbackKey),
             extraParameters = $.extend({
-                    skipHashUpdate: false
+                    // In flat sections, do not persist the open subsection in the hash
+                    skipHashUpdate: $tabAnchor.closest(".ss-section-flat").foundAny()
                 },
                 extraParametersArg);
 
@@ -95,7 +97,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var extraParameters = {
                 skipHashUpdate: skipHashUpdate
             };
-            $(".panel .panel-collapse.collapse.in")                         // The open section
+            $(".panel .panel-collapse.collapse.in, .ss-section-flat")       // The open collapsible section and the flat sections
                 .find(".ss-subsection-group, .ss-subsection-group-stacked") // Its subsections (horizontal, vertical or combobox)
                     .find("li.active > a")                                  // The open subsection
                         .trigger("show.bs.tab", extraParameters)

@@ -1,14 +1,21 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    $$.section.onShow(function(subsectionTitle, $subsectionContent) {
-        if ($subsectionContent.is("#ss-section-usage")) {
-            drawGauges($subsectionContent);
-        }
-    });
+    var selectedGagueCls = "ss-selected-gauge";
 
     $(".ss-usage-gauge").click(function(){
-        var targetCloud  = $(this).data("quota-title");
-        $$.section.select(2, targetCloud);
+        var $gauge          = $(this),
+            isGlobalGauge   = ($gauge.index() === 0),
+            isSelected      = $gauge.is(selectedGagueCls.asSel()),
+            targetCloud     = $gauge.data("quota-title");
+        $("#runs, #vms")
+            .updateAttr("data-content-load-url", function(s) {
+                    return s.replace(/cloud=[^&]*&/, "cloud=" + (isGlobalGauge ? "" : targetCloud) + "&");
+                });
+        $$.subsection.triggerOnShowOnOpenSubsection();
+        if ( !isSelected ) {
+            $(".ss-usage-gauge").removeClass(selectedGagueCls);
+            $gauge.addClass(selectedGagueCls);
+        }
     });
 
     $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
@@ -17,7 +24,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return;
         }
         $$.request
-            .get($dynamicCloudSubsection.data("content-load-url"))
+            .get($dynamicCloudSubsection.attr("data-content-load-url"))
             .dataType("html")
             .onSuccess(function (html){
                 var $newContent = $(".ss-section-content", html);
@@ -104,6 +111,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         drawHistograms();
     });
 
+    drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
+    $(".ss-usage-gauge:first-child").click();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

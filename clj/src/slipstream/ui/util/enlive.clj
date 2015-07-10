@@ -54,6 +54,14 @@
    `(when ~test
      (html/content ~content-if-truthy))))
 
+(defmacro when-substitute
+  ([content]
+   `(when-content (not-empty ~content) ~content))
+  ([test value-if-truthy]
+   `(if ~test
+     (html/substitute ~value-if-truthy)
+     identity)))
+
 (defmacro when-append
   ([content]
    `(when-append (not-empty ~content) ~content))

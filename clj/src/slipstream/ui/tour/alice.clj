@@ -153,7 +153,7 @@
                      "<br/><br/>"
                      "Click " next-button-label " to take a quick tour of this important page.")}
 
-      [[:div.panel.ss-section.panel-default (html/nth-child 1)]]
+      [:.panel-group :> (html/nth-child 1)]
       {:title "Usage section"
        :content "Here you see all of the accessible clouds and your resource comsumption on each one."
        :placement "top"}
@@ -162,23 +162,14 @@
       {:title (str "Usage gauge")
        :content (str  "The big number indicates the number of VMs you have running in <code>" (query-param-value context :cloud) "</code>."
                       " The top limit is the quota you are allowed to consume at the same time for this cloud."
-                      " Contact the administrator of this SlipStream instance if you need to change it.")
+                      " Contact the administrator of this SlipStream instance if you need to change it."
+                      "<br/><br/>"
+                      "Click here, and then click next, to see the runs you did on this cloud.")
        :container-sel "body"
        :preserve-padding true
        :placement "top"}
 
-      [[:div.panel.ss-section.panel-default (html/nth-child 3)]]
-      {:title "VMs section"
-       :content (str "These are all the individual VMs that are launched using your cloud credentials (i.e. a <code>describe-instance</code> kind of info, if it speaks to you)."
-                     " Note that if some VMs were launched outside of SlipStream with your credentials, they will also be listed here, but without a <code>Run Id</code>.")
-       :placement "top"}
-
-      [[:div.panel.ss-section.panel-default (html/nth-child 4)]]
-      {:title "Metering section"
-       :content "Here you can see the history of your consumption over different periods of time."
-       :placement "top"}
-
-      [[:div.panel.ss-section.panel-default (html/nth-child 2)]]
+      [:.panel-group :> (html/nth-child 2)]
       {:title "Runs section"
        :content (str "Here you can find all the runs grouped by cloud, including the WordPress you launched before."
                      " Click on its <code>Run Id</code> (we kindly noted it for you: <code>" (query-param-value context :wordpress-run-id) "</code>) to go back to the <code>Run page</code>."

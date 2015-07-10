@@ -41,3 +41,22 @@ span.row span {
 .ss-dynamic-subsection > .ss-section-content {
   padding: 0;
 }
+
+.ss-section-flat .ss-section-header h4,
+.ss-section-flat .ss-section-header span {
+  font-size: 16px;
+}
+.ss-section-flat .ss-section-header > div {
+  padding-top:    20px;
+  padding-bottom: 10px;
+}
+.ss-section-flat .ss-section-header > div > :first-child {
+  padding-left: 16px;
+}
+.ss-section-flat .ss-section-header > hr {
+  margin: 0;
+}
+.ss-section-flat .ss-section-content {
+  padding: 15px;
+  padding-bottom: 25px;
+}

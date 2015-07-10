@@ -279,6 +279,7 @@
    :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
+   :slipstream.ui.views.table.header.cloud                    :global.nouns.cloud
    :slipstream.ui.views.table.header.cloud-instance-id        "Cloud Instance Id"
    :slipstream.ui.views.table.header.cloud-names              :global.nouns.clouds
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
@@ -863,6 +864,8 @@
    :slipstream.ui.views.events.header.title                    :global.nouns.events
    :slipstream.ui.views.events.header.subtitle                 "List of events related to your user."
    :slipstream.ui.views.events.content.title                   :global.nouns.events
+
+   :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"

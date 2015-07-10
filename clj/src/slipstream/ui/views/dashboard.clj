@@ -31,7 +31,8 @@
 (defmethod section ::quota
   [dashboard metadata-key]
   {:title   (localization/section-title metadata-key)
-   :content (-> dashboard :quota :usage usage-snip)})
+   :content (-> dashboard :quota :usage usage-snip)
+   :type    :flat-section})
 
 ;; Runs and VMs section
 
@@ -39,26 +40,26 @@
   (ue/blank-node :span :class "glyphicon glyphicon-refresh ss-subsection-content-spinner"))
 
 (ue/def-blank-snippet ^:private dynamic-cloud-subsection-content-snip [:div :div]
-  [metadata-key cloud-name]
+  [metadata-key]
   ue/this     (html/add-class "ss-dynamic-subsection")
   [:div :div] (html/add-class "ss-dynamic-subsection-content")
   ue/this     (ue/set-data :content-load-url (format "/%s?cloud=%s&offset=0&limit=%s"
                                                      ({::vms "vms"
                                                        ::runs (if (mode/headless?) "runs" "run")} metadata-key)
-                                                     cloud-name
+                                                     "" ;; Leave cloud name blank for all clouds
                                                      pagination/items-per-page))
-  ue/this     (ue/set-id (name metadata-key) "-" cloud-name)
+  ue/this     (ue/set-id (name metadata-key))
   [:div :div] (html/content spinner-icon))
 
-(defn- cloud-subsection
-  [metadata-key cloud-name]
-  {:title   cloud-name
-   :content (dynamic-cloud-subsection-content-snip metadata-key cloud-name)})
-
-(defmethod section ::dynamic-cloud-subsection
-  [{:keys [clouds]} metadata-key]
+(defn- cloud-detailed-info-subsection
+  [metadata-key]
   {:title   (localization/section-title metadata-key)
-   :content (map (partial cloud-subsection metadata-key) clouds)})
+   :content (dynamic-cloud-subsection-content-snip metadata-key)})
+
+(defmethod section ::cloud-detailed-info
+  [{:keys [clouds]} metadata-key]
+  {:content (map  cloud-detailed-info-subsection [::runs ::vms])
+   :type    :flat-section})
 
 ;; Metering section
 
@@ -106,17 +107,14 @@
 (defmethod section ::metering
   [dashboard metadata-key]
   {:title   (localization/section-title metadata-key)
-   :content (map metering-subsection metering-metrics)})
-
-(derive ::runs ::dynamic-cloud-subsection)
-(derive ::vms  ::dynamic-cloud-subsection)
+   :content (map metering-subsection metering-metrics)
+   :type    :flat-section})
 
 (defn- sections
   [dashboard]
   (cond-> []
     (-> dashboard :quota :enabled?)     (conj ::quota)
-    :always                             (conj ::runs)
-    :always                             (conj ::vms)
+    :always                             (conj ::cloud-detailed-info)
     (-> dashboard :metering :enabled?)  (conj ::metering)))
 
 (def ^:private html-dependencies
