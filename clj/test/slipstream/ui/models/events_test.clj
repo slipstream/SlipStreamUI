@@ -17,10 +17,10 @@
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse first))
 
 (expect
-  {:id        "f63e3d8a-9f34-4669-888d-e73d07c237f4"
+  {:id        "670d2def-7c49-4281-a03e-289fb0b1f9f4"
    :target    "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-   :timestamp "2015-06-11T10:10:14.339Z"
-   :content   "Initializing"
-   :severity  "medium"
-   :type      "state"}
+   :timestamp "2015-06-11T00:10:14.339Z"
+   :content   "Something high"
+   :severity  "high"
+   :type      "example"}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse last))
