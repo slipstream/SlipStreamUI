@@ -33,17 +33,19 @@
                     :clouds           "Clouds"
                     :comment          "Commentaire"
                     :configuration    "Configuration"
+                    :content          "Contenu"
                     :dashboard        "Tableau de bord"
                     :date             "Date"
                     :deployment       "Déploiement"
                     :description      "Description"
                     :details          "Détails"
                     :documentation    "Documentation"
-                    :knowledge-base   "Base de connaissance"
                     :email            "Courriel"
                     :end              "Fin"
                     :epub             "ePub"
                     :error            "Erreur"
+                    :event            "Événement"
+                    :events           "Événements"
                     :first-name       "Prénom"
                     :group            "Groupe"
                     :help             "Aide"
@@ -53,6 +55,7 @@
                     :info             "Information"
                     :input            "Entrée"
                     :key              "Clé"
+                    :knowledge-base   "Base de connaissance"
                     :last-name        "Nom"
                     :mapping          "Liaison"
                     :metering         "Mesures"
@@ -84,9 +87,10 @@
                     :report           "Rapport"
                     :reports          "Reports"
                     :repository       "Dépôt"
-                    :service-catalog  "Catalogue de services"
                     :run              "Exécution"
                     :runs             "Exécutions"
+                    :service-catalog  "Catalogue de services"
+                    :severity         "Sévérité"
                     :start            "Départ"
                     :state            "Etat"
                     :success          "Réussite"
@@ -95,6 +99,9 @@
                     :system           "Système"
                     :tag              "Etiquette"
                     :tags             "Etiquettes"
+                    :target           "Cible"
+                    :timestamp        "Date"
+                    :type             "Type"
                     :user             "Utilisateur"
                     :username         "Nom d'utilisateur"
                     :users            "Utilisateurs"
@@ -271,6 +278,7 @@
    :slipstream.ui.views.table.header.action                   :global.nouns.action
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
+   :slipstream.ui.views.table.header.cloud                    :global.nouns.cloud
    :slipstream.ui.views.table.header.cloud-instance-id        "Id de l'instance"
    :slipstream.ui.views.table.header.comment                  :global.nouns.comment
    :slipstream.ui.views.table.header.cloud-names              :global.nouns.clouds
@@ -309,6 +317,12 @@
    :slipstream.ui.views.table.header.ram                      "RAM [Mo]"
    :slipstream.ui.views.table.header.disk                     "Disque [Go]"
    :slipstream.ui.views.table.header.instance-type            "Type d'instance"
+   :slipstream.ui.views.table.header.event-id                 "Id"
+   :slipstream.ui.views.table.header.event-target             :global.nouns.target
+   :slipstream.ui.views.table.header.timestamp                :global.nouns.timestamp
+   :slipstream.ui.views.table.header.event-content            :global.nouns.content
+   :slipstream.ui.views.table.header.severity                 :global.nouns.severity
+   :slipstream.ui.views.table.header.type                     :global.nouns.type
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Image de référence"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Multiplicité par défaut"
@@ -755,6 +769,7 @@
    :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
+   :slipstream.ui.util.icons.description.event                     :global.nouns.event
 
    :slipstream.ui.util.icons.description.user-section-summary      "Information personnelle"
    :slipstream.ui.util.icons.description.user-section-general      "Paramètres généraux"
@@ -842,6 +857,12 @@
    :slipstream.ui.views.users.header.title                     :global.nouns.users
    :slipstream.ui.views.users.header.subtitle                  "Configurer les utilisateurs de SlipStream."
    :slipstream.ui.views.users.content.title                    :global.nouns.users
+
+   :slipstream.ui.views.events.header.title                    :global.nouns.events
+   :slipstream.ui.views.events.header.subtitle                 "Liste des événements liés à votre utilisateur."
+   :slipstream.ui.views.events.content.title                   :global.nouns.events
+
+   :slipstream.ui.models.dashboard.all-clouds.title               "Tous les Clouds"
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Controller et surveiller votre activité sur le Cloud"

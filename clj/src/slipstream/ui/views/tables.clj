@@ -784,7 +784,11 @@
 (localization/with-prefixed-t :vms-table
 
   (defn- vm-row
+<<<<<<< HEAD
     [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name, cpu, ram, disk, instance-type] :as vm}]
+=======
+    [{:keys [cloud-name run-uuid run-owner cloud-instance-id cloud-name username state ip-address name] :as vm}]
+>>>>>>> master
     (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
           run-uuid-as-link?   (and run-uuid accessible?)]
       {:style  nil
@@ -804,6 +808,7 @@
                        {:type :cell/text,       :content disk}
                        {:type :cell/text,       :content instance-type}
                        {:type :cell/text,       :content cloud-instance-id}
+                       {:type :cell/text,       :content cloud-name}
                        {:type :cell/username,   :content run-owner}]
                 (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
 
@@ -811,7 +816,7 @@
     [vms & [pagination]]
     (table/build
       {:pagination  pagination
-       :headers     (cond-> [:run-id :state :ip-address :name :cpu :ram :disk :instance-type :cloud-instance-id :run-owner]
+       :headers     (cond-> [:run-id :state :ip-address :name :cpu :ram :disk :instance-type :cloud-instance-id :cloud :run-owner]
                       (current-user/super?) (conj :user))
        :rows (map vm-row vms)}))
 
@@ -933,3 +938,29 @@
                     (map-indexed (partial service-catalog-parameter-row catalog-id category-enum)))})))
 
 ) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- event-row
+  [{:keys [id target timestamp content severity type] :as event}]
+  {:style (case severity
+            "critical" :danger
+            "high"     :warning
+            "medium"   nil
+            "low"      nil
+            nil)
+   :cells [{:type :cell/icon,       :content icons/event}
+           {:type :cell/text,       :content id}
+           {:type :cell/text,       :content target}
+           {:type :cell/timestamp,  :content timestamp}
+           {:type :cell/text,       :content content}
+           {:type :cell/text,       :content severity}
+           {:type :cell/text,       :content type}]})
+
+(defn events-table
+  [events]
+  (table/build
+    {:headers [nil :event-id :event-target :timestamp :event-content :severity :type]
+     :rows (map event-row events)}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

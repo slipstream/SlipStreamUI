@@ -64,7 +64,10 @@
 (expect
   {:clouds ["CloudA" "CloudB"]
    :quota {:enabled? true
-           :usage [{:cloud "CloudA"
+           :usage [{:cloud "All Clouds",
+                    :current-usage 13,
+                    :quota 20}
+                   {:cloud "CloudA"
                     :current-usage 0
                     :quota 5}
                    {:cloud "CloudB"
