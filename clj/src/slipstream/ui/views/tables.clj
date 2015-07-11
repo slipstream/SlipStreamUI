@@ -784,11 +784,7 @@
 (localization/with-prefixed-t :vms-table
 
   (defn- vm-row
-<<<<<<< HEAD
-    [{:keys [cloud-name run-uuid run-owner cloud-instance-id username state ip-address name, cpu, ram, disk, instance-type] :as vm}]
-=======
-    [{:keys [cloud-name run-uuid run-owner cloud-instance-id cloud-name username state ip-address name] :as vm}]
->>>>>>> master
+    [{:keys [cloud-name run-uuid run-owner cloud-instance-id cloud-name username state ip-address name, cpu, ram, disk, instance-type] :as vm}]
     (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
           run-uuid-as-link?   (and run-uuid accessible?)]
       {:style  nil
