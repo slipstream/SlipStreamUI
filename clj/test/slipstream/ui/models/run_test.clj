@@ -9,9 +9,9 @@
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_run_ready_abort.xml"))
 
 (expect
-  [:runtime-parameters :summary]
+  #{:runtime-parameters :summary}
   (localization/with-lang :en
-    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys)))
+    (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse keys set)))
 
 (expect
   {:last-state-change "2014-09-24 00:20:06.517 CEST"
