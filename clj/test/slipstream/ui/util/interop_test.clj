@@ -81,6 +81,7 @@
     clojure.lang.IObj
     clojure.lang.IPersistentMap
     clojure.lang.MapEquivalence
+    clojure.lang.IMapIterable   ;; clojure 1.7.0
     java.io.Serializable
     java.lang.Object
     java.lang.Runnable
@@ -99,6 +100,7 @@
     clojure.lang.IObj
     clojure.lang.IPersistentMap
     clojure.lang.MapEquivalence
+    clojure.lang.IMapIterable   ;; clojure 1.7.0
     java.io.Serializable
     java.lang.Object
     java.lang.Runnable
@@ -156,6 +158,8 @@
     clojure.lang.IMeta
     clojure.lang.IObj
     clojure.lang.IPersistentVector
+    clojure.lang.IReduce           ;; clojure 1.7.0
+    clojure.lang.IReduceInit       ;; clojure 1.7.0
     java.io.Serializable
     java.lang.Comparable
     java.lang.Iterable
