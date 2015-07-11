@@ -305,6 +305,10 @@
    :slipstream.ui.views.table.header.username                 :global.nouns.username
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
+   :slipstream.ui.views.table.header.cpu                      "CPU"
+   :slipstream.ui.views.table.header.ram                      "RAM [Mo]"
+   :slipstream.ui.views.table.header.disk                     "Disque [Go]"
+   :slipstream.ui.views.table.header.instance-type            "Type d'instance"
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Image de référence"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Multiplicité par défaut"
@@ -850,6 +854,10 @@
    :slipstream.ui.views.dashboard.metering-options.last-7-days    "Les derniers 7 jours"
    :slipstream.ui.views.dashboard.metering-options.last-30-days   "Les derniers 30 jours"
    :slipstream.ui.views.dashboard.metering.metric.instance        "Machines virtuelles"
+   :slipstream.ui.views.dashboard.metering.metric.cpu-nb          "vCPUs"
+   :slipstream.ui.views.dashboard.metering.metric.ram-mb          "RAM [Mo]"
+   :slipstream.ui.views.dashboard.metering.metric.disk-gb         "Disque [Go]"
+   :slipstream.ui.views.dashboard.metering.metric.instance-type   "Type d'instance"
 
    :slipstream.ui.views.versions.header.title                  "Historique de '%s'"
    :slipstream.ui.views.versions.header.subtitle.one-version   "Il y a une version de ce module (%s)."

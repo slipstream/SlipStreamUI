@@ -306,7 +306,10 @@
    :slipstream.ui.views.table.header.username                 :global.nouns.username
    :slipstream.ui.views.table.header.value                    :global.nouns.value
    :slipstream.ui.views.table.header.version                  :global.nouns.version
-
+   :slipstream.ui.views.table.header.cpu                      "CPU"
+   :slipstream.ui.views.table.header.ram                      "RAM [MB]"
+   :slipstream.ui.views.table.header.disk                     "Disk [GB]"
+   :slipstream.ui.views.table.header.instance-type            "Instance type"
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
@@ -858,6 +861,10 @@
    :slipstream.ui.views.dashboard.metering-options.last-7-days    "Last 7 days"
    :slipstream.ui.views.dashboard.metering-options.last-30-days   "Last 30 days"
    :slipstream.ui.views.dashboard.metering.metric.instance        :global.nouns.vms
+   :slipstream.ui.views.dashboard.metering.metric.cpu-nb          "vCPUs"
+   :slipstream.ui.views.dashboard.metering.metric.ram-mb          "RAM [MB]"
+   :slipstream.ui.views.dashboard.metering.metric.disk-gb         "Disk [GB]"
+   :slipstream.ui.views.dashboard.metering.metric.instance-type   "Instance type"
 
    :slipstream.ui.views.versions.header.title                  "History of '%s'"
    :slipstream.ui.views.versions.header.subtitle.one-version   "There is one version of this %s."
