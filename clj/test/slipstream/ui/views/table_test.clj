@@ -184,23 +184,26 @@
 
 (localization/with-lang :en
     (let [one-date          (t/date-time 2015 05 27 10 00)
-          one-date-minue-1h (t/minus one-date (t/hours 1))
-          ss-timestamp      (f/unparse (f/formatters :date-time) one-date-minue-1h)
-          human-readable    (time/format :human-readable ss-timestamp)]
-      (expect
+          one-date-minus-1h (t/minus one-date (t/hours 1))
+          ss-timestamp      (f/unparse (f/formatters :date-time) one-date-minus-1h)
+          human-readable    (time/format :human-readable ss-timestamp)
+          human-readable-fr (localization/with-lang :fr
+                              (time/format :human-readable ss-timestamp))]
+      (expect-html
         (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable "</span></td>")
         (localization/with-lang :en
           (freeze-time one-date ; Freeze time to one-date to allow proper testing of relative date in 'title' attribute
-            (cell-html {:type :cell/timestamp, :content ss-timestamp})))))
+            (cell-html {:type :cell/timestamp, :content ss-timestamp}))))
+
+      (expect-html
+       (str "<td class=\"ss-table-cell-text\"><span title=\"il y a 1 heure\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable-fr "</span></td>")
+       (localization/with-lang :fr
+         (freeze-time one-date ; Freeze time to one-date to allow proper testing of relative date in 'title' attribute
+           (cell-html {:type :cell/timestamp, :content ss-timestamp}))))))
 
   (expect
     IllegalArgumentException
     (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"}))
-
-  (expect
-    (re-pattern "<td class=\"ss-table-cell-text\"><span title=\".*\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">mer., 6 mars 2013, 14:30:59 UTC</span></td>")
-    (localization/with-lang :fr
-      (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"}))))
 
 
 ;; Editable text cell
