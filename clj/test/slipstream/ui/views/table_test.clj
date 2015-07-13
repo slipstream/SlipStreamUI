@@ -36,10 +36,10 @@
 
 (expect-html
   (str "<span>"
-         "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-         "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
          "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
          "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
        "</span>")
   (->> (@#'slipstream.ui.views.table/hidden-inputs-for-parameter-snip parameter row-index)
        html/emit*
@@ -184,23 +184,26 @@
 
 (localization/with-lang :en
     (let [one-date          (t/date-time 2015 05 27 10 00)
-          one-date-minue-1h (t/minus one-date (t/hours 1))
-          ss-timestamp      (f/unparse (f/formatters :date-time) one-date-minue-1h)
-          human-readable    (time/format :human-readable ss-timestamp)]
-      (expect
+          one-date-minus-1h (t/minus one-date (t/hours 1))
+          ss-timestamp      (f/unparse (f/formatters :date-time) one-date-minus-1h)
+          human-readable    (time/format :human-readable ss-timestamp)
+          human-readable-fr (localization/with-lang :fr
+                              (time/format :human-readable ss-timestamp))]
+      (expect-html
         (str "<td class=\"ss-table-cell-text\"><span title=\"1 hour ago\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable "</span></td>")
         (localization/with-lang :en
           (freeze-time one-date ; Freeze time to one-date to allow proper testing of relative date in 'title' attribute
-            (cell-html {:type :cell/timestamp, :content ss-timestamp})))))
+            (cell-html {:type :cell/timestamp, :content ss-timestamp}))))
+
+      (expect-html
+       (str "<td class=\"ss-table-cell-text\"><span title=\"il y a 1 heure\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">" human-readable-fr "</span></td>")
+       (localization/with-lang :fr
+         (freeze-time one-date ; Freeze time to one-date to allow proper testing of relative date in 'title' attribute
+           (cell-html {:type :cell/timestamp, :content ss-timestamp}))))))
 
   (expect
     IllegalArgumentException
     (cell-html {:type :cell/timestamp, :content "2013-03-06 14:3"}))
-
-  (expect
-    (re-pattern "<td class=\"ss-table-cell-text\"><span title=\".*\" data-placement=\"bottom\" data-toggle=\"tooltip\" class=\"ss-table-tooltip\">mer., 6 mars 2013, 14:30:59 UTC</span></td>")
-    (localization/with-lang :fr
-      (cell-html {:type :cell/timestamp, :content "2013-03-06 14:30:59.30 UTC"}))))
 
 
 ;; Editable text cell
@@ -263,10 +266,10 @@
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/text, :editable? true, :content {:text rand-str
@@ -300,10 +303,10 @@
   (str "<td class=\"ss-table-cell-password-editable\">
               <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--0--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--0--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--0--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--0--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/password, :editable? true, :content {:text rand-str
@@ -401,10 +404,10 @@
                 <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
               </select>
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--7--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--7--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--7--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--7--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum
@@ -623,10 +626,10 @@
   (str "<td class=\"ss-table-cell-boolean-editable\">
               <input checked=\"\" type=\"checkbox\" />
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/boolean, :editable? true, :content {:value true

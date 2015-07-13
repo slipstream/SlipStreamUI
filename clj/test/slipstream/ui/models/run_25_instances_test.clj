@@ -15,9 +15,10 @@
         model/parse)))
 
 (expect
-  [:runtime-parameters :summary]
+  #{:runtime-parameters :summary}
   (-> parsed-metadata
-      keys))
+      keys
+      set))
 
 (expect
   {:end-time nil

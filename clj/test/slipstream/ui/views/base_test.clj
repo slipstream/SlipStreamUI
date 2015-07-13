@@ -1,7 +1,8 @@
 (ns slipstream.ui.views.base-test
   (:use [expectations]
         [slipstream.ui.views.base])
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [slipstream.ui.utils :as u :refer [expect-html]]))
 
 ;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:
 ;;
@@ -66,25 +67,25 @@
 
 ;; css-links-snip
 
-(expect
+(expect-html
   ""
   (->> (@#'slipstream.ui.views.base/css-links-snip nil)
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   ""
   (->> (@#'slipstream.ui.views.base/css-links-snip [])
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<link href=\"css/blah.js\" type=\"text/css\" rel=\"stylesheet\" />"
   (->> (@#'slipstream.ui.views.base/css-links-snip ["blah.js"])
        html/emit*
        (apply str)))
 
-(expect
+(expect-html
   "<link href=\"css/foo.js\" type=\"text/css\" rel=\"stylesheet\" /><link href=\"css/foo/bar.js\" type=\"text/css\" rel=\"stylesheet\" />"
   (->> (@#'slipstream.ui.views.base/css-links-snip ["foo.js" "foo/bar.js"])
        html/emit*
