@@ -15,7 +15,11 @@
       (assoc        :cloud-name         (-> vm-metadata :cloud      not-empty))
       (assoc        :ip-address         (-> vm-metadata :ip         not-empty))
       (assoc        :run-owner          (-> vm-metadata :runOwner   not-empty))
-      (assoc        :name               (-> vm-metadata :name       not-empty))))
+      (assoc        :name               (-> vm-metadata :name       not-empty))
+      (assoc        :cpu                (-> vm-metadata :cpu        not-empty))
+      (assoc        :ram                (-> vm-metadata :ram        not-empty))
+      (assoc        :disk               (-> vm-metadata :disk       not-empty))
+      (assoc        :instance-type      (-> vm-metadata :instanceType not-empty))))
 
 (defn parse
   [metadata]

@@ -81,9 +81,10 @@
 (def ^:private metering-metrics
   [
    :instance
-   ; :vcpus
-   ; :memory
-   ; :disk
+   :cpu-nb
+   :ram-mb
+   :disk-gb
+   ; :instance-type
    ])
 
 (defn- data-metric-value
