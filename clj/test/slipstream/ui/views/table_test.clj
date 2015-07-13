@@ -36,10 +36,10 @@
 
 (expect-html
   (str "<span>"
-         "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-         "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
          "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
          "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+         "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
        "</span>")
   (->> (@#'slipstream.ui.views.table/hidden-inputs-for-parameter-snip parameter row-index)
        html/emit*
@@ -266,10 +266,10 @@
   (str "<td class=\"ss-table-cell-text-editable\">
               <input value=\"" rand-str "\" class=\"form-control\" type=\"text\" />
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/text, :editable? true, :content {:text rand-str
@@ -303,10 +303,10 @@
   (str "<td class=\"ss-table-cell-password-editable\">
               <input placeholder=\"Password\" class=\"form-control\" type=\"password\" />
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--0--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--0--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--0--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--0--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--0--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/password, :editable? true, :content {:text rand-str
@@ -404,10 +404,10 @@
                 <option selected=\"\" value=\"" rand-url "\">" rand-str "</option>
               </select>
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--7--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--7--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--7--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--7--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--7--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/enum, :editable? true, :content {:enum enum
@@ -626,10 +626,10 @@
   (str "<td class=\"ss-table-cell-boolean-editable\">
               <input checked=\"\" type=\"checkbox\" />
             <span>"
-            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
-            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--category\" value=\"stratuslab\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--description\" value=\"Requested CPUs\" type=\"hidden\" />"
             "<input name=\"parameter-stratuslab.cpu--2--name\" value=\"stratuslab.cpu\" type=\"hidden\" />"
+            "<input name=\"parameter-stratuslab.cpu--2--type\" value=\"String\" type=\"hidden\" />"
           "</span>"
         "</td>")
   (cell-html {:type :cell/boolean, :editable? true, :content {:value true

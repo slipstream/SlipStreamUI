@@ -36,7 +36,9 @@
 (ue/def-blank-snippet ^:private hidden-inputs-for-parameter-snip [:span :input]
   [parameter row-index]
   [:input]  (ue/set-type "hidden")
-  ue/this   (ue/content-for [:input] [[k v] (select-keys parameter [:name :category :type :description])]
+  ue/this   (ue/content-for [:input] [[k v] (->> [:category :description :name :type]
+                                                 (select-keys parameter)
+                                                 (sort-by key))]
                     ue/this (ue/set-value v)
                     ue/this (->> k
                                  name
