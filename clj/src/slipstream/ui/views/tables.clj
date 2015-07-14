@@ -647,7 +647,7 @@
     [node-index {:keys [name reference-image template-node?] :as deployment-node}]
     {:style  nil
      :class (str "ss-deployment-node-row" (when template-node? " ss-deployment-template-row"))
-     :data  (when name (assoc-in {} ["outputParams" name] (:output-parameters deployment-node)))
+     :data  (when name (assoc-in {} [:output-params name] (:output-parameters deployment-node)))
      :cells [{:type :cell/text, :editable? true, :content {:text name
                                                            :class "ss-node-shortname"
                                                            :id (format "node--%s--shortname" node-index),
