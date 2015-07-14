@@ -82,10 +82,12 @@
 
 ;; Enlive cell snips
 
+(declare cell-hidden-input-snip-edit)
+
 ; Text cell
 
 (html/defsnippet ^:private cell-text-snip-view template-filename (sel-for-cell :text)
-  [{:keys [text tooltip id class colspan html-content?] :as cell-content}]
+  [{:keys [text tooltip id class colspan html-content? hidden-input] :as cell-content}]
   ue/this  (if (not-empty tooltip)
              (html/content (cell-text-with-tooltip-snip cell-content))
              ((if html-content? html/html-content html/content) (str text)))
@@ -93,7 +95,8 @@
                              "word-wrap: break-word; max-width: 500px;")
   ue/this (ue/set-id id)
   ue/this (ue/when-add-class class)
-  ue/this (ue/set-colspan colspan))
+  ue/this (ue/set-colspan colspan)
+  ue/this (ue/when-append hidden-input (cell-hidden-input-snip-edit hidden-input)))
 
 (html/defsnippet ^:private cell-text-snip-edit template-filename (sel-for-cell :text :editable)
   [{:keys [text tooltip id read-only? disabled? placeholder class data required?] :as cell-content}]
@@ -485,10 +488,14 @@
        uc/join-as-str))
 
 (defmethod cell-snip [:cell/enum :mode/view :content/map]
-  [{{:keys [enum id]} :content}]
-  (cell-text-snip-view {:text (selected-options-str enum)
-                        :id id
-                        :tooltip (t :enum-cell.view-mode.tooltip (options-str enum))}))
+  [{{:keys [enum id include-hidden-input?]} :content}]
+  (let [selected-option (selected-options-str enum)]
+    (cell-text-snip-view {:text selected-option
+                          :id id
+                          :hidden-input (when include-hidden-input?
+                                          {:value selected-option
+                                           :id    id})
+                          :tooltip (t :enum-cell.view-mode.tooltip (options-str enum))})))
 
 (defmethod cell-snip [:cell/enum :mode/view :content/plain]
   [{enum :content :as cell}]
