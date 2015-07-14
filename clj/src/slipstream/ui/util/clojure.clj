@@ -240,8 +240,11 @@
 
 (defn update-keys
   "Recursively applies f to all map keys."
-  [m f]
-  (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(f k) v])) x)) m))
+  [m f & {:keys [only-keywords?]}]
+  (let [g (if only-keywords?
+            (fn [k] (if (keyword? k) (f k) k))
+            f)]
+    (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(g k) v])) x)) m)))
 
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
@@ -284,11 +287,11 @@
         name
         (s/replace #"-\w" (comp s/upper-case last)))))
 
-(defn- key?->isKey
-  "Transfors a Clojure boolean ':key?' into a 'is-key' string."
+(defn- keyword?->is-keyword
+  "Transfors a Clojure keyword :keyword? into :is-keyword."
   [x]
   (if-let [[_ name-without-?] (when (keyword? x) (re-matches #"(.*)\?" (name x)))]
-    (str "is-" name-without-?)
+    (keyword (str "is-" name-without-?))
     x))
 
 (defn ->json
@@ -299,8 +302,8 @@
   See tests for expectations."
   [x]
   (some-> x
-          (update-keys key?->isKey)
-          (update-keys ->camelCaseString)
+          (update-keys keyword?->is-keyword :only-keywords? true)
+          (update-keys ->camelCaseString    :only-keywords? true)
           normalise-sorting
           json/generate-string))
 
