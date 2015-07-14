@@ -28,7 +28,7 @@
                <entry>
                   <string>input_param_1</string>
                   <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node2:output_param_1]]></value>
+                     <value><![CDATA[node_snake_cased:output_param_1]]></value>
                   </parameter>
                </entry>
             </parameterMappings>
@@ -42,7 +42,7 @@
                <entry>
                   <string>input_param_1</string>
                   <parameter category="General" description="" isMappedValue="true" mandatory="false" name="input_param_1" order="0" order_="0" readonly="false" type="String">
-                     <value><![CDATA[node2:output_param_1]]></value>
+                     <value><![CDATA[node_snake_cased:output_param_1]]></value>
                   </parameter>
                </entry>
             </parameters>
@@ -206,8 +206,8 @@
          </node>
       </entry>
       <entry>
-         <string>node2</string>
-         <node cloudService="default" creation="2015-03-16 17:23:00.876 CET" deleted="false" imageUri="module/neutral_projects_for_mockup_metadata/apache_web_server" maxProvisioningFailures="0" multiplicity="1" name="node2" network="Public">
+         <string>node_snake_cased</string>
+         <node cloudService="default" creation="2015-03-16 17:23:00.876 CET" deleted="false" imageUri="module/neutral_projects_for_mockup_metadata/apache_web_server" maxProvisioningFailures="0" multiplicity="1" name="node_snake_cased" network="Public">
             <parameterMappings class="org.hibernate.collection.internal.PersistentMap">
                <entry>
                   <string>input_param_2</string>

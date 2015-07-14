@@ -34,11 +34,11 @@
           :output-parameters ["hostname" "instanceid" "output_param_1" "output_param_2"]
           :mappings [{:name "input_param_1"
                       :mapped-value? true
-                      :value "node2:output_param_1"}
+                      :value "node_snake_cased:output_param_1"}
                     {:name "input_param_2"
                      :mapped-value? false
                      :value "'default:value_for_input_param_2_with_colon_in_the_name'"}]}
-          {:name "node2"
+          {:name "node_snake_cased"
              :template-node? nil
              :reference-image "neutral_projects_for_mockup_metadata/apache_web_server"
              :default-multiplicity 1
