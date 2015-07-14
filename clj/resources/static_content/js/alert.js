@@ -14,8 +14,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // Wait longer for longer messages.
         var minDelay = 5000,
             delayMillisPerChar = 100, // empirical value
-            msg = $alertElem.find(".alert-msg").text();
-            delay = Math.max(minDelay, delayMillisPerChar * msg.countNonWhitespaceChars());
+            text = $alertElem.find(".alert-title").text() + $alertElem.find(".alert-msg").text();
+            delay = Math.max(minDelay, delayMillisPerChar * text.countNonWhitespaceChars());
         $alertElem.scheduleAlertDismiss(delay);
     }
 
