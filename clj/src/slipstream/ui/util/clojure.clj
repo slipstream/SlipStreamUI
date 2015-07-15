@@ -124,6 +124,17 @@
       (s/replace s #"\b\w[\w./\\-]*\b" #(shorten-long-word % char-threshold))
       s)))
 
+(defn truncate-to-max-length
+  "Truncates the input string up to 'char-threshold' chars."
+  ([^String s]
+    (truncate-to-max-length s shorten-char-threshold-default))
+  ([^String s char-threshold]
+    (if (and s (> (.length s) char-threshold))
+      (str
+        (subs s 0 (- char-threshold (.length shorten-indicator-str)))
+        shorten-indicator-str)
+      s)))
+
 (defn trim-prefix
   "See tests for expectations."
   [s prefix]
