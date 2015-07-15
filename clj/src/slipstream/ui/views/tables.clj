@@ -262,7 +262,8 @@
                        :required? false
                        :validation {:requirements (pattern/requirements :picture-url)
                                     :generic-help-hints {:success  (t :logo-url.success-help-hint)
-                                                         :warning  (t :logo-url.warning-help-hint)}}})))
+                                                         :warning  (t :logo-url.warning-help-hint)}}}
+      :notes          {:type :cell/text})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

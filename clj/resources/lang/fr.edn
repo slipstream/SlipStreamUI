@@ -64,6 +64,8 @@
                     :name             "Nom"
                     :node             "Noeud"
                     :nodes            "Noeuds"
+                    :note             "Note"
+                    :notes            "Notes"
                     :orchestrator     "Orchestrateur"
                     :organization     "Organisation"
                     :output           "Sortie"
@@ -554,6 +556,9 @@
 
    :slipstream.ui.models.parameters.mail-usage.description                      "Recevoir un courriel des consommations sur vos clouds"
    :slipstream.ui.models.parameters.mail-usage.help-hint                        "Choisissez la fréquence à laquelle vous recevrez un courriel détaillant la consommation de vos resources sur vos clouds."
+
+   :slipstream.ui.models.parameters.notes.description                           :global.nouns.notes
+   :slipstream.ui.models.parameters.notes.help-hint                             ""
 
    :slipstream.ui.models.parameters.ssh-key-available.description               "Accès SSH"
    :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "Des clés SSH sont configurées dans votre profile. SlipStream va les installer sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder."
