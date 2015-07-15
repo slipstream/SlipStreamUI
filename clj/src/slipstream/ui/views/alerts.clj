@@ -15,7 +15,7 @@
 (def msg-sel [:.alert-msg])
 
 ;; NOTE: See SlipStreamUI/clj/resources/static_content/js/alert.js => alertDefaultOptions.msgMaxLength
-(def msg-max-length 1500)
+(def msg-max-length 1000)
 
 (def alert-sel
   {:error   [:#alert-error]
