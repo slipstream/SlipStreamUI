@@ -61,6 +61,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         title: undefined,
         titleMaxLength: 500,
         msg: undefined,
+        // NOTE: See SlipStreamUI/clj/src/slipstream/ui/views/alerts.clj => msg-max-length
         msgMaxLength: 1500
     };
 
