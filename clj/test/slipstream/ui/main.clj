@@ -170,6 +170,7 @@
     ["users"]                                   (render :pagename "users" :raw-metadata-ns "users")
 
     ["run"]                                                               (render :pagename "run"   :raw-metadata-ns "run")
+    ["run-long-abort-message"]                                            (render :pagename "run"   :raw-metadata-ns "run-long-abort-message")
     ["run-tour-intro-without-connectors"]                                 (render :pagename "run"   :raw-metadata-ns "run"              :query-parameters {:tour "alice.intro-without-connectors.waiting-for-wordpress"})
     ["run-tour-intro-without-connectors-back-from-dashboard-ready"]       (render :pagename "run"   :raw-metadata-ns "run-ready"        :query-parameters {:tour "alice.intro-without-connectors.wordpress-running"})
     ["run-tour-intro-without-connectors-back-from-dashboard-ready-abort"] (render :pagename "run"   :raw-metadata-ns "run-ready-abort"  :query-parameters {:tour "alice.intro-without-connectors.wordpress-running"})
