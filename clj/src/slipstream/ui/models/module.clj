@@ -93,7 +93,8 @@
                           alternative-uri)
      :parent-uri        (-> attrs :parentUri)
      :logo-url          (-> metadata :attrs :logoLink (or ""))
-     :owner             (-> metadata (html/select [:authz]) first :attrs :owner)}))
+     :owner             (-> metadata (html/select [:authz]) first :attrs :owner)
+     :notes             (-> metadata (html/select [:notes :string html/text]) vec)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."

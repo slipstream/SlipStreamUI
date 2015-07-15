@@ -75,7 +75,8 @@
            :last-modified "2015-03-16 17:23:00.901 CET"
            :parent-uri "module/neutral_projects_for_mockup_metadata"
            :description "Multinode deployment with input and output params."
-           :category "Deployment"}
+           :category "Deployment"
+           :notes []}
  :authorization {:access-rights {:delete {:public-access? true
                                           :owner-access? true
                                           :group-access? true}

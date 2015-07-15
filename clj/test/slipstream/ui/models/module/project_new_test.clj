@@ -55,7 +55,8 @@
              :parent-uri "module/Public"
              :description "A description..."
              :logo-url ""
-             :category "Project"}})
+             :category "Project"
+             :notes []}})
 
 (expect
   parsed-metadata

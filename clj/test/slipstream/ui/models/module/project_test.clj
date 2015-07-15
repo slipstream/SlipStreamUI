@@ -41,7 +41,8 @@
            :last-modified "2015-03-13 19:36:31.339 CET"
            :parent-uri "module/"
            :description "The projects here shouldn't contain any personal or private information, since they are intended to be used as mockup metadata in the SlipStreamUI project."
-           :category "Project"}
+           :category "Project"
+           :notes []}
  :authorization {:access-rights {:delete {:public-access? true
                                           :owner-access? true
                                           :group-access? true}

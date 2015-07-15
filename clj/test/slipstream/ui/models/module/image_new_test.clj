@@ -248,7 +248,8 @@
              :last-modified "2013-03-07 21:03:09.337 CET"
              :parent-uri "module/Public/BaseImages/Ubuntu"
              :description "Nice Ubuntu distro"
-             :category "Image"}})
+             :category "Image"
+             :notes []}})
 
 (expect
   parsed-metadata

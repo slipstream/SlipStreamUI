@@ -12,6 +12,10 @@
       <string>Cloud2-with-veeeery-long-name</string>
       <string>default</string>
    </cloudNames>
+   <notes length="2">
+      <string>note one</string>
+      <string>note two</string>
+   </notes>
    <runs count="0" limit="20" offset="0" totalCount="0"/>
    <targets class="org.hibernate.collection.internal.PersistentSet">
       <target name="onvmremove"/>
