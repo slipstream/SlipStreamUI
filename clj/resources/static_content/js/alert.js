@@ -61,7 +61,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         title: undefined,
         titleMaxLength: 500,
         msg: undefined,
-        msgMaxLength: 1500
+        // NOTE: See SlipStreamUI/clj/src/slipstream/ui/views/alerts.clj => msg-max-length
+        msgMaxLength: 1000
     };
 
     function findVisibleAlerts($alertContainer) {

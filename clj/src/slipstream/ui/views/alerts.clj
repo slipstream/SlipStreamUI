@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.alerts
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.localization :as localization]))
 
@@ -12,6 +13,9 @@
 (def dismiss-button-sel [:button])
 (def title-sel [:.alert-title])
 (def msg-sel [:.alert-msg])
+
+;; NOTE: See SlipStreamUI/clj/resources/static_content/js/alert.js => alertDefaultOptions.msgMaxLength
+(def msg-max-length 1000)
 
 (def alert-sel
   {:error   [:#alert-error]
@@ -55,7 +59,10 @@
            title-sel (ue/if-content (not-empty title)
                                     title
                                     (-> type name (str ".title") keyword t))
-           msg-sel (html/html-content msg)))
+           msg-sel (html/html-content
+                     (-> msg
+                         ue/touch
+                         (uc/truncate-to-max-length msg-max-length)))))
 
 (defn hidden-templates
   []

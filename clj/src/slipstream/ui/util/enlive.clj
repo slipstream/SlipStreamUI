@@ -32,6 +32,16 @@
     (instance? clojure.lang.PersistentStructMap (first n))
     (instance? clojure.lang.PersistentStructMap (ffirst n))))
 
+(defn touch
+  "Returns the input after going once through the enlive engine. This is useful
+  to handle e.g. an HTML string in the exact same form that it will be rendered
+  on the page taking the actual XML parsed into account. See tests for
+  expectations."
+  [x]
+  (-> x
+      str
+      html/sniptest))
+
 ;; TODO: Refactor content-when-not-nil, if-content and when-content to make them
 ;;       consistent with set-attr-* fn family
 

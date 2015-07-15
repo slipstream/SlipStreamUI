@@ -57,6 +57,38 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; touch
+
+(expect
+  ""
+  (touch nil))
+
+(expect
+  ""
+  (touch ""))
+
+(expect
+  "1"
+  (touch 1))
+
+(expect
+  "1"
+  (touch "1"))
+
+(expect
+  "<a href=\"bar\">foo</a>"
+  (touch "<a href='bar'>foo</a>"))
+
+(expect
+  "<a href=\"bar\"></a><div>wrong</div>foo" ;; NOTE: The parser used does not expect a <div> inside an <a>
+  (touch "<a href='bar'><div>wrong</div>foo</a>"))
+
+(expect-html
+  example-html-page
+  (touch example-html-page))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Data fn family
 
 (def input-html "<input data-test=\"foo\" class=\"some-class\" type=\"text\" />")

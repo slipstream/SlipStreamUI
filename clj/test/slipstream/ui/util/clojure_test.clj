@@ -329,6 +329,66 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; truncate-to-max-length
+
+(expect
+  nil
+  (truncate-to-max-length nil 10))
+
+(expect
+  "someword"
+  (truncate-to-max-length "someword"))
+
+(expect
+  "someword"
+  (truncate-to-max-length "someword" 50))
+
+(expect
+  "someword"
+  (truncate-to-max-length "someword" 8))
+
+(expect
+  "some..."
+  (truncate-to-max-length "someword" 7))
+
+(expect
+  "a startsomewordsomewordsomewordsomewordend"
+  (truncate-to-max-length "a startsomewordsomewordsomewordsomewordend"))
+
+(expect
+  "a st..."
+  (truncate-to-max-length "a startsomewordsomewordsomewordsomewordend" 7))
+
+(expect
+  "a /s..."
+  (truncate-to-max-length "a /startsomewordsomewordsomewordsomewordend" 7))
+
+(expect
+  "a st..."
+  (truncate-to-max-length "a start-someword-someword-someword-someword-end" 7))
+
+(expect
+  "a st..."
+  (truncate-to-max-length "a start_someword_someword_someword_someword_end" 7))
+
+(expect
+  "a st..."
+  (truncate-to-max-length "a start.someword-someword_someword/someword\\end" 7))
+
+(expect
+  "this is an example with a /very/long/..."
+  (truncate-to-max-length "this is an example with a /very/long/and/deep/path/that/should/be/shortened.txt" 40))
+
+(expect
+  "startsomewordsomewordsomewordsomewordsomewordso..."
+  (truncate-to-max-length "startsomewordsomewordsomewordsomewordsomewordsomewordsomewordsomewordend"))
+
+(expect
+  "startsomewordsomewordsomewordsomewordsomewordsomewordsomewordsomewordend"
+  (truncate-to-max-length "startsomewordsomewordsomewordsomewordsomewordsomewordsomewordsomewordend" 100))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; parse-boolean
 
 (expect
