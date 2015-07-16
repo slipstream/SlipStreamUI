@@ -256,3 +256,26 @@ div.popover:not(.ss-alert-popover) code {
 .ss-showing-full-text-on-hover {
   color: transparent; /* hide real text */
 }
+
+/* Loading screen */
+
+.ss-loading-screen .backdrop {
+  z-index: 10000;
+  opacity: 0.8;
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.ss-loading-screen .ss-loading-screen-content {
+  color: #555;
+  font-size: 2em;
+  text-align: center;
+  z-index: 10010;
+  position: fixed;
+  width: 50%;
+  left: 25%;
+  top: 20%;
+}
