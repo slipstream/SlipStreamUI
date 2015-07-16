@@ -145,12 +145,17 @@
   (sniptest-quoted input-html
                    this (set-data :from-server {:a 1})))
 
-;; NOTE: Map keys are camelCase'd, including the idiomatic transformation of Clojure :is-some-boolean? keys.
+;; NOTE: Map keyword keys are camelCase'd, including the idiomatic transformation of Clojure :some-boolean? keys.
 
 (expect-html
-  "<input data-from-server=\"{'isFooBar':false,'someText':'foo bar'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  "<input data-from-server=\"{'isFooBar':false,'someDashCasedKeyword':'foo','someSnakeCasedKeyword':'bar'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
   (sniptest-quoted input-html
-                   this (set-data :from-server {:some-text "foo bar", :foo-bar? false})))
+                   this (set-data :from-server {:some-dash-cased-keyword "foo", :some_snake_cased_keyword "bar", :foo-bar? false})))
+
+(expect-html
+  "<input data-from-server=\"{'foo-bar?':false,'some-dash-cased-string':'foo','some_snake_cased_string':'bar'}\" type=\"text\" class=\"some-class\" data-test=\"foo\" />"
+  (sniptest-quoted input-html
+                   this (set-data :from-server {"some-dash-cased-string" "foo", "some_snake_cased_string" "bar", "foo-bar?" false})))
 
 ;; NOTE: Clojure sets are transformed into JSON vectors.
 

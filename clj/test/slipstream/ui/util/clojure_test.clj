@@ -951,31 +951,31 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; key?->isKey (private fn)
+;; keyword?->is-keyword (private fn)
 
 (expect
   nil
-  (@#'slipstream.ui.util.clojure/key?->isKey nil))
+  (@#'slipstream.ui.util.clojure/keyword?->is-keyword nil))
 
 (expect
-  "is-key"
-  (@#'slipstream.ui.util.clojure/key?->isKey :key?))
+  :is-key
+  (@#'slipstream.ui.util.clojure/keyword?->is-keyword :key?))
 
 (expect
   :key
-  (@#'slipstream.ui.util.clojure/key?->isKey :key))
+  (@#'slipstream.ui.util.clojure/keyword?->is-keyword :key))
 
 (expect
-  "is-some-key"
-  (@#'slipstream.ui.util.clojure/key?->isKey :some-key?))
+  :is-some-key
+  (@#'slipstream.ui.util.clojure/keyword?->is-keyword :some-key?))
 
 (expect
   "key?"
-  (@#'slipstream.ui.util.clojure/key?->isKey "key?"))
+  (@#'slipstream.ui.util.clojure/keyword?->is-keyword "key?"))
 
 (expect
   1
-  (@#'slipstream.ui.util.clojure/key?->isKey 1))
+  (@#'slipstream.ui.util.clojure/keyword?->is-keyword 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
