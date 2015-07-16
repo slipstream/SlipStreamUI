@@ -1,5 +1,20 @@
 jQuery( function() { ( function( $$, util, $, undefined ) {
 
+
+    util.isSomething = {
+        implementingMethod: function (something, methodName) {
+            try {
+                return $.type(something[methodName]) === "function";
+            }
+            catch (e) {
+                return false;
+            }
+        },
+        callable: function (something) {
+            return util.isSomething.implementingMethod(something, "call");
+        }
+    };
+
     // String prototype extensions
 
     $.extend(String.prototype, {

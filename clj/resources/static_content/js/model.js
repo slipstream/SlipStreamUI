@@ -233,7 +233,6 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
             }
             var isRun   = $$.util.meta.isViewName("run", $elem),
                 finalStates = ["cancelled", "aborted", "done"],
-                checkLoginRequest,
                 refreshRequest,
                 uuid,
                 url,
@@ -544,23 +543,18 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                             $(document).trigger("runUpdated", {"context": lastRefreshData});
                         }
 
-                        if (! checkLoginRequest) {
-                            checkLoginRequest = $$.request
-                                                    .get($("#ss-menubar-user-profile-anchor").attr("href"))
-                                                    .async(false)
-                                                    .dataType("xml")
-                                                    .onError(function() {
-                                                        $$.util.url.reloadPage();
-                                                    });
-                        }
                         if (! refreshRequest) {
                             refreshRequest = $$.request
                                                 .get(runModel.getURL())
-                                                .async(false)
                                                 .dataType("html")
-                                                .onSuccess(refreshCallback);
+                                                .onSuccess(refreshCallback)
+                                                .onErrorStatusCode(
+                                                    401, // Unauthorized
+                                                    function() {
+                                                        // Reload page to force going to login
+                                                        $$.util.url.reloadPage();
+                                                    });
                         }
-                        checkLoginRequest.send();
                         refreshRequest.send();
                         return runModel;
                     },
