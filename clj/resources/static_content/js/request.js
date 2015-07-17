@@ -217,7 +217,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         }
                         var statusCodeCallback = errorStatusCodeCallbacks[jqXHR.status];
                         if ( $$.util.isSomething.callable(statusCodeCallback) ) {
-                            statusCodeCallback.call(jqXHR.status, jqXHR, textStatus, errorThrown);
+                            statusCodeCallback.call(this, jqXHR.status, jqXHR, textStatus, errorThrown);
                         }
                         var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
                         if (statusCodeAlertTitleAndMsg === undefined) {
