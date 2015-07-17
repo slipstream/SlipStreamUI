@@ -1,29 +1,12 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // $(document.body).css("padding-top", $(".navbar").height() || 0);
-
-    // $("#form-signin").bootstrapValidator();
-    // $("#form-pwd-reset").bootstrapValidator();
-    // $("#form-contact-us").bootstrapValidator();
-
-    // $("#contact-request-textarea").maxlength({
-    //     placement: "bottom",
-    //     threshold: 50,
-    //     showCharsTyped: false,
-    //     warningClass: "label label-warning",
-    //     limitReachedClass: "label label-danger",
-    //     preText: "You can still write ",
-    //     separator: " chars (",
-    //     postText: " max)"
-    // });
-
     if (window.navigator.standalone) {
         // The app is running in standalone mode on a mobile device.
         // Add 20px to the top to accomodate a translucent status bar by css.
         $("body").addClass("ss-standalone-webapp-mobile");
     }
 
-    if ($("body").hasClass("ss-page-type-chooser")) {
+    if ($$.util.meta.isPageType("chooser project-chooser")) {
         // Make secondary-menubar fixed to top directly
         $("#ss-secondary-menubar-container").affix({
             offset: {

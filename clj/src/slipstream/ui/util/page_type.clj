@@ -16,16 +16,20 @@
 (derive :page-type-category/read-only  :page-type/any)
 (derive :page-type-category/editable   :page-type/any)
 
-(derive :page-type/view     :page-type-category/read-only)
-(derive :page-type/chooser  :page-type-category/read-only)
-(derive :page-type/edit     :page-type-category/editable)
-(derive :page-type/new      :page-type-category/editable)
+(derive :page-type/view             :page-type-category/read-only)
+(derive :page-type/chooser          :page-type-category/read-only)
+(derive :page-type/project-chooser  :page-type/chooser)
+(derive :page-type/reports-frame    :page-type/chooser)
+(derive :page-type/edit             :page-type-category/editable)
+(derive :page-type/new              :page-type-category/editable)
 
 (def valid-page-types
   #{:page-type/view
     :page-type/edit
     :page-type/new
-    :page-type/chooser})
+    :page-type/chooser
+    :page-type/project-chooser
+    :page-type/reports-frame})
 
 (defmacro with-page-type
   [page-type & body]
@@ -37,7 +41,7 @@
 
 (defn- is?
   [& page-types]
-  (boolean ((set page-types) *current-page-type*)))
+  (boolean (some #(isa? *current-page-type* %) page-types)))
 
 (defmacro defn-page-type-checkers
   "Defs a 2 top levels vars for each valid-page-type,
@@ -64,3 +68,12 @@
 (defn edit-or-new?
   []
   (is? :page-type/edit :page-type/new))
+
+(defn query-params
+  ([]
+    (query-params *current-page-type*))
+  ([page-type]
+    (case page-type
+      :page-type/project-chooser  "?chooser=true&chooser-type=project-chooser"
+      :page-type/chooser          "?chooser=true"
+      nil)))

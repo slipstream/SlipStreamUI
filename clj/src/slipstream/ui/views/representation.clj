@@ -60,10 +60,16 @@
 (defn page-types
   [pagename]
   (case pagename
-    "reports"          "chooser"
+    "reports"          "reports-frame"
     "service_catalog"  (if (current-user/super?) "edit" "view")
     "configuration"    (if (current-user/super?) "edit" "view")
     nil))
+
+(defn get-page-type
+  [pagename options]
+  (or (page-types pagename)
+      (-> options :request :query-parameters :chooser-type)
+      (-> options :type)))
 
 (defn- render-html
   "Enlive templates (used in page-fn's) return a seq of string which must be
@@ -102,8 +108,8 @@
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename args-map]
   (let [options (ui/->clj args-map)
-        {:keys [type request]}  options
-        lang (-> request :query-parameters :lang)
+        page-type (get-page-type pagename options)
+        lang (-> options :request :query-parameters :lang)
         metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (mode/when-dev
       ; NOTE: In dev mode, save a file into SlipStreamServer/war/raw-metadata-str.xml
@@ -111,10 +117,10 @@
       ;       These XMLs files can then be used as mockups for UI tests. They can be
       ;       saved with this command:
       ;       $ cp war/raw-metadata-str.xml ../SlipStreamUI/clj/test/slipstream/ui/mockup_data/metadata_{$NAME_OF_THE_METADATA}.xml
-      (spit (format "raw-metadata-str-page_%s-type_%s.xml" pagename type) raw-metadata-str))
+      (spit (format "raw-metadata-str-page_%s-type_%s.xml" pagename page-type) raw-metadata-str))
     (localization/with-lang lang
       (current-user/with-user-from-metadata
-        (page-type/with-page-type (or (page-types pagename) type)
+        (page-type/with-page-type page-type
           (guard-exceptions
             (render-page pagename (some-> metadata (with-meta options)))))))))
 

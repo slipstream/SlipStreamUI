@@ -237,8 +237,8 @@
                                                  (:js-files tour))))
   modal-dialogs-placeholder-sel (html/content (modal-dialogs/required context))
   [:input]              (html/set-attr :autocomplete "off") ; NOTE: Disable 'autocomplete' for all inputs (specially required for Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=654072)
-  [[:a (html/but (html/attr-starts :href "#"))]]  (if (page-type/chooser?) ;; TODO: Not do it when generating reports page (which currently uses still the :chooser page-type)
-                                                    (ue/append-to-href "?chooser=true")
+  [[:a (html/but (html/attr-starts :href "#"))]]  (if-let [query-params (page-type/query-params)]
+                                                    (ue/append-to-href query-params)
                                                     identity)
   footer-notice-sel             (html/content (t :footer.notice))
   ;; Changes for the UI theme
@@ -283,6 +283,7 @@
       (println ";; Generating base with context:")
       (println ";;   - View ns:             " (:view-ns context))
       (println ";;   - View name:           " (:view-name context))
+      (println ";;   - Page type:           " (page-type/current))
       (println ";;   - Title:               " (-> context :header :title))
       (println ";;   - Template:            " template-filename)
       (println ";;   - Request options:     " (-> context :metadata meta str))
