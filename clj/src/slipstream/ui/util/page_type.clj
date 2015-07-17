@@ -19,6 +19,7 @@
 (derive :page-type/view             :page-type-category/read-only)
 (derive :page-type/chooser          :page-type-category/read-only)
 (derive :page-type/project-chooser  :page-type/chooser)
+(derive :page-type/reports-frame    :page-type/chooser)
 (derive :page-type/edit             :page-type-category/editable)
 (derive :page-type/new              :page-type-category/editable)
 
@@ -27,7 +28,8 @@
     :page-type/edit
     :page-type/new
     :page-type/chooser
-    :page-type/project-chooser})
+    :page-type/project-chooser
+    :page-type/reports-frame})
 
 (defmacro with-page-type
   [page-type & body]
@@ -73,4 +75,5 @@
   ([page-type]
     (case page-type
       :page-type/project-chooser  "?chooser=true&chooser-type=project-chooser"
-      :page-type/chooser          "?chooser=true")))
+      :page-type/chooser          "?chooser=true"
+      nil)))

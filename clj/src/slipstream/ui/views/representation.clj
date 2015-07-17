@@ -60,7 +60,7 @@
 (defn page-types
   [pagename]
   (case pagename
-    "reports"          "chooser"
+    "reports"          "reports-frame"
     "service_catalog"  (if (current-user/super?) "edit" "view")
     "configuration"    (if (current-user/super?) "edit" "view")
     nil))
