@@ -93,9 +93,9 @@
 (defn- sections
   [welcome-metadata]
   (cond-> []
-    :always                   (conj (app-store-section       welcome-metadata))
-    :always                   (conj (projects-section        welcome-metadata))
-    (page-type/not-chooser?)  (conj (service-catalog-section welcome-metadata))))
+    (page-type/not-project-chooser?)  (conj (app-store-section       welcome-metadata))
+    :always                           (conj (projects-section        welcome-metadata))
+    (page-type/not-chooser?)          (conj (service-catalog-section welcome-metadata))))
 
 (defn page
   [metadata]

@@ -65,7 +65,7 @@
   (html/defsnippet ^:private image-chooser-dialog template-filename [:#ss-image-chooser-dialog]
     [reference-image]
     title-sel                 (html/content (t :title))
-    [:iframe]                 (ue/when-set-src (not-empty reference-image) (u/module-uri reference-image) "?chooser=true")
+    [:iframe]                 (ue/when-set-src (not-empty reference-image) (u/module-uri reference-image) (page-type/query-params :page-type/chooser))
     first-button-sel          (html/content (t :button.cancel))
     [:.ss-select-exact-version-btn] (html/content (t :button.select-exact-version))
     [:.ss-select-btn]         (html/content (t :button.select))))
@@ -101,7 +101,7 @@
   (html/defsnippet ^:private copy-module-dialog template-filename [:#ss-copy-module-dialog]
     [resource-name resource-id module-version]
     title-sel                 (html/content       (t :title resource-name))
-    [:iframe]                 (ue/when-set-src (not-empty resource-id) (-> resource-id u/module-uri uc/trim-last-path-segment) "?chooser=true")
+    [:iframe]                 (ue/when-set-src (not-empty resource-id) (-> resource-id u/module-uri uc/trim-last-path-segment) (page-type/query-params :page-type/project-chooser))
     [:#ss-module-copy-source-uri] (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     [:#ss-module-copy-target-name-label] (html/content (t :new-module-name.label resource-name))
     [:#ss-module-copy-target-name] (ue/set-value (-> resource-id uc/last-path-segment (str (t :new-module-name.default-suffix module-version))))

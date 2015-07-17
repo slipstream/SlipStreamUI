@@ -4,7 +4,8 @@ body {
 }
 
 /* Except for pages of type chooser */
-body.ss-page-type-chooser {
+body.ss-page-type-chooser,
+body.ss-page-type-project-chooser {
   padding-top: 0;
 }
 
@@ -42,8 +43,10 @@ html{
   height: 50px;
 }
 
-.ss-page-type-chooser .ss-alert-offset-placeholder,
-.ss-page-type-chooser .ss-alert-container-fixed-top {
+.ss-page-type-chooser         .ss-alert-offset-placeholder,
+.ss-page-type-chooser         .ss-alert-container-fixed-top,
+.ss-page-type-project-chooser .ss-alert-offset-placeholder,
+.ss-page-type-project-chooser .ss-alert-container-fixed-top {
   height: 0;
   min-height: 0;
 }
