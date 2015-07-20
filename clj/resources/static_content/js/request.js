@@ -2,10 +2,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function enableLoadingScreen() {
         $("#ss-loading-screen").removeClass("hidden");
+        $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.3}, 200);
     }
 
     function disableLoadingScreen() {
-        $("#ss-loading-screen").addClass("hidden");
+        $(".ss-loading-screen .backdrop").stop().animate({opacity: 0}, 200, "swing", function(){
+            $("#ss-loading-screen").addClass("hidden");
+        });
     }
 
     function builder(method, url) {
