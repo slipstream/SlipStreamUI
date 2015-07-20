@@ -18,7 +18,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.request
         .post("reset")
         .onSuccessAlert($("#ss-reset-password-form").data("success-message"))
-        .always(function (){
+        .validation(function (){
             $("#ss-reset-password-dialog").modal("hide");
         })
         .useToSubmitForm("#ss-reset-password-form");
@@ -60,7 +60,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.request
         .post()
         .onSuccessFollowRedirectInResponseHeader()
-        .always(function (){
+        .validation(function (){
             $copyModuleDialog.modal("hide");
         })
         .useToSubmitForm("#ss-module-copy-form");
@@ -124,7 +124,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.request
         .post("/run")
         .onSuccessFollowRedirectInResponseHeader()
-        .always(function (){
+        .validation(function (){
             $(".ss-run-module-dialog").modal("hide");
         })
         .useToSubmitForm(".ss-run-module-form, .ss-build-module-form", updateRequestForRunDeployment);
