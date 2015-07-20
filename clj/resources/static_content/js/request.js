@@ -1,8 +1,20 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    function enableLoadingScreen() {
+        $("#ss-loading-screen").removeClass("hidden");
+        $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.25}, 200);
+    }
+
+    function disableLoadingScreen() {
+        $(".ss-loading-screen .backdrop").stop().animate({opacity: 0}, 200, "swing", function(){
+            $("#ss-loading-screen").addClass("hidden");
+        });
+    }
+
     function builder(method, url) {
         return {
             intern: {
+                withLoadingScreen: true,            // See .withLoadingScreen() fn below
                 serialization: undefined,           // See .serialization() fn below
                 onDataTypeParseError: undefined,    // See .onDataTypeParseErrorAlert() fn below
                 always: undefined,                  // See .always() fn below
@@ -241,8 +253,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             }
                         });
                 }
+
+                if (this.intern.withLoadingScreen && ! this.withLoadingScreenAlreadyAdded) {
+                    $$.util.object.setOrPush(this.settings, "beforeSend", enableLoadingScreen);
+                    this.withLoadingScreenAlreadyAdded = true;
+                }
+
                 var ajaxRequest = jQuery.ajax(this.settings)
-                                        .always(this.intern.always);
+                                        .always(this.intern.always,
+                                                disableLoadingScreen);
                 return ajaxRequest;
             },
             url: function (url) {
@@ -309,6 +328,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 // properly informs the user, for example with an $$.alert.showError() call.
                 // Note that this.intern.always fn (or fns) will be called anyway.
                 $$.util.object.setOrPush(this.intern, "validation", callback);
+                return this;
+            },
+            withLoadingScreen: function (enable) {
+                if ($.type(enable) === "boolean") {
+                    this.intern.withLoadingScreen = enable;
+                } else {
+                    this.intern.withLoadingScreen = true;
+                }
                 return this;
             }
         };
