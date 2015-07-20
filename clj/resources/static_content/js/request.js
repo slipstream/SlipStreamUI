@@ -2,7 +2,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function enableLoadingScreen() {
         $("#ss-loading-screen").removeClass("hidden");
-        $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.3}, 200);
+        $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.25}, 200);
     }
 
     function disableLoadingScreen() {
