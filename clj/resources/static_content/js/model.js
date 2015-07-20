@@ -356,7 +356,6 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                         $$.request
                             .put(runModel.getURL() + "/ss:tags?ignoreabort=true")
                             .data(runModel.getTags())
-                            .serialization("literalString")
                             .onSuccess(function(){
                                 if (callback) {
                                     callback.call(runModel, true);
