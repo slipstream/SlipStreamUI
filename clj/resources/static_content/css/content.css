@@ -256,3 +256,50 @@ div.popover:not(.ss-alert-popover) code {
 .ss-showing-full-text-on-hover {
   color: transparent; /* hide real text */
 }
+
+/* Loading screen */
+
+.ss-loading-screen .backdrop {
+  z-index: 10000;
+  opacity: 0;
+  background-color: black;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.ss-loading-screen .ss-loading-screen-content {
+  color: #eee;
+  text-shadow: 0px 0px 16px rgba(0, 0, 0, .4);
+  background-color: transparent;
+  text-align: center;
+  z-index: 10010;
+  position: fixed;
+  height: 100px;
+  line-height: 100px;
+  /* Phone (xs) */
+  font-size: 1.6em;
+  width: 60%;
+  left: 20%;
+  top: 20%;
+
+}
+/* Tables (sm) */
+@media (min-width: 768px) {
+  .ss-loading-screen .ss-loading-screen-content  {
+    font-size: 1.8em;
+    width: 40%;
+    left: 30%;
+    top: 20%;
+  }
+}
+/* Computer (md, xs) */
+@media (min-width: 992px) {
+  .ss-loading-screen .ss-loading-screen-content  {
+    font-size: 2em;
+    width: 20%;
+    left: 40%;
+    top: 20%;
+  }
+}
