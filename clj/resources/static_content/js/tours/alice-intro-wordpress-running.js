@@ -11,7 +11,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.util.tour.setup({
         beforeStep: {
             3: function() {
-            $documentationMenu.bsOpenDropdown();
+                $documentationMenu.bsOpenDropdown();
+            },
+            4: function() {
+                $$.util.urlQueryParams.remove("tour");
             },
         },
         onExitStep: {
@@ -19,7 +22,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $$.run.stopAutoupdatingRunPage();
             },
             3: function() {
-            $documentationMenu.bsCloseDropdown();
+                $documentationMenu.bsCloseDropdown();
             },
         },
         onExit: function() {
@@ -28,7 +31,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    if ( $$.util.tour.shouldLaunch(currentTour, true) ) {
+    if ( $$.util.tour.shouldLaunch(currentTour) ) {
         $$.util.tour.start();
     }
 
