@@ -60,12 +60,12 @@
                      (link-to-external-url :ec2/using-network-security "Amazon")
                      " or "
                      (link-to-external-url :exoscale/introduction-to-security-groups "Exoscale")
-                     " to learn how to do it.")}
+                     " to learn how to do it.")
+       :width "400px"}
 
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
-       :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."
-       :width "300px"}
+       :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."}
     ]
 
    :deploying-wordpress
@@ -135,7 +135,6 @@
                      " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will always bring you to the welcome page containing the App Store."
                      "<br/><br/>"
                      "In this case, you can see which module (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
-       :width "100%"
        :container-sel "body"
        :placement "right"}
 
@@ -143,9 +142,10 @@
       {:title "Overview"
        :content (str "This offers a graphical overview of the running machines and global information about each one, like state, IP address and custom message."
                      " Hovering over the different nodes will reveal more details as they become available."
-                     "<br/><br/>"
                      " Note that now you might not see much information yet, since the deployment is still initializing.")
-       :placement "top"}
+       :placement "top"
+       :width "500px"
+       }
 
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 2)]]
       {:title "Summary"
@@ -169,11 +169,6 @@
                      "Note that you don't need to reload the page: the reports will automatically appear here when available.")
        :placement "top"}
 
-      ; [:#ss-secondary-menu :> :div]
-      ; {:title "Terminate run"
-      ;  :content "Clicking here will ask the corresponding cloud infrastructure to stop the deployment and the running machines."
-      ;  :placement "bottom"}
-
       [:#topbar :> :div :> :div :> :div.navbar-collapse.collapse :> :ul :> [:li (html/nth-child 1)]]
       {:title "Dashboard"
        :content (str "The deployment may take some time, depending on the cloud you selected and its current load."
@@ -181,7 +176,8 @@
                      "In the meantime we will visit the dashboard, also a very central point of SlipStream where you will have an overview of the applications you have running, including the WordPress instance you just launched."
                      "<br/><br/>"
                      "Click on the <span style='color:white;background-color:#a00;font-weight:normal;padding:2px 8px;'>Dashboard</span> above to discover it. We will come back here afterwards to see how the run finished.")
-       :placement "bottom"}
+       :placement "bottom"
+       :width "330px"}
     ]
 
     :wordpress-in-dashboard
@@ -275,7 +271,7 @@
                         " using the support tabs at the bottom and right parts of any page in the application for a message or a live chat."
                         "<br/><br/>"
                         "We would greatly appreciate if you <b><a href='mailto:support@sixsq.com?Subject=%5Balice-tour%5D%20Toughts%20after%20completion&Body=Dear%20SixSq%20Team%2C%0A%0AI%20just%20finished%20the%20discovery%20tour%20in%20SlipStream%20and%20successfully%20deployed%20a%20Wordpress%20application.%0A%0AI%20think%20that%20'>tell us what you think about this tour</a></b>.")
-          }
+          :width "500px"}
 
        ])
    ]
