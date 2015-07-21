@@ -200,7 +200,7 @@ $(document).ready(function(){
             if ($el.attr('data-bootstro-width'))
             {
                 p.width = $el.attr('data-bootstro-width');
-                style = style + 'width:' + $el.attr('data-bootstro-width') + ';'
+                style = style + 'width:' + p.width + ';' + 'max-width:' + p.width + ';'
             }
             if ($el.attr('data-bootstro-height'))
             {
@@ -219,8 +219,6 @@ $(document).ready(function(){
                 orphanStepCls = "bootstro-orphan-step";
             }
 
-            //resize popover if it's explicitly specified
-            //note: this is ugly. Could have been best if popover supports width & height
             p.template = '<div class="popover bootstro-popover ' + placementDistanceCls + ' ' + orphanStepCls + '" style="' + style + '">' +
                 progressBar +
                 '<div class="arrow"></div>' +
@@ -286,6 +284,10 @@ $(document).ready(function(){
                 // Scroll if neccessary
                 if ( bootstro.hasOrphanStep($el) ) {
                     showPopover();
+                    elementToScroll.animate(
+                        {scrollTop: 0},
+                        "fast",
+                        "swing");
                 } else if ( topDistance < settings.margin ) {
                     // The element is too up above
                     elementToScroll.animate(
