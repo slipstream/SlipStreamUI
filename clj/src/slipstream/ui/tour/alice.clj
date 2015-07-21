@@ -68,6 +68,18 @@
        :placement "right"
        :placement-distance "larger"}
 
+      [:.ss-run-image-input-parameters-section]
+      {:title "Input parameters"
+       :content (str "Each application might define one or more input parameters to customise the deployment."
+                     " You might modify these values or leave them with the default values."
+                     " They are not related to SlipStream but to the application being deployed."
+                     "<br/><br/>"
+                     " In this case, you might personalise the <strong>title</strong> and the <strong>email</strong> of the administrator of the Wordpress that your are deploying.")
+       :container-sel "#ss-run-module-dialog"
+       :preserve-padding true
+       :placement "right"
+       :placement-distance "larger"}
+
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn]
       {:title "Ready to deploy"
        :content "Click on <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'>Run image</span> when you are ready to go."
