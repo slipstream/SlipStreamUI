@@ -169,7 +169,7 @@
 
       [:.panel-group :> (html/nth-child 1)]
       {:title "Usage section"
-       :content "Here you see all of the accessible clouds and your resource comsumption on each one."
+       :content "Here you see all of the accessible clouds and your resource consumption on each one."
        :placement "top"}
 
       (->> :cloud (query-param-value context) (str "#ss-usage-gauge-") keyword)
