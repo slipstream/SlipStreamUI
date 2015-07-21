@@ -243,10 +243,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // but we do it explicitely to remove black magic.
                 case "queryString":
                     this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-                    if ($.type(this.settings.data) === "object") {
-                        this.settings.data = $.param(this.settings.data);
-                    } else if ($.type(this.settings.data) !== "string") {
-                        this.settings.data = this.settings.data.toString();
+                    switch ($.type(this.settings.data)) {
+                        case "object":
+                            this.settings.data = $.param(this.settings.data);
+                            break;
+                        case "string":
+                        case "undefined":
+                            break;
+                        default:
+                            this.settings.data = this.settings.data.toString();
                     }
                     break;
                 default:
