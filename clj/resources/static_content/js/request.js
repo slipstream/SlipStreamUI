@@ -77,7 +77,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 url: url,
                 async: true,            // See .async(enable) fn below
                 data: undefined,
-                dataType: "json",       // See .dataType() fn below
+                dataType: undefined,    // See .dataType() fn below
                 contentType: undefined, // See .serialization() fn below
                 success: undefined,     // See .onSuccess() fn below
                 error: undefined        // See .onError() fn below
