@@ -1,5 +1,56 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    var statusCodeMessages = {
+
+            // Only needed for 4xx and 5xx errors to display proper UI alerts,
+            // since sometimes the 'errorThrown' of the AJAX response is not coherent
+            // with the status code ('jqXHR.status').
+
+            400: "Bad Request",
+            401: "Unauthorized",
+            402: "Payment Required",
+            403: "Forbidden",
+            404: "Not Found",
+            405: "Method Not Allowed",
+            406: "Not Acceptable",
+            407: "Proxy Authentication Required",
+            408: "Request Timeout",
+            409: "Conflict",
+            410: "Gone",
+            411: "Length Required",
+            412: "Precondition Failed",
+            413: "Payload Too Large",
+            414: "Request-URI Too Long",
+            415: "Unsupported Media Type",
+            416: "Requested Range Not Satisfiable",
+            417: "Expectation Failed",
+            418: "I'm a teapot",
+            419: "Authentication Timeout",
+            422: "Unprocessable Entity",
+            423: "Locked",
+            424: "Failed Dependency",
+            426: "Upgrade Required",
+            428: "Precondition Required",
+            429: "Too Many Requests",
+            431: "Request Header Fields Too Large",
+
+            500: "Internal Server Error",
+            501: "Not Implemented",
+            502: "Bad Gateway",
+            503: "Service Unavailable",
+            504: "Gateway Timeout",
+            505: "HTTP Version Not Supported",
+            506: "Variant Also Negotiates",
+            507: "Insufficient Storage",
+            508: "Loop Detected",
+            511: "Network Authentication Required",
+            520: "Unknown Error"
+        };
+
+    function getMessageForStatusCode(statusCode) {
+        return statusCodeMessages[statusCode] || "[Unknown status code " + statusCode + "]";
+    }
+
     function enableLoadingScreen() {
         $("#ss-loading-screen").removeClass("hidden");
         $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.25}, 200);
@@ -197,14 +248,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // but we do it explicitely to remove black magic.
                 case "queryString":
                     this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-                    if (this.settings.data) {
-                        this.settings.data = $.param(this.settings.data);
-                    }
-                    break;
-                case "literalString":
-                    this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-                    if (this.settings.data) {
-                        this.settings.data = this.settings.data.toString();
+                    switch ($.type(this.settings.data)) {
+                        case "object":
+                            this.settings.data = $.param(this.settings.data);
+                            break;
+                        case "string":
+                        case "undefined":
+                            break;
+                        default:
+                            this.settings.data = this.settings.data.toString();
                     }
                     break;
                 default:
@@ -233,15 +285,25 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         }
                         var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
                         if (statusCodeAlertTitleAndMsg === undefined) {
-                            var responseDetail = jqXHR.responseJSON && jqXHR.responseJSON.detail;
+                            var responseDetail = jqXHR.responseJSON && (
+                                                    jqXHR.responseJSON.detail || (
+                                                        jqXHR.responseJSON.error &&
+                                                            jqXHR.responseJSON.error.detail
+                                                    )
+                                                );
                             if (responseDetail === undefined) {
-                                // If the response is not a JSON, it is a complete valid HTML error page.
-                                // In that case, we retrieve the details from the header subtitle.
-                                responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
+                                // If the response is not a JSON, it might be a complete valid HTML error page.
+                                try {
+                                    // In that case, we try retrieve the details from the header subtitle.
+                                    responseDetail = $(jqXHR.responseText).find(".ss-header-subtitle").text();
+                                } catch (e) {
+                                    // If this fails, we just use the raw response text.
+                                    responseDetail = jqXHR.responseText;
+                                }
                             }
                             $$.alert.showError(
                                 responseDetail,
-                                "<code>Error " + jqXHR.status + " - " + errorThrown + "</code>"
+                                "<code>Error " + jqXHR.status + " - <span title='\"errorThrown\" message in AJAX reply was: " + errorThrown + "'>" + getMessageForStatusCode(jqXHR.status) + "</code>"
                                 );
                         } else {
                             $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
