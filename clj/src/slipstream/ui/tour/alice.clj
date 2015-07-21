@@ -36,6 +36,20 @@
       {:title "Application"
        :content "This is a published application. Click 'next' to learn how to deploy it."}
 
+      nil
+      {:title "Important note!"
+       :content (str "You will be deploying Wordpress, which is a Web application that will be accessible on"
+                     " the port <code>8080</code> of the target machine."
+                     " Since SlipStream is not currently able to manage the firewall rules and security groups"
+                     " on your behalf (we are busy working on it, though), <strong>you will have to make sure that at least the"
+                     " port <code>8080</code> is open in the security groups of the cloud you are targeting</strong>."
+                     "<br/><br/>"
+                     "You might read <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/standalone_images.html'>our documentation</a> and the documentation of your cloud provider, e.g. "
+                     "<a target='_blank' href='http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html'>Amazon</a>"
+                     " or "
+                     "<a target='_blank' href='https://community.exoscale.ch/tutorial/introduction-to-security-groups/'>Exoscale</a>"
+                     " to learn how to do it.")}
+
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
        :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."
