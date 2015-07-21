@@ -7,6 +7,18 @@
 (def next-button-label
   "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
+(def ^:private external-links
+  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/documentation/advanced_tutorial/standalone_images.html"
+   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts"
+   :ec2/using-network-security                "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"
+   :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/tutorial/introduction-to-security-groups/"})
+
+(defn- link-to-external-url
+  [link-name displayed-text]
+  (if-let [link-url (external-links link-name)]
+    (str "<a target='_blank' href='" link-url "'>" displayed-text "</a>")
+    (throw (Exception. (str (pr-str link-name) " external link not defined!")))))
+
 (defn- query-param-value
   ;; TODO: Extract the context and this kind of util fn into a ns with a thread value
   ;;       in the same way than the *current-user* or the language.
@@ -44,10 +56,10 @@
                      " on your behalf (we are busy working on it, though), <strong>you will have to make sure that at least the"
                      " port <code>8080</code> is open in the security groups of the cloud you are targeting</strong>."
                      "<br/><br/>"
-                     "You might read <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/standalone_images.html'>our documentation</a> and the documentation of your cloud provider, e.g. "
-                     "<a target='_blank' href='http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html'>Amazon</a>"
+                     "You might read "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
+                     (link-to-external-url :ec2/using-network-security "Amazon")
                      " or "
-                     "<a target='_blank' href='https://community.exoscale.ch/tutorial/introduction-to-security-groups/'>Exoscale</a>"
+                     (link-to-external-url :exoscale/introduction-to-security-groups "Exoscale")
                      " to learn how to do it.")}
 
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
@@ -287,7 +299,7 @@
         {
          :title "Cloud credentials"
          :content (str "If you already have an account with a cloud provider, have your credentials handy (usually a <code>user/password</code> or a <code>key/secret</code> pair). "
-                       "If not, please create one following the procedure in our <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>. "
+                       "If not, please create one following the procedure in our " (link-to-external-url :ssdocs/cloud-infrastructure-accounts "documentation") ". "
                        "<br/><br/>"
                        "When your cloud account is ready, go to the next step to learn how to set the credentials in your SlipStream user profile.")
          }
