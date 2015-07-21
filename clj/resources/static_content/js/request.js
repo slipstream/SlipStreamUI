@@ -18,6 +18,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 serialization: undefined,           // See .serialization() fn below
                 onDataTypeParseError: undefined,    // See .onDataTypeParseErrorAlert() fn below
                 always: undefined,                  // See .always() fn below
+                errorStatusCodeCallbacks: {},       // See .onErrorStatusCode() fn below
                 errorStatusCodeAlerts: {},          // See .onErrorStatusCodeAlert() fn below
                 validation: undefined               // See .validation() fn below
             },
@@ -145,6 +146,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 this.onError(showErrorAlert);
                 return this;
             },
+            onErrorStatusCode: function (statusCode, callback){
+                $$.util.object.setOrPush(this.intern.errorStatusCodeCallbacks, statusCode, callback);
+                return this;
+            },
             onErrorStatusCodeAlert: function (statusCode, titleOrMsg, msg){
                 this.intern.errorStatusCodeAlerts[statusCode] = [titleOrMsg, msg];
                 return this;
@@ -216,10 +221,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                      "refreshing this page and doing the request again.");
 
                 if (!this.intern.defaultErrorHandlerAlreadySetup) {
-                    var errorStatusCodeAlerts = this.intern.errorStatusCodeAlerts;
+                    var errorStatusCodeCallbacks = this.intern.errorStatusCodeCallbacks,
+                        errorStatusCodeAlerts    = this.intern.errorStatusCodeAlerts;
                     this.onError( function(jqXHR, textStatus, errorThrown){
                         if (textStatus != "error") {
                             return;
+                        }
+                        var statusCodeCallback = errorStatusCodeCallbacks[jqXHR.status];
+                        if ( $$.util.isSomething.callable(statusCodeCallback) ) {
+                            statusCodeCallback.call(this, jqXHR.status, jqXHR, textStatus, errorThrown);
                         }
                         var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
                         if (statusCodeAlertTitleAndMsg === undefined) {
