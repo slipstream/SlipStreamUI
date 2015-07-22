@@ -70,7 +70,7 @@
   [metadata]
   (let [attrs (:attrs metadata)
         alternative-uri (str (:parentUri attrs) "/" (:shortName attrs))
-        publication-date (-> metadata (html/select [:published]) first :attrs :publicationDate)]
+        publication-date (-> metadata (html/select [html/root :> :published]) first :attrs :publicationDate)]
     {:description       (-> attrs :description)
      :category          (-> attrs :category)
      :comment           (-> metadata (html/select [html/root :> :commit :comment html/text]) first)
