@@ -79,13 +79,18 @@
     margin-left: -30px;
 }
 
-.bootstro-orphan-step-container {
+.bootstro-orphan-step-placeholder {
     display: none;
 }
+/* To center the orphan step independently of its witdh */
+/* Source: http://stackoverflow.com/a/23384995 */
 .bootstro-orphan-step {
-    position: fixed;
-    top: calc(50% - 138px) !important; /* 138px is half width of the popover */
-    left: calc(50% - 138px) !important;
+    position: absolute;
+    top:  10% !important;
+    left: 50% !important;
+    -webkit-transform: translate(-50%, 0);
+       -moz-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
 }
 .bootstro-orphan-step .arrow {
     display: none;

@@ -7,6 +7,18 @@
 (def next-button-label
   "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
+(def ^:private external-links
+  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/documentation/advanced_tutorial/standalone_images.html"
+   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts"
+   :ec2/using-network-security                "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"
+   :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/tutorial/introduction-to-security-groups/"})
+
+(defn- link-to-external-url
+  [link-name displayed-text]
+  (if-let [link-url (external-links link-name)]
+    (str "<a target='_blank' href='" link-url "'>" displayed-text "</a>")
+    (throw (Exception. (str (pr-str link-name) " external link not defined!")))))
+
 (defn- query-param-value
   ;; TODO: Extract the context and this kind of util fn into a ns with a thread value
   ;;       in the same way than the *current-user* or the language.
@@ -36,10 +48,24 @@
       {:title "Application"
        :content "This is a published application. Click 'next' to learn how to deploy it."}
 
+      nil
+      {:title "Important note!"
+       :content (str "You will be deploying Wordpress, which is a Web application that will be accessible on"
+                     " the port <code>8080</code> of the target machine."
+                     " Since SlipStream is not currently able to manage the firewall rules and security groups"
+                     " on your behalf (we are busy working on it, though), <strong>you will have to make sure that at least the"
+                     " port <code>8080</code> is open in the security groups of the cloud you are targeting</strong>."
+                     "<br/><br/>"
+                     "You might read "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
+                     (link-to-external-url :ec2/using-network-security "Amazon")
+                     " or "
+                     (link-to-external-url :exoscale/introduction-to-security-groups "Exoscale")
+                     " to learn how to do it.")
+       :width "400px"}
+
       [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
-       :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."
-       :width "300px"}
+       :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."}
     ]
 
    :deploying-wordpress
@@ -63,6 +89,18 @@
       [:#ss-run-module-dialog :#tags]
       {:title "Give it a name"
        :content "You can assign a <code>tag</code> to the deployment. This will be useful to recognise it later on. Try something like <code>wp-tour-test</code>. Don't worry, you can change it later."
+       :container-sel "#ss-run-module-dialog"
+       :preserve-padding true
+       :placement "right"
+       :placement-distance "larger"}
+
+      [:.ss-run-image-input-parameters-section]
+      {:title "Input parameters"
+       :content (str "Each application might define one or more input parameters to customise the deployment."
+                     " You might modify these values or leave them with the default values."
+                     " They are not related to SlipStream but to the application being deployed."
+                     "<br/><br/>"
+                     " In this case, you might personalise the <strong>title</strong> and the <strong>email</strong> of the administrator of the Wordpress that your are deploying.")
        :container-sel "#ss-run-module-dialog"
        :preserve-padding true
        :placement "right"
@@ -97,15 +135,17 @@
                      " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will always bring you to the welcome page containing the App Store."
                      "<br/><br/>"
                      "In this case, you can see which module (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
-       :width "100%"
        :container-sel "body"
        :placement "right"}
 
       [:#ss-section-group-0 :> :div.panel.ss-section-selected.ss-section.panel-default]
       {:title "Overview"
        :content (str "This offers a graphical overview of the running machines and global information about each one, like state, IP address and custom message."
-                     " Hover over the different nodes to reveal more details.")
-       :placement "top"}
+                     " Hovering over the different nodes will reveal more details as they become available."
+                     " Note that now you might not see much information yet, since the deployment is still initializing.")
+       :placement "top"
+       :width "500px"
+       }
 
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 2)]]
       {:title "Summary"
@@ -129,11 +169,6 @@
                      "Note that you don't need to reload the page: the reports will automatically appear here when available.")
        :placement "top"}
 
-      ; [:#ss-secondary-menu :> :div]
-      ; {:title "Terminate run"
-      ;  :content "Clicking here will ask the corresponding cloud infrastructure to stop the deployment and the running machines."
-      ;  :placement "bottom"}
-
       [:#topbar :> :div :> :div :> :div.navbar-collapse.collapse :> :ul :> [:li (html/nth-child 1)]]
       {:title "Dashboard"
        :content (str "The deployment may take some time, depending on the cloud you selected and its current load."
@@ -141,7 +176,8 @@
                      "In the meantime we will visit the dashboard, also a very central point of SlipStream where you will have an overview of the applications you have running, including the WordPress instance you just launched."
                      "<br/><br/>"
                      "Click on the <span style='color:white;background-color:#a00;font-weight:normal;padding:2px 8px;'>Dashboard</span> above to discover it. We will come back here afterwards to see how the run finished.")
-       :placement "bottom"}
+       :placement "bottom"
+       :width "330px"}
     ]
 
     :wordpress-in-dashboard
@@ -155,7 +191,7 @@
 
       [:.panel-group :> (html/nth-child 1)]
       {:title "Usage section"
-       :content "Here you see all of the accessible clouds and your resource comsumption on each one."
+       :content "Here you see all of the accessible clouds and your resource consumption on each one."
        :placement "top"}
 
       (->> :cloud (query-param-value context) (str "#ss-usage-gauge-") keyword)
@@ -235,7 +271,7 @@
                         " using the support tabs at the bottom and right parts of any page in the application for a message or a live chat."
                         "<br/><br/>"
                         "We would greatly appreciate if you <b><a href='mailto:support@sixsq.com?Subject=%5Balice-tour%5D%20Toughts%20after%20completion&Body=Dear%20SixSq%20Team%2C%0A%0AI%20just%20finished%20the%20discovery%20tour%20in%20SlipStream%20and%20successfully%20deployed%20a%20Wordpress%20application.%0A%0AI%20think%20that%20'>tell us what you think about this tour</a></b>.")
-          }
+          :width "500px"}
 
        ])
    ]
@@ -259,7 +295,7 @@
         {
          :title "Cloud credentials"
          :content (str "If you already have an account with a cloud provider, have your credentials handy (usually a <code>user/password</code> or a <code>key/secret</code> pair). "
-                       "If not, please create one following the procedure in our <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>. "
+                       "If not, please create one following the procedure in our " (link-to-external-url :ssdocs/cloud-infrastructure-accounts "documentation") ". "
                        "<br/><br/>"
                        "When your cloud account is ready, go to the next step to learn how to set the credentials in your SlipStream user profile.")
          }

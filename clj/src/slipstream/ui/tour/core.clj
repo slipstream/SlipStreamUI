@@ -62,11 +62,11 @@
     (ue/enable-class  (:preserve-padding ~step-info)  "preserve-padding")
     (ue/when-set-data :container             (:container-sel ~step-info))))
 
-(ue/def-blank-snippet ^:private orphan-step-container-snip :div
+(ue/def-blank-snippet ^:private orphan-step-placeholder-snip :div
   [step-info]
   ue/this   (process-step-node (assoc step-info :container "body"))
   ue/this   (ue/set-data      :bootstro-orphan-step true)
-  ue/this   (html/add-class   "bootstro-orphan-step-container"))
+  ue/this   (html/add-class   "bootstro-orphan-step-placeholder"))
 
 (defn- add
   "See tests for expectations."
@@ -81,7 +81,7 @@
               sel-v        (-> sel (or :body) uc/ensure-vector)
               updated-node (if orphan-step?
                              (html/transform (html/as-nodes m)
-                                sel-v  (html/prepend (orphan-step-container-snip step-info)))
+                                sel-v  (html/prepend (orphan-step-placeholder-snip step-info)))
                              (html/transform (html/as-nodes m)
                                 sel-v (process-step-node step-info)))]
           (if next-scenes
