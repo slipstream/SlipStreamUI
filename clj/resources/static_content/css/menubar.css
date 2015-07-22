@@ -140,3 +140,10 @@ body.ss-standalone-webapp-mobile > .navbar::before {
 .dropdown-menu {
   margin-top: 0;
 }
+
+button.btn.ss-login-error-on-mobile-alert {
+  display: none;
+  margin-top: -56px;
+  z-index: 1;
+  position: relative;
+}
