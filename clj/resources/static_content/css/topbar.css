@@ -47,7 +47,9 @@ html{
 .ss-page-type-chooser         .ss-alert-offset-placeholder,
 .ss-page-type-chooser         .ss-alert-container-fixed-top,
 .ss-page-type-project-chooser .ss-alert-offset-placeholder,
-.ss-page-type-project-chooser .ss-alert-container-fixed-top {
+.ss-page-type-project-chooser .ss-alert-container-fixed-top,
+.ss-page-type-reports-frame   .ss-alert-offset-placeholder,
+.ss-page-type-reports-frame   .ss-alert-container-fixed-top {
   height: 0;
   min-height: 0;
 }
