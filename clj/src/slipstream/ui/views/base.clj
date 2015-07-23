@@ -281,6 +281,8 @@
       (println)
       (println ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
       (println ";; Generating base with context:")
+      (println ";;   - User:                " (select-keys (current-user/get) [:username :first-name :last-name :super?]))
+      (println ";;   - User configuration:  " (:configuration (current-user/get)))
       (println ";;   - View ns:             " (:view-ns context))
       (println ";;   - View name:           " (:view-name context))
       (println ";;   - Page type:           " (page-type/current))

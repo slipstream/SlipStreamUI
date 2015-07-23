@@ -108,7 +108,7 @@
   "Generate an HTML page from the metadata xml string"
   [raw-metadata-str pagename args-map]
   (let [options (ui/->clj args-map)
-        page-type (get-page-type pagename options)
+        page-type-sent-by-server (:type options "UNDEFINED")
         lang (-> options :request :query-parameters :lang)
         metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (mode/when-dev
@@ -117,10 +117,10 @@
       ;       These XMLs files can then be used as mockups for UI tests. They can be
       ;       saved with this command:
       ;       $ cp war/raw-metadata-str.xml ../SlipStreamUI/clj/test/slipstream/ui/mockup_data/metadata_{$NAME_OF_THE_METADATA}.xml
-      (spit (format "raw-metadata-str-page_%s-type_%s.xml" pagename page-type) raw-metadata-str))
+      (spit (format "raw-metadata-str-page_%s-type_%s.xml" pagename page-type-sent-by-server) raw-metadata-str))
     (localization/with-lang lang
       (current-user/with-user-from-metadata
-        (page-type/with-page-type page-type
+        (page-type/with-page-type (get-page-type pagename options)
           (guard-exceptions
             (render-page pagename (some-> metadata (with-meta options)))))))))
 
