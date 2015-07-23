@@ -547,6 +547,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                                 .get(runModel.getURL())
                                                 .dataType("html")
                                                 .onSuccess(refreshCallback)
+                                                .withLoadingScreen(false)
                                                 .onErrorStatusCode(
                                                     401, // Unauthorized
                                                     function() {
