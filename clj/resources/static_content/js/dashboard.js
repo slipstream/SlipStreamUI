@@ -9,7 +9,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             targetCloud     = $gauge.data("quota-title");
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
-                    return s.replace(/cloud=[^&]*&/, "cloud=" + (isGlobalGauge ? "" : targetCloud) + "&");
+                    return s
+                        .replace(/cloud=[^&]*&/, "cloud=" + (isGlobalGauge ? "" : targetCloud) + "&")
+                        .replace(/offset=\d+/, "offset=0");
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
         if ( !isSelected ) {
