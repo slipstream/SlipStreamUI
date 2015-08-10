@@ -8,7 +8,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isSelected      = $gauge.is(selectedGagueCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
         $("#runs, #vms")
-            .updateAttr("data-content-load-url", function(s) {
+            .updateAttr("content-load-url", function(s) {
                     return s.replace(/cloud=[^&]*&/, "cloud=" + (isGlobalGauge ? "" : targetCloud) + "&");
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
@@ -24,7 +24,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return;
         }
         $$.request
-            .get($dynamicCloudSubsection.attr("data-content-load-url"))
+            .get($dynamicCloudSubsection.attr("content-load-url"))
             .dataType("html")
             .onSuccess(function (html){
                 var $newContent = $(".ss-section-content", html);

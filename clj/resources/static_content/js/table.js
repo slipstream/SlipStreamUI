@@ -96,7 +96,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var $clickedButton   = $(this),
             params  = $clickedButton.data("pagination-params") || {},
             $dynamicContentElem = $clickedButton.closest(".ss-dynamic-subsection"),
-            contentLoadUrl      = $dynamicContentElem.data("content-load-url"),
+            contentLoadUrl      = $dynamicContentElem.attr("content-load-url"),
             newContentLoadUrl   = contentLoadUrl
                                         .replace(/offset=\d+/, "offset=" + params.offset)
                                         .replace(/limit=\d+/, "limit=" + params.limit);
@@ -108,7 +108,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .find("button")
                     .addClass("disabled");
 
-        $dynamicContentElem.data("content-load-url", newContentLoadUrl);
+        $dynamicContentElem.attr("content-load-url", newContentLoadUrl);
 
         // Trigger shown event on open subsection
         $$.subsection.triggerOnShowOnOpenSubsection(); // TODO: Make it an event from the $dynamicContentElem, not from the subsection
