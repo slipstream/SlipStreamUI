@@ -374,18 +374,21 @@
     ; Set up "Previous page" button(s)
     [:.ss-pagination-previous]  (ue/when-set-data   :pagination-params previous-page)
     [:.ss-pagination-previous]  (ue/set-title       (t :tooltip.previous-page))
-    [:.ss-pagination-previous]  (ue/when-add-class  (not previous-page) "disabled")
+    [:.ss-pagination-previous]  (ue/toggle-disabled (not previous-page))
+    [:.ss-pagination-previous]  (ue/enable-class    (not previous-page) "disabled")
     ; Set up "Go to page number" button(s)
     [:.ss-pagination-buttons]   (ue/content-for [[:button html/first-of-type]] [page pages]
                                                 ue/this (html/content       (-> page :page-number str))
                                                 ue/this (ue/set-data        :pagination-params page)
                                                 ue/this (ue/when-add-class  (:hidden page) "hidden")
+                                                ue/this (ue/toggle-disabled (:current-page page))
                                                 ue/this (ue/when-add-class  (:current-page page) "disabled ss-pagination-current-page")
                                                 ue/this (ue/when-after      (:last-hidden page) (pagination-separation-snip)))
     ; Set up "Next page" button(s)
     [:.ss-pagination-next]      (ue/when-set-data   :pagination-params next-page)
     [:.ss-pagination-next]      (ue/set-title       (t :tooltip.next-page))
-    [:.ss-pagination-next]      (ue/when-add-class  (not next-page) "disabled")))
+    [:.ss-pagination-next]      (ue/toggle-disabled (not next-page))
+    [:.ss-pagination-next]      (ue/enable-class    (not next-page) "disabled")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
