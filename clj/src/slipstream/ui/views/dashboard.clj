@@ -43,7 +43,7 @@
   [metadata-key]
   ue/this     (html/add-class "ss-dynamic-subsection")
   [:div :div] (html/add-class "ss-dynamic-subsection-content")
-  ue/this     (ue/set-data :content-load-url (format "/%s?cloud=%s&offset=0&limit=%s"
+  ue/this     (html/set-attr :content-load-url (format "/%s?cloud=%s&offset=0&limit=%s"
                                                      ({::vms "vms"
                                                        ::runs (if (mode/headless?) "runs" "run")} metadata-key)
                                                      "" ;; Leave cloud name blank for all clouds
