@@ -15,7 +15,8 @@
   For one possible solution see: http://stackoverflow.com/a/22363700"
   #{:en
     :ja
-    :fr})
+    :fr
+    :de})
 
 (def ^:private available-themes
   "See 'available-languages' above for documentation."
