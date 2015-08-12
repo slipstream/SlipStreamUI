@@ -1,5 +1,21 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    // Examples:
+    //
+    // SlipStream.request.get("/user/you").send()
+    //
+    // request = SlipStream.request
+    //                     .get()
+    //                     .onErrorStatusCode(404, function(){
+    //                       alert("not there :(")
+    //                     })
+    //                     .onErrorStatusCode(403, function(){
+    //                       alert("hum... you aren't supposed to go there...")
+    //                     });
+    // request.url("/user/you").send();
+    // request.url("/user/super").send();
+    // request.url("/user/not-there").send();
+
     var statusCodeMessages = {
 
             // Only needed for 4xx and 5xx errors to display proper UI alerts,
