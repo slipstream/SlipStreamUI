@@ -302,7 +302,7 @@
    :slipstream.ui.views.table.header.group                    :global.nouns.group
    :slipstream.ui.views.table.header.html                     :global.nouns.html
    :slipstream.ui.views.table.header.id                       "Run Id"
-   :slipstream.ui.views.table.header.ip-address               "IP Address"
+   :slipstream.ui.views.table.header.ip-address               "IP Addresse"
    :slipstream.ui.views.table.header.key                      :global.nouns.key
    :slipstream.ui.views.table.header.last-name                :global.nouns.last-name
    :slipstream.ui.views.table.header.last-online              "Zuletzt online"
@@ -441,14 +441,15 @@
    :slipstream.ui.models.parameters.email.description                           :global.nouns.email
    :slipstream.ui.models.parameters.email.help-hint                             ""
 
-   :slipstream.ui.models.parameters.super?.description                          "Is administrator?"
+   :slipstream.ui.models.parameters.super?.description                          "Administrator?"
    :slipstream.ui.models.parameters.super?.help-hint                            ""
 
-   :slipstream.ui.models.parameters.creation.description                        "Date of creation"
+   :slipstream.ui.models.parameters.creation.description                        "Erstellungsdatum"
    :slipstream.ui.models.parameters.creation.help-hint                          ""
 
-   :slipstream.ui.models.parameters.publication.description                     "Date of publication"
-   :slipstream.ui.models.parameters.publication.help-hint                       "This is the date when this version of the module was published on the SlipStream App Store."
+   :slipstream.ui.models.parameters.publication.description                     "Veröffentlichungsdatum"
+   ; :slipstream.ui.models.parameters.publication.help-hint                       "This is the date when this version of the module was published on the SlipStream App Store."
+   :slipstream.ui.models.parameters.publication.help-hint                       "Dies ist das Datum, an dem diese Version des Moduls auf der SlipStream App Store veröffentlicht wurde."
 
    :slipstream.ui.models.parameters.state.description                           :global.nouns.state
    :slipstream.ui.models.parameters.state.help-hint                             ""
@@ -460,26 +461,29 @@
    :slipstream.ui.models.parameters.module-version.help-hint                    ""
 
    :slipstream.ui.models.parameters.description.description                     :global.nouns.description
-   :slipstream.ui.models.parameters.description.help-hint                       "The description of this module. It appears in the subtitle of the page header, under the module name."
+   ; :slipstream.ui.models.parameters.description.help-hint                       "The description of this module. It appears in the subtitle of the page header, under the module name."
+   :slipstream.ui.models.parameters.description.help-hint                       "Die Beschreibung dieses Moduls. Es erscheint im Untertitel der Seite, unter dem Modulnamen."
 
-   :slipstream.ui.models.parameters.comment.description                         "Version comment"
-   :slipstream.ui.models.parameters.comment.help-hint                           "The commit message when this version was saved. It appears in the second subtitle of the page header, following the version number."
+   ; :slipstream.ui.models.parameters.comment.description                         "Version comment"
+   :slipstream.ui.models.parameters.comment.description                         "Versionsbeschreibung"
+   ; :slipstream.ui.models.parameters.comment.help-hint                           "The commit message when this version was saved. It appears in the second subtitle of the page header, following the version number."
+   :slipstream.ui.models.parameters.comment.help-hint                           "Die Commit-Nachricht, wenn diese Version gespeichert wurde. Es scheint im zweiten Untertitel der Seite, nach der Versionsnummer."
 
    :slipstream.ui.models.parameters.category.description                        :global.nouns.category
    :slipstream.ui.models.parameters.category.help-hint                          ""
 
-   :slipstream.ui.models.parameters.last-modified.description                   "Last modified"
+   :slipstream.ui.models.parameters.last-modified.description                   "Zuletzt geändert"
    :slipstream.ui.models.parameters.last-modified.help-hint                     ""
 
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
-   :slipstream.ui.models.parameters.module-owner.description                    "Module owner"
-   :slipstream.ui.models.parameters.module-owner.help-hint                      "The owner of the deployed module."
+   :slipstream.ui.models.parameters.module-owner.description                    "Modulinhaber_in"
+   :slipstream.ui.models.parameters.module-owner.help-hint                      "Inhaber_in des deployte Modul"
 
-   :slipstream.ui.models.parameters.run-owner.description                       "Run owner"
-   :slipstream.ui.models.parameters.run-owner.help-hint                         "The user who started this run."
-
+   :slipstream.ui.models.parameters.run-owner.description                       "Runinhaber_in"
+   :slipstream.ui.models.parameters.run-owner.help-hint                         "Der Benutzer, der dieses Run gestartet hat."
+>>>>>>>>>>>>>>
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Inherit group members from parent module?"
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 
