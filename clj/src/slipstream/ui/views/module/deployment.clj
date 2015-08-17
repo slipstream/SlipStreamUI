@@ -1,7 +1,9 @@
 (ns slipstream.ui.views.module.deployment
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.models.pagination :as pagination]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
 
@@ -25,7 +27,10 @@
 (defmethod middle-section-content :runs
   [_ section-metadata _]
   (if-let [runs (-> section-metadata :runs not-empty)]
-    (t/runs-table runs (:pagination section-metadata))
+    (ue/dynamic-content-snip
+      :id      "runs"
+      :content-load-url (pagination/url :runs :module-uri (some :module-uri runs))
+      :content (t/runs-table runs (:pagination section-metadata)))
     (t :section.runs.empty-content-hint)))
 
 (defn- middle-section

@@ -3,6 +3,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
+            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
@@ -26,6 +27,17 @@
       first
       :attrs
       parse-pagination))
+
+(defn url
+  [resource & {:keys [cloud offset limit module-uri]}]
+  (format "/%s?cloud=%s&offset=%s&limit=%s&moduleResourceUri=%s"
+          (case resource
+            :vms  "vms"
+            :runs (if (mode/headless?) "runs" "run"))
+          (or cloud "") ;; Leave cloud name blank for all clouds
+          (or offset "0")
+          (or limit items-per-page)
+          (or (uc/trim-prefix module-uri "/") "")))
 
 ;; Utils
 
