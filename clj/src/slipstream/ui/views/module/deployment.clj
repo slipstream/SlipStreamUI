@@ -29,7 +29,7 @@
   (if-let [runs (-> section-metadata :runs not-empty)]
     (ue/dynamic-content-snip
       :id      "runs"
-      :content-load-url (pagination/url :runs)
+      :content-load-url (pagination/url :runs :module-uri (some :module-uri runs))
       :content (t/runs-table runs (:pagination section-metadata)))
     (t :section.runs.empty-content-hint)))
 
