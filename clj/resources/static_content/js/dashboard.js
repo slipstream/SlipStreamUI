@@ -20,28 +20,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    $$.subsection.onShow(function(subsectionTitle, $subsectionContent) {
-        var $dynamicCloudSubsection = $subsectionContent.find(".ss-dynamic-subsection");
-        if ($dynamicCloudSubsection.foundNothing()) {
-            return;
-        }
-        $$.request
-            .get($dynamicCloudSubsection.attr("content-load-url"))
-            .dataType("html")
-            .onSuccess(function (html){
-                var $newContent = $(".ss-section-content", html);
-                $dynamicCloudSubsection
-                    .children("div:first-of-type")
-                        .updateWith(
-                            $newContent,
-                            {flash: true, flashDuration: 140, flashCategory: "transparent"},
-                            function() {
-                                $dynamicCloudSubsection.trigger("ss-dynamic-subsection-updated");
-                            });
-            })
-            .send();
-    });
-
     function drawGauges($panel) {
         var alreadyDrawnCls = "ss-usage-gauge-drawn";
         $panel

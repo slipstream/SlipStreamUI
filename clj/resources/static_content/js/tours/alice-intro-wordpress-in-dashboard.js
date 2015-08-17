@@ -23,7 +23,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         disableIrrelevantLinks();
     }
 
-    $("#runs").on("ss-dynamic-subsection-updated", updateRunHref);
+    $("#runs").on("ss-dynamic-content-updated", updateRunHref);
 
     if ( $$.util.tour.shouldLaunch(currentTour, true) ) {
         $$.util.tour.start();

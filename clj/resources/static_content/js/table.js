@@ -89,13 +89,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $(".ss-toggle-btn").bsEnableToggleButton();
 
     var paginationActionCls = "ss-pagination-action",
-        paginationActionSel = paginationActionCls.asSel();
+        paginationActionSel = paginationActionCls.asSel(),
+        dynamicContentCls   = "ss-dynamic-content",
+        dynamicContentSel   = dynamicContentCls.asSel();
 
     // Enable pagination
     $("body").on("click", paginationActionSel, function(e){
         var $clickedButton   = $(this),
             params  = $clickedButton.data("pagination-params") || {},
-            $dynamicContentElem = $clickedButton.closest(".ss-dynamic-subsection"),
+            $dynamicContentElem = $clickedButton.closest(dynamicContentSel),
             contentLoadUrl      = $dynamicContentElem.attr("content-load-url"),
             newContentLoadUrl   = contentLoadUrl
                                         .replace(/offset=\d+/, "offset=" + params.offset)
@@ -110,8 +112,29 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         $dynamicContentElem.attr("content-load-url", newContentLoadUrl);
 
-        // Trigger shown event on open subsection
-        $$.subsection.triggerOnShowOnOpenSubsection(); // TODO: Make it an event from the $dynamicContentElem, not from the subsection
+        $dynamicContentElem.trigger("ss-dynamic-content-reload");
+    });
+
+    $("body").on("ss-dynamic-content-reload", dynamicContentSel, function(e){
+        var $dynamicContent = $(this);
+        if ($dynamicContent.foundNothing()) {
+            return;
+        }
+        $$.request
+            .get($dynamicContent.attr("content-load-url"))
+            .dataType("html")
+            .onSuccess(function (html){
+                var $newContent = $(".ss-section-content", html);
+                $dynamicContent
+                    .children("div:first-of-type")
+                        .updateWith(
+                            $newContent,
+                            {flash: true, flashDuration: 140, flashCategory: "transparent"},
+                            function() {
+                                $dynamicContent.trigger("ss-dynamic-content-updated");
+                            });
+            })
+            .send();
     });
 
 

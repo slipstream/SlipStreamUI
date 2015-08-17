@@ -72,6 +72,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $$.util.url.hash.updateValues({1: subsectionIdTrimmed});
         }
 
+        $subsectionContent
+            .find(".ss-dynamic-content")
+                .trigger("ss-dynamic-content-reload");
+
         // Run on-show-callback if present
         if ($.isFunction(onShowCallback)) {
             onShowCallback(subsectionTitle, $subsectionContent);

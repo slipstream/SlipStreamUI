@@ -471,3 +471,17 @@
             this      (html/append (blank-node :span :class "ss-validation-help-hint help-block hidden"))
             this      (html/append (blank-node :span :class "glyphicon glyphicon-ok form-control-feedback hidden")))))
     identity))
+
+
+;; Dynamic content snippet
+
+(def ^:private spinner-icon
+  (blank-node :span :class "glyphicon glyphicon-refresh ss-subsection-content-spinner"))
+
+(def-blank-snippet dynamic-content-snip [:div :div]
+  [& {:keys [content-load-url id content]}]
+  this        (html/add-class "ss-dynamic-content")
+  [:div :div] (html/add-class "ss-dynamic-content-placeholder")
+  this        (html/set-attr :content-load-url content-load-url)
+  this        (when-set-id id (str id))
+  [:div :div] (html/content (or content spinner-icon)))

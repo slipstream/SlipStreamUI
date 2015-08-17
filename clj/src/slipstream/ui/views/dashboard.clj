@@ -4,7 +4,6 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
-            [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.pagination :as pagination]
@@ -36,20 +35,10 @@
 
 ;; Runs and VMs section
 
-(def ^:private spinner-icon
-  (ue/blank-node :span :class "glyphicon glyphicon-refresh ss-subsection-content-spinner"))
-
-(ue/def-blank-snippet ^:private dynamic-cloud-subsection-content-snip [:div :div]
+(defn ^:private dynamic-cloud-subsection-content-snip
   [metadata-key]
-  ue/this     (html/add-class "ss-dynamic-subsection")
-  [:div :div] (html/add-class "ss-dynamic-subsection-content")
-  ue/this     (html/set-attr :content-load-url (format "/%s?cloud=%s&offset=0&limit=%s"
-                                                     ({::vms "vms"
-                                                       ::runs (if (mode/headless?) "runs" "run")} metadata-key)
-                                                     "" ;; Leave cloud name blank for all clouds
-                                                     pagination/items-per-page))
-  ue/this     (ue/set-id (name metadata-key))
-  [:div :div] (html/content spinner-icon))
+  (ue/dynamic-content-snip :content-load-url (pagination/url metadata-key)
+                           :id (name metadata-key)))
 
 (defn- cloud-detailed-info-subsection
   [metadata-key]
@@ -58,7 +47,7 @@
 
 (defmethod section ::cloud-detailed-info
   [{:keys [clouds]} metadata-key]
-  {:content (map  cloud-detailed-info-subsection [::runs ::vms])
+  {:content (map  cloud-detailed-info-subsection [:runs :vms])
    :type    :flat-section})
 
 ;; Metering section
