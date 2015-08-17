@@ -480,8 +480,7 @@
 
 (def-blank-snippet dynamic-content-snip [:div :div]
   [& {:keys [content-load-url id content]}]
-  this        (html/add-class "ss-dynamic-content")
-  [:div :div] (html/add-class "ss-dynamic-content-placeholder")
-  this        (html/set-attr :content-load-url content-load-url)
-  this        (when-set-id id (str id))
-  [:div :div] (html/content (or content spinner-icon)))
+  this  (html/add-class "ss-dynamic-content")
+  this  (html/set-attr :content-load-url content-load-url)
+  this  (when-set-id id (str id))
+  this  (html/content (or content spinner-icon)))

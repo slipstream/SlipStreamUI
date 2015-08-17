@@ -126,7 +126,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .onSuccess(function (html){
                 var $newContent = $(".ss-section-content", html);
                 $dynamicContent
-                    .children("div:first-of-type")
+                    .children(":first")
                         .updateWith(
                             $newContent,
                             {flash: true, flashDuration: 140, flashCategory: "transparent"},
