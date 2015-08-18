@@ -40,15 +40,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     });
     }
 
-    function drawHistograms(panel) {
-        if (panel === undefined) {
-            panel = $(".ss-metering");
-        }
-
-        var from = $("#ss-metering-selector option:selected").val(),
+    function drawHistograms(withLoadingScreen) {
+        var panel = $(".ss-metering"),
+            from = $("#ss-metering-selector option:selected").val(),
             options = {
                 'from': "-" + from + 's'
             };
+        if ($.type(withLoadingScreen) === "boolean") {
+            options.withLoadingScreen = withLoadingScreen;
+        }
+
         // Fixes GH-164 (https://github.com/slipstream/SlipStreamServer/issues/164)
         // Smooths the graph dependeing on which period we retrieving data from.
         // The online loop send data each 10 seconds whereas the online loop send
@@ -118,7 +119,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                              $gauge.data("quotaMax"));
         });
 
-        // TODO: Update metering section.
     }
 
     var autoUpdateJobName       = "updateDashboard",
@@ -131,12 +131,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     function updateDashboard() {
+        var withLoadingScreen = false;
         console.info("Updating the dashboard...");
-        // Update parts that require the full HTML page.
+        // Update parts that require the full HTML page (i.e. Usage gauges)
         updateDashboardRequest.send();
-        // Update dynamic content.
+        // Update metering
+        drawHistograms(withLoadingScreen);
+        // Update dynamic content
         $(".ss-dynamic-content").trigger("ss-dynamic-content-reload",
-                                         {withLoadingScreen: false});
+                                         {withLoadingScreen: withLoadingScreen});
     }
 
     $$.util.recurrentJob.start(autoUpdateJobName,
