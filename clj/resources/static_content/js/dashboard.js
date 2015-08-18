@@ -28,15 +28,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .each(function(idx, elem) {
                         var $elem = $(elem).empty();
                         $elem.addClass(alreadyDrawnCls);
-                        new JustGage({
-                          id: elem.id,
-                          value: $elem.data('quota-current'),
-                          min: 0,
-                          max: $elem.data('quota-max') || 20,
-                          title: $elem.data('quota-title'),
-                          levelColorsGradient: true,
-                          showInnerShadow: false
-                        });
+                        $elem.data("gauge-controller", new JustGage({
+                              id: elem.id,
+                              value: $elem.data('quotaCurrent'),
+                              min: 0,
+                              max: $elem.data('quotaMax') || 20,
+                              title: $elem.data('quotaTitle'),
+                              levelColorsGradient: true,
+                              showInnerShadow: false
+                            }));
                     });
     }
 
@@ -94,5 +94,53 @@ jQuery( function() { ( function( $$, $, undefined ) {
     drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
     $(".ss-usage-gauge:first-child").click();
+
+    function updateUsageGauge(id, quotaCurrent, quotaMax) {
+        var $gauge = $("[id='" + id + "']"),
+            gaugeController = $gauge.data("gauge-controller");
+        if ( $gauge.foundNothing() ) {
+            console.warn("No element found with id: " + id);
+        } else if ( gaugeController === undefined ) {
+            console.warn("No gauge controller found for element with id: " + id);
+        } else {
+            gaugeController.refresh(quotaCurrent, quotaMax);
+        }
+    }
+
+    function updateDashboardRequestCallback(data, textStatus, jqXHR) {
+        var updatedDashboardHTML    = data,
+            $updatedUsageGauges     = $(".ss-usage-gauge", updatedDashboardHTML);
+
+        $updatedUsageGauges.each(function(){
+            var $gauge = $(this);
+            updateUsageGauge($gauge.id(),
+                             $gauge.data("quotaCurrent"),
+                             $gauge.data("quotaMax"));
+        });
+
+        // TODO: Update metering section.
+    }
+
+    var autoUpdateJobName       = "updateDashboard",
+        secsBetweenUpdates      = 10,
+        updateDashboardRequest  = $$.request
+                                    .get("/dashboard")
+                                    .dataType("html")
+                                    .withLoadingScreen(false)
+                                    .onSuccess(updateDashboardRequestCallback);
+
+
+    function updateDashboard() {
+        console.info("Updating the dashboard...");
+        // Update parts that require the full HTML page.
+        updateDashboardRequest.send();
+        // Update dynamic content.
+        $(".ss-dynamic-content").trigger("ss-dynamic-content-reload",
+                                         {withLoadingScreen: false});
+    }
+
+    $$.util.recurrentJob.start(autoUpdateJobName,
+                               updateDashboard,
+                               secsBetweenUpdates);
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
