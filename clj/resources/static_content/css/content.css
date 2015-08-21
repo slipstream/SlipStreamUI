@@ -71,6 +71,8 @@ tr.text-danger a {
 .ss-alert-popover-error a,
 .text-danger a,
 .has-error code,
+.panel-danger .panel-heading code,
+.ss-abort-message code,
 .has-error .ss-validation-help-hint a,
 .alert-danger code {
   color: #a94442;

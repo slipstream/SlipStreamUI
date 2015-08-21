@@ -61,3 +61,11 @@
 #ss-start-tour-dialog .ss-dialog-footnote {
   padding-top: 15px;
 }
+
+.ss-deployment-info {
+  padding-top: 25px;
+}
+
+#ss-terminate-deployment-from-dashboard-dialog .modal-title code {
+      background-color: transparent;
+}

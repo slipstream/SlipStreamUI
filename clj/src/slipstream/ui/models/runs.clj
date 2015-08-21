@@ -31,6 +31,11 @@
     ;;       Should properly log this.
     nil))
 
+(def ^:private terminated-states
+  #{"Finalizing"
+    "Done"
+    "Aborted"
+    "Cancelled"})
 
 (defn- parse-run-item
   [run-item-metadata]
@@ -47,6 +52,7 @@
         (assoc        :abort-flag?    abort-flag?)
         (assoc        :display-status (display-status (:status attrs) abort-flag?))
         (assoc        :type           (-> attrs :type run/run-type-mapping))
+        (assoc        :terminable?    (-> attrs :status terminated-states not))
         (assoc        :module-uri     (-> attrs :moduleResourceUri))
         (assoc        :uri            (-> attrs :resourceUri))
         (assoc        :cloud-names    (-> attrs :cloudServiceNames)))))

@@ -24,6 +24,7 @@
          :uuid "6269f657-3311-402b-a71b-528ef76fea05"
          :type :deployment-run
          :abort-flag? false
+         :terminable? true
          :tags "tag-initializing-without-abort-flag"}
 
         {:status "Initializing"
@@ -37,6 +38,7 @@
          :uuid "53ea9de1-fff2-44d7-b053-f4fd4307b53a"
          :type :deployment-run
          :abort-flag? true
+         :terminable? true
          :tags "tag-initializing-with-abort-flag"}
 
         {:status "Provisioning"
@@ -50,6 +52,7 @@
          :uuid "e4a03073-e964-4e20-a3ab-ae0bf06c6354"
          :type :deployment-run
          :abort-flag? false
+         :terminable? true
          :tags "tag-provisioning-without-abort-flag"}
 
         {:status "Provisioning"
@@ -63,6 +66,7 @@
          :uuid "b8dd73f1-c673-451b-b95c-33fbd6b550ea"
          :type :image-build
          :abort-flag? true
+         :terminable? true
          :tags "tag-provisioning-with-abort-flag"}
 
         {:status "Executing"
@@ -76,6 +80,7 @@
          :uuid "ec745e78-be4b-43a7-83fa-6536c9d7fc92"
          :type :image-build
          :abort-flag? false
+         :terminable? true
          :tags "tag-executing-without-abort-flag"}
 
         {:status "Executing"
@@ -89,6 +94,7 @@
          :uuid "60d038d2-4069-41b5-a747-99d901f426cf"
          :type :image-build
          :abort-flag? true
+         :terminable? true
          :tags "tag-executing-with-abort-flag"}
 
         {:status "Sending reports"
@@ -102,6 +108,7 @@
          :uuid "d0ac87b8-d150-40b1-9bbb-1c8cbaf90bad"
          :type :image-build
          :abort-flag? false
+         :terminable? true
          :tags "tag-sending-reports-without-abort-flag"}
 
         {:status "Sending reports"
@@ -115,6 +122,7 @@
          :uuid "5151dc47-4bb5-4b72-990e-ab6cbd565cfc"
          :type :image-build
          :abort-flag? true
+         :terminable? true
          :tags "tag-sending-reports-with-abort-flag"}
 
         {:status "Ready"
@@ -128,6 +136,7 @@
          :uuid "c03075a0-da00-42bf-a5ad-41d13170e64e"
          :type :image-build
          :abort-flag? false
+         :terminable? true
          :tags "tag-ready-without-abort-flag"}
 
         {:status "Ready"
@@ -141,6 +150,7 @@
          :uuid "3b559cb9-1769-4c6d-aca8-9c5aea9c1662"
          :type :image-build
          :abort-flag? true
+         :terminable? true
          :tags "tag-ready-with-abort-flag"}
 
         {:status "Finalizing"
@@ -154,6 +164,7 @@
          :uuid "5842acd7-ce29-47ef-8f21-403e10db11ed"
          :type :image-build
          :abort-flag? false
+         :terminable? false
          :tags "tag-finalizing-without-abort-flag"}
 
         {:status "Finalizing"
@@ -167,6 +178,7 @@
          :uuid "555dccf8-4312-4328-8c70-b01e20a9ffa8"
          :type :deployment-run
          :abort-flag? true
+         :terminable? false
          :tags "tag-finalizing-with-very-long-abort-flag"}
 
         {:status "Done"
@@ -180,6 +192,7 @@
          :uuid "4589cc93-4c28-4362-873a-3dc84a3be58e"
          :type :deployment-run
          :abort-flag? false
+         :terminable? false
          :tags "tag-done-without-abort-flag"}
 
         {:status "Done"
@@ -193,6 +206,7 @@
          :uuid "07596eb7-f1f7-4e45-8561-5dbbc55cc817"
          :type :deployment-run
          :abort-flag? true
+         :terminable? false
          :tags "tag-done-with-abort-flag"}
 
         {:status "Aborted"
@@ -206,6 +220,7 @@
          :uuid "8ded8e5b-46ad-4bec-bcff-d761155f0e2e"
          :type :deployment-run
          :abort-flag? false
+         :terminable? false
          :tags "tag-aborted-without-abort-flag"}
 
         {:display-status :run-terminated
@@ -219,6 +234,7 @@
          :uuid "36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae"
          :type :deployment-run
          :abort-flag? true
+         :terminable? false
          :tags "tag-aborted-with-very-long-abort-flag"}
 
         {:status "Cancelled"
@@ -229,6 +245,7 @@
          :username "alice"
          :type :image-build
          :abort-flag? false
+         :terminable? false
          :tags "tag-cancelled-without-abort-flag"
          :start-time "2015-01-07 13:36:32.26 CET"
          :uri "run/b36dfcc0-b77b-4746-b7fd-0acd7038a02d"
@@ -245,6 +262,7 @@
          :start-time "2014-12-16 12:40:30.118 CET"
          :uri "run/0aa79e3f-878a-40b1-8e88-bb6808a183cc"
          :uuid "0aa79e3f-878a-40b1-8e88-bb6808a183cc"
+         :terminable? false
          :tags "tag-cancelled-with-abort-flag-1"}
 
         {:display-status :run-terminated
@@ -258,6 +276,7 @@
          :uuid "079dd5c1-85af-4387-95a7-b24fc0b2be53"
          :type :image-build
          :abort-flag? false
+         :terminable? false
          :tags "tag-cancelled-without-abort-flag"}
 
         {:status "Cancelled"
@@ -266,6 +285,7 @@
          :username "alice"
          :type :deployment-run
          :abort-flag? true
+         :terminable? false
          :tags "tag-cancelled-with-very-long-abort-flag"
          :cloud-names "Exoscale"
          :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a> b9638f6cjd19b0jd4e62jdb2f6jd498843e7aa7e6869be33jd9fe4jd4c80jdbbb1jd1665f6bad443ab7953e9jd2812jd4591jdbc8fjd194a95b9f70ed3caa272jd97a7jd4a25jd8a2ajdb13f3fd16851eb8eb8aajd163ejd4a87jd86a2jdafb2a4eb3982"

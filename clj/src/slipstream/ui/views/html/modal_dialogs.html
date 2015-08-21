@@ -202,6 +202,54 @@
       </div>
     </div>
 
+    <p>
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-terminate-deployment-from-table-dialog">
+      Launch demo <code>#ss-terminate-deployment-from-table-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ss-terminate-deployment-from-table-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-terminate-deployment-from-table-dialog-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title"><span id="ss-terminate-deployment-from-table-dialog-label">Terminate deployment</span> <code><span class="ss-deployment-run-id">Example Run Id</span></code> </h4>
+          </div>
+          <div class="modal-body">
+            <div class="message">
+              Are you sure you want to terminate all virtual machines running in this deployment?
+            </div>
+            <dl class="dl-horizontal ss-deployment-info">
+              <dt class="ss-deployment-run-id-label">Run Id</dt>
+              <dd class="ss-deployment-run-id">Example Run Id</dd>
+              <dt class="ss-deployment-run-type-label">Run Type</dt>
+              <dd class="ss-deployment-run-type">Example Run Type</dd>
+              <dt class="ss-deployment-module-label">Module</dt>
+              <dd class="ss-deployment-module">Example Module</dd>
+              <dt class="ss-deployment-state-label">State</dt>
+              <dd class="ss-deployment-state">Example State</dd>
+              <dt class="ss-deployment-start-time-label">Start Time</dt>
+              <dd class="ss-deployment-start-time">Example Start Time</dd>
+              <dt class="ss-deployment-clouds-label">Clouds</dt>
+              <dd class="ss-deployment-clouds">Example Clouds</dd>
+              <dt class="ss-deployment-service-url-label">Service URL</dt>
+              <dd class="ss-deployment-service-url">Example Service URL</dd>
+              <dt class="ss-deployment-user-label">User</dt>
+              <dd class="ss-deployment-user">Example User</dd>
+              <dt class="ss-deployment-tags-label">Tags</dt>
+              <dd class="ss-deployment-tags">Example Tags</dd>
+            </dl>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger ss-ok-btn" data-dismiss="modal">Terminate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <p>
 

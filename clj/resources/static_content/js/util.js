@@ -1579,6 +1579,21 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this.updateContent(this.html, this.html, newHTML, todoIfUpdated, callbackIfUpdated);
         },
 
+        replaceHTMLContentBySelector: function(selectorsAndContentsMap) {
+            if ( $.type(selectorsAndContentsMap) !== "object" ) {
+                console.warn("selectorsAndContentsMap must be a map of selectors to jQuery elements or HTML strings.");
+                return this;
+            }
+            var $this = this;
+            $.each(selectorsAndContentsMap, function(sel, newHTMLString) {
+                $this
+                    .find(sel)
+                        .html(newHTMLString)
+                        .bsEnableDynamicElements();
+            });
+            return $this;
+        },
+
         // Bottom shadow
 
         _onScrollCallbackToAdjustIFrameBottomShadowOpacity: function (iFrameHeight, $bottomShadow){

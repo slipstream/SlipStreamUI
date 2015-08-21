@@ -222,6 +222,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 this.onError(showErrorAlert);
                 return this;
             },
+            onErrorAlertFixed: function (titleOrMsg, msg){
+                var showErrorAlertFixed = function () { $$.alert.showErrorFixed(titleOrMsg, msg); };
+                this.onError(showErrorAlertFixed);
+                return this;
+            },
             onErrorStatusCode: function (statusCode, callback){
                 $$.util.object.setOrPush(this.intern.errorStatusCodeCallbacks, statusCode, callback);
                 return this;

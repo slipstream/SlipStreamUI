@@ -90,9 +90,13 @@
                     :repository       "Repository"
                     :run              "Run"
                     :runs             "Runs"
+                    :run-id           "Run Id"
+                    :run-type         "Run Type"
                     :service-catalog  "Service Catalog"
+                    :service-url      "Service URL"
                     :severity         "Severity"
                     :start            "Start"
+                    :start-time       "Start Time"
                     :state            "State"
                     :success          "Success"
                     :summary          "Summary"
@@ -303,10 +307,10 @@
    :slipstream.ui.views.table.header.pdf                      :global.nouns.pdf
    :slipstream.ui.views.table.header.public                   :global.nouns.public
    :slipstream.ui.views.table.header.repository               :global.nouns.repository
-   :slipstream.ui.views.table.header.run-id                   "Run Id"
+   :slipstream.ui.views.table.header.run-id                   :global.nouns.run-id
    :slipstream.ui.views.table.header.run-owner                "Run Owner"
    :slipstream.ui.views.table.header.slipstream-id            "SlipStream ID"
-   :slipstream.ui.views.table.header.start-time               "Start Time"
+   :slipstream.ui.views.table.header.start-time               :global.nouns.start-time
    :slipstream.ui.views.table.header.state                    :global.nouns.state
    :slipstream.ui.views.table.header.status                   :global.nouns.state
    :slipstream.ui.views.table.header.tags                     :global.nouns.tags
@@ -346,6 +350,7 @@
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Map to output parameter of another node"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Default value"
 
+   :slipstream.ui.views.tables.button-label.terminate :global.verbs.terminate
 
    :slipstream.ui.views.tables.deployment-nodes-table.new-parameter-mapping.placeholder.value   "No value"
 
@@ -522,10 +527,10 @@
    :slipstream.ui.models.parameters.end-time.description                        :global.nouns.end
    :slipstream.ui.models.parameters.end-time.help-hint                          ""
 
-   :slipstream.ui.models.parameters.run-type.description                        "Run Type"
+   :slipstream.ui.models.parameters.run-type.description                        :global.nouns.run-type
    :slipstream.ui.models.parameters.run-type.help-hint                          ""
 
-   :slipstream.ui.models.parameters.run-id.description                          "Run Id"
+   :slipstream.ui.models.parameters.run-id.description                          :global.nouns.run-id
    :slipstream.ui.models.parameters.run-id.help-hint                            ""
 
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
@@ -993,9 +998,19 @@
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select-exact-version "Select exact version"
 
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.title         "Terminate deployment"
-   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question      "Are you sure you want to terminate all virtual machines running in this deployment?"
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question      "Are you sure you want to terminate all virtual machines running in this deployment? Note that this cannot be undone."
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.cancel :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.button.terminate :global.verbs.terminate
+
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-run-id      :global.nouns.run-id
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-run-type    :global.nouns.run-type
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-module      :global.nouns.module
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-state       :global.nouns.state
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-start-time  :global.nouns.start-time
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-clouds      :global.nouns.clouds
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-service-url :global.nouns.service-url
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-user        :global.nouns.user
+   :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-tags        :global.nouns.tags
 
    :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.title                "Publish %1$s" ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.question             "Do you want to publish the %1$s `%2$s` (v %3$s) in the [App Store](/)?"  ;  %1$s: module category ;  %2$s: module name ;  %3$s: module version

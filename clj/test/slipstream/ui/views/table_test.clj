@@ -75,6 +75,7 @@
    :cell/set                [             :content/map  :content/plain]
    :cell/timestamp-long     [             :content/map  :content/plain]
    :cell/timestamp          [             :content/map  :content/plain]
+   :cell/timestamp-short    [             :content/map  :content/plain]
    :cell/relative-timestamp [             :content/map  :content/plain]
    :cell/boolean            [             :content/map  :content/plain]
    :cell/map                [:content/any                             ]

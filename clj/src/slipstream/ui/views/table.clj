@@ -327,13 +327,14 @@
 ; Action button cell
 
 (html/defsnippet ^:private cell-action-button-snip-edit template-filename (sel-for-cell :action-button :editable)
-  [{:keys [action-type id text class size]}]
-  [:button]   (html/content   (str text))
-  [:button]   (html/add-class (str "btn-" (name (or action-type :primary))))
-  [:button]   (ue/when-add-class size (str "btn-" (name size)))
-  [:td]       (ue/when-add-class size "ss-vertical-align")
-  [:button]   (ue/when-add-class class)
-  [:button]   (ue/set-id      id))
+  [{:keys [action-type id icon text class size]}]
+  [:.glyphicon] (icons/set icon)
+  [:button :.ss-button-label] (html/content   (str text))
+  [:button]     (html/add-class (str "btn-" (name (or action-type :primary))))
+  [:button]     (ue/when-add-class size (str "btn-" (name size)))
+  [:td]         (ue/when-add-class size "ss-vertical-align")
+  [:button]     (ue/when-add-class class)
+  [:button]     (ue/set-id      id))
 
 ; Inner table cell
 
@@ -532,6 +533,11 @@
                            (assoc :text (-> content :set uc/join-as-str))
                            (dissoc :set))))
 
+; :cell/timestamp-long       "Monday, 2 March 2015, 18:50:18 CET"
+; :cell/timestamp            "Mon, 2 Mar 2015, 18:50:18 CET"
+; :cell/timestamp-short      "2 Mar 2015, 18:50:18 CET"
+; :cell/relative-timestamp   "5 months and 3 days ago"
+
 (defmethod cell-snip [:cell/timestamp-long :mode/any :content/map]
   [{content :content}]
   (cell-timestamp-snip-view content :human-readable-long :relative))
@@ -539,6 +545,10 @@
 (defmethod cell-snip [:cell/timestamp :mode/any :content/map]
   [{content :content}]
   (cell-timestamp-snip-view content :human-readable :relative))
+
+(defmethod cell-snip [:cell/timestamp-short :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :human-readable-short :relative))
 
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/map]
   [{content :content}]
@@ -551,6 +561,10 @@
 (defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :human-readable :relative))
+
+(defmethod cell-snip [:cell/timestamp-short :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-timestamp-snip-view {:timestamp timestamp} :human-readable-short :relative))
 
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/plain]
   [{timestamp :content}]
