@@ -274,10 +274,11 @@
 ; Icon cell
 
 (html/defsnippet ^:private cell-icon-snip-view template-filename (sel-for-cell :icon)
-  [{:keys [icon overlay tooltip-placement style]}]
+  [{:keys [icon overlay tooltip-placement style class]}]
   [:span] (icons/set (case (type icon)
                        :icon/computed icon
                        :icon/symbol   (icon :tooltip-placement (or tooltip-placement "left")
+                                            :class class
                                             :overlay overlay
                                             :style style))))
 
