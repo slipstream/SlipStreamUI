@@ -167,8 +167,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("body").on("click", ".ss-terminate-run-from-table-button", function() {
-        var $terminateButton = $(this),
-            $runRow = $terminateButton.closest("tr")
+        var $terminateButton = $(this);
+        if ( $terminateButton.is(".disabled") ) {
+            return false;
+        }
+        var $runRow = $terminateButton.closest("tr")
                                 .clone()
                                     .find("a")
                                         .attr("target", "_blank")
@@ -212,7 +215,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .askConfirmation(function(){
                 $terminateButton
                     .addClass("disabled")
-                    .find(".glyphicon")
+                    .tooltip('destroy')
+                    .findClosest(".glyphicon")
                         .addClass("ss-icon-loading");
                 console.info("Terminating deployment: " + runURI);
                 $$.request
