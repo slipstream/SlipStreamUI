@@ -1,5 +1,8 @@
 ﻿jQuery( function() { ( function( $$, $, undefined ) {
 
+    // Using FlotCharts
+    // Source: http://www.flotcharts.org
+
     $.fn.metrics = function(options) {
         var settings = $.extend({
             url: "/metrics/render",
@@ -11,26 +14,41 @@
                 return series;
             },
             colors: ["rgb(188, 3, 24)", "rgb(80, 167, 222)", "rgb(0, 0, 0)"],
+            withLoadingScreen: true
         }, options );
 
-        var meteringBaseHTML =  '<div class="row">' +
-                                '  <div id="ss-current-series-pie" class="col-sm-2">' +
+        var meteringBaseHTML =  '<div class="row ss-metering-plots" style="height: 215px; padding: 0px;">' +
+                                '  <div id="ss-current-series-pie" class="col-sm-2" style="height: 215px; padding: 0px;">' +
                                 '  </div> <!-- /col -->' +
-                                '  <div id="ss-past-series-graph" class="col-sm-8">' +
+                                '  <div id="ss-past-series-graph" class="col-sm-8" style="height: 215px; padding: 0px;">' +
                                 '  </div> <!-- /col -->' +
                                 '  <div id="ss-legend" class="col-sm-2">' +
                                 '  </div> <!-- /col -->' +
-                                '</div> <!-- /row -->';
+                                '</div> <!-- /row ss-metering-plots -->';
+
+        function updateData($elem, controllerName, newData) {
+            var plotController = $elem.data(controllerName);
+            if ( plotController ) {
+                plotController.setData(newData); // Replace old Data with new Data
+                plotController.setupGrid();      // Adjust axes to match new values
+                plotController.draw();
+            } else {
+                console.warn("No plot controller found: " + controllerName);
+            }
+        }
 
         function plot(elem, series) {
+            if ( elem.find(".ss-metering-plots").foundAny() ) {
+                // Plots are already there, just update the data.
+                updateData(elem, "pieChartController",  series[0]);
+                updateData(elem, "graphController",     series[1]);
+                return;
+            }
+
             $(meteringBaseHTML).appendTo(elem);
 
-            $("#ss-current-series-pie", elem)
-                .css({
-                    height: 215,
-                    padding: 10
-                })
-                .plot(series[0], {
+            var pieChartController = $.plot($("#ss-current-series-pie", elem),
+                series[0], {
                     series: {
                         pie: {
                             radius: 0.75,
@@ -52,13 +70,10 @@
                     },
                     colors: settings.colors
                 });
+            elem.data("pieChartController", pieChartController);
 
-            $("#ss-past-series-graph", elem)
-                .css({
-                    height: 215,
-                    padding: 10
-                })
-                .plot(series[1], {
+            var graphController = $.plot($("#ss-past-series-graph", elem),
+                series[1], {
                     series: {
                         stack: false,
                         lines: {
@@ -99,6 +114,7 @@
                     },
                     colors: settings.colors
                 });
+            elem.data("graphController", graphController);
         }
 
         function get_series(samples) {
@@ -150,6 +166,7 @@
                     from:   settings.from,
                     format: "json"
                 })
+                .withLoadingScreen(settings.withLoadingScreen)
                 .dataType("json")
                 .onDataTypeParseErrorAlert("Metrics Error", "We are not able to understand the metrics data.")
                 .onSuccess(function(samples, status, xhr) {

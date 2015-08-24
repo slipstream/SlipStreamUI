@@ -113,7 +113,7 @@
                             (map (partial format "jquery-flot/js/jquery.flot%s.min.js")
                                  ["" ".pie" ".time" ".stack" ".tooltip" ".resize"])
                             (map (partial format "justgage/js/%s.min.js")
-                                 ["raphael.2.1.0" "justgage.1.0.1"]))
+                                 ["raphael.2.1.4" "justgage.1.1.0"]))
    :internal-js-filenames ["metering.js" "dashboard.js"]})
 
 (defn page

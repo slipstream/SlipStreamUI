@@ -115,14 +115,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $dynamicContentElem.trigger("ss-dynamic-content-reload");
     });
 
-    $("body").on("ss-dynamic-content-reload", dynamicContentSel, function(e){
+    $("body").on("ss-dynamic-content-reload", dynamicContentSel, function(e, data){
         var $dynamicContent = $(this);
         if ($dynamicContent.foundNothing()) {
             return;
         }
+        var withLoadingScreen = true;
+        if ( data !== undefined && data.withLoadingScreen !== undefined ) {
+            withLoadingScreen = data.withLoadingScreen;
+        }
         $$.request
             .get($dynamicContent.attr("content-load-url"))
             .dataType("html")
+            .withLoadingScreen(withLoadingScreen)
             .onSuccess(function (html){
                 var $newContent = $(".ss-section-content", html);
                 $dynamicContent
