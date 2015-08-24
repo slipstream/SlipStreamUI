@@ -188,7 +188,7 @@
          :username "alice"
          :uuid "555dccf8-4312-4328-8c70-b01e20a9ffa8"
          :type :deployment-run
-         :service-url nil
+         :service-url "http://10.0.0.1:8080"
          :abort-flag? true
          :terminable? false
          :tags "tag-finalizing-with-very-long-abort-flag"}
@@ -203,7 +203,7 @@
          :username "alice"
          :uuid "4589cc93-4c28-4362-873a-3dc84a3be58e"
          :type :deployment-run
-         :service-url nil
+         :service-url "http://10.0.0.1:8080"
          :abort-flag? false
          :terminable? false
          :tags "tag-done-without-abort-flag"}
@@ -218,7 +218,7 @@
          :username "alice"
          :uuid "07596eb7-f1f7-4e45-8561-5dbbc55cc817"
          :type :deployment-run
-         :service-url nil
+         :service-url "http://10.0.0.1:8080"
          :abort-flag? true
          :terminable? false
          :tags "tag-done-with-abort-flag"}
@@ -233,7 +233,7 @@
          :username "alice"
          :uuid "8ded8e5b-46ad-4bec-bcff-d761155f0e2e"
          :type :deployment-run
-         :service-url nil
+         :service-url "http://10.0.0.1:8080"
          :abort-flag? false
          :terminable? false
          :tags "tag-aborted-without-abort-flag"}

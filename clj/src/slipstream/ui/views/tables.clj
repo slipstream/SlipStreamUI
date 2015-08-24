@@ -369,7 +369,9 @@
                                                                (apply format "%s v%s")),
                                                     :href module-uri
                                                     :tooltip (u/module-name module-uri)}}
-           {:type :cell/external-url,     :content {:url service-url}}
+           (if terminable?
+            {:type :cell/external-url,     :content {:url  service-url}}
+            {:type :cell/text,             :content {:text service-url}})
            {:type :cell/text,             :content status}
            {:type :cell/timestamp-short,  :content start-time}
            {:type :cell/text,             :content cloud-names}
