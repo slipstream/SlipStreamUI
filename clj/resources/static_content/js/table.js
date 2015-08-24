@@ -221,6 +221,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 console.info("Terminating deployment: " + runURI);
                 $$.request
                     .delete(runURI)
+                    .withLoadingScreen(false)
                     .onErrorAlertFixed(
                         "Run <a href='" + runURI + "'><code>" + runID + "</code></a> failed to terminate properly."
                         )
