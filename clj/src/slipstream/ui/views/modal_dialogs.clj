@@ -71,12 +71,32 @@
     [:.ss-select-btn]         (html/content (t :button.select))))
 
 (localization/with-prefixed-t :terminate-deployment-dialog
+
   (html/defsnippet ^:private terminate-deployment-dialog template-filename [:#ss-terminate-deployment-dialog]
     []
     title-sel                 (html/content (t :title))
     body-sel                  (html/content (t :question))
     first-button-sel          (html/content (t :button.cancel))
-    last-button-sel           (html/content (t :button.terminate))))
+    last-button-sel           (html/content (t :button.terminate)))
+
+  (html/defsnippet ^:private terminate-deployment-from-table-dialog template-filename [:#ss-terminate-deployment-from-table-dialog]
+    []
+    [title-sel :#ss-terminate-deployment-from-table-dialog-label]   (html/content (t :title))
+    [body-sel :.message]                (html/content (t :question))
+    first-button-sel                    (html/content (t :button.cancel))
+    last-button-sel                     (html/content (t :button.terminate))
+    [:.ss-deployment-run-id-label]      (html/content (t :label.deployment-run-id))
+    [:.ss-deployment-run-type-label]    (html/content (t :label.deployment-run-type))
+    [:.ss-deployment-module-label]      (html/content (t :label.deployment-module))
+    [:.ss-deployment-state-label]       (html/content (t :label.deployment-state))
+    [:.ss-deployment-start-time-label]  (html/content (t :label.deployment-start-time))
+    [:.ss-deployment-clouds-label]      (html/content (t :label.deployment-clouds))
+    [:.ss-deployment-service-url-label] (html/content (t :label.deployment-service-url))
+    [:.ss-deployment-user-label]        (html/content (t :label.deployment-user))
+    [:.ss-deployment-tags-label]        (html/content (t :label.deployment-tags)))
+
+  ; end of localization/with-prefixed-t :terminate-deployment-dialog
+  )
 
 (localization/with-prefixed-t :publish-module-confirmation-dialog
   (html/defsnippet ^:private publish-module-confirmation-dialog template-filename [:#ss-publish-module-confirmation-dialog]
@@ -219,7 +239,11 @@
 
 (defn- terminate-required?
   [{:keys [view-name]}]
-  (= "run" view-name))
+  (#{"run"} view-name))
+
+(defn- terminate-from-table-required?
+  [{:keys [view-name]}]
+  (#{"dashboard" "module" "runs"} view-name))
 
 (defn- publish-required?
   [context]
@@ -265,6 +289,7 @@
                                                       (-> context :parsed-metadata :cloud-image-details :reference-image)
                                                       (-> context :parsed-metadata :summary :parent-uri))))
         (terminate-required? context)       (conj (terminate-deployment-dialog))
+        (terminate-from-table-required? context) (conj (terminate-deployment-from-table-dialog))
         (publish-required? context)         (conj (publish-module-confirmation-dialog   resource-name resource-id module-version)
                                                   (unpublish-module-confirmation-dialog resource-name resource-id module-version))
         (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))

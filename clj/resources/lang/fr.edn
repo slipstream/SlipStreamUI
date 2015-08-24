@@ -345,6 +345,8 @@
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Lié à un paramètre de sortie d'un autre noeud"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Valeur par défaut"
 
+   :slipstream.ui.views.tables.button-label.terminate :global.verbs.terminate
+
    :slipstream.ui.views.tables.deployment-nodes-table.new-parameter-mapping.placeholder.value "Pas de valeur"
 
    :slipstream.ui.views.table.reference-module-cell.chooser-button.label "Choisir la référence"
