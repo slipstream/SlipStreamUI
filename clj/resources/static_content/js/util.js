@@ -1900,6 +1900,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        bsHidePopoversAndTooltips: function() {
+            this
+                // Hide popovers
+                .find("[data-toggle='popover'], .popover")
+                    .popover("hide")
+                    .end()
+                // Hide tooltips
+                .find("[data-toggle='tooltip'], .tooltip")
+                    .tooltip("hide");
+            return this;
+
+        },
+
         // Image Preloader utils
         //
         // '.imagesLoaded()' requires following library:
