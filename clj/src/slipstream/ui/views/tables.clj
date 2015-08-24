@@ -376,15 +376,14 @@
            {:type :cell/username,         :content username}
            {:type :cell/text,             :content tags}
            (when terminable?
-             {:type :cell/action-button, :content {:text (t :button-label.terminate)
-                                                   :icon (icons/icon-for :action-terminate)
-                                                   :class "ss-terminate-run-from-table-button btn-danger btn-xs"}})]})
-
+             {:type :cell/icon,           :content {:icon  icons/action-terminate
+                                                    :style :danger
+                                                    :class "ss-terminate-run-from-table-button"}})]})
 (defn runs-table
   [runs & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags :action]
+     :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags nil]
      :rows        (map run-row runs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

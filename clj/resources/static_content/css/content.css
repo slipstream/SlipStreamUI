@@ -305,3 +305,8 @@ div.popover:not(.ss-alert-popover) code {
     top: 20%;
   }
 }
+
+
+.ss-terminate-run-from-table-button {
+  cursor: pointer;
+}
