@@ -220,10 +220,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .onErrorAlertFixed(
                         "Run <a href='" + runURI + "'><code>" + runID + "</code></a> failed to terminate properly."
                         )
-                    .always(function(){
-                        console.log("request to terminate done");
-                        $(".ss-dynamic-content").trigger("ss-dynamic-content-reload");
-                    })
                     .send();
             });
     });
