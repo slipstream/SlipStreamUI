@@ -348,7 +348,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-names uri module-uri start-time username uuid status terminable? display-status tags type abort-msg abort-flag?] :as run}]
+  [{:keys [cloud-names uri module-uri service-url start-time username uuid status terminable? display-status tags type abort-msg abort-flag?] :as run}]
   {:style (case display-status
             :run-with-abort-flag-set    :danger
             :run-in-transitional-state  nil
@@ -364,6 +364,7 @@
            {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}
            {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
            {:type :cell/link,      :content {:text (u/module-name module-uri), :href module-uri}}
+           {:type :cell/external-url, :content {:url service-url}}
            {:type :cell/text,      :content status}
            {:type :cell/timestamp-short, :content start-time}
            {:type :cell/text,      :content cloud-names}
@@ -378,7 +379,7 @@
   [runs & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers     [nil nil :id :module :status :start-time :cloud-names :user :tags :action]
+     :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags :action]
      :rows        (map run-row runs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -327,6 +327,7 @@
    :slipstream.ui.views.table.header.timestamp                :global.nouns.timestamp
    :slipstream.ui.views.table.header.event-content            :global.nouns.content
    :slipstream.ui.views.table.header.severity                 :global.nouns.severity
+   :slipstream.ui.views.table.header.service-url              "Service URL"
    :slipstream.ui.views.table.header.type                     :global.nouns.type
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"

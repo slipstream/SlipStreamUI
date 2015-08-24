@@ -23,6 +23,7 @@
          :username "alice"
          :uuid "6269f657-3311-402b-a71b-528ef76fea05"
          :type :deployment-run
+         :service-url nil
          :abort-flag? false
          :terminable? true
          :tags "tag-initializing-without-abort-flag"}
@@ -37,6 +38,7 @@
          :username "alice"
          :uuid "53ea9de1-fff2-44d7-b053-f4fd4307b53a"
          :type :deployment-run
+         :service-url nil
          :abort-flag? true
          :terminable? true
          :tags "tag-initializing-with-abort-flag"}
@@ -51,6 +53,7 @@
          :username "alice"
          :uuid "e4a03073-e964-4e20-a3ab-ae0bf06c6354"
          :type :deployment-run
+         :service-url nil
          :abort-flag? false
          :terminable? true
          :tags "tag-provisioning-without-abort-flag"}
@@ -65,6 +68,7 @@
          :username "alice"
          :uuid "b8dd73f1-c673-451b-b95c-33fbd6b550ea"
          :type :image-build
+         :service-url nil
          :abort-flag? true
          :terminable? true
          :tags "tag-provisioning-with-abort-flag"}
@@ -79,6 +83,7 @@
          :username "alice"
          :uuid "ec745e78-be4b-43a7-83fa-6536c9d7fc92"
          :type :image-build
+         :service-url nil
          :abort-flag? false
          :terminable? true
          :tags "tag-executing-without-abort-flag"}
@@ -93,6 +98,7 @@
          :username "alice"
          :uuid "60d038d2-4069-41b5-a747-99d901f426cf"
          :type :image-build
+         :service-url nil
          :abort-flag? true
          :terminable? true
          :tags "tag-executing-with-abort-flag"}
@@ -107,6 +113,7 @@
          :username "alice"
          :uuid "d0ac87b8-d150-40b1-9bbb-1c8cbaf90bad"
          :type :image-build
+         :service-url nil
          :abort-flag? false
          :terminable? true
          :tags "tag-sending-reports-without-abort-flag"}
@@ -121,6 +128,7 @@
          :username "alice"
          :uuid "5151dc47-4bb5-4b72-990e-ab6cbd565cfc"
          :type :image-build
+         :service-url nil
          :abort-flag? true
          :terminable? true
          :tags "tag-sending-reports-with-abort-flag"}
@@ -135,6 +143,7 @@
          :username "alice"
          :uuid "c03075a0-da00-42bf-a5ad-41d13170e64e"
          :type :image-build
+         :service-url "http://10.0.0.1:8080"
          :abort-flag? false
          :terminable? true
          :tags "tag-ready-without-abort-flag"}
@@ -149,6 +158,7 @@
          :username "alice"
          :uuid "3b559cb9-1769-4c6d-aca8-9c5aea9c1662"
          :type :image-build
+         :service-url "http://10.0.0.1:8080"
          :abort-flag? true
          :terminable? true
          :tags "tag-ready-with-abort-flag"}
@@ -163,6 +173,7 @@
          :username "alice"
          :uuid "5842acd7-ce29-47ef-8f21-403e10db11ed"
          :type :image-build
+         :service-url nil
          :abort-flag? false
          :terminable? false
          :tags "tag-finalizing-without-abort-flag"}
@@ -177,6 +188,7 @@
          :username "alice"
          :uuid "555dccf8-4312-4328-8c70-b01e20a9ffa8"
          :type :deployment-run
+         :service-url nil
          :abort-flag? true
          :terminable? false
          :tags "tag-finalizing-with-very-long-abort-flag"}
@@ -191,6 +203,7 @@
          :username "alice"
          :uuid "4589cc93-4c28-4362-873a-3dc84a3be58e"
          :type :deployment-run
+         :service-url nil
          :abort-flag? false
          :terminable? false
          :tags "tag-done-without-abort-flag"}
@@ -205,6 +218,7 @@
          :username "alice"
          :uuid "07596eb7-f1f7-4e45-8561-5dbbc55cc817"
          :type :deployment-run
+         :service-url nil
          :abort-flag? true
          :terminable? false
          :tags "tag-done-with-abort-flag"}
@@ -219,6 +233,7 @@
          :username "alice"
          :uuid "8ded8e5b-46ad-4bec-bcff-d761155f0e2e"
          :type :deployment-run
+         :service-url nil
          :abort-flag? false
          :terminable? false
          :tags "tag-aborted-without-abort-flag"}
@@ -233,6 +248,7 @@
          :uri "run/36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae"
          :uuid "36be1b6b-d4f1-4d99-9a0f-1e65fe4bbaae"
          :type :deployment-run
+         :service-url nil
          :abort-flag? true
          :terminable? false
          :tags "tag-aborted-with-very-long-abort-flag"}
@@ -244,6 +260,7 @@
          :abort-msg nil
          :username "alice"
          :type :image-build
+         :service-url nil
          :abort-flag? false
          :terminable? false
          :tags "tag-cancelled-without-abort-flag"
@@ -256,6 +273,7 @@
          :module-uri "module/first-project/newdeployment/24"
          :username "alice"
          :type :deployment-run
+         :service-url nil
          :abort-flag? true
          :cloud-names "StratusLab"
          :abort-msg "Marketplace endpoint should be set for StratusLab"
@@ -275,6 +293,7 @@
          :uri "run/079dd5c1-85af-4387-95a7-b24fc0b2be53"
          :uuid "079dd5c1-85af-4387-95a7-b24fc0b2be53"
          :type :image-build
+         :service-url nil
          :abort-flag? false
          :terminable? false
          :tags "tag-cancelled-without-abort-flag"}
@@ -284,6 +303,7 @@
          :module-uri "module/first-project/newdeployment/24"
          :username "alice"
          :type :deployment-run
+         :service-url nil
          :abort-flag? true
          :terminable? false
          :tags "tag-cancelled-with-very-long-abort-flag"
