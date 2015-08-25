@@ -1836,7 +1836,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     type:       "info",
                     trigger:    "hover",
                     placement:  "bottom",
-                    container:  "body",
                     content:    "",
                     html:       false,
                     delay:      {show: 600, hide: 100}
