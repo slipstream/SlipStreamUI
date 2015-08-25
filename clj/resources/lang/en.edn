@@ -926,28 +926,49 @@
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
    :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "This is a native image: it cannot be built."
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Cloud Configuration"
-   :slipstream.ui.views.module.image.section.image-creation.title                       "Image Creation Recipes"
-   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe
-   :slipstream.ui.views.module.image.section.image-creation.subsection.packages.title   :global.nouns.packages
-   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.title  :global.nouns.pre-recipe
-   :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.description     "Standard recipe (fires after packages are installed)"
-   :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.description  "Pre-recipe (fires before SlipStream client install and packages are installed)"
-   :slipstream.ui.views.module.image.section.deployment.title                           "Deployment Recipes and Coordination Parameters"
-   :slipstream.ui.views.module.image.section.deployment.subsection.execute.title        :global.verbs.execute
-   :slipstream.ui.views.module.image.section.deployment.subsection.report.title         :global.verbs.report
-   :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
-   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
-   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
-   :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.title      "Pre-Scale"
-   :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.title     "Post-Scale"
+   ; :slipstream.ui.views.module.image.section.image-creation.title                       "Image Creation Recipes"
+   ; :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.title     :global.nouns.recipe
+   ; :slipstream.ui.views.module.image.section.image-creation.subsection.packages.title   :global.nouns.packages
+   ; :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.title  :global.nouns.pre-recipe
+   ; :slipstream.ui.views.module.image.section.image-creation.subsection.recipe.description     "Standard recipe (fires after packages are installed)"
+   ; :slipstream.ui.views.module.image.section.image-creation.subsection.prerecipe.description  "Pre-recipe (fires before SlipStream client install and packages are installed)"
+   ; :slipstream.ui.views.module.image.section.deployment.title                           "Deployment Recipes and Coordination Parameters"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.execute.title        :global.verbs.execute
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.report.title         :global.verbs.report
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.parameters.title     :global.nouns.parameters
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.title      "On VM Add"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.title   "On VM Remove"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.title      "Pre-Scale"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.title     "Post-Scale"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Standard recipe (fires during Running phase)"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.description    "Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)"
+   ; :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.description   "Runs on the node instance after scale IaaS action (only after vertical scaling)"
+
+   :slipstream.ui.views.module.image.section.recipes.title                                "Custom Scripts"
+   :slipstream.ui.views.module.image.section.recipes.subsection.prerecipe.title!          "1. Pre-install"; :global.nouns.pre-recipe
+   :slipstream.ui.views.module.image.section.recipes.subsection.prerecipe.description     "This script is executed on the deployed machine before SlipStream client and packages are installed."; "Pre-recipe (fires before SlipStream client install and packages are installed)"
+   :slipstream.ui.views.module.image.section.recipes.subsection.packages.title!           "2. Install packages"; :global.nouns.packages
+   :slipstream.ui.views.module.image.section.recipes.subsection.recipe.title!             "3. Post-install"; :global.nouns.recipe
+   :slipstream.ui.views.module.image.section.recipes.subsection.recipe.description        "This script is executed on the deployed machine after the packages defined in the previous tab have been installed but before SlipStream client."; "Standard recipe (fires after packages are installed)"
+   :slipstream.ui.views.module.image.section.recipes.subsection.parameters.title!         "4. Parameters"; :global.nouns.parameters
+   :slipstream.ui.views.module.image.section.recipes.subsection.execute.title!            "5. Deployment"; :global.verbs.execute
+   :slipstream.ui.views.module.image.section.recipes.subsection.execute.description       "This script is executed during the deployment phase after the SlipStream client has been installed."; "Standard recipe (fires during Running phase)"
+   :slipstream.ui.views.module.image.section.recipes.subsection.report.title!             "6. Reporting"; :global.verbs.report
+   :slipstream.ui.views.module.image.section.recipes.subsection.report.description        "This script is executed during the `Sending Reports` phase. Here you can gather logs to be packages and displayed in the SlipStream interface." ; "Gather logs and things for posterity (fires during the Sending Report phase)"
+   :slipstream.ui.views.module.image.section.recipes.subsection.on-vm-add.title!          "7. On VM Add"; "On VM Add"
+   :slipstream.ui.views.module.image.section.recipes.subsection.on-vm-add.description     "This script runs when new VM(s) are added to the deployment"
+   :slipstream.ui.views.module.image.section.recipes.subsection.on-vm-remove.title!       "8. On VM Remove"; "On VM Remove"
+   :slipstream.ui.views.module.image.section.recipes.subsection.on-vm-remove.description  "This script runs when VM(s) are removed from the deployment"
+   :slipstream.ui.views.module.image.section.recipes.subsection.pre-scale.title!          "9. Pre-Scale"; "Pre-Scale"
+   :slipstream.ui.views.module.image.section.recipes.subsection.pre-scale.description     "Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)"
+   :slipstream.ui.views.module.image.section.recipes.subsection.post-scale.title!         "10. Post-Scale"; "Post-Scale"
+   :slipstream.ui.views.module.image.section.recipes.subsection.post-scale.description    "Runs on the node instance after scale IaaS action (only after vertical scaling)"
+
    :slipstream.ui.views.module.image.section.runs.title                                 :global.nouns.runs
    :slipstream.ui.views.module.image.section.runs.empty-content-hint                    "This section will list all runs and builds of this image."
-   :slipstream.ui.views.module.image.section.deployment.subsection.execute.description      "Standard recipe (fires during Running phase)"
-   :slipstream.ui.views.module.image.section.deployment.subsection.report.description       "Gather logs and things for posterity (fires during the Sending Report phase)"
-   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-add.description    "Runs when new VM(s) added to the deployment"
-   :slipstream.ui.views.module.image.section.deployment.subsection.on-vm-remove.description "Runs when VM(s) removed from the deployment"
-   :slipstream.ui.views.module.image.section.deployment.subsection.pre-scale.description    "Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)"
-   :slipstream.ui.views.module.image.section.deployment.subsection.post-scale.description   "Runs on the node instance after scale IaaS action (only after vertical scaling)"
    :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content-hint "There are no packages set up yet. You can [add some](%1$s) by editing this image with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."

@@ -31,6 +31,61 @@
   [_ _ section-metadata _]
   (map category-section section-metadata))
 
+; Section "Recipes"
+
+(localization/with-prefixed-t :section.recipes.subsection
+
+  (defn- no-packages-hint
+    [module-name section-title]
+    (t :packages.empty-content-hint
+       (u/module-uri module-name
+                     :edit true
+                     :hash [(-> section-title uc/keywordize name)
+                            (-> :packages.title t uc/keywordize name)])))
+
+  (defn- packages-subsection
+    [packages]
+    (when (or (page-type/edit-or-new?) (not-empty packages))
+       (t/image-creation-packages-table packages)))
+
+  (defmethod middle-section-content :recipes
+    [module section-title section-metadata _]
+    [
+     {:title    (t :prerecipe.title)
+      :content [(t :prerecipe.description)
+                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}
+     {:title    (t :packages.title)
+      :content  (or
+                  (packages-subsection (:packages section-metadata))
+                  (no-packages-hint (-> module :summary :name) section-title))}
+     {:title    (t :recipe.title)
+      :content [(t :recipe.description)
+                (-> section-metadata :recipe :code (code-area "recipe"))]}
+     {:title    (t :parameters.title)
+      :content (-> section-metadata :parameters t/deployment-parameters-table)}
+     {:title    (t :execute.title)
+      :content [(t :execute.description)
+                (-> section-metadata :targets :execute :code (code-area "execute"))]}
+     {:title    (t :report.title)
+      :content [(t :report.description)
+                (-> section-metadata :targets :report :code (code-area "report"))]}
+     {:title    (t :on-vm-add.title)
+      :content [(t :on-vm-add.description)
+                (-> section-metadata :targets :on-vm-add :code (code-area "onvmadd"))]}
+     {:title    (t :on-vm-remove.title)
+      :content [(t :on-vm-remove.description)
+                (-> section-metadata :targets :on-vm-remove :code (code-area "onvmremove"))]}
+    ;; TODO: Tabs for scale scripts temporarily removed from the UI as the feature is still in beta.
+    ;;  {:title    (t :pre-scale.title)
+    ;;   :content [(t :pre-scale.description)
+    ;;             (-> section-metadata :targets :pre-scale :code (code-area "prescale"))]}
+    ;;  {:title    (t :post-scale.title)
+    ;;   :content [(t :post-scale.description)
+    ;;             (-> section-metadata :targets :post-scale :code (code-area "postscale"))]}
+    ])
+
+) ; End of prefixed-t scope
+
 ; Section "image creation recipes"
 
 (localization/with-prefixed-t :section.image-creation.subsection
@@ -130,8 +185,11 @@
   (cond-> [:cloud-image-details
            :os-details
            :cloud-configuration
-           :image-creation
-           :deployment]
+           ; :deployment-parameters
+           :recipes
+           ; :image-creation
+           ; :deployment
+           ]
    (page-type/view?) (conj :runs)))
 
 (defn middle-sections
