@@ -404,3 +404,23 @@
       (map?     v)  (vector v)
       (coll?    v)  (vec v)
       :else         (vector v))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; SOURCE: http://stackoverflow.com/a/17902228
+(defn flatten-map
+  "Flattens a nested map into a one-level map:
+  {:a {:b 1 :c 2} :b 3} => {:a.b 1 :a.c 2 :b 3}"
+  ([m]
+     (into {} (flatten-map m ".")))
+  ([m separator]
+     (into {} (flatten-map m separator nil)))
+  ([m separator pre]
+     (mapcat (fn [[k v]]
+               (let [prefix (if pre (str pre separator (name k)) (name k))]
+                 (if (map? v)
+                   (flatten-map v separator prefix)
+                   [[(keyword prefix) v]])))
+               m)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

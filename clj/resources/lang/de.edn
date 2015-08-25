@@ -483,7 +483,7 @@
 
    :slipstream.ui.models.parameters.run-owner.description                       "Runinhaber_in"
    :slipstream.ui.models.parameters.run-owner.help-hint                         "Der Benutzer, der dieses Run gestartet hat."
->>>>>>>>>>>>>>
+; >>>>>>>>>>>>>>
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Inherit group members from parent module?"
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 

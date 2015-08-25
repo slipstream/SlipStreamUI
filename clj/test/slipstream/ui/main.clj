@@ -3,6 +3,7 @@
 (:require [clojure.string :as s]
             [ring.util.response :as resp]
             [ring.middleware.resource :as resource]
+            [slipstream.ui.localization-test-helper :as lth]
             [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.utils :as utils]
@@ -57,6 +58,13 @@
         (resp/content-type (->> file-data-file (re-matches #".*\.(.*)") second keyword))
         constantly)))
 
+(defn- render-localizations
+  [comparison-parameters]
+  (-> comparison-parameters
+      lth/html-str
+      resp/response
+      constantly))
+
 (def ^:private query-parameters
   "These are the query-parameters used by the JS code on the client browser."
   {"deployment-view-tour-intro-without-connectors"  "?action=run"
@@ -85,7 +93,7 @@
         static-pages-links    (->> routes
                                    (take-nth 2)
                                    flatten
-                                   (remove #{'& "template"})
+                                   (remove #{'& "template" 'comparison-parameters})
                                    (partition-by first)
                                    (uc/mmap #(str "<div><a target='_blank' href='/" % (query-parameters %) "'>" % "</a></div>"))
                                    (interpose ["<br>"])
@@ -186,6 +194,8 @@
     ["events"]                (render :pagename "events"          :raw-metadata-ns "events")
 
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
+
+    ["localizations" & comparison-parameters]         (render-localizations comparison-parameters)
 
     ["error"]                 (render-error :raw-metadata-ns "module.project"
                                             :message "Oops!! Kaboom!! <a href='http://sixsq.com'>home</a>"
