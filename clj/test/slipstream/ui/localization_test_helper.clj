@@ -5,6 +5,9 @@
             [taoensso.tower :as tower]
             [slipstream.ui.util.clojure :as uc]))
 
+(def ^:private base-locale :en)
+
+(def ^:private ^:dynamic *all-dicts* nil)
 (def ^:private ^:dynamic *langs-to-display* nil)
 
 ; (def ^:private lang-resources-dir "clj/resources/lang/")
@@ -19,32 +22,37 @@
     (when (and (= extension "edn") iso-language)
       [iso-language (->> filename (str "lang/") uc/read-resource uc/flatten-map)])))
 
-(def ^:private lang-locales
-  (into {} (->> lang-resources-dir
-                io/file
-                file-seq
-                rest
-                (map file->locale-entry))))
+(defn- read-locale-dict-files
+  []
+  (if-let [all-dicts (into {} (->> lang-resources-dir
+                                      io/file
+                                      file-seq
+                                      rest
+                                      (map file->locale-entry)))]
+    all-dicts
+    (throw (IllegalStateException.
+            (str "No lang locale files found in: " lang-resources-dir)))))
 
-(when (empty? lang-locales)
-  (throw (IllegalStateException.
-           (str "No lang locale files found in: " lang-resources-dir))))
-
-(def ^:private all-keys
-  (->> lang-locales
+(defn- all-keys
+  [all-dicts]
+  (->> all-dicts
        vals
        (apply merge)
        keys
        sort))
 
-(def ^:private base-locale :en)
-
-(def ^:private all-locales
-  (-> lang-locales keys set (disj base-locale) seq (conj base-locale)))
+(defn- all-locales
+  [all-dicts]
+  (-> all-dicts
+      keys
+      set
+      (disj base-locale)
+      seq
+      (conj base-locale)))
 
 (defn- values-for-locale
   [k locale]
-  (let [dict (get lang-locales locale)
+  (let [dict (get *all-dicts* locale)
         value (get dict k)]
     (format "<li class='%1$s'><b><code>%1$s:</code></b> %2$s</li>"
             (name locale)
@@ -62,7 +70,7 @@
 
 (defn- css-class-for-tr
   [k]
-  (let [[base-locale-value & extra-locale-values]  (map (comp k lang-locales) *langs-to-display*)
+  (let [[base-locale-value & extra-locale-values]  (map (comp k *all-dicts*) *langs-to-display*)
         base-locale-present?        (-> base-locale-value str not-empty boolean)
         base-locale-missing?        (not base-locale-present?)
         all-extra-locales-present?  (every? (comp     not-empty str) extra-locale-values)
@@ -83,7 +91,7 @@
           (values-for-langs-to-display k)))
 
 (defn- localization-entries-page-html
-  [diff-type list-only-keys? rows-html]
+  [diff-type list-only-keys? all-locales rows-html]
   (str "<head>"
        (format "<base href='/localizations/%s' />"
                (condp = (count *langs-to-display*)
@@ -119,14 +127,18 @@
        "</body>"))
 
 (defn html-str
-  [comparison-parameters]
-  (let [diff-type       (some #{"ok" "missing" "unnecessary"}   comparison-parameters)
-        lang-to-display (some (->> all-locales (map name) set)  comparison-parameters)
-        list-only-keys? (some (comp boolean #{"keys"})          comparison-parameters)]
-    (binding [*langs-to-display* (cond
-                                   (= (keyword lang-to-display) base-locale)  [base-locale]
-                                   (not lang-to-display)                      all-locales
-                                   :else                                      [base-locale (keyword lang-to-display)])]
+  [url-segments]
+  (let [diff-type       (some #{"ok" "missing" "unnecessary"}           url-segments)
+        lang-to-display (some (->> tower/iso-languages (map name) set)  url-segments)
+        list-only-keys? (some (comp boolean #{"keys"})                  url-segments)
+        all-dicts       (read-locale-dict-files) ;; Read all dict files every time to catch updates.
+        all-keys        (all-keys     all-dicts)
+        all-locales     (all-locales  all-dicts)]
+    (binding [*all-dicts*         all-dicts
+              *langs-to-display*  (cond
+                                    (= (keyword lang-to-display) base-locale)  [base-locale]
+                                    (not lang-to-display)                      all-locales
+                                    :else                                      [base-locale (keyword lang-to-display)])]
       (->> all-keys
            (map langs-to-display-entry-row-html)
-           (localization-entries-page-html diff-type list-only-keys?)))))
+           (localization-entries-page-html diff-type list-only-keys? all-locales)))))
