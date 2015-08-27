@@ -19,7 +19,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         viewer.setHighlightActiveLine(false);
         viewer.setHighlightGutterLine(false);
         viewer.setShowInvisibles(false);
-        viewer.setOption("minLines", 10);
+        viewer.setOption("minLines", 12);
         viewer.setOption("maxLines", 100);
     });
 

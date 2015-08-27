@@ -305,3 +305,7 @@ div.popover:not(.ss-alert-popover) code {
     top: 20%;
   }
 }
+
+.ss-target-description {
+  padding-bottom: 25px;
+}

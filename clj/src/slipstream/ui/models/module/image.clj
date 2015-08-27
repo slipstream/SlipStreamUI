@@ -43,48 +43,55 @@
    :login-username   (-> metadata :attrs :loginUser)})
 
 
-;; Image creation metadata section
+;; Targets section
 
-(defn- parse-recipe
-  [recipe-type metadata]
-  {:code (-> metadata (html/select [recipe-type html/text-node]) first)})
+(defn- conj-recipe-target
+  [v target-name metadata]
+  (let [recipe (-> metadata
+                   (html/select [(keyword target-name) html/text-node])
+                   first)]
+    (conj v {:target-name target-name
+             :target-type :script
+             :script      recipe})))
 
 (defn- parse-package
   [package-metadata]
-  (let [attrs (:attrs package-metadata)]
-    (-> attrs
-        (select-keys [:key
-                      :name
-                      :repository]))))
+  (select-keys (:attrs package-metadata) [:key :name :repository]))
 
-(defn- image-creation
+(defn- conj-packages-target
+  [v target-name metadata]
+  (let [packages (->> (html/select metadata [:package])
+                      (map parse-package)
+                      (sort-by :name)
+                      vec)]
+    (conj v {:target-name "packages"
+             :target-type :packages
+             :packages    packages})))
+
+(defn- conj-script-target
+  [v target-name metadata]
+  (let [script (-> metadata
+                  (html/select [[:target (html/attr= :name target-name)] html/text-node])
+                  first)]
+    (conj v {:target-name target-name
+             :target-type :script
+             :script      script})))
+
+(defn- targets
   [metadata]
-  {:recipe      (parse-recipe :recipe metadata)
-   :packages    (->> (html/select metadata [:package])
-                     (map parse-package)
-                     (sort-by :name))
-   :pre-recipe  (parse-recipe :prerecipe metadata)})
+  (-> []
+      ; Image creation recipes and packages
+      (conj-recipe-target   "prerecipe"   metadata)
+      (conj-packages-target "packages"    metadata)
+      (conj-recipe-target   "recipe"      metadata)
+      ; Deployment recipes
+      (conj-script-target   "execute"     metadata)
+      (conj-script-target   "report"      metadata)
+      (conj-script-target   "onvmadd"     metadata)
+      (conj-script-target   "onvmremove"  metadata)))
 
 
-;; Deployment metadata section
-
-(def ^:private target-names
-  {:execute       "execute"
-   :report        "report"
-   :parameters    "parameters"
-   :on-vm-add     "onvmadd"
-   :on-vm-remove  "onvmremove"
-   :pre-scale     "prescale"
-   :post-scale    "postscale"})
-
-(defn- assoc-target
-  [m target metadata]
-  (let [target-metadata (-> metadata
-                            (html/select [[:target (html/attr= :name (target-names target))]])
-                            first)]
-    (assoc-in m [:targets target]
-        {:code              (-> target-metadata (html/select [html/text-node]) first)
-         :run-in-background (-> target-metadata :attrs :runInBackground uc/parse-boolean)})))
+;; Deployment parameters section
 
 (def ^:private default-parameters-order
   {"instanceid" 1
@@ -109,16 +116,6 @@
        (sort-by (juxt :order :category :name))
        vec))
 
-(defn- deployment
-  [metadata parameters]
-  (-> {:parameters (deployment-parameters parameters)}
-      (assoc-target :execute metadata)
-      (assoc-target :report metadata)
-      (assoc-target :pre-scale metadata)
-      (assoc-target :post-scale metadata)
-      (assoc-target :on-vm-add metadata)
-      (assoc-target :on-vm-remove metadata)))
-
 
 ;; Metadata section build
 
@@ -126,10 +123,10 @@
   [metadata]
   (let [parameters (parameters/parse metadata)]
     (cond->
-        {:cloud-image-details         (cloud-image-details metadata)
-         :os-details                  (os-details metadata)
+        {:cloud-image-details         (cloud-image-details    metadata)
+         :os-details                  (os-details             metadata)
          :cloud-configuration         (parameters/categories-of-type parameters :global)
-         :image-creation              (image-creation metadata)
-         :deployment                  (deployment metadata parameters)}
+         :deployment-parameters       (deployment-parameters  parameters)
+         :targets                     (targets                metadata)}
       (page-type/view?) (assoc :runs  (runs/parse metadata)))))
 

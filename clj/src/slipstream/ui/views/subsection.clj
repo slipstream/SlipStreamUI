@@ -57,7 +57,7 @@
   activator-xs-group-sel  (activator-xs-group subsections)
   content-group-sel       (content-group      subsections))
 
-(def ^:private max-num-of-flat-sections 7)
+(def ^:private max-num-of-flat-sections 6)
 (def ^:private max-num-of-stacked-sections 25)
 
 (defn- subsection-group-snip

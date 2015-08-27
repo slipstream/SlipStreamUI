@@ -1,141 +1,60 @@
 (ns slipstream.ui.models.module.image-new-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.module :as model]))
 
 (def raw-metadata-str
-  "<imageModule category='Image' creation='2013-03-07 21:03:09.124 CET' deleted='false' description='Nice Ubuntu distro' imageId='HZTKYZgX7XzSokCHMB60lS0wsiv' isBase='true' lastModified='2013-03-07 21:03:09.337 CET' loginUser='donald' name='Public/BaseImages/Ubuntu/new' parentUri='module/Public/BaseImages/Ubuntu' platform='debian' resourceUri='module/Public/BaseImages/Ubuntu/new' shortName='new' version='4'>
-      <parameters class='org.hibernate.collection.PersistentMap'>
-          <entry>
-              <string>extra.disk.volatile</string>
-              <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Volatile extra disk in GB' isSet='false' mandatory='true' name='extra.disk.volatile' readonly='false' type='String'>
-                  <value>12345</value>
-              </parameter>
-          </entry>
-          <entry>
-              <string>stratuslab.disks.bus.type</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='VM disks bus type' isSet='true' mandatory='true' name='stratuslab.disks.bus.type' readonly='false' type='Enum'>
-                  <enumValues length='2'>
-                      <string>virtio</string>
-                      <string>scsi</string>
-                  </enumValues>
-                  <value>VIRTIO</value>
-                  <defaultValue>VIRTIO</defaultValue>
-              </parameter>
-          </entry>
-          <entry>
-              <string>stratuslab.instance.type</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance type' isSet='true' mandatory='true' name='stratuslab.instance.type' readonly='false' type='Enum'>
-                  <enumValues length='7'>
-                      <string>m1.small</string>
-                      <string>c1.medium</string>
-                      <string>m1.large</string>
-                      <string>m1.xlarge</string>
-                      <string>c1.xlarge</string>
-                      <string>t1.micro</string>
-                      <string>standard.xsmall</string>
-                  </enumValues>
-                  <value>M1_SMALL</value>
-                  <defaultValue>M1_SMALL</defaultValue>
-              </parameter>
-          </entry>
-          <entry>
-              <string>hostname</string>
-              <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='hostname/ip of the image' isSet='false' mandatory='true' name='hostname' readonly='false' type='String'>
-                  <value>123.234.345</value>
-              </parameter>
-          </entry>
-          <entry>
-              <string>stratuslab.cpu</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested CPUs' isSet='false' mandatory='true' name='stratuslab.cpu' readonly='false' type='String'/>
-          </entry>
-          <entry>
-              <string>stratuslab.ram</string>
-              <parameter category='stratuslab' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Requested RAM (in GB)' isSet='false' mandatory='true' name='stratuslab.ram' readonly='false' type='String'/>
-          </entry>
-          <entry>
-              <string>instanceid</string>
-              <parameter category='Output' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Cloud instance id' isSet='false' mandatory='true' name='instanceid' readonly='false' type='String'/>
-          </entry>
-          <entry>
-              <string>network</string>
-              <parameter category='Cloud' class='com.sixsq.slipstream.persistence.ModuleParameter' description='Network type' isSet='true' mandatory='true' name='network' readonly='false' type='Enum'>
-                  <enumValues length='2'>
-                      <string>Public</string>
-                      <string>Private</string>
-                  </enumValues>
-                  <value>Public</value>
-                  <defaultValue>Public</defaultValue>
-              </parameter>
-          </entry>
-      </parameters>
-      <authz groupCreateChildren='false' groupDelete='false' groupGet='true' groupPost='false' groupPut='false' inheritedGroupMembers='true' owner='sixsq' ownerCreateChildren='true' ownerDelete='true' ownerGet='true' ownerPost='true' ownerPut='true' publicCreateChildren='false' publicDelete='false' publicGet='true' publicPost='false' publicPut='false'>
-          <groupMembers class='java.util.ArrayList'/>
-      </authz>
-      <cloudNames length='2'>
-          <string>stratuslab</string>
-          <string>default</string>
-      </cloudNames>
-      <targets class='org.hibernate.collection.PersistentBag'>
-          <target name='execute' runInBackground='false'>execute target</target>
-          <target name='report' runInBackground='false'>report target</target>
-      </targets>
-      <packages class='org.hibernate.collection.PersistentBag'>
-          <package key='key' name='apache2' repository='repo'/>
-      </packages>
-      <prerecipe>some pre-recipe</prerecipe>
-      <recipe>some recipe</recipe>
-      <cloudImageIdentifiers class='org.hibernate.collection.PersistentBag'>
-          <cloudImageIdentifier cloudImageIdentifier='HZTKYZgX7XzSokCHMB60lS0wsiv' cloudServiceName='stratuslab' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'/>
-          <cloudImageIdentifier cloudImageIdentifier='abc' cloudServiceName='my-cloud' resourceUri='module/Public/BaseImages/Ubuntu/12.04/4/stratuslab'/>
-      </cloudImageIdentifiers>
-      <extraDisks class='org.hibernate.collection.PersistentBag'/>
-      <user issuper='false' name='toto' resourceUri='user/super'/>
-  </imageModule>")
-
+  (uc/slurp-resource "slipstream/ui/mockup_data/metadata_new_image.xml"))
 
 (def parsed-metadata
-  {:deployment {:targets {:on-vm-remove {:code nil
-                                         :run-in-background nil}
-                          :on-vm-add {:code nil
-                                      :run-in-background nil}
-                          :pre-scale  {:code nil
-                                      :run-in-background nil}
-                          :post-scale {:code nil
-                                      :run-in-background nil}
-                          :report {:code "report target"
-                                   :run-in-background false}
-                          :execute {:code "execute target"
-                                    :run-in-background false}}
-                :parameters [{:name "instanceid"
-                              :category "Output"
-                              :type "String"
-                              :description "Cloud instance ID"
-                              :value nil
-                              :order 1
-                              :placeholder "Provided at runtime by SlipStream"
-                              :read-only? false
-                              :mandatory? true
-                              :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
-                              :disabled? true}
-                             {:disabled? true
-                              :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
-                              :read-only? false
-                              :mandatory? true
-                              :order 2
-                              :placeholder "Provided at runtime by SlipStream"
-                              :value "123.234.345"
-                              :category "Output"
-                              :description "Hostname or IP address of the image"
-                              :type "String"
-                              :name "hostname"}]}
-   :image-creation {:recipe {:code "some recipe"}
-                    :packages [{:repository "repo"
-                                :name "apache2"
-                                :key "key"}]
-                    :pre-recipe {:code "some pre-recipe"}}
+  {:targets [{:target-type  :script
+              :target-name  "prerecipe"
+              :script       "some pre-recipe"}
+             {:target-type  :packages
+              :target-name  "packages"
+              :packages   [{:repository "repo"
+                            :name       "apache2"
+                            :key        "key"}]}
+             {:target-type  :script
+              :target-name  "recipe"
+              :script       "some recipe"}
+             {:target-type  :script
+              :target-name  "execute"
+              :script       "execute target"}
+             {:target-type  :script
+              :target-name  "report"
+              :script       "report target"}
+             {:target-type  :script
+              :target-name  "onvmadd"
+              :script       nil}
+             {:target-type  :script
+              :target-name  "onvmremove"
+              :script       nil}]
+   :deployment-parameters [{:name "instanceid"
+                            :category "Output"
+                            :type "String"
+                            :description "Cloud instance ID"
+                            :value nil
+                            :order 1
+                            :placeholder "Provided at runtime by SlipStream"
+                            :read-only? false
+                            :mandatory? true
+                            :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+                            :disabled? true}
+                           {:disabled? true
+                            :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+                            :read-only? false
+                            :mandatory? true
+                            :order 2
+                            :placeholder "Provided at runtime by SlipStream"
+                            :value "123.234.345"
+                            :category "Output"
+                            :description "Hostname or IP address of the image"
+                            :type "String"
+                            :name "hostname"}]
    :cloud-configuration [{:category-type :global
                           :category "Cloud"
                           :parameters [{:help-hint nil
