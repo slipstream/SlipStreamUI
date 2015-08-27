@@ -410,17 +410,28 @@
 ;; SOURCE: http://stackoverflow.com/a/17902228
 (defn flatten-map
   "Flattens a nested map into a one-level map:
-  {:a {:b 1 :c 2} :b 3} => {:a.b 1 :a.c 2 :b 3}"
+  {:a {:b 1 :c 2} :b 3} => {:a.b 1 :a.c 2 :b 3}
+  See tests for expectations."
   ([m]
-     (into {} (flatten-map m ".")))
+    (flatten-map m "."))
   ([m separator]
-     (into {} (flatten-map m separator nil)))
+    (into {} (flatten-map m separator nil)))
   ([m separator pre]
-     (mapcat (fn [[k v]]
-               (let [prefix (if pre (str pre separator (name k)) (name k))]
-                 (if (map? v)
-                   (flatten-map v separator prefix)
-                   [[(keyword prefix) v]])))
-               m)))
+    (mapcat (fn [[k v]]
+              (let [prefix (if pre (str pre separator (name k)) (name k))]
+                (if (map? v)
+                  (flatten-map v separator prefix)
+                  [[(keyword prefix) v]])))
+              m)))
+
+(defn deflatten-map
+  "Inverse of flatten-map. See tests for expectations."
+  ([m]
+    (deflatten-map m #"\."))
+  ([m re-separator]
+    (reduce (fn [m [k v]]
+              (assoc-in m (map keyword (s/split (name k) re-separator)) v))
+            {}
+            m)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
