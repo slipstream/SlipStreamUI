@@ -8,6 +8,7 @@
 (def ^:private base-locale :en)
 
 (def ^:private ^:dynamic *all-dicts* nil)
+(def ^:private ^:dynamic *lang-to-display* nil)
 (def ^:private ^:dynamic *langs-to-display* nil)
 
 ; (def ^:private lang-resources-dir "clj/resources/lang/")
@@ -90,8 +91,14 @@
           (str k)
           (values-for-langs-to-display k)))
 
+(defn- entries-table-html
+  [all-keys]
+  (str "<table><thead><th>key</th><th>string</th></thead><tbody>"
+       (s/join (map langs-to-display-entry-row-html all-keys))
+       "</tbody></table>"))
+
 (defn- localization-entries-page-html
-  [diff-type list-only-keys? all-locales rows-html]
+  [diff-type display-type list-only-keys? all-locales all-keys]
   (str "<head>"
        (format "<base href='/localizations/%s' />"
                (condp = (count *langs-to-display*)
@@ -118,27 +125,36 @@
             (map #(str "<a href='/localizations/" % "'>" % "</a>"))
             (s/join " | "))
        "</div>"
-       "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a></div>"
-       "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a></div>"
-       "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a></div>"
-       "<table><thead><th>key</th><th>string</th></thead><tbody>"
-       (s/join rows-html)
-       "</tbody></table>"
+       "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a>"
+       (when *lang-to-display* " | <a href='ok/flat-map'>flat-map</a> | <a href='ok/nested-map'>nested-map</a>")
+       "</div>"
+       "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a>"
+       (when *lang-to-display* " | <a href='missing/flat-map'>flat-map</a> | <a href='missing/nested-map'>nested-map</a>")
+       "</div>"
+       "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a>"
+       (when *lang-to-display* " | <a href='unnecessary/flat-map'>flat-map</a> | <a href='unnecessary/nested-map'>nested-map</a>")
+       "</div>"
+       (case display-type
+         "flat-map"     (str "<pre>" (with-out-str (clojure.pprint/pprint (get *all-dicts* *lang-to-display*))) "</pre>")
+         "nested-map"   (str "<pre>" (with-out-str (clojure.pprint/pprint (uc/deflatten-map (get *all-dicts* *lang-to-display*)))) "</pre>")
+         ; "nested-map"   (str "<code>" (uc/deflatten-map (get *all-dicts* *lang-to-display*)) "</code>")
+         ; "nested-map"   (get *all-dicts* *lang-to-display*)
+         (entries-table-html all-keys))
        "</body>"))
 
 (defn html-str
   [url-segments]
   (let [diff-type       (some #{"ok" "missing" "unnecessary"}           url-segments)
-        lang-to-display (some (->> tower/iso-languages (map name) set)  url-segments)
+        lang-to-display (some tower/iso-languages                       (map keyword url-segments))
         list-only-keys? (some (comp boolean #{"keys"})                  url-segments)
+        display-type    (some #{"keys" "flat-map" "nested-map"}         url-segments)
         all-dicts       (read-locale-dict-files) ;; Read all dict files every time to catch updates.
         all-keys        (all-keys     all-dicts)
         all-locales     (all-locales  all-dicts)]
     (binding [*all-dicts*         all-dicts
+              *lang-to-display*   lang-to-display
               *langs-to-display*  (cond
                                     (= (keyword lang-to-display) base-locale)  [base-locale]
                                     (not lang-to-display)                      all-locales
                                     :else                                      [base-locale (keyword lang-to-display)])]
-      (->> all-keys
-           (map langs-to-display-entry-row-html)
-           (localization-entries-page-html diff-type list-only-keys? all-locales)))))
+      (localization-entries-page-html diff-type display-type list-only-keys? all-locales all-keys))))
