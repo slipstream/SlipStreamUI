@@ -55,6 +55,7 @@
         (assoc        :terminable?    (-> attrs :status terminated-states not))
         (assoc        :module-uri     (-> attrs :moduleResourceUri))
         (assoc        :uri            (-> attrs :resourceUri))
+        (assoc        :service-url    (-> attrs :serviceUrl (or "") s/trim not-empty))
         (assoc        :cloud-names    (-> attrs :cloudServiceNames)))))
 
 (defn- parse-run-items

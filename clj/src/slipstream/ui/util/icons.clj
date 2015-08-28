@@ -17,25 +17,28 @@
 ;; TODO: Overlays are still beta. They disrupt the layout, specially next to text.
 
 (defmacro deficon
-  [icon-symbol icon & {:keys [overlay style]}]
+  [icon-symbol icon & {:keys [overlay style class]}]
   (let [tooltip-placement-symbol  (symbol "tooltip-placement")
         description-symbol        (symbol "description")
         overlay-symbol            (symbol "overlay")
+        class-symbol              (symbol "class")
         style-symbol              (symbol "style")]
    `(def ~icon-symbol
        ^{:type :icon/symbol}
-       (fn [& {:keys [~tooltip-placement-symbol ~overlay-symbol ~style-symbol]}]
+       (fn [& {:keys [~tooltip-placement-symbol ~overlay-symbol ~class-symbol ~style-symbol]}]
          (let [~description-symbol (uc/title-case (t ~(str "description." (name icon-symbol))))]
            ~(if (symbol? icon)
               `(assoc (~icon :tooltip-placement ~tooltip-placement-symbol)
                       :description    ~description-symbol
                       :overlay        (or ~overlay-symbol ~overlay)
+                      :class          (or ~class-symbol   ~class)
                       :style          (or ~style-symbol   ~style))
                `(with-meta
                   {:tooltip-placement ~tooltip-placement-symbol
                    :class-suffix      ~icon
                    :description       ~description-symbol
                    :overlay           (or ~overlay-symbol ~overlay)
+                   :class             (or ~class-symbol   ~class)
                    :style             (or ~style-symbol   ~style)}
                   {:type :icon/computed})))))))
 
@@ -132,7 +135,7 @@
   (let [icon-computed (case (type icon)
                         :icon/computed   icon
                         :icon/symbol     (icon))
-        {:keys [tooltip-placement class-suffix description overlay style]} icon-computed
+        {:keys [tooltip-placement class-suffix description overlay style class]} icon-computed
         show-tooltip? (not-empty tooltip-placement)]
     (fn [icon-node]
       (when (not-empty class-suffix)
@@ -143,6 +146,7 @@
               ue/this   (ue/when-add-class            show-tooltip? "ss-icon-tooltip")
               ue/this   (ue/when-add-class            (not-empty overlay) (str "ss-icon-overlay-" overlay))
               ue/this   (ue/when-add-class            style               (str "text-" (name style)))
+              ue/this   (ue/when-add-class            class)
               ue/this   (ue/when-set-title            show-tooltip? description)
               ue/this   (ue/when-set-data :toggle     show-tooltip? "tooltip")
               ue/this   (ue/when-set-data :placement  show-tooltip? tooltip-placement))))))

@@ -260,21 +260,25 @@
 ; Link cell
 
 (html/defsnippet ^:private cell-link-snip-view template-filename (sel-for-cell :link)
-  [{:keys [text href open-in-new-window? id colspan class] :as cell-content}]
-    [:a] (html/content (str text))
-    [:a] (ue/set-href href)
-    [:a] (ue/set-id id)
-    [:a] (ue/when-add-class class)
+  [{:keys [text href open-in-new-window? tooltip id colspan class] :as cell-content}]
+    [:a]    (html/content (str text))
+    [:a]    (ue/set-href href)
+    [:a]    (ue/set-id id)
+    [:a]    (ue/when-add-class class)
     ue/this (ue/set-colspan colspan)
-    [:a] (ue/when-set-target open-in-new-window? "_blank"))
+    [:a]    (ue/when-set-title            (not-empty tooltip) (str tooltip))
+    [:a]    (ue/when-set-data  :toggle    (not-empty tooltip) "tooltip")
+    [:a]    (ue/when-set-data  :placement (not-empty tooltip) "bottom")
+    [:a]    (ue/when-set-target open-in-new-window? "_blank"))
 
 ; Icon cell
 
 (html/defsnippet ^:private cell-icon-snip-view template-filename (sel-for-cell :icon)
-  [{:keys [icon overlay tooltip-placement style]}]
+  [{:keys [icon overlay tooltip-placement style class]}]
   [:span] (icons/set (case (type icon)
                        :icon/computed icon
                        :icon/symbol   (icon :tooltip-placement (or tooltip-placement "left")
+                                            :class class
                                             :overlay overlay
                                             :style style))))
 

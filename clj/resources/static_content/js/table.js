@@ -167,8 +167,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $("body").on("click", ".ss-terminate-run-from-table-button", function() {
-        var $terminateButton = $(this),
-            $runRow = $terminateButton.closest("tr")
+        var $terminateButton = $(this);
+        if ( $terminateButton.is(".disabled") ) {
+            return false;
+        }
+        var $runRow = $terminateButton.closest("tr")
                                 .clone()
                                     .find("a")
                                         .attr("target", "_blank")
@@ -184,14 +187,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
             runID        = $runID.find("a").html(),
             runURI       = $runID.find("a").attr("href"),
             $module      = $runRow.find("td:nth-child(4)"),
-            $state       = $runRow.find("td:nth-child(5)"),
+            $serviceURL  = $runRow.find("td:nth-child(5)"),
+            $state       = $runRow.find("td:nth-child(6)"),
             abortMsgHTML = "<div class='ss-abort-message text-danger'>" +
                             ($runRow.dataIn("fromServer.alertPopoverOptions.content") || '') +
                             "</div>",
-            $startTime   = $runRow.find("td:nth-child(6)"),
-            $clouds      = $runRow.find("td:nth-child(7)"),
-            $user        = $runRow.find("td:nth-child(8)"),
-            $tags        = $runRow.find("td:nth-child(9)");
+            $startTime   = $runRow.find("td:nth-child(7)"),
+            $clouds      = $runRow.find("td:nth-child(8)"),
+            $user        = $runRow.find("td:nth-child(9)"),
+            $tags        = $runRow.find("td:nth-child(10)");
         $('#ss-terminate-deployment-from-table-dialog')
             .replaceHTMLContentBySelector({
                 ".modal-title .ss-deployment-run-id": runID,
@@ -204,25 +208,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                             .html(),
                 ".ss-deployment-start-time":          $startTime.html(),
                 ".ss-deployment-clouds":              $clouds.html(),
-                ".ss-deployment-service-url":         '', // TODO
+                ".ss-deployment-service-url":         $serviceURL.html(),
                 ".ss-deployment-user":                $user.html(),
                 ".ss-deployment-tags":                $tags.html()
             })
             .askConfirmation(function(){
                 $terminateButton
                     .addClass("disabled")
-                    .find(".glyphicon")
+                    .tooltip('destroy')
+                    .findClosest(".glyphicon")
                         .addClass("ss-icon-loading");
                 console.info("Terminating deployment: " + runURI);
                 $$.request
                     .delete(runURI)
+                    .withLoadingScreen(false)
                     .onErrorAlertFixed(
                         "Run <a href='" + runURI + "'><code>" + runID + "</code></a> failed to terminate properly."
                         )
-                    .always(function(){
-                        console.log("request to terminate done");
-                        $(".ss-dynamic-content").trigger("ss-dynamic-content-reload");
-                    })
                     .send();
             });
     });
