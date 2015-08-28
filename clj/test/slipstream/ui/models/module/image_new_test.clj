@@ -12,26 +12,33 @@
 (def parsed-metadata
   {:targets [{:target-type  :script
               :target-name  "prerecipe"
+              :context      #{:image-creation}
               :script       "some pre-recipe"}
              {:target-type  :packages
               :target-name  "packages"
+              :context      #{:image-creation}
               :packages   [{:repository "repo"
                             :name       "apache2"
                             :key        "key"}]}
              {:target-type  :script
               :target-name  "recipe"
+              :context      #{:image-creation}
               :script       "some recipe"}
              {:target-type  :script
               :target-name  "execute"
+              :context      #{:deployment :ss-client-access}
               :script       "execute target"}
              {:target-type  :script
               :target-name  "report"
+              :context      #{:deployment :ss-client-access}
               :script       "report target"}
              {:target-type  :script
               :target-name  "onvmadd"
+              :context      #{:scaling :ss-client-access}
               :script       nil}
              {:target-type  :script
               :target-name  "onvmremove"
+              :context      #{:scaling :ss-client-access}
               :script       nil}]
    :deployment-parameters [{:name "instanceid"
                             :category "Output"

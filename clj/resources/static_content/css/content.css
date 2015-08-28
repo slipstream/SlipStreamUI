@@ -309,3 +309,16 @@ div.popover:not(.ss-alert-popover) code {
 .ss-target-description {
   padding-bottom: 25px;
 }
+
+.ss-target-description-bottom {
+  padding-top: 15px;
+}
+.ss-target-description-bottom table {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 0.9em;
+}
+.ss-target-description-bottom td {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+}

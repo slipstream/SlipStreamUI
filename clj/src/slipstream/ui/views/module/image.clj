@@ -38,11 +38,15 @@
   (defmulti target-subsection :target-type)
 
   (defmethod target-subsection :script
-    [{:keys [target-name script]}]
+    [{:keys [target-name script context]}]
     {:title   (->  target-name (str ".title") t)
      :content [(-> target-name (str ".description") t (ue/text-div-snip :css-class "ss-target-description"
                                                                         :html true))
-               (code-area script target-name)]})
+               (code-area script target-name)
+               (when (context :ss-client-access)
+                 (ue/text-div-snip (t :ss-commands-documentation)
+                                   :css-class "ss-target-description-bottom"
+                                   :html true))]})
 
   (defmethod target-subsection :packages
     [{:keys [target-name packages]}]

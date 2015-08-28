@@ -52,6 +52,7 @@
                    first)]
     (conj v {:target-name target-name
              :target-type :script
+             :context     #{:image-creation}
              :script      recipe})))
 
 (defn- parse-package
@@ -66,6 +67,7 @@
                       vec)]
     (conj v {:target-name "packages"
              :target-type :packages
+             :context     #{:image-creation}
              :packages    packages})))
 
 (defn- conj-script-target
@@ -75,6 +77,10 @@
                   first)]
     (conj v {:target-name target-name
              :target-type :script
+             :context     (conj #{:ss-client-access}
+                            (case target-name
+                              ("execute" "report")      :deployment
+                              ("onvmadd" "onvmremove")  :scaling))
              :script      script})))
 
 (defn- targets
