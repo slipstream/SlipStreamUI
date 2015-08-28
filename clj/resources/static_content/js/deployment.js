@@ -411,7 +411,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .data("existent-value", $keepRunningBehaviourCombobox.val())
                     .val("always")
                     .closest("tr")
-                        .enableRow(false, {disableReason: "Mutable deployments are always kept running."});
+                        .enableRow(false, {disableReason: "Scalable deployments are always kept running."});
             } else {
                 $keepRunningBehaviourCombobox
                     .val($keepRunningBehaviourCombobox.data("existent-value"))
