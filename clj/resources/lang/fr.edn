@@ -60,7 +60,7 @@
                     :mapping          "Liaison"
                     :metering         "Mesures"
                     :module           "Module"
-                    :mutable-deployment "Déploiement mutable _(beta)_"
+                    :mutable-deployment "Déploiement scalable _(beta)_"
                     :name             "Nom"
                     :node             "Noeud"
                     :nodes            "Noeuds"
@@ -327,7 +327,7 @@
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Image de référence"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Multiplicité par défaut"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label   "Multiplicité"
-   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "La multiplicité doit être supérieure à 0 pour les déploiements non mutables."
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "La multiplicité doit être supérieure à 0 pour les déploiements non scalables."
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label       "Multiplicité initiale"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Nombre maximal d'erreurs accepté"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "Ceci doit être une valeur inférieure à la multiplicité ci-dessus."
@@ -539,7 +539,7 @@
    ;; Parameters for the global section of the 'Run deployment' dialog
 
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
-   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _mutable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
+   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _scalable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
    :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés."
@@ -549,10 +549,10 @@
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Spécifier pour chaque noeud."
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"
-   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour devoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _mutables_ avec une _grande mutliplicité initiale."
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour devoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _scalables_ avec une _grande mutliplicité initiale."
 
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Mantenir actif après le déploiement"
-   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder active l'application après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des long tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consomer des resources Cloud que dans le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. L'option marquée avec `*` est la valeur par défaut configurée dans votre profile. Note: Ce paramètre ne s'applique pas aux `déploiements mutables` et aux `constructions d'images`."
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder active l'application après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des long tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consomer des resources Cloud que dans le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. L'option marquée avec `*` est la valeur par défaut configurée dans votre profile. Note: Ce paramètre ne s'applique pas aux `déploiements scalables` et aux `constructions d'images`."
 
    :slipstream.ui.models.parameters.mail-usage.description                      "Recevoir un courriel des consommations sur vos clouds"
    :slipstream.ui.models.parameters.mail-usage.help-hint                        "Choisissez la fréquence à laquelle vous recevrez un courriel détaillant la consommation de vos resources sur vos clouds."
@@ -1043,8 +1043,8 @@
    :slipstream.ui.views.run.run.not-mutable.own-run         "Image run lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.not-mutable       "Exécution d'un déploiement lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.not-mutable.own-run "Exécution d'un déploiement lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.mutable           "Exécution d'un déploiement mutable lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.mutable.own-run   "Exécution d'un déploiement mutable lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable           "Exécution d'un déploiement scalable lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable.own-run   "Exécution d'un déploiement scalable lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
