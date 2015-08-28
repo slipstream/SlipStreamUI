@@ -926,9 +926,10 @@
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
    :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "This is a native image: it cannot be built."
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Cloud Configuration"
-   :slipstream.ui.views.module.image.section.deployment-parameters.title                 "Deployment and Coordination Parameters"
 
-   :slipstream.ui.views.module.image.section.targets.title                                "Custom Scripts"
+   :slipstream.ui.views.module.image.section.deployment-parameters.title                 "Application Parameters"
+
+   :slipstream.ui.views.module.image.section.targets.title                                "Application Workflows"
    :slipstream.ui.views.module.image.section.targets.subsection.prerecipe.title!          "1. Pre-install"; :global.nouns.pre-recipe
    :slipstream.ui.views.module.image.section.targets.subsection.prerecipe.description     "This script is executed on the deployed machine before SlipStream client and packages are installed."; "Pre-recipe (fires before SlipStream client install and packages are installed)"
    :slipstream.ui.views.module.image.section.targets.subsection.packages.title!           "2. Install packages"; :global.nouns.packages
@@ -936,13 +937,13 @@
    :slipstream.ui.views.module.image.section.targets.subsection.recipe.title!             "3. Post-install"; :global.nouns.recipe
    :slipstream.ui.views.module.image.section.targets.subsection.recipe.description        "This script is executed on the deployed machine after the packages defined in the previous tab have been installed but before SlipStream client."; "Standard recipe (fires after packages are installed)"
    :slipstream.ui.views.module.image.section.targets.subsection.execute.title!            "4. Deployment"; :global.verbs.execute
-   :slipstream.ui.views.module.image.section.targets.subsection.execute.description       "This script is executed during the deployment phase after the SlipStream client has been installed."; "Standard recipe (fires during Running phase)"
+   :slipstream.ui.views.module.image.section.targets.subsection.execute.description       "This script is executed during the deployment phase after the SlipStream client has been installed. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client."; (see below for details)."
    :slipstream.ui.views.module.image.section.targets.subsection.report.title!             "5. Reporting"; :global.verbs.report
-   :slipstream.ui.views.module.image.section.targets.subsection.report.description        "This script is executed during the `Sending Reports` phase. Here you can gather logs to be packages and displayed in the SlipStream interface." ; "Gather logs and things for posterity (fires during the Sending Report phase)"
+   :slipstream.ui.views.module.image.section.targets.subsection.report.description        "This script is executed during the `Sending Reports` phase. Here you can gather logs to be packages and displayed in the SlipStream interface. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client."; (see below for details)."
    :slipstream.ui.views.module.image.section.targets.subsection.onvmadd.title!            "6. On VM Add"; "On VM Add"
-   :slipstream.ui.views.module.image.section.targets.subsection.onvmadd.description       "This script runs when new VM(s) are added to the deployment."
+   :slipstream.ui.views.module.image.section.targets.subsection.onvmadd.description       "This script runs when new VM(s) are added to the deployment. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client."; (see below for details)."
    :slipstream.ui.views.module.image.section.targets.subsection.onvmremove.title!         "7. On VM Remove"; "On VM Remove"
-   :slipstream.ui.views.module.image.section.targets.subsection.onvmremove.description    "This script runs when VM(s) are removed from the deployment."
+   :slipstream.ui.views.module.image.section.targets.subsection.onvmremove.description    "This script runs when VM(s) are removed from the deployment. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client."; (see below for details)."
    :slipstream.ui.views.module.image.section.targets.subsection.prescale.title!           "8. Pre-Scale"; "Pre-Scale"
    :slipstream.ui.views.module.image.section.targets.subsection.prescale.description      "Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)."
    :slipstream.ui.views.module.image.section.targets.subsection.postscale.title!          "9. Post-Scale"; "Post-Scale"
