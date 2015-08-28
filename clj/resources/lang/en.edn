@@ -61,7 +61,7 @@
                     :mapping          "Mapping"
                     :metering         "Metering"
                     :module           "Module"
-                    :mutable-deployment "Mutable deployment _(beta)_"
+                    :mutable-deployment "Scalable deployment _(beta)_"
                     :name             "Name"
                     :node             "Node"
                     :nodes            "Nodes"
@@ -327,13 +327,14 @@
    :slipstream.ui.views.table.header.timestamp                :global.nouns.timestamp
    :slipstream.ui.views.table.header.event-content            :global.nouns.content
    :slipstream.ui.views.table.header.severity                 :global.nouns.severity
+   :slipstream.ui.views.table.header.service-url              "Service URL"
    :slipstream.ui.views.table.header.type                     :global.nouns.type
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label   "Multiplicity"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label       "Initial multiplicity"
-   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "Multiplicity must be greater than 0 for non-mutable deployments."
+   :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "Multiplicity must be greater than 0 for non-scalable deployments."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Max provisioning failures"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "It must be a value strictly less than the multiplicity above."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "This looks like a big tolerance. Please make sure that this makes sense for this deployment."
@@ -545,7 +546,7 @@
    ;; Parameters for the global section of the 'Run deployment' dialog
 
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
-   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _mutable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
+   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _scalable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
    :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled."
@@ -555,10 +556,10 @@
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
-   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Enabling this option reveals a field in each node to specify how many instances (i.e. the `multiplicity` value) you tolerate to fail to properly start without SlipStream flagging the whole deployment as failed. This makes specially sense for _mutable_ deployments with a _big_ initial multiplicity."
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Enabling this option reveals a field in each node to specify how many instances (i.e. the `multiplicity` value) you tolerate to fail to properly start without SlipStream flagging the whole deployment as failed. This makes specially sense for _scalable_ deployments with a _big_ initial multiplicity."
 
    :slipstream.ui.models.parameters.keep-running-behaviour.description          "Keep running after deployment"
-   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if and when SlipStream should leave the application running after performing the deployment. `On success` is useful for production deployments or long tests. `On Error` might be useful so that resources are consumed only when debugging is needed. `Never` ensures that SlipStream automatically terminates the application after performing the deployment. The option flagged with a `*` is the default configured in your user profile.  Note: This parameter doesn't apply to `mutable deployment` Runs and to `build image` Runs."
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Here you can define if and when SlipStream should leave the application running after performing the deployment. `On success` is useful for production deployments or long tests. `On Error` might be useful so that resources are consumed only when debugging is needed. `Never` ensures that SlipStream automatically terminates the application after performing the deployment. The option flagged with a `*` is the default configured in your user profile.  Note: This parameter doesn't apply to `scalable deployment` Runs and to `build image` Runs."
 
    :slipstream.ui.models.parameters.mail-usage.description                      "Cloud usage email"
    :slipstream.ui.models.parameters.mail-usage.help-hint                        "The frequency at which you want to receive emails with your cloud usage."
@@ -1100,8 +1101,8 @@ For more details refer to the <a target='_blank' href='http://ssdocs.sixsq.com/d
 
    :slipstream.ui.views.run.orchestration.not-mutable       "Deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.orchestration.not-mutable.own-run "Deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.mutable           "Mutable deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.mutable.own-run   "Mutable deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable           "Scalable deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable.own-run   "Scalable deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary

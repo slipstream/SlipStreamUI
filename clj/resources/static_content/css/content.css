@@ -322,3 +322,11 @@ div.popover:not(.ss-alert-popover) code {
   padding: 5px 10px;
   border: 1px solid #ddd;
 }
+
+.ss-terminate-run-from-table-button {
+  cursor: pointer;
+}
+.ss-terminate-run-from-table-button.disabled {
+  cursor: default;
+  opacity: 0.5;
+}

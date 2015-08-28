@@ -514,6 +514,7 @@
 (expect
   {:class-suffix "folder-open"
    :style nil
+   :class nil
    :overlay nil
    :tooltip-placement nil
    :description "Project"}

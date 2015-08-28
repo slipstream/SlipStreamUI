@@ -1836,7 +1836,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     type:       "info",
                     trigger:    "hover",
                     placement:  "bottom",
-                    container:  "body",
                     content:    "",
                     html:       false,
                     delay:      {show: 600, hide: 100}
@@ -1898,6 +1897,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .find("[data-toggle='tooltip']")
                     .tooltip();
             return this;
+        },
+
+        bsHidePopoversAndTooltips: function() {
+            this
+                // Hide popovers
+                .find("[data-toggle='popover'], .popover")
+                    .popover("hide")
+                    .end()
+                // Hide tooltips
+                .find("[data-toggle='tooltip'], .tooltip")
+                    .tooltip("hide");
+            return this;
+
         },
 
         // Image Preloader utils

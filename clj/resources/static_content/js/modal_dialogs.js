@@ -9,6 +9,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(this).find(".ss-ok-btn").first().click();
     });
 
+    $modalDialogs.on("show.bs.modal", function (e) {
+        $("body").bsHidePopoversAndTooltips();
+    });
+
     $modalDialogs.on("shown.bs.modal", function (e) {
         $(this).focusFirstInput();
     });
@@ -149,5 +153,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             });
         }
     };
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

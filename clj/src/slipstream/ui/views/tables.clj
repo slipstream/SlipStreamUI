@@ -348,7 +348,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- run-row
-  [{:keys [cloud-names uri module-uri start-time username uuid status terminable? display-status tags type abort-msg abort-flag?] :as run}]
+  [{:keys [cloud-names uri module-uri service-url start-time username uuid status terminable? display-status tags type abort-msg abort-flag?] :as run}]
   {:style (case display-status
             :run-with-abort-flag-set    :danger
             :run-in-transitional-state  nil
@@ -360,25 +360,32 @@
                                      :content   (str "<strong><code>ss:abort</code></strong>- "
                                                      (uc/shorten-long-words abort-msg 32)),
                                      :html      true}})
-   :cells [{:type :cell/icon,      :content {:icon (icons/icon-for display-status)}}
-           {:type :cell/icon,      :content {:icon (icons/icon-for (or type :run))}}
-           {:type :cell/link,      :content {:text (uc/trim-from uuid \-), :href uri}}
-           {:type :cell/link,      :content {:text (u/module-name module-uri), :href module-uri}}
-           {:type :cell/text,      :content status}
-           {:type :cell/timestamp-short, :content start-time}
-           {:type :cell/text,      :content cloud-names}
-           {:type :cell/username,  :content username}
-           {:type :cell/text,      :content tags}
+   :cells [{:type :cell/icon,             :content {:icon (icons/icon-for display-status)}}
+           {:type :cell/icon,             :content {:icon (icons/icon-for (or type :run))}}
+           {:type :cell/link,             :content {:text (uc/trim-from uuid \-), :href uri}}
+           {:type :cell/link,             :content {:text (->> module-uri
+                                                               (re-matches #".*/(.*)/(\d*)")
+                                                               rest
+                                                               (apply format "%s v%s")),
+                                                    :href module-uri
+                                                    :tooltip (u/module-name module-uri)}}
+           (if terminable?
+            {:type :cell/external-url,     :content {:url  service-url}}
+            {:type :cell/text,             :content {:text service-url}})
+           {:type :cell/text,             :content status}
+           {:type :cell/timestamp-short,  :content start-time}
+           {:type :cell/text,             :content cloud-names}
+           {:type :cell/username,         :content username}
+           {:type :cell/text,             :content tags}
            (when terminable?
-             {:type :cell/action-button, :content {:text (t :button-label.terminate)
-                                                   :icon (icons/icon-for :action-terminate)
-                                                   :class "ss-terminate-run-from-table-button btn-danger btn-xs"}})]})
-
+             {:type :cell/icon,           :content {:icon  icons/action-terminate
+                                                    :style :danger
+                                                    :class "ss-terminate-run-from-table-button"}})]})
 (defn runs-table
   [runs & [pagination]]
   (table/build
     {:pagination  pagination
-     :headers     [nil nil :id :module :status :start-time :cloud-names :user :tags :action]
+     :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags nil]
      :rows        (map run-row runs)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
