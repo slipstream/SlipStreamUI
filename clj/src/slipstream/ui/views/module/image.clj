@@ -20,7 +20,7 @@
                    :id id
                    :editable? (page-type/edit-or-new?)))
 
-; Section "cloud-configuration"
+; Section :cloud-configuration
 
 (defn- category-section
   [{:keys [category parameters]}]
@@ -31,67 +31,37 @@
   [_ _ section-metadata _]
   (map category-section section-metadata))
 
-; Section "image creation recipes"
+; Section :recipes
 
-(localization/with-prefixed-t :section.image-creation.subsection
+(localization/with-prefixed-t :section.targets.subsection
 
-  (defn- no-packages-hint
-    [module-name section-title]
-    (t :packages.empty-content-hint
-       (u/module-uri module-name
-                     :edit true
-                     :hash [(-> section-title uc/keywordize name)
-                            (-> :packages.title t uc/keywordize name)])))
+  (defmulti target-subsection :target-type)
 
-  (defn- packages-subsection
-    [packages]
-    (when (or (page-type/edit-or-new?) (not-empty packages))
-       (t/image-creation-packages-table packages)))
+  (defmethod target-subsection :script
+    [{:keys [target-name script context]}]
+    {:title   (->  target-name (str ".title") t)
+     :content [(-> target-name (str ".description") t (ue/text-div-snip :css-class "ss-target-description"
+                                                                        :html true))
+               (code-area script target-name)
+               (when (context :ss-client-access)
+                 (ue/text-div-snip (t :ss-commands-documentation)
+                                   :css-class "ss-target-description-bottom"
+                                   :html true))]})
 
-  (defmethod middle-section-content :image-creation
-    [module section-title section-metadata _]
-    [{:title    (t :prerecipe.title)
-      :content [(t :prerecipe.description)
-                (-> section-metadata :pre-recipe :code (code-area "prerecipe"))]}
-     {:title    (t :packages.title)
-      :content  (or
-                  (packages-subsection (:packages section-metadata))
-                  (no-packages-hint (-> module :summary :name) section-title))}
-     {:title    (t :recipe.title)
-      :content [(t :recipe.description)
-                (-> section-metadata :recipe :code (code-area "recipe"))]}])
+  (defmethod target-subsection :packages
+    [{:keys [target-name packages]}]
+    {:title   (-> target-name (str ".title") t)
+     :content (if (or (page-type/edit-or-new?) (not-empty packages))
+                (t/image-creation-packages-table packages)
+                (-> target-name (str ".empty-content-hint") t))})
+
+  (defmethod middle-section-content :targets
+    [_ _ section-metadata _]
+    (map target-subsection section-metadata))
 
 ) ; End of prefixed-t scope
 
-; Section "deployment recipes"
-
-(localization/with-prefixed-t :section.deployment.subsection
-  (defmethod middle-section-content :deployment
-    [_ _ section-metadata _]
-    [{:title    (t :execute.title)
-      :content [(t :execute.description)
-                (-> section-metadata :targets :execute :code (code-area "execute"))]}
-     {:title    (t :report.title)
-      :content [(t :report.description)
-                (-> section-metadata :targets :report :code (code-area "report"))]}
-     {:title    (t :parameters.title)
-      :content (-> section-metadata :parameters t/deployment-parameters-table)}
-     {:title    (t :on-vm-add.title)
-      :content [(t :on-vm-add.description)
-                (-> section-metadata :targets :on-vm-add :code (code-area "onvmadd"))]}
-     {:title    (t :on-vm-remove.title)
-      :content [(t :on-vm-remove.description)
-                (-> section-metadata :targets :on-vm-remove :code (code-area "onvmremove"))]}
-    ;; TODO: Tabs for scale scripts temporarily removed from the UI as the feature is still in beta.
-    ;;  {:title    (t :pre-scale.title)
-    ;;   :content [(t :pre-scale.description)
-    ;;             (-> section-metadata :targets :pre-scale :code (code-area "prescale"))]}
-    ;;  {:title    (t :post-scale.title)
-    ;;   :content [(t :post-scale.description)
-    ;;             (-> section-metadata :targets :post-scale :code (code-area "postscale"))]}
-              ]))
-
-; Section "runs"
+; Section :runs
 
 (defmethod middle-section-content :runs
   [_ _ section-metadata _]
@@ -102,7 +72,7 @@
       :content (t/runs-table runs (:pagination section-metadata)))
     (t :section.runs.empty-content-hint)))
 
-; Other table sections (e.g. cloud-image-details os-details)
+; Other table sections (e.g. :cloud-image-details, :os-details and :deployment-parameters)
 
 (defn- table-fn-for
   [metadata-key]
@@ -118,6 +88,8 @@
     (table-fn section-metadata)
     (throw (IllegalArgumentException. (str "No table defined for " metadata-key)))))
 
+; Middle sections
+
 (defn- middle-section
   [module metadata-key]
   (let [section-title (localization/section-title metadata-key)
@@ -130,8 +102,8 @@
   (cond-> [:cloud-image-details
            :os-details
            :cloud-configuration
-           :image-creation
-           :deployment]
+           :deployment-parameters
+           :targets]
    (page-type/view?) (conj :runs)))
 
 (defn middle-sections

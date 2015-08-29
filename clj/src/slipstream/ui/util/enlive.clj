@@ -414,9 +414,9 @@
 ;; See tests for expectations
 
 (def-blank-snippet text-div-snip :div
-  [text & {:keys [css-class]}]
+  [text & {:keys [css-class html]}]
   this (set-class css-class)
-  this (html/content (str text)))
+  this ((if html html/html-content html/content) (str text)))
 
 (def-blank-snippet map->meta-tag-snip :meta
   [m & {:keys [name-prefix]}]

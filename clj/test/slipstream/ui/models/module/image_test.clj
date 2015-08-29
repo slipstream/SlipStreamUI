@@ -9,19 +9,40 @@
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_image.xml"))
 
 (def parsed-metadata
-  {:deployment {:targets {:on-vm-remove {:code nil
-                                         :run-in-background nil}
-                          :on-vm-add    {:code nil
-                                         :run-in-background nil}
-                          :report       {:code nil
-                                         :run-in-background nil}
-                          :pre-scale    {:code nil
-                                         :run-in-background nil}
-                          :post-scale    {:code nil
-                                         :run-in-background nil}
-                          :execute      {:code "deployement recipe"
-                                         :run-in-background nil}}
-                :parameters [{:help-hint nil
+  {:targets [{:target-type  :script
+              :target-name  "prerecipe"
+              :context      #{:image-creation}
+              :script       nil}
+             {:target-type  :packages
+              :target-name  "packages"
+              :context      #{:image-creation}
+              :packages   [{:repository "repo_1"
+                            :name       "package_1"
+                            :key        "key_1"}
+                           {:repository "repo_2"
+                            :name       "package_2"
+                            :key        "key_2"}]}
+             {:target-type  :script
+              :target-name  "recipe"
+              :context      #{:image-creation}
+              :script       nil}
+             {:target-type  :script
+              :target-name  "execute"
+              :context      #{:deployment :ss-client-access}
+              :script       "deployement recipe"}
+             {:target-type  :script
+              :target-name  "report"
+              :context      #{:deployment :ss-client-access}
+              :script       nil}
+             {:target-type  :script
+              :context      #{:scaling :ss-client-access}
+              :target-name  "onvmadd"
+              :script       nil}
+             {:target-type  :script
+              :context      #{:scaling :ss-client-access}
+              :target-name  "onvmremove"
+              :script       nil}]
+   :deployment-parameters   [{:help-hint nil
                               :mandatory? false
                               :read-only? false
                               :order 0
@@ -78,15 +99,7 @@
                               :value nil
                               :description "Hostname or IP address of the image"
                               :placeholder "Provided at runtime by SlipStream"
-                              :category "Output"}]}
-  :image-creation {:recipe {:code nil}
-                   :packages [{:repository "repo_1"
-                               :name "package_1"
-                               :key "key_1"}
-                              {:repository "repo_2"
-                               :name "package_2"
-                               :key "key_2"}]
-                   :pre-recipe {:code nil}}
+                              :category "Output"}]
   :cloud-configuration [{:category-type :global
                          :category "Cloud"
                          :parameters [{:help-hint nil
