@@ -104,7 +104,7 @@
                    "<div class='key %2$s'>%3$s</div>"
                    (when with-base-locale-outcommented-strings?
                      "<div class='outcommented'>; Original: %1$s</div>")
-                   "<div class='value %4$s'>%5$s</div>"
+                   "<div class='value %4$s'><xmp>%5$s</xmp></div>"
                  "</div>")
             (pr-str (get-in *all-dicts* [:en k]))
             (-> k class pr-str (s/replace \. \-))
@@ -113,8 +113,8 @@
             (pr-str v))
     (format (str "<div class='outcommented'>"
                  "; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.<br>"
-                 ";%s<br>"
                  ";%s"
+                 ";<xmp>;%s</xmp>"
                  "</div>")
             (pr-str k)
             (pr-str (get-in *all-dicts* [:en k])))))
@@ -148,6 +148,7 @@
        (when diff-type (format "tr:not(.locales-%s){display:none;}" diff-type))
        (format "li:not(.%s){color:blue;}" (name base-locale))
        (when list-only-keys? "td:nth-child(2){display:none;}")
+       "xmp{margin:0;}"
        ".dict-entry:hover{background-color:#eee;}"
        ".dict-entry .key{font-style:italic;}"
        ".outcommented{color:grey;}"
