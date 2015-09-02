@@ -97,6 +97,36 @@
        (s/join (map langs-to-display-entry-row-html all-keys))
        "</tbody></table>"))
 
+(defn- dict-entry-str
+  [[k v]]
+  (if-not (= v :missing)
+    (format (str "<div class='dict-entry'>"
+                   "<div class='key %s'>%s</div>"
+                   "<div class='value %s'>%s</div>"
+                 "</div>")
+            (-> k class pr-str (s/replace \. \-))
+            (pr-str k)
+            (-> v class pr-str (s/replace \. \-))
+            (pr-str v))
+    (format (str "<div class='outcommented'>"
+                 "; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.<br>"
+                 ";%s<br>"
+                 ";%s"
+                 "</div>")
+            (pr-str k)
+            (pr-str (get-in *all-dicts* [:en k])))))
+
+(defn- normalized-map
+  [all-keys]
+  (let [current-lang-dict (get *all-dicts* *lang-to-display*)
+        blank-complete-dict (zipmap (-> *all-dicts* :en keys) (repeat :missing))
+        complete-lang-dict (merge blank-complete-dict current-lang-dict)]
+    (->> complete-lang-dict
+         (sort-by first)
+         (map dict-entry-str)
+         (s/join "<br><br>")
+         (format "<pre>{<br><br><div class='outcommented'>;; This localization map was automatically normalized.</div><br><br>%s<br>}</pre>"))))
+
 (defn- localization-entries-page-html
   [diff-type display-type list-only-keys? all-locales all-keys]
   (str "<head>"
@@ -115,6 +145,11 @@
        (when diff-type (format "tr:not(.locales-%s){display:none;}" diff-type))
        (format "li:not(.%s){color:blue;}" (name base-locale))
        (when list-only-keys? "td:nth-child(2){display:none;}")
+       ".dict-entry:hover{background-color:#eee;}"
+       ".dict-entry .key{font-style:italic;}"
+       ".outcommented{color:grey;}"
+       ".java-lang-String{color:#d00;}"
+       ".clojure-lang-Keyword{color:green;}"
        "</style>"
        "</head> "
        "<body>"
@@ -129,20 +164,13 @@
                     (format "<a href='/localizations/%1$s'>%1$s</a>" %)))
             (s/join " | "))
        "</div>"
-       "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a>"
-       (when *lang-to-display* " | <a href='ok/flat-map'>flat-map</a> | <a href='ok/nested-map'>nested-map</a>")
-       "</div>"
-       "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a>"
-       (when *lang-to-display* " | <a href='missing/flat-map'>flat-map</a> | <a href='missing/nested-map'>nested-map</a>")
-       "</div>"
-       "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a>"
-       (when *lang-to-display* " | <a href='unnecessary/flat-map'>flat-map</a> | <a href='unnecessary/nested-map'>nested-map</a>")
-       "</div>"
+       "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a></div>"
+       "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a></div>"
+       "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a></div>"
+       (when *lang-to-display* "<div><a href='normalized-map'>normalized-map</a> | <a href='nested-map'>nested-map</a></div>")
        (case display-type
-         "flat-map"     (str "<pre>" (with-out-str (clojure.pprint/pprint (get *all-dicts* *lang-to-display*))) "</pre>")
+         "normalized-map" (normalized-map all-keys)
          "nested-map"   (str "<pre>" (with-out-str (clojure.pprint/pprint (uc/deflatten-map (get *all-dicts* *lang-to-display*)))) "</pre>")
-         ; "nested-map"   (str "<code>" (uc/deflatten-map (get *all-dicts* *lang-to-display*)) "</code>")
-         ; "nested-map"   (get *all-dicts* *lang-to-display*)
          (entries-table-html all-keys))
        "</body>"))
 
@@ -151,7 +179,7 @@
   (let [diff-type       (some #{"ok" "missing" "unnecessary"}           url-segments)
         lang-to-display (some tower/iso-languages                       (map keyword url-segments))
         list-only-keys? (some (comp boolean #{"keys"})                  url-segments)
-        display-type    (some #{"keys" "flat-map" "nested-map"}         url-segments)
+        display-type    (some #{"keys" "normalized-map" "nested-map"}         url-segments)
         all-dicts       (read-locale-dict-files) ;; Read all dict files every time to catch updates.
         all-keys        (all-keys     all-dicts)
         all-locales     (all-locales  all-dicts)]
