@@ -119,10 +119,14 @@
        "</head> "
        "<body>"
        "<div>Locales: "
-       "<a href='/localizations'>All</a> | "
+       (if *lang-to-display*
+         "<a href='/localizations'>All</a> | "
+         "<span style='background-color:black;color:white;'>All</span> | ")
        (->> all-locales
             (map name)
-            (map #(str "<a href='/localizations/" % "'>" % "</a>"))
+            (map #(if (= *lang-to-display* (keyword %))
+                    (format "<span style='background-color:black;color:white;'>%1$s</span>" %)
+                    (format "<a href='/localizations/%1$s'>%1$s</a>" %)))
             (s/join " | "))
        "</div>"
        "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a>"
