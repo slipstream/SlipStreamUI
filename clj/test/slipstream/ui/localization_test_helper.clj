@@ -157,21 +157,22 @@
        "</style>"
        "</head> "
        "<body>"
-       "<div>Locales: "
-       (if *lang-to-display*
-         "<a href='/localizations'>All</a> | "
-         "<span style='background-color:black;color:white;'>All</span> | ")
-       (->> all-locales
-            (map name)
-            (map #(if (= *lang-to-display* (keyword %))
-                    (format "<span style='background-color:black;color:white;'>%1$s</span>" %)
-                    (format "<a href='/localizations/%1$s'>%1$s</a>" %)))
-            (s/join " | "))
-       "</div>"
-       "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a></div>"
-       "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a></div>"
-       "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a></div>"
-       (when *lang-to-display* "<div><a href='normalized-map'>normalized-map</a> <a href='normalized-map-with-comments'>(with original 'en' strings)</a> | <a href='nested-map'>nested-map</a></div>")
+       (when-not (#{"normalized-map" "normalized-map-with-comments" "nested-map"} display-type)
+         (str "<div>Locales: "
+              (if *lang-to-display*
+                "<a href='/localizations'>All</a> | "
+                "<span style='background-color:black;color:white;'>All</span> | ")
+              (->> all-locales
+                    (map name)
+                    (map #(if (= *lang-to-display* (keyword %))
+                            (format "<span style='background-color:black;color:white;'>%1$s</span>" %)
+                            (format "<a href='/localizations/%1$s'>%1$s</a>" %)))
+                    (s/join " | "))
+              "</div>"
+              "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a></div>"
+              "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a></div>"
+              "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a></div>"
+              (when *lang-to-display* "<div><a target='_blank' href='normalized-map'>normalized-map</a> <a target='_blank' href='normalized-map-with-comments'>(with original 'en' strings)</a> | <a target='_blank' href='nested-map'>nested-map</a></div>")))
        (case display-type
          "normalized-map" (normalized-map all-keys false)
          "normalized-map-with-comments" (normalized-map all-keys true)
