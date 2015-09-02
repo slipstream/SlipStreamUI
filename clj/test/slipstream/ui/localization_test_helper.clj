@@ -98,12 +98,15 @@
        "</tbody></table>"))
 
 (defn- dict-entry-str
-  [[k v]]
+  [with-base-locale-outcommented-strings? [k v]]
   (if-not (= v :missing)
     (format (str "<div class='dict-entry'>"
-                   "<div class='key %s'>%s</div>"
-                   "<div class='value %s'>%s</div>"
+                   "<div class='key %2$s'>%3$s</div>"
+                   (when with-base-locale-outcommented-strings?
+                     "<div class='outcommented'>; Original: %1$s</div>")
+                   "<div class='value %4$s'>%5$s</div>"
                  "</div>")
+            (pr-str (get-in *all-dicts* [:en k]))
             (-> k class pr-str (s/replace \. \-))
             (pr-str k)
             (-> v class pr-str (s/replace \. \-))
@@ -117,13 +120,13 @@
             (pr-str (get-in *all-dicts* [:en k])))))
 
 (defn- normalized-map
-  [all-keys]
+  [all-keys with-base-locale-outcommented-strings?]
   (let [current-lang-dict (get *all-dicts* *lang-to-display*)
         blank-complete-dict (zipmap (-> *all-dicts* :en keys) (repeat :missing))
         complete-lang-dict (merge blank-complete-dict current-lang-dict)]
     (->> complete-lang-dict
          (sort-by first)
-         (map dict-entry-str)
+         (map (partial dict-entry-str with-base-locale-outcommented-strings?))
          (s/join "<br><br>")
          (format "<pre>{<br><br><div class='outcommented'>;; This localization map was automatically normalized.</div><br><br>%s<br>}</pre>"))))
 
@@ -167,9 +170,10 @@
        "<div><a href='ok'>show ok</a> | <a href='ok/keys'>only keys</a></div>"
        "<div><a href='missing'>show missing</a> | <a href='missing/keys'>only keys</a></div>"
        "<div><a href='unnecessary'>show unnecessary</a> | <a href='unnecessary/keys'>only keys</a></div>"
-       (when *lang-to-display* "<div><a href='normalized-map'>normalized-map</a> | <a href='nested-map'>nested-map</a></div>")
+       (when *lang-to-display* "<div><a href='normalized-map'>normalized-map</a> <a href='normalized-map-with-comments'>(with original 'en' strings)</a> | <a href='nested-map'>nested-map</a></div>")
        (case display-type
-         "normalized-map" (normalized-map all-keys)
+         "normalized-map" (normalized-map all-keys false)
+         "normalized-map-with-comments" (normalized-map all-keys true)
          "nested-map"   (str "<pre>" (with-out-str (clojure.pprint/pprint (uc/deflatten-map (get *all-dicts* *lang-to-display*)))) "</pre>")
          (entries-table-html all-keys))
        "</body>"))
@@ -179,7 +183,7 @@
   (let [diff-type       (some #{"ok" "missing" "unnecessary"}           url-segments)
         lang-to-display (some tower/iso-languages                       (map keyword url-segments))
         list-only-keys? (some (comp boolean #{"keys"})                  url-segments)
-        display-type    (some #{"keys" "normalized-map" "nested-map"}         url-segments)
+        display-type    (some #{"keys" "normalized-map" "normalized-map-with-comments" "nested-map"} url-segments)
         all-dicts       (read-locale-dict-files) ;; Read all dict files every time to catch updates.
         all-keys        (all-keys     all-dicts)
         all-locales     (all-locales  all-dicts)]
