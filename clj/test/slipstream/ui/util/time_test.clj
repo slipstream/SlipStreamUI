@@ -43,6 +43,7 @@
        (map normalize-timezone)
        frequencies))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; parse SlipStream timestamp format
@@ -79,6 +80,19 @@
 (expect
   (DateTime. 2013 01 05 00 27 12 471 (DateTimeZone/UTC))
   (parse "2013-01-05T01:27:12.471+0100"))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; parse iso8601 timestamp format without millis
+
+(expect
+  DateTime
+  (parse "2015-01-16T08:05:00.0Z"))
+
+(expect
+  (DateTime. 2015 07 05 00 27 12 400 (DateTimeZone/UTC))
+  (parse "2015-07-05T00:27:12.4Z"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

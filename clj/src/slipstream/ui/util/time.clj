@@ -36,7 +36,7 @@
 
 (def ^:private iso8601-timestamp-pattern
   "Corresponds to (clj-time.format/formatters :date-time)."
-  #"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\d(?:Z|[\+-]\d\d(?:\:?\d\d)?)")
+  #"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d{1,3}(?:Z|[\+-]\d\d(?:\:?\d\d)?)")
 
 (def ^:private timezone-abbreviations
   {;; Pacific Time (North America)
