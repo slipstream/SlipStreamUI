@@ -3,7 +3,7 @@
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.util.current-user :as current-user :refer [with-user-from-metadata]]
+            [slipstream.ui.util.current-user :as current-user :refer [with-current-user]]
             [slipstream.ui.models.welcome :as model]))
 
 (def raw-metadata-str
@@ -24,7 +24,7 @@
   "Cloud1"
   (let [metadata welcome-metadata]
     (localization/with-lang :en
-      (with-user-from-metadata
+      (with-current-user
         (-> :available-clouds
             current-user/configuration
             u/enum-default-option
@@ -34,6 +34,6 @@
   #{"Cloud2"}
   (let [metadata welcome-metadata]
     (localization/with-lang :en
-      (with-user-from-metadata
+      (with-current-user
         (-> :configured-clouds
             current-user/configuration)))))
