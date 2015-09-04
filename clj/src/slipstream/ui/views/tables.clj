@@ -955,11 +955,11 @@
             "critical" :danger
             "high"     :warning
             "medium"   nil
-            "low"      nil
+            "low"      :muted
             nil)
    :cells [{:type :cell/icon,       :content icons/event}
            {:type :cell/text,       :content id}
-           {:type :cell/text,       :content target}
+           {:type :cell/url,        :content target}
            {:type :cell/timestamp,  :content timestamp}
            {:type :cell/text,       :content content}
            {:type :cell/text,       :content severity}
