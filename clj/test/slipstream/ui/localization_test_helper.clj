@@ -106,18 +106,27 @@
                      "<div class='outcommented'>; Original: %1$s</div>")
                    "<div class='value %4$s'><xmp>%5$s</xmp></div>"
                  "</div>")
-            (pr-str (get-in *all-dicts* [:en k]))
+            (pr-str (get-in *all-dicts* [base-locale k]))
             (-> k class pr-str (s/replace \. \-))
             (pr-str k)
             (-> v class pr-str (s/replace \. \-))
             (pr-str v))
-    (format (str "<div class='outcommented'>"
-                 "; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.<br>"
-                 ";%s"
-                 ";<xmp>;%s</xmp>"
-                 "</div>")
-            (pr-str k)
-            (pr-str (get-in *all-dicts* [:en k])))))
+    (let [value-in-base-locale (get-in *all-dicts* [base-locale k])]
+      (format (if (keyword? value-in-base-locale)
+                (str "<div class='dict-entry'>"
+                       "<div class='outcommented'>"
+                         "; TODO: Missing localization entry. Pre-filled with the corresponding keyword in the base-locale dictionary."
+                       "</div>"
+                       "<div class='key clojure-lang-Keyword'>%s</div>"
+                       "<div class='value clojure-lang-Keyword'><xmp>%s</xmp></div>"
+                     "</div>")
+                (str "<div class='outcommented'>"
+                     "; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.<br>"
+                     ";%s"
+                     ";<xmp>;%s</xmp>"
+                     "</div>"))
+              (pr-str k)
+              (pr-str value-in-base-locale)))))
 
 (defn- normalized-map
   [all-keys with-base-locale-outcommented-strings?]
