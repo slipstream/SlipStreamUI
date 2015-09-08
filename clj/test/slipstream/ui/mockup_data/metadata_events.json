@@ -1,279 +1,91 @@
 {
+  "acl" : {
+    "owner" : {
+      "principal" : "ADMIN",
+      "type" : "ROLE"
+    },
+    "rules" : [ {
+      "principal" : "ANON",
+      "type" : "ROLE",
+      "right" : "ALL"
+    } ]
+  },
+  "resourceURI" : "http://schemas.dmtf.org/cimi/2/EventCollection",
+  "id" : "event",
+  "operations" : [ {
+    "rel" : "http://sixsq.com/slipstream/1/Action/add",
+    "href" : "event"
+  } ],
+  "count" : 45,
   "events" : [ {
     "content" : {
-      "state" : "Done",
       "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
+        "href" : "run/26"
+      },
+      "state" : "Started"
     },
-    "updated" : "2015-06-11T10:16:07.470Z",
+    "updated" : "2015-09-08T09:29:57.315Z",
     "type" : "state",
-    "created" : "2015-06-11T10:16:07.470Z",
-    "id" : "Event/083e13c6-2dcc-4711-b72e-2880d12b989d",
-    "severity" : "medium",
+    "created" : "2015-09-08T09:29:57.315Z",
+    "id" : "event/268fd1b2-050c-4126-8a0b-2841555cce9b",
+    "severity" : "low",
     "acl" : {
       "owner" : {
         "type" : "USER",
         "principal" : "bob"
       },
       "rules" : [ {
-        "right" : "ALL",
         "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
+        "principal" : "bob",
+        "right" : "ALL"
       } ]
     },
     "operations" : [ {
       "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/083e13c6-2dcc-4711-b72e-2880d12b989d"
+      "href" : "event/268fd1b2-050c-4126-8a0b-2841555cce9b"
     } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:16:07.457Z"
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-19T19:53:05.651Z"
   }, {
     "content" : {
-      "state" : "Finalizing",
       "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
+        "href" : "run/20"
+      },
+      "state" : "Started"
     },
-    "updated" : "2015-06-11T10:15:44.287Z",
+    "updated" : "2015-09-08T09:29:57.192Z",
     "type" : "state",
-    "created" : "2015-06-11T10:15:44.287Z",
-    "id" : "Event/381c0d0e-f863-4fbc-a52c-bda755e0d7fa",
-    "severity" : "medium",
+    "created" : "2015-09-08T09:29:57.192Z",
+    "id" : "event/ee162c31-cd51-4e08-8bfc-afaab5d5d416",
+    "severity" : "low",
     "acl" : {
       "owner" : {
         "type" : "USER",
         "principal" : "bob"
       },
       "rules" : [ {
-        "right" : "ALL",
         "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
+        "principal" : "bob",
+        "right" : "ALL"
       } ]
     },
     "operations" : [ {
       "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/381c0d0e-f863-4fbc-a52c-bda755e0d7fa"
+      "href" : "event/ee162c31-cd51-4e08-8bfc-afaab5d5d416"
     } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:15:44.274Z"
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-19T18:32:07.650Z"
   }, {
     "content" : {
-      "state" : "Executing",
       "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T10:10:58.323Z",
-    "type" : "state",
-    "created" : "2015-06-11T10:10:58.323Z",
-    "id" : "Event/40727af8-63cb-479e-a52c-921b049362a0",
-    "severity" : "medium",
-    "acl" : {
-      "owner" : {
-        "type" : "USER",
-        "principal" : "bob"
+        "href" : "run/31"
       },
-      "rules" : [ {
-        "right" : "ALL",
-        "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
-      } ]
+      "state" : "Started"
     },
-    "operations" : [ {
-      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/40727af8-63cb-479e-a52c-921b049362a0"
-    } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:10:58.311Z"
-  }, {
-    "content" : {
-      "state" : "Terminated",
-      "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T10:15:44.184Z",
+    "updated" : "2015-09-08T09:29:57.438Z",
     "type" : "state",
-    "created" : "2015-06-11T10:15:44.184Z",
-    "id" : "Event/66ae06e5-1084-4e31-b01c-d29f2b9c1ca5",
-    "severity" : "medium",
-    "acl" : {
-      "owner" : {
-        "type" : "USER",
-        "principal" : "bob"
-      },
-      "rules" : [ {
-        "right" : "ALL",
-        "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
-      } ]
-    },
-    "operations" : [ {
-      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/66ae06e5-1084-4e31-b01c-d29f2b9c1ca5"
-    } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:15:44.174Z"
-  }, {
-    "content" : {
-      "state" : "SendingReports",
-      "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T10:12:49.690Z",
-    "type" : "state",
-    "created" : "2015-06-11T10:12:49.690Z",
-    "id" : "Event/92890f1d-cbc8-4962-a96d-d0be1da0ba72",
-    "severity" : "medium",
-    "acl" : {
-      "owner" : {
-        "type" : "USER",
-        "principal" : "bob"
-      },
-      "rules" : [ {
-        "right" : "ALL",
-        "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
-      } ]
-    },
-    "operations" : [ {
-      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/92890f1d-cbc8-4962-a96d-d0be1da0ba72"
-    } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:12:49.677Z"
-  }, {
-    "content" : {
-      "state" : "Ready",
-      "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T10:12:49.925Z",
-    "type" : "state",
-    "created" : "2015-06-11T10:12:49.925Z",
-    "id" : "Event/a49fef34-6cb9-4f07-b25d-a55e99b79f07",
-    "severity" : "medium",
-    "acl" : {
-      "owner" : {
-        "type" : "USER",
-        "principal" : "bob"
-      },
-      "rules" : [ {
-        "right" : "ALL",
-        "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
-      } ]
-    },
-    "operations" : [ {
-      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/a49fef34-6cb9-4f07-b25d-a55e99b79f07"
-    } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:12:49.918Z"
-  }, {
-    "content" : {
-      "state" : "Provisioning",
-      "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T10:10:42.928Z",
-    "type" : "state",
-    "created" : "2015-06-11T10:10:42.928Z",
-    "id" : "Event/e1586eb9-9186-46ad-80bb-fe0286d3fda3",
-    "severity" : "medium",
-    "acl" : {
-      "owner" : {
-        "type" : "USER",
-        "principal" : "bob"
-      },
-      "rules" : [ {
-        "right" : "ALL",
-        "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
-      } ]
-    },
-    "operations" : [ {
-      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/e1586eb9-9186-46ad-80bb-fe0286d3fda3"
-    } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:10:42.920Z"
-  }, {
-    "content" : {
-      "state" : "Initializing",
-      "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T10:10:14.349Z",
-    "type" : "state",
-    "created" : "2015-06-11T10:10:14.349Z",
-    "id" : "Event/f63e3d8a-9f34-4669-888d-e73d07c237f4",
-    "severity" : "medium",
-    "acl" : {
-      "owner" : {
-        "type" : "USER",
-        "principal" : "bob"
-      },
-      "rules" : [ {
-        "right" : "ALL",
-        "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
-      } ]
-    },
-    "operations" : [ {
-      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/f63e3d8a-9f34-4669-888d-e73d07c237f4"
-    } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T10:10:14.339Z"
-  }, {
-    "content" : {
-      "state" : "Something critical",
-      "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
-    },
-    "updated" : "2015-06-11T01:10:14.349Z",
-    "type" : "example",
-    "created" : "2015-06-11T01:10:14.349Z",
-    "id" : "Event/45859383-183e-4bcb-9356-8f2a6d0382ab",
+    "created" : "2015-09-08T09:29:57.438Z",
+    "id" : "event/edcccde1-5643-43b4-8bf8-208ebd209ee4",
     "severity" : "critical",
     "acl" : {
       "owner" : {
@@ -281,32 +93,28 @@
         "principal" : "bob"
       },
       "rules" : [ {
-        "right" : "ALL",
         "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
+        "principal" : "bob",
+        "right" : "ALL"
       } ]
     },
     "operations" : [ {
       "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/bedd9fec-25e9-4ee6-bea8-d8ab383bda37"
+      "href" : "event/edcccde1-5643-43b4-8bf8-208ebd209ee4"
     } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T01:10:14.339Z"
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-19T17:45:19.651Z"
   }, {
     "content" : {
-      "state" : "Something high",
       "resource" : {
-        "href" : "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-      }
+        "href" : "run/4"
+      },
+      "state" : "Started"
     },
-    "updated" : "2015-06-11T00:10:14.349Z",
-    "type" : "example",
-    "created" : "2015-06-11T00:10:14.349Z",
-    "id" : "Event/670d2def-7c49-4281-a03e-289fb0b1f9f4",
+    "updated" : "2015-09-08T09:29:56.779Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:56.779Z",
+    "id" : "event/2555139f-1854-4883-9540-78077e39edf3",
     "severity" : "high",
     "acl" : {
       "owner" : {
@@ -314,38 +122,480 @@
         "principal" : "bob"
       },
       "rules" : [ {
-        "right" : "ALL",
         "type" : "USER",
-        "principal" : "bob"
-      }, {
-        "right" : "ALL",
-        "type" : "ROLE",
-        "principal" : "ADMIN"
+        "principal" : "bob",
+        "right" : "ALL"
       } ]
     },
     "operations" : [ {
       "rel" : "http://sixsq.com/slipstream/1/Action/delete",
-      "href" : "Event/bedd9fec-25e9-4ee6-bea8-d8ab383bda37"
+      "href" : "event/2555139f-1854-4883-9540-78077e39edf3"
     } ],
-    "resourceURI" : "http://sixsq.com/slipstream/1/Event",
-    "timestamp" : "2015-06-11T00:10:14.339Z"
-  } ],
-  "operations" : [ {
-    "rel" : "http://sixsq.com/slipstream/1/Action/add",
-    "href" : "Event"
-  } ],
-  "acl" : {
-    "rules" : [ {
-      "type" : "ROLE",
-      "right" : "ALL",
-      "principal" : "ANON"
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-19T06:21:06.649Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/22"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.231Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.231Z",
+    "id" : "event/eb6f2fb2-2ea3-4602-9023-2ed7c9f6973c",
+    "severity" : "medium",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/eb6f2fb2-2ea3-4602-9023-2ed7c9f6973c"
     } ],
-    "owner" : {
-      "type" : "ROLE",
-      "principal" : "ADMIN"
-    }
-  },
-  "resourceURI" : "http://sixsq.com/slipstream/1/EventCollection",
-  "id" : "Event",
-  "count" : 8
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-18T22:13:07.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/9"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:56.930Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:56.930Z",
+    "id" : "event/b12ab326-7122-41b9-bfe9-b8c68594219a",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/b12ab326-7122-41b9-bfe9-b8c68594219a"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-18T21:40:09.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/10"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:56.954Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:56.954Z",
+    "id" : "event/cd1954c1-a960-4fff-848f-830b4157260e",
+    "severity" : "medium",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/cd1954c1-a960-4fff-848f-830b4157260e"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-18T17:58:25.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/30"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.410Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.410Z",
+    "id" : "event/8c115043-7724-4ba1-9d48-1398ed2a9a76",
+    "severity" : "low",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/8c115043-7724-4ba1-9d48-1398ed2a9a76"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-18T07:51:43.651Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/38"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.644Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.644Z",
+    "id" : "event/fbc1839a-1ca5-4cac-8191-2ff42779e442",
+    "severity" : "low",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/fbc1839a-1ca5-4cac-8191-2ff42779e442"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-18T07:19:21.467Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/23"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.251Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.251Z",
+    "id" : "event/e43ba194-a7b5-4244-a9b5-e291e19adc55",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/e43ba194-a7b5-4244-a9b5-e291e19adc55"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-18T06:36:28.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/24"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.272Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.272Z",
+    "id" : "event/8c07db80-4722-4b72-a70d-c2ecc235a7b9",
+    "severity" : "low",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/8c07db80-4722-4b72-a70d-c2ecc235a7b9"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-17T17:09:35.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/37"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.618Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.618Z",
+    "id" : "event/12228b43-a382-4048-8420-bdfb77ace533",
+    "severity" : "high",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/12228b43-a382-4048-8420-bdfb77ace533"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-17T08:59:54.466Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/21"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.211Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.211Z",
+    "id" : "event/19091ece-78e9-4e1c-95f8-ad2af09fe23b",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/19091ece-78e9-4e1c-95f8-ad2af09fe23b"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-17T06:18:14.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/16"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.107Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.107Z",
+    "id" : "event/1d42d7d4-7b91-4331-b010-ab1344e89599",
+    "severity" : "low",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/1d42d7d4-7b91-4331-b010-ab1344e89599"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-17T01:06:45.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/12"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:56.998Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:56.998Z",
+    "id" : "event/e9c88aa1-685f-4ce3-b8dc-4c300f5afbd1",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/e9c88aa1-685f-4ce3-b8dc-4c300f5afbd1"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-16T16:38:23.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/42"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.736Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.736Z",
+    "id" : "event/1640af87-e3c1-43f7-a34a-cb91d4d950e8",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/1640af87-e3c1-43f7-a34a-cb91d4d950e8"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-16T13:09:07.467Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/39"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.672Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.672Z",
+    "id" : "event/ba78d6b2-3bf9-46a3-b3fe-25c600288ad0",
+    "severity" : "critical",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/ba78d6b2-3bf9-46a3-b3fe-25c600288ad0"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-16T10:36:24.467Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/0"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:56.656Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:56.656Z",
+    "id" : "event/8e35dbcb-33ff-49ad-a4ef-dc169e30d4ce",
+    "severity" : "medium",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/8e35dbcb-33ff-49ad-a4ef-dc169e30d4ce"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-16T08:58:04.648Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/13"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.024Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.024Z",
+    "id" : "event/11df17c8-3e04-4b70-98de-54896535aa4f",
+    "severity" : "high",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/11df17c8-3e04-4b70-98de-54896535aa4f"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-16T06:38:29.650Z"
+  }, {
+    "content" : {
+      "resource" : {
+        "href" : "run/35"
+      },
+      "state" : "Started"
+    },
+    "updated" : "2015-09-08T09:29:57.558Z",
+    "type" : "state",
+    "created" : "2015-09-08T09:29:57.558Z",
+    "id" : "event/4c56a355-f186-47fe-be6c-8259bd98463b",
+    "severity" : "high",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "bob"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "bob",
+        "right" : "ALL"
+      } ]
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "event/4c56a355-f186-47fe-be6c-8259bd98463b"
+    } ],
+    "resourceURI" : "http://schemas.dmtf.org/cimi/2/Event",
+    "timestamp" : "2015-09-15T22:19:12.466Z"
+  } ]
 }
