@@ -4,7 +4,7 @@
 
 (defn- parse-event
   [event]
-  {:id          (-> event :id (uc/trim-prefix "Event/"))
+  {:id          (-> event :id (uc/trim-prefix "event/"))
    :target      (-> event :content :resource :href)
    :timestamp   (-> event :timestamp)
    :content     (-> event :content :state)
@@ -13,5 +13,5 @@
 
 (defn parse
   [metadata]
-  {:pagination (pagination/parse-json metadata (slipstream.ui.util.dev-traces/>>> -> metadata meta :request :query-parameters))
+  {:pagination (pagination/parse-json metadata (-> metadata meta :request :query-parameters))
    :events     (map parse-event (:events metadata))})

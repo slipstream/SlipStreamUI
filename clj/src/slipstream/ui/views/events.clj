@@ -8,6 +8,14 @@
 
 (localization/def-scoped-t)
 
+(defn- section
+  [metadata]
+  (let [parsed-metadata (events/parse metadata)]
+    [{:title (t :content.title)
+      :content (if (-> parsed-metadata :events empty?)
+                 (t :no-events)
+                 (t/events-table parsed-metadata))}]))
+
 (defn page
   [metadata]
   (base/generate
@@ -15,5 +23,5 @@
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
      :resource-uri "/events"
-     :content [{:title (t :content.title)
-                :content (-> metadata events/parse t/events-table)}]}))
+     :content (section metadata)}))
+
