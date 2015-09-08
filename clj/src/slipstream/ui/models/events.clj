@@ -1,5 +1,6 @@
 (ns slipstream.ui.models.events
-  (:require [slipstream.ui.util.clojure :as uc]))
+  (:require [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.models.pagination :as pagination]))
 
 (defn- parse-event
   [event]
@@ -12,6 +13,5 @@
 
 (defn parse
   [metadata]
-  (->> metadata
-       :events
-       (map parse-event)))
+  {:pagination (pagination/parse-json metadata (slipstream.ui.util.dev-traces/>>> -> metadata meta :request :query-parameters))
+   :events     (map parse-event (:events metadata))})

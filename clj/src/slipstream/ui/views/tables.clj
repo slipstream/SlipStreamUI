@@ -966,9 +966,10 @@
            {:type :cell/text,       :content type}]})
 
 (defn events-table
-  [events]
+  [metadata]
   (table/build
-    {:headers [nil :event-id :event-target :timestamp :event-content :severity :type]
-     :rows (map event-row events)}))
+    {:pagination (:pagination metadata)
+     :headers [nil :event-id :event-target :timestamp :event-content :severity :type]
+     :rows (map event-row (:events metadata))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

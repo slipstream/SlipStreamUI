@@ -16,4 +16,4 @@
               :subtitle (t :header.subtitle)}
      :resource-uri "/events"
      :content [{:title (t :content.title)
-                :content (t/events-table (events/parse metadata))}]}))
+                :content (-> metadata events/parse t/events-table)}]}))
