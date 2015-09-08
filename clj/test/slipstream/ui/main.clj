@@ -30,11 +30,11 @@
                        raw-metadata-ns))))))
 
 (defn- render
-  [& {:keys [raw-metadata-ns pagename type query-parameters]}]
+  [& {:keys [raw-metadata-ns pagename type query-parameters user]}]
   (mode/with-headless-environment
     (-> raw-metadata-ns
         raw-metadata-str
-        (representation/-toHtml pagename {:type type :request {:query-parameters query-parameters}})
+        (representation/-toHtml pagename {:type type :user user :request {:query-parameters query-parameters}})
         resp/response
         constantly
         (resource/wrap-resource "public"))))
@@ -183,7 +183,7 @@
 
     ["configuration"]         (render :pagename "configuration"   :raw-metadata-ns "configuration")
 
-    ["events"]                (render :pagename "events"          :raw-metadata-ns "events")
+    ["events"]                (render :pagename "events"          :raw-metadata-ns "events" :user {:username "bob" :super? false})
 
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
 
