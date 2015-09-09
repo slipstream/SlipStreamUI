@@ -185,6 +185,8 @@
 
     ["events"]                (render :pagename "events"          :raw-metadata-ns "events" :user {:username "bob" :super? false})
 
+    ["usages"]                (render :pagename "usages"          :raw-metadata-ns "usages" :user {:username "bob" :super? false})
+
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
 
     ["error"]                 (render-error :raw-metadata-ns "module.project"

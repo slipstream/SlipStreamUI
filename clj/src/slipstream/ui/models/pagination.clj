@@ -29,12 +29,11 @@
       parse-pagination))
 
 (defn parse-json
-  [metadata query-params]
+  [key-coll metadata query-params]
   {:offset        (-> query-params  :offset uc/parse-pos-int (or 0))
    :limit         (-> query-params  :limit  uc/parse-pos-int (or items-per-page))
-   :count-shown   (-> metadata      :events count)
-   :count-total   (-> metadata      :count)
-   :resource-name :event})
+   :count-shown   (-> metadata      key-coll count)
+   :count-total   (-> metadata      :count)})
 
 (defn url
   [resource & {:keys [cloud offset limit module-uri]}]

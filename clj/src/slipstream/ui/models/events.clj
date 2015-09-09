@@ -13,5 +13,5 @@
 
 (defn parse
   [metadata]
-  {:pagination (pagination/parse-json metadata (-> metadata meta :request :query-parameters))
+  {:pagination (pagination/parse-json :events metadata (-> metadata meta :request :query-parameters))
    :events     (map parse-event (:events metadata))})

@@ -1,0 +1,540 @@
+{
+  "acl" : {
+    "owner" : {
+      "principal" : "ADMIN",
+      "type" : "ROLE"
+    },
+    "rules" : [ {
+      "principal" : "ANON",
+      "type" : "ROLE",
+      "right" : "VIEW"
+    } ]
+  },
+  "resourceURI" : "http://sixsq.com/slipstream/1/UsageCollection",
+  "id" : "usage",
+  "count" : 100,
+  "usages" : [ {
+    "id" : "usage/6bdc86aa-8d29-4e13-8f90-74fcd64a732d",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-28T00:00:00.000Z",
+    "end_timestamp" : "2015-10-29T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/a8fbe993-3b8f-4731-b862-55b2454df116",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-28T00:00:00.000Z",
+    "end_timestamp" : "2015-10-29T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/29d53bb0-7323-4824-a585-7178eea2f9fe",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-27T00:00:00.000Z",
+    "end_timestamp" : "2015-10-28T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/4c088245-0e15-48f4-bbed-df5e7ea98d0c",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-27T00:00:00.000Z",
+    "end_timestamp" : "2015-10-28T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/35ec0694-055f-4b44-9634-54b3af53bcfb",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-26T00:00:00.000Z",
+    "end_timestamp" : "2015-10-27T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/46ce1e6a-f954-4ca1-ac25-5703360c65d6",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-26T00:00:00.000Z",
+    "end_timestamp" : "2015-10-27T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/f5838668-2da1-49b0-b626-551732c95b57",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-25T00:00:00.000Z",
+    "end_timestamp" : "2015-10-26T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/b4171469-4ba8-4f6c-ac64-812630fa177f",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-25T00:00:00.000Z",
+    "end_timestamp" : "2015-10-26T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/95f0f599-0d0b-46ac-8878-def1910a715a",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-24T00:00:00.000Z",
+    "end_timestamp" : "2015-10-25T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/ac6c049a-5484-4351-91ce-5bc7a49d9485",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-24T00:00:00.000Z",
+    "end_timestamp" : "2015-10-25T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/ad180973-361e-40e7-b56d-d6cd6a2b14f3",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-23T00:00:00.000Z",
+    "end_timestamp" : "2015-10-24T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/a5328d0f-1aa7-40f3-8b57-300eb9d426d1",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-23T00:00:00.000Z",
+    "end_timestamp" : "2015-10-24T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/4eb8a55e-6252-4545-aaad-82202615a73b",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-22T00:00:00.000Z",
+    "end_timestamp" : "2015-10-23T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/3d961484-6199-4230-aa9d-f04fb5a23d78",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-22T00:00:00.000Z",
+    "end_timestamp" : "2015-10-23T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/bbd076f4-4af7-45fe-a134-1131dc3af890",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-21T00:00:00.000Z",
+    "end_timestamp" : "2015-10-22T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/aac9ba2d-2e16-42f0-beef-cf59225bdf76",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-21T00:00:00.000Z",
+    "end_timestamp" : "2015-10-22T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/24674cd7-7036-4ff7-9a32-77cf7286d96b",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-20T00:00:00.000Z",
+    "end_timestamp" : "2015-10-21T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/e841dcd4-339e-4f99-bed3-3ffb2b3afadf",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-20T00:00:00.000Z",
+    "end_timestamp" : "2015-10-21T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/e7c98c54-ae99-4dee-97be-3f7ebe251482",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "aws",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "aws",
+    "start_timestamp" : "2015-10-19T00:00:00.000Z",
+    "end_timestamp" : "2015-10-20T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      }
+    }
+  }, {
+    "id" : "usage/7f3cfc82-c6dc-4bb9-af64-03af2f7e586a",
+    "acl" : {
+      "owner" : {
+        "type" : "USER",
+        "principal" : "zaza"
+      },
+      "rules" : [ {
+        "type" : "USER",
+        "principal" : "zaza",
+        "right" : "ALL"
+      }, {
+        "type" : "ROLE",
+        "principal" : "exo",
+        "right" : "ALL"
+      } ]
+    },
+    "user" : "zaza",
+    "cloud" : "exo",
+    "start_timestamp" : "2015-10-19T00:00:00.000Z",
+    "end_timestamp" : "2015-10-20T00:00:00.000Z",
+    "usage" : {
+      "ram" : {
+        "unit_minutes" : 100.0
+      },
+      "disk" : {
+        "unit_minutes" : 1250.0
+      }
+    }
+  } ]
+}

@@ -11,8 +11,7 @@
   {:offset        0
    :limit         20
    :count-shown   20
-   :count-total   45
-   :resource-name :event}
+   :count-total   45}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :pagination))
 
 (expect
