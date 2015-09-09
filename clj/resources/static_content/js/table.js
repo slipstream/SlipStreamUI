@@ -95,9 +95,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Enable pagination
     $("body").on("click", paginationActionSel, function(e){
-        var $clickedButton   = $(this),
-            params  = $clickedButton.data("pagination-params") || {},
+        var $clickedButton      = $(this),
+            params              = $clickedButton.data("pagination-params") || {},
             $dynamicContentElem = $clickedButton.closest(dynamicContentSel),
+            contentSelector     = $dynamicContentElem.data("content-selector"),
             contentLoadUrl      = $dynamicContentElem.attr("content-load-url"),
             newContentLoadUrl   = contentLoadUrl
                                         .replace(/offset=\d+/, "offset=" + params.offset)
@@ -112,7 +113,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         $dynamicContentElem.attr("content-load-url", newContentLoadUrl);
 
-        $dynamicContentElem.trigger("ss-dynamic-content-reload");
+        var eventData;
+        if ( contentSelector !== undefined ) {
+            eventData = {newContentSel: contentSelector};
+        }
+
+        $dynamicContentElem.trigger("ss-dynamic-content-reload", eventData);
     });
 
     $("body").on("ss-dynamic-content-reload", dynamicContentSel, function(e, data){
@@ -124,12 +130,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if ( data !== undefined && data.withLoadingScreen !== undefined ) {
             withLoadingScreen = data.withLoadingScreen;
         }
+        var newContentSel = ".ss-section-content";
+        if ( data !== undefined && data.newContentSel !== undefined ) {
+            newContentSel = data.newContentSel;
+        }
         $$.request
             .get($dynamicContent.attr("content-load-url"))
             .dataType("html")
             .withLoadingScreen(withLoadingScreen)
             .onSuccess(function (html){
-                var $newContent = $(".ss-section-content", html);
+                var $newContent = $(newContentSel, html);
                 $dynamicContent
                     .children(":first")
                         .updateWith(
