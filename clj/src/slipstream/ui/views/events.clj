@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.events
   (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.tables :as t]
@@ -14,7 +15,10 @@
     [{:title (t :content.title)
       :content (if (-> parsed-metadata :events empty?)
                  (t :no-events)
-                 (t/events-table parsed-metadata))}]))
+                 (ue/dynamic-content-snip
+                   :content-load-url  "/event?offset=0"
+                   :content-id        "ss-events-table"
+                   :content           (t/events-table parsed-metadata)))}]))
 
 (defn page
   [metadata]
