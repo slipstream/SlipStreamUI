@@ -37,6 +37,7 @@
                                  (map :value)
                                  (remove empty?)
                                  (map uc/parse-pos-int)
+                                 (remove nil?)
                                  (reduce +))]
     {:category      (-> attrs :category)
      :creation      (-> attrs :creation)
