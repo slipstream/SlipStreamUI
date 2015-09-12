@@ -2,7 +2,7 @@
   (:require [slipstream.ui.models.pagination :as pagination]
             [slipstream.ui.util.clojure :as uc]))
 
-(defn- parse-usage
+(defn parse-usage
   [usage]
   (-> usage
       (select-keys [:id :user :cloud :start_timestamp :end_timestamp :usage])

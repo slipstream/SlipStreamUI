@@ -23,6 +23,7 @@
             [slipstream.ui.views.action :as action]
             [slipstream.ui.views.events :as events]
             [slipstream.ui.views.usages :as usages]
+            [slipstream.ui.views.usage :as usage]
             [slipstream.ui.views.error :as error]
             [slipstream.ui.models.version :as version-model])
   (:gen-class
@@ -57,7 +58,8 @@
    "configuration"    configuration/page
    "action"           action/page
    "events"           events/page
-   "usages"           usages/page})
+   "usages"           usages/page
+   "usage"            usage/page})
 
 (defn page-types
   [pagename]

@@ -107,6 +107,7 @@
                     :target           "Target"
                     :timestamp        "Timestamp"
                     :type             "Type"
+                    :usages           "Usages"
                     :user             "User"
                     :username         "Username"
                     :users            "Users"
@@ -323,6 +324,7 @@
    :slipstream.ui.views.table.header.disk                     "Disk [GB]"
    :slipstream.ui.views.table.header.instance-type            "Instance type"
    :slipstream.ui.views.table.header.event-id                 "Event Id"
+   :slipstream.ui.views.table.header.usage-id                 "Usage Id"
    :slipstream.ui.views.table.header.event-target             :global.nouns.target
    :slipstream.ui.views.table.header.timestamp                :global.nouns.timestamp
    :slipstream.ui.views.table.header.event-content            :global.nouns.content
@@ -876,7 +878,12 @@
    :slipstream.ui.views.events.content.title                   :global.nouns.events
    :slipstream.ui.views.events.no-events                       "There are no events to show."
 
-   :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
+   :slipstream.ui.views.usages.header.title                    :global.nouns.usages
+   :slipstream.ui.views.usages.header.subtitle                 "Usage across your clouds."
+   :slipstream.ui.views.usages.content.title                   :global.nouns.usages
+   :slipstream.ui.views.usages.no-usages                       "There are no usages to show."
+
+ :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"

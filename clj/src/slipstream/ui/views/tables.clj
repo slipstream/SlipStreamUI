@@ -972,4 +972,19 @@
      :headers [nil :event-id :event-target :timestamp :event-content :severity :type]
      :rows (map event-row (:events metadata))}))
 
+(defn- usage-row
+  [{:keys [start_timestamp cloud id]}]
+  {:style nil
+   :cells [{:type :cell/icon,             :content icons/usage}
+           {:type :cell/timestamp-short,  :content start_timestamp}
+           {:type :cell/text,             :content cloud}
+           {:type :cell/url,              :content (str "usage/" id)}]})
+
+(defn usages-table
+  [metadata]
+  (table/build
+    {:pagination  (:pagination metadata)
+     :headers     [nil :day :cloud :usage-id]
+     :rows        (map usage-row (:usages metadata))}))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
