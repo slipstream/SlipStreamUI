@@ -786,6 +786,7 @@
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
    :slipstream.ui.util.icons.description.event                     :global.nouns.event
+   :slipstream.ui.util.icons.description.usage                     :global.nouns.usage
 
    :slipstream.ui.util.icons.description.user-section-summary      "Personal information"
    :slipstream.ui.util.icons.description.user-section-general      "General parameters"
