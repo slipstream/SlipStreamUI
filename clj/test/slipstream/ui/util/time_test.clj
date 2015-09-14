@@ -305,6 +305,24 @@
   (localization/with-lang :en
     (format :ss-timestamp-format "2013-01-05T01:27:12.471+0100")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; format date only formats
+
+(expect
+  String
+  (localization/with-lang :en
+    (format :date "2013-07-05T00:27:12.471Z")))
+
+(expect
+  "5 January 2013"
+  (localization/with-lang :en
+    (format :date "2013-01-05T00:27:12.471Z")))
+
+(expect
+  "5 Jan 2013"
+  (localization/with-lang :en
+    (format :date-short "2013-01-05T00:27:12.471Z")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
