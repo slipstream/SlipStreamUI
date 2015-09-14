@@ -972,6 +972,8 @@
      :headers [nil :event-id :event-target :timestamp :event-content :severity :type]
      :rows (map event-row (:events metadata))}))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- usage-row
   [{:keys [start_timestamp cloud id]}]
   {:style nil
