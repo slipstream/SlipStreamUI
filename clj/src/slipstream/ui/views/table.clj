@@ -567,6 +567,26 @@
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :human-readable-short :relative))
 
+; :cell/date                 "2 March 2015"
+
+(defmethod cell-snip [:cell/date :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :date :relative))
+
+(defmethod cell-snip [:cell/date :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-timestamp-snip-view {:timestamp timestamp} :date :relative))
+
+; :cell/date-short           "2 Mar 2015"
+
+(defmethod cell-snip [:cell/date-short :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :date-short :relative))
+
+(defmethod cell-snip [:cell/date-short :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-timestamp-snip-view {:timestamp timestamp} :date-short :relative))
+
 ; :cell/relative-timestamp   "5 months and 3 days ago"
 
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/map]

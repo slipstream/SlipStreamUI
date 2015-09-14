@@ -9,7 +9,8 @@
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.time :as time]
             [slipstream.ui.util.current-user :as current-user]
-            [slipstream.ui.util.localization :as localization]))
+            [slipstream.ui.util.localization :as localization])
+  (:import  [org.joda.time DateTime]))
 
 ;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:
 ;;
@@ -76,6 +77,8 @@
    :cell/timestamp-long     [             :content/map  :content/plain]
    :cell/timestamp          [             :content/map  :content/plain]
    :cell/timestamp-short    [             :content/map  :content/plain]
+   :cell/date               [             :content/map  :content/plain]
+   :cell/date-short         [             :content/map  :content/plain]
    :cell/relative-timestamp [             :content/map  :content/plain]
    :cell/boolean            [             :content/map  :content/plain]
    :cell/map                [:content/any                             ]
@@ -578,6 +581,20 @@
 (expect
   IllegalArgumentException
   (cell-html {:type :cell/icon, :content :home}))
+
+;; Date cells
+
+(expect-html
+  "<td class='ss-table-cell-text'><span class='ss-table-tooltip' data-toggle='tooltip' data-placement='bottom' title='1 month and 1 week ago'>5 January 2013</span></td>"
+  (freeze-time (t/date-time 2013 02 10)
+    (localization/with-lang :en
+      (cell-html {:type :cell/date, :content "2013-01-05T00:27:12.471Z"}))))
+
+(expect-html
+  "<td class='ss-table-cell-text'><span class='ss-table-tooltip' data-toggle='tooltip' data-placement='bottom' title='1 month and 1 week ago'>5 Jan 2013</span></td>"
+  (freeze-time (t/date-time 2013 02 10)
+    (localization/with-lang :en
+      (cell-html {:type :cell/date-short, :content "2013-01-05T00:27:12.471Z"}))))
 
 
 ;; Boolean cell
