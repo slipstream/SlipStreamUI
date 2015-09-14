@@ -986,7 +986,7 @@
   [metadata]
   (table/build
     {:pagination  (:pagination metadata)
-     :headers     [nil :day :cloud :usage-id]
+     :headers     [nil :date :cloud :usage-id]
      :rows        (map usage-row (:usages metadata))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
