@@ -2,6 +2,7 @@
   (:require [slipstream.ui.views.base :as base]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.tables :as t]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.localization :as localization]))
 
 (localization/def-scoped-t)
@@ -13,4 +14,4 @@
               :title    (t :header.title)
               :subtitle (t :header.subtitle)}
      :resource-uri "/usage"
-     :content (str metadata)}))
+     :content (ue/pprint-snip metadata)}))

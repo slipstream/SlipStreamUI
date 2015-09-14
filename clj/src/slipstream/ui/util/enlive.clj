@@ -418,6 +418,12 @@
   this (set-class css-class)
   this ((if html html/html-content html/content) (str text)))
 
+; Returns a 'pre' tag with the argument pretty-printed. Intented to dump clojure
+; structures during development.
+(def-blank-snippet pprint-snip :pre
+  [x]
+  this (html/content (with-out-str (clojure.pprint/pprint x))))
+
 (def-blank-snippet map->meta-tag-snip :meta
   [m & {:keys [name-prefix]}]
   this (html/clone-for [[k v] (uc/->sorted m)]
