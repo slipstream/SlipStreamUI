@@ -34,6 +34,7 @@
 (def action-users-sel           [:.ss-action-users])
 (def action-help-sel            [:.ss-action-help])
 (def action-events-sel          [:.ss-action-events])
+(def action-usage-sel           [:.ss-action-usage])
 (def action-logout-sel          [:.ss-action-logout])
 (def action-profile-sel         [:.ss-action-profile])
 
@@ -95,4 +96,5 @@
               action-knowledge-base-sel   (html/content (t :logged-in.action.knowledge-base))
               action-contact-us-sel       (html/content (t :logged-in.action.contact-us))
               action-events-sel           (html/content (t :logged-in.action.events))
+              action-usage-sel            (html/content (t :logged-in.action.usage))
               action-logout-sel           (html/content (t :logged-in.action.logout)))))

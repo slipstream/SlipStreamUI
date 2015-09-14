@@ -107,6 +107,7 @@
                     :target           "Target"
                     :timestamp        "Timestamp"
                     :type             "Type"
+                    :usage            "Usage"
                     :usages           "Usages"
                     :user             "User"
                     :username         "Username"
@@ -197,6 +198,7 @@
    :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
    :slipstream.ui.views.menubar.logged-in.action.events              :global.nouns.events
+   :slipstream.ui.views.menubar.logged-in.action.usage               :global.nouns.usage
    :slipstream.ui.views.menubar.logged-in.action.logout              :global.verbs.logout
 
 
