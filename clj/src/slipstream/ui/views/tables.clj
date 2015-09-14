@@ -977,10 +977,10 @@
 (defn- usage-row
   [{:keys [start_timestamp cloud id]}]
   {:style nil
-   :cells [{:type :cell/icon,             :content icons/usage}
-           {:type :cell/timestamp-short,  :content start_timestamp}
-           {:type :cell/text,             :content cloud}
-           {:type :cell/url,              :content (str "usage/" id)}]})
+   :cells [{:type :cell/icon,       :content icons/usage}
+           {:type :cell/date-short, :content start_timestamp}
+           {:type :cell/text,       :content cloud}
+           {:type :cell/url,        :content (str "usage/" id)}]})
 
 (defn usages-table
   [metadata]
