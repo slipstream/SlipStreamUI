@@ -196,6 +196,7 @@
    :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
    :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
+   :slipstream.ui.views.menubar.logged-in.action.events              :global.nouns.events
    :slipstream.ui.views.menubar.logged-in.action.logout              :global.verbs.logout
 
 
