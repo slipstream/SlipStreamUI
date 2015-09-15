@@ -8,7 +8,7 @@
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_usage.json"))
 
 (expect
-  {:id              "9264f72c-668c-4227-8c88-1d6c99f7194b"
+  {:id              "usage/9264f72c-668c-4227-8c88-1d6c99f7194b"
    :user            "zaza"
    :cloud           "azure"
    :start_timestamp "2015-09-25T00:00:00.000Z"

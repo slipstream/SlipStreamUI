@@ -15,7 +15,7 @@
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :pagination))
 
 (expect
-  {:id              "6bdc86aa-8d29-4e13-8f90-74fcd64a732d"
+  {:id              "usage/6bdc86aa-8d29-4e13-8f90-74fcd64a732d"
    :user            "zaza"
    :cloud           "aws"
    :start_timestamp "2015-10-28T00:00:00.000Z"
@@ -24,7 +24,7 @@
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :usages first))
 
 (expect
-  {:id              "7f3cfc82-c6dc-4bb9-af64-03af2f7e586a"
+  {:id              "usage/7f3cfc82-c6dc-4bb9-af64-03af2f7e586a"
    :user            "zaza"
    :cloud           "exo"
    :start_timestamp "2015-10-19T00:00:00.000Z"

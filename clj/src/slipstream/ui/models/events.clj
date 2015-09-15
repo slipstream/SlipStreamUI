@@ -4,7 +4,7 @@
 
 (defn- parse-event
   [event]
-  {:id          (-> event :id (uc/trim-prefix "event/"))
+  {:id          (-> event :id)
    :target      (-> event :content :resource :href)
    :timestamp   (-> event :timestamp)
    :content     (-> event :content :state)

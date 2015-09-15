@@ -980,7 +980,7 @@
    :cells [{:type :cell/icon,       :content icons/usage}
            {:type :cell/date-short, :content start_timestamp}
            {:type :cell/text,       :content cloud}
-           {:type :cell/url,        :content (str "usage/" id)}]})
+           {:type :cell/url,        :content id}]})
 
 (defn usages-table
   [metadata]

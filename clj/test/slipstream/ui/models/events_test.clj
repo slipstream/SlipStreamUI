@@ -15,7 +15,7 @@
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :pagination))
 
 (expect
-  {:id        "268fd1b2-050c-4126-8a0b-2841555cce9b"
+  {:id        "event/268fd1b2-050c-4126-8a0b-2841555cce9b"
    :target    "run/26"
    :timestamp "2015-09-19T19:53:05.651Z"
    :content   "Started"
@@ -24,10 +24,10 @@
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :events first))
 
 (expect
-  {:id "4c56a355-f186-47fe-be6c-8259bd98463b"
-   :target "run/35"
+  {:id        "event/4c56a355-f186-47fe-be6c-8259bd98463b"
+   :target    "run/35"
    :timestamp "2015-09-15T22:19:12.466Z"
-   :content "Started"
-   :severity "high"
-   :type "state"}
+   :content   "Started"
+   :severity  "high"
+   :type      "state"}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :events last))

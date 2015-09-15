@@ -4,9 +4,7 @@
 
 (defn parse-usage
   [usage]
-  (-> usage
-      (select-keys [:id :user :cloud :start_timestamp :end_timestamp :usage])
-      (update :id uc/trim-prefix "usage/")))
+  (select-keys usage [:id :user :cloud :start_timestamp :end_timestamp :usage]))
 
 (defn parse
   [metadata]
