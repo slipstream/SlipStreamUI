@@ -79,8 +79,12 @@
              :target-type :script
              :context     (conj #{:ss-client-access}
                             (case target-name
-                              ("execute" "report")      :deployment
-                              ("onvmadd" "onvmremove")  :scaling))
+                              ("execute"
+                               "report")      :deployment
+                              ("onvmadd"
+                               "onvmremove"
+                               "prescale"
+                               "postscale")   :scaling))
              :script      script})))
 
 (defn- targets
@@ -94,7 +98,11 @@
       (conj-script-target   "execute"     metadata)
       (conj-script-target   "report"      metadata)
       (conj-script-target   "onvmadd"     metadata)
-      (conj-script-target   "onvmremove"  metadata)))
+      (conj-script-target   "onvmremove"  metadata)
+      ; NOTE: To display the prescale and postscale scripts, just decomment these 2 lines:
+      ; (conj-script-target   "prescale"    metadata)
+      ; (conj-script-target   "postscale"   metadata)
+      ))
 
 
 ;; Deployment parameters section
