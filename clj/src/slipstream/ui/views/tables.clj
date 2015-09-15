@@ -974,19 +974,31 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn- format-number
+  [n]
+  (clojure.pprint/cl-format nil "~,,'':D" n))
+
+(defn- format-usage-values
+  [usage]
+  (->> usage
+       (map (fn[[k v]] [k (str (-> v :unit_minutes format-number)
+                               " unit*minutes")]))
+       (into {})))
+
 (defn- usage-row
-  [{:keys [start_timestamp cloud id]}]
+  [{:keys [start_timestamp cloud usage]}]
   {:style nil
    :cells [{:type :cell/icon,       :content icons/usage}
            {:type :cell/date-short, :content start_timestamp}
            {:type :cell/text,       :content cloud}
-           {:type :cell/url,        :content id}]})
+           {:type :cell/map,        :content (format-usage-values usage)}
+           ]})
 
 (defn usages-table
   [metadata]
   (table/build
     {:pagination  (:pagination metadata)
-     :headers     [nil :date :cloud :usage-id]
+     :headers     [nil :date :cloud :usages]
      :rows        (map usage-row (:usages metadata))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
