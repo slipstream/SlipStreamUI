@@ -718,147 +718,147 @@
 "Beendet"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.alpha-num-underscore;
 ;"Please use only [a-zA-Z0-9_]"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.alpha-num-underscore-dash;
 ;"Please use only [a-zA-Z0-9_-]"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.alpha-num-underscore-dash-dot;
 ;"Please use only [a-zA-Z0-9_.-]"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.begin-with-letter;
 ;"Please begin with a letter."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.comma-separated-words;
 ;"Enter only words separated by commas."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.dot-separated-words;
 ;"Enter only words separated by dots."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.min-x-chars;
 ;"Come on, a bit longer."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.not-empty;
 ;"Well, if you leave this blank..."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.not-new;
 ;"Oh, this will confuse me..."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.positive-integer;
 ;"A positive integer is expected here."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:pattern.default-error-help-hint.ssh-public-keys;
 ;"Something looks weird with the list of SSH public keys. Please make sure that this is intended."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.dashboard.all-clouds.title;
 ;"All Clouds"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.module.image.deployment.default-parameter.hostname.description;
 ;"Hostname or IP address of the image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint;
 ;"The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder;
 ;"Provided at runtime by SlipStream"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description;
 ;"Cloud instance ID"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint;
 ;"The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder;
 ;"Provided at runtime by SlipStream"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.msg;
 ;"%2$s ? %3$s of %4$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-all;
 ;"Showing all %4$s items."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-almost-all;
 ;"Showing %1$s items from %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-first-from-many;
 ;"Showing first item from a total of %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-first-n-from-many;
 ;"Showing first %1$s items from a total of %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-last-from-many;
 ;"Showing last item from a total of %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-last-n-from-many;
 ;"Showing last %1$s items from a total of %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-one;
 ;"There is only one item."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-one-from-many;
 ;"Showing item %2$s from a total of %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-range;
 ;"Showing %1$s items (from %2$s to %3$s) from a total of %4$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.pagination.tooltip.showing-two-from-many;
 ;"Showing items %2$s and %3$s from a total of %4$s."
 
@@ -873,12 +873,12 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.cloud-identifiers.description;
 ;"Cloud image IDs"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.cloud-identifiers.help-hint;
 ;"For a native image, SlipStream must know the Cloud Image IDs corresponding\n                                                                                 to this image for each cloud (e.g. 'ami-xxxxxx' for Amazon EC2).\n                                                                                 Derived images in SlipStream images can use a native image as parent image."
 
@@ -908,7 +908,7 @@
 :global.nouns.cloud
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.deployment-target-cloud.help-hint;
 ;"Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled. The option `Specify for each node` will reveal this menu for each of the nodes below."
 
@@ -938,7 +938,7 @@
 :global.nouns.end
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.end-time.help-hint;
 ;""
 
@@ -953,12 +953,12 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.group-members.description;
 ;"Group members"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.group-members.help-hint;
 ;"You can define a new set of SlipStream users as the 'Group' level of this module by entering a comma separated list of usernames."
 
@@ -968,27 +968,27 @@
 :global.nouns.cloud
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.image-target-cloud.help-hint;
 ;"Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.inherited-group-members?.description;
 ;"Inherit group members from parent module?"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.inherited-group-members?.help-hint;
 ;"If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.keep-running-behaviour.description;
 ;"Keep running after deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.keep-running-behaviour.help-hint;
 ;"Here you can define if and when SlipStream should leave the application running after performing the deployment. `On success` is useful for production deployments or long tests. `On Error` might be useful so that resources are consumed only when debugging is needed. `Never` ensures that SlipStream automatically terminates the application after performing the deployment. The option flagged with a `*` is the default configured in your user profile.  Note: This parameter doesn't apply to `scalable deployment` Runs and to `build image` Runs."
 
@@ -1013,12 +1013,12 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.last-state-change.description;
 ;"Last state change"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.last-state-change.help-hint;
 ;""
 
@@ -1028,37 +1028,37 @@
 :global.nouns.mutable-deployment
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.launch-mutable-run?.help-hint;
 ;"Enabling this option will launch a _scalable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.login-username.description;
 ;"Login username"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.login-username.help-hint;
 ;"The login is defined by the native image and inherited by all derived images."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.logo-url.description;
 ;"Logo URL"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.logo-url.help-hint;
 ;"The URL of an optional logo for this module. The logo will be shown in the App Store if present."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.mail-usage.description;
 ;"Cloud usage email"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.mail-usage.help-hint;
 ;"The frequency at which you want to receive emails with your cloud usage."
 
@@ -1078,7 +1078,7 @@
 :global.nouns.module
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.module-uri.help-hint;
 ;""
 
@@ -1098,7 +1098,7 @@
 :global.nouns.mutable-deployment
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.mutable?.help-hint;
 ;""
 
@@ -1113,12 +1113,12 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.native-image?.description;
 ;"Native image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.native-image?.help-hint;
 ;"A native image maps to a pre-existing cloud-specific image\n                                                                                 that SlipStream didn't create. For native images, the Cloud Image IDs\n                                                                                 must be provided for each of the targeted clouds."
 
@@ -1143,32 +1143,32 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.password-new-1.description;
 ;"New Password"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.password-new-1.help-hint;
 ;"Enter the new password if you want to change it."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.password-new-2.description;
 ;"Confirm New Password"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.password-new-2.help-hint;
 ;"Enter the new password again to make sure it is not mistyped."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.password-old.description;
 ;"Old Password"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.password-old.help-hint;
 ;"Enter your current password to validate the password update."
 
@@ -1178,7 +1178,7 @@
 :global.nouns.platform
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.platform.help-hint;
 ;"The platform (operating system) is defined by the native image and inherited by\n                                                                                 all derived images."
 
@@ -1193,12 +1193,12 @@
 "Datum an dem diese Version des Moduls auf der SlipStream App Store veröffentlicht wurde."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.reference-image.description;
 ;"Parent image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.reference-image.help-hint;
 ;"For a derived image, a parent image from which this image is derived must be specified.\n                                                                                The parent image may or may be a native or another derived image. However,\n                                                                                the root parent of an image inheritance chain must always be a native image."
 
@@ -1208,7 +1208,7 @@
 :global.nouns.run-id
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.run-id.help-hint;
 ;""
 
@@ -1228,27 +1228,27 @@
 :global.nouns.run-type
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.run-type.help-hint;
 ;""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.ssh-key-available.description;
 ;"SSH access"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.ssh-key-available.help-hint;
 ;"There are SSH keys configured in your user profile. SlipStream will install the keys into the deployed machines so that you can use SSH to access them."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.ssh-key-not-available.description;
 ;"SSH access"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.ssh-key-not-available.help-hint;
 ;"Currently there are no SSH keys configured in your user profile. If SSH keys were provided in your user profile, SlipStream would install the keys into the deployed machines so that you can use SSH to access them. If you are not sure about the meaning of this setting, you can probably leave it unchecked."
 
@@ -1258,7 +1258,7 @@
 :global.nouns.start
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.start-time.help-hint;
 ;""
 
@@ -1288,17 +1288,17 @@
 :global.nouns.tags
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.tags.help-hint;
 ;"You can label this run with a comma-separated list of tags. This can be useful to identify the purpose of a specific run later on. You can modify the run tags any time."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.tolerate-deployment-failures?.description;
 ;"Tolerate deployment failures"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint;
 ;"Enabling this option reveals a field in each node to specify how many instances (i.e. the `multiplicity` value) you tolerate to fail to properly start without SlipStream flagging the whole deployment as failed. This makes specially sense for _scalable_ deployments with a _big_ initial multiplicity."
 
@@ -1308,7 +1308,7 @@
 :global.nouns.user
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.parameters.user.help-hint;
 ;""
 
@@ -1323,22 +1323,22 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.run.type.machine;
 ;"Image Build"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.run.type.orchestration;
 ;"Deployment Run"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.run.type.run;
 ;"Image Run"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.models.user.cloud-not-configured.label;
 ;"(not configured)"
 
@@ -1358,7 +1358,7 @@
 :global.adjectives.public
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node;
 ;"Specify for each node"
 
@@ -1428,92 +1428,92 @@
 :global.nouns.output
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-keep-running.always;
 ;"Always"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-keep-running.never;
 ;"Never"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-keep-running.on-error;
 ;"On Error"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-keep-running.on-success;
 ;"On Success"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-verbosity-level.0;
 ;"0 - Actions"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-verbosity-level.1;
 ;"1 - Steps"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-verbosity-level.2;
 ;"2 - Details data"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.general-verbosity-level.3;
 ;"3 - Debugging"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.always;
 ;"Always"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.never;
 ;"Never"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-error;
 ;"On Error"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.keep-running-behaviour-for-deployment.on-success;
 ;"On Success"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.mail-usage.daily;
 ;"Daily"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.mail-usage.monthly;
 ;"Monthly"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.mail-usage.never;
 ;"Never"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.mail-usage.weekly;
 ;"Weekly"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output;
 ;"Map to output parameter of another node"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value;
 ;"Default value"
 
@@ -1528,37 +1528,37 @@
 :global.adjectives.public
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.general;
 ;"General"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.locations;
 ;"Locations"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other;
 ;"Other"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.overall-capacity;
 ;"Overall capacity"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.price;
 ;"Price"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.single-v-m-capacity;
 ;"Single VM capacity"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.core.enum.option.text.service-catalog-parameters.suppliers-catalogue;
 ;"Suppliers catalogue"
 
@@ -1613,12 +1613,12 @@
 :global.verbs.edit
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-edit-user;
 ;"Edit user"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-export-users;
 ;"Export users as CSV"
 
@@ -1633,27 +1633,27 @@
 :global.verbs.logout
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-new-deployment;
 ;"New deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-new-image;
 ;"New image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-new-project;
 ;"New project"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-new-user;
 ;"New user"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.action-ok;
 ;"Ok"
 
@@ -1703,7 +1703,7 @@
 :global.nouns.deployment
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.deployment-run;
 ;"Deployment Run"
 
@@ -1728,12 +1728,12 @@
 :global.nouns.image
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.image-build;
 ;"Image Build"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.image-run;
 ;"Image Run"
 
@@ -1768,22 +1768,22 @@
 :global.nouns.run
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.run-in-transitional-state;
 ;"Run in transitional state"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.run-successfully-ready;
 ;"Ready"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.run-terminated;
 ;"Terminated"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.run-with-abort-flag-set;
 ;"Abort flag set"
 
@@ -1813,17 +1813,17 @@
 :global.nouns.user
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.user-section-cloud;
 ;"Connector parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.user-section-general;
 ;"General parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.icons.description.user-section-summary;
 ;"Personal information"
 
@@ -1838,22 +1838,22 @@
 :global.nouns.vms
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.email.email;
 ;"This does not look like a valid email address."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.email.not-empty;
 ;"Please enter an email address."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.first-name.not-empty;
 ;"How do people call this person, then?"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.last-name.not-empty;
 ;"This will really help you later."
 
@@ -1928,12 +1928,12 @@
 :pattern.default-error-help-hint.not-new
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file;
 ;"Please provide a URL for a `.png`, `.jpg` or `.svg` image file."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.picture-url.url;
 ;"Provide the URL for an image."
 
@@ -1948,7 +1948,7 @@
 :pattern.default-error-help-hint.comma-separated-words
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.ssh-public-keys.not-empty;
 ;"You need to provide at least one SSH public key."
 
@@ -1958,7 +1958,7 @@
 :pattern.default-error-help-hint.ssh-public-keys
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.min-6-chars;
 ;"Enter the password a second time to confirm it."
 
@@ -1973,7 +1973,7 @@
 :pattern.default-error-help-hint.not-empty
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.pattern.error-help-hint.user-password.not-include-username;
 ;"This is not a good idea."
 
@@ -2043,12 +2043,12 @@
 :global.time.months
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.one;
 ;"in %s %s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.time.relative-time.significative-time-periods.in-the-future.two;
 ;"in %s %s and %s %s"
 
@@ -2058,12 +2058,12 @@
 :global.time.now
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.one;
 ;"%s %s ago"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.util.time.relative-time.significative-time-periods.in-the-past.two;
 ;"%s %s and %s %s ago"
 
@@ -2103,7 +2103,7 @@
 :global.time.years
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.action.header.title;
 ;"Action Confirmation"
 
@@ -2128,17 +2128,17 @@
 :global.nouns.warning
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.base.footer.notice;
 ;""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.base.generic-form-message.error;
 ;"Please verify the fields highlighted in red."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.base.generic-form-message.success;
 ;"Changes successfully saved."
 
@@ -2148,27 +2148,27 @@
 "Veränderungen werden nicht gespeichert, wenn Sie diese Seite verlassen."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.base.noscript-error.subtitle;
 ;"SlipStream requires JavaScript. Please enable it and reload the page."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.base.noscript-error.title;
 ;"Error: JavaScript is disabled"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.configuration.header.subtitle;
 ;"Configure the SlipStream service and its cloud connectors"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.configuration.header.title;
 ;"System Configuration"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.header.subtitle;
 ;"Control and monitor your cloud activity"
 
@@ -2178,32 +2178,32 @@
 :global.nouns.dashboard
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering-options.last-30-days;
 ;"Last 30 days"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering-options.last-7-days;
 ;"Last 7 days"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering-options.last-day;
 ;"Last day"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering-options.last-hour;
 ;"Last hour"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering.metric.cpu-nb;
 ;"vCPUs"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering.metric.disk-gb;
 ;"Disk [GB]"
 
@@ -2213,12 +2213,12 @@
 :global.nouns.vms
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering.metric.instance-type;
 ;"Instance type"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.metering.metric.ram-mb;
 ;"RAM [MB]"
 
@@ -2228,12 +2228,12 @@
 :global.nouns.metering
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.section.quota.title;
 ;"Usage"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.dashboard.section.runs.title;
 ;"Deployments / Runs / Builds"
 
@@ -2393,27 +2393,27 @@
 "HTTP-Version nicht unterstützt (HTTP version not supported)"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.error.header.title.status-code-506;
 ;"Variant also negotiates"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.error.header.title.status-code-507;
 ;"Insufficient storage"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.error.header.title.status-code-508;
 ;"Loop detected"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.error.header.title.status-code-510;
 ;"Not extended"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.error.header.title.status-code-511;
 ;"Network authentication required"
 
@@ -2428,7 +2428,7 @@
 :global.nouns.events
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.events.header.subtitle;
 ;"List of events related to your user."
 
@@ -2573,7 +2573,7 @@
 :global.nouns.username
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.build-image-dialog.button;
 ;"Build image"
 
@@ -2583,17 +2583,17 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.build-image-dialog.cloud-service.label;
 ;"Cloud service"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.build-image-dialog.footnote;
 ;"Build a new native image from `%1$s` (v %2$s) on the selected cloud service.\n\nAt the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.build-image-dialog.title;
 ;"Build image"
 
@@ -2603,27 +2603,27 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.copy-module-dialog.button.copy;
 ;"Copy %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.copy-module-dialog.copy-image.choose-project.generic-error-help-hint;
 ;"Please choose a project (i.e. not an image or a deployment) in the navigator above where this %1$s has to be copied to."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.copy-module-dialog.footnote;
 ;"Choose the target project to copy this %1$s to."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.default-suffix;
 ;"-v%1$s-copy"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.label;
 ;"New %1$s name"
 
@@ -2633,7 +2633,7 @@
 :global.adjectives.required
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.copy-module-dialog.title;
 ;"Copy %1$s"
 
@@ -2643,17 +2643,17 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.delete-dialog.button.delete;
 ;"Delete %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.delete-dialog.question;
 ;"Are you sure you want to delete the %1$s `%2$s`?"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.delete-dialog.title;
 ;"Delete %1$s"
 
@@ -2668,12 +2668,12 @@
 :global.verbs.select
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select-exact-version;
 ;"Select exact version"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.image-chooser-dialog.title;
 ;"Choose an image"
 
@@ -2683,22 +2683,22 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.button.publish;
 ;"Publish %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.footnote;
 ;"Please note that the access rights still apply for published modules."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.question;
 ;"Do you want to publish the %1$s `%2$s` (v %3$s) in the [App Store](/)?"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.title;
 ;"Publish %1$s"
 
@@ -2708,17 +2708,17 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.reset-password-dialog.button.reset-password;
 ;"Request password reset link"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.reset-password-dialog.footnote;
 ;"Enter the username to reset the pasword for. If it corresponds to an existent user,\n                                                                                we'll send an email to the email address in the user's profile with a link to reset the password."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.reset-password-dialog.form.success.message;
 ;"A password reset validation email has been sent to the address\n                                                                                  in the user's account profile. Please visit the link in that email\n                                                                                  to confirm this request."
 
@@ -2728,7 +2728,7 @@
 :global.nouns.username
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.reset-password-dialog.title;
 ;"Reset password"
 
@@ -2743,32 +2743,32 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run;
 ;"Run deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote;
 ;"Choose the cloud where each node instance will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title;
 ;"Global parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title;
 ;"Node parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-deployment-dialog.title;
 ;"Run deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-image-dialog.button;
 ;"Run image"
 
@@ -2778,27 +2778,27 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-image-dialog.cloud-service.label;
 ;"Cloud service"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-image-dialog.footnote;
 ;"Run image `%1$s` (v %2$s) on the selected cloud service."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-image-dialog.global-section.title;
 ;"Global parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-image-dialog.input-parameters-section.title;
 ;"Input parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.run-image-dialog.title;
 ;"Run image"
 
@@ -2808,52 +2808,52 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.save-dialog.button.save;
 ;"Save %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.save-dialog.footnote;
 ;"Hold down `ALT` when saving to skip this confirmation and the commit message."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.save-dialog.placeholder.commit-message;
 ;"Commit message"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.save-dialog.title;
 ;"Save %1$s changes"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again;
 ;"Not now, but please ask me next time"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again;
 ;"I don't need to take the tour, thanks"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour;
 ;"Yes, go for the tour!"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.start-tour-dialog.footnote;
 ;"No stress: you can always launch the tour from the `Help` menu on the top of the page."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body;
 ;"Hi, `%1$s` and welcome to SlipStream! We would like to guide you through the main workflow of SlipStream in a 5min tour. We will show you how to deploy a Wordpress machine."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.start-tour-dialog.title;
 ;"Fancy a tour?"
 
@@ -2913,12 +2913,12 @@
 :global.nouns.user
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.question;
 ;"Are you sure you want to terminate all virtual machines running in this deployment? Note that this cannot be undone."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.title;
 ;"Terminate deployment"
 
@@ -2928,72 +2928,72 @@
 :global.verbs.cancel
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.unpublish;
 ;"Unpublish %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.footnote;
 ;"The %1$s will not appear on the [App Store](/) anymore, but it will still be accessibe via the projects. Please note that the access rights still apply for published modules."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.question;
 ;"Do you want to remove the %1$s `%2$s` (v %3$s) from the [App Store](/)?"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.title;
 ;"Unpublish %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.action-disabled-reason.wrong-acls;
 ;"You do not have the rights to perform this action.  You might contact the module owner to request the rights."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.edit-published.msg!;
 ;"Please note that the changes will not be reflected in the <a href='/' target='_blank'>App Store</a> until you publish the new saved version of this %1$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.edit-published.title;
 ;"Editing a published %1$s version"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.old-version.msg;
 ;"This is not the most recent version of this %1$s. [Are you looking for the lastest version?](%2$s)"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.view-chooser-published.msg!;
 ;"This version (%2$s) of the %1$s is currently published in the <a href='/'>App Store</a>."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.view-chooser-published.title;
 ;"Published %1$s version"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.view-published.msg!;
 ;"This version (%2$s) of the %1$s is currently published in the <a href='/'>App Store</a>."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.alert.view-published.title;
 ;"Published %1$s version"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.deployment.section.nodes.empty-content-hint;
 ;"This deployment doesn't have any nodes yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser;
 ;"This deployment doesn't have any nodes yet."
 
@@ -3003,7 +3003,7 @@
 :global.nouns.nodes
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.deployment.section.runs.empty-content-hint;
 ;"This section will list all runs of this deployment."
 
@@ -3013,62 +3013,62 @@
 :global.nouns.runs
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.header.subtitle;
 ;"Version: %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.header.subtitle.new;
 ;"Add the information to create a new %1$s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.header.title;
 ;"%1$s: %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.header.title.new;
 ;"New %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.help-hint.breadcrumb-to-last-version;
 ;"The module name in the breadcrumbs brings you always to the latest version of the module."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.help-hint.link-to-history;
 ;"The version history gives you an overview of all versions of this module and allows you to switch to a different version."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built;
 ;"This is a native image: it cannot be built."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.cloud-configuration.title;
 ;"Cloud Configuration"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.cloud-image-details.title;
 ;"Cloud Image Identifiers and Image Hierarchy"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.deployment-parameters.title;
 ;"Application Parameters"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.os-details.title;
 ;"Operating System Details"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.runs.empty-content-hint;
 ;"This section will list all runs and builds of this image."
 
@@ -3078,112 +3078,112 @@
 :global.nouns.runs
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.execute.description;
 ;"This script is executed during the deployment phase after the SlipStream client has been installed. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client (see below for details)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.execute.title!;
 ;"4. Deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.onvmadd.description;
 ;"This script runs when new VM(s) are added to the deployment. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client (see below for details)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.onvmadd.title!;
 ;"6. On VM Add"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.onvmremove.description;
 ;"This script runs when VM(s) are removed from the deployment. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client (see below for details)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.onvmremove.title!;
 ;"7. On VM Remove"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.packages.empty-content-hint!;
 ;"There are no packages set up yet. You can add some by editing this image with the <button onclick='$(\"#ss-secondary-menu-action-edit\").first().click()' class='btn-xs ss-secondary-menu-action-btn ss-secondary-btn btn-default ss-secondary-menu-main-action btn'><span class='glyphicon-pencil glyphicon'></span>Edit</button> action in the menu above."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.packages.title!;
 ;"2. Install packages"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.postscale.description;
 ;"Runs on the node instance after scale IaaS action (only after vertical scaling)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.postscale.title!;
 ;"9. Post-Scale"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.prerecipe.description;
 ;"This script is executed on the deployed machine before SlipStream client and packages are installed."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.prerecipe.title!;
 ;"1. Pre-install"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.prescale.description;
 ;"Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.prescale.title!;
 ;"8. Pre-Scale"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.recipe.description;
 ;"This script is executed on the deployed machine after the packages defined in the previous tab have been installed but before SlipStream client."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.recipe.title!;
 ;"3. Post-install"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.report.description;
 ;"This script is executed during the `Sending Reports` phase. Here you can gather logs to be packages and displayed in the SlipStream interface. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client (see below for details)."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.report.title!;
 ;"5. Reporting"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.subsection.ss-commands-documentation!;
 ;"Following are the SlipStream client commands that can be used in this script:\n\n<table>\n  <tbody>\n    <tr>\n      <td><code>ss-get</code></td>\n      <td>Retrieves a named parameter, waiting if the parameter has not yet been set.</td>\n    </tr>\n    <tr>\n      <td><code>ss-set</code></td>\n      <td>Sets the value of a named parameter</td>\n    </tr>\n    <tr>\n      <td><code>ss-random</code></td>\n      <td>Generates a random string value and optionally sets a named parameter with this value</td>\n    </tr>\n    <tr>\n      <td><code>ss-abort</code></td>\n      <td>Use to set (or to clear with the <code>--cancel</code> option) the deployment abort flag.</td>\n    </tr>\n    <tr>\n      <td><code>ss-display</code></td>\n      <td>Use to set a string in the run for display purposes.</td>\n    </tr>\n  </tbody>\n</table>\n\nFor more details refer to the <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/SlipStream_Client.html#major-client-commands'>documentation</a>."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.image.section.targets.title;
 ;"Application Workflows"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.project.section.children.empty-content-hint;
 ;"This project doesn't have any children yet. You can add a [new project](%3$s), [new image](%1$s) or a [new deployment](%2$s) with the corresponding actions in the menu above."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.module.project.section.children.empty-content-hint.on-chooser;
 ;"This project doesn't have any children yet."
 
@@ -3203,72 +3203,72 @@
 :global.nouns.summary
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.reports.no-need-to-refresh;
 ;"Reports will be displayed as soon as available. No need to refresh."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.reports.no-reports-yet;
 ;"No reports available yet."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.header.title!;
 ;"Run: %1$s is <span class='ss-run-state'>%2$s</span>"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.large-run-alert.message;
 ;"This is a large run with a total of %1$s node instances. The overview diagram and the auto-refresh of the runtime parameters are disabled."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.large-run-alert.title;
 ;"Large Run"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.machine.not-mutable;
 ;"Image build started by '%1$s' %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.machine.not-mutable.own-run;
 ;"Image build started by you (as '%1$s') %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.orchestration.mutable;
 ;"Scalable deployment run started by '%1$s' %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.orchestration.mutable.own-run;
 ;"Scalable deployment run started by you (as '%1$s') %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.orchestration.not-mutable;
 ;"Deployment run started by '%1$s' %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.orchestration.not-mutable.own-run;
 ;"Deployment run started by you (as '%1$s') %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.page-title;
 ;"Run %1$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.run.not-mutable;
 ;"Image run started by '%1$s' %2$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.run.run.not-mutable.own-run;
 ;"Image run started by you (as '%1$s') %2$s"
 
@@ -3293,22 +3293,22 @@
 :global.nouns.summary
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.runs.header.second-subtitle;
 ;"Please note that this page might display the data for only one given cloud, depending on the request URL."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.runs.header.subtitle;
 ;"This is a sub-view of the dashboard displaying only your Runs and their status."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.runs.header.title;
 ;"Your Runs"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.runs.section.runs.empty-content-hint;
 ;"You don't have any runs in this cloud."
 
@@ -3348,12 +3348,12 @@
 :global.verbs.edit
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu-actions.edit-user;
 ;"Edit user"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu-actions.export-users;
 ;"Export users as CSV"
 
@@ -3363,22 +3363,22 @@
 :global.verbs.import
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu-actions.new-deployment;
 ;"New deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu-actions.new-image;
 ;"New image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu-actions.new-project;
 ;"New project"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu-actions.new-user;
 ;"New user"
 
@@ -3413,12 +3413,12 @@
 :global.verbs.unpublish
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.secondary-menu.disabled-reason.super-only-action;
 ;"You must have administrator access to perform this action."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.service-catalog.header.subtitle;
 ;"Provides detailed capability information for each available cloud"
 
@@ -3428,7 +3428,7 @@
 :global.nouns.service-catalog
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.enum-cell.view-mode.tooltip;
 ;"Possible values: %1$s"
 
@@ -3618,7 +3618,7 @@
 :slipstream.ui.models.parameters.run-owner.description
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.header.service-url;
 ;"Service URL"
 
@@ -3693,32 +3693,32 @@
 :global.adjectives.empty
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.pagination.action.msg.show-all;
 ;"(show all)"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.pagination.action.tooltip.first-page;
 ;"Show first page"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.pagination.action.tooltip.last-page;
 ;"Show last page"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.pagination.action.tooltip.next-page;
 ;"Show next page"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.pagination.action.tooltip.previous-page;
 ;"Show previous page"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.reference-module-cell.chooser-button.label;
 ;"Choose reference"
 
@@ -3728,7 +3728,7 @@
 :global.verbs.remove
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.table.remove-row-button.text-custom;
 ;"Remove %1$s"
 
@@ -3743,22 +3743,22 @@
 :global.adjectives.unknown
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.build-or-run-image.description;
 ;"Build or run single image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.build-or-run-image.help-hint;
 ;"This right allows users to trigger a build of this image or launch a new run of this image."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.create-children.description;
 ;"Create children"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.create-children.help-hint;
 ;"This right allows users to create subprojects, images or deployments in this project."
 
@@ -3783,12 +3783,12 @@
 ""
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.run-deployment.description;
 ;"Run deployment"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.run-deployment.help-hint;
 ;"This right allows users to launch this deployment."
 
@@ -3798,17 +3798,17 @@
 :global.verbs.view
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.view.project.help-hint;
 ;"This right allows users to find and see this project."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.access.view.publishable-module.help-hint;
 ;"This right allows users to find and see this %1$s. If this %1$s is published to\n                                                                          the App Store, this 'view' access right will still apply to determine which users see this %1$s in the App Store."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.action.delete;
 ;"Delete..."
 
@@ -3818,22 +3818,22 @@
 :global.verbs.terminate
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference;
 ;"Choose image reference for this node"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.cloud.label;
 ;"Cloud"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label;
 ;"Default cloud"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label;
 ;"Default multiplicity"
 
@@ -3843,37 +3843,37 @@
 :global.nouns.mapping
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint;
 ;"It must be a value strictly less than the multiplicity above."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label;
 ;"Max provisioning failures"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint;
 ;"This looks like a big tolerance. Please make sure that this makes sense for this deployment."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label;
 ;"Initial multiplicity"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint;
 ;"Multiplicity must be greater than 0 for non-scalable deployments."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label;
 ;"Multiplicity"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.new-parameter-mapping.placeholder.value;
 ;"No value"
 
@@ -3883,47 +3883,47 @@
 :global.nouns.node
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint;
 ;"Enter a unique node name."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.node.name.placeholder;
 ;"Node name"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label;
 ;"Parameter mappings"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output;
 ;"is mapped to output `%1$s`."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value;
 ;"defaults to `%1$s`."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty;
 ;"has no default value."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.parameter.input;
 ;"Input `%1$s`"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.reference-image.label;
 ;"Reference image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-nodes-table.template-node.name.placeholder;
 ;"New node name"
 
@@ -3933,7 +3933,7 @@
 :global.nouns.description
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder;
 ;"New parameter name"
 
@@ -3948,7 +3948,7 @@
 :global.nouns.key
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.name.placeholder;
 ;"New package name"
 
@@ -3958,52 +3958,52 @@
 :global.nouns.repository
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.logo-url.success-help-hint;
 ;"That looks nice."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.logo-url.warning-help-hint;
 ;"The logo URL doesn't seem reachable right now."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.password-not-match.error-help-hint;
 ;"This is not what you typed above."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.password-not-match.success-help-hint;
 ;"That's it."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.run-deployment-global-parameters-table.missing-ssh-key.error-help-hint!;
 ;"To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint!;
 ;"To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.run-image-input-parameters-table.param-name;
 ;"Input `%1$s`"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.run-tags.error-help-hint;
 ;"Something went wrong when trying to save the tags. Please retry."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.run-tags.success-help-hint;
 ;"Tags successfully updated."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.run-tags.warning-help-hint;
 ;"Press `Enter` to save modification."
 
@@ -4013,7 +4013,7 @@
 :global.nouns.description
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.name.placeholder;
 ;"New parameter"
 
@@ -4028,17 +4028,17 @@
 :global.adjectives.unknown
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.vms-table.ip.unknown.reason;
 ;"The IP is not yet available."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.vms-table.run-uuid.no-link.reason;
 ;"This VM was started by another user with SlipStream and thus you don't have access to the run page. It is listed here because the other user is either using the same cloud credentials as yours or sharing cloud resources with you."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.tables.vms-table.run-uuid.unknown.reason;
 ;"Either SlipStream has not yet been notified about the association of this VM to a Run or this VM was not started by SlipStream. In the latter case the VM has been directly created on the cloud or via a third party using your cloud credentials."
 
@@ -4098,12 +4098,12 @@
 "Keine Clouds konfiguriert"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg;
 ;"This user will not be able to access the deployed machines via SSH until at least one SSH public key has been configured in this profile."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title;
 ;"No SSH keys configured in this profile"
 
@@ -4148,7 +4148,7 @@
 :global.nouns.users
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.users.header.subtitle;
 ;"Configure the users in the SlipStream service."
 
@@ -4163,37 +4163,37 @@
 :global.nouns.versions
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.versions.header.subtitle.multiple-versions;
 ;"There are %s versions of this %s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.versions.header.subtitle.one-version;
 ;"There is one version of this %s."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.versions.header.title;
 ;"History of '%s'"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.vms.header.second-subtitle;
 ;"Please note that this page might display the data for only one given cloud, depending on the request URL."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.vms.header.subtitle;
 ;"This is a sub-view of the dashboard displaying only your VMs and their status."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.vms.header.title;
 ;"Your VMs"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.vms.section.vms.empty-content-hint;
 ;"You don't have any VMs running in this cloud."
 
@@ -4223,22 +4223,22 @@
 :global.nouns.publisher
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.welcome.header.subtitle;
 ;"The welcome page provides you with all currently published\n                                                               modules and root modules, including yours and the ones\n                                                               shared with you."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.welcome.header.title;
 ;"Welcome to SlipStream"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.welcome.page-title;
 ;"Welcome"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the 'en' dictionary.
+; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
 ;:slipstream.ui.views.welcome.section.app-store.title;
 ;"App Store"
 
@@ -4248,5 +4248,8 @@
 :global.nouns.projects
 
 
+; TODO: Missing localization entry. Pre-filled with the corresponding keyword in the base-locale dictionary.
+:slipstream.ui.views.welcome.section.service-catalog.title
+:global.nouns.service-catalog
 
 }
