@@ -66,7 +66,7 @@
 
 (defn- pages
   [total-number-of-items items-per-page]
-  (let [number-of-pages (-> total-number-of-items (quot items-per-page) inc)]
+  (let [number-of-pages (-> total-number-of-items dec (quot items-per-page) inc)]
     (for [page (range number-of-pages)]
       {:page-number (inc page)
        :offset      (* page items-per-page)
