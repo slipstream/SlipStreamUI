@@ -974,14 +974,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- format-number
-  [n]
-  (clojure.pprint/cl-format nil "~,,'':D" n))
-
 (defn- format-usage-values
   [usage]
   (->> usage
-       (map (fn[[k v]] [k (str (-> v :unit_minutes format-number)
+       (map (fn[[k v]] [k (str (-> v :unit_minutes uc/format-metric-value)
                                " unit*minutes")]))
        (into {})))
 

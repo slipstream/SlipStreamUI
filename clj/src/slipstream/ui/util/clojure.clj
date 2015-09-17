@@ -404,3 +404,7 @@
       (map?     v)  (vector v)
       (coll?    v)  (vec v)
       :else         (vector v))))
+
+(defn format-metric-value
+  [x]
+  (format "% ,15.2f" (double x)))
