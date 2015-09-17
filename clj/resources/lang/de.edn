@@ -718,139 +718,139 @@
 "Beendet"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.alpha-num-underscore;
-;"Please use only [a-zA-Z0-9_]"
+:pattern.default-error-help-hint.alpha-num-underscore
+; Original: "Please use only [a-zA-Z0-9_]"
+"Benutze bitte ausschliesslich [a-zA-Z0-9_]"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.alpha-num-underscore-dash;
-;"Please use only [a-zA-Z0-9_-]"
+:pattern.default-error-help-hint.alpha-num-underscore-dash
+; Original: "Please use only [a-zA-Z0-9_-]"
+"Benutze bitte ausschliesslich [a-zA-Z0-9_-]"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.alpha-num-underscore-dash-dot;
-;"Please use only [a-zA-Z0-9_.-]"
+:pattern.default-error-help-hint.alpha-num-underscore-dash-dot
+; Original: "Please use only [a-zA-Z0-9_.-]"
+"Benutze bitte ausschliesslich [a-zA-Z0-9_.-]"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.begin-with-letter;
-;"Please begin with a letter."
+:pattern.default-error-help-hint.begin-with-letter
+; Original: "Please begin with a letter."
+"Beginne bitte mit einer Buchstabe"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.comma-separated-words;
-;"Enter only words separated by commas."
+:pattern.default-error-help-hint.comma-separated-words
+; Original: "Enter only words separated by commas."
+"Benutze bitte ausschliesslich durch Komma getrennte Wörter"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.dot-separated-words;
-;"Enter only words separated by dots."
+:pattern.default-error-help-hint.dot-separated-words
+; Original: "Enter only words separated by dots."
+"Benutze bitte ausschliesslich durch Punkt getrennte Wörter"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.min-x-chars;
-;"Come on, a bit longer."
+:pattern.default-error-help-hint.min-x-chars
+; Original: "Come on, a bit longer."
+"Ein bisschen länger geht noch..."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.not-empty;
-;"Well, if you leave this blank..."
+:pattern.default-error-help-hint.not-empty
+; Original: "Well, if you leave this blank..."
+"Also, wenn schon das nicht ausfegüllt wird..."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.not-new;
-;"Oh, this will confuse me..."
+:pattern.default-error-help-hint.not-new
+; Original: "Oh, this will confuse me..."
+"Das wird sicher für Verwirrung sorgen..."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.positive-integer;
-;"A positive integer is expected here."
+:pattern.default-error-help-hint.positive-integer
+; Original: "A positive integer is expected here."
+"Eine positive ganze Zahl ist erwartet an dieser Stelle."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:pattern.default-error-help-hint.ssh-public-keys;
-;"Something looks weird with the list of SSH public keys. Please make sure that this is intended."
+:pattern.default-error-help-hint.ssh-public-keys
+; Original: "Something looks weird with the list of SSH public keys. Please make sure that this is intended."
+"Die Liste von öffentlichen SSH Schlüsseln scheint inkorrekt zu sein. Bitte verifiziere das dies so gemeint ist."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.dashboard.all-clouds.title;
-;"All Clouds"
+:slipstream.ui.models.dashboard.all-clouds.title
+; Original: "All Clouds"
+"Alle Clouds"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.module.image.deployment.default-parameter.hostname.description;
-;"Hostname or IP address of the image"
+:slipstream.ui.models.module.image.deployment.default-parameter.hostname.description
+; Original: "Hostname or IP address of the image"
+"Hostname oder IP-Adresse der Image"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint;
-;"The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+:slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint
+; Original: "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+"Der Hostname ist ein Standardparameter, der von SlipStream während des Deployments automatisch ausgefüllt wird. Sie können den Live-Wert in der Deployment-Rezept mit 'ss-get hostname' zuzugreifen."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder;
-;"Provided at runtime by SlipStream"
+:slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder
+; Original: "Provided at runtime by SlipStream"
+"Automatisch ausgefüllt von SlipStream"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description;
-;"Cloud instance ID"
+:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description
+; Original: "Cloud instance ID"
+"Cloud-Instanz Id"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint;
-;"The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint
+; Original: "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+"Die Cloud-Instanz Id ist ein Standardparameter, der von SlipStream während des Deployments automatisch ausgefüllt wird. Sie können den Live-Wert in der Deployment-Rezept mit 'ss-get instanceid' zuzugreifen."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder;
-;"Provided at runtime by SlipStream"
+:slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder
+; Original: "Provided at runtime by SlipStream"
+"Automatisch ausgefüllt von SlipStream"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.msg;
-;"%2$s ? %3$s of %4$s"
+:slipstream.ui.models.pagination.msg
+; Original: "%2$s ? %3$s of %4$s"
+"%2$s - %3$s von %4$s"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-all;
-;"Showing all %4$s items."
+:slipstream.ui.models.pagination.tooltip.showing-all
+; Original: "Showing all %4$s items."
+"Alle Zeilen angezeigt."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-almost-all;
-;"Showing %1$s items from %4$s."
+:slipstream.ui.models.pagination.tooltip.showing-almost-all
+; Original: "Showing %1$s items from %4$s."
+"Zeilen von %1$s bis %4$s angezeigt."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-first-from-many;
-;"Showing first item from a total of %4$s."
+:slipstream.ui.models.pagination.tooltip.showing-first-from-many
+; Original: "Showing first item from a total of %4$s."
+"Erste Zeile von %4$s angezeigt."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-first-n-from-many;
-;"Showing first %1$s items from a total of %4$s."
+:slipstream.ui.models.pagination.tooltip.showing-first-n-from-many
+; Original: "Showing first %1$s items from a total of %4$s."
+"Erste %1$s Zeilen von %4$s angezeigt."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-last-from-many;
-;"Showing last item from a total of %4$s."
+:slipstream.ui.models.pagination.tooltip.showing-last-from-many
+; Original: "Showing last item from a total of %4$s."
+"Letzte Zeile von %4$s angezeigt."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-last-n-from-many;
-;"Showing last %1$s items from a total of %4$s."
+:slipstream.ui.models.pagination.tooltip.showing-last-n-from-many
+; Original: "Showing last %1$s items from a total of %4$s."
+"Letzte %1$s Zeilen von %4$s angezeigt."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-one;
-;"There is only one item."
+:slipstream.ui.models.pagination.tooltip.showing-one
+; Original: "There is only one item."
+"Es gibt nur eine Zeile."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.pagination.tooltip.showing-one-from-many;
-;"Showing item %2$s from a total of %4$s."
+:slipstream.ui.models.pagination.tooltip.showing-one-from-many
+; Original: "Showing item %2$s from a total of %4$s."
+"Zeilen %2$s von %4$s angezeigt."
 
 
 ; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
@@ -4248,8 +4248,8 @@
 :global.nouns.projects
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding keyword in the base-locale dictionary.
 :slipstream.ui.views.welcome.section.service-catalog.title
+; Original: :global.nouns.service-catalog
 :global.nouns.service-catalog
 
 }
