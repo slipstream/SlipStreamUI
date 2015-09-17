@@ -8,19 +8,26 @@
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_events.json"))
 
 (expect
-  {:id        "083e13c6-2dcc-4711-b72e-2880d12b989d"
-   :target    "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-   :timestamp "2015-06-11T10:16:07.457Z"
-   :content   "Done"
-   :severity  "medium"
-   :type      "state"}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse first))
+  {:offset        0
+   :limit         20
+   :count-shown   20
+   :count-total   45}
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :pagination))
 
 (expect
-  {:id        "670d2def-7c49-4281-a03e-289fb0b1f9f4"
-   :target    "run/7fa1e339-f863-4ecb-b8ac-ffe6b0e343e3"
-   :timestamp "2015-06-11T00:10:14.339Z"
-   :content   "Something high"
+  {:id        "event/268fd1b2-050c-4126-8a0b-2841555cce9b"
+   :target    "run/26"
+   :timestamp "2015-09-19T19:53:05.651Z"
+   :content   "Started"
+   :severity  "low"
+   :type      "state"}
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :events first))
+
+(expect
+  {:id        "event/4c56a355-f186-47fe-be6c-8259bd98463b"
+   :target    "run/35"
+   :timestamp "2015-09-15T22:19:12.466Z"
+   :content   "Started"
    :severity  "high"
-   :type      "example"}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse last))
+   :type      "state"}
+  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :events last))

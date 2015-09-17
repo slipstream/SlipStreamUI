@@ -22,6 +22,8 @@
             [slipstream.ui.views.configuration :as configuration]
             [slipstream.ui.views.action :as action]
             [slipstream.ui.views.events :as events]
+            [slipstream.ui.views.usages :as usages]
+            [slipstream.ui.views.usage :as usage]
             [slipstream.ui.views.error :as error]
             [slipstream.ui.models.version :as version-model])
   (:gen-class
@@ -55,7 +57,9 @@
    "reports"          reports/page
    "configuration"    configuration/page
    "action"           action/page
-   "events"           events/page})
+   "events"           events/page
+   "usages"           usages/page
+   "usage"            usage/page})
 
 (defn page-types
   [pagename]
@@ -119,7 +123,7 @@
       ;       $ cp war/raw-metadata-str.xml ../SlipStreamUI/clj/test/slipstream/ui/mockup_data/metadata_{$NAME_OF_THE_METADATA}.xml
       (spit (format "raw-metadata-str-page_%s-type_%s.xml" pagename page-type-sent-by-server) raw-metadata-str))
     (localization/with-lang lang
-      (current-user/with-user-from-metadata
+      (current-user/with-current-user
         (page-type/with-page-type (get-page-type pagename options)
           (guard-exceptions
             (render-page pagename (some-> metadata (with-meta options)))))))))
@@ -135,7 +139,7 @@
   (let [lang (lang-from-request request)
         metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (localization/with-lang lang
-      (current-user/with-user-from-metadata
+      (current-user/with-current-user
         (render-html error/page metadata message code)))))
 
 (defn -setReleaseVersion

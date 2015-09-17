@@ -13,7 +13,7 @@
 
 (def ^:private current-user-sel [html/root :> :user])
 
-(defn- parse-current-user
+(defn- parse-current-user-from-metadata
   [metadata]
   (when-let [current-user-metadata (-> metadata
                                        (html/select current-user-sel)
@@ -26,11 +26,23 @@
   `(binding [*current-user* ~user]
     ~@body))
 
-(defmacro with-user-from-metadata
+(defn- symbol-present?
+  [env sb]
+  (-> env keys set (clojure.core/get sb) boolean))
+
+(defn- check-symbol-present
+  [env sb]
+  (when-not (symbol-present? env sb)
+    (throw (IllegalArgumentException. (str "with-current-user: Unable to find '" (name sb) "' symbol in this context")))))
+
+(defmacro with-current-user
   [& body]
-  (when-not (-> &env keys set (clojure.core/get 'metadata))
-    (throw (IllegalArgumentException. "with-user-from-metadata: Unable to find metadata symbol in this context")))
-  `(with-user (~parse-current-user ~(symbol "metadata"))
+  (check-symbol-present &env 'metadata)
+  `(with-user (or
+                (~parse-current-user-from-metadata ~(symbol "metadata"))
+                (:user ~(if (symbol-present? &env 'options)
+                          (symbol "options")
+                          nil)))
     ~@body))
 
 (defn username

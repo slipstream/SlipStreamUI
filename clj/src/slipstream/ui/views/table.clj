@@ -538,41 +538,65 @@
                            (dissoc :set))))
 
 ; :cell/timestamp-long       "Monday, 2 March 2015, 18:50:18 CET"
-; :cell/timestamp            "Mon, 2 Mar 2015, 18:50:18 CET"
-; :cell/timestamp-short      "2 Mar 2015, 18:50:18 CET"
-; :cell/relative-timestamp   "5 months and 3 days ago"
 
 (defmethod cell-snip [:cell/timestamp-long :mode/any :content/map]
   [{content :content}]
   (cell-timestamp-snip-view content :human-readable-long :relative))
 
-(defmethod cell-snip [:cell/timestamp :mode/any :content/map]
-  [{content :content}]
-  (cell-timestamp-snip-view content :human-readable :relative))
-
-(defmethod cell-snip [:cell/timestamp-short :mode/any :content/map]
-  [{content :content}]
-  (cell-timestamp-snip-view content :human-readable-short :relative))
-
-(defmethod cell-snip [:cell/relative-timestamp :mode/any :content/map]
-  [{content :content}]
-  (cell-timestamp-snip-view content :relative :human-readable-long))
-
 (defmethod cell-snip [:cell/timestamp-long :mode/any :content/plain]
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :human-readable-long :relative))
+
+; :cell/timestamp            "Mon, 2 Mar 2015, 18:50:18 CET"
+
+(defmethod cell-snip [:cell/timestamp :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :human-readable :relative))
 
 (defmethod cell-snip [:cell/timestamp :mode/any :content/plain]
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :human-readable :relative))
 
+; :cell/timestamp-short      "2 Mar 2015, 18:50:18 CET"
+
+(defmethod cell-snip [:cell/timestamp-short :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :human-readable-short :relative))
+
 (defmethod cell-snip [:cell/timestamp-short :mode/any :content/plain]
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :human-readable-short :relative))
 
+; :cell/date                 "2 March 2015"
+
+(defmethod cell-snip [:cell/date :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :date :relative))
+
+(defmethod cell-snip [:cell/date :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-timestamp-snip-view {:timestamp timestamp} :date :relative))
+
+; :cell/date-short           "2 Mar 2015"
+
+(defmethod cell-snip [:cell/date-short :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :date-short :relative))
+
+(defmethod cell-snip [:cell/date-short :mode/any :content/plain]
+  [{timestamp :content}]
+  (cell-timestamp-snip-view {:timestamp timestamp} :date-short :relative))
+
+; :cell/relative-timestamp   "5 months and 3 days ago"
+
+(defmethod cell-snip [:cell/relative-timestamp :mode/any :content/map]
+  [{content :content}]
+  (cell-timestamp-snip-view content :relative :human-readable-long))
+
 (defmethod cell-snip [:cell/relative-timestamp :mode/any :content/plain]
   [{timestamp :content}]
   (cell-timestamp-snip-view {:timestamp timestamp} :relative :human-readable-long))
+
 
 (defmethod cell-snip [:cell/boolean :mode/view :content/plain]
   [{value :content}]

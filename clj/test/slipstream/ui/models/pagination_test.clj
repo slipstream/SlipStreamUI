@@ -50,10 +50,9 @@
                     {:page-number 38 :offset 370, :limit 10, :hidden true}
                     {:page-number 39 :offset 380, :limit 10, :hidden true}
                     {:page-number 40 :offset 390, :limit 10, :hidden true}
-                    {:page-number 41 :offset 400, :limit 10, :hidden true}
-                    {:page-number 42 :offset 410, :limit 10, :hidden true, :last-hidden true}
-                    {:page-number 43 :offset 420, :limit 10}
-                    {:page-number 44 :offset 430, :limit 10}]}}
+                    {:page-number 41 :offset 400, :limit 10, :hidden true, :last-hidden true}
+                    {:page-number 42 :offset 410, :limit 10}
+                    {:page-number 43 :offset 420, :limit 10}]}}
   (localization/with-lang :en
     (model/info {:offset 90
                  :limit 10
@@ -105,10 +104,9 @@
                     {:page-number 38 :offset 370, :limit 10, :hidden true}
                     {:page-number 39 :offset 380, :limit 10, :hidden true}
                     {:page-number 40 :offset 390, :limit 10, :hidden true}
-                    {:page-number 41 :offset 400, :limit 10, :hidden true}
-                    {:page-number 42 :offset 410, :limit 10, :hidden true, :last-hidden true}
-                    {:page-number 43 :offset 420, :limit 10}
-                    {:page-number 44 :offset 430, :limit 10}]}}
+                    {:page-number 41 :offset 400, :limit 10, :hidden true, :last-hidden true}
+                    {:page-number 42 :offset 410, :limit 10}
+                    {:page-number 43 :offset 420, :limit 10}]}}
   (localization/with-lang :en
     (model/info {:offset 0
                  :limit 10
@@ -127,3 +125,4 @@
                  :limit 10
                  :count-shown 1
                  :count-total 11})))
+

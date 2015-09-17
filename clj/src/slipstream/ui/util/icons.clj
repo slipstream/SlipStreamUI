@@ -66,6 +66,7 @@
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
 (deficon event                  "flash")
+(deficon usage                  "time")
 
 (deficon user-section-summary   user)
 (deficon user-section-general   config)

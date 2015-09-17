@@ -955,20 +955,46 @@
             "critical" :danger
             "high"     :warning
             "medium"   nil
-            "low"      nil
+            "low"      :muted
             nil)
    :cells [{:type :cell/icon,       :content icons/event}
            {:type :cell/text,       :content id}
-           {:type :cell/text,       :content target}
+           {:type :cell/url,        :content target}
            {:type :cell/timestamp,  :content timestamp}
            {:type :cell/text,       :content content}
            {:type :cell/text,       :content severity}
            {:type :cell/text,       :content type}]})
 
 (defn events-table
-  [events]
+  [metadata]
   (table/build
-    {:headers [nil :event-id :event-target :timestamp :event-content :severity :type]
-     :rows (map event-row events)}))
+    {:pagination (:pagination metadata)
+     :headers [nil :event-id :event-target :timestamp :event-content :severity :type]
+     :rows (map event-row (:events metadata))}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- format-usage-values
+  [usage]
+  (->> usage
+       (map (fn[[k v]] [k (str (-> v :unit_minutes uc/format-metric-value)
+                               " unit*minutes")]))
+       (into {})))
+
+(defn- usage-row
+  [{:keys [start_timestamp cloud usage]}]
+  {:style nil
+   :cells [{:type :cell/icon,       :content icons/usage}
+           {:type :cell/date-short, :content start_timestamp}
+           {:type :cell/text,       :content cloud}
+           {:type :cell/map,        :content (format-usage-values usage)}
+           ]})
+
+(defn usages-table
+  [metadata]
+  (table/build
+    {:pagination  (:pagination metadata)
+     :headers     [nil :date :cloud :usages]
+     :rows        (map usage-row (:usages metadata))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

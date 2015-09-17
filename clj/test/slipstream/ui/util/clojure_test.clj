@@ -1439,3 +1439,12 @@
 (expect
   [{:a 1}]
   (ensure-vector '({:a 1})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; format-metric-value
+
+(expect "           0.00" (format-metric-value 0.0))
+(expect "           8.00" (format-metric-value 8))
+(expect "           8.00" (format-metric-value (Integer. 8)))
+(expect "   2,468,846.93" (format-metric-value 2468846.93))

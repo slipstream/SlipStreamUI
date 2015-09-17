@@ -418,6 +418,12 @@
   this (set-class css-class)
   this ((if html html/html-content html/content) (str text)))
 
+; Returns a 'pre' tag with the argument pretty-printed. Intented to dump clojure
+; structures during development.
+(def-blank-snippet pprint-snip :pre
+  [x]
+  this (html/content (with-out-str (clojure.pprint/pprint x))))
+
 (def-blank-snippet map->meta-tag-snip :meta
   [m & {:keys [name-prefix]}]
   this (html/clone-for [[k v] (uc/->sorted m)]
@@ -478,9 +484,11 @@
 (def ^:private spinner-icon
   (blank-node :span :class "glyphicon glyphicon-refresh ss-subsection-content-spinner"))
 
-(def-blank-snippet dynamic-content-snip [:div :div]
-  [& {:keys [content-load-url id content]}]
-  this  (html/add-class "ss-dynamic-content")
-  this  (html/set-attr :content-load-url content-load-url)
-  this  (when-set-id id (str id))
-  this  (html/content (or content spinner-icon)))
+(def-blank-snippet dynamic-content-snip :div
+  [& {:keys [content-load-url content-id id content]}]
+  this                        (html/add-class "ss-dynamic-content")
+  this                        (html/set-attr :content-load-url content-load-url)
+  this                        (when-set-data :content-selector (str "#" content-id))
+  this                        (when-set-id id (str id))
+  this                        (html/content (or content spinner-icon))
+  [:> :div :> html/first-child]  (when-set-id content-id (str content-id)))

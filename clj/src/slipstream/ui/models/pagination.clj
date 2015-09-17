@@ -15,7 +15,7 @@
 (defn- parse-pagination
   [attrs]
   {:offset      (-> attrs :offset uc/parse-pos-int (or 0))
-   :limit       (-> attrs :limit uc/parse-pos-int (or 0))
+   :limit       (-> attrs :limit uc/parse-pos-int (or items-per-page))
    :count-shown (-> attrs :count uc/parse-pos-int (or 0))
    :count-total (-> attrs :totalCount uc/parse-pos-int (or 0))
    :cloud-name  (-> attrs :cloud)})
@@ -27,6 +27,13 @@
       first
       :attrs
       parse-pagination))
+
+(defn parse-json
+  [key-coll metadata query-params]
+  {:offset        (-> query-params  :offset uc/parse-pos-int (or 0))
+   :limit         (-> query-params  :limit  uc/parse-pos-int (or items-per-page))
+   :count-shown   (-> metadata      key-coll count)
+   :count-total   (-> metadata      :count)})
 
 (defn url
   [resource & {:keys [cloud offset limit module-uri]}]
@@ -59,7 +66,7 @@
 
 (defn- pages
   [total-number-of-items items-per-page]
-  (let [number-of-pages (-> total-number-of-items (quot items-per-page) inc)]
+  (let [number-of-pages (-> total-number-of-items dec (quot items-per-page) inc)]
     (for [page (range number-of-pages)]
       {:page-number (inc page)
        :offset      (* page items-per-page)
