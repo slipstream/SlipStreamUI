@@ -144,6 +144,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.util.recurrentJob.start(autoUpdateJobName,
                                updateDashboard,
-                               secsBetweenUpdates);
+       	                       secsBetweenUpdates);
+
+    function stopAutoupdating() {
+      $$.util.recurrentJob.stop(autoUpdateJobName);
+    }
+
+    function restartAutoupdating() {
+      $$.util.recurrentJob.restart(autoUpdateJobName);
+    }
+
+    $$.dashboard = {
+      stopAutoupdating: stopAutoupdating,
+      restartAutoupdating: restartAutoupdating
+    }
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

@@ -1373,7 +1373,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 });
         },
 
-        askConfirmation: function (callbackOnOKButtonPress) {
+        askConfirmation: function (callbackOnOKButtonPress, callbackAlways) {
             var $modalDialog = $(this).filter("div.modal");
             if ($modalDialog.foundNothing()) {
                 throw "No modal dialog in jQuery selection.";
@@ -1389,6 +1389,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     $modalDialog.data("callbackOnOKButtonPress").call(this);
                 });
                 $modalDialog.data("eventHandlerOnOKButtonPressSetUp", true);
+            }
+            if ( $.type(callbackAlways) === "function" ) {
+                $modalDialog.data("callbackAlways", callbackAlways);
             }
             $modalDialog.modal("show");
             return this;

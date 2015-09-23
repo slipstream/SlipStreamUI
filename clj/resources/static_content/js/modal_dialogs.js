@@ -17,6 +17,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(this).focusFirstInput();
     });
 
+    $modalDialogs.on("hidden.bs.modal", function (e) {
+        var callbackAlways = $(this).data("callbackAlways");
+        if ( $.type(callbackAlways) === "function" ) {
+          callbackAlways.call(this);
+        }
+    });
+
     // Configure reset password dialog
 
     $$.request
