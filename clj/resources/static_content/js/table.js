@@ -206,6 +206,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $clouds      = $runRow.find("td:nth-child(8)"),
             $user        = $runRow.find("td:nth-child(9)"),
             $tags        = $runRow.find("td:nth-child(10)");
+        $$.dashboard.stopAutoupdating();
         $('#ss-terminate-deployment-from-table-dialog')
             .replaceHTMLContentBySelector({
                 ".modal-title .ss-deployment-run-id": runID,
@@ -236,7 +237,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         "Run <a href='" + runURI + "'><code>" + runID + "</code></a> failed to terminate properly."
                         )
                     .send();
-            });
+            },
+            $$.dashboard.restartAutoupdating);
     });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
