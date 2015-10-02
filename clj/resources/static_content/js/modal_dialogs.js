@@ -110,6 +110,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // });
 
     function updateRequestForRunDeployment(request, $form) {
+        // The simple presence of the key 'redirect_to_dashboard' in the form makes the
+        // server return the proper redirect URL in the response.
+        // SOURCE: https://github.com/slipstream/SlipStreamServer/issues/455#issuecomment-142259064
+        $form.addFormHiddenField("redirect_to_dashboard", "");
         $("#ss-run-module-dialog input[type=text]")
             .each(function (){
                 // TODO: Extract this function to $.fn.extend since it's also used in creation and save forms.
