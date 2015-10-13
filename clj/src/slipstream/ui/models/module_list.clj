@@ -1,10 +1,9 @@
-(ns slipstream.ui.models.welcome
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.models.service-catalog :as service-catalog]))
+(ns slipstream.ui.models.module-list
+  (:require [net.cgrand.enlive-html :as html]))
 
-(def ^:private app-sel [:modules [:item (html/attr-has :published "true")]])
+(def ^:private app-sel [:list [:item (html/attr-has :published "true")]])
 (def ^:private publisher-sel [:authz])
-(def ^:private project-sel [:modules [:item (html/but (html/attr-has :published "true"))]])
+(def ^:private project-sel [:list [:item (html/but (html/attr-has :published "true"))]])
 
 (defn- owner
   [app-node]
@@ -42,5 +41,4 @@
   "See tests for structure of the expected parsed metadata."
   [metadata]
   {:published-apps  (published-apps metadata)
-   :projects        (projects metadata)
-   :service-catalog (service-catalog/parse metadata)})
+   :projects        (projects metadata)})

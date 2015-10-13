@@ -42,8 +42,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- welcome-project-row
-  [{:keys [name uri description owner version] :as welcome-project}]
+(defn- module-list-project-row
+  [{:keys [name uri description owner version] :as module-list-project}]
   {:style nil
    :cells [{:type :cell/icon,     :content icons/project}
            {:type :cell/link,     :content {:text name, :href uri}}
@@ -51,11 +51,11 @@
            {:type :cell/username, :content owner}
            {:type :cell/text,     :content version}]})
 
-(defn welcome-projects-table
-  [welcome-projects]
+(defn module-list-projects-table
+  [module-list-projects]
   (table/build
     {:headers [nil :name :description :owner :version]
-     :rows (map welcome-project-row welcome-projects)}))
+     :rows (map module-list-project-row module-list-projects)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -23,6 +23,7 @@
                           }
             :nouns {
                     :action           "Action"
+                    :appstore         "App Store"
                     :author           "Author"
                     :authorization    "Authorization"
                     :authorizations   "Authorizations"
@@ -187,6 +188,8 @@
    :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contact us"
 
    :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
+   :slipstream.ui.views.menubar.logged-in.action.appstore            :global.nouns.appstore
+   :slipstream.ui.views.menubar.logged-in.action.projects            :global.nouns.projects
    :slipstream.ui.views.menubar.logged-in.action.configuration       :global.nouns.configuration
    :slipstream.ui.views.menubar.logged-in.action.service-catalog     :global.nouns.service-catalog
    :slipstream.ui.views.menubar.logged-in.action.system              :global.nouns.system
@@ -835,19 +838,20 @@
 
    ;; Views
 
-   :slipstream.ui.views.welcome.page-title                     "Welcome"
-   :slipstream.ui.views.welcome.header.title                   "Welcome to SlipStream"
-   :slipstream.ui.views.welcome.header.subtitle                "The welcome page provides you with all currently published
+   :slipstream.ui.views.module-list.projects.page-title           "Projects"
+   :slipstream.ui.views.module-list.projects.header.title         "Projects"
+   :slipstream.ui.views.module-list.projects.header.subtitle      "The projects page all root modules that you have access to,
+                                                                including yours, the ones shared with you, and the public ones."
+
+   :slipstream.ui.views.module-list.appstore.page-title           "App Store"
+   :slipstream.ui.views.module-list.appstore.header.title         "App Store"
+   :slipstream.ui.views.module-list.appstore.header.subtitle      "The SlipStream App Store provides you with all currently published
                                                                modules and root modules, including yours and the ones
                                                                shared with you."
-   :slipstream.ui.views.welcome.app.label.description          :global.nouns.description
-   :slipstream.ui.views.welcome.app.label.publisher            :global.nouns.publisher
-   :slipstream.ui.views.welcome.app.label.publication-date     :global.nouns.date
-   :slipstream.ui.views.welcome.app.label.deploy               :global.verbs.deploy
-   :slipstream.ui.views.welcome.section.app-store.title        "App Store"
-   :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
-
-   :slipstream.ui.views.welcome.section.service-catalog.title  :global.nouns.service-catalog
+   :slipstream.ui.views.module-list.app.label.description         :global.nouns.description
+   :slipstream.ui.views.module-list.app.label.publisher           :global.nouns.publisher
+   :slipstream.ui.views.module-list.app.label.publication-date    :global.nouns.date
+   :slipstream.ui.views.module-list.app.label.deploy              :global.verbs.deploy
 
    :slipstream.ui.views.secondary-menu-actions.suffix.ellipsis :global.punctuation.ellipsis
 

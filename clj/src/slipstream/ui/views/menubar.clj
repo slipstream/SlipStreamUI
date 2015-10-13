@@ -27,6 +27,8 @@
 (def action-knowledge-base-sel  [:.ss-action-knowledge-base])
 (def action-contact-us-sel      [:.ss-action-contact-us])
 (def action-dashboard-sel       [:.ss-action-dashboard])
+(def action-appstore-sel        [:.ss-action-appstore])
+(def action-projects-sel        [:.ss-action-projects])
 (def action-configuration-sel   [:.ss-action-configuration])
 (def action-service-catalog-menu-item-sel [:.ss-action-service-catalog-menu-item])
 (def action-service-catalog-sel [:.ss-action-service-catalog])
@@ -40,6 +42,7 @@
 
 (def menubar-logged-in-sel (concat navbar-sel [:.ss-menubar-logged-in]))
 (def super-user-item-sel [:.ss-menubar-super-user-item])
+(def non-super-user-item-sel [:.ss-menubar-non-super-user-item])
 (def username-sel [:#ss-menubar-username])
 (def user-profile-anchor-sel [:#ss-menubar-user-profile-anchor])
 
@@ -78,9 +81,12 @@
   (ex/guard "set up logged-in menubar"
     (html/at menubar-logged-in-node
               super-user-item-sel         (ue/remove-if-not (current-user/super?))
+              non-super-user-item-sel     (ue/remove-if     (current-user/super?))
               username-sel                (html/content (current-user/username))
               user-profile-anchor-sel     (ue/set-href (current-user/uri))
               action-dashboard-sel        (html/content (t :logged-in.action.dashboard))
+              action-appstore-sel         (html/content (t :logged-in.action.appstore))
+              action-projects-sel         (html/content (t :logged-in.action.projects))
               action-configuration-sel    (html/content (t :logged-in.action.configuration))
               action-system-sel           (html/content (t :logged-in.action.system))
               action-service-catalog-menu-item-sel (ue/remove-if-not (-> context :configuration configuration/service-catalog-enabled?))

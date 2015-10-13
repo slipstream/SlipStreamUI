@@ -9,7 +9,7 @@
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
             [slipstream.ui.views.service-catalog :as service-catalog]
-            [slipstream.ui.views.welcome :as welcome]
+            [slipstream.ui.views.module-list :as module-list]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.versions :as versions]
             [slipstream.ui.views.dashboard :as dashboard]
@@ -45,7 +45,9 @@
   {"login"            login/page
    "logout"           byebye/page
    "service_catalog"  service-catalog/page
-   "welcome"          welcome/page
+   "appstore"         module-list/appstore-page
+   "projects"         module-list/projects-page
+   "chooser"          module-list/chooser-page
    "module"           module/page
    "versions"         versions/page
    "dashboard"        dashboard/page

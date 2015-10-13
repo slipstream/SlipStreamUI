@@ -1,4 +1,4 @@
-(ns slipstream.ui.views.welcome
+(ns slipstream.ui.views.module-list
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.page-type :as page-type]
@@ -8,7 +8,7 @@
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
-            [slipstream.ui.models.welcome :as mw]
+            [slipstream.ui.models.module-list :as mw]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.base :as base]))
 
@@ -73,40 +73,61 @@
   app-thumbnail-sel (app-thumbnail-nodes app-thumbnails))
 
 (defn- app-store-section
-  [welcome-metadata]
-  {:title     (t :section.app-store.title)
-   :content   (app-thumbnails-snip (:published-apps welcome-metadata))
-   :selected? true
-   :type      :default})
+  [module-list-metadata]
+  {:title     nil
+   :content   (app-thumbnails-snip (:published-apps module-list-metadata))
+   :type      :flat-section})
 
 (defn- projects-section
-  [welcome-metadata]
-  {:title   (t :section.projects.title)
-   :content (t/welcome-projects-table (:projects welcome-metadata))})
-
-(defn- service-catalog-section
-  [welcome-metadata]
-  (when-let [service-catalog-items (-> welcome-metadata :service-catalog :items not-empty)]
-    {:title   (t :section.service-catalog.title)
-     :content (map service-catalog/item-section service-catalog-items)}))
+  [module-list-metadata]
+  {:title     nil
+   :content   (t/module-list-projects-table (:projects module-list-metadata))
+   :type      :flat-section})
 
 (defn- sections
-  [welcome-metadata]
-  (cond-> []
-    (page-type/not-project-chooser?)  (conj (app-store-section       welcome-metadata))
-    :always                           (conj (projects-section        welcome-metadata))
-    (page-type/not-chooser?)          (conj (service-catalog-section welcome-metadata))))
+  [module-list-metadata page-version]
+  (case page-version
+    :appstore   [(app-store-section module-list-metadata)]
+    :projects   [(projects-section  module-list-metadata)]
+    :chooser    [(app-store-section module-list-metadata)
+                 (projects-section  module-list-metadata)]))
 
-(defn page
+(defn- page
+  [metadata page-specifics]
+  (base/generate
+    (merge
+      {:template-filename template-filename
+       :metadata metadata}
+      page-specifics)))
+
+(defn appstore-page
   [metadata]
-  (let [welcome-metadata (mw/parse metadata)]
-    (base/generate
-        {:template-filename template-filename
-         :page-title (t :page-title)
-         :header {:icon icons/home
-                  :title (t :header.title)
-                  :subtitle (t :header.subtitle)}
-         ; :alerts [{:msg "aie" :title "Tada!"}]
-         :secondary-menu-actions [action/new-project]
-         :content (sections welcome-metadata)
-         :metadata metadata})))
+  (localization/with-prefixed-t :appstore
+    (page metadata
+          {:page-title (t :page-title)
+           :header {:icon icons/appstore
+                    :title (t :header.title)
+                    :subtitle (t :header.subtitle)}
+           :resource-uri "/appstore"
+           :secondary-menu-actions nil
+           :content (-> metadata mw/parse app-store-section vector)})))
+
+(defn projects-page
+  [metadata]
+  (localization/with-prefixed-t :projects
+    (page metadata
+          {:page-title (t :page-title)
+           :header {:icon icons/project
+                    :title (t :header.title)
+                    :subtitle (t :header.subtitle)}
+           :secondary-menu-actions [action/new-project]
+           :resource-uri "/projects"
+           :content (-> metadata mw/parse projects-section vector)})))
+
+(defn chooser-page
+  [metadata]
+  (let [module-list-metadata  (mw/parse metadata)]
+    (page metadata
+          {:content (vector
+                      (app-store-section module-list-metadata)
+                      (projects-section  module-list-metadata))})))
