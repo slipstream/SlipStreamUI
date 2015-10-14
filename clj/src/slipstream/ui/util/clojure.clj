@@ -421,7 +421,7 @@
   [v]
   (/ v 1024.0))
 
-(defn value-unit
+(defn- value-unit
   [v u]
   (format "%.2f %s" v u))
 
