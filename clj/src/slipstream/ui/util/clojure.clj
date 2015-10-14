@@ -423,11 +423,11 @@
 
 (defn- value-unit
   [v u]
-  (format "%.2f %s" v u))
+  (format "%.2f (%s)" v u))
 
 (defn format-metric-value
   [v m]
   (cond
-    (KB-mn-metric? m) (-> v KB-to-GB mn-to-h (value-unit "(GBh)"))
-    (GB-mn-metric? m) (-> v mn-to-h          (value-unit "(GBh)"))
-    :else             (-> v mn-to-h          (value-unit "(h)"))))
+    (KB-mn-metric? m) (-> v KB-to-GB mn-to-h (value-unit "GBh"))
+    (GB-mn-metric? m) (-> v mn-to-h          (value-unit "GBh"))
+    :else             (-> v mn-to-h          (value-unit "h"))))
