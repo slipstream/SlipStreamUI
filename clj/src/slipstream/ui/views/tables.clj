@@ -976,9 +976,9 @@
 
 (defn- format-usage-values
   [usage]
+
   (->> usage
-       (map (fn[[k v]] [k (str (-> v :unit_minutes uc/format-metric-value)
-                               " unit*minutes")]))
+       (map (fn[[k v]] [k (-> v :unit_minutes (uc/format-metric-value k))]))
        (into {})))
 
 (defn- usage-row
