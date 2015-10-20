@@ -4,8 +4,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.dashboard-test :as dashboard]
-            [slipstream.ui.models.welcome-test :as welcome]))
+            [slipstream.ui.models.dashboard-test :as dashboard]))
 
 (def user-metadata
   (-> "slipstream/ui/mockup_data/metadata_user.xml"
