@@ -109,7 +109,6 @@
                     :title (t :header.title)
                     :subtitle (t :header.subtitle)}
            :view-name "appstore"
-           :resource-uri "/appstore"
            :secondary-menu-actions nil
            :content (-> metadata mw/parse app-store-section vector)})))
 
@@ -123,7 +122,7 @@
                     :subtitle (t :header.subtitle)}
            :secondary-menu-actions [action/new-project]
            :view-name "projects"
-           :resource-uri "/projects"
+           :resource-uri :root
            :content (-> metadata mw/parse projects-section vector)})))
 
 (defn chooser-page
@@ -131,6 +130,7 @@
   (let [module-list-metadata  (mw/parse metadata)]
     (page metadata
           {:view-name "chooser"
+           :resource-uri :root
            :content (vector
                       (app-store-section module-list-metadata)
                       (projects-section  module-list-metadata))})))

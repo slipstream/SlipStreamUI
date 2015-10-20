@@ -22,5 +22,4 @@
               :title (t :header.title)
               :subtitle (t :header.subtitle)
               :second-subtitle (t :header.second-subtitle)}
-     :resource-uri "/dashboard/vms"
      :content (section vms-metadata)})))

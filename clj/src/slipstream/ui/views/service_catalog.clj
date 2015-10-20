@@ -20,6 +20,5 @@
       {:header {:icon     icons/service-catalog
                 :title    (t :header.title)
                 :subtitle (t :header.subtitle)}
-       :resource-uri "/service_catalog"
        :html-dependencies {:internal-js-filenames ["service_catalog.js"]}
        :content (map item-section (:items service-catalog))})))

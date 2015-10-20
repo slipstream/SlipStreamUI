@@ -21,6 +21,5 @@
       {:header {:icon     icons/config
                 :title    (t :header.title)
                 :subtitle (t :header.subtitle)}
-       :resource-uri "/configuration"
        :secondary-menu-actions [action/edit]
        :content (map section config-params)})))

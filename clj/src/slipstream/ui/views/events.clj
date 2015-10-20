@@ -26,6 +26,5 @@
     {:header {:icon icons/event
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
-     :resource-uri "/events"
      :content (section metadata)}))
 

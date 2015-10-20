@@ -86,7 +86,6 @@
        :html-dependencies {:internal-js-filenames ["user.js"]}
        :secondary-menu-actions [action/edit
                                 action/delete]
-       :resource-uri (if (current-user/super?) (:uri user) (t :header.title.loggedin))
        :alerts (when (page-type/view?)
                  [(or
                     (no-cloud-configured-alert          user own-profile?)
