@@ -49,6 +49,10 @@ body.ss-standalone-webapp-mobile > .navbar::before {
   background-color: transparent;
 }
 
+.ss-menubar-logged-in .navbar-nav li > a.active {
+  background-color: #800;
+}
+
 .ss-menubar-logged-in .dropdown-menu {
   background-color: #a00;
 }

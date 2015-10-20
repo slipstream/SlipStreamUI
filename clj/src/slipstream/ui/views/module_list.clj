@@ -108,6 +108,7 @@
            :header {:icon icons/appstore
                     :title (t :header.title)
                     :subtitle (t :header.subtitle)}
+           :view-name "appstore"
            :resource-uri "/appstore"
            :secondary-menu-actions nil
            :content (-> metadata mw/parse app-store-section vector)})))
@@ -121,6 +122,7 @@
                     :title (t :header.title)
                     :subtitle (t :header.subtitle)}
            :secondary-menu-actions [action/new-project]
+           :view-name "projects"
            :resource-uri "/projects"
            :content (-> metadata mw/parse projects-section vector)})))
 
@@ -128,6 +130,7 @@
   [metadata]
   (let [module-list-metadata  (mw/parse metadata)]
     (page metadata
-          {:content (vector
+          {:view-name "chooser"
+           :content (vector
                       (app-store-section module-list-metadata)
                       (projects-section  module-list-metadata))})))

@@ -40,6 +40,8 @@
 (def action-logout-sel          [:.ss-action-logout])
 (def action-profile-sel         [:.ss-action-profile])
 
+(def active-menu-sel            [:.navbar-left :.active])
+
 (def menubar-logged-in-sel (concat navbar-sel [:.ss-menubar-logged-in]))
 (def super-user-item-sel [:.ss-menubar-super-user-item])
 (def non-super-user-item-sel [:.ss-menubar-non-super-user-item])
@@ -76,6 +78,14 @@
             action-knowledge-base-sel (html/content (t :unlogged.action.knowledge-base))
             action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
 
+(defn- current-active-menu-sel
+  [context]
+  (->> context
+       :view-name
+       (str ".ss-action-")
+       keyword
+       vector))
+
 (defmethod menubar :logged-in
   [context]
   (ex/guard "set up logged-in menubar"
@@ -94,6 +104,8 @@
               action-users-sel            (html/content (t :logged-in.action.users))
               action-help-sel             (html/content (t :logged-in.action.help))
               action-profile-sel          (html/content (t :logged-in.action.profile))
+              active-menu-sel             (html/remove-class "active")
+              (current-active-menu-sel context) (html/add-class "active")
               action-start-tour-sel       (ue/at-match
                                               action-label-sel (html/content (t :logged-in.action.start-tour))
                                               action-start-tour-action-sel (ue/toggle-href    (-> context :view-name #{"welcome"} not) "?start-tour=yes")
