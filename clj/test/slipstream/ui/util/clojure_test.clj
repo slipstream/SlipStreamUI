@@ -1444,7 +1444,19 @@
 
 ;; format-metric-value
 
-(expect "           0.00" (format-metric-value 0.0))
-(expect "           8.00" (format-metric-value 8))
-(expect "           8.00" (format-metric-value (Integer. 8)))
-(expect "   2,468,846.93" (format-metric-value 2468846.93))
+(expect "0.27 (h)"        (format-metric-value 16.133333333333333 "instance-type.Small"))
+(expect "0.37 (h)"        (format-metric-value 22.48333333333333 "instance-type.Huge"))
+(expect "24.00 (h)"       (format-metric-value 1440.0 "instance-type.Huge"))
+(expect "1.40 (h)"        (format-metric-value 84.2 "instance-type.Medium" ))
+(expect "26.09 (h)"       (format-metric-value 1565.416666666667 "instance-type.Micro"  ))
+(expect "28.14 (h)"       (format-metric-value 1688.2333333333331 "vm"                  ))
+(expect "0.00 (h)"        (format-metric-value 0.0 "vm"))
+
+;; 47185920 is the value for Huge instance (32GB RAM) running for a full day
+;; 768 is 32 * 24
+(expect "768.00 (GBh)"    (format-metric-value 47185920.0 "ram" ))
+(expect "768.00 (GBh)"    (format-metric-value 47185920   "ram" ))
+(expect "0.00 (GBh)"      (format-metric-value 0.0        "ram" ))
+(expect "7.92 (GBh)"      (format-metric-value 474.93     "disk"))
+
+(expect "0.27 (h)"        (format-metric-value 16.133333333333333 "anything"))

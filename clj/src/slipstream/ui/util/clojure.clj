@@ -405,6 +405,29 @@
       (coll?    v)  (vec v)
       :else         (vector v))))
 
+(defn- KB-mn-metric?
+  [m]
+  (= "ram" (name m)))
+
+(defn- GB-mn-metric?
+  [m]
+  (= "disk" (name m)))
+
+(defn- mn-to-h
+  [v]
+  (/ v 60.0))
+
+(defn- KB-to-GB
+  [v]
+  (/ v 1024.0))
+
+(defn- value-unit
+  [v u]
+  (format "%.2f (%s)" v u))
+
 (defn format-metric-value
-  [x]
-  (format "% ,15.2f" (double x)))
+  [v m]
+  (cond
+    (KB-mn-metric? m) (-> v KB-to-GB mn-to-h (value-unit "GBh"))
+    (GB-mn-metric? m) (-> v mn-to-h          (value-unit "GBh"))
+    :else             (-> v mn-to-h          (value-unit "h"))))
