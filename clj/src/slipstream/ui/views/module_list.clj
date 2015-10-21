@@ -78,19 +78,19 @@
    :content   (app-thumbnails-snip (:published-apps module-list-metadata))
    :type      :flat-section})
 
-(defn- projects-section
+(defn- modules-section
   [module-list-metadata]
   {:title     nil
-   :content   (t/module-list-projects-table (:projects module-list-metadata))
+   :content   (t/module-list-modules-table (:modules module-list-metadata))
    :type      :flat-section})
 
 (defn- sections
   [module-list-metadata page-version]
   (case page-version
     :appstore   [(app-store-section module-list-metadata)]
-    :projects   [(projects-section  module-list-metadata)]
+    :modules   [(modules-section  module-list-metadata)]
     :chooser    [(app-store-section module-list-metadata)
-                 (projects-section  module-list-metadata)]))
+                 (modules-section  module-list-metadata)]))
 
 (defn- page
   [metadata page-specifics]
@@ -112,18 +112,18 @@
            :secondary-menu-actions nil
            :content (-> metadata mw/parse app-store-section vector)})))
 
-(defn projects-page
+(defn modules-page
   [metadata]
-  (localization/with-prefixed-t :projects
+  (localization/with-prefixed-t :modules
     (page metadata
           {:page-title (t :page-title)
-           :header {:icon icons/project
+           :header {:icon icons/module
                     :title (t :header.title)
                     :subtitle (t :header.subtitle)}
            :secondary-menu-actions [action/new-project]
-           :view-name "projects"
+           :view-name "modules"
            :resource-uri :root
-           :content (-> metadata mw/parse projects-section vector)})))
+           :content (-> metadata mw/parse modules-section vector)})))
 
 (defn chooser-page
   [metadata]
@@ -133,4 +133,4 @@
            :resource-uri :root
            :content (vector
                       (app-store-section module-list-metadata)
-                      (projects-section  module-list-metadata))})))
+                      (modules-section  module-list-metadata))})))

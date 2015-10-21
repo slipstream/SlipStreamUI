@@ -32,7 +32,7 @@
       (assoc :uri (get-in project-node [:attrs :resourceUri])
              :owner (owner project-node))))
 
-(defn- projects
+(defn- modules
   [metadata]
   (let [project-nodes (html/select metadata project-sel)]
     (map project-metadata project-nodes)))
@@ -41,4 +41,4 @@
   "See tests for structure of the expected parsed metadata."
   [metadata]
   {:published-apps  (published-apps metadata)
-   :projects        (projects metadata)})
+   :modules         (modules metadata)})

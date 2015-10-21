@@ -46,7 +46,7 @@
    "logout"           byebye/page
    "service_catalog"  service-catalog/page
    "appstore"         module-list/appstore-page
-   "projects"         module-list/projects-page
+   "modules"          module-list/modules-page
    "chooser"          module-list/chooser-page
    "module"           module/page
    "versions"         versions/page

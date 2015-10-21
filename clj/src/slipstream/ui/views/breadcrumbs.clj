@@ -14,7 +14,7 @@
 (def ^:private text-sel (concat anchor-sel [:> :.ss-breadcrumb-item-text]))
 
 (def ^:private initial-breadcrumb
-  {:icon icons/home :uri "/projects"})
+  {:icon icons/home :uri "/module"})
 
 (defn transform
   [{:keys [resource-uri] :as context}]

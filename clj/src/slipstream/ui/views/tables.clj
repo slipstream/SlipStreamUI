@@ -42,20 +42,20 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn- module-list-project-row
-  [{:keys [name uri description owner version] :as module-list-project}]
+(defn- module-list-row
+  [{:keys [name uri description owner version] :as module}]
   {:style nil
-   :cells [{:type :cell/icon,     :content icons/project}
+   :cells [{:type :cell/icon,     :content icons/module}
            {:type :cell/link,     :content {:text name, :href uri}}
            {:type :cell/text,     :content description}
            {:type :cell/username, :content owner}
            {:type :cell/text,     :content version}]})
 
-(defn module-list-projects-table
-  [module-list-projects]
+(defn module-list-modules-table
+  [module-list-modules]
   (table/build
     {:headers [nil :name :description :owner :version]
-     :rows (map module-list-project-row module-list-projects)}))
+     :rows (map module-list-row module-list-modules)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
