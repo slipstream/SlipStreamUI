@@ -839,13 +839,13 @@
 
    ;; Views
 
-   :slipstream.ui.views.module-list.modules.page-title            "Modules"
-   :slipstream.ui.views.module-list.modules.header.title          "Modules"
+   :slipstream.ui.views.module-list.modules.page-title            :global.nouns.modules
+   :slipstream.ui.views.module-list.modules.header.title          :global.nouns.modules
    :slipstream.ui.views.module-list.modules.header.subtitle       "Here you can find all the modules that you have access to,
                                                                 including yours, the ones shared with you, and the public ones."
 
-   :slipstream.ui.views.module-list.appstore.page-title           "App Store"
-   :slipstream.ui.views.module-list.appstore.header.title         "App Store"
+   :slipstream.ui.views.module-list.appstore.page-title           :global.nouns.appstore
+   :slipstream.ui.views.module-list.appstore.header.title         :global.nouns.appstore
    :slipstream.ui.views.module-list.appstore.header.subtitle      "The SlipStream App Store provides you with all currently published
                                                                modules and root modules, including yours and the ones
                                                                shared with you."
@@ -853,6 +853,9 @@
    :slipstream.ui.views.module-list.app.label.publisher           :global.nouns.publisher
    :slipstream.ui.views.module-list.app.label.publication-date    :global.nouns.date
    :slipstream.ui.views.module-list.app.label.deploy              :global.verbs.deploy
+
+   :slipstream.ui.views.module-list.appstore.title                :global.nouns.appstore
+   :slipstream.ui.views.module-list.modules.title                 :global.nouns.modules
 
    :slipstream.ui.views.secondary-menu-actions.suffix.ellipsis :global.punctuation.ellipsis
 

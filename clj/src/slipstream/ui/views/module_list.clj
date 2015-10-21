@@ -74,23 +74,16 @@
 
 (defn- app-store-section
   [module-list-metadata]
-  {:title     nil
+  {:title     (when (page-type/chooser?) (t :appstore.title))
    :content   (app-thumbnails-snip (:published-apps module-list-metadata))
-   :type      :flat-section})
+   :type      (when (page-type/not-chooser?) :flat-section)})
 
 (defn- modules-section
   [module-list-metadata]
-  {:title     nil
+  {:title     (when (page-type/chooser?) (t :modules.title))
    :content   (t/module-list-modules-table (:modules module-list-metadata))
-   :type      :flat-section})
-
-(defn- sections
-  [module-list-metadata page-version]
-  (case page-version
-    :appstore   [(app-store-section module-list-metadata)]
-    :modules   [(modules-section  module-list-metadata)]
-    :chooser    [(app-store-section module-list-metadata)
-                 (modules-section  module-list-metadata)]))
+   :type      (when (page-type/not-chooser?) :flat-section)
+   :selected? true})
 
 (defn- page
   [metadata page-specifics]
@@ -133,4 +126,4 @@
            :resource-uri :root
            :content (vector
                       (app-store-section module-list-metadata)
-                      (modules-section  module-list-metadata))})))
+                      (modules-section   module-list-metadata))})))
