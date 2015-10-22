@@ -2098,8 +2098,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             var path = window
                         .location
                         .pathname  // URL without query params
-                        .trimSuffix("/new")
-                        .trimSuffix("/module");
+                        .trimSuffix("/new");
             if (withHash === true) {
                 return path + document.location.hash;
             }

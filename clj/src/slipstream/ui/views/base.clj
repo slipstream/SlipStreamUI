@@ -301,7 +301,7 @@
   "This macro includes info about the caller into the 'context' map argument."
   [context]
   (let [view-ns   (str *ns*)
-        view-name (->> view-ns (re-matches #"slipstream\.ui\.views\.(.*)") second)]
+        view-name-default (->> view-ns (re-matches #"slipstream\.ui\.views\.(.*)") second)]
     `(~generate-with-ns (assoc ~context :metadata  ~(symbol "metadata")
                                         :view-ns   ~view-ns
-                                        :view-name ~view-name))))
+                                        :view-name (or (:view-name ~context) ~view-name-default)))))

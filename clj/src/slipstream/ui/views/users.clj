@@ -14,7 +14,6 @@
     {:header {:icon icons/users
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
-     :resource-uri "/user"
      :secondary-menu-actions [action/new-user action/export-users]
      :num-of-main-secondary-menu-actions 1
      :content [{:title (t :content.title)

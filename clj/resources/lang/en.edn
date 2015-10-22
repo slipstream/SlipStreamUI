@@ -23,6 +23,7 @@
                           }
             :nouns {
                     :action           "Action"
+                    :appstore         "App Store"
                     :author           "Author"
                     :authorization    "Authorization"
                     :authorizations   "Authorizations"
@@ -61,6 +62,7 @@
                     :mapping          "Mapping"
                     :metering         "Metering"
                     :module           "Module"
+                    :modules          "Modules"
                     :mutable-deployment "Scalable deployment _(beta)_"
                     :name             "Name"
                     :node             "Node"
@@ -187,6 +189,8 @@
    :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contact us"
 
    :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
+   :slipstream.ui.views.menubar.logged-in.action.appstore            :global.nouns.appstore
+   :slipstream.ui.views.menubar.logged-in.action.modules             :global.nouns.modules
    :slipstream.ui.views.menubar.logged-in.action.configuration       :global.nouns.configuration
    :slipstream.ui.views.menubar.logged-in.action.service-catalog     :global.nouns.service-catalog
    :slipstream.ui.views.menubar.logged-in.action.system              :global.nouns.system
@@ -820,7 +824,7 @@
    :slipstream.ui.util.icons.description.action-import             :global.verbs.import
    :slipstream.ui.util.icons.description.action-new-deployment     "New deployment"
    :slipstream.ui.util.icons.description.action-new-image          "New image"
-   :slipstream.ui.util.icons.description.action-new-project        "New project"
+   :slipstream.ui.util.icons.description.action-new-project        "New module"
    :slipstream.ui.util.icons.description.action-new-user           "New user"
    :slipstream.ui.util.icons.description.action-publish            :global.verbs.publish
    :slipstream.ui.util.icons.description.action-run                :global.verbs.run
@@ -835,19 +839,23 @@
 
    ;; Views
 
-   :slipstream.ui.views.welcome.page-title                     "Welcome"
-   :slipstream.ui.views.welcome.header.title                   "Welcome to SlipStream"
-   :slipstream.ui.views.welcome.header.subtitle                "The welcome page provides you with all currently published
+   :slipstream.ui.views.module-list.modules.page-title            :global.nouns.modules
+   :slipstream.ui.views.module-list.modules.header.title          :global.nouns.modules
+   :slipstream.ui.views.module-list.modules.header.subtitle       "Here you can find all the modules that you have access to,
+                                                                including yours, the ones shared with you, and the public ones."
+
+   :slipstream.ui.views.module-list.appstore.page-title           :global.nouns.appstore
+   :slipstream.ui.views.module-list.appstore.header.title         :global.nouns.appstore
+   :slipstream.ui.views.module-list.appstore.header.subtitle      "The SlipStream App Store provides you with all currently published
                                                                modules and root modules, including yours and the ones
                                                                shared with you."
-   :slipstream.ui.views.welcome.app.label.description          :global.nouns.description
-   :slipstream.ui.views.welcome.app.label.publisher            :global.nouns.publisher
-   :slipstream.ui.views.welcome.app.label.publication-date     :global.nouns.date
-   :slipstream.ui.views.welcome.app.label.deploy               :global.verbs.deploy
-   :slipstream.ui.views.welcome.section.app-store.title        "App Store"
-   :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
+   :slipstream.ui.views.module-list.app.label.description         :global.nouns.description
+   :slipstream.ui.views.module-list.app.label.publisher           :global.nouns.publisher
+   :slipstream.ui.views.module-list.app.label.publication-date    :global.nouns.date
+   :slipstream.ui.views.module-list.app.label.deploy              :global.verbs.deploy
 
-   :slipstream.ui.views.welcome.section.service-catalog.title  :global.nouns.service-catalog
+   :slipstream.ui.views.module-list.appstore.title                :global.nouns.appstore
+   :slipstream.ui.views.module-list.modules.title                 :global.nouns.modules
 
    :slipstream.ui.views.secondary-menu-actions.suffix.ellipsis :global.punctuation.ellipsis
 
@@ -862,7 +870,7 @@
    :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
    :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
    :slipstream.ui.views.secondary-menu-actions.new-image       "New image"
-   :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
+   :slipstream.ui.views.secondary-menu-actions.new-project     "New module"
    :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
    :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
    :slipstream.ui.views.secondary-menu-actions.run             :global.verbs.run

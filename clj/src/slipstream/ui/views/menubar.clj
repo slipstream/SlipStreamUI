@@ -27,6 +27,8 @@
 (def action-knowledge-base-sel  [:.ss-action-knowledge-base])
 (def action-contact-us-sel      [:.ss-action-contact-us])
 (def action-dashboard-sel       [:.ss-action-dashboard])
+(def action-appstore-sel        [:.ss-action-appstore])
+(def action-modules-sel        [:.ss-action-modules])
 (def action-configuration-sel   [:.ss-action-configuration])
 (def action-service-catalog-menu-item-sel [:.ss-action-service-catalog-menu-item])
 (def action-service-catalog-sel [:.ss-action-service-catalog])
@@ -38,8 +40,11 @@
 (def action-logout-sel          [:.ss-action-logout])
 (def action-profile-sel         [:.ss-action-profile])
 
+(def active-menu-sel            [:.navbar-left :.active])
+
 (def menubar-logged-in-sel (concat navbar-sel [:.ss-menubar-logged-in]))
 (def super-user-item-sel [:.ss-menubar-super-user-item])
+(def non-super-user-item-sel [:.ss-menubar-non-super-user-item])
 (def username-sel [:#ss-menubar-username])
 (def user-profile-anchor-sel [:#ss-menubar-user-profile-anchor])
 
@@ -73,14 +78,25 @@
             action-knowledge-base-sel (html/content (t :unlogged.action.knowledge-base))
             action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
 
+(defn- current-active-menu-sel
+  [context]
+  (->> context
+       :view-name
+       (str ".ss-action-")
+       keyword
+       vector))
+
 (defmethod menubar :logged-in
   [context]
   (ex/guard "set up logged-in menubar"
     (html/at menubar-logged-in-node
               super-user-item-sel         (ue/remove-if-not (current-user/super?))
+              non-super-user-item-sel     (ue/remove-if     (current-user/super?))
               username-sel                (html/content (current-user/username))
               user-profile-anchor-sel     (ue/set-href (current-user/uri))
               action-dashboard-sel        (html/content (t :logged-in.action.dashboard))
+              action-appstore-sel         (html/content (t :logged-in.action.appstore))
+              action-modules-sel          (html/content (t :logged-in.action.modules))
               action-configuration-sel    (html/content (t :logged-in.action.configuration))
               action-system-sel           (html/content (t :logged-in.action.system))
               action-service-catalog-menu-item-sel (ue/remove-if-not (-> context :configuration configuration/service-catalog-enabled?))
@@ -88,6 +104,8 @@
               action-users-sel            (html/content (t :logged-in.action.users))
               action-help-sel             (html/content (t :logged-in.action.help))
               action-profile-sel          (html/content (t :logged-in.action.profile))
+              active-menu-sel             (html/remove-class "active")
+              (current-active-menu-sel context) (html/add-class "active")
               action-start-tour-sel       (ue/at-match
                                               action-label-sel (html/content (t :logged-in.action.start-tour))
                                               action-start-tour-action-sel (ue/toggle-href    (-> context :view-name #{"welcome"} not) "?start-tour=yes")

@@ -25,5 +25,4 @@
     {:header {:icon icons/usage
               :title (t :header.title)
               :subtitle (t :header.subtitle)}
-     :resource-uri "/usage"
      :content (section metadata)}))
