@@ -152,6 +152,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .send();
     });
 
+    $(".ss-subsection-content-spinner").each(function() {
+        $(this)
+            .closest(".ss-dynamic-content")
+                .trigger("ss-dynamic-content-reload", {withLoadingScreen: false});
+    });
 
     $("body").on("click", "button.ss-pagination-separator-btn", function() {
         var $elem = $(this),

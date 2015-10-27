@@ -48,6 +48,18 @@
   (let [section-metadata (get run metadata-key)]
     (map runtime-parameter-node-section section-metadata)))
 
+(defmethod section :events
+  [run metadata-key]
+  {:icon  icons/event
+   :title (localization/section-title metadata-key)
+   :content (ue/dynamic-content-snip
+              :id      "events"
+              ;; TODO: Add CIMI filter to scope down the events to the corresponding run:
+              ;;       (:uri run) => e.g. "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
+              ;;       (:uuid run) => e.g. "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
+              ;;       See file SlipStreamUI/clj/test/slipstream/ui/models/run_test.clj for examples.
+              :content-load-url "/event?offset=0&limit=20&runId=")}) ;; TODO: Consider using a helper to generate this url
+
 (ue/def-blank-snippet reports-iframe-snip :iframe
   [run]
   ue/this (ue/set-class "ss-reports-iframe")
@@ -65,7 +77,8 @@
     (not large-run?)  (conj :overview)
     :always           (conj :summary)
     :always           (conj :runtime-parameters)
-    :always           (conj :reports) ))
+    :always           (conj :events)
+    :always           (conj :reports)))
 
 (defn- html-dependencies
   [large-run?]
