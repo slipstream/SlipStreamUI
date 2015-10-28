@@ -1127,6 +1127,7 @@ For more details refer to the <a target='_blank' href='http://ssdocs.sixsq.com/d
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.run.section.global.title            :global.adjectives.global
+   :slipstream.ui.views.run.section.events.title            :global.nouns.events
    :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
 
    :slipstream.ui.views.vms.header.title                    "Your VMs"

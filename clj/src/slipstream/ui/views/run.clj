@@ -48,6 +48,18 @@
   (let [section-metadata (get run metadata-key)]
     (map runtime-parameter-node-section section-metadata)))
 
+(defn- url-events
+  [run]
+  (str "/event?offset=0&limit=20&filter=content/resource/href='" (-> run :summary :uri) "'"))
+
+(defmethod section :events
+  [run metadata-key]
+  {:icon  icons/event
+   :title (localization/section-title metadata-key)
+   :content (ue/dynamic-content-snip
+              :id      "events"
+              :content-load-url (url-events run))})
+
 (ue/def-blank-snippet reports-iframe-snip :iframe
   [run]
   ue/this (ue/set-class "ss-reports-iframe")
@@ -65,7 +77,8 @@
     (not large-run?)  (conj :overview)
     :always           (conj :summary)
     :always           (conj :runtime-parameters)
-    :always           (conj :reports) ))
+    :always           (conj :events)
+    :always           (conj :reports)))
 
 (defn- html-dependencies
   [large-run?]
