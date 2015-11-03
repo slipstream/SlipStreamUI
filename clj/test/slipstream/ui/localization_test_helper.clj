@@ -19,9 +19,10 @@
   (let [filename      (.getName file)
         basename      (uc/trim-from-last filename \.)
         extension     (uc/trim-up-to-last filename \.)
-        iso-language  (-> basename keyword tower/iso-languages)]
+        locale        (keyword basename)
+        iso-language  (-> basename (uc/trim-from-last \-) keyword tower/iso-languages)]
     (when (and (= extension "edn") iso-language)
-      [iso-language (->> filename (str "lang/") uc/read-resource uc/flatten-map)])))
+      [locale (->> filename (str "lang/") uc/read-resource uc/flatten-map)])))
 
 (defn- read-locale-dict-files
   []
@@ -123,7 +124,7 @@
                 (str "<div class='outcommented'>"
                      "; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.<br>"
                      ";%s"
-                     ";<xmp>;%s</xmp>"
+                     "<xmp>;%s</xmp>"
                      "</div>"))
               (pr-str k)
               (pr-str value-in-base-locale)))))
@@ -192,10 +193,10 @@
 (defn html-str
   [url-segments]
   (let [diff-type       (some #{"ok" "missing" "unnecessary"}           url-segments)
-        lang-to-display (some tower/iso-languages                       (map keyword url-segments))
         list-only-keys? (some (comp boolean #{"keys"})                  url-segments)
         display-type    (some #{"keys" "normalized-map" "normalized-map-with-comments" "nested-map"} url-segments)
         all-dicts       (read-locale-dict-files) ;; Read all dict files every time to catch updates.
+        lang-to-display (some (-> all-dicts keys set) (map keyword url-segments))
         all-keys        (all-keys     all-dicts)
         all-locales     (all-locales  all-dicts)]
     (binding [*all-dicts*         all-dicts
