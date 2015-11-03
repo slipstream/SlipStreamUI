@@ -405,6 +405,8 @@
       (coll?    v)  (vec v)
       :else         (vector v))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn- KB-mn-metric?
   [m]
   (= "ram" (name m)))
@@ -431,3 +433,54 @@
     (KB-mn-metric? m) (-> v KB-to-GB mn-to-h (value-unit "GBh"))
     (GB-mn-metric? m) (-> v mn-to-h          (value-unit "GBh"))
     :else             (-> v mn-to-h          (value-unit "h"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def ^:private flat-map-key-separator ".")
+(def ^:private flat-map-key-separator-re #"\.")
+
+;; SOURCE: http://stackoverflow.com/a/17902228
+(defn flatten-map
+  "Flattens a nested map into a one-level map:
+  {:a {:b 1 :c 2} :b 3} => {:a.b 1 :a.c 2 :b 3}
+  See tests for expectations."
+  ([m]
+    (into {} (flatten-map m nil)))
+  ([m pre]
+    (mapcat (fn [[k v]]
+              (let [prefix (if pre (str pre flat-map-key-separator (name k)) (name k))]
+                (if (map? v)
+                  (flatten-map v prefix)
+                  [[(keyword prefix) v]])))
+              m)))
+
+(defn- key-to-assoc
+  [m key-path]
+  (->> key-path
+       (reductions (fn [[res path-acc] path-segment] (let [new-path (conj path-acc path-segment)] [(get-in m new-path) new-path])) [[] []])
+       rest
+       (partition-by #(or (-> % first map?) (-> % first nil?)))
+       first
+       last
+       last))
+
+(defn deflatten-map
+  "Inverse of flatten-map. See tests for expectations."
+  [m]
+  {:pre [(or (nil? m) (map? m))]}
+  (reduce (fn [m [k v]]
+            (let [key-path  (map keyword (s/split (name k) flat-map-key-separator-re))
+                  assoc-at  (key-to-assoc m key-path)
+                  assoc-key (->> key-path
+                                 (drop (count assoc-at))
+                                 (map name)
+                                 (s/join flat-map-key-separator)
+                                 not-empty
+                                 keyword)]
+              (if assoc-key
+                (update-in m assoc-at assoc assoc-key v)
+                (assoc-in m key-path v))))
+          {}
+          (sort-by first m)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
