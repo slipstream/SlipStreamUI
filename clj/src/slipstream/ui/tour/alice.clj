@@ -31,22 +31,13 @@
   [
    :welcome
    [
-      :#ss-section-group-0
-      {:title "Main sections"
-       :content (if (->> context :content (remove nil?) count (= 3))
-                  (str "There are three main sections on the welcome page of SlipStream."
-                            "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")
-                  (str "There are two main sections on the welcome page of SlipStream."
-                            "<ol><li>AppStore</li><li>Projects</li></ol>"))}
-
-      [:#ss-section-group-0 :> html/first-child]
-      ; :#ss-section-app-store
-      {:title "Applications"
-       :content "Here you can find a curated list of deployable applications."}
-
-      [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div]
-      {:title "Application"
-       :content "This is a published application. Click 'next' to learn how to deploy it."}
+      :a.ss-action-appstore
+      {:title "App Store"
+       :content "You are now on the App Store of SlipSteram. Here you can find a curated list of deployable applications. We will be discovering the other sections during the tour."
+       :preserve-padding true
+       :placement "bottom"
+       :width "300px"
+       }
 
       nil
       {:title "Important note!"
@@ -63,7 +54,13 @@
                      " to learn how to do it.")
        :width "400px"}
 
-      [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
+      [:div (ue/first-of-class "ss-example-app-in-tour")]
+      {:title "Application"
+       :content "This is a published application. Click 'next' to learn how to deploy it."
+       :preserve-padding true
+       }
+
+      [[:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
        :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."}
     ]
@@ -343,11 +340,12 @@
 
      :navigate-back-to-welcome
      [
-        [:#topbar :> :div :> :div :> :div.navbar-header :> :a]
-        {:title "Back to the main page"
-         :content "Now that you have at least one cloud configured, click on the SlipStream logo to back to the AppStore on the main page."
+        [:#topbar :.ss-action-appstore]
+        {:title "Back to the App Store"
+         :content "Now that you have at least one cloud configured, click here to go back to the AppStore."
          :placement "bottom"
          :preserve-padding true
+         :width "300px"
          }
       ]
 

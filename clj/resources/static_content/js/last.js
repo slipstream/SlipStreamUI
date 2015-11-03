@@ -24,4 +24,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addClass("ss-force-hovered-style");
     }
 
+    $$.util.tour.startIfNeeded();
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

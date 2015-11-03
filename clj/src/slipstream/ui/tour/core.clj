@@ -105,7 +105,7 @@
 (defmulti ^:private get-tour-name
   (fn [context] [(:view-name context) (page-type/current)]))
 
-(defmethod get-tour-name ["welcome" :page-type/view]
+(defmethod get-tour-name ["appstore" :page-type/view]
   [context]
   (if-let [tour (tour-in-query-param context)]
     tour
