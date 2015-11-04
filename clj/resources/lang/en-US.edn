@@ -4,10 +4,13 @@
  {:nouns
   {:deployment "Application",
    :image "Application Component",
+   :module "Application / Component",
+   :modules "Applications / Components",
    :node "Component",
    :nodes "Application Components",
    :run "Deployment",
-   :run-id "ID"},
+   :run-id "ID",
+   :run-type "Deployment Type"},
   :verbs {:run "Deploy", :terminate "Terminate"}}
 
  ;; This localization map was automatically normalized.
@@ -357,9 +360,9 @@
 ;"The frequency at which you want to receive emails with your cloud usage."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.parameters.module-owner.description;
-;"Module owner"
+:slipstream.ui.models.parameters.module-owner.description
+; Original: "Module owner"
+"Application / Component owner"
 
 
 ; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
@@ -512,9 +515,9 @@
 "Deployment owner"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.models.parameters.run-owner.help-hint;
-;"The user who started this run."
+:slipstream.ui.models.parameters.run-owner.help-hint
+; Original: "The user who started this run."
+"The user who triggered this deployment."
 
 
 :slipstream.ui.models.parameters.run-type.description
@@ -2072,9 +2075,9 @@
 "Deploy Application"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote;
-;"Choose the cloud where each node instance will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
+:slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote
+; Original: "Choose the cloud where each node instance will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
+"Choose the cloud where each application component will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
 
 
 ; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
@@ -2597,19 +2600,19 @@
 ;"No reports available yet."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.views.run.header.title!;
-;"Run: %1$s is <span class='ss-run-state'>%2$s</span>"
+:slipstream.ui.views.run.header.title!
+; Original: "Run: %1$s is %2$s"
+"Deployment %1$s is <span class='ss-run-state'>%2$s</span>"
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.views.run.large-run-alert.message;
-;"This is a large run with a total of %1$s node instances. The overview diagram and the auto-refresh of the runtime parameters are disabled."
+:slipstream.ui.views.run.large-run-alert.message
+; Original: "This is a large run with a total of %1$s node instances. The overview diagram and the auto-refresh of the runtime parameters are disabled."
+"This is a big deployment with a total of %1$s application component instances. The overview diagram and the auto-refresh of the runtime parameters are disabled."
 
 
-; TODO: Missing localization entry. Pre-filled with the corresponding string in the base-locale dictionary, but outcommented.
-;:slipstream.ui.views.run.large-run-alert.title;
-;"Large Run"
+:slipstream.ui.views.run.large-run-alert.title
+; Original: "Large Run"
+"Big deployment"
 
 
 :slipstream.ui.views.run.machine.not-mutable
