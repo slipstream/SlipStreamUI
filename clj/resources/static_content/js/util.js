@@ -2546,6 +2546,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         forgetDismissal: function(tourName) {
             return $$.util.cookie.delete(this.cookiePrefix + tourName );
+        },
+
+        isRunning: function(){
+            return $(".bootstro-backdrop").foundAny();
         }
 
     };

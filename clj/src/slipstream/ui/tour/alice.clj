@@ -166,7 +166,7 @@
                      "Note that you don't need to reload the page: the reports will automatically appear here when available.")
        :placement "top"}
 
-      [:#topbar :> :div :> :div :> :div.navbar-collapse.collapse :> :ul :> [:li (html/nth-child 1)]]
+      [:.ss-action-dashboard]
       {:title "Dashboard"
        :content (str "The deployment may take some time, depending on the cloud you selected and its current load."
                      "<br/><br/>"
@@ -200,6 +200,7 @@
                       "Click here, and then click next, to see the runs you did on this cloud.")
        :container-sel "body"
        :preserve-padding true
+       :width "330px"
        :placement "top"}
 
       [:.panel-group :> (html/nth-child 2)]
