@@ -1,6 +1,7 @@
 (ns slipstream.ui.models.run
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as html]
+            [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.runtime-parameters :as runtime-parameters]))
@@ -39,7 +40,7 @@
                                  (map uc/parse-pos-int)
                                  (remove nil?)
                                  (reduce +))]
-    {:category      (-> attrs :category)
+    {:category      (-> attrs :category u/t-module-category)
      :creation      (-> attrs :creation)
      :start-time    (-> attrs :startTime)
      :end-time      (-> attrs :endTime)
