@@ -211,7 +211,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $clouds      = $runRow.find("td:nth-child(8)"),
             $user        = $runRow.find("td:nth-child(9)"),
             $tags        = $runRow.find("td:nth-child(10)");
-        $$.dashboard.stopAutoupdating();
+        if ( $.type($$.dashboard) === 'object') {
+            $$.dashboard.stopAutoupdating();
+        }
         $('#ss-terminate-deployment-from-table-dialog')
             .replaceHTMLContentBySelector({
                 ".modal-title .ss-deployment-run-id": runID,
@@ -243,7 +245,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         )
                     .send();
             },
-            $$.dashboard.restartAutoupdating);
+            function(){
+                if ( $.type($$.dashboard) === 'object') {
+                    $$.dashboard.restartAutoupdating();
+                }
+            });
     });
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
