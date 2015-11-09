@@ -144,7 +144,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.util.recurrentJob.start(autoUpdateJobName,
                                updateDashboard,
-       	                       secsBetweenUpdates);
+                               secsBetweenUpdates);
 
     function stopAutoupdating() {
       $$.util.recurrentJob.stop(autoUpdateJobName);
@@ -157,6 +157,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.dashboard = {
       stopAutoupdating: stopAutoupdating,
       restartAutoupdating: restartAutoupdating
-    }
+    };
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
