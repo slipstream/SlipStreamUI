@@ -159,12 +159,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
       restartAutoupdating: restartAutoupdating
     };
 
-    if ( $$.util.tour.shouldLaunchAny(
-            SlipStream.util.tour.alice.intro.welcome,
-            SlipStream.util.tour.alice.introWithoutConnectors.goToProfile,
-            true) ) {
-        // If the tour has not been explicitely dismissed, we redirect to the
-        // appstore to launch the tour.
+    var cookieName = "redirectToAppStoreToLaunchTour";
+
+    if ( $$.util.cookie.get(cookieName) !== false ) {
+        // Redirect only once to the appstore to launch the tour.
+        $$.util.cookie.set(cookieName, false);
         $$.util.url.redirectTo("/appstore");
     }
 
