@@ -174,7 +174,8 @@
                      "<br/><br/>"
                      "Click on the <span style='color:white;background-color:#a00;font-weight:normal;padding:2px 8px;'>Dashboard</span> above to discover it. We will come back here afterwards to see how the run finished.")
        :placement "bottom"
-       :width "330px"}
+       :width "330px"
+       :preserve-padding true}
     ]
 
     :wordpress-in-dashboard
