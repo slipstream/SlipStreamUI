@@ -1460,3 +1460,91 @@
 (expect "7.92 (GBh)"      (format-metric-value 474.93     "disk"))
 
 (expect "0.27 (h)"        (format-metric-value 16.133333333333333 "anything"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; flatten-map
+
+(expect
+  {}
+  (flatten-map nil))
+
+(expect
+  {}
+  (flatten-map {}))
+
+(expect
+  {:a 1}
+  (flatten-map {:a 1}))
+
+(expect
+  {:a 1, :b 2}
+  (flatten-map {:a 1, :b 2}))
+
+(expect
+  {:a 1, :b nil}
+  (flatten-map {:a 1, :b nil}))
+
+(expect
+  {:a 1}
+  (flatten-map {:a 1, :b {}}))
+
+(expect
+  {:a 1, :b.c 3}
+  (flatten-map {:a 1, :b {:c 3}}))
+
+(expect
+  {:a 1, :b.c 3, :b.d.e 5}
+  (flatten-map {:a 1, :b {:c 3 :d {:e 5}}}))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; deflatten-map
+
+(expect
+  {}
+  (deflatten-map nil))
+
+(expect
+  {}
+  (deflatten-map {}))
+
+(expect
+  {:a 1}
+  (deflatten-map {:a 1}))
+
+(expect
+  {:a 1, :b 2}
+  (deflatten-map {:a 1 :b 2}))
+
+(expect
+  {:a 1, :b nil}
+  (deflatten-map {:a 1, :b nil}))
+
+(expect
+  {:a 1, :b {:c 3}}
+  (deflatten-map {:a 1, :b.c 3}))
+
+(expect
+  {:a 1, :b {:c 3, :d {:e 5}}}
+  (deflatten-map {:a 1, :b.c 3, :b.d.e 5}))
+
+(expect
+  {:a 1, :b {:c 3, :d {:e 5} :f 6}}
+  (deflatten-map {:a 1, :b.c 3, :b.d.e 5, :b.f 6}))
+
+(expect
+  {:a 1, :b {:c 3, :d 6, :d.e 5, :d.e.f 7}}
+  (deflatten-map {:a 1, :b.c 3, :b.d 6, :b.d.e 5, :b.d.e.f 7}))
+
+(expect
+  {:a 1, :b {:c 3, :d 6, :d.e 5, :d.e.f 7}}
+  (deflatten-map {:b.d.e.f 7, :b.c 3, :a 1, :b.d 6, :b.d.e 5}))
+
+(expect
+  {:a 1, :b {:c 3, :f.e 5 :f 6}}
+  (deflatten-map {:a 1, :b.c 3, :b.f.e 5, :b.f 6}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

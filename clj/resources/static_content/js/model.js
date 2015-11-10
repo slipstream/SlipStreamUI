@@ -112,7 +112,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                                 fullName = undefined;
                             } else {
                                 moduleName = moduleName.trim();
-                                moduleParent = $$.util.url.getCurrentURLBase().removeLeadingSlash().trimPrefix("module/");
+                                moduleParent = $$.util.url.getCurrentURLBase().removeLeadingSlash().trimPrefix("module").trimPrefix("/");
                                 if (moduleParent) {
                                     fullName = moduleParent + "/" + moduleName;
                                 } else {

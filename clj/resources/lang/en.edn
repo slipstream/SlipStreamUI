@@ -262,7 +262,7 @@
    :slipstream.ui.views.login.input.email.placeholder          "Enter your email"
    :slipstream.ui.views.login.signup.button.label              "Sign up for SlipStream"
    :slipstream.ui.views.login.signup.terms-hint                "By clicking 'Sign up for SlipStream', you agree to our
-                                                               [terms of service](http://ssdocs.sixsq.com/documentation/terms_and_conditions.html)."
+                                                               [terms of service](http://ssdocs.sixsq.com/en/latest/legal/terms_and_conditions.html)."
 
    :slipstream.ui.views.user.header.title.loggedin             "Your profile"
    :slipstream.ui.views.user.header.title.not-loggedin         "%s's user profile"
@@ -274,9 +274,9 @@
 
    ;; TODO: gather all used external links (e.g. like here to the documentation) in a common namespace
    :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.title       "No clouds configured!"
-   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.msg!        "Please note that you will not be able to deploy anything until you configure the credentials for at least one cloud in the <span class='glyphicon glyphicon-cloud'></span>sections below. For example, you might want to <a href='/user/%2$s?edit=true#%3$s'>configure the cloud <code>%1$s</code></a>, which is currently set up as default in your profile. For more details about how to solve this please refer to the <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.msg!        "Please note that you will not be able to deploy anything until you configure the credentials for at least one cloud in the <span class='glyphicon glyphicon-cloud'></span>sections below. For example, you might want to <a href='/user/%2$s?edit=true#%3$s'>configure the cloud <code>%1$s</code></a>, which is currently set up as default in your profile. For more details about how to solve this please refer to the <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/advanced_tutorial'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
    :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.title    "No clouds configured in this profile!"
-   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "This user will not be able to deploy anything until the credentials for at least one cloud have been configured in this profile. For more details about how to solve this you might want to point to the <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "This user will not be able to deploy anything until the credentials for at least one cloud have been configured in this profile. For more details about how to solve this you might want to point to the <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/advanced_tutorial'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
 
    :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.title       "Default cloud is not configured"
    :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.msg         "Please note that `%1$s` is selected as the default cloud but you have not provided its credentials. Please [change your default cloud](/user/%2$s?edit=true#general) or [configure its credentials](/user/%2$s?edit=true#%3$s)." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
@@ -998,7 +998,7 @@
   </tbody>
 </table>
 
-For more details refer to the <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/SlipStream_Client.html#major-client-commands'>documentation</a>."
+For more details refer to the SlipStream client <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/advanced_tutorial'>documentation</a>."
 
    :slipstream.ui.views.module.image.section.runs.title                                 :global.nouns.runs
    :slipstream.ui.views.module.image.section.runs.empty-content-hint                    "This section will list all runs and builds of this image."

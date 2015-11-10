@@ -23,7 +23,7 @@
     (let [category-name (-> summary :category u/t-module-category)]
       {:icon      (-> summary :category icons/icon-for)
        :title     (if (page-type/new?)
-                    (t :title.new (:category summary))
+                    (t :title.new category-name)
                     (:short-name summary))
        :image-url (-> summary :logo-url)
        :subtitle  (if (page-type/new?)
