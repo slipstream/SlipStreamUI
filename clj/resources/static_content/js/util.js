@@ -2492,12 +2492,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             tourNames = args;
             $.each(tourNames,
                 function(i, tourName) {
-                     launchAny = $$.util.tour.shouldLaunch(tourName, shouldLaunchIfUndefined);
+                     launchAny = $$.util.tour.shouldLaunch(tourName);
                      if ( launchAny ) {
                         // Break the 'each' loop
                         return false;
                      }
                 });
+            if ( launchAny === undefined ) {
+                launchAny = shouldLaunchIfUndefined;
+            }
             return launchAny;
         },
 
