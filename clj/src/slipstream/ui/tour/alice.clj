@@ -128,10 +128,10 @@
 
       :#ss-breadcrumb-container
       {:title "The breadcrumbs"
-       :content (str "Throughout SlipStream you can rely on the breadcrumbs to know where you are and navigate up the hierarchy."
-                     " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will always bring you to the welcome page containing the App Store."
+       :content (str "The breadcrumbs show you the path of the current application in your workspace and allow you to navigate up the hierarchy."
+                     " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will bring you to your workspace containing all root projects you have access to."
                      "<br/><br/>"
-                     "In this case, you can see which module (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
+                     "In this case, you can see which application component (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
        :container-sel "body"
        :placement "right"}
 
