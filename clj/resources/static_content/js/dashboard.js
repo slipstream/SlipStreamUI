@@ -159,4 +159,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
       restartAutoupdating: restartAutoupdating
     };
 
+    var cookieName = "redirectToAppStoreToLaunchTour";
+
+    if ( $$.util.cookie.get(cookieName) !== false ) {
+        // Redirect only once to the appstore to launch the tour.
+        $$.util.cookie.set(cookieName, false);
+        $$.util.url.redirectTo("/appstore");
+    }
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

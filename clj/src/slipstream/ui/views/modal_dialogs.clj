@@ -268,9 +268,7 @@
 
 (defn- start-tour-required?
   [{:keys [view-name tour]}]
-  (and
-    (= "welcome" view-name)
-    tour))
+  (#{"appstore" "dashboard" "modules"} view-name))
 
 (defn required
   [context]

@@ -2456,6 +2456,19 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             bootstro.goToStep(stepIndex);
         },
 
+        startIfNeeded: function() {
+            if ( ! $$.util.meta.isViewName("dashboard, appstore") ) {
+                return;
+            }
+            if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" || $$.util.tour.shouldLaunch($$.util.tour.current(), true) ) {
+                if ( $$.util.tour.shouldShowOptInDialog() ) {
+                    $$.util.tour.askToStart();
+                } else {
+                    $$.util.tour.start();
+                }
+            }
+        },
+
         askToStart: function() {
             $('#ss-start-tour-dialog').askConfirmation(function () {
                 $$.util.tour.start();
@@ -2479,12 +2492,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             tourNames = args;
             $.each(tourNames,
                 function(i, tourName) {
-                     launchAny = $$.util.tour.shouldLaunch(tourName, shouldLaunchIfUndefined);
+                     launchAny = $$.util.tour.shouldLaunch(tourName);
                      if ( launchAny ) {
                         // Break the 'each' loop
                         return false;
                      }
                 });
+            if ( launchAny === undefined ) {
+                launchAny = shouldLaunchIfUndefined;
+            }
             return launchAny;
         },
 
@@ -2533,6 +2549,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
         forgetDismissal: function(tourName) {
             return $$.util.cookie.delete(this.cookiePrefix + tourName );
+        },
+
+        isRunning: function(){
+            return $(".bootstro-backdrop").foundAny();
         }
 
     };
@@ -2575,7 +2595,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
 
         delete: function (cname) {
-            document.cookie = this.scopePrefix + cname + "=;expires=Wed; 01 Jan 1970";
+            document.cookie = this.scopePrefix + cname + "=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         }
 
     };

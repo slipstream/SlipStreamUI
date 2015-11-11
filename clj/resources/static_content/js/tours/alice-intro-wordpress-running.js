@@ -10,6 +10,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $$.util.tour.setup({
         beforeStep: {
+            2: function() {
+                $$.util.tour.enableMouseShield();
+            },
             3: function() {
                 $documentationMenu.bsOpenDropdown();
             },
@@ -21,11 +24,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
             0: function() {
                 $$.run.stopAutoupdatingRunPage();
             },
+            2: function() {
+                $$.util.tour.disableMouseShield();
+            },
             3: function() {
                 $documentationMenu.bsCloseDropdown();
             },
         },
         onExit: function() {
+            $$.util.tour.disableMouseShield();
             $$.run.startAutoupdatingRunPage();
             $$.util.urlQueryParams.remove("tour");
         }

@@ -35,11 +35,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         beforeStep: {
             0: function() {
-                $$.section.collapseAll();
                 $$.util.tour.disableMouseShield();
             },
             1: function() {
-                $$.section.selectWithoutAnimation(1);
                 $$.util.tour.enableMouseShield();
             },
             2: function() {
@@ -55,15 +53,5 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $$.util.tour.disableMouseShield();
         }
     });
-
-    if ( $$.util.urlQueryParams.getValue("start-tour") === "yes" || $$.util.tour.shouldLaunch(currentTour, true) ) {
-        if ( $$.util.tour.shouldShowOptInDialog() ) {
-            $('#ss-start-tour-dialog').askConfirmation(function () {
-                $$.util.tour.start();
-            });
-        } else {
-            $$.util.tour.start();
-        }
-    }
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

@@ -8,8 +8,8 @@
   "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
 (def ^:private external-links
-  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/documentation/advanced_tutorial/standalone_images.html"
-   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts"
+  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/standalone_images.html"
+   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/accounts.html#cloud-infrastructure-accounts"
    :ec2/using-network-security                "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"
    :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/tutorial/introduction-to-security-groups/"})
 
@@ -31,39 +31,36 @@
   [
    :welcome
    [
-      :#ss-section-group-0
-      {:title "Main sections"
-       :content (if (->> context :content (remove nil?) count (= 3))
-                  (str "There are three main sections on the welcome page of SlipStream."
-                            "<ol><li>AppStore</li><li>Projects</li><li>Service Catalog</li></ol>")
-                  (str "There are two main sections on the welcome page of SlipStream."
-                            "<ol><li>AppStore</li><li>Projects</li></ol>"))}
-
-      [:#ss-section-group-0 :> html/first-child]
-      ; :#ss-section-app-store
-      {:title "Applications"
-       :content "Here you can find a curated list of deployable applications."}
-
-      [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div]
-      {:title "Application"
-       :content "This is a published application. Click 'next' to learn how to deploy it."}
+      :a.ss-action-appstore
+      {:title "App Store"
+       :content "You are now on the App Store of SlipSteram. Here you can find a curated list of deployable applications. We will be discovering the other sections during the tour."
+       :preserve-padding true
+       :placement "bottom"
+       :width "300px"
+       }
 
       nil
       {:title "Important note!"
        :content (str "You will be deploying Wordpress, which is a Web application that will be accessible on"
                      " the port <code>8080</code> of the target machine."
-                     " Since SlipStream is not currently able to manage the firewall rules and security groups"
-                     " on your behalf (we are busy working on it, though), <strong>you will have to make sure that at least the"
-                     " port <code>8080</code> is open in the security groups of the cloud you are targeting</strong>."
+                     " In most cases you don't have to take any special action about this because SlipStream does basic management of"
+                     " firewalls on clouds that support it. For those clouds that don't support it (e.g. StratusLab or vCloud based ones),"
+                     " you may need to manually open firewalls (security groups) for your applications."
                      "<br/><br/>"
                      "You might read "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
                      (link-to-external-url :ec2/using-network-security "Amazon")
                      " or "
                      (link-to-external-url :exoscale/introduction-to-security-groups "Exoscale")
-                     " to learn how to do it.")
+                     " to learn more about it.")
        :width "400px"}
 
-      [:#ss-section-app-store :> :div :> :div :> [:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
+      [:div (ue/first-of-class "ss-example-app-in-tour")]
+      {:title "Application"
+       :content "This is a published application. Click 'next' to learn how to deploy it."
+       :preserve-padding true
+       }
+
+      [[:div (ue/first-of-class "ss-example-app-in-tour")] :> :div :.ss-app-image-container]
       {:title "Deploy"
        :content "Click the <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'><span class='glyphicon glyphicon-cloud-upload'></span> Deploy</span> button in the bottom right part of the application logo."}
     ]
@@ -131,10 +128,10 @@
 
       :#ss-breadcrumb-container
       {:title "The breadcrumbs"
-       :content (str "Throughout SlipStream you can rely on the breadcrumbs to know where you are and navigate up the hierarchy."
-                     " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will always bring you to the welcome page containing the App Store."
+       :content (str "The breadcrumbs show you the path of the current application in your workspace and allow you to navigate up the hierarchy."
+                     " E.g. clicking on the <span class='glyphicon glyphicon-home'></span> will bring you to your workspace containing all root projects you have access to."
                      "<br/><br/>"
-                     "In this case, you can see which module (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
+                     "In this case, you can see which application component (i.e. <code>wordpress</code>) and version was deployed and where it's located in the project tree.")
        :container-sel "body"
        :placement "right"}
 
@@ -156,7 +153,7 @@
 
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 3)]]
       {:title "Global run parameters"
-       :content (str "This and the following sections contain a lot of detailed information about the run and the deployed machines. Here you can find machine IP addresses, deployment errors, and other parameters."
+       :content (str "This and the following sections contain a lot of detailed information about the run and the deployed machines where you can find machine IP addresses, deployment errors, and other parameters."
                      "<br/><br/>"
                      "Throughout SlipStream you can hover over the <span class='glyphicon glyphicon-question-sign'></span> to reveal a detailed explanation of the corresponding item.")
        :placement "top"}
@@ -169,7 +166,7 @@
                      "Note that you don't need to reload the page: the reports will automatically appear here when available.")
        :placement "top"}
 
-      [:#topbar :> :div :> :div :> :div.navbar-collapse.collapse :> :ul :> [:li (html/nth-child 1)]]
+      [:.ss-action-dashboard]
       {:title "Dashboard"
        :content (str "The deployment may take some time, depending on the cloud you selected and its current load."
                      "<br/><br/>"
@@ -177,7 +174,8 @@
                      "<br/><br/>"
                      "Click on the <span style='color:white;background-color:#a00;font-weight:normal;padding:2px 8px;'>Dashboard</span> above to discover it. We will come back here afterwards to see how the run finished.")
        :placement "bottom"
-       :width "330px"}
+       :width "330px"
+       :preserve-padding true}
     ]
 
     :wordpress-in-dashboard
@@ -203,6 +201,7 @@
                       "Click here, and then click next, to see the runs you did on this cloud.")
        :container-sel "body"
        :preserve-padding true
+       :width "330px"
        :placement "top"}
 
       [:.panel-group :> (html/nth-child 2)]
@@ -246,17 +245,17 @@
           :hide-prev-button true
           }
 
-         [:#ss-secondary-menu-action-terminate]
+         ; NOTE: Terminating the run when the tour on this step stops the tour, because the modal dialog to confirm the termination make the tour
+         ;       step disappear. As a workaround we display this step not attached to the [:#ss-secondary-menu-action-terminate] as before, but as
+         ;       a floating step.
+         nil
          {:title "Terminate the deployment"
-          :content "Click here to terminate your Wordpress instance and stop using resources in this cloud."
-          :placement "bottom"
-          :width "300px"
-          :preserve-padding true
+          :content "After finishing the tour you can terminate your Wordpress instance and stop using resources in this cloud by clicking on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-ban-circle' style='display:inline;'></span>&nbsp;Terminate</span> in the right part of the page."
           }
 
          :.ss-action-documentation
          {:title "Before we leave"
-          :content "Remember that you have access to the SlipStream documentation and other help pointers on all pages."
+          :content "Remember that you have access to the SlipStream documentation and other help pointers on all pages. And you can restart this tour at any time."
           :placement "left"
           :container-sel "body"
           :preserve-padding true
@@ -267,8 +266,7 @@
           :content (str "<div style='font-size: 64px;text-align:center;'>&#x1F680</div>"
                         "You completed your first deployment! Now you are all set to go and simply your deployments with SlipStream."
                         "<br/><br/>"
-                        "We hope you well enjoy using SlipStream. And don't hesitate to contact us if you have any question or concern"
-                        " using the support tabs at the bottom and right parts of any page in the application for a message or a live chat."
+                        "We hope you well enjoy using SlipStream."
                         "<br/><br/>"
                         "We would greatly appreciate if you <b><a href='mailto:support@sixsq.com?Subject=%5Balice-tour%5D%20Toughts%20after%20completion&Body=Dear%20SixSq%20Team%2C%0A%0AI%20just%20finished%20the%20discovery%20tour%20in%20SlipStream%20and%20successfully%20deployed%20a%20Wordpress%20application.%0A%0AI%20think%20that%20'>tell us what you think about this tour</a></b>.")
           :width "500px"}
@@ -343,11 +341,12 @@
 
      :navigate-back-to-welcome
      [
-        [:#topbar :> :div :> :div :> :div.navbar-header :> :a]
-        {:title "Back to the main page"
-         :content "Now that you have at least one cloud configured, click on the SlipStream logo to back to the AppStore on the main page."
+        [:#topbar :.ss-action-appstore]
+        {:title "Back to the App Store"
+         :content "Now that you have at least one cloud configured, click here to go back to the AppStore."
          :placement "bottom"
          :preserve-padding true
+         :width "300px"
          }
       ]
 

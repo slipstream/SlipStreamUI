@@ -8,7 +8,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         nextTourName        = tourBaseName + ".wordpress-running";
 
     function disableIrrelevantLinks() {
-        $(".ss-dynamic-subsection a")
+        $(".ss-dynamic-content a")
             .not("[href^='run/" + wordpressRunId + "']")
                 .removeAttr("href");
     }

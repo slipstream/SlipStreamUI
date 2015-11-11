@@ -116,13 +116,19 @@
 
     ["logout"]                (render :pagename "logout")
 
-    ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
-    ["welcome-nuvla"]         (binding [slipstream.ui.util.theme/*current-theme* "nuvla"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view"))
-    ["welcome-helixnebula"]   (binding [slipstream.ui.util.theme/*current-theme* "helixnebula"] (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view"))
-    ["welcome-with-tour-with-connectors"]     (render :pagename "welcome" :raw-metadata-ns "welcome-with-connectors"    :type "view" :query-parameters {:start-tour "yes"})
-    ["welcome-with-tour-without-connectors"]  (render :pagename "welcome" :raw-metadata-ns "welcome-without-connectors" :type "view" :query-parameters {:start-tour "yes"})
-    ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
-    ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
+    ["dashboard"]                               (render :pagename "dashboard"   :raw-metadata-ns "dashboard")
+    ["dashboard-tour-intro-without-connectors"] (render :pagename "dashboard"   :raw-metadata-ns "dashboard" :query-parameters {:cloud "CloudB" :wordpress-run-id "6269f657" :tour "alice.intro-without-connectors.wordpress-in-dashboard"})
+
+    ["appstore"]             (render :pagename "appstore"   :raw-metadata-ns "appstore")
+    ; ["module"]               (render :pagename "modules"    :raw-metadata-ns "appstore")
+
+    ; ["welcome"]               (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view")
+    ; ["welcome-nuvla"]         (binding [slipstream.ui.util.theme/*current-theme* "nuvla"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view"))
+    ; ["welcome-helixnebula"]   (binding [slipstream.ui.util.theme/*current-theme* "helixnebula"] (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "view"))
+    ; ["welcome-with-tour-with-connectors"]     (render :pagename "welcome" :raw-metadata-ns "welcome-with-connectors"    :type "view" :query-parameters {:start-tour "yes"})
+    ; ["welcome-with-tour-without-connectors"]  (render :pagename "welcome" :raw-metadata-ns "welcome-without-connectors" :type "view" :query-parameters {:start-tour "yes"})
+    ; ["welcome-regular-user"]  (render :pagename "welcome"         :raw-metadata-ns "welcome-regular-user" :type "view")
+    ; ["welcome-chooser"]       (render :pagename "welcome"         :raw-metadata-ns "welcome" :type "chooser")
 
     ["service_catalog"]       (render :pagename "service_catalog" :raw-metadata-ns "service-catalog")
 
@@ -153,9 +159,6 @@
 
     ["versions"]              (render :pagename "versions"        :raw-metadata-ns "versions" :type "view")
     ["versions-chooser"]      (render :pagename "versions"        :raw-metadata-ns "versions" :type "chooser")
-
-    ["dashboard"]                               (render :pagename "dashboard"   :raw-metadata-ns "dashboard")
-    ["dashboard-tour-intro-without-connectors"] (render :pagename "dashboard"   :raw-metadata-ns "dashboard" :query-parameters {:cloud "CloudB" :wordpress-run-id "6269f657" :tour "alice.intro-without-connectors.wordpress-in-dashboard"})
 
     ["runs"]                  (render :pagename "runs"            :raw-metadata-ns "runs")
     ["runs-paginated"]        (render :pagename "runs"            :raw-metadata-ns "runs-paginated")
