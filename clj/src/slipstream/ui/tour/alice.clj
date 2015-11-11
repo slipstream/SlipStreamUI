@@ -245,17 +245,17 @@
           :hide-prev-button true
           }
 
-         [:#ss-secondary-menu-action-terminate]
+         ; NOTE: Terminating the run when the tour on this step stops the tour, because the modal dialog to confirm the termination make the tour
+         ;       step disappear. As a workaround we display this step not attached to the [:#ss-secondary-menu-action-terminate] as before, but as
+         ;       a floating step.
+         nil
          {:title "Terminate the deployment"
-          :content "Click here to terminate your Wordpress instance and stop using resources in this cloud."
-          :placement "bottom"
-          :width "300px"
-          :preserve-padding true
+          :content "After finishing the tour you can terminate your Wordpress instance and stop using resources in this cloud by clicking on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-ban-circle' style='display:inline;'></span>&nbsp;Terminate</span> in the right part of the page."
           }
 
          :.ss-action-documentation
          {:title "Before we leave"
-          :content "Remember that you have access to the SlipStream documentation and other help pointers on all pages."
+          :content "Remember that you have access to the SlipStream documentation and other help pointers on all pages. And you can restart this tour at any time."
           :placement "left"
           :container-sel "body"
           :preserve-padding true
