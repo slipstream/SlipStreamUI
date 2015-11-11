@@ -43,15 +43,15 @@
       {:title "Important note!"
        :content (str "You will be deploying Wordpress, which is a Web application that will be accessible on"
                      " the port <code>8080</code> of the target machine."
-                     " Since SlipStream is not currently able to manage the firewall rules and security groups"
-                     " on your behalf (we are busy working on it, though), <strong>you will have to make sure that at least the"
-                     " port <code>8080</code> is open in the security groups of the cloud you are targeting</strong>."
+                     " In most cases you don't have to take any special action about this because SlipStream does basic management of"
+                     " firewalls on clouds that support it, i.e. all clouds except the StratusLab based ones. For those"
+                     " clouds, you may need to manually open firewalls (security groups) for your applications."
                      "<br/><br/>"
                      "You might read "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
                      (link-to-external-url :ec2/using-network-security "Amazon")
                      " or "
                      (link-to-external-url :exoscale/introduction-to-security-groups "Exoscale")
-                     " to learn how to do it.")
+                     " to learn more about it.")
        :width "400px"}
 
       [:div (ue/first-of-class "ss-example-app-in-tour")]
