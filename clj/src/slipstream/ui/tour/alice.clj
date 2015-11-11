@@ -44,8 +44,8 @@
        :content (str "You will be deploying Wordpress, which is a Web application that will be accessible on"
                      " the port <code>8080</code> of the target machine."
                      " In most cases you don't have to take any special action about this because SlipStream does basic management of"
-                     " firewalls on clouds that support it, i.e. all clouds except the StratusLab based ones. For those"
-                     " clouds, you may need to manually open firewalls (security groups) for your applications."
+                     " firewalls on clouds that support it. For those clouds that don't support it (e.g. StratusLab or vCloud based ones),"
+                     " you may need to manually open firewalls (security groups) for your applications."
                      "<br/><br/>"
                      "You might read "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
                      (link-to-external-url :ec2/using-network-security "Amazon")
@@ -153,7 +153,7 @@
 
       [:#ss-section-group-0 :> [:div.panel.ss-section.panel-default (html/nth-child 3)]]
       {:title "Global run parameters"
-       :content (str "This and the following sections contain a lot of detailed information about the run and the deployed machines. Here you can find machine IP addresses, deployment errors, and other parameters."
+       :content (str "This and the following sections contain a lot of detailed information about the run and the deployed machines where you can find machine IP addresses, deployment errors, and other parameters."
                      "<br/><br/>"
                      "Throughout SlipStream you can hover over the <span class='glyphicon glyphicon-question-sign'></span> to reveal a detailed explanation of the corresponding item.")
        :placement "top"}
@@ -266,8 +266,7 @@
           :content (str "<div style='font-size: 64px;text-align:center;'>&#x1F680</div>"
                         "You completed your first deployment! Now you are all set to go and simply your deployments with SlipStream."
                         "<br/><br/>"
-                        "We hope you well enjoy using SlipStream. And don't hesitate to contact us if you have any question or concern"
-                        " using the support tabs at the bottom and right parts of any page in the application for a message or a live chat."
+                        "We hope you well enjoy using SlipStream."
                         "<br/><br/>"
                         "We would greatly appreciate if you <b><a href='mailto:support@sixsq.com?Subject=%5Balice-tour%5D%20Toughts%20after%20completion&Body=Dear%20SixSq%20Team%2C%0A%0AI%20just%20finished%20the%20discovery%20tour%20in%20SlipStream%20and%20successfully%20deployed%20a%20Wordpress%20application.%0A%0AI%20think%20that%20'>tell us what you think about this tour</a></b>.")
           :width "500px"}
