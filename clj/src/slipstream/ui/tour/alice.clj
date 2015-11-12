@@ -8,8 +8,8 @@
   "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
 (def ^:private external-links
-  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/standalone_images.html"
-   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/accounts.html#cloud-infrastructure-accounts"
+  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/index.html"
+   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/index.html"
    :ec2/using-network-security                "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"
    :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/tutorial/introduction-to-security-groups/"})
 
@@ -33,7 +33,7 @@
    [
       :a.ss-action-appstore
       {:title "App Store"
-       :content "You are now on the App Store of SlipSteram. Here you can find a curated list of deployable applications. We will be discovering the other sections during the tour."
+       :content "You are now on the App Store of SlipStream. Here you can find a curated list of deployable applications. We will be discovering the other sections during the tour."
        :preserve-padding true
        :placement "bottom"
        :width "300px"
@@ -47,7 +47,7 @@
                      " firewalls on clouds that support it. For those clouds that don't support it (e.g. StratusLab or vCloud based ones),"
                      " you may need to manually open firewalls (security groups) for your applications."
                      "<br/><br/>"
-                     "You might read "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
+                     "You might read the firewall section in "(link-to-external-url :ssdocs/standalone-images "our documentation") " and the documentation of your cloud provider, e.g. "
                      (link-to-external-url :ec2/using-network-security "Amazon")
                      " or "
                      (link-to-external-url :exoscale/introduction-to-security-groups "Exoscale")
@@ -93,11 +93,11 @@
 
       [:.ss-run-image-input-parameters-section]
       {:title "Input parameters"
-       :content (str "Each application might define one or more input parameters to customise the deployment."
+       :content (str "Each application might define one or more input parameters to customize the deployment."
                      " You might modify these values or leave them with the default values."
                      " They are not related to SlipStream but to the application being deployed."
                      "<br/><br/>"
-                     " In this case, you might personalise the <strong>title</strong> and the <strong>email</strong> of the administrator of the Wordpress that your are deploying.")
+                     " In this case, you might personalize the <strong>title</strong> and the <strong>email</strong> of the administrator of the Wordpress that your are deploying.")
        :container-sel "#ss-run-module-dialog"
        :preserve-padding true
        :placement "right"
@@ -198,7 +198,7 @@
                       " The top limit is the quota you are allowed to consume at the same time for this cloud."
                       " Contact the administrator of this SlipStream instance if you need to change it."
                       "<br/><br/>"
-                      "Click here, and then click next, to see the runs you did on this cloud.")
+                      "Click on this gauge, and then click next, to see the runs you started on this cloud.")
        :container-sel "body"
        :preserve-padding true
        :width "330px"
@@ -264,9 +264,9 @@
          nil
          {:title "Congratulations!"
           :content (str "<div style='font-size: 64px;text-align:center;'>&#x1F680</div>"
-                        "You completed your first deployment! Now you are all set to go and simply your deployments with SlipStream."
+                        "You completed your first deployment! Now you are all set to go and simplify your deployments with SlipStream."
                         "<br/><br/>"
-                        "We hope you well enjoy using SlipStream."
+                        "We hope you will enjoy using SlipStream."
                         "<br/><br/>"
                         "We would greatly appreciate if you <b><a href='mailto:support@sixsq.com?Subject=%5Balice-tour%5D%20Toughts%20after%20completion&Body=Dear%20SixSq%20Team%2C%0A%0AI%20just%20finished%20the%20discovery%20tour%20in%20SlipStream%20and%20successfully%20deployed%20a%20Wordpress%20application.%0A%0AI%20think%20that%20'>tell us what you think about this tour</a></b>.")
           :width "500px"}
@@ -293,7 +293,7 @@
         {
          :title "Cloud credentials"
          :content (str "If you already have an account with a cloud provider, have your credentials handy (usually a <code>user/password</code> or a <code>key/secret</code> pair). "
-                       "If not, please create one following the procedure in our " (link-to-external-url :ssdocs/cloud-infrastructure-accounts "documentation") ". "
+                       "If not, please create one following the procedure in the accounts section of our " (link-to-external-url :ssdocs/cloud-infrastructure-accounts "documentation") ". "
                        "<br/><br/>"
                        "When your cloud account is ready, go to the next step to learn how to set the credentials in your SlipStream user profile.")
          }
