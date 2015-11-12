@@ -4,6 +4,7 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.models.module.util :as mu]
             [slipstream.ui.models.runs :as runs]
             [slipstream.ui.models.parameters :as parameters]))
 
@@ -45,63 +46,21 @@
 
 ;; Targets section
 
-(defn- conj-recipe-target
-  [v target-name metadata]
-  (let [recipe (-> metadata
-                   (html/select [(keyword target-name) html/text-node])
-                   first)]
-    (conj v {:target-name target-name
-             :target-type :script
-             :context     #{:image-creation}
-             :script      recipe})))
-
-(defn- parse-package
-  [package-metadata]
-  (select-keys (:attrs package-metadata) [:key :name :repository]))
-
-(defn- conj-packages-target
-  [v target-name metadata]
-  (let [packages (->> (html/select metadata [:package])
-                      (map parse-package)
-                      (sort-by :name)
-                      vec)]
-    (conj v {:target-name "packages"
-             :target-type :packages
-             :context     #{:image-creation}
-             :packages    packages})))
-
-(defn- conj-script-target
-  [v target-name metadata]
-  (let [script (-> metadata
-                  (html/select [[:target (html/attr= :name target-name)] html/text-node])
-                  first)]
-    (conj v {:target-name target-name
-             :target-type :script
-             :context     (conj #{:ss-client-access}
-                            (case target-name
-                              ("execute"
-                               "report")      :deployment
-                              ("onvmadd"
-                               "onvmremove"
-                               "prescale"
-                               "postscale")   :scaling))
-             :script      script})))
-
 (defn- targets
   [metadata]
   (-> []
       ; Image creation recipes and packages
-      (conj-recipe-target   "prerecipe"   metadata)
-      (conj-packages-target "packages"    metadata)
-      (conj-recipe-target   "recipe"      metadata)
+      (mu/conj-recipe-target   "prerecipe"   metadata)
+      (mu/conj-packages-target "packages"    metadata)
+      (mu/conj-recipe-target   "recipe"      metadata)
       ; Deployment recipes
-      (conj-script-target   "execute"     metadata)
-      (conj-script-target   "report"      metadata)
-      (conj-script-target   "onvmadd"     metadata)
-      (conj-script-target   "onvmremove"  metadata)
+      (mu/conj-script-target   "execute"     metadata)
+      (mu/conj-script-target   "report"      metadata)
+      (mu/conj-script-target   "onvmadd"     metadata)
+      (mu/conj-script-target   "onvmremove"  metadata)
       ; NOTE: To display the prescale and postscale scripts, just decomment these 2 lines:
-      ; (conj-script-target   "prescale"    metadata)
-      ; (conj-script-target   "postscale"   metadata)
+      ; (mu/conj-script-target   "prescale"    metadata)
+      ; (mu/conj-script-target   "postscale"   metadata)
       ))
 
 

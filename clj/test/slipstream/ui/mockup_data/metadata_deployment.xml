@@ -2,6 +2,9 @@
    <authz groupCreateChildren="false" groupDelete="true" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="alice" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="true" publicGet="true" publicPost="true" publicPut="true">
       <groupMembers class="java.util.ArrayList"/>
    </authz>
+   <targets class="org.hibernate.collection.internal.PersistentSet">
+      <target name="execute"><![CDATA[execute recipe for orchestrator]]></target>
+   </targets>
    <commit author="alice">
       <comment>Initial version of this deployment.</comment>
    </commit>
