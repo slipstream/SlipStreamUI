@@ -242,9 +242,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             iframe.attr('src',url);
         },
 
+        updateEvents: function() {
+            $("#events").trigger("ss-dynamic-content-reload", {withLoadingScreen: false});
+        },
+
         autoupdateRunPage: function() {
             console.log("Updating run page...");
             run.updateReports();
+            run.updateEvents();
             return ! runModel
                         .refresh()
                         .isInFinalState();
@@ -272,5 +277,3 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.run = run;
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
-
-
