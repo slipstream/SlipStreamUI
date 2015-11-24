@@ -18,6 +18,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(".ss-login-error-on-mobile-alert").fadeIn().delay(2000).fadeOut();
             }
         })
+        .onErrorStatusCodeAlert(500, "Authentication internal error",
+                                      "Error in contacting authentication server. Please contact administrator.")
+        .onErrorStatusCode(500, function(){
+            var $loginErrorAlert = $(".ss-login-error-on-mobile-alert"),
+                shouldFadeIn = $loginErrorAlert.prev().is(":visible");
+            if ( shouldFadeIn ) {
+                $(".ss-login-error-on-mobile-alert").fadeIn().delay(2000).fadeOut();
+            }
+        })
         .onSuccessFollowRedirectInURL()
         .useToSubmitForm("#login");
 
