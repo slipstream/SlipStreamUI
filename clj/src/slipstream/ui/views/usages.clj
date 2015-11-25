@@ -10,7 +10,7 @@
 
 (defn- frequency-subsection
   [parsed-metadata include-content? frequency]
-  {:title   (str "TODO" frequency)
+  {:title   (t (keyword (format "content.subsection.%s.title" (name frequency))))
    :content (if (-> parsed-metadata :usages empty?)
               (t :no-usages)
               (ue/dynamic-content-snip
