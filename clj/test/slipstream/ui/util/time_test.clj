@@ -324,6 +324,11 @@
   (localization/with-lang :en
     (format :date-short "2013-01-05T00:27:12.471Z")))
 
+(expect
+  "January 2013"
+  (localization/with-lang :en
+                          (format :month-year "2013-01-05T00:27:12.471Z")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; relative

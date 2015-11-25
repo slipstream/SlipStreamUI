@@ -98,6 +98,7 @@
     :human-readable-short  (f/formatter "d MMM yyyy, HH:mm:ss zzz")
     :date-short            (f/formatter "d MMM yyyy")
     :date                  (f/formatter "d MMMM yyyy")
+    :month-year            (f/formatter "MMMM yyyy")
     :relative              :relative
     (throw (IllegalArgumentException.
                (str "formatter " formatter " not valid.")))))
