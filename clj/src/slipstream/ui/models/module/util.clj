@@ -31,7 +31,7 @@
 (defn conj-script-target
   [v target-name metadata & [target-machine-type]]
   (let [script (-> metadata
-                  (html/select [[:target (html/attr= :name target-name)] html/text-node])
+                  (html/select [html/root :> :targets :> [:target (html/attr= :name target-name)] html/text-node])
                   first)]
     (conj v {:target-name target-name
              :target-type :script
