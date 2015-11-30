@@ -18,10 +18,6 @@
     :ja
     :fr})
 
-(def ^:private available-themes
-  "See 'available-languages' above for documentation."
-  #{"helixnebula"})
-
 (def ^:private lang-resources-dir "lang")
 
 (def ^:private spot-missing-t-calls-mode? false)
@@ -39,8 +35,6 @@
   setup for the current thread."
   nil)
 
-
-
 (defn locale
   "Returns valid Locale matching given the current *lang*"
   []
@@ -51,13 +45,13 @@
 
 (defn- prefix-with-theme
   [theme k]
-  (->> k name (str theme ".") keyword))
+  (->> k name (str (name theme) ".") keyword))
 
 (defn- merge-themes-localizations
   [lang-resource-filename lang-base-dict]
   (loop [dict         lang-base-dict
-         theme        (first  available-themes)
-         next-themes  (next   available-themes)]
+         theme        (first  theme/available-themes)
+         next-themes  (next   theme/available-themes)]
     (let [theme-lang-resource-filename (str (theme/resources-folder theme) lang-resource-filename)
           lang-theme-dict (-> theme-lang-resource-filename
                               (uc/read-resource {})

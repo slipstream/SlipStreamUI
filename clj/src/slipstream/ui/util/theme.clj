@@ -7,11 +7,18 @@
 ;;
 ;;       Later, the theme will be provided by the server in the metadata.
 
+(def available-themes
+  "See 'slipstream.ui.util.localization/available-languages' for documentation."
+  #{:helixnebula
+    :nuvla})
+
 (def ^:dynamic ^:private *current-theme*
+  "NB: If the theme declared in the property is not in the list above, the default
+  SlipStream theme will be used. This allows e.g. to setup 'theme=default' to use
+  the default theme."
   ; nil
-  ; "helixnebula"
-  (System/getProperty "slipstream.ui.util.theme.current-theme")
-  )
+  ; :helixnebula
+  (-> "slipstream.ui.util.theme.current-theme" System/getProperty keyword available-themes))
 
 (defn current
   []
@@ -24,10 +31,10 @@
 
 (defn static-content-folder
   [theme]
-  (when (not-empty theme)
+  (when theme
     (str themes-resources-folder "/" (name theme) "/")))
 
 (defn resources-folder
   [theme]
-  (when (not-empty theme)
+  (when theme
     (str static-content-resources-folder "/" (static-content-folder theme))))
