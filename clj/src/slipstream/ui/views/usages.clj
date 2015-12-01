@@ -10,13 +10,14 @@
 
 (defn- frequency-subsection
   [parsed-metadata include-content? frequency]
-  {:title   (t (keyword (format "content.subsection.%s.title" (name frequency))))
-   :content (if (-> parsed-metadata :usages empty?)
-              (t :no-usages)
-              (ue/dynamic-content-snip
-                :content-load-url (format "/usage?offset=0&filter=frequency='%s'" (name frequency))
-                :content-id (str "ss-usages-table-" (name frequency))
-                :content (when include-content? (t/usages-table parsed-metadata))))})
+  (let [subsection-id (str "ss-usages-table-" (name frequency))]
+    {:title   (t (keyword (format "content.subsection.%s.title" (name frequency))))
+     :content (if (-> parsed-metadata :usages empty?)
+                (ue/text-div-snip (t :no-usages) :id subsection-id)
+                (ue/dynamic-content-snip
+                  :content-load-url (format "/usage?offset=0&filter=frequency='%s'" (name frequency))
+                  :content-id       subsection-id
+                  :content          (when include-content? (t/usages-table parsed-metadata))))}))
 
 (def displayed-frequencies [:daily :weekly :monthly])
 
