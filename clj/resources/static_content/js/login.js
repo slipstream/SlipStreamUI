@@ -4,9 +4,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $$.request
         .post()
         .onErrorStatusCodeAlert(500, "Server Error",
-            "Sorry, something unexpected happend while processing your registration request.")
+            "Sorry, something unexpected happened while processing your registration request.")
         .onSuccessAlert("Registration successful",
-            "You will receive in short an email with instructions to validate the account.")
+            "You will shortly receive an email with instructions to validate the account.")
         .validation( function(){
           return $("form#register")
                       .bootstrapValidator("validate")
