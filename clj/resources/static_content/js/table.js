@@ -153,9 +153,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
     });
 
     $(".ss-subsection-content-spinner").each(function() {
-        $(this)
-            .closest(".ss-dynamic-content")
-                .trigger("ss-dynamic-content-reload", {withLoadingScreen: false});
+        var $dynamicContentElem = $(this).closest(dynamicContentSel),
+            contentSelector     = $dynamicContentElem.data("content-selector"),
+            eventData = {withLoadingScreen: false};
+        if ( contentSelector !== undefined ) {
+            eventData.newContentSel = contentSelector;
+        }
+        $dynamicContentElem.trigger("ss-dynamic-content-reload", eventData);
     });
 
     $("body").on("click", "button.ss-pagination-separator-btn", function() {

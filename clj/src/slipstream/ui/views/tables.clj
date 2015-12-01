@@ -1,6 +1,8 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
   (:require [clojure.string :as s]
+            [clj-time.core :as ctime]
+            [clj-time.format :as format]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.pattern :as pattern]
@@ -8,6 +10,7 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
+            [slipstream.ui.util.time :as time]
             [slipstream.ui.views.table :as table]
             [slipstream.ui.models.parameters :as p]))
 
@@ -980,14 +983,25 @@
        (map (fn[[k v]] [k (-> v :unit_minutes (uc/format-metric-value k))]))
        (into {})))
 
+(defn format-period
+  [frequency start_timestamp]
+  (case (keyword frequency)
+    :daily    (time/format :date start_timestamp)
+    :weekly   (let [dt-plus-6-days (-> start_timestamp time/parse (ctime/plus (ctime/days 6)))
+                    plus-6-days (format/unparse (:date-time format/formatters) dt-plus-6-days)]
+                (str
+                  (time/format :date-short start_timestamp)
+                  " - "
+                  (time/format :date-short plus-6-days)))
+    :monthly  (time/format :month-year start_timestamp)))
+
 (defn- usage-row
-  [{:keys [start_timestamp cloud usage]}]
+  [{:keys [frequency start_timestamp cloud usage]}]
   {:style nil
    :cells [{:type :cell/icon,       :content icons/usage}
-           {:type :cell/date-short, :content start_timestamp}
+           {:type :cell/text,       :content (format-period frequency start_timestamp)}
            {:type :cell/text,       :content cloud}
-           {:type :cell/map,        :content (format-usage-values usage)}
-           ]})
+           {:type :cell/map,        :content (format-usage-values usage)}]})
 
 (defn usages-table
   [metadata]

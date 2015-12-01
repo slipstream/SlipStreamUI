@@ -890,12 +890,15 @@
    :slipstream.ui.views.events.content.title                   :global.nouns.events
    :slipstream.ui.views.events.no-events                       "There are no events to show."
 
-   :slipstream.ui.views.usages.header.title                    :global.nouns.usage
-   :slipstream.ui.views.usages.header.subtitle                 "Usage across your clouds."
-   :slipstream.ui.views.usages.content.title                   "Usage list"
-   :slipstream.ui.views.usages.no-usages                       "There are no usage items to show."
+   :slipstream.ui.views.usages.header.title                     :global.nouns.usage
+   :slipstream.ui.views.usages.header.subtitle                  "Usage across your clouds."
+   :slipstream.ui.views.usages.content.title                    "Usage list"
+   :slipstream.ui.views.usages.content.subsection.daily.title   "Daily"
+   :slipstream.ui.views.usages.content.subsection.weekly.title  "Weekly"
+   :slipstream.ui.views.usages.content.subsection.monthly.title "Monthly"
+   :slipstream.ui.views.usages.no-usages                        "There are no usage items to show."
 
- :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
+   :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"

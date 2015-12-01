@@ -414,8 +414,9 @@
 ;; See tests for expectations
 
 (def-blank-snippet text-div-snip :div
-  [text & {:keys [css-class html]}]
+  [text & {:keys [css-class id html]}]
   this (set-class css-class)
+  this (when-set-id id)
   this ((if html html/html-content html/content) (str text)))
 
 ; Returns a 'pre' tag with the argument pretty-printed. Intented to dump clojure
