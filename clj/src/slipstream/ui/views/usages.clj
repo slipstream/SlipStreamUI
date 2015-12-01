@@ -25,8 +25,6 @@
   [metadata]
   (let [parsed-metadata (usages/parse metadata)
         frequency (slipstream.ui.util.dev-traces/>>> some->> metadata meta :request :query-parameters :filter (re-find #"frequency='(daily|weekly|monthly)'") second keyword)]
-    (println (some->> metadata meta :request :query-parameters :filter))
-    (println frequency)
     (if frequency
       [(frequency-subsection parsed-metadata true frequency)]
       [{:title (t :content.title)
