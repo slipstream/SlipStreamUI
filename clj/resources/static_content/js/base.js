@@ -92,12 +92,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             disableBlankParamInputs(
                 $(".ss-table-with-blank-last-row tbody tr td:first-child input:first-child")
             );
-            // Add scripts as hidden form fields
-            $("pre.ss-code-editor").each(function (){
-                var thisId = $(this).attr("id"),
-                    code = $$.codeArea.getCode(thisId);
-                $form.addFormHiddenField(thisId + "--script", code);
-            });
         } else if (module.isOfCategory("deployment")) {
             // Disable deployment nodes without name or image or nodes flagges
             // to be removed to prevent to be sent with the form request.
@@ -125,6 +119,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             $form.addFormHiddenField(fieldName, rawValue);
                         }
                     });
+        }
+        if (module.isOfCategory("deployment") || module.isOfCategory("image")) {
+            // Add scripts as hidden form fields
+            $("pre.ss-code-editor").each(function (){
+                var thisId = $(this).attr("id"),
+                    code = $$.codeArea.getCode(thisId);
+                $form.addFormHiddenField(thisId + "--script", code);
+            });
         }
     }
 

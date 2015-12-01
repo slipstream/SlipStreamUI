@@ -4,6 +4,7 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.pagination :as pagination]
+            [slipstream.ui.views.module.util :as mu]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
 
@@ -21,6 +22,12 @@
       (if (page-type/chooser?)
           (t :empty-content-hint.on-chooser)
           (t :empty-content-hint (-> module :summary :uri (u/module-uri :edit true)))))))
+
+; Section :targets
+
+(defmethod middle-section-content :targets
+  [_ section-metadata _]
+  (map mu/target-subsection section-metadata))
 
 ; Section "runs"
 
@@ -43,7 +50,8 @@
 
 (defn- visible-middle-sections
   []
-  (cond-> [:nodes]
+  (cond-> [:nodes
+           :targets]
    (page-type/view?) (conj :runs)))
 
 (defn middle-sections

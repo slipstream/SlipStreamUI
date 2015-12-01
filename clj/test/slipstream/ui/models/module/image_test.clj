@@ -11,10 +11,12 @@
 (def parsed-metadata
   {:targets [{:target-type  :script
               :target-name  "prerecipe"
+              :target-machine-type :application-component
               :context      #{:image-creation}
               :script       nil}
              {:target-type  :packages
               :target-name  "packages"
+              :target-machine-type :application-component
               :context      #{:image-creation}
               :packages   [{:repository "repo_1"
                             :name       "package_1"
@@ -24,21 +26,26 @@
                             :key        "key_2"}]}
              {:target-type  :script
               :target-name  "recipe"
+              :target-machine-type :application-component
               :context      #{:image-creation}
               :script       nil}
              {:target-type  :script
               :target-name  "execute"
+              :target-machine-type :application-component
               :context      #{:deployment :ss-client-access}
               :script       "deployement recipe"}
              {:target-type  :script
               :target-name  "report"
+              :target-machine-type :application-component
               :context      #{:deployment :ss-client-access}
               :script       nil}
              {:target-type  :script
+              :target-machine-type :application-component
               :context      #{:scaling :ss-client-access}
               :target-name  "onvmadd"
               :script       nil}
              {:target-type  :script
+              :target-machine-type :application-component
               :context      #{:scaling :ss-client-access}
               :target-name  "onvmremove"
               :script       nil}]

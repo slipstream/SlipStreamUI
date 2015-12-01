@@ -3,6 +3,7 @@
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
+            [slipstream.ui.models.module.util :as mu]
             [slipstream.ui.models.runs :as runs]))
 
 (defn- parse-parameter-mapping
@@ -43,6 +44,15 @@
     (conj (vec items) {:template-node? true})
     items))
 
+;; Targets section
+
+(defn- targets
+  [metadata]
+  (-> []
+      ; Deployment recipes
+      (mu/conj-script-target "execute" metadata :orchestrator)
+      ))
+
 (defn sections
   [metadata]
   (let [cloud-names (html/select metadata [:cloudNames :string html/text])]
@@ -50,4 +60,5 @@
                  (sort-by (comp :name :attrs)) ; Sort before adding the blank template row.
                  append-template-node-in-edit-mode
                  (map (partial parse-node cloud-names)))
+     :targets    (targets metadata)
      :runs       (runs/parse metadata)}))

@@ -5,7 +5,7 @@
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.pagination :as pagination]
-            [slipstream.ui.views.code-area :as code-area]
+            [slipstream.ui.views.module.util :as mu]
             [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.views.tables :as t]))
 
@@ -13,12 +13,6 @@
 
 (defmulti middle-section-content
   (fn [module section-title section-metadata metadata-key] metadata-key))
-
-(defn- code-area
-  [code id]
-  (code-area/build code
-                   :id id
-                   :editable? (page-type/edit-or-new?)))
 
 ; Section :cloud-configuration
 
@@ -31,35 +25,11 @@
   [_ _ section-metadata _]
   (map category-section section-metadata))
 
-; Section :recipes
+; Section :targets
 
-(localization/with-prefixed-t :section.targets.subsection
-
-  (defmulti target-subsection :target-type)
-
-  (defmethod target-subsection :script
-    [{:keys [target-name script context]}]
-    {:title   (->  target-name (str ".title") t)
-     :content [(-> target-name (str ".description") t (ue/text-div-snip :css-class "ss-target-description"
-                                                                        :html true))
-               (code-area script target-name)
-               (when (context :ss-client-access)
-                 (ue/text-div-snip (t :ss-commands-documentation)
-                                   :css-class "ss-target-description-bottom"
-                                   :html true))]})
-
-  (defmethod target-subsection :packages
-    [{:keys [target-name packages]}]
-    {:title   (-> target-name (str ".title") t)
-     :content (if (or (page-type/edit-or-new?) (not-empty packages))
-                (t/image-creation-packages-table packages)
-                (-> target-name (str ".empty-content-hint") t))})
-
-  (defmethod middle-section-content :targets
-    [_ _ section-metadata _]
-    (map target-subsection section-metadata))
-
-) ; End of prefixed-t scope
+(defmethod middle-section-content :targets
+  [_ _ section-metadata _]
+  (map mu/target-subsection section-metadata))
 
 ; Section :runs
 
