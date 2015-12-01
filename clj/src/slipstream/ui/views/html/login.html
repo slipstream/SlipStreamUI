@@ -30,6 +30,7 @@
             <!-- method="post" enctype="application/x-www-form-urlencoded"-->
             <form id="register"
             action="/register"
+            autocomplete="off"
             data-bv-live="enabled"
             class="form-horizontal"
             data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
@@ -41,6 +42,10 @@
               <label class="sr-only" for="username">Username</label>
               <input type="text" class="form-control ss-input-pick-username" name="username"
               placeholder="Pick a username"
+
+              autocomplete="off"
+              readonly
+              onfocus="this.removeAttribute('readonly');"
 
               data-bv-message="The username is not valid"
 
