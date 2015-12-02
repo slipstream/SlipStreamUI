@@ -68,12 +68,13 @@
    :deploying-wordpress
    [
       nil
-      {:title "Run dialog"
-       :content (str "We are now on the WordPress SlipStream image page and the <span class='panel-primary'><h4 class='modal-header panel-heading'>Run image</h4></span> dialog behind has been automatically opened."
-                     " If you need to open it again, click on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-cloud-upload' style='display:inline;'></span>&nbsp;Run...</span> in the right part of the page."
+      {:title "Deploy dialog"
+       :content (str "We are now on the WordPress application component page and the <span class='panel-primary'><h4 class='modal-header panel-heading'>Deploy Application Component</h4></span> dialog behind has been automatically opened."
+                     " If you need to open it again, click on the menu action <span style='color:#54A9DE;background-color:#393939;font-weight:400;padding:2px 8px;'><span class='glyphicon glyphicon-cloud-upload' style='display:inline;'></span>&nbsp;Deploy...</span> in the right part of the page."
                      " In this dialog you can specify the values of some parameters for the deployment."
                      "<br/><br/>"
-                     "Click " next-button-label " to learn how to configure and launch WordPress.")}
+                     "Click " next-button-label " to learn how to configure and launch WordPress.")
+       :width "450px"}
 
       [:#ss-run-module-dialog #{:#parameter--cloudservice :#global-cloud-service}]
       {:title "Choose the cloud"
@@ -105,7 +106,7 @@
 
       [:#ss-run-module-dialog :button.btn.btn-primary.ss-ok-btn]
       {:title "Ready to deploy"
-       :content "Click on <span style='color:#fff;background-color:#337ab7;padding: 4px 8px;font-weight:normal;'>Run image</span> when you are ready to go."
+       :content "Finally click here when you are ready to go."
        :container-sel "#ss-run-module-dialog"
        :wrap-in-elem   [:span]
        :placement "right"
