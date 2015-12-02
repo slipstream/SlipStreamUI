@@ -47,7 +47,8 @@
   background-color: #86bdff;
 }
 
-.ss-menubar-logged-in .navbar-nav li > a:active {
+.ss-menubar-logged-in .navbar-nav li > a:active,
+.ss-menubar-logged-in .navbar-nav li > a.active  {
   color: inherit;
   background-color: #86bdff;
 }
