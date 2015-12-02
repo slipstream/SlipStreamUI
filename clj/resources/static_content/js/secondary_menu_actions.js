@@ -107,7 +107,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                " <code class='text-success'>" + module.getFullName() + "</code>" +
                " (v " + module.getVersion() + ") was successfully " +
                (isPublished ? "published in" : "removed from") +
-               " the public <a href='/#app-store' class='text-success'>App Store</a>.";
+               " the public <a href='/appstore' class='text-success'>App Store</a>.";
     }
 
     $("#ss-secondary-menu-action-publish").clickWhenEnabled( function() {

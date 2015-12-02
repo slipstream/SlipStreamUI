@@ -933,11 +933,11 @@
    :slipstream.ui.views.module.help-hint.link-to-history            "The version history gives you an overview of all versions of this module and allows you to switch to a different version."
 
    :slipstream.ui.views.module.alert.view-published.title           "Published %1$s version" ;  %1$s = category: image, project or deployment; %2$s = version
-   :slipstream.ui.views.module.alert.view-published.msg!            "This version (%2$s) of the %1$s is currently published in the <a href='/'>App Store</a>." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-published.msg!            "This version (%2$s) of the %1$s is currently published in the <a href='/appstore'>App Store</a>." ;  %1$s = category: image, project or deployment; %2$s = version
    :slipstream.ui.views.module.alert.view-chooser-published.title   "Published %1$s version" ;  %1$s = category: image, project or deployment; %2$s = version
-   :slipstream.ui.views.module.alert.view-chooser-published.msg!    "This version (%2$s) of the %1$s is currently published in the <a href='/'>App Store</a>." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.view-chooser-published.msg!    "This version (%2$s) of the %1$s is currently published in the <a href='/appstore'>App Store</a>." ;  %1$s = category: image, project or deployment; %2$s = version
    :slipstream.ui.views.module.alert.edit-published.title           "Editing a published %1$s version" ;  %1$s = category: image, project or deployment; %2$s = version
-   :slipstream.ui.views.module.alert.edit-published.msg!            "Please note that the changes will not be reflected in the <a href='/' target='_blank'>App Store</a> until you publish the new saved version of this %1$s." ;  %1$s = category: image, project or deployment; %2$s = version
+   :slipstream.ui.views.module.alert.edit-published.msg!            "Please note that the changes will not be reflected in the <a href='/appstore' target='_blank'>App Store</a> until you publish the new saved version of this %1$s." ;  %1$s = category: image, project or deployment; %2$s = version
 
    :slipstream.ui.views.module.section.summary.title           :global.nouns.summary
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
@@ -1074,14 +1074,14 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.terminate-deployment-dialog.label.deployment-tags        :global.nouns.tags
 
    :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.title                "Publish %1$s" ;  %1$s: module category
-   :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.question             "Do you want to publish the %1$s `%2$s` (v %3$s) in the [App Store](/)?"  ;  %1$s: module category ;  %2$s: module name ;  %3$s: module version
+   :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.question             "Do you want to publish the %1$s `%2$s` (v %3$s) in the [App Store](/appstore)?"  ;  %1$s: module category ;  %2$s: module name ;  %3$s: module version
    :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.footnote             "Please note that the access rights still apply for published modules."
    :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.button.cancel        :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.publish-module-confirmation-dialog.button.publish       "Publish %1$s" ;  %1$s: module category
 
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.title              "Unpublish %1$s" ;  %1$s: module category
-   :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.question           "Do you want to remove the %1$s `%2$s` (v %3$s) from the [App Store](/)?"  ;  %1$s: module category ;  %2$s: module name ;  %3$s: module version
-   :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.footnote           "The %1$s will not appear on the [App Store](/) anymore, but it will still be accessibe via the projects. Please note that the access rights still apply for published modules."  ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.question           "Do you want to remove the %1$s `%2$s` (v %3$s) from the [App Store](/appstore)?"  ;  %1$s: module category ;  %2$s: module name ;  %3$s: module version
+   :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.footnote           "The %1$s will not appear on the [App Store](/appstore) anymore, but it will still be accessibe via the projects. Please note that the access rights still apply for published modules."  ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.cancel      :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.unpublish   "Unpublish %1$s" ;  %1$s: module category
 
