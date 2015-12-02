@@ -489,7 +489,7 @@
   [& {:keys [content-load-url content-id id content]}]
   this                        (html/add-class "ss-dynamic-content")
   this                        (html/set-attr :content-load-url content-load-url)
-  this                        (when-set-data :content-selector (str "#" content-id))
+  this                        (when-set-data :content-selector (not-empty content-id) (str "#" content-id))
   this                        (when-set-id id (str id))
   this                        (html/content (or content spinner-icon))
   [:> :div :> html/first-child]  (when-set-id content-id (str content-id)))
