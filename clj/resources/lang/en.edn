@@ -943,7 +943,7 @@
    :slipstream.ui.views.module.section.authorizations.title    :global.nouns.authorizations
 
    :slipstream.ui.views.module.project.section.children.title  :global.nouns.children
-   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children yet. You can add a [new project](%3$s), [new image](%1$s) or a [new deployment](%2$s) with the corresponding actions in the menu above." ; %1$s - %3$s hrefs for new submodules
+   :slipstream.ui.views.module.project.section.children.empty-content-hint              "This project doesn't have any children yet. You can add a [new project](%3$s), [new component](%1$s) or a [new application](%2$s) with the corresponding actions in the menu above." ; %1$s - %3$s hrefs for new submodules
    :slipstream.ui.views.module.project.section.children.empty-content-hint.on-chooser   "This project doesn't have any children yet."
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
