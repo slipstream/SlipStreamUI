@@ -18,7 +18,18 @@
   the default theme."
   ; nil
   ; :helixnebula
-  (-> "slipstream.ui.util.theme.current-theme" System/getProperty keyword available-themes))
+  (let [theme-property  (-> "slipstream.ui.util.theme.current-theme" System/getProperty)
+        theme           (-> theme-property keyword available-themes)]
+    (when (not-empty theme-property)
+      (print "INFO: The system property 'slipstream.ui.util.theme.current-theme' has the value: ")
+      (prn theme-property)
+      (when (and (not theme) (not= theme-property "default"))
+        (println
+          (format "WARN: The requested theme \"%s\" is not available. Must be one of %s or \"default\"."
+                  theme-property
+                  (->> available-themes (map name) (map pr-str) (clojure.string/join ", "))))))
+    (println "INFO: Using theme" (-> theme (or "default") name pr-str))
+    theme))
 
 (defn current
   []
