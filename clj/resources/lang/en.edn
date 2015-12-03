@@ -954,9 +954,9 @@
    :slipstream.ui.views.module.image.section.deployment-parameters.title                 "Application Parameters"
 
    :slipstream.ui.views.module.image.section.targets.title                                "Application Workflows"
-   :slipstream.ui.views.module.deployment.section.targets.title                           "Orchestrator Workflows"
+   :slipstream.ui.views.module.deployment.section.targets.title                           "Application Workflows"
 
-   :slipstream.ui.views.module.util.section.targets.subsection.execute.orchestrator.title!            "1. Deployment"; :global.verbs.execute
+   :slipstream.ui.views.module.util.section.targets.subsection.execute.orchestrator.title!            "Deployment (experimental)"; :global.verbs.execute
    :slipstream.ui.views.module.util.section.targets.subsection.execute.orchestrator.description       "This script is executed on the orchestrator during the `executing` phase after the SlipStream client has been installed. In this script you can use the SlipStream client (see below for details)."
 
    :slipstream.ui.views.module.util.section.targets.subsection.prerecipe.application-component.title!          "1. Pre-install"; :global.nouns.pre-recipe
