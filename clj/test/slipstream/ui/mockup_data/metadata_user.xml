@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><user activeSince="2015-03-12 18:15:21.8 CET" creation="2015-03-12 18:15:20.983 CET" deleted="false" email="alice@example.com" firstName="Alice" issuper="false" lastName="Persona" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><user activeSince="2015-03-12 18:15:21.8 CET" creation="2015-03-12 18:15:20.983 CET" deleted="false" email="alice@example.com" firstName="Alice" roles="ADMIN, exoscale" issuper="false" lastName="Persona" name="alice" organization="ACME" resourceUri="user/alice" state="ACTIVE">
    <parameters class="org.hibernate.collection.internal.PersistentMap">
       <entry>
          <string>Exoscale.username</string>

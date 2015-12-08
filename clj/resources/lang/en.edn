@@ -114,6 +114,8 @@
                     :user             "User"
                     :username         "Username"
                     :users            "Users"
+                    :user-role        "Role"
+                    :user-roles       "Roles"
                     :value            "Value"
                     :version          "Version"
                     :versions         "Versions"
@@ -542,6 +544,9 @@
    :slipstream.ui.models.parameters.run-id.description                          :global.nouns.run-id
    :slipstream.ui.models.parameters.run-id.help-hint                            ""
 
+   :slipstream.ui.models.parameters.roles.description                           :global.nouns.user-roles
+   :slipstream.ui.models.parameters.roles.help-hint                             "User roles can only be modified by SlipStream administrator."
+
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
    :slipstream.ui.models.parameters.tags.help-hint                              "You can label this run with a comma-separated list of tags. This can be useful to identify the purpose of a specific run later on. You can modify the run tags any time."
 
@@ -659,6 +664,8 @@
    :slipstream.ui.util.pattern.error-help-hint.user-password.not-empty                :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.user-password.not-include-username     "This is not a good idea."
    :slipstream.ui.util.pattern.error-help-hint.user-password.min-6-chars              :pattern.default-error-help-hint.min-x-chars
+
+   :slipstream.ui.util.pattern.error-help-hint.user-roles.comma-separated-words       :pattern.default-error-help-hint.comma-separated-words
 
    :slipstream.ui.util.pattern.error-help-hint.user-password-confirmation.min-6-chars "Enter the password a second time to confirm it."
    :slipstream.ui.views.tables.password-not-match.success-help-hint                   "That's it."

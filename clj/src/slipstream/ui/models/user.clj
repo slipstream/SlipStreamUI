@@ -52,7 +52,8 @@
           (select-keys [:email
                         :organization
                         :state
-                        :creation])
+                        :creation
+                        :roles])
           (assoc        :username   (-> attrs :name u/not-default-new-name)
                         :first-name (:firstName attrs)
                         :last-name  (:lastName attrs)

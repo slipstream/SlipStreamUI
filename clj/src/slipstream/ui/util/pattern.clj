@@ -70,6 +70,8 @@
 
    :run-tags       [[:comma-separated-words  {:when-true   "warning"}]]
 
+   :user-roles     [:comma-separated-words]
+
    ; Same than :run-tags but for the 'Run deployment dialog'
    :run-start-tags [:comma-separated-words]
 
