@@ -21,11 +21,10 @@
    :deleted?      false
    :super?        false
    :roles         "ADMIN, exoscale"
-   :configuration {:configured-clouds #{"AmazonEC2" "Cloud1" "Cloud2"}
-                   :available-clouds  [{:value "Cloud1", :configured? true,  :disabled? false, :text "Cloud1"}
-                                       {:value "Cloud2", :configured? true,  :disabled? false, :text "Cloud2"}
-                                       {:value "Cloud3", :configured? false, :disabled? true,  :text "Cloud3 (not configured) *", :default? true, :selected? true, :original-selection "CloudNotInTheList"}
-                                       {:value "Cloud4", :configured? false, :disabled? true,  :text "Cloud4 (not configured)"}] ; General.default.cloud.service
+   :configuration {:configured-clouds #{"Cloud1" "Cloud2" "Cloud3"}
+                   :available-clouds  [{:value "Cloud1", :configured? true, :text "Cloud1"}
+                                       {:value "Cloud2", :configured? true, :text "Cloud2"}
+                                       {:value "Cloud3", :configured? true, :text "Cloud3 *", :default? true, :selected? true, :original-selection "CloudNotInTheList"}] ; General.default.cloud.service
                    :keep-running  :on-success    ; General.keep-running
                    :ssh-keys      "some-ssh-key" ; General.ssh.public.key
                   }}
