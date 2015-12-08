@@ -68,7 +68,8 @@
                                                                     (u/enum-update-name :available-clouds)
                                                                     (u/enum-sort-by :text)
                                                                     u/enum-flag-selected-as-default
-                                                                    (u/enum-disable-by (complement :configured?)))
+                                                                    (u/enum-filter-by :configured?)
+                                                                    not-empty)
                                          :keep-running      (some-> parameters
                                                                     (parameters/value-for "General.keep-running")
                                                                     u/enum-selection

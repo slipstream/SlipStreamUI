@@ -180,6 +180,14 @@
        type-enum
        (name-enum (-> enum meta :name))))
 
+(defn enum-filter-by
+  "Filter the enum leaving only the options for which pred is true"
+  [enum pred]
+  (->> enum
+       (filter pred)
+       type-enum
+       (name-enum (-> enum meta :name))))
+
 (defn enum-select-default
   "Like enum-select but appends ' *' to the text of the selected option."
   [enum selected-option]
