@@ -222,6 +222,9 @@
         :organization   {:type :cell/text}
         :email          {:type :cell/email, :required? true, :validation {:requirements (pattern/requirements :email)}}
         :super?         {:type :cell/boolean,   :editable? (and (page-type/edit-or-new?) (current-user/super?)), :id-format-fn (constantly "issuper")}
+        :roles          {:type :cell/text
+                         :validation {:requirements (pattern/requirements :user-roles)}
+                         :editable? (and (page-type/edit-or-new?) (current-user/super?))}
         :creation       {:type :cell/timestamp-long, :editable? false, :remove? (page-type/new?)}
         :password-new-1 {:type :cell/password
                          :editable? true
