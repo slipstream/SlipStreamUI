@@ -21,10 +21,7 @@
    :deleted?      false
    :super?        false
    :configuration {:configured-clouds nil
-                   :available-clouds  [{:value "Cloud1", :configured? false, :disabled? true, :text "Cloud1 (not configured)"}
-                                       {:value "Cloud2", :configured? false, :disabled? true, :text "Cloud2 (not configured)"}
-                                       {:value "Cloud3", :configured? false, :disabled? true, :text "Cloud3 (not configured) *", :default? true, :selected? true}
-                                       {:value "Cloud4", :configured? false, :disabled? true, :text "Cloud4 (not configured)"}] ; General.default.cloud.service
+                   :available-clouds  nil ; General.default.cloud.service
                    :keep-running  :on-success    ; General.keep-running
                    :ssh-keys      nil ; General.ssh.public.key
                   }}

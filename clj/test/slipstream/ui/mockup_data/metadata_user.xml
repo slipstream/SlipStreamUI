@@ -21,7 +21,7 @@
       <entry>
          <string>Cloud3.password</string>
          <parameter category="Cloud3" description="Secret" mandatory="true" name="Cloud3.password" order="20" order_="20" readonly="false" type="Password">
-            <value/>
+            <value><![CDATA[cloud3_secret]]></value>
          </parameter>
       </entry>
       <entry>
@@ -34,13 +34,6 @@
          <string>Cloud1.password</string>
          <parameter category="Cloud1" description="StratusLab account password" mandatory="true" name="Cloud1.password" order="20" order_="20" readonly="false" type="Password">
             <value><![CDATA[cloud1_password]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.access.id</string>
-         <parameter category="AmazonEC2" description="Access id" mandatory="true" name="AmazonEC2.access.id" order="0" order_="0" readonly="false" type="String">
-            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
-            <value><![CDATA[amazonec2_access_id]]></value>
          </parameter>
       </entry>
       <entry>
@@ -107,13 +100,6 @@
          </parameter>
       </entry>
       <entry>
-         <string>AmazonEC2.secret.key</string>
-         <parameter category="AmazonEC2" description="Secret key" mandatory="true" name="AmazonEC2.secret.key" order="0" order_="0" readonly="false" type="Password">
-            <instructions><![CDATA[This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.]]></instructions>
-            <value><![CDATA[amazonec2_secret_key]]></value>
-         </parameter>
-      </entry>
-      <entry>
          <string>General.Verbosity Level</string>
          <parameter category="General" description="Level of verbosity" mandatory="true" name="General.Verbosity Level" order="30" order_="30" readonly="false" type="Enum">
             <instructions><![CDATA[0 - Actions,  1 - Steps,  2 - Details data,  3 - Debugging]]></instructions>
@@ -124,12 +110,6 @@
                <string>3</string>
             </enumValues>
             <value><![CDATA[0]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.quota.vm</string>
-         <parameter category="AmazonEC2" description="Number of VMs the user can start for this cloud" mandatory="true" name="AmazonEC2.quota.vm" order="0" order_="0" readonly="true" type="String">
-            <value><![CDATA[20]]></value>
          </parameter>
       </entry>
       <entry>
@@ -221,7 +201,7 @@
       <entry>
          <string>Cloud3.password</string>
          <parameter category="Cloud3" description="Secret" mandatory="true" name="Cloud3.password" order="20" order_="20" readonly="false" type="Password">
-            <value/>
+            <value><![CDATA[cloud3_secret]]></value>
          </parameter>
       </entry>
       <entry>
@@ -312,7 +292,7 @@
       <entry>
          <string>Cloud3.username</string>
          <parameter category="Cloud3" description="Key" mandatory="true" name="Cloud3.username" order="10" order_="10" readonly="false" type="RestrictedString">
-            <value/>
+            <value><![CDATA[cloud3_key]]></value>
          </parameter>
       </entry>
       <entry>
@@ -401,12 +381,6 @@
          </parameter>
       </entry>
       <entry>
-         <string>AmazonEC2.update.clienturl</string>
-         <parameter category="AmazonEC2" description="URL with the cloud client specific connector" mandatory="true" name="AmazonEC2.update.clienturl" order="0" order_="0" readonly="false" type="String">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
          <string>Cloud2.orchestrator.instance.type</string>
          <parameter category="Cloud2" description="Orchestrator instance type" mandatory="true" name="Cloud2.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
             <value/>
@@ -429,12 +403,6 @@
          <string>Exoscale.orchestrator.imageid</string>
          <parameter category="Exoscale" description="Image Id of the orchestrator for Exoscale" mandatory="true" name="Exoscale.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
             <value/>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.max.iaas.workers</string>
-         <parameter category="AmazonEC2" description="Max number of concurrently provisioned VMs by orchestrator" mandatory="true" name="AmazonEC2.max.iaas.workers" order="0" order_="0" readonly="false" type="String">
-            <value><![CDATA[20]]></value>
          </parameter>
       </entry>
       <entry>
@@ -650,38 +618,10 @@
          </parameter>
       </entry>
       <entry>
-         <string>AmazonEC2.quota.vm</string>
-         <parameter category="AmazonEC2" description="VM quota for AmazonEC2 (i.e. maximum number number of VM allowed)" mandatory="true" name="AmazonEC2.quota.vm" order="0" order_="0" readonly="false" type="String">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
          <string>slipstream.mail.port</string>
          <parameter category="SlipStream_Support" description="Port on SMTP server (defaults to standard ports)." mandatory="true" name="slipstream.mail.port" order="0" order_="0" readonly="false" type="String">
             <instructions/>
             <value><![CDATA[465]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.region</string>
-         <parameter category="AmazonEC2" description="EC2 region" mandatory="true" name="AmazonEC2.region" order="0" order_="0" readonly="false" type="Enum">
-            <enumValues length="8">
-               <string>us-east-1</string>
-               <string>us-west-2</string>
-               <string>us-west-1</string>
-               <string>eu-west-1</string>
-               <string>ap-southeast-1</string>
-               <string>ap-southeast-2</string>
-               <string>ap-northeast-1</string>
-               <string>sa-east-1</string>
-            </enumValues>
-            <value><![CDATA[us-east-1]]></value>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.orchestrator.instance.type</string>
-         <parameter category="AmazonEC2" description="Orchestrator instance type  AmazonEC2" mandatory="true" name="AmazonEC2.orchestrator.instance.type" order="0" order_="0" readonly="false" type="String">
-            <value/>
          </parameter>
       </entry>
       <entry>
@@ -802,18 +742,6 @@
          <string>Cloud1.quota.vm</string>
          <parameter category="Cloud1" description="VM quota for Cloud1 (i.e. maximum number number of VM allowed)" mandatory="true" name="Cloud1.quota.vm" order="0" order_="0" readonly="false" type="String">
             <value/>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.orchestrator.imageid</string>
-         <parameter category="AmazonEC2" description="Image Id of the orchestrator for AmazonEC2" mandatory="true" name="AmazonEC2.orchestrator.imageid" order="0" order_="0" readonly="false" type="String">
-            <value/>
-         </parameter>
-      </entry>
-      <entry>
-         <string>AmazonEC2.security.group</string>
-         <parameter category="AmazonEC2" description="Orchestrator security group" mandatory="true" name="AmazonEC2.security.group" order="0" order_="0" readonly="false" type="String">
-            <value><![CDATA[default]]></value>
          </parameter>
       </entry>
       <entry>
