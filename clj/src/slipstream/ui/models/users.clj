@@ -12,6 +12,7 @@
      :first-name    (-> attrs :firstName)
      :last-name     (-> attrs :lastName)
      :organization  (-> attrs :organization)
+     :roles         (-> attrs :roles)
      :state         (-> attrs :state)
      :online?       (-> attrs :online uc/parse-boolean)
      :super?        (-> attrs :issuper uc/parse-boolean)

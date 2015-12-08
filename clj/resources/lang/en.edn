@@ -340,6 +340,7 @@
    :slipstream.ui.views.table.header.severity                 :global.nouns.severity
    :slipstream.ui.views.table.header.service-url              "Service URL"
    :slipstream.ui.views.table.header.type                     :global.nouns.type
+   :slipstream.ui.views.table.header.roles                    :global.nouns.user-roles
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
