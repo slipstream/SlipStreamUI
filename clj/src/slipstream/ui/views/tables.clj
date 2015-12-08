@@ -753,6 +753,21 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(localization/with-prefixed-t :build-image-global-parameters-table
+
+  (defn build-image-global-section-table
+    [parameters]
+    (headerless-parameters-table
+      (p/map->parameter-list parameters
+        :build-image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloudservice"), :when-nil-value-hints {:value      (t :no-configured-clouds-hint (current-user/uri))
+                                                                                                                                                      :type       :cell/html
+                                                                                                                                                      :editable?  false}}
+        )))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (localization/with-prefixed-t :run-image-input-parameters-table
 
   (defn- run-image-input-parameter-row

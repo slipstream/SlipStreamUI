@@ -557,10 +557,13 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _scalable_ deployment, which will allow the `multiplicity` for each node to be changed after launch. **Warning!** This is a _BETA_ feature!"
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
-   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled."
+   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choose the cloud where the image will be deployed. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) do not appear here. Visit your user profile if you want to configure additional clouds."
+
+   :slipstream.ui.models.parameters.build-image-target-cloud.description        :global.nouns.cloud
+   :slipstream.ui.models.parameters.build-image-target-cloud.help-hint          "Choose the cloud where the image will be build. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) do not appear here. Visit your user profile if you want to configure additional clouds."
 
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) are disabled. The option `Specify for each node` will reveal this menu for each of the nodes below."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) do not appear here. Visit your user profile if you want to configure additional clouds. The option `Specify for each node` will reveal this menu for each of the nodes below."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
@@ -587,6 +590,8 @@
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
    :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page." ; %1$s = user profile URL
    :slipstream.ui.views.tables.run-image-global-parameters-table.no-configured-clouds-hint!       "<i>You have no configured clouds. Please configure at least one cloud connector adding the corresponding credentials in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page.</i>" ; %1$s = user profile URL
+
+   :slipstream.ui.views.tables.build-image-global-parameters-table.no-configured-clouds-hint!     "<i>You have no configured clouds. Please configure at least one cloud connector adding the corresponding credentials in your <a href='%1$s?edit=true#general' target='_blank'>user profile</a> and reload this page.</i>" ; %1$s = user profile URL
 
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "New parameter name"
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.description.placeholder   :global.nouns.description

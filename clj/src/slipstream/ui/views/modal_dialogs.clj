@@ -141,6 +141,8 @@
                                           (u/enum-append-option :specify-for-each-node))
    :image-target-cloud            (some-> :available-clouds
                                           current-user/configuration)
+   :build-image-target-cloud      (some-> :available-clouds
+                                          current-user/configuration)
    :launch-mutable-run?           false
    :tolerate-deployment-failures? false
    :tags                          nil
@@ -181,12 +183,7 @@
     [resource-id module-version]
     ue/this                         (-> :build dialog-id ue/set-id)
     title-sel                       (html/content       (t :title))
-    [:#ss-build-image-cloud-label]  (html/content       (t :cloud-service.label))
-    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected? disabled?]} (current-user/configuration :available-clouds)]
-                                                        ue/this (ue/set-value value)
-                                                        ue/this (ue/toggle-disabled disabled? "disabled")
-                                                        ue/this (ue/toggle-selected (and selected? (not disabled?)))
-                                                        ue/this (html/content text))
+    [:.ss-build-image-input-parameters-section-content] (html/content   (-> [nil :image-build] run-module-global-parameters t/build-image-global-section-table))
     footnote-sel                    (html/html-content  (t :footnote resource-id module-version))
     [:#ss-build-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     first-button-sel                (html/content       (t :button.cancel))
