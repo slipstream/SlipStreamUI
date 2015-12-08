@@ -136,26 +136,24 @@
 
 (defn- run-module-global-parameters
   [[module-metadata module]]
-  {:deployment-target-cloud       (some-> :available-clouds
-                                          current-user/configuration
-                                          (u/enum-append-option :specify-for-each-node))
-   :image-target-cloud            (some-> :available-clouds
-                                          current-user/configuration)
-   :build-image-target-cloud      (some-> :available-clouds
-                                          current-user/configuration)
-   :launch-mutable-run?           false
-   :tolerate-deployment-failures? false
-   :tags                          nil
-   :keep-running-behaviour        (-> [:always
-                                       :on-success
-                                       :on-error
-                                       :never]
-                                    (u/enum :keep-running-behaviour-for-deployment)
-                                    (u/enum-select (or
-                                                     (current-user/configuration :keep-running)
-                                                     :on-success))
-                                    u/enum-flag-selected-as-default)
-   :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))})
+  (let [available-clouds (current-user/configuration :available-clouds)]
+    {:deployment-target-cloud       (some-> available-clouds
+                                            (u/enum-append-option :specify-for-each-node))
+     :image-target-cloud            available-clouds
+     :build-image-target-cloud      available-clouds
+     :launch-mutable-run?           false
+     :tolerate-deployment-failures? false
+     :tags                          nil
+     :keep-running-behaviour        (-> [:always
+                                         :on-success
+                                         :on-error
+                                         :never]
+                                      (u/enum :keep-running-behaviour-for-deployment)
+                                      (u/enum-select (or
+                                                       (current-user/configuration :keep-running)
+                                                       :on-success))
+                                      u/enum-flag-selected-as-default)
+     :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))}))
 
 (def ^:private dialog-id
   {:run   "ss-run-module-dialog"
