@@ -20,6 +20,7 @@
    :creation      "2015-03-12 18:15:20.983 CET"
    :deleted?      false
    :super?        false
+   :roles         "ADMIN, exoscale"
    :configuration {:configured-clouds #{"AmazonEC2" "Cloud1" "Cloud2"}
                    :available-clouds  [{:value "Cloud1", :configured? true,  :disabled? false, :text "Cloud1"}
                                        {:value "Cloud2", :configured? true,  :disabled? false, :text "Cloud2"}
