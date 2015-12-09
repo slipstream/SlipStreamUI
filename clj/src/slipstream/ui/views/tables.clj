@@ -389,9 +389,12 @@
                                                     :style :danger
                                                     :class "ss-terminate-run-from-table-button"}})]})
 (defn runs-table
-  [runs & [pagination]]
+  [runs & [pagination include-terminated-runs?]]
   (table/build
     {:pagination  pagination
+     :filters     [{:type  :boolean
+                    :id    :include-terminated-runs
+                    :value include-terminated-runs?}]
      :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags nil]
      :rows        (map run-row runs)}))
 

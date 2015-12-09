@@ -256,4 +256,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
             });
     });
 
+    $("body").on("change", "#include-terminated-runs", function () {
+        var shouldIncludeTerminatedRuns = this.checked,
+            $thisCheckbox = $(this),
+            $dynamicContentElem = $thisCheckbox.closest(dynamicContentSel),
+            newContentLoadUrl   = $dynamicContentElem.attr("content-load-url")
+                                    .replace(/includeTerminated=[01]/, "includeTerminated=" +
+                                        (shouldIncludeTerminatedRuns ? "1" : "0"));
+        $dynamicContentElem
+            .attr("content-load-url", newContentLoadUrl)
+            .trigger("ss-dynamic-content-reload");
+    });
+
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
