@@ -63,13 +63,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- user-row
-  [{:keys [username first-name last-name organization state last-online online? super?] :as user}]
+  [{:keys [username first-name last-name organization roles state last-online online? super?] :as user}]
   {:style (when online? :success)
    :cells [{:type :cell/icon,       :content (if super? icons/super-user icons/user)}
            {:type :cell/username,   :content username}
            {:type :cell/text,       :content first-name}
            {:type :cell/text,       :content last-name}
            {:type :cell/text,       :content organization}
+           {:type :cell/text,       :content roles}
            {:type :cell/text,       :content state}
            {:type :cell/timestamp,  :content last-online}
            {:type :cell/link,  :content (when (current-user/not-is? username) {:href (u/user-uri username :edit true :action "delete"), :text (t :action.delete)})}]})
@@ -77,7 +78,7 @@
 (defn users-table
   [users]
   (table/build
-    {:headers [nil :username :first-name :last-name :organization :state :last-online :action]
+    {:headers [nil :username :first-name :last-name :organization :roles :state :last-online :action]
      :rows (map user-row users)}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
