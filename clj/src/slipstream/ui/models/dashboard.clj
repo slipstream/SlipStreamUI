@@ -25,7 +25,7 @@
 
 (defn- visible?
   [cloud-usage]
-  (let [configured-clouds (into #{} (current-user/configuration :configured-clouds))]
+  (let [configured-clouds (-> :configured-clouds current-user/configuration set)]
     (or
       (-> cloud-usage :global-usage?)
       (-> cloud-usage :current-usage pos?)
