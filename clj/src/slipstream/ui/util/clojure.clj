@@ -240,18 +240,17 @@
   ([s]
    {:pre [(or (nil? s) (string? s))]}
    (when (not-empty s)
-     (condp re-matches s
-       ; NOTE: (?i) means case-insensitive
-       #"(?i)^\s*true\s*$"   true
-       #"(?i)^\s*false\s*$"  false
-       #"(?i)^\s*on\s*$"     true
-       #"(?i)^\s*off\s*$"    false
-       #"(?i)^\s*yes\s*$"    true
-       #"(?i)^\s*no\s*$"     false
-       #"(?i)^\s*1\s*$"      true
-       #"(?i)^\s*0\s*$"      false
+     (case (-> s s/trim s/lower-case)
+       "true"   true
+       "false"  false
+       "on"     true
+       "off"    false
+       "yes"    true
+       "no"     false
+       "1"      true
+       "0"      false
        (throw (IllegalArgumentException.
-                (str "Cannot parse boolean from string: " s))))))
+                (str "Cannot parse boolean from string: " (pr-str s)))))))
   ([s value-if-not-parsable]
    (try
      (parse-boolean s)
