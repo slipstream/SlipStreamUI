@@ -287,7 +287,8 @@
    :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title  "No SSH keys configured in this profile"
    :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg    "This user will not be able to access the deployed machines via SSH until at least one SSH public key has been configured in this profile."
 
-   :slipstream.ui.views.table.filter.include-inactive-runs    "Include inactive runs"
+   :slipstream.ui.views.table.filter.include-inactive-runs.label      "Include inactive runs"
+   :slipstream.ui.views.table.filter.include-inactive-runs.help-hint  "Inactive (aka terminated) runs are the ones with state `Cancelled`, `Aborted`, `Unknown` or `Done`."
 
    :slipstream.ui.views.table.header.access-right             "Access Right"
    :slipstream.ui.views.table.header.action                   :global.nouns.action

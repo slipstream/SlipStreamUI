@@ -139,6 +139,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .dataType("html")
             .withLoadingScreen(withLoadingScreen)
             .onSuccess(function (html){
+                $dynamicContent.bsHidePopoversAndTooltips();
                 var $newContent = $(newContentSel, html);
                 $dynamicContent
                     .children(":first")

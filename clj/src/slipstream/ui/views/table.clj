@@ -811,11 +811,13 @@
   [[:.ss-table-filter (ue/first-of-class (str "ss-table-filter-" (name filter-type)))]])
 
 (html/defsnippet ^:private boolean-filter-snip template-filename (sel-for-filter :boolean)
-  [{:keys [label id value]}]
-  [:input]                  (ue/when-set-id     id)
-  [:input]                  (ue/when-set-name   id)
-  [:input]                  (ue/toggle-checked  value)
-  [:.ss-table-filter-label] (html/content       (str label)))
+  [{:keys [label id value help-hint]}]
+  [:input]                      (ue/when-set-id       id)
+  [:input]                      (ue/when-set-name     id)
+  [:input]                      (ue/toggle-checked    value)
+  [:.ss-table-filter-label]     (html/content         (str label))
+  [:.ss-table-filter-help-hint] (ue/remove-if-not     help-hint)
+  [:.ss-table-filter-help-hint] (ue/set-data :content help-hint))
 
 (localization/with-prefixed-t :filter
 
@@ -823,9 +825,10 @@
 
   (defmethod filter-snip :boolean
     [{:keys [id value]:as filter-details}]
-    (boolean-filter-snip {:label (t       id)
-                          :id    (name    id)
-                          :value (boolean value)}))
+    (boolean-filter-snip {:label      (-> id name (str ".label")      t)
+                          :help-hint  (-> id name (str ".help-hint")  t)
+                          :id         (name    id)
+                          :value      (boolean value)}))
 
 ) ;; End of prefixed t scope
 
