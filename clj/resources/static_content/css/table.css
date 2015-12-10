@@ -256,3 +256,8 @@ td[id*=':abort']:empty::before {
   padding-right: 0;
 }
 
+.ss-table-filter {
+  display: inline-block;
+  padding-right: 25px;
+  margin-bottom: 10px;
+}
