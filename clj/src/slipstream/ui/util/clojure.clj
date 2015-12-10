@@ -241,14 +241,8 @@
    {:pre [(or (nil? s) (string? s))]}
    (when (not-empty s)
      (case (-> s s/trim s/lower-case)
-       "true"   true
-       "false"  false
-       "on"     true
-       "off"    false
-       "yes"    true
-       "no"     false
-       "1"      true
-       "0"      false
+       ("true"  "on"  "yes" "1")  true
+       ("false" "off" "no"  "0")  false
        (throw (IllegalArgumentException.
                 (str "Cannot parse boolean from string: " (pr-str s)))))))
   ([s value-if-not-parsable]
