@@ -1164,7 +1164,7 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.runs.header.subtitle                "This is a sub-view of the dashboard displaying only your Runs and their status."
    :slipstream.ui.views.runs.header.second-subtitle         "Please note that this page might display the data for only one given cloud, depending on the request URL."
    :slipstream.ui.views.runs.section.runs.title             :global.nouns.runs
-   :slipstream.ui.views.runs.section.runs.empty-content-hint "You don't have any runs in this cloud."
+   :slipstream.ui.views.runs.section.runs.empty-content-hint "No Deployments were found with the current filter."
 
    :slipstream.ui.views.configuration.header.title          "System Configuration"
    :slipstream.ui.views.configuration.header.subtitle       "Configure the SlipStream service and its cloud connectors"

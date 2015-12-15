@@ -13,7 +13,7 @@
   [{:title   (localization/section-title :runs)
     :content (if-let [runs (-> runs-metadata :runs not-empty)]
                (t/runs-table runs (:pagination runs-metadata) include-inactive-runs?)
-               (t :section.runs.empty-content-hint))}])
+               (t/runs-table-empty (t :section.runs.empty-content-hint) include-inactive-runs?))}])
 
 (defn page
   [metadata]
