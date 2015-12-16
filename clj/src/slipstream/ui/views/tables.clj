@@ -398,6 +398,15 @@
      :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags nil]
      :rows        (map run-row runs)}))
 
+(defn runs-table-empty
+  [empty-message & [include-inactive-runs?]]
+  (list (table/build
+     {:filters     [{:type  :boolean
+                     :id    :include-inactive-runs
+                     :value include-inactive-runs?}]})
+
+   empty-message))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (localization/with-prefixed-t :deployment-parameters-table
