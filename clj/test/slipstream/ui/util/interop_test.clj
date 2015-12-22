@@ -1,6 +1,19 @@
 (ns slipstream.ui.util.interop-test
+  (:require [clojure.set :refer [union]])
   (:use [expectations]
         [slipstream.ui.util.interop]))
+
+(defn get-class [^String s]
+  (try 
+    (Class/forName s)
+    (catch ClassNotFoundException _
+      nil)))
+
+(defn class-set [coll]
+  (->> coll
+       (map get-class)
+       (remove nil?)
+       (set)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -71,41 +84,47 @@
   (ancestors clojure.lang.IPersistentMap))
 
 (expect
-  (conj i-map-ancestors
-    clojure.lang.AFn
-    clojure.lang.APersistentMap
-    clojure.lang.IEditableCollection
-    clojure.lang.IFn
-    clojure.lang.IHashEq
-    clojure.lang.IMeta
-    clojure.lang.IObj
-    clojure.lang.IPersistentMap
-    clojure.lang.MapEquivalence
-    clojure.lang.IMapIterable   ;; clojure 1.7.0
-    java.io.Serializable
-    java.lang.Object
-    java.lang.Runnable
-    java.util.concurrent.Callable
-    java.util.Map)
+ (union
+  i-map-ancestors
+  (class-set 
+   #{"clojure.lang.AFn"
+     "clojure.lang.APersistentMap"
+     "clojure.lang.IEditableCollection"
+     "clojure.lang.IFn"
+     "clojure.lang.IHashEq"
+     "clojure.lang.IMeta"
+     "clojure.lang.IObj"
+     "clojure.lang.IPersistentMap"
+     "clojure.lang.MapEquivalence"
+     "clojure.lang.IMapIterable"   ;; clojure 1.7.0
+     "clojure.lang.IKVReduce"      ;; clojure 1.8.0
+     "java.io.Serializable"
+     "java.lang.Object"
+     "java.lang.Runnable"
+     "java.util.concurrent.Callable"
+     "java.util.Map"}))
   (ancestors clojure.lang.PersistentArrayMap))
 
 (expect
-  (conj i-map-ancestors
-    clojure.lang.AFn
-    clojure.lang.APersistentMap
-    clojure.lang.IEditableCollection
-    clojure.lang.IFn
-    clojure.lang.IHashEq
-    clojure.lang.IMeta
-    clojure.lang.IObj
-    clojure.lang.IPersistentMap
-    clojure.lang.MapEquivalence
-    clojure.lang.IMapIterable   ;; clojure 1.7.0
-    java.io.Serializable
-    java.lang.Object
-    java.lang.Runnable
-    java.util.concurrent.Callable
-    java.util.Map)
+ (union
+  i-map-ancestors
+  (class-set 
+   #{"clojure.lang.AFn"
+     "clojure.lang.APersistentMap"
+     "clojure.lang.IEditableCollection"
+     "clojure.lang.IFn"
+     "clojure.lang.IHashEq"
+     "clojure.lang.IMeta"
+     "clojure.lang.IObj"
+     "clojure.lang.IPersistentMap"
+     "clojure.lang.MapEquivalence"
+     "clojure.lang.IMapIterable"   ;; clojure 1.7.0
+     "clojure.lang.IKVReduce"      ;; clojure 1.8.0
+     "java.io.Serializable"
+     "java.lang.Object"
+     "java.lang.Runnable"
+     "java.util.concurrent.Callable"
+     "java.util.Map"}))
   (ancestors clojure.lang.PersistentHashMap))
 
 (expect
@@ -149,26 +168,29 @@
 
 
 (expect
-  (conj i-vector-ancestors
-    clojure.lang.AFn
-    clojure.lang.APersistentVector
-    clojure.lang.IEditableCollection
-    clojure.lang.IFn
-    clojure.lang.IHashEq
-    clojure.lang.IMeta
-    clojure.lang.IObj
-    clojure.lang.IPersistentVector
-    clojure.lang.IReduce           ;; clojure 1.7.0
-    clojure.lang.IReduceInit       ;; clojure 1.7.0
-    java.io.Serializable
-    java.lang.Comparable
-    java.lang.Iterable
-    java.lang.Object
-    java.lang.Runnable
-    java.util.Collection
-    java.util.concurrent.Callable
-    java.util.List
-    java.util.RandomAccess)
+ (union
+  i-vector-ancestors
+  (class-set 
+   #{"clojure.lang.AFn"
+     "clojure.lang.APersistentVector"
+     "clojure.lang.IEditableCollection"
+     "clojure.lang.IFn"
+     "clojure.lang.IHashEq"
+     "clojure.lang.IMeta"
+     "clojure.lang.IObj"
+     "clojure.lang.IPersistentVector"
+     "clojure.lang.IReduce"           ;; clojure 1.7.0
+     "clojure.lang.IReduceInit"       ;; clojure 1.7.0
+     "clojure.lang.IKVReduce"         ;; clojure 1.8.0
+     "java.io.Serializable"
+     "java.lang.Comparable"
+     "java.lang.Iterable"
+     "java.lang.Object"
+     "java.lang.Runnable"
+     "java.util.Collection"
+     "java.util.concurrent.Callable"
+     "java.util.List"
+     "java.util.RandomAccess"}))
   (ancestors clojure.lang.PersistentVector))
 
 ;; Maps
