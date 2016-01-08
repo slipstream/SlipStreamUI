@@ -54,12 +54,13 @@
                         :state
                         :creation
                         :roles])
-          (assoc        :username   (-> attrs :name u/not-default-new-name)
-                        :first-name (:firstName attrs)
-                        :last-name  (:lastName attrs)
-                        :uri        (:resourceUri attrs)
-                        :super?     (-> attrs :issuper uc/parse-boolean)
-                        :deleted?   (-> attrs :deleted uc/parse-boolean)
+          (assoc        :username     (-> attrs :name u/not-default-new-name)
+                        :first-name   (:firstName attrs)
+                        :last-name    (:lastName attrs)
+                        :uri          (:resourceUri attrs)
+                        :github-login (:githubLogin attrs)
+                        :super?       (-> attrs :issuper uc/parse-boolean)
+                        :deleted?     (-> attrs :deleted uc/parse-boolean)
                         :parameters     parameters
                         :configuration  {:configured-clouds configured-clouds
                                          :available-clouds  (some-> parameters

@@ -32,6 +32,7 @@
 
 (expect
   {:username      "bob"
+   :github-login  nil
    :first-name    "Bob"
    :last-name     "O'Manager"
    :uri           "user/bob"
