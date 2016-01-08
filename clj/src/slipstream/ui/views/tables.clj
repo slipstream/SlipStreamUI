@@ -64,7 +64,6 @@
 
 (defn- user-row
   [{:keys [username first-name last-name organization roles state last-online online? super?] :as user}]
-  (println "user = " user)
   {:style (when online? :success)
    :cells [{:type :cell/icon,       :content (if super? icons/super-user icons/user)}
            {:type :cell/username,   :content username}
