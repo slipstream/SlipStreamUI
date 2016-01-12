@@ -3,6 +3,7 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.vms :as vms]
+            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.configuration :as configuration]))
 
 (localization/def-scoped-t)
@@ -17,17 +18,35 @@
   [cloud-usages]
   (cons
     {:cloud         (t :all-clouds.title)
+     :global-usage? true
      :current-usage (->> cloud-usages (map :current-usage) (reduce +))
      :quota         (->> cloud-usages (map :quota)         (reduce +))}
     cloud-usages))
+
+(defn- visible?
+  [cloud-usage]
+  (let [configured-clouds (-> :configured-clouds current-user/configuration set)]
+    (or
+      (-> cloud-usage :global-usage?)
+      (-> cloud-usage :current-usage pos?)
+      (-> cloud-usage :cloud configured-clouds))))
+
+(defn- filter-visible
+  "Non-super users should only see the usage gauges for the clouds they have
+  configured in their profile, or the ones they have some usage in."
+  [cloud-usages]
+  (if (current-user/super?)
+    cloud-usages
+    (filter visible? cloud-usages)))
 
 (defn- usages
   [dashboard]
   (->> (html/select dashboard [:usage :> :usageElement])
        (map :attrs)
        (map parse-usage)
-       (sort-by :cloud)
-       prepend-global-usage))
+       prepend-global-usage
+       filter-visible
+       (sort-by :cloud)))
 
 (defn- clouds
   [dashboard]

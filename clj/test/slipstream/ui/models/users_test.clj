@@ -90,5 +90,3 @@
 (expect
   parsed-metadata
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
-
-(run-all-tests)

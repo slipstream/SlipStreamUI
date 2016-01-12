@@ -36,15 +36,16 @@
    :count-total   (-> metadata      :count)})
 
 (defn url
-  [resource & {:keys [cloud offset limit module-uri]}]
-  (format "/%s?cloud=%s&offset=%s&limit=%s&moduleResourceUri=%s"
+  [resource & {:keys [cloud offset limit module-uri active-only] :or {active-only true}}]
+  (format "/%s?cloud=%s&offset=%s&limit=%s&moduleResourceUri=%s&activeOnly=%s"
           (case resource
             :vms  "vms"
             :runs (if (mode/headless?) "runs" "run"))
           (or cloud "") ;; Leave cloud name blank for all clouds
           (or offset "0")
           (or limit items-per-page)
-          (or (uc/trim-prefix module-uri "/") "")))
+          (or (uc/trim-prefix module-uri "/") "")
+          (if active-only "1" "0")))
 
 ;; Utils
 

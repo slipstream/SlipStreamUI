@@ -1,5 +1,6 @@
 (ns slipstream.ui.views.runs
   (:require [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.views.base :as base]
@@ -8,18 +9,19 @@
 (localization/def-scoped-t)
 
 (defn- section
-  [runs-metadata]
+  [runs-metadata include-inactive-runs?]
   [{:title   (localization/section-title :runs)
     :content (if-let [runs (-> runs-metadata :runs not-empty)]
-               (t/runs-table runs (:pagination runs-metadata))
-               (t :section.runs.empty-content-hint))}])
+               (t/runs-table runs (:pagination runs-metadata) include-inactive-runs?)
+               (t/runs-table-empty (t :section.runs.empty-content-hint) include-inactive-runs?))}])
 
 (defn page
   [metadata]
-  (let [runs-metadata (runs/parse metadata)]
-  (base/generate
-    {:header {:icon icons/runs
-              :title (t :header.title)
-              :subtitle (t :header.subtitle)
-              :second-subtitle (t :header.second-subtitle)}
-     :content (section runs-metadata)})))
+  (let [runs-metadata             (runs/parse metadata)
+        include-inactive-runs?  (-> metadata meta :request :query-parameters :activeOnly (uc/parse-boolean false) not)]
+    (base/generate
+      {:header {:icon icons/runs
+                :title (t :header.title)
+                :subtitle (t :header.subtitle)
+                :second-subtitle (t :header.second-subtitle)}
+       :content (section runs-metadata include-inactive-runs?)})))

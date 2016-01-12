@@ -229,25 +229,27 @@
 
 ;; NOTE: Memoizing this function decreases performance
 (defn parse-boolean
-  "Casts 'true', 'on' and 'yes' strings to the boolean value 'true',
-  and 'false', 'off' and 'no' string to the boolean value 'false'.
-  All cases are case insensitive and after trimming whitespace right
-  and left, but leaving nil and empty string to nil, which is equivalent
-  to false, but allows to detect if a value was set or not. All other
-  strings will trigger an IllegalArgumentException."
-  [s]
-  {:pre [(or (nil? s) (string? s))]}
-  (when (not-empty s)
-    (condp re-matches s
-      ; NOTE: (?i) means case-insensitive
-      #"(?i)^\s*true\s*$"   true
-      #"(?i)^\s*false\s*$"  false
-      #"(?i)^\s*on\s*$"     true
-      #"(?i)^\s*off\s*$"    false
-      #"(?i)^\s*yes\s*$"    true
-      #"(?i)^\s*no\s*$"     false
-      (throw (IllegalArgumentException.
-               (str "Cannot parse boolean from string: " s))))))
+  "Casts 'true', 'on', 'yes' and '1' strings to the boolean value
+  'true', and 'false', 'off', 'no' and '0' string to the boolean value
+  'false'. All cases are case insensitive and after trimming whitespace
+  right and left, but leaving nil and empty string to nil, which is
+  equivalent to false, but allows to detect if a value was set or not.
+  All other strings will trigger an IllegalArgumentException. In cases
+  where throwing an exception is not reasonable, you can pass a default
+  value (see 2nd arity)."
+  ([s]
+   {:pre [(or (nil? s) (string? s))]}
+   (when (not-empty s)
+     (case (-> s s/trim s/lower-case)
+       ("true"  "on"  "yes" "1")  true
+       ("false" "off" "no"  "0")  false
+       (throw (IllegalArgumentException.
+                (str "Cannot parse boolean from string: " (pr-str s)))))))
+  ([s value-if-not-parsable]
+   (try
+     (parse-boolean s)
+     (catch Throwable _
+       (boolean value-if-not-parsable)))))
 
 (defn update-keys
   "Recursively applies f to all map keys."

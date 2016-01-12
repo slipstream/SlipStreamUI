@@ -65,11 +65,9 @@
   {:clouds ["CloudA" "CloudB"]
    :quota {:enabled? true
            :usage [{:cloud "All Clouds",
+                    :global-usage? true,
                     :current-usage 13,
                     :quota 20}
-                   {:cloud "CloudA"
-                    :current-usage 0
-                    :quota 5}
                    {:cloud "CloudB"
                     :current-usage 13
                     :quota 15}]}

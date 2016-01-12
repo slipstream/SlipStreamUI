@@ -136,24 +136,24 @@
 
 (defn- run-module-global-parameters
   [[module-metadata module]]
-  {:deployment-target-cloud       (some-> :available-clouds
-                                          current-user/configuration
-                                          (u/enum-append-option :specify-for-each-node))
-   :image-target-cloud            (some-> :available-clouds
-                                          current-user/configuration)
-   :launch-mutable-run?           false
-   :tolerate-deployment-failures? false
-   :tags                          nil
-   :keep-running-behaviour        (-> [:always
-                                       :on-success
-                                       :on-error
-                                       :never]
-                                    (u/enum :keep-running-behaviour-for-deployment)
-                                    (u/enum-select (or
-                                                     (current-user/configuration :keep-running)
-                                                     :on-success))
-                                    u/enum-flag-selected-as-default)
-   :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))})
+  (let [available-clouds (current-user/configuration :available-clouds)]
+    {:deployment-target-cloud       (some-> available-clouds
+                                            (u/enum-append-option :specify-for-each-node))
+     :image-target-cloud            available-clouds
+     :build-image-target-cloud      available-clouds
+     :launch-mutable-run?           false
+     :tolerate-deployment-failures? false
+     :tags                          nil
+     :keep-running-behaviour        (-> [:always
+                                         :on-success
+                                         :on-error
+                                         :never]
+                                      (u/enum :keep-running-behaviour-for-deployment)
+                                      (u/enum-select (or
+                                                       (current-user/configuration :keep-running)
+                                                       :on-success))
+                                      u/enum-flag-selected-as-default)
+     :ssh-key-available?            (boolean (current-user/configuration :ssh-keys))}))
 
 (def ^:private dialog-id
   {:run   "ss-run-module-dialog"
@@ -181,12 +181,7 @@
     [resource-id module-version]
     ue/this                         (-> :build dialog-id ue/set-id)
     title-sel                       (html/content       (t :title))
-    [:#ss-build-image-cloud-label]  (html/content       (t :cloud-service.label))
-    [:select]                       (ue/content-for     [[:option html/first-of-type]] [{:keys [value text selected? disabled?]} (current-user/configuration :available-clouds)]
-                                                        ue/this (ue/set-value value)
-                                                        ue/this (ue/toggle-disabled disabled? "disabled")
-                                                        ue/this (ue/toggle-selected (and selected? (not disabled?)))
-                                                        ue/this (html/content text))
+    [:.ss-build-image-input-parameters-section-content] (html/content   (-> [nil :image-build] run-module-global-parameters t/build-image-global-section-table))
     footnote-sel                    (html/html-content  (t :footnote resource-id module-version))
     [:#ss-build-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     first-button-sel                (html/content       (t :button.cancel))

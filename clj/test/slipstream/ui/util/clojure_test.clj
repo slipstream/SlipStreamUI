@@ -420,6 +420,18 @@
   (parse-boolean "True."))
 
 (expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "11"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "00"))
+
+(expect
+  java.lang.IllegalArgumentException
+  (parse-boolean "01"))
+
+(expect
   true
   (parse-boolean "true"))
 
@@ -466,6 +478,14 @@
 (expect
   true
   (parse-boolean "        yEs    "))
+
+(expect
+  true
+  (parse-boolean "1"))
+
+(expect
+  true
+  (parse-boolean "  1    "))
 
 (expect
   java.lang.IllegalArgumentException
@@ -522,6 +542,44 @@
 (expect
   false
   (parse-boolean "     nO  "))
+
+(expect
+  false
+  (parse-boolean "0"))
+
+(expect
+  false
+  (parse-boolean "  0   "))
+
+; With default values, to prevent expection
+
+(expect
+  true
+  (parse-boolean "true" true))
+
+(expect
+  true
+  (parse-boolean "true" false))
+
+(expect
+  nil
+  (parse-boolean nil false))
+
+(expect
+  nil
+  (parse-boolean nil true))
+
+(expect
+  true
+  (parse-boolean :not-a-string-or-nil true))
+
+(expect
+  true
+  (parse-boolean "some string" true))
+
+(expect
+  true
+  (parse-boolean "12 and some string" true))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

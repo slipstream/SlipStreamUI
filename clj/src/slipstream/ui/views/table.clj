@@ -20,6 +20,7 @@
 
 (def table-sel [:.ss-table])
 
+(def table-filters-container-sel [:.ss-table-filters-container])
 (def table-head-sel [:.ss-table-head :> :tr])
 (def table-header-sel (concat table-head-sel [:> [:th html/first-of-type]]))
 (def table-body-sel [:.ss-table-body])
@@ -803,6 +804,34 @@
     (rows-with-pagination table)
     rows))
 
+;; Filters
+
+(defn- sel-for-filter
+  [filter-type]
+  [[:.ss-table-filter (ue/first-of-class (str "ss-table-filter-" (name filter-type)))]])
+
+(html/defsnippet ^:private boolean-filter-snip template-filename (sel-for-filter :boolean)
+  [{:keys [label id value help-hint]}]
+  [:input]                      (ue/when-set-id       id)
+  [:input]                      (ue/when-set-name     id)
+  [:input]                      (ue/toggle-checked    value)
+  [:.ss-table-filter-label]     (html/content         (str label))
+  [:.ss-table-filter-help-hint] (ue/remove-if-not     help-hint)
+  [:.ss-table-filter-help-hint] (ue/set-data :content help-hint))
+
+(localization/with-prefixed-t :filter
+
+  (defmulti filter-snip :type)
+
+  (defmethod filter-snip :boolean
+    [{:keys [id value]:as filter-details}]
+    (boolean-filter-snip {:label      (-> id name (str ".label")      t)
+                          :help-hint  (-> id name (str ".help-hint")  t)
+                          :id         (name    id)
+                          :value      (boolean value)}))
+
+) ;; End of prefixed t scope
+
 
 ;; Headers
 
@@ -818,14 +847,15 @@
             ue/this (html/content (header-str header))))
 
 (html/defsnippet ^:private table-snip template-filename table-sel
-  [{:keys [headers] :as table}]
-  [:table]        (html/add-class (:class table))
-  [:table]        (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
-  [:table]        (ue/when-add-class (paginated? table) "ss-table-with-pagination")
-  table-head-sel  (ue/when-content (not-empty headers) (head-snip headers))
-  table-body-sel  (html/content (->> (rows table)
-                                     (remove :remove?)
-                                     rows-snip)))
+  [{:keys [filters headers] :as table}]
+  [:table]                    (html/add-class (:class table))
+  [:table]                    (ue/when-add-class (-> headers not-empty not) "ss-table-without-headers")
+  [:table]                    (ue/when-add-class (paginated? table) "ss-table-with-pagination")
+  table-filters-container-sel (ue/when-content (not-empty filters) (map filter-snip filters))
+  table-head-sel              (ue/when-content (not-empty headers) (head-snip headers))
+  table-body-sel              (html/content (->> (rows table)
+                                                 (remove :remove?)
+                                                 rows-snip)))
 
 (defn build
   [table]

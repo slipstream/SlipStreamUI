@@ -390,11 +390,23 @@
                                                     :style :danger
                                                     :class "ss-terminate-run-from-table-button"}})]})
 (defn runs-table
-  [runs & [pagination]]
+  [runs & [pagination include-inactive-runs?]]
   (table/build
     {:pagination  pagination
+     :filters     [{:type  :boolean
+                    :id    :include-inactive-runs
+                    :value include-inactive-runs?}]
      :headers     [nil nil :id :module :service-url :status :start-time :cloud-names :user :tags nil]
      :rows        (map run-row runs)}))
+
+(defn runs-table-empty
+  [empty-message & [include-inactive-runs?]]
+  (list (table/build
+     {:filters     [{:type  :boolean
+                     :id    :include-inactive-runs
+                     :value include-inactive-runs?}]})
+
+   empty-message))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -634,7 +646,7 @@
                                                                                          :warning (t :max-provisioning-failures.warning-help-hint)}
                                                                     :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :cloud.label)}
-              {:type :cell/enum,             :content {:enum (current-user/configuration :available-clouds)
+              {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
                                                        :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
 
   (defn- deployment-node-cell-inner-table-mapping-header
@@ -718,7 +730,9 @@
                                          :editable? (-> parameters :ssh-key-available? not)
                                          :id-format-fn (constantly "ssh-access-enabled")
                                          :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
-        :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service")}
+        :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service"), :when-nil-value-hints {:value      (t :no-configured-clouds-hint (current-user/uri))
+                                                                                                                                                         :type       :cell/html
+                                                                                                                                                         :editable?  false}}
         :keep-running-behaviour         {:type :cell/enum,    :editable? true, :id-format-fn (constantly "keep-running")}
         :tags                           {:type :cell/text
                                          :editable? true
@@ -742,12 +756,29 @@
                              :editable? (-> parameters :ssh-key-available? not)
                              :id-format-fn (constantly "ssh-access-enabled")
                              :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
-        :image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloudservice")}
+        :image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloudservice"), :when-nil-value-hints {:value      (t :no-configured-clouds-hint (current-user/uri))
+                                                                                                                                                :type       :cell/html
+                                                                                                                                                :editable?  false}}
         :tags               {:type :cell/text
                              :editable? true
                              :id-format-fn (constantly "tags")
                              :required? false
                              :validation {:requirements (pattern/requirements :run-start-tags)}}
+        )))
+
+) ;; End of prefixed t scope
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(localization/with-prefixed-t :build-image-global-parameters-table
+
+  (defn build-image-global-section-table
+    [parameters]
+    (headerless-parameters-table
+      (p/map->parameter-list parameters
+        :build-image-target-cloud {:type :cell/enum,    :editable? true, :id-format-fn (constantly "parameter--cloudservice"), :when-nil-value-hints {:value      (t :no-configured-clouds-hint (current-user/uri))
+                                                                                                                                                      :type       :cell/html
+                                                                                                                                                      :editable?  false}}
         )))
 
 ) ;; End of prefixed t scope

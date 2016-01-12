@@ -22,11 +22,10 @@
    :deleted?      false
    :super?        false
    :roles         "ADMIN, exoscale"
-   :configuration {:configured-clouds #{"AmazonEC2" "Cloud1" "Cloud2"}
-                   :available-clouds  [{:value "Cloud1", :configured? true,  :disabled? false, :text "Cloud1"}
-                                       {:value "Cloud2", :configured? true,  :disabled? false, :text "Cloud2"}
-                                       {:value "Cloud3", :configured? false, :disabled? true,  :text "Cloud3 (not configured) *", :default? true, :selected? true, :original-selection "CloudNotInTheList"}
-                                       {:value "Cloud4", :configured? false, :disabled? true,  :text "Cloud4 (not configured)"}] ; General.default.cloud.service
+   :configuration {:configured-clouds #{"Cloud1" "Cloud2" "Cloud3"}
+                   :available-clouds  [{:value "Cloud1", :configured? true, :text "Cloud1"}
+                                       {:value "Cloud2", :configured? true, :text "Cloud2"}
+                                       {:value "Cloud3", :configured? true, :text "Cloud3 *", :default? true, :selected? true, :original-selection "CloudNotInTheList"}] ; General.default.cloud.service
                    :keep-running  :on-success    ; General.keep-running
                    :ssh-keys      "some-ssh-key" ; General.ssh.public.key
                   }}
@@ -50,9 +49,6 @@
                                                             {:value "3", :text "3 - Debugging"}], :category "General", :description "Level of verbosity", :type "Enum", :name "General.Verbosity Level"}
                                                             {:help-hint "If the execution stays in a transitional state for more than the value of this timeout, the execution is forcefully terminated.", :mandatory? true, :read-only? false, :order 40, :value "30", :category "General", :description "Execution timeout (in minutes)", :type "String", :name "General.Timeout"}
                                                             {:help-hint "Warning: Some clouds may take into account only the first key until SlipStream bootstraps the machine.", :mandatory? true, :read-only? false, :order 50, :value "some-ssh-key", :category "General", :description "SSH Public Key(s) (one per line)", :type "RestrictedText", :name "General.ssh.public.key"}]}
-   {:category-type :global, :category "AmazonEC2", :parameters [{:help-hint "This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.", :mandatory? true, :read-only? false, :order 0, :value "amazonec2_access_id", :category "AmazonEC2", :description "Access id", :type "String", :name "AmazonEC2.access.id"}
-                                                              {:help-hint nil, :mandatory? true, :read-only? true, :order 0, :value "20", :category "AmazonEC2", :description "Number of VMs the user can start for this cloud", :type "String", :name "AmazonEC2.quota.vm"}
-                                                              {:help-hint "This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.", :mandatory? true, :read-only? false, :order 0, :value "amazonec2_secret_key", :category "AmazonEC2", :description "Secret key", :type "Password", :name "AmazonEC2.secret.key"}]}
    {:category-type :global, :category "Cloud1", :parameters [{:help-hint nil, :mandatory? true, :read-only? true, :order 0, :value nil, :category "Cloud1", :description "Number of VMs the user can start for this cloud", :type "String", :name "Cloud1.quota.vm"}
                                                              {:help-hint nil, :mandatory? true, :read-only? false, :order 10, :value "cloud1_username", :category "Cloud1", :description "StratusLab account username", :type "RestrictedString", :name "Cloud1.username"}
                                                              {:help-hint nil, :mandatory? true, :read-only? false, :order 20, :value "cloud1_password", :category "Cloud1", :description "StratusLab account password", :type "Password", :name "Cloud1.password"}]}
@@ -61,7 +57,7 @@
                                                              {:help-hint nil, :mandatory? true, :read-only? false, :order 20, :value "cloud2_secret", :category "Cloud2", :description "Secret", :type "Password", :name "Cloud2.password"}]}
    {:category-type :global, :category "Cloud3", :parameters [{:help-hint nil, :mandatory? true, :read-only? true, :order 0, :value "20", :category "Cloud3", :description "Number of VMs the user can start for this cloud", :type "String", :name "Cloud3.quota.vm"}
                                                              {:help-hint nil, :mandatory? true, :read-only? false, :order 10, :value "cloud3_key", :category "Cloud3", :description "Key", :type "RestrictedString", :name "Cloud3.username"}
-                                                             {:help-hint nil, :mandatory? true, :read-only? false, :order 20, :value nil, :category "Cloud3", :description "Secret", :type "Password", :name "Cloud3.password"}]}
+                                                             {:help-hint nil, :mandatory? true, :read-only? false, :order 20, :value "cloud3_secret", :category "Cloud3", :description "Secret", :type "Password", :name "Cloud3.password"}]}
    {:category-type :global, :category "Cloud4", :parameters [{:help-hint "This is required in order to be able to deploy to this EC2 cloud. You can find the <code>access id</code> by logging into the AWS Console and going to the Security Credentials page.", :mandatory? true, :read-only? false, :order 0, :value nil, :category "Cloud4", :description "Access id", :type "String", :name "Cloud4.access.id"}
                                                              {:help-hint nil, :mandatory? true, :read-only? true, :order 0, :value "20", :category "Cloud4", :description "Number of VMs the user can start for this cloud", :type "String", :name "Cloud4.quota.vm"}
                                                              {:help-hint "This is required in order to be able to deploy to this EC2 cloud. You can find the <code>secret key</code> by logging into the AWS Console and going to the Security Credentials page.", :mandatory? true, :read-only? false, :order 0, :value "cloud4_secret_key", :category "Cloud4", :description "Secret key", :type "Password", :name "Cloud4.secret.key"}]}

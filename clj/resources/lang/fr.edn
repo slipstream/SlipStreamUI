@@ -1061,7 +1061,7 @@
    :slipstream.ui.views.runs.header.subtitle                "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les exécutions s'exécutants sur votre compte Cloud."
    :slipstream.ui.views.runs.header.second-subtitle         "Veuillez noter que cette page peut être limitée à un seul Cloud en fonction de l'URL demandée."
    :slipstream.ui.views.runs.section.vms.title              :global.nouns.runs
-   :slipstream.ui.views.runs.section.runs.empty-content-hint "Vous n'avez pas d'exécutions sur ce Cloud."
+   :slipstream.ui.views.runs.section.runs.empty-content-hint "Aucun déploiement n'a été trouvé avec les filtres actuels."
 
    :slipstream.ui.views.configuration.header.title          "Configuration système"
    :slipstream.ui.views.configuration.header.subtitle       "Configure le service SlipStream et ses connecteurs."

@@ -139,6 +139,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .dataType("html")
             .withLoadingScreen(withLoadingScreen)
             .onSuccess(function (html){
+                $dynamicContent.bsHidePopoversAndTooltips();
                 var $newContent = $(newContentSel, html);
                 $dynamicContent
                     .children(":first")
@@ -255,5 +256,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
             });
     });
+
+    $("body").on("change", "#include-inactive-runs", function () {
+        var shouldIncludeInactive = this.checked,
+            $thisCheckbox = $(this),
+            $dynamicContentElem = $thisCheckbox.closest(dynamicContentSel),
+            newContentLoadUrl   = $dynamicContentElem.attr("content-load-url")
+                                    .replace(/activeOnly=[01]/, "activeOnly=" +
+                                        (shouldIncludeInactive ? "0" : "1")); // NOTE: The booleans are swapped because the semantic meaning of the filter
+                                                                              //       on the UI is the oposite of the meaning for the API.
+        $dynamicContentElem
+            .attr("content-load-url", newContentLoadUrl)
+            .trigger("ss-dynamic-content-reload");
+    });
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
