@@ -212,7 +212,7 @@
   [{:keys [username] :as user-summary-map}]
   (parameters-table
     (let [require-old-password? (and (page-type/edit?) (current-user/is? username))
-          hide-password?        (or (current-user/github-user?) (not (page-type/edit-or-new?)))]
+          hide-password?        (not (page-type/edit-or-new?))]
       (p/map->parameter-list user-summary-map
         :username       {:type :cell/text
                          :editable? (page-type/new?)

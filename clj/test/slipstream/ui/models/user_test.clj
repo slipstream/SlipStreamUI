@@ -12,7 +12,6 @@
 (expect
   {:username      "alice"
    :first-name    "Alice"
-   :github-login  "alice"
    :last-name     "Persona"
    :uri           "user/alice"
    :organization  "ACME"

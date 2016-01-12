@@ -58,7 +58,6 @@
                         :first-name   (:firstName attrs)
                         :last-name    (:lastName attrs)
                         :uri          (:resourceUri attrs)
-                        :github-login (:githubLogin attrs)
                         :super?       (-> attrs :issuper uc/parse-boolean)
                         :deleted?     (-> attrs :deleted uc/parse-boolean)
                         :parameters     parameters

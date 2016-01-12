@@ -11,7 +11,6 @@
 
 (expect
   {:username      "alice"
-   :github-login  nil
    :first-name    "Alice"
    :last-name     "The User"
    :uri           "user/alice"

@@ -83,10 +83,6 @@
 (def not-logged-in?
   (complement logged-in?))
 
-(defn github-user?
-  []
-  (:github-login *current-user*))
-
 (defn get
   ([]
     *current-user*)
