@@ -1,5 +1,5 @@
 (ns slipstream.ui.config
-  (:require [superstring.core :as string]
+  (:require [superstring.core :as s]
             [slipstream.common.reload :as reload])
   (:gen-class
   :name slipstream.ui.Config
@@ -15,7 +15,7 @@
 (defn- trim-leading-trailing-double
   "Remove leading, trailing and double char c"
   [s c]
-  (string/join c (filter not-empty (string/split s (re-pattern c)))))
+  (s/join c (filter not-empty (s/split s (re-pattern c)))))
 
 (defn trim-slashes
   "Remove leading, trailing and double slashes"

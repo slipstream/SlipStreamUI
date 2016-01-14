@@ -1,5 +1,6 @@
 (ns slipstream.ui.util.theme
-  "Util functions for the UI theme.")
+  "Util functions for the UI theme."
+  (:require [superstring.core :as s]))
 
 ;; NOTE: Currently the theme is used in two parts: localization.clj and base.clj
 ;;       and the used theme is taken from the System Property 'slipstream.ui.util.theme.current-theme'.
@@ -27,7 +28,7 @@
         (println
           (format "WARN: The requested theme \"%s\" is not available. Must be one of %s or \"default\"."
                   theme-property
-                  (->> available-themes (map name) (map pr-str) (superstring.core/join ", "))))))
+                  (->> available-themes (map name) (map pr-str) (s/join ", "))))))
     (println "INFO: Using theme" (-> theme (or "default") name pr-str))
     theme))
 
