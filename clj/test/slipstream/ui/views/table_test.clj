@@ -1,7 +1,7 @@
 (ns slipstream.ui.views.table-test
   (:use [expectations]
         [slipstream.ui.views.table])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [slipstream.ui.utils :as u :refer [expect-html]]
             [net.cgrand.enlive-html :as html]
             [clj-time.core :as t]

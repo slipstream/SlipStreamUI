@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.breadcrumbs
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.current-user :as current-user]))
 

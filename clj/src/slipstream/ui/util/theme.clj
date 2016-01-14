@@ -27,7 +27,7 @@
         (println
           (format "WARN: The requested theme \"%s\" is not available. Must be one of %s or \"default\"."
                   theme-property
-                  (->> available-themes (map name) (map pr-str) (clojure.string/join ", "))))))
+                  (->> available-themes (map name) (map pr-str) (superstring.core/join ", "))))))
     (println "INFO: Using theme" (-> theme (or "default") name pr-str))
     theme))
 

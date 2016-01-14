@@ -1,7 +1,7 @@
 (ns slipstream.ui.util.core-test
   (:use [expectations]
         [slipstream.ui.util.core])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [slipstream.ui.util.localization :as localization]))
 
 (expect

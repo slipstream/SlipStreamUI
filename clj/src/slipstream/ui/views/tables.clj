@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.tables
   "Predefined table rows."
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [clj-time.core :as ctime]
             [clj-time.format :as format]
             [slipstream.ui.util.core :as u]

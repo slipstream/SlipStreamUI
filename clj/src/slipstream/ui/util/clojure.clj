@@ -1,5 +1,5 @@
 (ns slipstream.ui.util.clojure
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.walk :as walk]

@@ -1,5 +1,5 @@
 (ns slipstream.ui.config
-  (:require [clojure.string :as string]
+  (:require [superstring.core :as string]
             [slipstream.common.reload :as reload])
   (:gen-class
   :name slipstream.ui.Config

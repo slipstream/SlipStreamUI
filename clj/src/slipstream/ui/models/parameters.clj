@@ -1,6 +1,6 @@
 (ns slipstream.ui.models.parameters
   (:refer-clojure :exclude [flatten update])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]

@@ -1,6 +1,6 @@
 (ns slipstream.ui.main
 (:use slipstream.ui.util.dev-traces)
-(:require [clojure.string :as s]
+(:require [superstring.core :as s]
             [ring.util.response :as resp]
             [ring.middleware.resource :as resource]
             [slipstream.ui.localization-test-helper :as lth]

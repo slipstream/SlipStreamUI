@@ -1,7 +1,7 @@
 (ns slipstream.ui.util.enlive-test
   (:use [expectations]
         [slipstream.ui.util.enlive])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.utils :as u :refer [expect-html]]))
 

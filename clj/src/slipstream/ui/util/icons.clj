@@ -2,7 +2,7 @@
   "Predefined icons for SlipStream items as an abstraction of the underlying
   icon or icon set used, e.g. Glyphicons or other..."
   (:refer-clojure :exclude [set])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc :refer [defn-memo]]
             [slipstream.ui.util.enlive :as ue]

@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.vms
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.pagination :as pagination]))

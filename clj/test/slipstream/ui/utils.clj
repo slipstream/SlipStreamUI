@@ -5,7 +5,7 @@
         [ring.middleware.file :only [wrap-file]]
         [ring.middleware.stacktrace :only [wrap-stacktrace]]
         [slipstream.ui.test-config :as config])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [clojure.walk :as w]
             [net.cgrand.enlive-html :as html]))
 
