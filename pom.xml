@@ -55,45 +55,6 @@
                     </testSourceDirectories>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>cljs-clean</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>clean</phase>
-                        <configuration>
-                            <workingDirectory>cljs</workingDirectory>
-                            <executable>lein</executable>
-                            <arguments>
-                                <argument>cljsbuild</argument>
-                                <argument>clean</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>cljs-build</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <workingDirectory>cljs</workingDirectory>
-                            <executable>lein</executable>
-                            <arguments>
-                                <argument>do</argument>
-                                <argument>deps</argument>
-                                <argument>,</argument>
-                                <argument>cljsbuild</argument>
-                                <argument>once</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <dependencies>
