@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
   <base href="../../../../../resources/static_content/">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -28,11 +28,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+
           <a class="navbar-brand" href="/"><img class="ss-themable" src="images/logo-menubar-unlogged.png"></a>
+
+
+
+
         </div><!--/.navbar-header -->
+
         <div class="navbar-collapse collapse">
           <span id="hidden-msg-container" style="display: none"></span>
+
+          <form id="login-github" action="/login" method="post" role="form" class="navbar-form navbar-right">
+            <div class="form-group">
+              <input height="36" width="36" type="image" name="submit" src="images/github-icon.png" alt="github" />
+              <input type="hidden" name="authn-method" value="github" />
+            </div>
+          </form>
+
           <form id="login" class="navbar-form navbar-right" role="form" method="post">
+            <input type="hidden" name="authn-method" value="internal" />
           <div class="form-group">
             <label class="sr-only" for="username">Username</label>
             <input name="username" class="form-control ss-input-username" type="text" placeholder="Username">

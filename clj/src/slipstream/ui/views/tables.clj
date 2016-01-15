@@ -211,7 +211,8 @@
 (defn user-summary-table
   [{:keys [username] :as user-summary-map}]
   (parameters-table
-    (let [require-old-password? (and (page-type/edit?) (current-user/is? username))]
+    (let [require-old-password? (and (page-type/edit?) (current-user/is? username))
+          hide-password?        (not (page-type/edit-or-new?))]
       (p/map->parameter-list user-summary-map
         :username       {:type :cell/text
                          :editable? (page-type/new?)
@@ -229,19 +230,19 @@
         :creation       {:type :cell/timestamp-long, :editable? false, :remove? (page-type/new?)}
         :password-new-1 {:type :cell/password
                          :editable? true
-                         :remove? (not (page-type/edit-or-new?))
+                         :remove?  hide-password?
                          :id-format-fn (constantly "password1")
                          :validation {:requirements (pattern/requirements :user-password)}
                          :required? (page-type/new?)}
         :password-new-2 {:type :cell/password
                          :editable? true
-                         :remove? (not (page-type/edit-or-new?))
+                         :remove? hide-password?
                          :id-format-fn (constantly "password2")
                          :required? (page-type/new?)
                          :validation {:requirements (pattern/requirements :user-password-confirmation)
                                       :generic-help-hints {:success (t :password-not-match.success-help-hint)
                                                            :error   (t :password-not-match.error-help-hint)}}}
-        :password-old   {:type :cell/password,  :editable? true,  :remove? (not require-old-password?),     :id-format-fn (constantly "oldPassword")}
+        :password-old   {:type :cell/password,  :editable? true,  :remove? (or hide-password? (not require-old-password?)),     :id-format-fn (constantly "oldPassword")}
         :state          {:type :cell/text,      :editable? false, :remove? (page-type/edit-or-new?)}))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
