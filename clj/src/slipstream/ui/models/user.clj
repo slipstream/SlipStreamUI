@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.user
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]

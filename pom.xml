@@ -63,6 +63,10 @@
             <artifactId>clojure</artifactId>
         </dependency>
         <dependency>
+            <groupId>superstring</groupId>
+            <artifactId>superstring</artifactId>
+        </dependency>
+        <dependency>
             <groupId>enlive</groupId>
             <artifactId>enlive</artifactId>
         </dependency>

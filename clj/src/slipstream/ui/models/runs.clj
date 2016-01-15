@@ -1,6 +1,6 @@
 (ns slipstream.ui.models.runs
   "Parsing of run items, used in model/runs and model/module/image."
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.run :as run]

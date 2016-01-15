@@ -1,5 +1,5 @@
 (ns slipstream.ui.views.versions
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.localization :as localization]

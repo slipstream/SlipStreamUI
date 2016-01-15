@@ -1,7 +1,7 @@
 (ns slipstream.ui.util.time
   "Util functions around time, date and timestamps using clj-time."
   (:refer-clojure :exclude [format])
-  (require  [clojure.string :as s]
+  (require  [superstring.core :as s]
             [clj-time.core :as t]
             [clj-time.format :as f]
             [slipstream.ui.util.clojure :as uc]

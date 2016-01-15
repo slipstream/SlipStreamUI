@@ -1,5 +1,5 @@
 (ns slipstream.ui.views.reports
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.localization :as localization]

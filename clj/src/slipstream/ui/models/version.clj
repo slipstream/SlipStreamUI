@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.version
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [clojure.java.shell :as sh]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]))

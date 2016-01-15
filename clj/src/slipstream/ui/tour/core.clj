@@ -1,7 +1,7 @@
 (ns slipstream.ui.tour.core
   "Util functions for the UI onboarding tour.
   Currently using bootstro.js - https://clu3.github.io/bootstro.js/#"
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.clojure :as uc]

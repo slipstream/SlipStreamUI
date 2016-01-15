@@ -1,5 +1,5 @@
 (ns slipstream.ui.models.action
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]))
 
 (defn- parse-action-str

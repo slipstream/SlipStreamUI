@@ -1,6 +1,6 @@
 (ns slipstream.ui.models.runtime-parameters
   (:refer-clojure :exclude [filter])
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]))

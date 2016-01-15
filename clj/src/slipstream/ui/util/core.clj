@@ -1,6 +1,6 @@
 (ns slipstream.ui.util.core
   "Util functions only related to the SlipStream application."
-  (:require [clojure.string :as s]
+  (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
             [clj-json.core :as json]
             [clojure.data.xml :as xml]
