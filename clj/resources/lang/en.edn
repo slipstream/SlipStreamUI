@@ -1176,7 +1176,8 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
 
    :slipstream.ui.views.base.footer.notice                  ""
 
-   :slipstream.ui.views.base.flash.auth-failed.title        "Authentication failed"
-   :slipstream.ui.views.base.flash.auth-failed.message      "SlipStream was unable to obtain authentication information
-                                                            to create a coresponding user. (check login and email...)"
+   :slipstream.ui.views.base.flash.auth-failed.title        "External authentication failed"
+   :slipstream.ui.views.base.flash.auth-failed.message      "SlipStream was unable to obtain information
+                                                            to create a corresponding user.
+                                                            Please check that a login and an email are returned by your authentication provider."
 }
