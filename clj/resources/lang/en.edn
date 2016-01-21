@@ -1175,4 +1175,8 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.service-catalog.header.subtitle     "Provides detailed capability information for each available cloud"
 
    :slipstream.ui.views.base.footer.notice                  ""
+
+   :slipstream.ui.views.base.flash.auth-failed.title        "Authentication failed"
+   :slipstream.ui.views.base.flash.auth-failed.message      "SlipStream was unable to obtain authentication information
+                                                            to create a coresponding user. (check login and email...)"
 }

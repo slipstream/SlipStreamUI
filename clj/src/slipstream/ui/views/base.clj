@@ -168,6 +168,18 @@
       (ue/map->meta-tag-snip :name-prefix "ss-")
       html/prepend))
 
+(def ^:private flash-whitelist #{"auth-failed"})
+
+(defn- prepend-flash-now-alerts
+  [context alerts]
+  (if-let [flash-key (some-> context :metadata meta :request :query-parameters :flash-now-warning flash-whitelist)]
+    (cons
+      {:type  :warning
+       :title (->> flash-key (format "flash.%s.title") t)
+       :msg   (->> flash-key (format "flash.%s.message") t)}
+      alerts)
+    alerts))
+
 (deftemplate base base-template-filename
   [{:keys [error-page?
            beta-page?
@@ -224,8 +236,9 @@
                                                    (filter alerts/is-floating?)
                                                    (map alerts/alert)))
   alert-container-fixed-sel     (html/append (->> alerts
-                                                   (filter alerts/is-fixed?)
-                                                   (map alerts/alert)))
+                                                  (filter alerts/is-fixed?)
+                                                  (prepend-flash-now-alerts context)
+                                                  (map alerts/alert)))
   alert-container-floating-sel   (html/append (alerts/hidden-templates))
   noscript-title-sel    (ue/when-content (t :noscript-error.title))
   noscript-subtitle-sel (ue/when-content (t :noscript-error.subtitle))
