@@ -654,6 +654,8 @@
    :slipstream.ui.util.pattern.error-help-hint.picture-url.url                  "Provide the URL for an image."
    :slipstream.ui.util.pattern.error-help-hint.picture-url.picture-file         "Please provide a URL for a `.png`, `.jpg` or `.svg` image file."
 
+   :slipstream.ui.util.pattern.error-help-hint.user-roles.not-forbidden-role    "Reserved roles are not allowed: ADMIN, ROLE, USER, ANON"
+
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-empty                  :pattern.default-error-help-hint.not-empty
    :slipstream.ui.util.pattern.error-help-hint.module-name.alpha-num-underscore-dash-dot  :pattern.default-error-help-hint.alpha-num-underscore-dash-dot
    :slipstream.ui.util.pattern.error-help-hint.module-name.not-new                    :pattern.default-error-help-hint.not-new

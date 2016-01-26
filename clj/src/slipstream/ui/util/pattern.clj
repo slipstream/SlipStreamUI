@@ -1,15 +1,40 @@
 (ns slipstream.ui.util.pattern
   "Util functions only related to the regex patterns to be fulfilled by SlipStream items
   like image names, user names or email addresses."
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.current-user :as current-user]
-            [slipstream.ui.util.localization :as localization]))
+  (:require [slipstream.ui.util.current-user :as current-user]
+            [slipstream.ui.util.localization :as localization]
+            [superstring.core :as s]))
 
 (localization/def-scoped-t)
+
+(defn- cases
+  [c]
+  (if-not (Character/isLetter c)
+    c
+    (->> c
+         ((juxt s/lower-case s/upper-case))
+         (apply format "[%s%s]"))))
+
+(defn- case-insensitive-pattern
+  [s]
+  (->> s
+       (map cases)
+       (apply str)))
+
+(defn- pattern-none-of
+  "Builds the pattern that matches a string only when *not* containing
+   any of the given words. Each word is matched in a case-insensitive way."
+  [& words]
+  (->>  words
+        (s/join "|")
+        case-insensitive-pattern
+        (format "^(?:(?!\\b(?:%s)\\b).)*$")))
 
 (defn- str-pattern
   [pattern-key]
   (case pattern-key
+    ;; NOTE: All patterns here are "allowed" patterns. I.e. if the pattern does not match
+    ;;       the requirement is considered not fulfilled.
     :not-empty                      ".+"
     :positive-integer               "^[0-9]+$"
     :alpha-num                      "^[a-zA-Z0-9]+$"
@@ -17,6 +42,7 @@
     :alpha-num-underscore-dash      "^[\\w-]+$"
     :alpha-num-underscore-dash-dot  "^[\\w.-]+$"
     :not-new                        "^(?!new$).*$" ; Other than the string 'new'.
+    :not-forbidden-role             (pattern-none-of "ADMIN" "USER" "ROLE" "ANON")
     :not-include-username           (str "^((?!" (current-user/username) ").)*$") ; Does not contain username.
     :begin-with-letter              "^[a-zA-Z]"    ; Matches "asd..." but not "1asd..."
     :min-3-chars                    ".{3}"
@@ -70,7 +96,8 @@
 
    :run-tags       [[:comma-separated-words  {:when-true   "warning"}]]
 
-   :user-roles     [:comma-separated-words]
+   :user-roles     [:comma-separated-words
+                    :not-forbidden-role]
 
    ; Same than :run-tags but for the 'Run deployment dialog'
    :run-start-tags [:comma-separated-words]
