@@ -8,14 +8,18 @@
 (localization/def-scoped-t)
 
 (defn- cases
+  "If c is a letter, returns the pattern with both cases.
+  Else returns c unchanged.
+  e.g \\a => [aA]"
   [c]
-  (if-not (Character/isLetter c)
-    c
+  (if (Character/isLetter c)
     (->> c
          ((juxt s/lower-case s/upper-case))
-         (apply format "[%s%s]"))))
+         (apply format "[%s%s]"))
+    c))
 
 (defn- case-insensitive-pattern
+  "abc => [aA][bB][cC]"
   [s]
   (->> s
        (map cases)
