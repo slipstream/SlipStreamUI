@@ -3,7 +3,7 @@
   :url "http://sixsq.com"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
-  :dependencies [[org.clojure/clojure "1.7.0"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
                  [superstring "2.1.0"]
                  [enlive "1.1.4"]
                  [ring "1.1.8"]
