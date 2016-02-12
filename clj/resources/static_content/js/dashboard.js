@@ -167,4 +167,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $$.util.url.redirectTo("/appstore");
     }
 
+    // NOTE: Fix for Firefox: https://github.com/slipstream/SlipStreamUI/issues/443
+    $(".ss-usage-gauge.ss-usage-gauge-drawn [filter='url(#inner-shadow)']")
+        .each(function(){ $(this).removeAttr("filter") });
+
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
