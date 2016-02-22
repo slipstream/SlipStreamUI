@@ -40,9 +40,9 @@
    :abort-msg "sh: /usr/bin/nuvlabox-run-instances: Aucun fichier ou dossier de ce type"
    :uuid "3a5b0160-547c-4c1a-b877-4498f9164ced"
    :type :deployment-run
-   :localized-type "Deployment Run"
+   :localized-type "Application Deployment"
    :run-owner "super"
-   :category "Deployment"
+   :category "Application"
    :tags ""}
   (-> parsed-metadata
       :summary))

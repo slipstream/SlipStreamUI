@@ -14,7 +14,6 @@
   packajed jar, so that known resources must be directly loaded.
   For one possible solution see: http://stackoverflow.com/a/22363700"
   #{:en
-    :en-US
     :ja
     :fr})
 
@@ -194,7 +193,7 @@
 
 (defmacro with-lang
   [lang & body]
-  `(binding [*lang* (-> ~lang keyword tower/iso-languages (or lang-default))]
+  `(binding [*lang* (-> ~lang keyword ~available-languages (or lang-default))]
     ~@body))
 
 ;; Utils

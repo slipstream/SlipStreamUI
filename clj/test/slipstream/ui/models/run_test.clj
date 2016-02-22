@@ -31,10 +31,10 @@
    :uri "run/d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :uuid "d32f6b31-cd9f-4b1a-aa1d-e8170e51a62d"
    :type :deployment-run
-   :localized-type "Deployment Run"
+   :localized-type "Application Deployment"
    :original-type "orchestration"
    :run-owner "rob"
-   :category "Deployment"
+   :category "Application"
    :tags ""
    :abort-msg "Exception <class 'slipstream.exceptions.Exceptions.ExecutionException'> with detail: Failed to connect to 31.171.251.235: <class 'slipstream.utils.ssh.SshAuthFailed'>, Authentication failed."}
   (localization/with-lang :en
