@@ -193,7 +193,7 @@
 
 (defmacro with-lang
   [lang & body]
-  `(binding [*lang* (-> ~lang keyword tower/iso-languages (or lang-default))]
+  `(binding [*lang* (-> ~lang keyword ~available-languages (or lang-default))]
     ~@body))
 
 ;; Utils
