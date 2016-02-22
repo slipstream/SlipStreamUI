@@ -38,7 +38,7 @@
                     :content          "Content"
                     :dashboard        "Dashboard"
                     :date             "Date"
-                    :deployment       "Deployment"
+                    :deployment       "Application"
                     :description      "Description"
                     :details          "Details"
                     :documentation    "Documentation"
@@ -53,7 +53,7 @@
                     :help             "Help"
                     :home             "Home"
                     :html             "HTML"
-                    :image            "Image"
+                    :image            "Application Component"
                     :info             "Information"
                     :input            "Input"
                     :key              "Key"
@@ -61,12 +61,12 @@
                     :last-name        "Last name"
                     :mapping          "Mapping"
                     :metering         "Metering"
-                    :module           "Module"
-                    :modules          "Modules"
+                    :module           "Application / Component"
+                    :modules          "Applications / Components"
                     :mutable-deployment "Scalable deployment _(beta)_"
                     :name             "Name"
-                    :node             "Node"
-                    :nodes            "Nodes"
+                    :node             "Component"
+                    :nodes            "Application Components"
                     :orchestrator     "Orchestrator"
                     :organization     "Organization"
                     :output           "Output"
@@ -90,10 +90,10 @@
                     :report           "Report"
                     :reports          "Reports"
                     :repository       "Repository"
-                    :run              "Run"
+                    :run              "Deployment"
                     :runs             "Runs"
-                    :run-id           "Run Id"
-                    :run-type         "Run Type"
+                    :run-id           "ID"
+                    :run-type         "Deployment Type"
                     :service-catalog  "Service Catalog"
                     :service-url      "Service URL"
                     :severity         "Severity"
@@ -171,7 +171,7 @@
                     :remove           "Remove"
                     :removed-will-be  "Will be removed"
                     :report           "Report"
-                    :run              "Run"
+                    :run              "Deploy"
                     :save             "Save"
                     :select           "Select"
                     :terminate        "Terminate"
@@ -192,7 +192,7 @@
 
    :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
    :slipstream.ui.views.menubar.logged-in.action.appstore            :global.nouns.appstore
-   :slipstream.ui.views.menubar.logged-in.action.modules             :global.nouns.modules
+   :slipstream.ui.views.menubar.logged-in.action.modules             "Workspace"
    :slipstream.ui.views.menubar.logged-in.action.configuration       :global.nouns.configuration
    :slipstream.ui.views.menubar.logged-in.action.service-catalog     :global.nouns.service-catalog
    :slipstream.ui.views.menubar.logged-in.action.system              :global.nouns.system
@@ -306,12 +306,12 @@
    :slipstream.ui.views.table.header.first-name               :global.nouns.first-name
    :slipstream.ui.views.table.header.group                    :global.nouns.group
    :slipstream.ui.views.table.header.html                     :global.nouns.html
-   :slipstream.ui.views.table.header.id                       "Run Id"
+   :slipstream.ui.views.table.header.id                       "ID"
    :slipstream.ui.views.table.header.ip-address               "IP Address"
    :slipstream.ui.views.table.header.key                      :global.nouns.key
    :slipstream.ui.views.table.header.last-name                :global.nouns.last-name
    :slipstream.ui.views.table.header.last-online              "Last online"
-   :slipstream.ui.views.table.header.module                   :global.nouns.module
+   :slipstream.ui.views.table.header.module                   "Application / Component"
    :slipstream.ui.views.table.header.name                     :global.nouns.name
    :slipstream.ui.views.table.header.organization             :global.nouns.organization
    :slipstream.ui.views.table.header.owner                    :global.nouns.owner
@@ -343,7 +343,7 @@
    :slipstream.ui.views.table.header.type                     :global.nouns.type
    :slipstream.ui.views.table.header.roles                    :global.nouns.user-roles
 
-   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Reference image"
+   :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Component"
    :slipstream.ui.views.tables.deployment-nodes-table.default-multiplicity.label                  "Default multiplicity"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label   "Multiplicity"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label       "Initial multiplicity"
@@ -360,7 +360,7 @@
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value    "defaults to `%1$s`."  ; %1$s = input parameter value
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty  "has no default value."
    :slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint  "Enter a unique node name."
-   :slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference "Choose image reference for this node"
+   :slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference "Choose component"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Map to output parameter of another node"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-value   "Default value"
 
@@ -425,7 +425,7 @@
    :slipstream.ui.views.tables.access.delete.help-hint                    ""
    :slipstream.ui.views.tables.access.create-children.description         "Create children"
    :slipstream.ui.views.tables.access.create-children.help-hint           "This right allows users to create subprojects, images or deployments in this project."
-   :slipstream.ui.views.tables.access.run-deployment.description          "Run deployment"
+   :slipstream.ui.views.tables.access.run-deployment.description          "Deploy application"
    :slipstream.ui.views.tables.access.run-deployment.help-hint            "This right allows users to launch this deployment."
    :slipstream.ui.views.tables.access.build-or-run-image.description      "Build or run single image"
    :slipstream.ui.views.tables.access.build-or-run-image.help-hint        "This right allows users to trigger a build of this image or launch a new run of this image."
@@ -483,11 +483,11 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
-   :slipstream.ui.models.parameters.module-owner.description                    "Module owner"
-   :slipstream.ui.models.parameters.module-owner.help-hint                      "The owner of the deployed module."
+   :slipstream.ui.models.parameters.module-owner.description                    "Application / Component owner"
+   :slipstream.ui.models.parameters.module-owner.help-hint                      "The owner of the deployed Application / Component."
 
-   :slipstream.ui.models.parameters.run-owner.description                       "Run owner"
-   :slipstream.ui.models.parameters.run-owner.help-hint                         "The user who started this run."
+   :slipstream.ui.models.parameters.run-owner.description                       "Deployment owner"
+   :slipstream.ui.models.parameters.run-owner.help-hint                         "The user who triggered this deployment."
 
    :slipstream.ui.models.parameters.inherited-group-members?.description        "Inherit group members from parent module?"
    :slipstream.ui.models.parameters.inherited-group-members?.help-hint          "If this option is checked, the set of SlipStream users for the 'Group' level of this module is inherited from the parent module."
@@ -495,9 +495,9 @@
    :slipstream.ui.models.parameters.group-members.description                   "Group members"
    :slipstream.ui.models.parameters.group-members.help-hint                     "You can define a new set of SlipStream users as the 'Group' level of this module by entering a comma separated list of usernames."
 
-   :slipstream.ui.models.parameters.native-image?.description                   "Native image"
-   :slipstream.ui.models.parameters.native-image?.help-hint                     "A native image maps to a pre-existing cloud-specific image
-                                                                                 that SlipStream didn't create. For native images, the Cloud Image IDs
+   :slipstream.ui.models.parameters.native-image?.description                   "Native component"
+   :slipstream.ui.models.parameters.native-image?.help-hint                     "A native component maps to a pre-existing cloud-specific image
+                                                                                 that SlipStream didn't create. For native components, the Cloud Image IDs
                                                                                  must be provided for each of the targeted clouds."
 
    :slipstream.ui.models.parameters.cloud-identifiers.description               "Cloud image IDs"
@@ -505,10 +505,10 @@
                                                                                  to this image for each cloud (e.g. 'ami-xxxxxx' for Amazon EC2).
                                                                                  Derived images in SlipStream images can use a native image as parent image."
 
-   :slipstream.ui.models.parameters.reference-image.description                 "Parent image"
-   :slipstream.ui.models.parameters.reference-image.help-hint                   "For a derived image, a parent image from which this image is derived must be specified.
-                                                                                The parent image may or may be a native or another derived image. However,
-                                                                                the root parent of an image inheritance chain must always be a native image."
+   :slipstream.ui.models.parameters.reference-image.description                 "Parent component"
+   :slipstream.ui.models.parameters.reference-image.help-hint                   "For a derived application component a parent component must be specified. The parent
+                                                                                component may be a native or another derived component. However, the root parent of an
+                                                                                component inheritance chain must always be a native component."
 
    :slipstream.ui.models.parameters.platform.description                        :global.nouns.platform
    :slipstream.ui.models.parameters.platform.help-hint                          "The platform (operating system) is defined by the native image and inherited by
@@ -551,7 +551,7 @@
    :slipstream.ui.models.parameters.roles.help-hint                             "User roles can only be modified by SlipStream administrator."
 
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
-   :slipstream.ui.models.parameters.tags.help-hint                              "You can label this run with a comma-separated list of tags. This can be useful to identify the purpose of a specific run later on. You can modify the run tags any time."
+   :slipstream.ui.models.parameters.tags.help-hint                              "You can label this deployment with a comma-separated list of tags. This can be useful to identify the purpose of a specific deployment later on. You can modify the tags any time."
 
    :slipstream.ui.models.parameters.last-state-change.description               "Last state change"
    :slipstream.ui.models.parameters.last-state-change.help-hint                 ""
@@ -613,8 +613,8 @@
    :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.description.placeholder   :global.nouns.description
    :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.value.placeholder         :global.nouns.value
 
-   :slipstream.ui.views.tables.deployment-nodes-table.node.name.placeholder                 "Node name"
-   :slipstream.ui.views.tables.deployment-nodes-table.template-node.name.placeholder        "New node name"
+   :slipstream.ui.views.tables.deployment-nodes-table.node.name.placeholder                 "Component name"
+   :slipstream.ui.views.tables.deployment-nodes-table.template-node.name.placeholder        "New component name"
 
    :slipstream.ui.views.tables.run-image-input-parameters-table.param-name      "Input `%1$s`" ;  %1$s: input parameter name
 
@@ -814,13 +814,13 @@
    :slipstream.ui.util.icons.description.user-section-general      "General parameters"
    :slipstream.ui.util.icons.description.user-section-cloud        "Connector parameters"
 
-   :slipstream.ui.util.icons.description.image-build               "Image Build"
-   :slipstream.ui.util.icons.description.image-run                 "Image Run"
-   :slipstream.ui.util.icons.description.deployment-run            "Deployment Run"
+   :slipstream.ui.util.icons.description.image-build               "Application Component Build"
+   :slipstream.ui.util.icons.description.image-run                 "Application Component Deployment"
+   :slipstream.ui.util.icons.description.deployment-run            "Application Deployment"
 
-   :slipstream.ui.models.run.type.machine                          "Image Build"       ; Was 'Build'
-   :slipstream.ui.models.run.type.run                              "Image Run"         ; Was 'Simple Run'
-   :slipstream.ui.models.run.type.orchestration                    "Deployment Run"    ; Was 'Deployment'
+   :slipstream.ui.models.run.type.machine                          "Application Component Build"
+   :slipstream.ui.models.run.type.run                              "Application Component Deployment"
+   :slipstream.ui.models.run.type.orchestration                    "Application Deployment"
 
    :slipstream.ui.models.user.cloud-not-configured.label           "(not configured)"
 
@@ -840,9 +840,9 @@
    :slipstream.ui.util.icons.description.action-edit-user          "Edit user"
    :slipstream.ui.util.icons.description.action-export-users       "Export users as CSV"
    :slipstream.ui.util.icons.description.action-import             :global.verbs.import
-   :slipstream.ui.util.icons.description.action-new-deployment     "New deployment"
-   :slipstream.ui.util.icons.description.action-new-image          "New image"
-   :slipstream.ui.util.icons.description.action-new-project        "New module"
+   :slipstream.ui.util.icons.description.action-new-deployment     "New application"
+   :slipstream.ui.util.icons.description.action-new-image          "New component"
+   :slipstream.ui.util.icons.description.action-new-project        "New project"
    :slipstream.ui.util.icons.description.action-new-user           "New user"
    :slipstream.ui.util.icons.description.action-publish            :global.verbs.publish
    :slipstream.ui.util.icons.description.action-run                :global.verbs.run
@@ -857,8 +857,8 @@
 
    ;; Views
 
-   :slipstream.ui.views.module-list.modules.page-title            :global.nouns.modules
-   :slipstream.ui.views.module-list.modules.header.title          :global.nouns.modules
+   :slipstream.ui.views.module-list.modules.page-title            "Workspace"
+   :slipstream.ui.views.module-list.modules.header.title          "Workspace"
    :slipstream.ui.views.module-list.modules.header.subtitle       "Here you can find all the modules that you have access to,
                                                                 including yours, the ones shared with you, and the public ones."
 
@@ -873,7 +873,7 @@
    :slipstream.ui.views.module-list.app.label.deploy              :global.verbs.deploy
 
    :slipstream.ui.views.module-list.appstore.title                :global.nouns.appstore
-   :slipstream.ui.views.module-list.modules.title                 :global.nouns.modules
+   :slipstream.ui.views.module-list.modules.title                 "Workspace"
 
    :slipstream.ui.views.secondary-menu-actions.suffix.ellipsis :global.punctuation.ellipsis
 
@@ -886,9 +886,9 @@
    :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user"
    :slipstream.ui.views.secondary-menu-actions.export-users    "Export users as CSV"
    :slipstream.ui.views.secondary-menu-actions.import          :global.verbs.import
-   :slipstream.ui.views.secondary-menu-actions.new-deployment  "New deployment"
-   :slipstream.ui.views.secondary-menu-actions.new-image       "New image"
-   :slipstream.ui.views.secondary-menu-actions.new-project     "New module"
+   :slipstream.ui.views.secondary-menu-actions.new-deployment  "New application"
+   :slipstream.ui.views.secondary-menu-actions.new-image       "New component"
+   :slipstream.ui.views.secondary-menu-actions.new-project     "New project"
    :slipstream.ui.views.secondary-menu-actions.new-user        "New user"
    :slipstream.ui.views.secondary-menu-actions.publish         :global.verbs.publish
    :slipstream.ui.views.secondary-menu-actions.run             :global.verbs.run
@@ -921,7 +921,7 @@
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"
    :slipstream.ui.views.dashboard.section.quota.title             "Usage"
-   :slipstream.ui.views.dashboard.section.runs.title              "Deployments / Runs / Builds"
+   :slipstream.ui.views.dashboard.section.runs.title              "Deployments"
    :slipstream.ui.views.dashboard.section.vms.title               :global.nouns.vms
    :slipstream.ui.views.dashboard.section.metering.title          :global.nouns.metering
    :slipstream.ui.views.dashboard.metering-options.last-hour      "Last hour"
@@ -966,7 +966,7 @@
 
    :slipstream.ui.views.module.image.section.cloud-image-details.title                  "Cloud Image Identifiers and Image Hierarchy"
    :slipstream.ui.views.module.image.section.os-details.title                           "Operating System Details"
-   :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "This is a native image: it cannot be built."
+   :slipstream.ui.views.module.image.action-disabled-reason.native-image-cannot-be-built "This is a native application component: it cannot be built."
    :slipstream.ui.views.module.image.section.cloud-configuration.title                  "Cloud Configuration"
 
    :slipstream.ui.views.module.image.section.deployment-parameters.title                 "Application Parameters"
@@ -1032,7 +1032,7 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.reports.no-reports-yet                                   "No reports available yet."
    :slipstream.ui.views.reports.no-need-to-refresh                               "Reports will be displayed as soon as available. No need to refresh."
 
-   :slipstream.ui.views.module.deployment.section.nodes.title                   :global.nouns.nodes
+   :slipstream.ui.views.module.deployment.section.nodes.title                   "Application Components"
    :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint              "This deployment doesn't have any nodes yet. You can [add some](%1$s) by editing this deployment with the `Edit` action in the menu next to the `Run...` button on the right." ; %1$s href to edit module
    :slipstream.ui.views.module.deployment.section.nodes.empty-content-hint.on-chooser   "This deployment doesn't have any nodes yet."
    :slipstream.ui.views.module.deployment.section.runs.title                    :global.nouns.runs
@@ -1071,7 +1071,7 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               "Delete %1$s" ;  %1$s: module category
 
-   :slipstream.ui.views.modal-dialogs.image-chooser-dialog.title                "Choose an image"
+   :slipstream.ui.views.modal-dialogs.image-chooser-dialog.title                "Choose a parent component"
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.cancel        :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select        :global.verbs.select
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select-exact-version "Select exact version"
@@ -1111,9 +1111,9 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.new-module-name.default-suffix       "-v%1$s-copy" ;  %1$s: module version
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.footnote                             "Choose the target project to copy this %1$s to." ;  %1$s: module category
 
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.title                                  "Run image"
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.footnote                               "Run image `%1$s` (v %2$s) on the selected cloud service." ; %1$s: module id ;  %2$s: module version
-   :slipstream.ui.views.modal-dialogs.run-image-dialog.button                                 "Run image"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.title                                  "Deploy Application Component"
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.footnote                               "Deploy the application component `%1$s` (v %2$s) on the selected cloud service." ; %1$s: module id ;  %2$s: module version
+   :slipstream.ui.views.modal-dialogs.run-image-dialog.button                                 "Deploy Application Component"
    :slipstream.ui.views.modal-dialogs.run-image-dialog.cloud-service.label                    "Cloud service"
    :slipstream.ui.views.modal-dialogs.run-image-dialog.button.cancel                          :global.verbs.cancel
 
@@ -1122,33 +1122,33 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
 
    :slipstream.ui.views.modal-dialogs.build-image-dialog.title                                "Build image"
    :slipstream.ui.views.modal-dialogs.build-image-dialog.footnote                             "Build a new native image from `%1$s` (v %2$s) on the selected cloud service.\n\nAt the end of this process, SlipStream will have created a new image from which you will be able to start future runs (i.e. simple run from this page, of more complex deployments when part of a deployment module)." ; %1$s: module id ;  %2$s: module version
-   :slipstream.ui.views.modal-dialogs.build-image-dialog.button                               "Build image"
+   :slipstream.ui.views.modal-dialogs.build-image-dialog.button                               "Build component image"
    :slipstream.ui.views.modal-dialogs.build-image-dialog.cloud-service.label                  "Cloud service"
    :slipstream.ui.views.modal-dialogs.build-image-dialog.button.cancel                        :global.verbs.cancel
 
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.title                             "Run deployment"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote                          "Choose the cloud where each node instance will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Run deployment"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.title                             "Deploy Application"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote                          "Choose the cloud where each application component will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Deploy Application"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Node parameters"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Component parameters"
 
    :slipstream.ui.views.run.page-title                      "Run %1$s" ;; %1$s = [run id]
-   :slipstream.ui.views.run.header.title!                   "Run: %1$s is <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
+   :slipstream.ui.views.run.header.title!                   "Deployment %1$s is <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
 
-   :slipstream.ui.views.run.large-run-alert.title           "Large Run"
-   :slipstream.ui.views.run.large-run-alert.message         "This is a large run with a total of %1$s node instances. The overview diagram and the auto-refresh of the runtime parameters are disabled." ;; %1$s is total number of node instances.
+   :slipstream.ui.views.run.large-run-alert.title           "Big deployment"
+   :slipstream.ui.views.run.large-run-alert.message         "This is a big deployment with a total of %1$s application component instances. The overview diagram and the auto-refresh of the runtime parameters are disabled." ;; %1$s is total number of node instances.
 
-   :slipstream.ui.views.run.machine.not-mutable             "Image build started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.machine.not-mutable.own-run     "Image build started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.machine.not-mutable             "Application component build started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.machine.not-mutable.own-run     "Application component build started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
-   :slipstream.ui.views.run.run.not-mutable                 "Image run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.run.not-mutable.own-run         "Image run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.run.not-mutable                 "Application component deployed by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.run.not-mutable.own-run         "Application component deployed by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
-   :slipstream.ui.views.run.orchestration.not-mutable       "Deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.not-mutable.own-run "Deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.mutable           "Scalable deployment run started by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
-   :slipstream.ui.views.run.orchestration.mutable.own-run   "Scalable deployment run started by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.not-mutable       "Application deployed by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.not-mutable.own-run "Application deployed by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable           "Scalable application deployed by '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
+   :slipstream.ui.views.run.orchestration.mutable.own-run   "Scalable application deployed by you (as '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
 
    :slipstream.ui.views.run.section.overview.title          :global.nouns.overview
    :slipstream.ui.views.run.section.summary.title           :global.nouns.summary
