@@ -39,9 +39,9 @@
    :uri "run/07596eb7-f1f7-4e45-8561-5dbbc55cc817"
    :uuid "07596eb7-f1f7-4e45-8561-5dbbc55cc817"
    :type :deployment-run
-   :localized-type "Deployment Run"
+   :localized-type "Application Deployment"
    :run-owner "rob"
-   :category "Deployment"
+   :category "Application"
    :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/rob'> user account</a>"
    :tags ""}
   (-> parsed-metadata

@@ -402,36 +402,36 @@
     (t-module-category "")))
 
 (expect
-  "Image"
+  "Application Component"
   (localization/with-lang :en
     (t-module-category "Image")))
 
 (expect
-  "image"
+  "application component"
   (localization/with-lang :en
     (t-module-category "Image" s/lower-case)))
 
 (expect
-  "IMAGE"
+  "APPLICATION COMPONENT"
   (localization/with-lang :en
     (t-module-category "Image" s/upper-case)))
 
 (expect
-  "THE IMAGES"
+  "THE APPLICATION COMPONENTS"
   (localization/with-lang :en
     (t-module-category "Image" (comp s/upper-case (partial format "the %ss")))))
 
 (expect
-  "Image"
+  "Application Component"
   (localization/with-lang :en
     (t-module-category :image)))
 
 (expect
-  "image"
+  "application component"
   (localization/with-lang :en
     (t-module-category :image s/lower-case)))
 
 (expect
-  "IMAGE"
+  "APPLICATION COMPONENT"
   (localization/with-lang :en
     (t-module-category :image s/upper-case)))
