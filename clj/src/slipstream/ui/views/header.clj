@@ -19,7 +19,7 @@
 (localization/def-scoped-t)
 
 (def ^:private views-with-allowed-html-in-header
-  #{"error"})
+  #{"error" "dashboard"})
 
 (defn- safe-view?
   [view-name]
