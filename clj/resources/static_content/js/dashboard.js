@@ -171,7 +171,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $(".ss-usage-gauge.ss-usage-gauge-drawn [filter='url(#inner-shadow)']")
         .each(function(){ $(this).removeAttr("filter"); });
 
-    if ( $$.util.meta.isSuperUserLoggegIn() ) {
+    if ( $$.util.meta.isSuperUserLoggedIn() ) {
         $$.request
             .get("/users?media=xml")
             .withLoadingScreen(false)
