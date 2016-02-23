@@ -839,7 +839,8 @@
     (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
           run-uuid-as-link?   (and run-uuid accessible?)]
       {:style  nil
-       :cells (cond-> [(cond
+       :cells (cond-> [(if-not run-uuid {:type :cell/icon,       :content icons/run-uuid-unknown})
+                       (cond
                          (not run-uuid)     (cell-unknown (t :run-uuid.unknown.reason))
                          run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
                          :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run-uuid.no-link.reason)}})
@@ -863,7 +864,7 @@
     [vms & [pagination]]
     (table/build
       {:pagination  pagination
-       :headers     (cond-> [:run-id :state :ip-address :name :cpu :ram :disk :instance-type :cloud-instance-id :cloud :run-owner]
+       :headers     (cond-> [nil :run-id :state :ip-address :name :cpu :ram :disk :instance-type :cloud-instance-id :cloud :run-owner]
                       (current-user/super?) (conj :user))
        :rows (map vm-row vms)}))
 

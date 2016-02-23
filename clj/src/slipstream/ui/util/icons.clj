@@ -63,6 +63,7 @@
 (deficon image-run              image)
 (deficon image-build            build)
 (deficon run                    deployment)
+(deficon run-uuid-unknown       "exclamation-sign" :style :warning)
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
