@@ -96,9 +96,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     drawHistograms();
     $(".ss-usage-gauge:first-child").click();
 
-    function updateUsageGauge(id, quotaCurrent, quotaMax) {
-        var $gauge = $("[id='" + id + "']"),
-            gaugeController = $gauge.data("gauge-controller");
+    function updateUsageGauge($gauge, quotaCurrent, quotaMax) {
+        console.debug($gauge.attr("id"), quotaCurrent, quotaMax);
+        var gaugeController = $gauge.data("gauge-controller");
         if ( $gauge.foundNothing() ) {
             console.warn("No element found with id: " + id);
         } else if ( gaugeController === undefined ) {
@@ -108,24 +108,37 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     }
 
+    function updateCloudUsageGauge(id, quotaCurrent, quotaMax) {
+        updateUsageGauge($("#" + id), quotaCurrent, quotaMax);
+    }
+
+    function updateGlobalUsageGauge(globalQuotaCurrent, globalQuotaMax) {
+        updateUsageGauge($(".ss-usage-gauge:first-child"), globalQuotaCurrent, globalQuotaMax);
+    }
+
     function updateDashboardRequestCallback(data, textStatus, jqXHR) {
-        var updatedDashboardHTML    = data,
-            $updatedUsageGauges     = $(".ss-usage-gauge", updatedDashboardHTML);
+        var updatedDashboardXML     = data,
+            $updatedUsageGauges     = $("usageElement", updatedDashboardXML),
+            globalQuota             = 0,
+            globalCurrentUsage      = 0;
 
         $updatedUsageGauges.each(function(){
-            var $gauge = $(this);
-            updateUsageGauge($gauge.id(),
-                             $gauge.data("quotaCurrent"),
-                             $gauge.data("quotaMax"));
+            var $gauge        = $(this),
+                gaugeId       = "ss-usage-gauge-" + $gauge.attr("cloud"),
+                currentUsage  = $gauge.attr("currentUsage"),
+                quota         = $gauge.attr("quota");
+            globalCurrentUsage += currentUsage.asInt();
+            globalQuota += quota.asInt();
+            updateCloudUsageGauge(gaugeId, currentUsage, quota);
         });
-
+        updateGlobalUsageGauge(globalCurrentUsage, globalQuota);
     }
 
     var autoUpdateJobName       = "updateDashboard",
         secsBetweenUpdates      = 10,
         updateDashboardRequest  = $$.request
                                     .get("/dashboard")
-                                    .dataType("html")
+                                    .dataType("xml")
                                     .withLoadingScreen(false)
                                     .onSuccess(updateDashboardRequestCallback);
 
