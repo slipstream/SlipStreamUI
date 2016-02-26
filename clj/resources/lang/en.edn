@@ -798,6 +798,7 @@
    :slipstream.ui.util.icons.description.vms                       :global.nouns.vms
    :slipstream.ui.util.icons.description.runs                      :global.nouns.runs
    :slipstream.ui.util.icons.description.run                       :global.nouns.run
+   :slipstream.ui.util.icons.description.run-uuid-unknown          "Run UUID unknown"
    :slipstream.ui.util.icons.description.deployment                :global.nouns.deployment
    :slipstream.ui.util.icons.description.build                     :global.nouns.build
    :slipstream.ui.util.icons.description.image                     :global.nouns.image
