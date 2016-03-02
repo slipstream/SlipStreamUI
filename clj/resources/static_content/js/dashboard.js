@@ -169,6 +169,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // NOTE: Fix for Firefox: https://github.com/slipstream/SlipStreamUI/issues/443
     $(".ss-usage-gauge.ss-usage-gauge-drawn [filter='url(#inner-shadow)']")
-        .each(function(){ $(this).removeAttr("filter") });
+        .each(function(){ $(this).removeAttr("filter"); });
+
+    if ( $$.util.meta.isSuperUserLoggedIn() ) {
+        $$.request
+            .get("/users?media=xml")
+            .withLoadingScreen(false)
+            .onSuccess( function(data, textStatus, jqXHR) {
+                var managedUserCount = $(data).find("item").length;
+                console.log("superuser " + $$.util.meta.getUsername() +
+                            " is managing " + managedUserCount + " users");
+                $('#managedUserCount').html(managedUserCount);
+            }).send();
+    }
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

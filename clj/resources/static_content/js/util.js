@@ -2183,7 +2183,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         getUsername: function ($elem) {
             return this.getMetaValue("ss-username", $elem);
         },
-        isSuperUserLoggegIn: function ($elem) {
+        isSuperUserLoggedIn: function ($elem) {
             return util.string.caseInsensitiveEqual(this.getUserType($elem), "super");
         },
         getViewName: function ($elem) {

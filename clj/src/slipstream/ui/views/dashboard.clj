@@ -121,9 +121,13 @@
   (let [dashboard (dashboard/parse metadata)]
     (base/generate
       {:html-dependencies html-dependencies
-       :header {:icon     icons/dashboard
-                :title    (t :header.title)
-                :subtitle (t :header.subtitle)}
+       :header {:icon             icons/dashboard
+                :title            (t :header.title)
+                :subtitle         (if (current-user/super?)
+                                    (t :header.subtitle.super)
+                                    (t :header.subtitle))
+                :second-subtitle  (when (current-user/super?)
+                                    (t :header.second-subtitle.super))}
        :content (->> dashboard
                      sections
                      (map (partial section dashboard))

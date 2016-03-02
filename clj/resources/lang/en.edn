@@ -921,6 +921,8 @@
 
    :slipstream.ui.views.dashboard.header.title                    :global.nouns.dashboard
    :slipstream.ui.views.dashboard.header.subtitle                 "Control and monitor your cloud activity"
+   :slipstream.ui.views.dashboard.header.subtitle.super           "Control and monitor the global cloud activity of this SlipStream instance"
+   :slipstream.ui.views.dashboard.header.second-subtitle.super!   "You are seeing the deployments of all the <span id='managedUserCount'></span> users you manage, including yours."
    :slipstream.ui.views.dashboard.section.quota.title             "Usage"
    :slipstream.ui.views.dashboard.section.runs.title              "Deployments"
    :slipstream.ui.views.dashboard.section.vms.title               :global.nouns.vms
