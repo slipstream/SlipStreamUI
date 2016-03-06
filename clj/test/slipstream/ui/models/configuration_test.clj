@@ -313,7 +313,7 @@
          <string><![CDATA[cloud.connector.library.libcloud.url]]></string>
          <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.library.libcloud.url' description='URL to fetch libcloud library from' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
             <instructions><![CDATA[URL should point to a valid gzipped tarball.]]></instructions>
-            <value><![CDATA[http://slipstream.sixsq.com/libcloud.tgz]]></value>
+            <value><![CDATA[http://nuv.la/libcloud.tgz]]></value>
          </parameter>
       </entry>
       <entry>
@@ -658,7 +658,7 @@
             <string><![CDATA[cloud.connector.library.libcloud.url]]></string>
             <parameter class='com.sixsq.slipstream.persistence.ServiceConfigurationParameter' name='cloud.connector.library.libcloud.url' description='URL to fetch libcloud library from' category='SlipStream_Advanced' mandatory='true' type='String' readonly='false'>
                <instructions><![CDATA[URL should point to a valid gzipped tarball.]]></instructions>
-               <value><![CDATA[http://slipstream.sixsq.com/libcloud.tgz]]></value>
+               <value><![CDATA[http://nuv.la/libcloud.tgz]]></value>
             </parameter>
          </entry>
          <entry>
@@ -701,7 +701,7 @@
 (def parsed-medatada
   {:parameters [{:category-type :global
                  :category "SlipStream_Advanced"
-                 :parameters [{:help-hint "URL should point to a valid gzipped tarball.", :read-only? false, :mandatory? true, :order 2147483647, :value "http://slipstream.sixsq.com/libcloud.tgz", :category "SlipStream_Advanced", :description "URL to fetch libcloud library from", :type "String", :name "cloud.connector.library.libcloud.url"}
+                 :parameters [{:help-hint "URL should point to a valid gzipped tarball.", :read-only? false, :mandatory? true, :order 2147483647, :value "http://nuv.la/libcloud.tgz", :category "SlipStream_Advanced", :description "URL to fetch libcloud library from", :type "String", :name "cloud.connector.library.libcloud.url"}
                               {:help-hint nil, :read-only? false, :mandatory? true, :order 2147483647, :value "/opt/slipstream/server/.ssh/id_rsa.pub", :category "SlipStream_Advanced", :description "SSH public key used for orchestrator", :type "String", :name "cloud.connector.security.publicsshkey"}
                               {:help-hint nil, :read-only? false, :mandatory? true, :order 2147483647, :value "$HeadURL: https://code.sixsq.com/svn/SlipStream/trunk/SlipStreamServer/src/main/resources/com/sixsq/slipstream/main/default.config.properties $", :category "SlipStream_Advanced", :description "", :type "String", :name "slipstream.headurl"}
                               {:help-hint nil, :read-only? false, :mandatory? true, :order 2147483647, :value "/var/tmp/slipstream/reports", :category "SlipStream_Advanced", :description "", :type "String", :name "slipstream.reports.location"}
