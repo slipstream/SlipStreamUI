@@ -949,7 +949,7 @@
    :slipstream.ui.views.module.header.title.new                "New %1$s"
    :slipstream.ui.views.module.header.subtitle                 "Version: %1$s" ; %1$s = version
    :slipstream.ui.views.module.header.subtitle.new             "Add the information to create a new %1$s."
-   :slipstream.ui.views.module.alert.old-version.msg           "This is not the most recent version of this %1$s. [Are you looking for the lastest version?](%2$s)" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
+   :slipstream.ui.views.module.alert.old-version.msg           "This is not the most recent version of this %1$s. [Are you looking for the latest version?](%2$s)" ;  %1$s = category: image, project or deployment; %2$s = url to the last version
    :slipstream.ui.views.module.help-hint.breadcrumb-to-last-version "The module name in the breadcrumbs brings you always to the latest version of the module."
    :slipstream.ui.views.module.help-hint.link-to-history            "The version history gives you an overview of all versions of this module and allows you to switch to a different version."
 
