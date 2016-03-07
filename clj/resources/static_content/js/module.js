@@ -47,27 +47,27 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $notLastVersionAlert                = $linkToLatestVersion.closest(".alert"),
         breadcrumbToLastVersionHelpHint     = $notLastVersionAlert.dataIn("context.helpHints.breadcrumbToLastVersion"),
         linkToHistoryHelpHint               = $notLastVersionAlert.dataIn("context.helpHints.linkToHistory"),
-        $breadcrumbToLastestModuleVersion   = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
+        $breadcrumbToLatestModuleVersion    = $("#ss-breadcrumb-container li.ss-breadcrumb-item")
                                                     .not(".disabled")
                                                         .last()
                                                             .find("a"),
         $linkToHistoryElem                  = $(".ss-table-cell-module-version a[href^='module']");
 
-    $breadcrumbToLastestModuleVersion.bsAddDynamicHelpHint(breadcrumbToLastVersionHelpHint);
+    $breadcrumbToLatestModuleVersion.bsAddDynamicHelpHint(breadcrumbToLastVersionHelpHint);
     $linkToHistoryElem.bsAddDynamicHelpHint(linkToHistoryHelpHint);
 
     $(".alert-msg a[href^='module']")
         .hoverDelayed(
             // TODO: Investigate why it doesn't work with 'partial()'
-            //       $breadcrumbToLastestModuleVersion.popover.partial("show"),
-            //       $breadcrumbToLastestModuleVersion.popover.partial("hide")
+            //       $breadcrumbToLatestModuleVersion.popover.partial("show"),
+            //       $breadcrumbToLatestModuleVersion.popover.partial("hide")
             function() {
-                $breadcrumbToLastestModuleVersion.popover("show");
+                $breadcrumbToLatestModuleVersion.popover("show");
                 $$.section.select(1); // Open 'Summary' section
                 $linkToHistoryElem.popover("show");
             },
             function() {
-                $breadcrumbToLastestModuleVersion.popover("hide");
+                $breadcrumbToLatestModuleVersion.popover("hide");
                 $linkToHistoryElem.popover("hide");
             },
             {
