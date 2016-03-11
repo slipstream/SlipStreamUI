@@ -1110,6 +1110,50 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; update-vals
+
+(expect
+  nil
+  (update-vals nil str))
+
+(expect
+  1
+  (update-vals 1 str))
+
+(expect
+  {:a "1"}
+  (update-vals {:a 1} str))
+
+(expect
+  [{:a 2}]
+  (update-vals [{:a 1}] inc))
+
+(expect
+  '({:a 2} {:b 3})
+  (update-vals (list {:a 1} {:b 2}) inc))
+
+(expect
+  [[[{:a "1"}]]]
+  (update-vals [[[{:a 1}]]] str))
+
+(expect
+  [[[{:a "1"}]{:b "1"}]]
+  (update-vals [[[{:a 1}]{:b 1}]] str))
+
+(expect
+  [[[{:a :1}]{:b {:b-one :foo :b-two {:b-two-one :bar}}}]]
+  (update-vals [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] keywordize))
+
+(expect
+  [[[{:a :1}]{:b {:b-one :foo :b-two {:b-two-one :bar :b-two-two #{{:even-here :the-value-is-updated}}}}}]]
+  (update-vals [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the value is updated"}}}}}]] keywordize))
+
+(expect
+  [[[{:a "1"}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "theValueIsUpdated"}}}}}]]
+  (update-vals [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the value is updated"}}}}}]] ->camelCaseString))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; coll-grouped-by
 
 (def personas

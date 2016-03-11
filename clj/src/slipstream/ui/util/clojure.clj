@@ -259,6 +259,11 @@
             f)]
     (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(g k) v])) x)) m)))
 
+(defn update-vals
+  "Recursively applies f to all map values (except if the value is a coll). See tests for expectations."
+  [m f]
+  (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [k (if (coll? v) v (f v))])) x)) m))
+
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
   idiomatic Clojure keyword. See tests for expectations."
