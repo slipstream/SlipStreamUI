@@ -251,18 +251,20 @@
      (catch Throwable _
        (boolean value-if-not-parsable)))))
 
+(defn update-kvs
+  "Recursively update all keys and values with the give function. See tests for expectations."
+  [m & {:keys [keys-fn vals-fn] :or {keys-fn identity vals-fn identity}}]
+  (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(keys-fn k) (vals-fn v)])) x)) m))
+
 (defn update-keys
   "Recursively applies f to all map keys."
   [m f & {:keys [only-keywords?]}]
-  (let [g (if only-keywords?
-            (fn [k] (if (keyword? k) (f k) k))
-            f)]
-    (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [(g k) v])) x)) m)))
+  (update-kvs m :keys-fn (if only-keywords? (fn [k] (if (keyword? k) (f k) k)) f)))
 
 (defn update-vals
   "Recursively applies f to all map values (except if the value is a coll). See tests for expectations."
   [m f]
-  (walk/postwalk (fn [x] (if (map? x) (into (empty x) (for [[k v] x] [k (if (coll? v) v (f v))])) x)) m))
+  (update-kvs m :vals-fn (fn [v] (if (coll? v) v (f v)))))
 
 (defn keywordize
   "Takes anything and returns it if it is a keyword. Else return a sanitized
