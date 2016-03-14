@@ -111,6 +111,7 @@
                     :type             "Type"
                     :usage            "Usage"
                     :usages           "Usages"
+                    :cloud-usages     "Cloud usages"
                     :user             "User"
                     :username         "Username"
                     :users            "Users"
@@ -916,6 +917,14 @@
    :slipstream.ui.views.usages.content.subsection.weekly.title  "Weekly"
    :slipstream.ui.views.usages.content.subsection.monthly.title "Monthly"
    :slipstream.ui.views.usages.no-usages                        "There are no usage items to show."
+
+   :slipstream.ui.views.cloud-usages.header.title                     :global.nouns.cloud-usages
+   :slipstream.ui.views.cloud-usages.header.subtitle                  "Usage for all users of this cloud."
+   :slipstream.ui.views.cloud-usages.content.title                    "Usage list"
+   :slipstream.ui.views.cloud-usages.content.subsection.daily.title   "Daily"
+   :slipstream.ui.views.cloud-usages.content.subsection.weekly.title  "Weekly"
+   :slipstream.ui.views.cloud-usages.content.subsection.monthly.title "Monthly"
+   :slipstream.ui.views.cloud-usages.no-usages                        "There are no cloud usage items to show."
 
    :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
 

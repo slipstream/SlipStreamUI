@@ -14,6 +14,8 @@
    :count-total 100}
   (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :pagination))
 
+(expect "aws" (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse :usages first :cloud))
+
 (expect
   {:id              "usage/6bdc86aa-8d29-4e13-8f90-74fcd64a732d"
    :user            "zaza"
