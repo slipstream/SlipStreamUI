@@ -1,9 +1,9 @@
-(ns slipstream.ui.models.usages
+(ns slipstream.ui.models.cloud-usages
   (:require [slipstream.ui.models.pagination :as pagination]))
 
 (defn parse-usage
   [usage]
-  (select-keys usage [:id :user :frequency :cloud :start_timestamp :end_timestamp :usage]))
+  (select-keys usage [:id :frequency :start_timestamp :end_timestamp :usage]))
 
 (defn parse
   [metadata]

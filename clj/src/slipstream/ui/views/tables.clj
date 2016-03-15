@@ -1047,4 +1047,18 @@
      :headers     [nil :date :cloud :usages]
      :rows        (map usage-row (:usages metadata))}))
 
+(defn- cloud-usage-row
+  [{:keys [frequency start_timestamp usage]}]
+  {:style nil
+   :cells [{:type :cell/icon,       :content icons/usage}
+           {:type :cell/text,       :content (format-period frequency start_timestamp)}
+           {:type :cell/map,        :content (format-usage-values usage)}]})
+
+(defn cloud-usages-table
+  [metadata]
+  (table/build
+    {:pagination  (:pagination metadata)
+     :headers     [nil :date :usages]
+     :rows        (map cloud-usage-row (:usages metadata))}))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
