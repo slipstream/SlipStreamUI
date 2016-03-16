@@ -95,7 +95,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
-    $(".ss-usage-gauge:first-child").click();
+    $("[id='ss-usage-gauge-All Clouds']").click();
 
     function updateUsageGauge($gauge, userVmUsage, vmQuota) {
         console.debug($gauge.attr("id"), userVmUsage, vmQuota);
