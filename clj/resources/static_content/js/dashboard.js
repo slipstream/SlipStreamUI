@@ -114,20 +114,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function updateGlobalUsageGauge(globalQuotaCurrent, globalQuotaMax) {
-        updateUsageGauge($(".ss-usage-gauge:first-child"), globalQuotaCurrent, globalQuotaMax);
+        updateUsageGauge($(".ss-usage-gauge[cloud='All Clouds']"), globalQuotaCurrent, globalQuotaMax);
     }
 
     function updateDashboardRequestCallback(data, textStatus, jqXHR) {
         var updatedDashboardXML     = data,
-            $updatedUsageGauges     = $("usageElement", updatedDashboardXML),
+            $updatedUsageGauges     = $("cloudUsage:not([cloud='All Clouds'])", updatedDashboardXML),
             globalQuota             = 0,
             globalCurrentUsage      = 0;
 
         $updatedUsageGauges.each(function(){
             var $gauge        = $(this),
                 gaugeId       = "ss-usage-gauge-" + $gauge.attr("cloud"),
-                currentUsage  = $gauge.attr("currentUsage"),
-                quota         = $gauge.attr("quota");
+                currentUsage  = $gauge.attr("userVmUsage"),
+                quota         = $gauge.attr("vmQuota");
             globalCurrentUsage += currentUsage.asInt();
             globalQuota += quota.asInt();
             updateCloudUsageGauge(gaugeId, currentUsage, quota);
@@ -147,7 +147,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function updateDashboard() {
         var withLoadingScreen = false;
         console.info("Updating the dashboard...");
-        // Update parts that require the full HTML page (i.e. Usage gauges)
         updateDashboardRequest.send();
         // Update metering
         drawHistograms(withLoadingScreen);
