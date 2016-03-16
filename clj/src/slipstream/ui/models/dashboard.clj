@@ -2,7 +2,6 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.vms :as vms]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.configuration :as configuration]))
 
@@ -10,26 +9,16 @@
 
 (defn- parse-usage
   [usage]
-  {:cloud         (-> usage :cloud)
-   :current-usage (-> usage :currentUsage uc/parse-pos-int)
-   :quota         (-> usage :quota uc/parse-pos-int)})
-
-(defn- prepend-global-usage
-  [cloud-usages]
-  (cons
-    {:cloud         (t :all-clouds.title)
-     :global-usage? true
-     :current-usage (->> cloud-usages (map :current-usage) (reduce +))
-     :quota         (->> cloud-usages (map :quota)         (reduce +))}
-    cloud-usages))
+  (-> usage
+      (uc/update-kvs :keys-fn (comp uc/keywordize str) :vals-fn uc/parse-pos-int)
+      (assoc :cloud (:cloud usage))))
 
 (defn- visible?
   [cloud-usage]
   (let [configured-clouds (-> :configured-clouds current-user/configuration set)]
     (or
-      (-> cloud-usage :global-usage?)
-      (-> cloud-usage :current-usage pos?)
-      (-> cloud-usage :cloud configured-clouds))))
+      (->  cloud-usage :cloud configured-clouds)
+      (->> (dissoc cloud-usage :cloud) vals (some pos?)))))
 
 (defn- filter-visible
   "Non-super users should only see the usage gauges for the clouds they have
@@ -41,10 +30,9 @@
 
 (defn- usages
   [dashboard]
-  (->> (html/select dashboard [:usage :> :usageElement])
+  (->> (html/select dashboard [:cloudUsages :> :cloudUsage])
        (map :attrs)
        (map parse-usage)
-       prepend-global-usage
        filter-visible
        (sort-by :cloud)))
 

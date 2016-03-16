@@ -17,15 +17,43 @@
 
 ;; Usage section
 
+; This is the snippet .ss-usage-gauge-detailed-counter for each one of the detailed
+; infos (the icons below the gauge) on each gauge.
+(ue/def-blank-snippet ^:private detailed-counter-snip :div
+  [cloud-usage usage-key]
+  ue/this     (ue/set-class (format "ss-usage-gauge-detailed-counter ss-usage-count-%s ss-usage-key-%s"
+                                    (-> cloud-usage usage-key str)
+                                    (name usage-key)))
+  ue/this     (let [usage       (usage-key cloud-usage)
+                    one-or-more (if (= 1 usage) "one" "more")
+                    keyname     (name usage-key)
+                    title       (t (format "detailed-counter.%s.%s.popover.title" one-or-more keyname) usage)
+                    content     (t (format "detailed-counter.%s.popover.content" keyname))]
+                (ue/add-popover title :content content :when (pos? usage)))
+  ue/this     (html/append (icons/icon-snip usage-key))
+  ue/this     (html/append (-> cloud-usage usage-key str)))
+
+; This is the snippet .ss-usage-gauge-container for each one of the gauges.
+(ue/def-blank-snippet ^:private gauge-snip [:div :div]
+  [cloud-usage]
+  ue/this     (ue/set-class   "ss-usage-gauge-container")
+  [:div :div] (ue/set-class   "ss-usage-gauge")
+  [:div :div] (ue/set-id      "ss-usage-gauge-"   (:cloud         cloud-usage))
+  [:div :div] (html/set-attr  :data-quota-title   (:cloud         cloud-usage))
+  [:div :div] (html/set-attr  :data-quota-max     (:vm-quota      cloud-usage))
+  [:div :div] (html/set-attr  :data-quota-current (:user-vm-usage cloud-usage))
+  ue/this     (html/append    (detailed-counter-snip cloud-usage :user-run-usage))
+  ue/this     (html/append    (detailed-counter-snip cloud-usage :user-inactive-vm-usage))
+  ue/this     (html/append    (detailed-counter-snip cloud-usage :others-vm-usage))
+  ue/this     (html/append    (detailed-counter-snip cloud-usage :pending-vm-usage))
+  ue/this     (html/append    (detailed-counter-snip cloud-usage :unknown-vm-usage)))
+
+; This is the snippet .ss-usage-container containing all gauges.
 (ue/def-blank-snippet ^:private usage-snip [:div :div]
   [usage]
   ue/this (ue/set-class "ss-usage-container")
   ue/this (ue/content-for [:div :div] [cloud-usage usage]
-              ue/this (ue/set-id "ss-usage-gauge-" (:cloud cloud-usage))
-              ue/this (ue/set-class "ss-usage-gauge")
-              ue/this (html/set-attr :data-quota-title (:cloud cloud-usage))
-              ue/this (html/set-attr :data-quota-max (:quota cloud-usage))
-              ue/this (html/set-attr :data-quota-current (:current-usage cloud-usage))))
+              ue/this (html/substitute (gauge-snip cloud-usage))))
 
 (defmethod section ::quota
   [dashboard metadata-key]

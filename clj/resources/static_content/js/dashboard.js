@@ -1,11 +1,11 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var selectedGagueCls = "ss-selected-gauge";
+    var selectedGaugeCls = "ss-selected-gauge-container";
 
     $(".ss-usage-gauge").click(function(){
         var $gauge          = $(this),
             isGlobalGauge   = ($gauge.index() === 0),
-            isSelected      = $gauge.is(selectedGagueCls.asSel()),
+            isSelected      = $gauge.is(selectedGaugeCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
@@ -15,8 +15,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
         if ( !isSelected ) {
-            $(".ss-usage-gauge").removeClass(selectedGagueCls);
-            $gauge.addClass(selectedGagueCls);
+            $(".ss-usage-gauge-container").removeClass(selectedGaugeCls);
+            $gauge.closest(".ss-usage-gauge-container").addClass(selectedGaugeCls);
         }
     });
 
@@ -34,6 +34,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                               min: 0,
                               max: $elem.data('quotaMax') || 20,
                               title: $elem.data('quotaTitle'),
+                              label: "VMs",
                               levelColorsGradient: true,
                               showInnerShadow: false
                             }));

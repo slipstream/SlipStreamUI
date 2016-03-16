@@ -100,7 +100,14 @@
 (deficon run-successfully-ready     "ok"                :style :success)
 (deficon run-terminated             "off"               :style :muted)
 
+(deficon user-run-usage           deployment)
+(deficon user-inactive-vm-usage   "off")
+(deficon others-vm-usage          "eye-open")
+(deficon pending-vm-usage         "time")
+(deficon unknown-vm-usage         run-uuid-unknown)
+
 (deficon no-icon                nil)
+
 
 (defn- icon-get
   [icon-symbol]
@@ -146,6 +153,7 @@
               ue/this   (ue/replace-class
                           (current-glyphicon-icon-cls icon-node)
                           (glyphicon-icon-cls class-suffix))
+              ue/this   (html/add-class "glyphicon") ;; Ensure the class is there
               ue/this   (ue/when-add-class            show-tooltip? "ss-icon-tooltip")
               ue/this   (ue/when-add-class            (not-empty overlay) (str "ss-icon-overlay-" overlay))
               ue/this   (ue/when-add-class            style               (str "text-" (name style)))
@@ -166,3 +174,9 @@
   (if icon
     (set-icon icon)
     identity))
+
+(ue/def-blank-snippet icon-snip :span
+  [icon & {:keys [tooltip-placement]}]
+  ue/this (html/add-class "glyphicon")
+  ue/this (let [icon (if (keyword? icon) (icon-for icon) icon)]
+            (when-set (icon :tooltip-placement tooltip-placement))))
