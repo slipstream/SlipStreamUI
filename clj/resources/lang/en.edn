@@ -959,7 +959,7 @@
 
    :slipstream.ui.views.dashboard.detailed-counter.one.user-inactive-vm-usage.popover.title   "One Inactive VM"
    :slipstream.ui.views.dashboard.detailed-counter.more.user-inactive-vm-usage.popover.title  "%d Inactive VMs"
-   :slipstream.ui.views.dashboard.detailed-counter.user-inactive-vm-usage.popover.content     "This is the number of VMs that were deployed with your SlipStream account but that were stopped or terminated in the meantime. It includes failed VMs as well. Some clouds keep the terminated VMs visible to your user for a certain amount of time, and in that case you will see them here. Note that you cannot restore or restart terminated machine from SlipStream."
+   :slipstream.ui.views.dashboard.detailed-counter.user-inactive-vm-usage.popover.content     "This is the number of VMs that were deployed with your SlipStream account but that were stopped or terminated in the meantime. It includes failed VMs as well. Some clouds keep the terminated VMs visible to your user for a certain amount of time, and in that case you will see them here. Note that you cannot restore or restart terminated machines from SlipStream."
 
    :slipstream.ui.views.dashboard.detailed-counter.one.others-vm-usage.popover.title          "One Shared VM"
    :slipstream.ui.views.dashboard.detailed-counter.more.others-vm-usage.popover.title         "%d Shared VMs"
@@ -967,7 +967,7 @@
 
    :slipstream.ui.views.dashboard.detailed-counter.one.pending-vm-usage.popover.title         "One Pending VM"
    :slipstream.ui.views.dashboard.detailed-counter.more.pending-vm-usage.popover.title        "%d Pending VMs"
-   :slipstream.ui.views.dashboard.detailed-counter.pending-vm-usage.popover.content           "This is the number of VMs that you are able to 'see' with the cloud credentials configured in your SlipStream profile and that have been just started. SlipStream needs tipically a couple of minutes until they can be identified and linked to your SlipStream account."
+   :slipstream.ui.views.dashboard.detailed-counter.pending-vm-usage.popover.content           "This is the number of VMs that you are able to 'see' with the cloud credentials configured in your SlipStream profile and that have been just started. SlipStream needs typically a couple of minutes until they can be identified and linked to your SlipStream account."
 
    :slipstream.ui.views.dashboard.detailed-counter.one.unknown-vm-usage.popover.title         "One Unknown VM"
    :slipstream.ui.views.dashboard.detailed-counter.more.unknown-vm-usage.popover.title        "%d Unknown VMs"
