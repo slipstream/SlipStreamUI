@@ -276,6 +276,11 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 vals.push(v);
             });
             return vals.join(separator || ", ");
+        },
+
+        copy: function(object) {
+            // SOURCE: http://stackoverflow.com/a/5164215
+            return $.extend(true, {}, originalObject);
         }
     };
 

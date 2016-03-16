@@ -31,7 +31,7 @@
                     content     (t (format "detailed-counter.%s.popover.content" keyname))]
                 (ue/add-popover title :content content :when (pos? usage)))
   ue/this     (html/append (icons/icon-snip usage-key))
-  ue/this     (html/append (-> cloud-usage usage-key str)))
+  ue/this     (html/append (ue/text-div-snip (-> cloud-usage usage-key str) :css-class "counter")))
 
 ; This is the snippet .ss-usage-gauge-container for each one of the gauges.
 (ue/def-blank-snippet ^:private gauge-snip [:div :div]
@@ -40,8 +40,8 @@
   [:div :div] (ue/set-class   "ss-usage-gauge")
   [:div :div] (ue/set-id      "ss-usage-gauge-"   (:cloud         cloud-usage))
   [:div :div] (html/set-attr  :data-quota-title   (:cloud         cloud-usage))
-  [:div :div] (html/set-attr  :data-quota-max     (:vm-quota      cloud-usage))
-  [:div :div] (html/set-attr  :data-quota-current (:user-vm-usage cloud-usage))
+  [:div :div] (html/set-attr  :data-vm-quota      (:vm-quota      cloud-usage))
+  [:div :div] (html/set-attr  :data-user-vm-usage (:user-vm-usage cloud-usage))
   ue/this     (html/append    (detailed-counter-snip cloud-usage :user-run-usage))
   ue/this     (html/append    (detailed-counter-snip cloud-usage :user-inactive-vm-usage))
   ue/this     (html/append    (detailed-counter-snip cloud-usage :others-vm-usage))
