@@ -1,6 +1,6 @@
 (ns slipstream.ui.views.user
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.clojure :as uc]
+  (:require [slipstream.ui.util.clojure :as uc]
+            [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
@@ -13,12 +13,17 @@
 (localization/def-scoped-t)
 
 (defn- category-section
-  [{:keys [category category-type parameters]}]
+  [configured-clouds {:keys [category category-type parameters]}]
   (with-meta
     {:icon (case category-type
              :general icons/user-section-general
              :global  icons/user-section-cloud
              nil)
+     :type  (and
+              (= category-type :global)
+              (if (and configured-clouds (configured-clouds category))
+                :configured-connector
+                :not-configured-connector))
      :title category
      :content (t/parameters-table parameters)}
     (when (= category-type :global) {:section-group :cloud})))
@@ -79,6 +84,7 @@
 (defn page
   [metadata]
   (let [user (user/parse metadata)
+        configured-clouds (-> user :configuration :configured-clouds)
         own-profile? (current-user/is? user)]
     (base/generate
       {:parsed-metadata user
@@ -91,8 +97,11 @@
                     (no-cloud-configured-alert          user own-profile?)
                     (cloud-default-not-configured-alert user own-profile?))
                   (no-ssh-keys-configured-alert       user own-profile?)])
-       :content (into [{:icon       icons/user-section-summary
-                        :title      (t :summary)
-                        :selected?  true
-                        :content    (t/user-summary-table user)}]
-                      (map category-section (:parameters user)))})))
+       :content (-> [{:icon       icons/user-section-summary
+                      :title      (t :summary)
+                      :selected?  true
+                      :content    (t/user-summary-table user)}]
+                  (into (map (partial category-section configured-clouds) (:parameters user)))
+                  (conj {:type    :flat-section
+                         :content (when (page-type/view?)
+                                    (ue/text-div-snip (t :footnote-about-adding-connectors (current-user/uri)) :html true))}))})))

@@ -96,3 +96,11 @@
 (defn configuration
   [& ks]
   (get-in (into [:configuration] ks)))
+
+(defn configured-clouds
+  []
+  (-> :configured-clouds configuration set))
+
+(defn configured-cloud?
+  [cloud]
+  ((configured-clouds) cloud))
