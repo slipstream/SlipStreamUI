@@ -2,7 +2,6 @@
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.vms :as vms]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.models.configuration :as configuration]))
 
@@ -25,7 +24,7 @@
 
 (defn- visible?
   [cloud-usage]
-  (let [configured-clouds (-> :configured-clouds current-user/configuration set)]
+  (let [configured-clouds (current-user/configured-clouds)]
     (or
       (-> cloud-usage :global-usage?)
       (-> cloud-usage :current-usage pos?)

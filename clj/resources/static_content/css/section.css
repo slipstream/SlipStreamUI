@@ -60,3 +60,40 @@ span.row span {
   padding: 15px;
   padding-bottom: 25px;
 }
+
+.ss-page-type-view .ss-section-not-configured-connector {
+    display: none;
+}
+.ss-page-type-edit .ss-section-not-configured-connector,
+.ss-page-type-edit .ss-section-not-configured-connector .ss-section-activator {
+    color: #3c763d; /* From bootstrap's text-success */
+}
+.ss-page-type-edit .ss-section-not-configured-connector .ss-section-activator {
+    background-color: #dff0d8; /* From bootstrap's bg-success */
+}
+.ss-page-type-edit .ss-section-configured-connector::before,
+.ss-page-type-edit .ss-section-not-configured-connector::before {
+    /*
+        If we provide the title attr in the HTML, no need to
+        override below "Configured" and "Add credentials"
+    */
+    content: attr(title);
+    color: inherit;
+    background-color: transparent;
+    opacity: 1;
+    z-index: 1000;
+    text-align: center;
+    position: absolute;
+    width: 100px;
+    font-size: 12px;
+    margin-top: 12px;
+    margin-left: 40%;
+    pointer-events: none;
+}
+.ss-page-type-edit .ss-section-configured-connector::before {
+    content: "Configured";
+}
+
+.ss-page-type-edit .ss-section-not-configured-connector::before {
+    content : "Add credentials";
+}
