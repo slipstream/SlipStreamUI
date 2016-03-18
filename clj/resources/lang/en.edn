@@ -288,7 +288,7 @@
    :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title  "No SSH keys configured in this profile"
    :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg    "This user will not be able to access the deployed machines via SSH until at least one SSH public key has been configured in this profile."
 
-   :slipstream.ui.views.user.footnote-about-adding-connectors! "To add or remove connectors <a href='%1$s?edit=true'>edit</a> this page (i.e. your user profile). You will find additionnal available connectors highlighted in green. To remove a connector simple remove it's credentials while you are in edit mode."
+   :slipstream.ui.views.user.footnote-about-adding-connectors! "<strong>To add or remove connectors <a href='%1$s?edit=true'>edit</a> this page</strong> (i.e. your user profile). You will find additionnal available connectors highlighted in green. To remove a connector simple remove it's credentials while you are in edit mode."
 
    :slipstream.ui.views.table.filter.include-inactive-runs.label      "Include inactive runs"
    :slipstream.ui.views.table.filter.include-inactive-runs.help-hint  "Inactive (aka terminated) runs are the ones with state `Cancelled`, `Aborted`, `Unknown` or `Done`."
