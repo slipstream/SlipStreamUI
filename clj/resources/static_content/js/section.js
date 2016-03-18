@@ -1,7 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
     var hashValues = $$.util.url.hash.getValues(),
-        sectionIdPrefix = "ss-section-";
+        sectionIdPrefix = "ss-section-",
+        closeSectionsTrigger = "close-sections";
 
     function openDefaultSection() {
         $(".panel.ss-section-selected .panel-collapse.collapse").addClass("in");
@@ -21,6 +22,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     $$.util.url.hash.updateValues({1:undefined});
                 }
             }
+        } else if (sectionTitle === closeSectionsTrigger) {
+            // We want all sections to be closed.
+            // Do nothing.
         } else {
             // There is no section with the give id (or more than one) so we clean the hash and
             // open the default section.
