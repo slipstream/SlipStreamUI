@@ -193,3 +193,12 @@
         (-> s
             (parse source-format)
             (format-as target-format (find-timezone s)))))))
+
+(defn recent?
+  "Returns true if datetime is less than number-of-minutes in the past, false otherwise.
+  Note that if the date is in the future, false is returned. The number-of-minutes defaults
+  to 15 minutes."
+  ([^org.joda.time.DateTime datetime]
+   (recent? datetime 15))
+  ([^org.joda.time.DateTime datetime number-of-minutes]
+   (t/within? (-> number-of-minutes t/minutes t/ago) (t/now) datetime)))
