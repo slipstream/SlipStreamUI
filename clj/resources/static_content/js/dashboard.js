@@ -1,11 +1,11 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var selectedGagueCls = "ss-selected-gauge";
+    var selectedGaugeCls = "ss-selected-gauge-container";
 
     $(".ss-usage-gauge").click(function(){
         var $gauge          = $(this),
             isGlobalGauge   = ($gauge.index() === 0),
-            isSelected      = $gauge.is(selectedGagueCls.asSel()),
+            isSelected      = $gauge.is(selectedGaugeCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
@@ -15,8 +15,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
         if ( !isSelected ) {
-            $(".ss-usage-gauge").removeClass(selectedGagueCls);
-            $gauge.addClass(selectedGagueCls);
+            $(".ss-usage-gauge-container").removeClass(selectedGaugeCls);
+            $gauge.closest(".ss-usage-gauge-container").addClass(selectedGaugeCls);
         }
     });
 
@@ -30,10 +30,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         $elem.addClass(alreadyDrawnCls);
                         $elem.data("gauge-controller", new JustGage({
                               id: elem.id,
-                              value: $elem.data('quotaCurrent'),
+                              value: $elem.data('userVmUsage'),
                               min: 0,
-                              max: $elem.data('quotaMax') || 20,
+                              max: $elem.data('vmQuota') || 20,
                               title: $elem.data('quotaTitle'),
+                              label: "VMs",
                               levelColorsGradient: true,
                               showInnerShadow: false
                             }));
@@ -94,38 +95,64 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     drawGauges($("#ss-section-group-0 .ss-section-flat .ss-section-content"));
     drawHistograms();
-    $(".ss-usage-gauge:first-child").click();
+    $("[id='ss-usage-gauge-All Clouds']").click();
 
-    function updateUsageGauge(id, quotaCurrent, quotaMax) {
-        var $gauge = $("[id='" + id + "']"),
-            gaugeController = $gauge.data("gauge-controller");
+    function updateUsageGauge($gauge, userVmUsage, vmQuota) {
+        console.debug($gauge.attr("id"), userVmUsage, vmQuota);
+        var gaugeController = $gauge.data("gauge-controller");
         if ( $gauge.foundNothing() ) {
             console.warn("No element found with id: " + id);
         } else if ( gaugeController === undefined ) {
             console.warn("No gauge controller found for element with id: " + id);
         } else {
-            gaugeController.refresh(quotaCurrent, quotaMax);
+            gaugeController.refresh(userVmUsage, vmQuota);
         }
     }
 
+    function updateDetailedInfo($gaugeContainer, updatedUsageValue, classSuffix) {
+        $gaugeContainer
+            .find('.ss-usage-key-' + classSuffix + ' .counter')
+                .html(updatedUsageValue);
+    }
+
+    function updateCloudUsageGauge(id, updatedUsage) {
+        var $gauge          = $("[id='" + id + "']"),
+            $gaugeContainer = $gauge.closest(".ss-usage-gauge-container");
+
+        updateUsageGauge($gauge, updatedUsage.userVmUsage, updatedUsage.vmQuota);
+
+        updateDetailedInfo($gaugeContainer, updatedUsage.userRunUsage,          'user-run-usage');
+        updateDetailedInfo($gaugeContainer, updatedUsage.userInactiveVmUsage,   'user-inactive-vm-usage');
+        updateDetailedInfo($gaugeContainer, updatedUsage.othersVmUsage,         'others-vm-usage');
+        updateDetailedInfo($gaugeContainer, updatedUsage.pendingVmUsage,        'pending-vm-usage');
+        updateDetailedInfo($gaugeContainer, updatedUsage.unknownVmUsage,        'unknown-vm-usage');
+    }
+
     function updateDashboardRequestCallback(data, textStatus, jqXHR) {
-        var updatedDashboardHTML    = data,
-            $updatedUsageGauges     = $(".ss-usage-gauge", updatedDashboardHTML);
+        var updatedDashboardXML = data,
+            $updatedUsages      = $("cloudUsage", updatedDashboardXML);
 
-        $updatedUsageGauges.each(function(){
-            var $gauge = $(this);
-            updateUsageGauge($gauge.id(),
-                             $gauge.data("quotaCurrent"),
-                             $gauge.data("quotaMax"));
+        $updatedUsages.each(function(){
+            var $gauge        = $(this),
+                gaugeId       = "ss-usage-gauge-" + $gauge.attr("cloud"),
+                updatedUsage  = {
+                    vmQuota:             $gauge.attr('vmQuota')             || 0,
+                    userVmUsage:         $gauge.attr('userVmUsage')         || 0,
+                    userRunUsage:        $gauge.attr('userRunUsage')        || 0,
+                    userInactiveVmUsage: $gauge.attr('userInactiveVmUsage') || 0,
+                    othersVmUsage:       $gauge.attr('othersVmUsage')       || 0,
+                    pendingVmUsage:      $gauge.attr('pendingVmUsage')      || 0,
+                    unknownVmUsage:      $gauge.attr('unknownVmUsage')      || 0
+                };
+            updateCloudUsageGauge(gaugeId, updatedUsage);
         });
-
     }
 
     var autoUpdateJobName       = "updateDashboard",
         secsBetweenUpdates      = 10,
         updateDashboardRequest  = $$.request
                                     .get("/dashboard")
-                                    .dataType("html")
+                                    .dataType("xml")
                                     .withLoadingScreen(false)
                                     .onSuccess(updateDashboardRequestCallback);
 
@@ -133,7 +160,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function updateDashboard() {
         var withLoadingScreen = false;
         console.info("Updating the dashboard...");
-        // Update parts that require the full HTML page (i.e. Usage gauges)
         updateDashboardRequest.send();
         // Update metering
         drawHistograms(withLoadingScreen);

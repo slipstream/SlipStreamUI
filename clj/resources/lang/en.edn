@@ -833,6 +833,12 @@
    :slipstream.ui.util.icons.description.run-successfully-ready     "Ready"
    :slipstream.ui.util.icons.description.run-terminated             "Terminated"
 
+   :slipstream.ui.util.icons.description.unknown-vm-usage          "Unknown VMs"
+   :slipstream.ui.util.icons.description.user-run-usage            "Running Apps"
+   :slipstream.ui.util.icons.description.user-inactive-vm-usage    "Inactive VMs"
+   :slipstream.ui.util.icons.description.others-vm-usage           "Shared VMs"
+   :slipstream.ui.util.icons.description.pending-vm-usage          "Pending VMs"
+
    ; Secondary action icon descriptions
 
    :slipstream.ui.util.icons.description.action-build              :global.verbs.build
@@ -947,6 +953,29 @@
    :slipstream.ui.views.dashboard.metering.metric.ram-mb          "RAM [MB]"
    :slipstream.ui.views.dashboard.metering.metric.disk-gb         "Disk [GB]"
    :slipstream.ui.views.dashboard.metering.metric.instance-type   "Instance type"
+
+
+   :slipstream.ui.views.dashboard.detailed-counter.one.user-run-usage.popover.title           "One Running Application"
+   :slipstream.ui.views.dashboard.detailed-counter.more.user-run-usage.popover.title          "%d Running Applications"
+   :slipstream.ui.views.dashboard.detailed-counter.user-run-usage.popover.content             "This is the number of applications or application components that you have deployed with SlipStream and that are still running. Note that each application might have one or several underlying VMs. You can see the detailed list in the 'Deployments' tab below."
+
+   :slipstream.ui.views.dashboard.detailed-counter.one.user-inactive-vm-usage.popover.title   "One Inactive VM"
+   :slipstream.ui.views.dashboard.detailed-counter.more.user-inactive-vm-usage.popover.title  "%d Inactive VMs"
+   :slipstream.ui.views.dashboard.detailed-counter.user-inactive-vm-usage.popover.content     "This is the number of VMs that were deployed with your SlipStream account but that were stopped or terminated in the meantime. It includes failed VMs as well. Some clouds keep the terminated VMs visible to your user for a certain amount of time, and in that case you will see them here. Note that you cannot restore or restart terminated machines from SlipStream."
+
+   :slipstream.ui.views.dashboard.detailed-counter.one.others-vm-usage.popover.title          "One Shared VM"
+   :slipstream.ui.views.dashboard.detailed-counter.more.others-vm-usage.popover.title         "%d Shared VMs"
+   :slipstream.ui.views.dashboard.detailed-counter.others-vm-usage.popover.content            "This is the number of VMs that were deployed by another SlipStream user but that you are able to 'see' with the cloud credentials configured in your SlipStream profile. Note that you might not have access to the corresponding run page, in which case the 'ID' in the 'Virtual Machines' table below will not be clickable."
+
+   :slipstream.ui.views.dashboard.detailed-counter.one.pending-vm-usage.popover.title         "One Pending VM"
+   :slipstream.ui.views.dashboard.detailed-counter.more.pending-vm-usage.popover.title        "%d Pending VMs"
+   :slipstream.ui.views.dashboard.detailed-counter.pending-vm-usage.popover.content           "This is the number of VMs that you are able to 'see' with the cloud credentials configured in your SlipStream profile and that have been just started. SlipStream needs typically a couple of minutes until they can be identified and linked to your SlipStream account."
+
+   :slipstream.ui.views.dashboard.detailed-counter.one.unknown-vm-usage.popover.title         "One Unknown VM"
+   :slipstream.ui.views.dashboard.detailed-counter.more.unknown-vm-usage.popover.title        "%d Unknown VMs"
+   :slipstream.ui.views.dashboard.detailed-counter.unknown-vm-usage.popover.content           "This is the number of VMs that that you are able to 'see' with the cloud credentials configured in your SlipStream profile but which SlipStream was not able to link to a known application. This can have several reasons, but probably they were started directly in the corresponding cloud or via a service other that this SlipStream instance. You should be confident about the reason of having this unknown machine running."
+
+
 
    :slipstream.ui.views.versions.header.title                  "History of '%s'"
    :slipstream.ui.views.versions.header.subtitle.one-version   "There is one version of this %s."

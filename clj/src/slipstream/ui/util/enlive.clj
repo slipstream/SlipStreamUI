@@ -493,3 +493,32 @@
   this                        (when-set-id id (str id))
   this                        (html/content (or content spinner-icon))
   [:> :div :> html/first-child]  (when-set-id content-id (str content-id)))
+
+
+(def ^:private valid-placements
+  #{"top"
+    "right"
+    "bottom"
+    "left"})
+
+; Example of the attributes needed for a Bootstrap popover in the resulting HTML:
+;   <span class="glyphicon glyphicon-question-sign"
+;         data-container="body"
+;         data-toggle="popover"
+;         data-placement="left"
+;         data-trigger="hover"
+;         title="Dismissible popover"
+;         data-content="Here comes the longer content. It closes when you click away."></span>
+(defn add-popover
+  "Adds a Bootstrap popover at the mathing tag."
+  [title & {:keys [content placement when] :or {when true}}]
+  (if when
+    (fn [match]
+      (html/at match
+        this  (set-data       :container  "body")
+        this  (set-data       :toggle     "popover")
+        this  (set-data       :placement  (or (valid-placements placement) "bottom"))
+        this  (set-data       :trigger    "hover")
+        this  (set-data       :title      title)
+        this  (when-set-data  :content    content)))
+    identity))

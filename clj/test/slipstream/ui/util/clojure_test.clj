@@ -1110,6 +1110,106 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; update-vals
+
+(expect
+  nil
+  (update-vals nil str))
+
+(expect
+  1
+  (update-vals 1 str))
+
+(expect
+  {:a "1"}
+  (update-vals {:a 1} str))
+
+(expect
+  [{:a 2}]
+  (update-vals [{:a 1}] inc))
+
+(expect
+  '({:a 2} {:b 3})
+  (update-vals (list {:a 1} {:b 2}) inc))
+
+(expect
+  [[[{:a "1"}]]]
+  (update-vals [[[{:a 1}]]] str))
+
+(expect
+  [[[{:a "1"}]{:b "1"}]]
+  (update-vals [[[{:a 1}]{:b 1}]] str))
+
+(expect
+  [[[{:a :1}]{:b {:b-one :foo :b-two {:b-two-one :bar}}}]]
+  (update-vals [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]] keywordize))
+
+(expect
+  [[[{:a :1}]{:b {:b-one :foo :b-two {:b-two-one :bar :b-two-two #{{:even-here :the-value-is-updated}}}}}]]
+  (update-vals [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the value is updated"}}}}}]] keywordize))
+
+(expect
+  [[[{:a "1"}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "theValueIsUpdated"}}}}}]]
+  (update-vals [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the value is updated"}}}}}]] ->camelCaseString))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; update-kvs
+
+(expect
+  nil
+  (update-kvs nil))
+
+(expect
+  1
+  (update-kvs 1 :vals-fn str))
+
+(expect
+  {:a "1"}
+  (update-kvs {:a 1} :vals-fn str))
+
+(expect
+  [{:a 2}]
+  (update-kvs [{:a 1}] :vals-fn inc))
+
+(expect
+  {"a" "1"}
+  (update-kvs {:a 1} :keys-fn name :vals-fn str))
+
+(expect
+  [{"a" 2}]
+  (update-kvs [{:a 1}] :keys-fn name :vals-fn inc))
+
+(expect
+  '({:a 1} {:b 2})
+  (update-kvs (list {:a 1} {:b 2})))
+
+(expect
+  '({:a 2} {:b 3})
+  (update-kvs (list {:a 1} {:b 2}) :vals-fn inc))
+
+(expect
+  '({"a" 2} {"b" 3})
+  (update-kvs (list {:a 1} {:b 2}) :keys-fn name :vals-fn inc))
+
+(expect
+  [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar"}}}]]
+  (update-kvs [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar"}}}]] :keys-fn keywordize))
+
+(expect
+  [[[{:a :1}]{:b {:b-one :foo :b-two {:b-two-one :bar}}}]]
+  (update-kvs [[[{"a" 1}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar"}}}]] :keys-fn keywordize :vals-fn #(if (coll? %) % (keywordize %))))
+
+(expect
+  [[[{:a "1"}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "theValueIsUpdated"}}}}}]]
+  (update-kvs [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the value is updated"}}}}}]] :vals-fn #(if (coll? %) % (->camelCaseString %))))
+
+(expect
+  [[[{"a" "1"}]{"b" {"b-one" "foo" "b-two" {"b-two-one" "bar" "b-two-two" #{{"even-here" "theValueIsUpdated"}}}}}]]
+  (update-kvs [[[{:a 1}]{:b {:b-one "foo" :b-two {:b-two-one "bar" :b-two-two #{{:even-here "the value is updated"}}}}}]] :keys-fn name :vals-fn #(if (coll? %) % (->camelCaseString %))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; coll-grouped-by
 
 (def personas

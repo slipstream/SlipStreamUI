@@ -1,34 +1,62 @@
-﻿.ss-usage-gauge {
+﻿.ss-usage-gauge-container {
     margin: 10px;
-    background-color: white;
+    background-color: transparent;
     display: inline-block;
     overflow: hidden;
     width: 184px;
-    height: 148px;
+    height: 200px;
     cursor: pointer;
     opacity: 0.8;
 }
-.ss-usage-gauge:hover:not(.ss-selected-gauge) {
+.ss-usage-gauge-container:hover:not(.ss-selected-gauge-container) {
     opacity: 0.9;
     outline: 4px solid #eeeded;
 }
-.ss-selected-gauge {
+.ss-selected-gauge-container {
     background-color: #fefefe;
     opacity: 1;
     outline: 4px solid #aaa;
 }
 
-.ss-usage-gauge:first-child {
+.ss-usage-gauge-container:first-child {
     outline: #def2ff solid 4px;
     opacity: 1;
 }
-.ss-usage-gauge:first-child:hover:not(.ss-selected-gauge) {
+.ss-usage-gauge-container:first-child:hover:not(.ss-selected-gauge-container) {
     opacity: 0.9;
     outline: 4px solid #7cc1ef;
 }
-.ss-selected-gauge:first-child {
+.ss-selected-gauge-container:first-child {
     background-color: #f2faff;
     outline: #50a7de solid 4px;
     opacity: 1;
 }
 
+.ss-usage-gauge-detailed-counter {
+    text-align: center;
+    display: inline-block;
+    width: 32.8px;
+    padding: 1px 3px;
+    margin: 1px 2px;
+}
+
+.ss-usage-gauge-detailed-counter .glyphicon::before {
+    padding-right: 5px;
+    padding-left: 6px;
+}
+
+.ss-usage-gauge-detailed-counter.ss-usage-key-user-run-usage {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
+.ss-usage-gauge-detailed-counter.ss-usage-key-unknown-vm-usage {
+    color: #a94442;
+    background-color: #f2dede;
+}
+
+.ss-usage-gauge-detailed-counter.ss-usage-count-0 {
+    color: inherit;
+    background-color: inherit;
+    opacity: .1;
+}
