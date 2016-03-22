@@ -26,6 +26,14 @@
                                :tooltip (not-empty reason) ;; TODO: Use a popover instead, since it's a long text
                                :class "text-muted"}})
 
+(defn- cell-pending
+  "Generic cell with text 'Pending' in italics. It must be called as a function
+  to take into account the localization."
+  [& [reason]]
+  {:type :cell/html, :content {:text (t :pending)
+                               :tooltip (not-empty reason) ;; TODO: Use a popover instead, since it's a long text
+                               :class "text-muted"}})
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- remove-button-cell
@@ -835,30 +843,33 @@
 (localization/with-prefixed-t :vms-table
 
   (defn- vm-row
-    [{:keys [cloud-name run-uuid run-owner cloud-instance-id cloud-name username state ip-address name, cpu, ram, disk, instance-type] :as vm}]
-    (let [accessible?         (or (current-user/is? run-owner) (current-user/super?))
-          run-uuid-as-link?   (and run-uuid accessible?)]
-      {:style  nil
-       :cells (cond-> [(if-not run-uuid {:type :cell/icon,       :content icons/run-uuid-unknown})
-                       (cond
-                         (not run-uuid)     (cell-unknown (t :run-uuid.unknown.reason))
-                         run-uuid-as-link?  {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
-                         :else              {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run-uuid.no-link.reason)}})
-                       (if state
-                         {:type :cell/text,     :content (->> state uc/keywordize clojure.core/name (str "state.") t)}
-                         (cell-unknown))
-                       (if (and run-uuid (not ip-address))
-                         (cell-unknown (when run-uuid (t :ip.unknown.reason)))
-                         {:type :cell/text,     :content ip-address})
-                       {:type :cell/text,       :content name}
-                       {:type :cell/text,       :content cpu}
-                       {:type :cell/text,       :content ram}
-                       {:type :cell/text,       :content disk}
-                       {:type :cell/text,       :content instance-type}
-                       {:type :cell/text,       :content cloud-instance-id}
-                       {:type :cell/text,       :content cloud-name}
-                       {:type :cell/username,   :content run-owner}]
-                (current-user/super?)   (conj {:type :cell/username,  :content username}))}))
+    [{:keys [cloud-name run-uuid run-link-state run-owner cloud-instance-id cloud-name username state ip-address name, cpu, ram, disk, instance-type] :as vm}]
+    {:style  nil
+     :cells (cond-> [{:type :cell/icon, :content (case run-link-state
+                                                   :pending         icons/run-uuid-pending
+                                                   :unknown         icons/run-uuid-unknown
+                                                   :accessible      icons/run-uuid-accessible
+                                                   :not-accessible  icons/run-uuid-not-accessible)}
+                     (case run-link-state
+                       :pending         (cell-pending (t :run-uuid.pending.reason))
+                       :unknown         (cell-unknown (t :run-uuid.unknown.reason))
+                       :accessible      {:type :cell/link, :content {:text (uc/trim-from run-uuid \-), :href (str "/run/" run-uuid)}}
+                       :not-accessible  {:type :cell/text, :content {:text (uc/trim-from run-uuid \-), :tooltip (t :run-uuid.no-link.reason)}})
+                     (if state
+                       {:type :cell/text,     :content (->> state uc/keywordize clojure.core/name (str "state.") t)}
+                       (cell-unknown))
+                     (if (and run-uuid (not ip-address))
+                       (cell-unknown (when run-uuid (t :ip.unknown.reason)))
+                       {:type :cell/text,     :content ip-address})
+                     {:type :cell/text,       :content name}
+                     {:type :cell/text,       :content cpu}
+                     {:type :cell/text,       :content ram}
+                     {:type :cell/text,       :content disk}
+                     {:type :cell/text,       :content instance-type}
+                     {:type :cell/text,       :content cloud-instance-id}
+                     {:type :cell/text,       :content cloud-name}
+                     {:type :cell/username,   :content run-owner}]
+              (current-user/super?)   (conj {:type :cell/username,  :content username}))})
 
   (defn vms-table
     [vms & [pagination]]

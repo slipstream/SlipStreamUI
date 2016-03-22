@@ -1,7 +1,9 @@
 (ns slipstream.ui.models.vms-super-test
   (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.vms :as model]))
+  (:require [clj-time.core :as t]
+            [slipstream.ui.util.core :as u]
+            [slipstream.ui.models.vms :as model]
+            [slipstream.ui.util.current-user :as current-user]))
 
 ;; NOTE: For request /vms?media=xml&offset=10&limit=5&cloud=CloudA
 (def raw-metadata-str
@@ -10,7 +12,7 @@
       <vm cloud='CloudA' user='bob' state='Terminated' instanceId='157701e9-9c52-45b1-a506-13241446aad3_machine' measurement='2014-12-08 13:09:24.98 CET' runUuid='a1b345f0-c434-490e-849f-c3894af55588' name='machine' runOwner='bob'/>
       <vm cloud='CloudA' user='bob' state='Running' instanceId='vm_gateway' measurement='2014-12-08 13:09:24.112 CET' runUuid='35c3789f-5da1-4504-8294-d41489d035ae' ip='127.0.0.1' name='vm_gateway' runOwner='super'/>
       <vm cloud='CloudA' user='bob' state='Running' instanceId='vApp_6_centos' measurement='2014-12-08 13:09:24.126 CET'/>
-      <vm cloud='CloudA' user='bob' state='Running' instanceId='1b0afd4f-340d-4bef-89e2-d6f4a776f2ea' measurement='2014-12-08 13:09:33.215 CET' runUuid='Unknown'/>
+      <vm cloud='CloudA' user='bob' state='Running' instanceId='1b0afd4f-340d-4bef-89e2-d6f4a776f2ea' measurement='2014-12-08 13:19:33.215 CET' runUuid='Unknown'/>
       <user issuper='true' resourceUri='user/super' name='super'></user>
   </vms>")
 
@@ -26,6 +28,7 @@
           :username "bob"
           :measurement "2014-12-08 13:09:24.82 CET"
           :state "Running",
+          :run-link-state :accessible,
           :ip-address "127.0.0.1",
           :name "machine",
           :run-owner "super"
@@ -39,6 +42,7 @@
           :username "bob"
           :measurement "2014-12-08 13:09:24.98 CET"
           :state "Terminated",
+          :run-link-state :accessible,
           :ip-address nil,
           :name "machine",
           :run-owner "bob"
@@ -52,6 +56,7 @@
           :username "bob"
           :measurement "2014-12-08 13:09:24.112 CET"
           :state "Running",
+          :run-link-state :accessible,
           :ip-address "127.0.0.1",
           :name "vm_gateway",
           :run-owner "super"
@@ -65,6 +70,7 @@
           :username "bob"
           :measurement "2014-12-08 13:09:24.126 CET"
           :state "Running",
+          :run-link-state :unknown,
           :ip-address nil,
           :name nil,
           :run-owner nil
@@ -76,8 +82,9 @@
           :run-uuid nil
           :cloud-instance-id "1b0afd4f-340d-4bef-89e2-d6f4a776f2ea"
           :username "bob"
-          :measurement "2014-12-08 13:09:33.215 CET"
+          :measurement "2014-12-08 13:19:33.215 CET"
           :state "Running",
+          :run-link-state :pending,
           :ip-address nil,
           :name nil,
           :run-owner nil
@@ -85,4 +92,7 @@
           :ram nil
           :disk nil
           :instance-type nil}]}
-  (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))
+  (let [metadata (-> raw-metadata-str u/clojurify-raw-metadata-str)]
+    (current-user/with-current-user
+      (freeze-time (t/date-time 2014 12 8 12 29)
+        (model/parse metadata)))))

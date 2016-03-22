@@ -1,7 +1,6 @@
 (ns slipstream.ui.util.current-user
   (:refer-clojure :exclude [get get-in])
   (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.models.user :as user]))
 
 (def  ^:private ^:dynamic *current-user*

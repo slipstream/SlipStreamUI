@@ -132,6 +132,7 @@
                     :private        "Private"
                     :required       "Required"
                     :unknown        "_Unknown_" ; Text in this file accepts Markdown formatting :)
+                    :pending        "_Pending_"
                     }
             :time {
                     :year             "year"
@@ -410,13 +411,15 @@
    :slipstream.ui.views.tables.vms-table.state.stopped                    :global.vm-states.stopped
    :slipstream.ui.views.tables.vms-table.state.terminated                 :global.vm-states.terminated
 
-   :slipstream.ui.views.tables.vms-table.run-uuid.unknown.reason          "Either SlipStream has not yet been notified about the association of this VM to a Run or this VM was not started by SlipStream. In the latter case the VM has been directly created on the cloud or via a third party using your cloud credentials."
+   :slipstream.ui.views.tables.vms-table.run-uuid.unknown.reason          "This VM was not started by SlipStream but it was directly created on the cloud or via another platform using credentials which allow you to 'see' this VM."
+   :slipstream.ui.views.tables.vms-table.run-uuid.pending.reason          "This VM was recently started and SlipStream has not yet been notified about the association of this VM to a Run."
    :slipstream.ui.views.tables.vms-table.run-uuid.no-link.reason          "This VM was started by another user with SlipStream and thus you don't have access to the run page. It is listed here because the other user is either using the same cloud credentials as yours or sharing cloud resources with you."
 
 
    :slipstream.ui.views.tables.vms-table.ip.unknown.reason                "The IP is not yet available."
 
    :slipstream.ui.views.tables.unknown                                    :global.adjectives.unknown
+   :slipstream.ui.views.tables.pending                                    :global.adjectives.pending
 
    :slipstream.ui.views.tables.access.view.description                    :global.verbs.view
    :slipstream.ui.views.tables.access.view.project.help-hint              "This right allows users to find and see this project."
@@ -801,7 +804,6 @@
    :slipstream.ui.util.icons.description.vms                       :global.nouns.vms
    :slipstream.ui.util.icons.description.runs                      :global.nouns.runs
    :slipstream.ui.util.icons.description.run                       :global.nouns.run
-   :slipstream.ui.util.icons.description.run-uuid-unknown          "Run UUID unknown"
    :slipstream.ui.util.icons.description.deployment                :global.nouns.deployment
    :slipstream.ui.util.icons.description.build                     :global.nouns.build
    :slipstream.ui.util.icons.description.image                     :global.nouns.image
@@ -838,6 +840,11 @@
    :slipstream.ui.util.icons.description.user-inactive-vm-usage    "Inactive VMs"
    :slipstream.ui.util.icons.description.others-vm-usage           "Shared VMs"
    :slipstream.ui.util.icons.description.pending-vm-usage          "Pending VMs"
+
+   :slipstream.ui.util.icons.description.run-uuid-pending          "Run UUID pending"
+   :slipstream.ui.util.icons.description.run-uuid-unknown          "Run UUID unknown"
+   :slipstream.ui.util.icons.description.run-uuid-accessible       "Run accessible"
+   :slipstream.ui.util.icons.description.run-uuid-not-accessible   "Run not-accessible"
 
    ; Secondary action icon descriptions
 

@@ -63,7 +63,6 @@
 (deficon image-run              image)
 (deficon image-build            build)
 (deficon run                    deployment)
-(deficon run-uuid-unknown       "exclamation-sign" :style :warning)
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon service-catalog        "th-list")
@@ -104,7 +103,12 @@
 (deficon user-inactive-vm-usage   "off")
 (deficon others-vm-usage          "eye-open")
 (deficon pending-vm-usage         "time")
-(deficon unknown-vm-usage         run-uuid-unknown)
+(deficon unknown-vm-usage         "exclamation-sign"    :style :danger)
+
+(deficon run-uuid-pending         pending-vm-usage)
+(deficon run-uuid-unknown         unknown-vm-usage      :style :danger)
+(deficon run-uuid-accessible      nil)
+(deficon run-uuid-not-accessible  others-vm-usage)
 
 (deficon no-icon                nil)
 
