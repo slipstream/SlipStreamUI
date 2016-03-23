@@ -89,6 +89,14 @@
        (sort-by (juxt :order :category :name))
        vec))
 
+;; Inherited input parameters
+
+(defn- input-parameters
+  [metadata]
+  (->> (parameters/parse-input-parameters metadata)
+       (map transform-default-parameters)
+       (sort-by (juxt :order :category :name))
+       vec))
 
 ;; Metadata section build
 
@@ -100,6 +108,7 @@
          :os-details                  (os-details             metadata)
          :cloud-configuration         (parameters/categories-of-type parameters :global)
          :deployment-parameters       (deployment-parameters  parameters)
+         :input-parameters            (input-parameters       metadata)
          :targets                     (targets                metadata)}
       (page-type/view?) (assoc :runs  (runs/parse metadata)))))
 

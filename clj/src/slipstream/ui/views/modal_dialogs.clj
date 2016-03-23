@@ -167,7 +167,7 @@
     [:#ss-run-image-cloud-label]  (html/content       (t :cloud-service.label))
     [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
     [:.ss-run-image-global-section-content]            (html/content       (-> [image-metadata :image] run-module-global-parameters t/run-image-global-section-table))
-    [:.ss-run-image-input-parameters-section]          (when-let [input-parameters (-> image-metadata :deployment-parameters (p/parameters-of-category "Input") not-empty)]
+    [:.ss-run-image-input-parameters-section]          (when-let [input-parameters (-> image-metadata :input-parameters not-empty)]
                                                          (ue/at-match
                                                           [:.ss-run-image-input-parameters-section-title]    (html/html-content  (t :input-parameters-section.title))
                                                           [:.ss-run-image-input-parameters-section-content]  (html/content       (t/run-image-input-parameters-table input-parameters))))
