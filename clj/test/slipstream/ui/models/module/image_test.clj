@@ -107,6 +107,7 @@
                               :description "Hostname or IP address of the image"
                               :placeholder "Provided at runtime by SlipStream"
                               :category "Output"}]
+   :input-parameters []
   :cloud-configuration [{:category-type :global
                          :category "Cloud"
                          :parameters [{:help-hint nil

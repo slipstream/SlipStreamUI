@@ -69,6 +69,7 @@
                             :description "Hostname or IP address of the image"
                             :type "String"
                             :name "hostname"}]
+   :input-parameters []
    :cloud-configuration [{:category-type :global
                           :category "Cloud"
                           :parameters [{:help-hint nil
