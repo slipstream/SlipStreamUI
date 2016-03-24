@@ -28,7 +28,7 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
                     outputParameters.sortObjectsByKey("name");
 
                     // Extract Input Parameters
-                    $(imageXML).find("parameter[category=Input][type!=Dummy]").each(function(index, inputParamElem) {
+                    $(imageXML).find("inputParametersExpanded parameter[type!=Dummy]").each(function(index, inputParamElem) {
                         inputParameters.push(param(inputParamElem));
                         inputParameterNames.push($(inputParamElem).attr("name"));
                     });

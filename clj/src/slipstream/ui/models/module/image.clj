@@ -81,14 +81,25 @@
       :help-hint    (->> parameter :name (format "deployment.default-parameter.%s.help-hint") t))
     parameter))
 
-(defn- deployment-parameters
+(defn- transform-reorder
   [parameters]
-  (->> (parameters/categories-of-type parameters :deployment)
-       parameters/flatten
+  (->> parameters
        (map transform-default-parameters)
        (sort-by (juxt :order :category :name))
        vec))
 
+(defn- deployment-parameters
+  [parameters]
+  (->> (parameters/categories-of-type parameters :deployment)
+       parameters/flatten
+       transform-reorder))
+
+;; Inherited input parameters
+
+(defn- input-parameters
+  [metadata]
+  (->> (parameters/parse-input-parameters metadata)
+       transform-reorder))
 
 ;; Metadata section build
 
@@ -100,6 +111,7 @@
          :os-details                  (os-details             metadata)
          :cloud-configuration         (parameters/categories-of-type parameters :global)
          :deployment-parameters       (deployment-parameters  parameters)
+         :input-parameters            (input-parameters       metadata)
          :targets                     (targets                metadata)}
       (page-type/view?) (assoc :runs  (runs/parse metadata)))))
 

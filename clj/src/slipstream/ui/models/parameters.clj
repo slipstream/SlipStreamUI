@@ -10,6 +10,8 @@
 
 (def ^:private parameter-sel [html/root :> :parameters :> :entry :> :parameter])
 
+(def ^:private input-parameter-expanded-sel [html/root :> :inputParametersExpanded :> :entry :> :parameter])
+
 (defn- trim
   [s]
   (when s
@@ -72,6 +74,11 @@
   for expectations."
   [metadata]
   (parameter-categories metadata))
+
+(defn parse-input-parameters
+  [metadata]
+  (->> (html/select metadata input-parameter-expanded-sel)
+       (map parse-parameter)))
 
 ;; Parameter util methods
 

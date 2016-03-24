@@ -107,6 +107,17 @@
                               :description "Hostname or IP address of the image"
                               :placeholder "Provided at runtime by SlipStream"
                               :category "Output"}]
+
+   :input-parameters [{:name "Cloud1.cpu",
+                       :type "String",
+                       :description "Number of CPUs (i.e. virtual cores)",
+                       :category "InheritedCloud",
+                       :value nil,
+                       :order 0,
+                       :read-only? false,
+                       :mandatory? true,
+                       :help-hint nil}]
+
   :cloud-configuration [{:category-type :global
                          :category "Cloud"
                          :parameters [{:help-hint nil
