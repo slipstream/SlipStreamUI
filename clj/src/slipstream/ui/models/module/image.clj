@@ -81,22 +81,25 @@
       :help-hint    (->> parameter :name (format "deployment.default-parameter.%s.help-hint") t))
     parameter))
 
+(defn- transform-reorder
+  [parameters]
+  (->> parameters
+       (map transform-default-parameters)
+       (sort-by (juxt :order :category :name))
+       vec))
+
 (defn- deployment-parameters
   [parameters]
   (->> (parameters/categories-of-type parameters :deployment)
        parameters/flatten
-       (map transform-default-parameters)
-       (sort-by (juxt :order :category :name))
-       vec))
+       transform-reorder))
 
 ;; Inherited input parameters
 
 (defn- input-parameters
   [metadata]
   (->> (parameters/parse-input-parameters metadata)
-       (map transform-default-parameters)
-       (sort-by (juxt :order :category :name))
-       vec))
+       transform-reorder))
 
 ;; Metadata section build
 

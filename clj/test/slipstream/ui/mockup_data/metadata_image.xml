@@ -28,6 +28,22 @@
    <prerecipe/>
    <recipe/>
    <cloudImageIdentifiers class="org.hibernate.collection.internal.PersistentSet"/>
+
+   <inputParametersExpanded>
+      <entry>
+         <string>Cloud1.cpu</string>
+         <parameter category="InheritedCloud"
+                    description="Number of CPUs (i.e. virtual cores)"
+                    isSet="false"
+                    mandatory="true"
+                    name="Cloud1.cpu"
+                    order="0"
+                    order_="0"
+                    readonly="false"
+                    type="String"/>
+      </entry>
+   </inputParametersExpanded>
+
    <parameters class="org.hibernate.collection.internal.PersistentMap">
       <entry>
          <string>Cloud1.cpu</string>
