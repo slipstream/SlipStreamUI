@@ -113,8 +113,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function updateDetailedInfo($gaugeContainer, updatedUsageValue, classSuffix) {
         $gaugeContainer
-            .find('.ss-usage-key-' + classSuffix + ' .counter')
-                .html(updatedUsageValue);
+            .find('.ss-usage-key-' + classSuffix)
+                .toggleClass("ss-usage-count-0", updatedUsageValue + "" === "0")
+                .find('.counter')
+                    .html(updatedUsageValue);
     }
 
     function updateCloudUsageGauge(id, updatedUsage) {
