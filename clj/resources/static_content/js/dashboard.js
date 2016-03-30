@@ -1,11 +1,13 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var selectedGaugeCls = "ss-selected-gauge-container";
+    var gaugeContainerCls   = "ss-usage-gauge-container",
+        selectedGaugeCls    = "ss-selected-gauge-container";
 
     $(".ss-usage-gauge").click(function(){
         var $gauge          = $(this),
-            isGlobalGauge   = ($gauge.index() === 0),
-            isSelected      = $gauge.is(selectedGaugeCls.asSel()),
+            $gaugeContainer = $gauge.closest(gaugeContainerCls.asSel()),
+            isGlobalGauge   = ($gaugeContainer.index() === 0),
+            isSelected      = $gaugeContainer.is(selectedGaugeCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
@@ -15,8 +17,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 });
         $$.subsection.triggerOnShowOnOpenSubsection();
         if ( !isSelected ) {
-            $(".ss-usage-gauge-container").removeClass(selectedGaugeCls);
-            $gauge.closest(".ss-usage-gauge-container").addClass(selectedGaugeCls);
+            $(gaugeContainerCls.asSel()).removeClass(selectedGaugeCls);
+            $gauge.closest(gaugeContainerCls.asSel()).addClass(selectedGaugeCls);
         }
     });
 
@@ -117,7 +119,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function updateCloudUsageGauge(id, updatedUsage) {
         var $gauge          = $("[id='" + id + "']"),
-            $gaugeContainer = $gauge.closest(".ss-usage-gauge-container");
+            $gaugeContainer = $gauge.closest(gaugeContainerCls.asSel());
 
         updateUsageGauge($gauge, updatedUsage.userVmUsage, updatedUsage.vmQuota);
 
