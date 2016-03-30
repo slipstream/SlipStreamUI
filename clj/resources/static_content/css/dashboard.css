@@ -45,11 +45,6 @@
     padding-left: 6px;
 }
 
-.ss-usage-gauge-detailed-counter.ss-usage-key-user-run-usage {
-    color: #3c763d;
-    background-color: #dff0d8;
-}
-
 .ss-usage-gauge-detailed-counter.ss-usage-key-unknown-vm-usage {
     color: #a94442;
     background-color: #f2dede;
