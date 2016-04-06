@@ -231,7 +231,7 @@
          nil
          {:title "Please wait"
           :content (str "<div style='font-size:42px;text-align:center;font-weight:900;opacity:0.8'><span class='glyphicon glyphicon-refresh'></span></div>"
-                        "Please wait until Wordpress is being deployed. It should take less than a couple of minutes.")
+                        "Please wait until Wordpress is deployed. It should take less than a couple of minutes.")
           :hide-prev-button true
           :hide-next-button true
           }
