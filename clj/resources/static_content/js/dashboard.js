@@ -100,12 +100,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $("[id='ss-usage-gauge-All Clouds']").click();
 
     function updateUsageGauge($gauge, userVmUsage, vmQuota) {
-        console.debug($gauge.attr("id"), userVmUsage, vmQuota);
+        console.debug("Updating gauge '" + $gauge.attr("id") + "': userVmUsage: " + userVmUsage + ", vmQuota: " + vmQuota);
         var gaugeController = $gauge.data("gauge-controller");
         if ( $gauge.foundNothing() ) {
-            console.warn("No element found with id: " + id);
+            console.warn("Gauge not found!");
         } else if ( gaugeController === undefined ) {
-            console.warn("No gauge controller found for element with id: " + id);
+            console.warn("No gauge controller found for element with id: " + $gauge.attr("id"));
         } else {
             gaugeController.refresh(userVmUsage, vmQuota);
         }
@@ -122,6 +122,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
     function updateCloudUsageGauge(id, updatedUsage) {
         var $gauge          = $("[id='" + id + "']"),
             $gaugeContainer = $gauge.closest(gaugeContainerCls.asSel());
+
+        if ( $gauge.foundNothing() ) {
+            console.debug("Gauge for id '" + id + "' not visible. Nothing to update.");
+            return;
+        }
 
         updateUsageGauge($gauge, updatedUsage.userVmUsage, updatedUsage.vmQuota);
 
