@@ -21,13 +21,13 @@
       <cloudUsage cloud='Cloud-02'   vmQuota='20'  userRunUsage='0' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='3' pendingVmUsage='1' unknownVmUsage='0'/>
       <cloudUsage cloud='Cloud-03'   vmQuota='8'   userRunUsage='0' userVmUsage='0' userInactiveVmUsage='2' othersVmUsage='0' pendingVmUsage='0' unknownVmUsage='0'/>
       <cloudUsage cloud='Cloud-04'   vmQuota='20'  userRunUsage='3' userVmUsage='5' userInactiveVmUsage='0' othersVmUsage='0' pendingVmUsage='0' unknownVmUsage='0'/>
-      <cloudUsage cloud='Cloud-05'   vmQuota='20'  userRunUsage='0' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='0' pendingVmUsage='1' unknownVmUsage='0'/>
-      <cloudUsage cloud='Cloud-06'   vmQuota='8'   userRunUsage='0' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='0' pendingVmUsage='0' unknownVmUsage='1'/>
+      <cloudUsage cloud='Cloud-05'   vmQuota='20'  userRunUsage='0' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='0' pendingVmUsage='0' unknownVmUsage='0'/>
+      <cloudUsage cloud='Cloud-06'   vmQuota='8'   userRunUsage='0' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='0' pendingVmUsage='0' unknownVmUsage='0'/>
       <cloudUsage cloud='Cloud-07'   vmQuota='8'   userRunUsage='0' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='0' pendingVmUsage='0' unknownVmUsage='2'/>
       <cloudUsage cloud='Cloud-08'   vmQuota='20'  userRunUsage='2' userVmUsage='0' userInactiveVmUsage='0' othersVmUsage='1' pendingVmUsage='0' unknownVmUsage='2'/>
       <cloudUsage cloud='All Clouds' vmQuota='124' userRunUsage='6' userVmUsage='6' userInactiveVmUsage='2' othersVmUsage='4' pendingVmUsage='2' unknownVmUsage='5'/>
    </cloudUsages>
-   <user issuper='true' resourceUri='user/super' name='super'></user>
+   <user issuper='false' resourceUri='user/super' name='super'></user>
      <serviceConfiguration deleted='false' creation='2013-03-06 14:31:01.390 CET'>
    <parameters class='org.hibernate.collection.PersistentMap'>
      <entry>
@@ -75,8 +75,6 @@
                    {:cloud "Cloud-02"   :vm-quota 20  :user-run-usage 0 :user-vm-usage 0 :user-inactive-vm-usage 0 :others-vm-usage 3 :pending-vm-usage 1 :unknown-vm-usage 0 }
                    {:cloud "Cloud-03"   :vm-quota 8   :user-run-usage 0 :user-vm-usage 0 :user-inactive-vm-usage 2 :others-vm-usage 0 :pending-vm-usage 0 :unknown-vm-usage 0 }
                    {:cloud "Cloud-04"   :vm-quota 20  :user-run-usage 3 :user-vm-usage 5 :user-inactive-vm-usage 0 :others-vm-usage 0 :pending-vm-usage 0 :unknown-vm-usage 0 }
-                   {:cloud "Cloud-05"   :vm-quota 20  :user-run-usage 0 :user-vm-usage 0 :user-inactive-vm-usage 0 :others-vm-usage 0 :pending-vm-usage 1 :unknown-vm-usage 0 }
-                   {:cloud "Cloud-06"   :vm-quota 8   :user-run-usage 0 :user-vm-usage 0 :user-inactive-vm-usage 0 :others-vm-usage 0 :pending-vm-usage 0 :unknown-vm-usage 1 }
                    {:cloud "Cloud-07"   :vm-quota 8   :user-run-usage 0 :user-vm-usage 0 :user-inactive-vm-usage 0 :others-vm-usage 0 :pending-vm-usage 0 :unknown-vm-usage 2 }
                    {:cloud "Cloud-08"   :vm-quota 20  :user-run-usage 2 :user-vm-usage 0 :user-inactive-vm-usage 0 :others-vm-usage 1 :pending-vm-usage 0 :unknown-vm-usage 2 }]}
    :metering {:enabled? true}}

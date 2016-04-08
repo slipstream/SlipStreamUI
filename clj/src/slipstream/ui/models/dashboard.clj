@@ -15,10 +15,10 @@
 
 (defn- visible?
   [cloud-usage]
-  (let [configured-clouds (current-user/configured-clouds)]
+  (let [configured-clouds (conj (current-user/configured-clouds) "All Clouds")]
     (or
       (->  cloud-usage :cloud configured-clouds)
-      (->> (dissoc cloud-usage :cloud) vals (some pos?)))))
+      (->> (dissoc cloud-usage :cloud :vm-quota) vals (some pos?)))))
 
 (defn- filter-visible
   "Non-super users should only see the usage gauges for the clouds they have
