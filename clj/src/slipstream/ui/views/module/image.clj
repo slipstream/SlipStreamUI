@@ -38,8 +38,7 @@
   (if-let [runs (-> section-metadata :runs not-empty)]
     (ue/dynamic-content-snip
       :id      "runs"
-      :content-load-url (pagination/url :runs :module-uri (some :module-uri runs))
-      :content (t/runs-table runs (:pagination section-metadata)))
+      :content-load-url (pagination/url :runs :module-uri (some :module-uri runs)))
     (t :section.runs.empty-content-hint)))
 
 ; Other table sections (e.g. :cloud-image-details, :os-details and :deployment-parameters)
