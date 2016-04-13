@@ -110,6 +110,8 @@
 (deficon run-uuid-accessible      nil)
 (deficon run-uuid-not-accessible  others-vm-usage)
 
+(deficon add-new-cloud            "plus")
+
 (deficon no-icon                nil)
 
 

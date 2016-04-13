@@ -982,7 +982,7 @@
    :slipstream.ui.views.dashboard.detailed-counter.more.unknown-vm-usage.popover.title        "%d Unknown VMs"
    :slipstream.ui.views.dashboard.detailed-counter.unknown-vm-usage.popover.content           "This is the number of VMs that that you are able to 'see' with the cloud credentials configured in your SlipStream profile but which SlipStream was not able to link to a known application. This can have several reasons, but probably they were started directly in the corresponding cloud or via a service other that this SlipStream instance. You should be confident about the reason of having this unknown machine running."
 
-
+   :slipstream.ui.views.dashboard.add-a-new-cloud-button-label "Add a new cloud"
 
    :slipstream.ui.views.versions.header.title                  "History of '%s'"
    :slipstream.ui.views.versions.header.subtitle.one-version   "There is one version of this %s."
