@@ -17,6 +17,15 @@
 
 ;; Usage section
 
+(ue/def-blank-snippet ^:private add-new-cloud-btn-snip [:div :div]
+  []
+  ue/this     (ue/set-class "ss-add-new-cloud-btn-container")
+  ue/this     (html/prepend (icons/icon-snip :add-new-cloud))
+  ue/this     (ue/set-data :href (u/user-uri (current-user/username) :edit true :hash "close-sections"))
+  [:div :div] (ue/set-class "ss-add-new-cloud-btn-label")
+  [:div :div] (html/content (t :add-a-new-cloud-button-label)))
+
+
 ; This is the snippet .ss-usage-gauge-detailed-counter for each one of the detailed
 ; infos (the icons below the gauge) on each gauge.
 (ue/def-blank-snippet ^:private detailed-counter-snip :div
@@ -53,7 +62,8 @@
   [usage]
   ue/this (ue/set-class "ss-usage-container")
   ue/this (ue/content-for [:div :div] [cloud-usage usage]
-              ue/this (html/substitute (gauge-snip cloud-usage))))
+              ue/this (html/substitute (gauge-snip cloud-usage)))
+  ue/this (html/append (add-new-cloud-btn-snip)))
 
 (defmethod section ::quota
   [dashboard metadata-key]

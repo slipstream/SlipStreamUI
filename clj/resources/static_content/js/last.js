@@ -24,6 +24,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addClass("ss-force-hovered-style");
     }
 
+    $("[data-href]").click(function(e) {
+        if ( ! $(e.target).is("a") ) {
+            $$.util.url.redirectTo($(this).data("href"));
+        }
+    })
+
     $$.util.tour.startIfNeeded();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

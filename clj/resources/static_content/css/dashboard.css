@@ -1,4 +1,5 @@
-﻿.ss-usage-gauge-container {
+﻿.ss-usage-gauge-container,
+.ss-add-new-cloud-btn-container {
     margin: 10px;
     background-color: transparent;
     display: inline-block;
@@ -54,4 +55,21 @@
     color: inherit;
     background-color: inherit;
     opacity: .1;
+}
+
+.ss-add-new-cloud-btn-container {
+    opacity: 0.4;
+    text-align: center;
+    color: #aaa;
+}
+.ss-add-new-cloud-btn-container:hover {
+    opacity: 1;
+    outline: 4px solid #eeeded;
+}
+.ss-add-new-cloud-btn-container .glyphicon {
+    width: 100%;
+    font-size: 64px;
+    padding-top: 34px;
+    padding-bottom: 40px;
+    padding-left: 6px;
 }
