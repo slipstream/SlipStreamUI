@@ -527,15 +527,4 @@ jQuery( function() { ( function( $$, $, undefined ) {
         })
         .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
 
-    // Tags field
-
-    var $tagsInputElem = $("#tags");
-
-    $tagsInputElem.focusout(function(){
-        if ( $tagsInputElem.isValidFormInput() ) {
-            var sanitizedTags = $tagsInputElem.val().asCommaSeparatedListOfUniqueTags();
-            $tagsInputElem.val(sanitizedTags);
-        }
-    });
-
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

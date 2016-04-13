@@ -30,6 +30,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     })
 
+    // Tags field sanitation
+    $('body').on('focusout', '[name=tags]', function(){
+        var $tagsInputElem = $(this);
+        if ( $tagsInputElem.isValidFormInput() ) {
+            var sanitizedTags = $tagsInputElem.val().asCommaSeparatedListOfUniqueTags();
+            $tagsInputElem.val(sanitizedTags);
+        }
+    });
+
     $$.util.tour.startIfNeeded();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
