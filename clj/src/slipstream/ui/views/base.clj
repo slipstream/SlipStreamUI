@@ -73,7 +73,8 @@
   [context]
   (-> context
       :view-name
-      #{"configuration" "service-catalog"}))
+      #{"configuration" "service-catalog"}
+      (and (current-user/super?))))
 
 (def ^:private save-page-actions
   [action/save])
