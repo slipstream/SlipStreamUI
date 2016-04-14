@@ -281,6 +281,15 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         copy: function(object) {
             // SOURCE: http://stackoverflow.com/a/5164215
             return $.extend(true, {}, originalObject);
+        },
+
+        deleteUndefined: function(object) {
+            // SOURCE: http://stackoverflow.com/a/286162
+            for (var k in object) {
+              if ( object[k] == null ) {
+                delete object[k];
+              }
+            }
         }
     };
 
@@ -2249,14 +2258,20 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         },
         // SOURCE: http://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript
         // SOURCE: http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
-        setValue: function (param, value) {
+        setValues: function (newParamValues) {
             var queryParams = $.deparam(document.location.search.substr(1));
-            if ( typeof value !== 'undefined' && value !== null ) {
-                queryParams[param] = value;
-            } else {
-                delete queryParams[param];
-            }
+            $.extend(queryParams, newParamValues);
+            util.object.deleteUndefined(queryParams);
             document.location.search = $.param(queryParams);
+        },
+        setValue: function (param, value) {
+            var newParamObject = {};
+            if ( typeof value !== 'undefined' && value !== null ) {
+                newParamObject[param] = value;
+            } else {
+                newParamObject[param] = null;
+            }
+            util.urlQueryParams.setValues(newParamObject);
         },
         deleteValue: function (param) {
             util.urlQueryParams.setValue(param);
