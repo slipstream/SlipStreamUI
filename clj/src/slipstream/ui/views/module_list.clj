@@ -52,6 +52,7 @@
                            image]
                     :as app} app-metadata-list]
     ue/this                        (ue/when-add-class (suitable-for-tour? app) "ss-example-app-in-tour")
+    app-image-container-sel        (ue/set-data :href uri)
     app-image-preloader-sel        (ue/set-src image)
     app-image-container-sel        (ue/enable-class updated? app-updated-cls)
     app-image-container-sel        (ue/enable-class new? app-new-cls)

@@ -330,3 +330,7 @@ div.popover:not(.ss-alert-popover) code {
   cursor: default;
   opacity: 0.5;
 }
+
+[data-href] {
+  cursor: pointer;
+}
