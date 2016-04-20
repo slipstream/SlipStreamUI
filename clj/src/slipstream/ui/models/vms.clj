@@ -15,11 +15,11 @@
                       :measurement])
         (assoc :username          (-> vm-metadata :user not-empty))
         (assoc :run-link-state (cond
-                                 recent-vm?                   :pending
-                                 (not run-uuid)               :unknown
-                                 (current-user/is? run-owner) :accessible
-                                 (current-user/super?)        :accessible
-                                 :else                        :not-accessible))
+                                 (and recent-vm? (not run-uuid))  :pending
+                                 (not run-uuid)                   :unknown
+                                 (current-user/is? run-owner)     :accessible
+                                 (current-user/super?)            :accessible
+                                 :else                            :not-accessible))
         (assoc :cloud-instance-id (-> vm-metadata :instanceId   not-empty))
         (assoc :run-uuid          run-uuid)
         (assoc :cloud-name        (-> vm-metadata :cloud        not-empty))
