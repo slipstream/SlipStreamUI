@@ -95,14 +95,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Enable pagination
     $("body").on("click", paginationActionSel, function(e){
-        var $clickedButton      = $(this),
-            params              = $clickedButton.data("pagination-params") || {},
-            $dynamicContentElem = $clickedButton.closest(dynamicContentSel),
-            contentSelector     = $dynamicContentElem.data("content-selector"),
-            contentLoadUrl      = $dynamicContentElem.attr("content-load-url"),
-            newContentLoadUrl   = contentLoadUrl
-                                        .replace(/offset=\d+/, "offset=" + params.offset)
-                                        .replace(/limit=\d+/, "limit=" + params.limit);
+        var $clickedButton        = $(this),
+            params                = $clickedButton.data("pagination-params") || {},
+            $dynamicContentElem   = $clickedButton.closest(dynamicContentSel),
+            standaloneDynamicPage = $dynamicContentElem.foundNothing();
+
         $clickedButton
             .addClass("ss-loading")
             .flagAsLoading()
@@ -111,14 +108,27 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .find("button")
                     .addClass("disabled");
 
-        $dynamicContentElem.attr("content-load-url", newContentLoadUrl);
+        if ( standaloneDynamicPage ) {
+            // We are in a page like /run or /vms, so the pagination is mean to reload the whole page.
+            $$.util.urlQueryParams.setValues({ offset: params.offset, limit: params.limit });
+        } else {
+            // We are in an embedded dynamic section, like the runs or vms table in the dashboard.
+            var contentSelector       = $dynamicContentElem.data("content-selector"),
+                contentLoadUrl        = $dynamicContentElem.attr("content-load-url"),
+                newContentLoadUrl     = contentLoadUrl
+                                            .replace(/offset=\d+/, "offset=" + params.offset)
+                                            .replace(/limit=\d+/, "limit=" + params.limit);
 
-        var eventData;
-        if ( contentSelector !== undefined ) {
-            eventData = {newContentSel: contentSelector};
+            $dynamicContentElem.attr("content-load-url", newContentLoadUrl);
+
+            var eventData;
+            if ( contentSelector !== undefined ) {
+                eventData = {newContentSel: contentSelector};
+            }
+
+            $dynamicContentElem.trigger("ss-dynamic-content-reload", eventData);
         }
 
-        $dynamicContentElem.trigger("ss-dynamic-content-reload", eventData);
     });
 
     $("body").on("ss-dynamic-content-reload", dynamicContentSel, function(e, data){
@@ -261,13 +271,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var shouldIncludeInactive = this.checked,
             $thisCheckbox = $(this),
             $dynamicContentElem = $thisCheckbox.closest(dynamicContentSel),
-            newContentLoadUrl   = $dynamicContentElem.attr("content-load-url")
-                                    .replace(/activeOnly=[01]/, "activeOnly=" +
-                                        (shouldIncludeInactive ? "0" : "1")); // NOTE: The booleans are swapped because the semantic meaning of the filter
-                                                                              //       on the UI is the oposite of the meaning for the API.
-        $dynamicContentElem
-            .attr("content-load-url", newContentLoadUrl)
-            .trigger("ss-dynamic-content-reload");
+            standaloneDynamicPage = $dynamicContentElem.foundNothing();
+
+        if ( standaloneDynamicPage ) {
+            $$.util.urlQueryParams.setValue("activeOnly", (shouldIncludeInactive ? "0" : "1"));
+        } else {
+            var newContentLoadUrl = $dynamicContentElem.attr("content-load-url")
+                                        .replace(/activeOnly=[01]/, "activeOnly=" +
+                                            (shouldIncludeInactive ? "0" : "1")); // NOTE: The booleans are swapped because the semantic meaning of the filter
+                                                                                  //       on the UI is the opposite of the meaning for the API.
+            $dynamicContentElem
+                .attr("content-load-url", newContentLoadUrl)
+                .trigger("ss-dynamic-content-reload");
+        }
     });
 
 
