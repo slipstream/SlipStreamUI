@@ -1,4 +1,4 @@
-(defproject com.sixsq.slipstream/SlipStreamUI "2.3.1-SNAPSHOT"
+(defproject com.sixsq.slipstream/SlipStreamUI "3.2-SNAPSHOT"
   :description "SlipStream UI Clojure/Enlive"
   :url "http://sixsq.com"
   :license {:name "Apache License, Version 2.0"
