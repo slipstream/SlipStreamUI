@@ -56,7 +56,8 @@
         (assoc        :module-uri     (-> attrs :moduleResourceUri))
         (assoc        :uri            (-> attrs :resourceUri))
         (assoc        :service-url    (-> attrs :serviceUrl (or "") s/trim not-empty))
-        (assoc        :cloud-names    (-> attrs :cloudServiceNames)))))
+        (assoc        :cloud-names    (-> attrs :cloudServiceNames))
+        (assoc        :active-vm      (-> attrs :activeVm)))))
 
 (defn- parse-run-items
   [metadata]
