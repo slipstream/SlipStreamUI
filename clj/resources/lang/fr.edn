@@ -276,6 +276,7 @@
 
    :slipstream.ui.views.table.header.access-right             "Autorisations d'accès"
    :slipstream.ui.views.table.header.action                   :global.nouns.action
+   :slipstream.ui.views.table.header.active-vm                "VMs actives"
    :slipstream.ui.views.table.header.author                   :global.nouns.author
    :slipstream.ui.views.table.header.category                 :global.nouns.category
    :slipstream.ui.views.table.header.cloud                    :global.nouns.cloud

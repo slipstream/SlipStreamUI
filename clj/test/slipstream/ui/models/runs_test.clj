@@ -26,6 +26,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? true
+         :active-vm "1"
          :tags "tag-initializing-without-abort-flag"}
 
         {:status "Initializing"
@@ -41,6 +42,7 @@
          :service-url nil
          :abort-flag? true
          :terminable? true
+         :active-vm "0"
          :tags "tag-initializing-with-abort-flag"}
 
         {:status "Provisioning"
@@ -56,6 +58,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? true
+         :active-vm "12"
          :tags "tag-provisioning-without-abort-flag"}
 
         {:status "Provisioning"
@@ -71,6 +74,7 @@
          :service-url nil
          :abort-flag? true
          :terminable? true
+         :active-vm "0"
          :tags "tag-provisioning-with-abort-flag"}
 
         {:status "Executing"
@@ -86,6 +90,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? true
+         :active-vm "0"
          :tags "tag-executing-without-abort-flag"}
 
         {:status "Executing"
@@ -101,6 +106,7 @@
          :service-url nil
          :abort-flag? true
          :terminable? true
+         :active-vm "0"
          :tags "tag-executing-with-abort-flag"}
 
         {:status "Sending reports"
@@ -116,6 +122,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? true
+         :active-vm "0"
          :tags "tag-sending-reports-without-abort-flag"}
 
         {:status "Sending reports"
@@ -131,6 +138,7 @@
          :service-url nil
          :abort-flag? true
          :terminable? true
+         :active-vm "0"
          :tags "tag-sending-reports-with-abort-flag"}
 
         {:status "Ready"
@@ -146,6 +154,7 @@
          :service-url "http://10.0.0.1:8080"
          :abort-flag? false
          :terminable? true
+         :active-vm "0"
          :tags "tag-ready-without-abort-flag"}
 
         {:status "Ready"
@@ -161,6 +170,7 @@
          :service-url "http://10.0.0.1:8080"
          :abort-flag? true
          :terminable? true
+         :active-vm "0"
          :tags "tag-ready-with-abort-flag"}
 
         {:status "Finalizing"
@@ -176,6 +186,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? false
+         :active-vm "0"
          :tags "tag-finalizing-without-abort-flag"}
 
         {:status "Finalizing"
@@ -191,6 +202,7 @@
          :service-url "http://10.0.0.1:8080"
          :abort-flag? true
          :terminable? false
+         :active-vm "0"
          :tags "tag-finalizing-with-very-long-abort-flag"}
 
         {:status "Done"
@@ -206,6 +218,7 @@
          :service-url "http://10.0.0.1:8080"
          :abort-flag? false
          :terminable? false
+         :active-vm "0"
          :tags "tag-done-without-abort-flag"}
 
         {:status "Done"
@@ -221,6 +234,7 @@
          :service-url "http://10.0.0.1:8080"
          :abort-flag? true
          :terminable? false
+         :active-vm "0"
          :tags "tag-done-with-abort-flag"}
 
         {:status "Aborted"
@@ -236,6 +250,7 @@
          :service-url "http://10.0.0.1:8080"
          :abort-flag? false
          :terminable? false
+         :active-vm "0"
          :tags "tag-aborted-without-abort-flag"}
 
         {:display-status :run-terminated
@@ -251,6 +266,7 @@
          :service-url nil
          :abort-flag? true
          :terminable? false
+         :active-vm "0"
          :tags "tag-aborted-with-very-long-abort-flag"}
 
         {:status "Cancelled"
@@ -263,6 +279,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? false
+         :active-vm "0"
          :tags "tag-cancelled-without-abort-flag"
          :start-time "2015-01-07 13:36:32.26 CET"
          :uri "run/b36dfcc0-b77b-4746-b7fd-0acd7038a02d"
@@ -281,6 +298,7 @@
          :uri "run/0aa79e3f-878a-40b1-8e88-bb6808a183cc"
          :uuid "0aa79e3f-878a-40b1-8e88-bb6808a183cc"
          :terminable? false
+         :active-vm "0"
          :tags "tag-cancelled-with-abort-flag-1"}
 
         {:display-status :run-terminated
@@ -296,6 +314,7 @@
          :service-url nil
          :abort-flag? false
          :terminable? false
+         :active-vm "0"
          :tags "tag-cancelled-without-abort-flag"}
 
         {:status "Cancelled"
@@ -306,6 +325,7 @@
          :service-url nil
          :abort-flag? true
          :terminable? false
+         :active-vm "0"
          :tags "tag-cancelled-with-very-long-abort-flag"
          :cloud-names "Exoscale"
          :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/bob'> user account</a> b9638f6cjd19b0jd4e62jdb2f6jd498843e7aa7e6869be33jd9fe4jd4c80jdbbb1jd1665f6bad443ab7953e9jd2812jd4591jdbc8fjd194a95b9f70ed3caa272jd97a7jd4a25jd8a2ajdb13f3fd16851eb8eb8aajd163ejd4a87jd86a2jdafb2a4eb3982"
