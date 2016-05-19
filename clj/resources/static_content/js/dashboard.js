@@ -175,8 +175,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function setStateClass($gaugeContainer, newState) {
-        if ($gaugeContainer.foundNothing() || !newState) { return; }
-        var newStateClass       = 'ss-usage-gauge-container-state-' + newState,
+        if ( $gaugeContainer.foundNothing() ) { return; }
+        var newStateClass       = newState ? 'ss-usage-gauge-container-state-' + newState : '',
             currentstateClass   = $gaugeContainer.data('stateClass');
         $gaugeContainer
             .removeClass(currentstateClass)
