@@ -160,7 +160,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // ************************** Connector status update **********************
 
     var $allNuvlaboxGaugeContainers = $('[data-quota-title^=nuvlabox]').closest('.ss-usage-gauge-container'),
-        stateIconPlaceholderHtml    = '<span class="glyphicon ss-usage-gauge-container-state-icon" aria-hidden="true"></span>',
+        stateIconPlaceholderHtml    = '<span class="glyphicon ss-usage-gauge-container-icon-state" aria-hidden="true"></span>',
         stateLabels                 = { ok: 'Online', nok: 'Offline' },
         serviceOfferRequest         = $$.request
                                             .get("/api/service-offer")
@@ -182,7 +182,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .removeClass(currentstateClass)
             .addClass(newStateClass)
             .data('stateClass', newStateClass)
-            .find('.ss-usage-gauge-container-state-icon')
+            .find('.ss-usage-gauge-container-icon-state')
                 .attr('title', stateLabels[newState] || newState)
                 .data('toggle', 'tooltip')
                 .data('placement', 'left')
