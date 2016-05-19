@@ -183,7 +183,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addClass(newStateClass)
             .data('stateClass', newStateClass)
             .find('.ss-usage-gauge-container-state-icon')
-                .attr('title', stateLabels[newState])
+                .attr('title', stateLabels[newState] || newState)
                 .data('toggle', 'tooltip')
                 .data('placement', 'left')
                 .data('container', 'body')

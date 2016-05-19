@@ -82,13 +82,21 @@
     right: 5px;
     z-index: 10;
 }
+.ss-usage-gauge-container-state-icon:before {
+    /* Default icon for unknown states */
+    content: "\e209"; /* .glyphicon-alert */
+    color: #f0ad4e; /* .btn-warning { background-color } */
+}
 
 .ss-usage-gauge-container-state-nok {
     opacity: 0.5;
 }
-.ss-usage-gauge-container-state-checking .ss-usage-gauge-container-state-icon,
-.ss-usage-gauge-container-state-ok .ss-usage-gauge-container-state-icon,
-.ss-usage-gauge-container-state-nok .ss-usage-gauge-container-state-icon {
+.ss-usage-gauge-container[class*='ss-usage-gauge-container-state-'] .ss-usage-gauge-container-state-icon {
+    /*
+        Show the state icon when any state is set, i.e. the div.ss-usage-gauge-container
+        has another class like .ss-usage-gauge-container-state-STATE, for any value of STATE.
+        SOURCE: http://stackoverflow.com/a/13352103
+    */
     display: block;
 }
 .ss-usage-gauge-container-state-checking .ss-usage-gauge-container-state-icon {
