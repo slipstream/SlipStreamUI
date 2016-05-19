@@ -166,7 +166,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                             .get("/api/service-offer")
                                             .dataType("json")
                                             .withLoadingScreen(false)
-                                            .validation(setAllNuvlaboxGaugesAsChecking)
+                                            // NOTE: Uncomment to show the loading icon on every update.
+                                            // .validation(setAllNuvlaboxGaugesAsChecking)
                                             .onSuccess(processNuvlaboxStates);
 
     function $findGaugeContainer(connectorName) {
@@ -182,7 +183,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .addClass(newStateClass)
             .data('stateClass', newStateClass)
             .find('.ss-usage-gauge-container-state-icon')
-                .attr('title', stateLabels[newState]);
+                .attr('title', stateLabels[newState])
+                .data('toggle', 'tooltip')
+                .data('placement', 'left')
+                .data('container', 'body')
+                .tooltip('fixTitle');
     }
 
     function setAllNuvlaboxGaugesAsChecking() {

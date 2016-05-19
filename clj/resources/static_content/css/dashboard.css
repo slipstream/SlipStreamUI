@@ -83,6 +83,9 @@
     z-index: 10;
 }
 
+.ss-usage-gauge-container-state-nok {
+    opacity: 0.5;
+}
 .ss-usage-gauge-container-state-checking .ss-usage-gauge-container-state-icon,
 .ss-usage-gauge-container-state-ok .ss-usage-gauge-container-state-icon,
 .ss-usage-gauge-container-state-nok .ss-usage-gauge-container-state-icon {
@@ -105,6 +108,3 @@
     color: #5cb85c; /* .btn-success { background-color } */
     content: "\e013"; /* .glyphicon-ok */
 }
-
-
-
