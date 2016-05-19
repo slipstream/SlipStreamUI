@@ -1,5 +1,6 @@
 ﻿.ss-usage-gauge-container,
 .ss-add-new-cloud-btn-container {
+    position: relative;
     margin: 10px;
     background-color: transparent;
     display: inline-block;
@@ -72,4 +73,46 @@
     padding-top: 34px;
     padding-bottom: 40px;
     padding-left: 6px;
+}
+
+.ss-usage-gauge-container-icon-state {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 5px;
+    z-index: 10;
+}
+.ss-usage-gauge-container-icon-state:before {
+    /* Default icon for unknown states */
+    content: "\e209"; /* .glyphicon-alert */
+    color: #f0ad4e; /* .btn-warning { background-color } */
+}
+
+.ss-usage-gauge-container-state-nok {
+    opacity: 0.5;
+}
+.ss-usage-gauge-container[class*='ss-usage-gauge-container-state-'] .ss-usage-gauge-container-icon-state {
+    /*
+        Show the state icon when any state is set, i.e. the div.ss-usage-gauge-container
+        has another class like .ss-usage-gauge-container-state-STATE, for any value of STATE.
+        SOURCE: http://stackoverflow.com/a/13352103
+    */
+    display: block;
+}
+.ss-usage-gauge-container-state-checking .ss-usage-gauge-container-icon-state {
+  -webkit-animation: rotation 2s infinite linear;
+     -moz-animation: rotation 2s infinite linear;
+       -o-animation: rotation 2s infinite linear;
+          animation: rotation 2s infinite linear;
+}
+.ss-usage-gauge-container-state-checking .ss-usage-gauge-container-icon-state:before {
+    content: "\e031"; /* .glyphicon-refresh */
+}
+.ss-usage-gauge-container-state-nok .ss-usage-gauge-container-icon-state:before {
+    color: #d9534f; /* .btn-danger { background-color } */
+    content: "\e014"; /* .glyphicon-remove */
+}
+.ss-usage-gauge-container-state-ok .ss-usage-gauge-container-icon-state:before {
+    color: #5cb85c; /* .btn-success { background-color } */
+    content: "\e013"; /* .glyphicon-ok */
 }
