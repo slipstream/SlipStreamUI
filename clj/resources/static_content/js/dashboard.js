@@ -161,7 +161,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var $allNuvlaboxGaugeContainers = $('[data-quota-title^=nuvlabox]').closest('.ss-usage-gauge-container'),
         stateIconPlaceholderHtml    = '<span class="glyphicon ss-usage-gauge-container-icon-state" aria-hidden="true"></span>',
-        stateLabels                 = { ok: 'Online', nok: 'Offline' },
         serviceOfferRequest         = $$.request
                                             .get("/api/service-offer")
                                             .dataType("json")
@@ -174,16 +173,26 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return $('#ss-usage-gauge-' + connectorName).closest('.ss-usage-gauge-container');
     }
 
+    function stateTitle(stateLastOnline) {
+      if(stateLastOnline[0]=='nok') {
+        return 'Offline' + (stateLastOnline[1] ? ', last seen online : ' + stateLastOnline[1] : '');
+      } else if(stateLastOnline[0]=='ok') {
+        return 'Online';
+      } else {
+        return stateLastOnline[0];
+      }
+    }
+
     function setStateClass($gaugeContainer, newState) {
         if ( $gaugeContainer.foundNothing() ) { return; }
-        var newStateClass       = newState ? 'ss-usage-gauge-container-state-' + newState : '',
+        var newStateClass       = newState[0] ? 'ss-usage-gauge-container-state-' + newState[0] : '',
             currentstateClass   = $gaugeContainer.data('stateClass');
         $gaugeContainer
             .removeClass(currentstateClass)
             .addClass(newStateClass)
             .data('stateClass', newStateClass)
             .find('.ss-usage-gauge-container-icon-state')
-                .attr('title', stateLabels[newState] || newState)
+                .attr('title', stateTitle(newState))
                 .data('toggle', 'tooltip')
                 .data('placement', 'left')
                 .data('container', 'body')
@@ -192,14 +201,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function setAllNuvlaboxGaugesAsChecking() {
         $allNuvlaboxGaugeContainers.each( function() {
-            setStateClass($(this), 'checking');
+            setStateClass($(this), ['checking', '']);
         });
     }
 
     function connectorStates(response) {
         var states = {};
         $.each(response.serviceOffers, function() {
-            states[this.connector.href] = this.state;
+            states[this.connector.href] = [this.state, this["last-online"]];
         });
         console.debug(states);
         return states;
