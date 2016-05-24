@@ -1706,3 +1706,76 @@
   (deflatten-map {:a 1, :b.c 3, :b.f.e 5, :b.f 6}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; url-encode
+
+(expect
+  nil
+  (url-encode nil))
+
+(expect
+  ""
+  (url-encode ""))
+
+(expect
+  AssertionError
+  (url-encode 1))
+
+(expect
+  "foo"
+  (url-encode "foo"))
+
+(expect
+  "foo%20bar"
+  (url-encode "foo bar"))
+
+(expect
+  "foo%20bar%2Bbaz"
+  (url-encode "foo bar+baz"))
+
+(expect
+  "f%F4%D6%2Eb%E1r%2Bb%E0z"
+  (url-encode "fôÖ.bár+bàz"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; url-decode
+
+(expect
+  nil
+  (url-decode nil))
+
+(expect
+  ""
+  (url-decode ""))
+
+(expect
+  AssertionError
+  (url-decode 1))
+
+(expect
+  "foo"
+  (url-decode "foo"))
+
+(expect
+  "foo bar"
+  (url-decode "foo%20bar"))
+
+(expect
+  "foo bar+baz"
+  (url-decode "foo%20bar%2Bbaz"))
+
+(expect
+  "fôÖ.bár+bàz"
+  (url-decode "f%F4%D6%2Eb%E1r%2Bb%E0z"))
+
+(doseq [x [nil
+           ""
+           "asdf"
+           "hello world!"
+           "http://www.example.org"
+           "!\"·$!\"·$  adsf ((!#--__--!)'')"]]
+       (expect false  (= x (url-encode x)))
+       (expect x      (-> x url-encode url-decode)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

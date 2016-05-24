@@ -1,5 +1,6 @@
 (ns slipstream.ui.util.clojure
   (:require [superstring.core :as s]
+            [clojure.set :as set]
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.walk :as walk]
@@ -491,5 +492,149 @@
                 (assoc-in m key-path v))))
           {}
           (sort-by first m)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; SOURCE: http://www.w3schools.com/tags/ref_urlencode.asp
+; SOURCE: http://www.degraeve.com/reference/urlencoding.php
+; SOURCE: https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters
+
+(def ^:private strict-url-encode-chars
+  { \! "%21"
+    \# "%23"
+    \$ "%24"
+    \& "%26"
+    \' "%27"
+    \( "%28"
+    \) "%29"
+    \* "%2A"
+    \+ "%2B"
+    \, "%2C"
+    \/ "%2F"
+    \: "%3A"
+    \; "%3B"
+    \= "%3D"
+    \? "%3F"
+    \@ "%40"
+    \[ "%5B"
+    \] "%5D"})
+
+(def ^:private url-encode-chars
+  (merge strict-url-encode-chars
+         {\backspace  "%08"
+          \tab        "%09"
+          \newline    "%0A"
+          \return     "%0D"
+          \space      "%20"
+          \"          "%22"
+          \%          "%25"
+          \-          "%2D"
+          \.          "%2E"
+          \<          "%3C"
+          \>          "%3E"
+          \\          "%5C"
+          \^          "%5E"
+          \_          "%5F"
+          \`          "%60"
+          \{          "%7B"
+          \|          "%7C"
+          \}          "%7D"
+          \~          "%7E"
+          \¢          "%A2"
+          \£          "%A3"
+          \¥          "%A5"
+          \¦          "%A6"
+          \§          "%A7"
+          \«          "%AB"
+          \¬          "%AC"
+          \¯          "%AD"
+          \º          "%B0"
+          \±          "%B1"
+          \ª          "%B2"
+          \´          "%B4"
+          \µ          "%B5"
+          \»          "%BB"
+          \¼          "%BC"
+          \½          "%BD"
+          \¿          "%BF"
+          \À          "%C0"
+          \Á          "%C1"
+          \Â          "%C2"
+          \Ã          "%C3"
+          \Ä          "%C4"
+          \Å          "%C5"
+          \Æ          "%C6"
+          \Ç          "%C7"
+          \È          "%C8"
+          \É          "%C9"
+          \Ê          "%CA"
+          \Ë          "%CB"
+          \Ì          "%CC"
+          \Í          "%CD"
+          \Î          "%CE"
+          \Ï          "%CF"
+          \Ð          "%D0"
+          \Ñ          "%D1"
+          \Ò          "%D2"
+          \Ó          "%D3"
+          \Ô          "%D4"
+          \Õ          "%D5"
+          \Ö          "%D6"
+          \Ø          "%D8"
+          \Ù          "%D9"
+          \Ú          "%DA"
+          \Û          "%DB"
+          \Ü          "%DC"
+          \Ý          "%DD"
+          \Þ          "%DE"
+          \ß          "%DF"
+          \à          "%E0"
+          \á          "%E1"
+          \â          "%E2"
+          \ã          "%E3"
+          \ä          "%E4"
+          \å          "%E5"
+          \æ          "%E6"
+          \ç          "%E7"
+          \è          "%E8"
+          \é          "%E9"
+          \ê          "%EA"
+          \ë          "%EB"
+          \ì          "%EC"
+          \í          "%ED"
+          \î          "%EE"
+          \ï          "%EF"
+          \ð          "%F0"
+          \ñ          "%F1"
+          \ò          "%F2"
+          \ó          "%F3"
+          \ô          "%F4"
+          \õ          "%F5"
+          \ö          "%F6"
+          \÷          "%F7"
+          \ø          "%F8"
+          \ù          "%F9"
+          \ú          "%FA"
+          \û          "%FB"
+          \ü          "%FC"
+          \ý          "%FD"
+          \þ          "%FE"
+          \ÿ          "%FF"}))
+
+
+(def ^:private url-decode-chars
+  (set/map-invert url-encode-chars))
+
+(defn url-encode
+  [^String s]
+  {:pre [(or (nil? s) (string? s))]}
+  (and s
+       (s/escape s url-encode-chars)))
+
+(defn url-decode
+  [^String s]
+  {:pre [(or (nil? s) (string? s))]}
+  (and s
+       (s/replace s #"%[0-9A-Z]{2}" (comp str url-decode-chars))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
