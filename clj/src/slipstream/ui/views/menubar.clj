@@ -1,6 +1,7 @@
 (ns slipstream.ui.views.menubar
   (:require [net.cgrand.enlive-html :as html]
             [slipstream.ui.util.core :as u]
+            [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.exception :as ex]
             [slipstream.ui.util.page-type :as page-type]
@@ -25,10 +26,12 @@
 (def action-label-sel           [:.ss-action-label])
 (def action-documentation-sel   [:.ss-action-documentation])
 (def action-knowledge-base-sel  [:.ss-action-knowledge-base])
-(def action-contact-us-sel      [:.ss-action-contact-us])
+(def menu-item-support-sel      [:.ss-menu-item-support])
+(def action-support-link-sel    [:.ss-menu-item-support :a])
+(def action-support-sel         [:.ss-action-support])
 (def action-dashboard-sel       [:.ss-action-dashboard])
 (def action-appstore-sel        [:.ss-action-appstore])
-(def action-modules-sel        [:.ss-action-modules])
+(def action-modules-sel         [:.ss-action-modules])
 (def action-configuration-sel   [:.ss-action-configuration])
 (def action-service-catalog-menu-item-sel [:.ss-action-service-catalog-menu-item])
 (def action-service-catalog-sel [:.ss-action-service-catalog])
@@ -67,16 +70,28 @@
   [_]
   nil)
 
+(defn- configure-support-menu-item
+  [context current-user-status]
+  (localization/with-prefixed-t current-user-status
+    (let [support-email (-> context :configuration configuration/support-email)]
+      (when support-email
+        (ue/at-match
+          [:a] (ue/set-href (format "mailto:%s?subject=%s"
+                              (uc/url-encode support-email)
+                              (uc/url-encode (t :action.support.email.subject
+                                                (current-user/username)))))
+          action-support-sel  (html/content (t :action.support)))))))
+
 (defmethod menubar :unlogged
-  [_]
+  [context]
   (html/at menubar-unlogged-node
-            input-username-sel  (ue/set-placeholder (t :unlogged.input.username.placeholder))
-            input-password-sel  (ue/set-placeholder (t :unlogged.input.password.placeholder))
+            input-username-sel        (ue/set-placeholder (t :unlogged.input.username.placeholder))
+            input-password-sel        (ue/set-placeholder (t :unlogged.input.password.placeholder))
             action-login-sel          (html/content (t :unlogged.action.login))
             action-reset-password-sel (html/content (t :unlogged.action.reset-password))
             action-documentation-sel  (html/content (t :unlogged.action.documentation))
             action-knowledge-base-sel (html/content (t :unlogged.action.knowledge-base))
-            action-contact-us-sel     (html/content (t :unlogged.action.contact-us))))
+            menu-item-support-sel     (configure-support-menu-item context :unlogged)))
 
 (defn- current-active-menu-sel
   [context]
@@ -112,7 +127,7 @@
                                               action-start-tour-action-sel (ue/toggle-onclick (-> context :view-name #{"appstore"})     "SlipStream.util.tour.askToStart()"))
               action-documentation-sel    (html/content (t :logged-in.action.documentation))
               action-knowledge-base-sel   (html/content (t :logged-in.action.knowledge-base))
-              action-contact-us-sel       (html/content (t :logged-in.action.contact-us))
+              menu-item-support-sel       (configure-support-menu-item context :logged-in)
               action-events-sel           (html/content (t :logged-in.action.events))
               action-usage-sel            (html/content (t :logged-in.action.usage))
               action-logout-sel           (html/content (t :logged-in.action.logout)))))

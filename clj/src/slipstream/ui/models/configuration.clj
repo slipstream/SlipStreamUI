@@ -40,3 +40,10 @@
   (-> configuration
       :parameters
       (parameters/value-for "slipstream.registration.enable")))
+
+(defn support-email
+  [configuration]
+  (-> configuration
+      :parameters
+      (parameters/value-for "slipstream.support.email")
+      not-empty))

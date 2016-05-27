@@ -70,8 +70,7 @@
             <li class="divider"></li>
             <li><a href="http://ssdocs.sixsq.com" target="_blank"><span class="glyphicon glyphicon-book"></span> <span class="ss-action-documentation">Documentation</span></a></li>
             <li><a href=" http://support.sixsq.com/solution/categories" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> <span class="ss-action-knowledge-base">Knowledge Base</span></a></li>
-            <li><a href="mailto:support%2Bslipstream@sixsq.com?subject=%5Bslipstream%5D%20Support%20question"><span class="glyphicon glyphicon-envelope"></span> <span class="ss-action-contact-us">Contact us</span></a></li>
-            <!-- <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> <span class="ss-action-contact-us">Contact us</span></a></li> -->
+            <li class="ss-menu-item-support"><a href="mailto:support@example.org?subject=Support%20question"><span class="glyphicon glyphicon-envelope"></span> <span class="ss-action-support">support</span></a></li>
           </ul>
           <div class="btn-group hidden-xs">
             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> <span class="ss-action-login">Log in</span></button>
@@ -84,8 +83,7 @@
               <li class="divider"></li>
               <li><a href="http://ssdocs.sixsq.com" target="_blank"><span class="glyphicon glyphicon-book"></span> <span class="ss-action-documentation">Documentation</span></a></li>
               <li><a href=" http://support.sixsq.com/solution/categories" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> <span class="ss-action-knowledge-base">Knowledge Base</span></a></li>
-              <li><a href="mailto:support%2Bslipstream@sixsq.com?subject=%5Bslipstream%5D%20Support%20question"><span class="glyphicon glyphicon-envelope"></span> <span class="ss-action-contact-us">Contact us</span></a></li>
-              <!-- <li><a href="#" data-toggle="modal" data-target="#contactSupportModal"><span class="glyphicon glyphicon-earphone"></span> <span class="ss-action-contact-us">Contact us</span></a></li> -->
+              <li class="ss-menu-item-support"><a href="mailto:support@example.org?subject=Support%20question"><span class="glyphicon glyphicon-envelope"></span> <span class="ss-action-support">support</span></a></li>
             </ul>
           </div>
         </form>
@@ -122,26 +120,26 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle ss-menubar-super-user-item" data-toggle="dropdown"><span class="ss-action-configuration">Configuration</span> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle ss-menubar-super-user-item" data-toggle="dropdown"><span class="ss-action-configuration">configuration</span> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/configuration"><span class="glyphicon glyphicon-cog"></span> <span class="ss-action-system">System</span></a></li>
+              <li><a href="/configuration"><span class="glyphicon glyphicon-cog"></span> <span class="ss-action-system">system</span></a></li>
               <li class="ss-action-service-catalog-menu-item"><a href="/service_catalog"><span class="glyphicon glyphicon-th-list"></span> <span class="ss-action-service-catalog">service catalog</span></a></li>
-              <li><a href="/users"><span class="glyphicon glyphicon-user"></span> <span class="ss-action-users">Users</span></a></li>
+              <li><a href="/users"><span class="glyphicon glyphicon-user"></span> <span class="ss-action-users">users</span></a></li>
             </ul>
           </li>
+          <li class="ss-menu-item-support"><a href="mailto:support@example.org?subject=Support%20question"><span class="ss-action-support">support</span></a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="ss-action-help">Help</span> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="ss-action-help">help</span> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li class="ss-action-start-tour"><a onclick="SlipStream.util.tour.start()"><span class="glyphicon glyphicon-comment"></span> <span class="ss-action-label">Guided tour</span></a></li>
-              <li><a href="http://ssdocs.sixsq.com" target="_blank"><span class="glyphicon glyphicon-book"></span> <span class="ss-action-documentation">Documentation</span></a></li>
-              <li><a href=" http://support.sixsq.com/solution/categories" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> <span class="ss-action-knowledge-base">Knowledge Base</span></a></li>
-              <li><a href="mailto:support%2Bslipstream@sixsq.com?subject=%5Bslipstream%5D%20Support%20question"><span class="glyphicon glyphicon-envelope"></span> <span class="ss-action-contact-us">Contact us</span></a></li>
+              <li class="ss-action-start-tour"><a onclick="SlipStream.util.tour.start()"><span class="glyphicon glyphicon-comment"></span> <span class="ss-action-label">guided tour</span></a></li>
+              <li><a href="http://ssdocs.sixsq.com" target="_blank"><span class="glyphicon glyphicon-book"></span> <span class="ss-action-documentation">documentation</span></a></li>
+              <li><a href=" http://support.sixsq.com/solution/categories" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> <span class="ss-action-knowledge-base">knowledge base</span></a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="ss-menubar-username">username</span> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a id="ss-menubar-user-profile-anchor" href="/user/username"><span class="glyphicon glyphicon-user"></span> <span class="ss-action-profile">Profile</span></a></li>
+              <li><a id="ss-menubar-user-profile-anchor" href="/user/username"><span class="glyphicon glyphicon-user"></span> <span class="ss-action-profile">profile</span></a></li>
               <li class="divider"></li>
               <li><a href="/event"><span class="glyphicon glyphicon-flash"></span> <span class="ss-action-events">events</span></a></li>
               <li><a href="/usage"><span class="glyphicon glyphicon-time"></span> <span class="ss-action-usage">usage</span></a></li>

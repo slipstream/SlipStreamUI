@@ -190,7 +190,8 @@
    :slipstream.ui.views.menubar.unlogged.action.reset-password       "Reset password"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
    :slipstream.ui.views.menubar.unlogged.action.knowledge-base       :global.nouns.knowledge-base
-   :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contact us"
+   :slipstream.ui.views.menubar.unlogged.action.support              "Support"
+   :slipstream.ui.views.menubar.unlogged.action.support.email.subject "[SlipStream] Support question - Not logged in"
 
    :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
    :slipstream.ui.views.menubar.logged-in.action.appstore            :global.nouns.appstore
@@ -204,7 +205,8 @@
    :slipstream.ui.views.menubar.logged-in.action.start-tour          "Start guided tour"
    :slipstream.ui.views.menubar.logged-in.action.documentation       :global.nouns.documentation
    :slipstream.ui.views.menubar.logged-in.action.knowledge-base      :global.nouns.knowledge-base
-   :slipstream.ui.views.menubar.logged-in.action.contact-us          "Contact us"
+   :slipstream.ui.views.menubar.logged-in.action.support             "Support"
+   :slipstream.ui.views.menubar.logged-in.action.support.email.subject "[SlipStream] Support question - Username: %1$s"
    :slipstream.ui.views.menubar.logged-in.action.events              :global.nouns.events
    :slipstream.ui.views.menubar.logged-in.action.usage               :global.nouns.usage
    :slipstream.ui.views.menubar.logged-in.action.logout              :global.verbs.logout
