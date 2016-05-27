@@ -1,4 +1,4 @@
-(ns slipstream.ui.models.appstore-test
+(ns slipstream.ui.models.appstore-without-support-email-test
   (:use [expectations])
   (:require [slipstream.ui.util.core :as u]
             [slipstream.ui.util.clojure :as uc]
