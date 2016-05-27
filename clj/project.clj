@@ -18,7 +18,8 @@
                  [clj-time "0.8.0"]]
   :plugins [[lein-expectations  "0.0.8"]
             [lein-autoexpect    "1.4.2"]
-            [jonase/eastwood    "0.2.1"]
+            [jonase/eastwood    "0.2.3"]
+            [lein-kibit         "0.1.2"]
             [lein-cloverage     "1.0.3"]]
 
   :source-paths ["src"]
