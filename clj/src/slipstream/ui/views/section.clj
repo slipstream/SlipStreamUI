@@ -31,7 +31,7 @@
   [total-section-count section-group-index sections]
   ue/this (ue/append-to-id "-" section-group-index)
   ue/this (ue/content-for section-sel [{:keys [icon title selected? content type] :as section} sections
-                   :let [section-uid (->> (or title "untitled") uc/keywordize name (str "ss-section-"))
+                   :let [section-uid (->> (or title "untitled") uc/keywordize name (str "ss-section-" (.indexOf sections section) "-"))
                          unique-section? (= total-section-count 1)
                          collapsible?    (not unique-section?)
                          flat-section?   (-> section :type (= :flat-section))]]
