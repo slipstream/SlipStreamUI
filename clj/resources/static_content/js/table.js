@@ -149,16 +149,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
             .dataType("html")
             .withLoadingScreen(withLoadingScreen)
             .onSuccess(function (html){
-                $dynamicContent.bsHidePopoversAndTooltips();
-                var $newContent = $(newContentSel, html);
-                $dynamicContent
-                    .children(":first")
-                        .updateWith(
-                            $newContent,
-                            {flash: true, flashDuration: 140, flashCategory: "transparent"},
-                            function() {
-                                $dynamicContent.trigger("ss-dynamic-content-updated");
+                try {
+                    $dynamicContent.bsHidePopoversAndTooltips();
+                    var $newContent = $(newContentSel, html);
+                    $dynamicContent
+                        .children(":first")
+                            .updateWith(
+                                $newContent,
+                                {flash: true, flashDuration: 140, flashCategory: "transparent"},
+                                function() {
+                                    $dynamicContent.trigger("ss-dynamic-content-updated");
                             });
+                } catch (e) {
+                  console.error(e);
+                }
             })
             .send();
     });
