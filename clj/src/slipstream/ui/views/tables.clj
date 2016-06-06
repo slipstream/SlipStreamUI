@@ -1029,26 +1029,26 @@
 (defn- format-usage-values
   [usage]
   (->> usage
-       (map (fn[[k v]] [k (-> v :unit_minutes (uc/format-metric-value k))]))
+       (map (fn[[k v]] [k (-> v :unit-minutes (uc/format-metric-value k))]))
        (into {})))
 
 (defn format-period
-  [frequency start_timestamp]
+  [frequency start-timestamp]
   (case (keyword frequency)
-    :daily    (time/format :date start_timestamp)
-    :weekly   (let [dt-plus-6-days (-> start_timestamp time/parse (ctime/plus (ctime/days 6)))
+    :daily    (time/format :date start-timestamp)
+    :weekly   (let [dt-plus-6-days (-> start-timestamp time/parse (ctime/plus (ctime/days 6)))
                     plus-6-days (format/unparse (:date-time format/formatters) dt-plus-6-days)]
                 (str
-                  (time/format :date-short start_timestamp)
+                  (time/format :date-short start-timestamp)
                   " - "
                   (time/format :date-short plus-6-days)))
-    :monthly  (time/format :month-year start_timestamp)))
+    :monthly  (time/format :month-year start-timestamp)))
 
 (defn- usage-row
-  [{:keys [frequency start_timestamp cloud usage]}]
+  [{:keys [frequency start-timestamp cloud usage]}]
   {:style nil
    :cells [{:type :cell/icon,       :content icons/usage}
-           {:type :cell/text,       :content (format-period frequency start_timestamp)}
+           {:type :cell/text,       :content (format-period frequency start-timestamp)}
            {:type :cell/text,       :content cloud}
            {:type :cell/map,        :content (format-usage-values usage)}]})
 
@@ -1060,10 +1060,10 @@
      :rows        (map usage-row (:usages metadata))}))
 
 (defn- cloud-usage-row
-  [{:keys [frequency start_timestamp usage]}]
+  [{:keys [frequency start-timestamp usage]}]
   {:style nil
    :cells [{:type :cell/icon,       :content icons/usage}
-           {:type :cell/text,       :content (format-period frequency start_timestamp)}
+           {:type :cell/text,       :content (format-period frequency start-timestamp)}
            {:type :cell/map,        :content (format-usage-values usage)}]})
 
 (defn cloud-usages-table

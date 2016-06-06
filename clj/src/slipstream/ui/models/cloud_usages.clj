@@ -3,7 +3,7 @@
 
 (defn parse-usage
   [usage]
-  (select-keys usage [:id :frequency :start_timestamp :end_timestamp :usage]))
+  (select-keys usage [:id :frequency :start-timestamp :end-timestamp :usage]))
 
 (defn parse
   [metadata]
