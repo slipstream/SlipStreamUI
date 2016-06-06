@@ -439,6 +439,7 @@
 
 (defn format-metric-value
   [v m]
+  {:pre [(number? v)]}
   (cond
     (KB-mn-metric? m) (-> v KB-to-GB mn-to-h (value-unit "GBh"))
     (GB-mn-metric? m) (-> v mn-to-h          (value-unit "GBh"))
