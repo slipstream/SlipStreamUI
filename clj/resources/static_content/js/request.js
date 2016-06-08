@@ -69,8 +69,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function startFeedbackForRequestInProgress(withLoadingScreen) {
         if (withLoadingScreen) {
-            $("#ss-loading-screen").removeClass("hidden");
-            $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.25}, 200);
+            $("#ss-loading-screen").showLoadingScreen();
         } else {
             // Replace the header icon with the rotating refresh icon.
             $(".ss-header-title-icon .glyphicon").addClass("ss-icon-loading");
@@ -79,10 +78,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function stopFeedbackForRequestInProgress() {
         // Always stop the feedback of the request in progress,
-        // independtly of the withLoadingScreen value.
-        $(".ss-loading-screen:not(.hidden) .backdrop").stop().animate({opacity: 0}, 200, "swing", function(){
-            $("#ss-loading-screen").addClass("hidden");
-        });
+        // independently of the withLoadingScreen value.
+        $("#ss-loading-screen").hideLoadingScreen();
         // Remove the rotating refresh icon from header.
         $(".ss-header-title-icon .glyphicon").removeClass("ss-icon-loading");
     }

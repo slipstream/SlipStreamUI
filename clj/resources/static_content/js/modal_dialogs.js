@@ -147,6 +147,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .useToSubmitForm(".ss-run-module-form, .ss-build-module-form", updateRequestForRunDeployment);
 
 
+    // Configure call to UI placement service when run module dialog is shown.
+    //
+    var requestUiPlacement = $$.request
+                                .put("/ui/placement")
+                                .data({
+                                    module: $('body').getSlipStreamModel().module.getURI(),
+                                    clouds:["aa", "bb"]
+                                    })
+                                .serialization("json")
+                                .dataType("json")
+                                .onSuccess( function (x){
+                                    console.log(x);
+                                });
+    $('#ss-run-module-dialog').on("show.bs.modal", function (e) {
+                                       requestUiPlacement.send();
+                                   });
+
     // Public functions
 
     $$.modalDialogs = {
