@@ -32,11 +32,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-28T00:00:00.000Z",
-    "end_timestamp" : "2015-10-29T00:00:00.000Z",
+    "start-timestamp" : "2015-10-28T00:00:00.000Z",
+    "end-timestamp" : "2015-10-29T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -58,11 +58,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-28T00:00:00.000Z",
-    "end_timestamp" : "2015-10-29T00:00:00.000Z",
+    "start-timestamp" : "2015-10-28T00:00:00.000Z",
+    "end-timestamp" : "2015-10-29T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -84,11 +84,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-27T00:00:00.000Z",
-    "end_timestamp" : "2015-10-28T00:00:00.000Z",
+    "start-timestamp" : "2015-10-27T00:00:00.000Z",
+    "end-timestamp" : "2015-10-28T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -110,11 +110,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-27T00:00:00.000Z",
-    "end_timestamp" : "2015-10-28T00:00:00.000Z",
+    "start-timestamp" : "2015-10-27T00:00:00.000Z",
+    "end-timestamp" : "2015-10-28T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -136,11 +136,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-26T00:00:00.000Z",
-    "end_timestamp" : "2015-10-27T00:00:00.000Z",
+    "start-timestamp" : "2015-10-26T00:00:00.000Z",
+    "end-timestamp" : "2015-10-27T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -162,11 +162,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-26T00:00:00.000Z",
-    "end_timestamp" : "2015-10-27T00:00:00.000Z",
+    "start-timestamp" : "2015-10-26T00:00:00.000Z",
+    "end-timestamp" : "2015-10-27T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -188,11 +188,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-25T00:00:00.000Z",
-    "end_timestamp" : "2015-10-26T00:00:00.000Z",
+    "start-timestamp" : "2015-10-25T00:00:00.000Z",
+    "end-timestamp" : "2015-10-26T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -214,11 +214,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-25T00:00:00.000Z",
-    "end_timestamp" : "2015-10-26T00:00:00.000Z",
+    "start-timestamp" : "2015-10-25T00:00:00.000Z",
+    "end-timestamp" : "2015-10-26T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -240,11 +240,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-24T00:00:00.000Z",
-    "end_timestamp" : "2015-10-25T00:00:00.000Z",
+    "start-timestamp" : "2015-10-24T00:00:00.000Z",
+    "end-timestamp" : "2015-10-25T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -266,11 +266,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-24T00:00:00.000Z",
-    "end_timestamp" : "2015-10-25T00:00:00.000Z",
+    "start-timestamp" : "2015-10-24T00:00:00.000Z",
+    "end-timestamp" : "2015-10-25T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -292,11 +292,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-23T00:00:00.000Z",
-    "end_timestamp" : "2015-10-24T00:00:00.000Z",
+    "start-timestamp" : "2015-10-23T00:00:00.000Z",
+    "end-timestamp" : "2015-10-24T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -318,11 +318,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-23T00:00:00.000Z",
-    "end_timestamp" : "2015-10-24T00:00:00.000Z",
+    "start-timestamp" : "2015-10-23T00:00:00.000Z",
+    "end-timestamp" : "2015-10-24T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -344,11 +344,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-22T00:00:00.000Z",
-    "end_timestamp" : "2015-10-23T00:00:00.000Z",
+    "start-timestamp" : "2015-10-22T00:00:00.000Z",
+    "end-timestamp" : "2015-10-23T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -370,11 +370,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-22T00:00:00.000Z",
-    "end_timestamp" : "2015-10-23T00:00:00.000Z",
+    "start-timestamp" : "2015-10-22T00:00:00.000Z",
+    "end-timestamp" : "2015-10-23T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -396,11 +396,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-21T00:00:00.000Z",
-    "end_timestamp" : "2015-10-22T00:00:00.000Z",
+    "start-timestamp" : "2015-10-21T00:00:00.000Z",
+    "end-timestamp" : "2015-10-22T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -422,11 +422,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-21T00:00:00.000Z",
-    "end_timestamp" : "2015-10-22T00:00:00.000Z",
+    "start-timestamp" : "2015-10-21T00:00:00.000Z",
+    "end-timestamp" : "2015-10-22T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -448,11 +448,11 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-20T00:00:00.000Z",
-    "end_timestamp" : "2015-10-21T00:00:00.000Z",
+    "start-timestamp" : "2015-10-20T00:00:00.000Z",
+    "end-timestamp" : "2015-10-21T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -474,11 +474,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-20T00:00:00.000Z",
-    "end_timestamp" : "2015-10-21T00:00:00.000Z",
+    "start-timestamp" : "2015-10-20T00:00:00.000Z",
+    "end-timestamp" : "2015-10-21T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -500,11 +500,11 @@
     },
     "user" : "zaza",
     "cloud" : "aws",
-    "start_timestamp" : "2015-10-19T00:00:00.000Z",
-    "end_timestamp" : "2015-10-20T00:00:00.000Z",
+    "start-timestamp" : "2015-10-19T00:00:00.000Z",
+    "end-timestamp" : "2015-10-20T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       }
     }
   }, {
@@ -526,14 +526,14 @@
     },
     "user" : "zaza",
     "cloud" : "exo",
-    "start_timestamp" : "2015-10-19T00:00:00.000Z",
-    "end_timestamp" : "2015-10-20T00:00:00.000Z",
+    "start-timestamp" : "2015-10-19T00:00:00.000Z",
+    "end-timestamp" : "2015-10-20T00:00:00.000Z",
     "usage" : {
       "ram" : {
-        "unit_minutes" : 100.0
+        "unit-minutes" : 100.0
       },
       "disk" : {
-        "unit_minutes" : 1250.0
+        "unit-minutes" : 1250.0
       }
     }
   } ]

@@ -1,18 +1,18 @@
 {
-  "compute_timestamp" : "2015-11-23T16:34:14.357Z",
-  "start_timestamp" : "2016-02-22T00:00:00.000Z",
-  "end_timestamp" : "2016-02-29T00:00:00.000Z",
+  "compute-timestamp" : "2015-11-23T16:34:14.357Z",
+  "start-timestamp" : "2016-02-22T00:00:00.000Z",
+  "end-timestamp" : "2016-02-29T00:00:00.000Z",
   "cloud" : "aws",
   "frequency" : "weekly",
   "usage" : {
     "ram" : {
-      "unit_minutes" : 571859200
+      "unit-minutes" : 571859200
     },
     "disk" : {
-      "unit_minutes" : 5000.67
+      "unit-minutes" : 5000.67
     },
     "cpu" : {
-      "unit_minutes" : 52500
+      "unit-minutes" : 52500
     }
   },
   "id" : "usage/33c6765c-a9a9-4ac8-883e-0855e60a39ae",
