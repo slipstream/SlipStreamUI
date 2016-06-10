@@ -146,7 +146,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         })
         .useToSubmitForm(".ss-run-module-form, .ss-build-module-form", updateRequestForRunDeployment);
 
-
     // Public functions
 
     $$.modalDialogs = {

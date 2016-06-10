@@ -69,8 +69,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function startFeedbackForRequestInProgress(withLoadingScreen) {
         if (withLoadingScreen) {
-            $("#ss-loading-screen").removeClass("hidden");
-            $(".ss-loading-screen .backdrop").stop().animate({opacity: 0.25}, 200);
+            $("#ss-loading-screen").showLoadingScreen();
         } else {
             // Replace the header icon with the rotating refresh icon.
             $(".ss-header-title-icon .glyphicon").addClass("ss-icon-loading");
@@ -79,10 +78,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function stopFeedbackForRequestInProgress() {
         // Always stop the feedback of the request in progress,
-        // independtly of the withLoadingScreen value.
-        $(".ss-loading-screen:not(.hidden) .backdrop").stop().animate({opacity: 0}, 200, "swing", function(){
-            $("#ss-loading-screen").addClass("hidden");
-        });
+        // independently of the withLoadingScreen value.
+        $("#ss-loading-screen").hideLoadingScreen();
         // Remove the rotating refresh icon from header.
         $(".ss-header-title-icon .glyphicon").removeClass("ss-icon-loading");
     }
@@ -135,7 +132,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             data: function (dataArg) {
-                this.settings.data = dataArg;
+                this.settings.originalData = dataArg;
                 return this;
             },
             dataType: function (type) {
@@ -268,8 +265,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 switch (this.intern.serialization) {
                 case "json":
                     this.settings.contentType = "application/json; charset=UTF-8";
-                    if (this.settings.data) {
-                        this.settings.data = JSON.stringify(this.settings.data);
+                    if (this.settings.originalData) {
+                        this.settings.data = JSON.stringify(this.settings.originalData);
                     }
                     break;
                 case undefined:
@@ -278,15 +275,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     // but we do it explicitely to remove black magic.
                 case "queryString":
                     this.settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-                    switch ($.type(this.settings.data)) {
+                    switch ($.type(this.settings.originalData)) {
                         case "object":
-                            this.settings.data = $.param(this.settings.data);
+                            this.settings.data = $.param(this.settings.originalData);
                             break;
                         case "string":
                         case "undefined":
                             break;
                         default:
-                            this.settings.data = this.settings.data.toString();
+                            this.settings.data = this.settings.originalData.toString();
                     }
                     break;
                 default:

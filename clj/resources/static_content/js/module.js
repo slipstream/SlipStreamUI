@@ -77,5 +77,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         );
 
+    // Configure call to UI placement service when run module dialog is shown.
+    // (last-child excludes specify-for-each-node value which is not a connector)
+    var userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
+        moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
+        requestUiPlacement = $$.request
+                                .put("/ui/placement")
+                                .data({
+                                    moduleUri: moduleUri,
+                                    userConnectors: userConnectors
+                                })
+                                .serialization("json")
+                                .dataType("json")
+                                .onSuccess( function (x){
+                                    console.log("PRS-lib response: ", x);
+                                });
+    $('#ss-run-module-dialog').on("show.bs.modal", function (e) {
+                                       requestUiPlacement.send();
+                                   });
+
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

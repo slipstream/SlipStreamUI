@@ -1719,6 +1719,27 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
+        showLoadingScreen: function(show) {
+            if(show === false) {
+                var $this = this;
+                this.findClosest(".ss-loading-screen:not(.hidden)")
+                        .find(".backdrop")
+                            .stop()
+                            .animate({opacity: 0}, 200, "swing", function(){
+                                $this.addClass("hidden");
+                            });
+            } else {
+                this.findClosest(".ss-loading-screen")
+                        .removeClass("hidden")
+                        .find(".backdrop")
+                            .stop().animate({opacity: 0.25}, 200);
+            }
+        },
+
+        hideLoadingScreen: function() {
+            this.showLoadingScreen(false);
+        },
+
         // jQuery extensions related to Bootstrap components are prefixed by 'bs'
 
         bsEnableDropdownToggle: function(enable) {
