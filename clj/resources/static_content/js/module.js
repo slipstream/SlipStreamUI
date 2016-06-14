@@ -80,12 +80,27 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Configure call to UI placement service when run module dialog is shown.
     // (last-child excludes specify-for-each-node value which is not a connector)
     var userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
+        components      = $(".ss-run-module-dialog .ss-deployment-node-row")
+                            .map(function(){
+                                var $node = $(this),
+                                    nodeName = $node.find(".ss-node-shortname").text(),
+                                    connector = $node.find("[name$=--cloudservice]").val();
+                                    multiplicity = $node.find("[name$=--multiplicity]").val();
+                                return {
+                                    nodeName: nodeName,
+                                    multiplicity: multiplicity,
+                                    connector: connector,
+                                    placementPolicy: undefined // TODO
+                                };
+                            })
+                            .toArray(),
         moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
         requestUiPlacement = $$.request
                                 .put("/ui/placement")
                                 .data({
                                     moduleUri: moduleUri,
-                                    userConnectors: userConnectors
+                                    userConnectors: userConnectors,
+                                    components: components
                                 })
                                 .serialization("json")
                                 .dataType("json")
