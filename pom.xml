@@ -79,8 +79,8 @@
             <artifactId>clj-time</artifactId>
         </dependency>
         <dependency>
-            <groupId>clj-json</groupId>
-            <artifactId>clj-json</artifactId>
+            <groupId>org.clojure</groupId>
+            <artifactId>data.json</artifactId>
         </dependency>
         <dependency>
             <groupId>net.cgrand</groupId>

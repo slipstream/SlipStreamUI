@@ -2,7 +2,7 @@
   "Util functions only related to the SlipStream application."
   (:require [superstring.core :as s]
             [net.cgrand.enlive-html :as html]
-            [clj-json.core :as json]
+            [clojure.data.json :as json]
             [clojure.data.xml :as xml]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
@@ -41,7 +41,7 @@
   [raw-metadata-str]
   (when (not-empty raw-metadata-str)
     (if (->> raw-metadata-str first (= \{))
-      (json/parse-string raw-metadata-str true)
+      (json/read-str raw-metadata-str :key-fn keyword)
       (xml/parse-str raw-metadata-str))))
 
 

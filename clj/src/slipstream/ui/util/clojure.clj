@@ -4,7 +4,7 @@
             [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.walk :as walk]
-            [clj-json.core :as json])
+            [clojure.data.json :as json])
   (:import  [java.io FileNotFoundException]))
 
 (defmacro def-this-ns
@@ -326,7 +326,7 @@
           (update-keys keyword?->is-keyword :only-keywords? true)
           (update-keys ->camelCaseString    :only-keywords? true)
           normalise-sorting
-          json/generate-string))
+          json/write-str))
 
 (defn coll-grouped-by
   "Primary intended to 'better' group a coll of maps sorting the result by the
