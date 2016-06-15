@@ -244,6 +244,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 };
                 return this;
             },
+            preventDefaultErrorHandling: function () {
+                console.log("preventing DefaultErrorHandling");
+                this.intern.preventDefaultErrorHandling = true;
+                return this;
+            },
             serialization: function (serialization) {
                 // The 'serialization' is used on the .send() fn below to set the
                 // 'contentType' and to serialize the data object accordingly
@@ -311,7 +316,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             statusCodeCallback.call(this, jqXHR.status, jqXHR, textStatus, errorThrown);
                         }
                         var statusCodeAlertTitleAndMsg = errorStatusCodeAlerts[jqXHR.status];
-                        if (statusCodeAlertTitleAndMsg === undefined) {
+
+                        if (statusCodeAlertTitleAndMsg !== undefined) {
+                            $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
+                        } else if(request.intern.preventDefaultErrorHandling !== true) {
                             var responseDetail = jqXHR.responseJSON && (
                                                     jqXHR.responseJSON.detail || (
                                                         jqXHR.responseJSON.error &&
@@ -332,8 +340,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 responseDetail,
                                 "<code>Error " + jqXHR.status + " - <span title='\"errorThrown\" message in AJAX reply was: " + errorThrown + "'>" + getMessageForStatusCode(jqXHR.status) + "</code>"
                                 );
-                        } else {
-                            $$.alert.showError.apply(this, statusCodeAlertTitleAndMsg);
                         }
                     });
                     this.intern.defaultErrorHandlerAlreadySetup = true;
