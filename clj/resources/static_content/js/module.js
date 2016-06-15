@@ -106,6 +106,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 .dataType("json")
                                 .onSuccess( function (x){
                                     console.log("PRS-lib response: ", x);
+                                })
+                                .preventDefaultErrorHandling()
+                                .onError( function (jqXHR, textStatus, errorThrown) {
+                                    console.error("PRS-lib error : ", jqXHR.responseJSON.error);
                                 });
     $('#ss-run-module-dialog').on("show.bs.modal", function (e) {
                                        requestUiPlacement.send();
