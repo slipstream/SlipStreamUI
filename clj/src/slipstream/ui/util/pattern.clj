@@ -51,7 +51,6 @@
     :begin-with-letter              "^[a-zA-Z]"    ; Matches "asd..." but not "1asd..."
     :min-3-chars                    ".{3}"
     :min-6-chars                    ".{6}"
-    :url                            "^https?://\\w+"
     :picture-file                   "\\.(?:png|jpg|jpeg|svg|PNG|JPG|JPEG|SVG)$"
     :comma-separated-words          "^\\s*[\\w-]*(?:\\s*,\\s*[\\w-]*)*\\s*$"
     :dot-separated-words            "^[\\w-]*(?:\\.[\\w-]*)*[\\w-]+$"
@@ -108,8 +107,7 @@
 
    :ssh-public-keys [[:ssh-public-keys      {:when-false   "warning"}]]
 
-   :picture-url   [:url
-                   [:picture-file           {:when-true   "validating"}]]
+   :picture-url   [[:picture-file           {:when-true   "validating"}]]
 
    :node-name     [:not-empty
                    :alpha-num-underscore
