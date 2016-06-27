@@ -84,24 +84,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var updateSelectOptions = function(prsResponse) {
             console.log("PRS-lib response is ", prsResponse);
 
-            var optionsToDecorate = $("#parameter--cloudservice option");
-            console.log("options to decorate " + optionsToDecorate.first());
-
+            var optionsToDecorate   = $("#parameter--cloudservice option");
             var mapInfoPerConnector = prsResponse.components[0].connectors.reduce(
                                                             function(a, e){
-                                                                console.log("red e.name = " + e.name);
-                                                                console.log("red typeof e = " + e.currency);
                                                                 a[e.name]=e; return a;}, {});
 
-            console.log("mapified = " + mapInfoPerConnector["exoscale"]);
-
             optionsToDecorate.each(function() {
-                var originalText = this.text,
-                    priceInfo    = "(" +
-                                    mapInfoPerConnector[this.value].currency + " " +
-                                    mapInfoPerConnector[this.value].price + ")";
-                $(this).text(originalText + priceInfo);
+                var originalText    = this.text,
+                    priceInfo       = " (" +
+                                        mapInfoPerConnector[this.value].currency + " " +
+                                        mapInfoPerConnector[this.value].price + ")",
+                    defaultCloud  = originalText.match(/\*$/) ? " *" : "";
+
+                $(this).text(this.value + priceInfo + defaultCloud);
             });
+
         },
 
         userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
