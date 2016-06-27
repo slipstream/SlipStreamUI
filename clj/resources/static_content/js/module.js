@@ -80,8 +80,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // Configure call to UI placement service when run module dialog is shown.
     // (last-child excludes specify-for-each-node value which is not a connector)
     if($$.util.meta.isPageType("view")) {
-        var userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
-            components      = $(".ss-run-module-dialog .ss-deployment-node-row")
+
+        var updateSelectOptions = function(prsResponse) {
+            console.log("PRS-lib response is ", prsResponse);
+
+            var optionsToDecorate = $("#parameter--cloudservice option");
+            console.log("options to decorate " + optionsToDecorate.first());
+
+            var mapInfoPerConnector = prsResponse.components[0].connectors.reduce(
+                                                            function(a, e){
+                                                                console.log("red e.name = " + e.name);
+                                                                console.log("red typeof e = " + e.currency);
+                                                                a[e.name]=e; return a;}, {});
+
+            console.log("mapified = " + mapInfoPerConnector["exoscale"]);
+
+            optionsToDecorate.each(function() {
+                var originalText = this.text,
+                    priceInfo    = "(" +
+                                    mapInfoPerConnector[this.value].currency + " " +
+                                    mapInfoPerConnector[this.value].price + ")";
+                $(this).text(originalText + priceInfo);
+            });
+        },
+
+        userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
+        components      = $(".ss-run-module-dialog .ss-deployment-node-row")
                                 .map(function(){
                                     var $node = $(this),
                                         nodeName = $node.find(".ss-node-shortname").text(),
@@ -95,8 +119,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     };
                                 })
                                 .toArray(),
-            moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
-            requestUiPlacement = $$.request
+        moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
+        requestUiPlacement = $$.request
                                     .put("/ui/placement")
                                     .data({
                                         moduleUri: moduleUri,
@@ -105,8 +129,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     })
                                     .serialization("json")
                                     .dataType("json")
-                                    .onSuccess( function (x){
-                                        console.log("PRS-lib response: ", x);
+                                    .onSuccess( function (prsResponse){
+                                        updateSelectOptions(prsResponse);
                                     })
                                     .preventDefaultErrorHandling()
                                     .onError( function (jqXHR, textStatus, errorThrown) {
