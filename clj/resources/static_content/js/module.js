@@ -79,7 +79,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     // Configure call to UI placement service when run module dialog is shown.
     // (last-child excludes specify-for-each-node value which is not a connector)
-    if($('body').getSlipStreamModel().module.getURI()) {
+    if($$.util.meta.isPageType("view")) {
         var userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
             components      = $(".ss-run-module-dialog .ss-deployment-node-row")
                                 .map(function(){
