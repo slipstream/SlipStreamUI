@@ -101,29 +101,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             });
 
             $.each(infoPerNode, function(node, info) {
-                console.log("n " + node);
-                console.log("i " + info);
-                var $nodeOptionsToDecorate = $("#parameter--node--" + node + "--cloudservice option");
+                var nodeSelector          = node!="null" ? "--node--" + node : "";
+                    $nodeOptionsToDecorate  = $("#parameter" + nodeSelector + "--cloudservice option");
                 $nodeOptionsToDecorate.each(function() {
                     var priceInfo     = " (" + info[this.value].currency + " " + info[this.value].price + ")",
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
                     $(this).text(this.value + priceInfo + defaultCloud);
                 });
             });
-
-            var infoPerConnector = groupBy(prsResponse.components[0].connectors, "name"),
-                $optionsToDecorate  = $("#parameter--cloudservice option");
-
-            $optionsToDecorate.each(function() {
-                var priceInfo       = " (" +
-                                        infoPerConnector[this.value].currency + " " +
-                                        infoPerConnector[this.value].price + ")",
-                    defaultCloud  = this.text.match(/\*$/) ? " *" : "";
-                // this     : current DOM element (not a jquery object)
-                // $(this)  : JQueryfied object
-                $(this).text(this.value + priceInfo + defaultCloud);
-            });
-
         },
 
         userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
