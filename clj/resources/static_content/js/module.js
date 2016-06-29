@@ -81,21 +81,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // (last-child excludes specify-for-each-node value which is not a connector)
     if($$.util.meta.isPageType("view")) {
 
+        var groupBy = function (collection, attribute) {
+            return collection.reduce(function(a, e){a[e[attribute]]=e; return a;}, {});
+        };
+
         var updateSelectOptions = function(prsResponse) {
+
             console.log("PRS-lib response is ", prsResponse);
 
-            var optionsToDecorate   = $("#parameter--cloudservice option");
-            var mapInfoPerConnector = prsResponse.components[0].connectors.reduce(
-                                                            function(a, e){
-                                                                a[e.name]=e; return a;}, {});
+            var infoPerConnector = groupBy(prsResponse.components[0].connectors, "name"),
+                $optionsToDecorate  = $("#parameter--cloudservice option");
 
-            optionsToDecorate.each(function() {
-                var originalText    = this.text,
-                    priceInfo       = " (" +
-                                        mapInfoPerConnector[this.value].currency + " " +
-                                        mapInfoPerConnector[this.value].price + ")",
-                    defaultCloud  = originalText.match(/\*$/) ? " *" : "";
-
+            $optionsToDecorate.each(function() {
+                var priceInfo       = " (" +
+                                        infoPerConnector[this.value].currency + " " +
+                                        infoPerConnector[this.value].price + ")",
+                    defaultCloud  = this.text.match(/\*$/) ? " *" : "";
+                // this     : current DOM element (not a jquery object)
+                // $(this)  : JQueryfied object
                 $(this).text(this.value + priceInfo + defaultCloud);
             });
 
