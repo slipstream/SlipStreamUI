@@ -81,14 +81,22 @@ jQuery( function() { ( function( $$, $, undefined ) {
     // (last-child excludes specify-for-each-node value which is not a connector)
     if($$.util.meta.isPageType("view")) {
 
-        var groupBy = function (collection, attribute) {
-                return collection.reduce(function(a, e){a[e[attribute]] = e; return a;}, {});
+        var groupByAttribute = function (array, attribute) {
+                return array.reduce(function(a, e){a[e[attribute]] = e; return a;}, {});
             },
         groupByNodes= function(o){
-            return groupBy(o.components, "node");
+            return groupByAttribute(o.components, "node");
         },
         groupByConnectors = function(component){
-            return groupBy(component.connectors, "name");
+            return groupByAttribute(component.connectors, "name");
+        };
+
+        var resetSelectOptions = function() {
+            var $optionToReset = $("select[id$='--cloudservice'] option,#global-cloud-service option");
+            $optionToReset.each(function(){
+                var newTextWithoutPrice = this.text.replace(/ \(.*\)/, '');
+                $(this).text(newTextWithoutPrice);
+            });
         };
 
         var updateSelectOptions = function(prsResponse) {
@@ -102,7 +110,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             var appPricePerConnector = {};
             $.each(infoPerNode, function(node, info) {
-                var nodeSelector          = node!="null" ? "--node--" + node : "";
+                var isApplication           = node !== "null",
+                    nodeSelector            = isApplication ? "--node--" + node : "",
                     $nodeOptionsToDecorate  = $("#parameter" + nodeSelector + "--cloudservice option");
                 $nodeOptionsToDecorate.each(function() {
                     var connector     = this.value,
@@ -158,6 +167,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     .preventDefaultErrorHandling()
                                     .onError( function (jqXHR, textStatus, errorThrown) {
                                         console.error("PRS-lib error : ", jqXHR.responseJSON.error);
+                                        resetSelectOptions();
                                     });
         $('#ss-run-module-dialog').on("show.bs.modal", function (e) {
                                            requestUiPlacement.send();
