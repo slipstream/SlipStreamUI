@@ -82,12 +82,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
     if($$.util.meta.isPageType("view")) {
 
         var groupBy = function (collection, attribute) {
-            return collection.reduce(function(a, e){a[e[attribute]]=e; return a;}, {});
-        };
+                return collection.reduce(function(a, e){a[e[attribute]] = e; return a;}, {});
+            },
+            groupByComponents = function(o){
+                return groupBy(o.components, "node");
+            },
+            groupByConnectors = function(component){
+                return groupBy(component.connectors, "name");
+            };
 
         var updateSelectOptions = function(prsResponse) {
 
             console.log("PRS-lib response is ", prsResponse);
+
+            var infoPerComponent = groupByComponents(prsResponse);
+            $.each(infoPerComponent, function(key, element) {
+                infoPerComponent[key] = groupByConnectors(element);
+            });
+            console.log("info per comp = " + infoPerComponent);
 
             var infoPerConnector = groupBy(prsResponse.components[0].connectors, "name"),
                 $optionsToDecorate  = $("#parameter--cloudservice option");
