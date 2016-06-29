@@ -84,22 +84,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var groupBy = function (collection, attribute) {
                 return collection.reduce(function(a, e){a[e[attribute]] = e; return a;}, {});
             },
-            groupByComponents = function(o){
-                return groupBy(o.components, "node");
-            },
-            groupByConnectors = function(component){
-                return groupBy(component.connectors, "name");
-            };
+        groupByNodes= function(o){
+            return groupBy(o.components, "node");
+        },
+        groupByConnectors = function(component){
+            return groupBy(component.connectors, "name");
+        };
 
         var updateSelectOptions = function(prsResponse) {
 
             console.log("PRS-lib response is ", prsResponse);
 
-            var infoPerComponent = groupByComponents(prsResponse);
-            $.each(infoPerComponent, function(key, element) {
-                infoPerComponent[key] = groupByConnectors(element);
+            var infoPerNode = groupByNodes(prsResponse);
+            $.each(infoPerNode, function(node, element) {
+                infoPerNode[node] = groupByConnectors(element);
             });
-            console.log("info per comp = " + infoPerComponent);
+
+            $.each(infoPerNode, function(node, info) {
+                console.log("n " + node);
+                console.log("i " + info);
+                var $nodeOptionsToDecorate = $("#parameter--node--" + node + "--cloudservice option");
+                $nodeOptionsToDecorate.each(function() {
+                    var priceInfo     = " (" + info[this.value].currency + " " + info[this.value].price + ")",
+                        defaultCloud  = this.text.match(/\*$/) ? " *" : "";
+                    $(this).text(this.value + priceInfo + defaultCloud);
+                });
+            });
 
             var infoPerConnector = groupBy(prsResponse.components[0].connectors, "name"),
                 $optionsToDecorate  = $("#parameter--cloudservice option");
