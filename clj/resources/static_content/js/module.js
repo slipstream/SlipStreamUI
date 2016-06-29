@@ -100,16 +100,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 infoPerNode[node] = groupByConnectors(element);
             });
 
+            var appPricePerConnector = {};
             $.each(infoPerNode, function(node, info) {
                 var nodeSelector          = node!="null" ? "--node--" + node : "";
                     $nodeOptionsToDecorate  = $("#parameter" + nodeSelector + "--cloudservice option");
                 $nodeOptionsToDecorate.each(function() {
-                    var priceInfo     = " (" + info[this.value].currency + " " + info[this.value].price + ")",
+                    var connector     = this.value,
+                        price         = info[connector].price,
+                        priceInfo     = " (" + info[connector].currency + " " + price + ")",
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
-                    $(this).text(this.value + priceInfo + defaultCloud);
+                    appPricePerConnector[connector] = appPricePerConnector[connector] || 0;
+                    appPricePerConnector[connector] += price;
+                    $(this).text(connector + priceInfo + defaultCloud);
                 });
             });
+
+            $("#global-cloud-service option").each(function() {
+                if(appPricePerConnector[this.value] !== undefined) {
+                    var connector     = this.value,
+                        price         = appPricePerConnector[connector],
+                        priceInfo     = " (" + price + ")",
+                        defaultCloud  = this.text.match(/\*$/) ? " *" : "";
+                     $(this).text(connector + priceInfo + defaultCloud);
+                }
+            });
         },
+
 
         userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
         components      = $(".ss-run-module-dialog .ss-deployment-node-row")
