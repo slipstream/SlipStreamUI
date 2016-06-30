@@ -99,6 +99,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             });
         };
 
+        var priceToString = function(price, currency) {
+            if(price < 0) {
+                return " (price unavailable)";
+            } else {
+                return " (" + (currency !== undefined ? currency : "") + " " + price + ")";
+            }
+        };
+
         var updateSelectOptions = function(prsResponse) {
 
             console.log("PRS-lib response is ", prsResponse);
@@ -116,7 +124,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $nodeOptionsToDecorate.each(function() {
                     var connector     = this.value,
                         price         = info[connector].price,
-                        priceInfo     = " (" + info[connector].currency + " " + price + ")",
+                        currency      = info[connector].currency,
+                        priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
                     appPricePerConnector[connector] = appPricePerConnector[connector] || 0;
                     appPricePerConnector[connector] += price;
@@ -128,7 +137,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 if(appPricePerConnector[this.value] !== undefined) {
                     var connector     = this.value,
                         price         = appPricePerConnector[connector],
-                        priceInfo     = " (" + price + ")",
+                        priceInfo     = priceToString(price),
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
                      $(this).text(connector + priceInfo + defaultCloud);
                 }
