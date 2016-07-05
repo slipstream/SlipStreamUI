@@ -27,6 +27,23 @@
     </resources>
     <plugins>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/main.clj</exclude>
+            <exclude>**/utils.clj</exclude>
+            <exclude>**/*test.clj</exclude>
+            <exclude>**/localization_test_helper.clj</exclude>
+            <exclude>**/test_config.clj</exclude>
+            <exclude>**/log4j.properties</exclude>
+            <exclude>**/*.pem</exclude>
+            <exclude>**/metadata*.xml</exclude>
+            <exclude>**/metadata*.json</exclude>
+            <exclude>**/metrics*.json</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>com.theoryinpractise</groupId>
         <artifactId>clojure-maven-plugin</artifactId>
         <executions>
