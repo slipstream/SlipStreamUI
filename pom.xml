@@ -33,6 +33,8 @@
             <exclude>**/main.clj</exclude>
             <exclude>**/utils.clj</exclude>
             <exclude>**/*test.clj</exclude>
+            <exclude>**/localization_test_helper.clj</exclude>
+            <exclude>**/test_config.clj</exclude>
             <exclude>**/log4j.properties</exclude>
             <exclude>**/*.pem</exclude>
             <exclude>**/metadata*.xml</exclude>
