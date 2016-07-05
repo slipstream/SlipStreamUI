@@ -78,7 +78,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         );
 
     // Configure call to UI placement service when run module dialog is shown.
-    // (last-child excludes specify-for-each-node value which is not a connector)
     if($$.util.meta.isPageType("view")) {
 
         var groupByAttribute = function (array, attribute) {
@@ -94,14 +93,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var resetSelectOptions = function() {
             var $optionToReset = $("select[id$='--cloudservice'] option,#global-cloud-service option");
             $optionToReset.each(function(){
-                var newTextWithoutPrice = this.text.replace(/ \(.*\)/, '');
+                var newTextWithoutPrice;
+                var pricingUnavailableText = " (pricing unavailable)";
+                var patternPrice = / \(.*\)/;
+                if(this.text.match(patternPrice)){
+                    newTextWithoutPrice = this.text.replace(patternPrice, pricingUnavailableText);
+                } else {
+                    newTextWithoutPrice = this.text + pricingUnavailableText;
+                }
                 $(this).text(newTextWithoutPrice);
             });
         };
 
         var priceToString = function(price, currency) {
             if(price < 0) {
-                return " (price unavailable)";
+                return " (unknown price)";
             } else {
                 return " (" + (currency !== undefined ? currency : "") + " " + price + ")";
             }
@@ -126,10 +132,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         price         = info[connector].price,
                         currency      = info[connector].currency,
                         priceInfo     = priceToString(price, currency),
-                        defaultCloud  = this.text.match(/\*$/) ? " *" : "";
+                        defaultCloud  = this.text.match(/ \*/) ? " *" : "";
                     appPricePerConnector[connector] = appPricePerConnector[connector] || 0;
                     appPricePerConnector[connector] += price;
-                    $(this).text(connector + priceInfo + defaultCloud);
+                    $(this).text(connector + defaultCloud + priceInfo);
                 });
             });
 
@@ -139,7 +145,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         price         = appPricePerConnector[connector],
                         priceInfo     = priceToString(price),
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
-                     $(this).text(connector + priceInfo + defaultCloud);
+                     $(this).text(connector + defaultCloud + priceInfo);
                 }
             });
         },
@@ -160,8 +166,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     };
                                 })
                                 .toArray(),
-        moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
-        requestUiPlacement = $$.request
+            moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
+            requestUiPlacement = $$.request
                                     .put("/ui/placement")
                                     .data({
                                         moduleUri: moduleUri,
@@ -171,6 +177,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     .serialization("json")
                                     .dataType("json")
                                     .onSuccess( function (prsResponse){
+                                        console.log("PRS-lib response: ", prsResponse);
                                         updateSelectOptions(prsResponse);
                                     })
                                     .preventDefaultErrorHandling()
