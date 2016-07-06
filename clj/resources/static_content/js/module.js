@@ -113,10 +113,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
+        var reorderSelectOptions = function(options, info) {
+
+            console.log("reorderSelectOptions, info");
+            console.dir(info);
+
+            var arr = $.map(options, function(o) {
+                    return {
+                        i: info[o.value] !== undefined ? info[o.value].index : 1000,
+                        // 1000 so that it ends up at the end of the selection
+                        t: $(o).text(),
+                        v: o.value
+                    };
+                });
+
+            arr.sort(function(o1, o2) {
+                return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
+            });
+
+            options.each(function(i, o) {
+                o.value = arr[i].v;
+                $(o).text(arr[i].t);
+            });
+
+        };
+
         var updateSelectOptions = function(prsResponse) {
-
-            console.log("PRS-lib response is ", prsResponse);
-
             var infoPerNode = groupByNodes(prsResponse);
             $.each(infoPerNode, function(node, element) {
                 infoPerNode[node] = groupByConnectors(element);
@@ -133,21 +155,32 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         currency      = info[connector].currency,
                         priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.match(/ \*/) ? " *" : "";
-                    appPricePerConnector[connector] = appPricePerConnector[connector] || 0;
-                    appPricePerConnector[connector] += price;
+                    appPricePerConnector[connector]         = appPricePerConnector[connector] || {price: 0, index: 0};
+                    appPricePerConnector[connector].price  += price;
                     $(this).text(connector + defaultCloud + priceInfo);
                 });
+
+                var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
+                arrayPricePerConnector.sort(function(p1, p2) {
+                    return p1.price === -1 ? 1 : (p2.price === -1 ? -1 : (p1.price - p2.price));
+                });
+                console.log("arrayPricePerConnector = " + arrayPricePerConnector);
+
+                // appPricePerConnector.sort(function(a,b) {return a-b;});
+
+                reorderSelectOptions($nodeOptionsToDecorate, info);
             });
 
             $("#global-cloud-service option").each(function() {
                 if(appPricePerConnector[this.value] !== undefined) {
                     var connector     = this.value,
-                        price         = appPricePerConnector[connector],
+                        price         = appPricePerConnector[connector].price,
                         priceInfo     = priceToString(price),
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
                      $(this).text(connector + defaultCloud + priceInfo);
                 }
             });
+            reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
         },
 
 
