@@ -90,16 +90,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return groupByAttribute(component.connectors, "name");
         };
 
-        var resetSelectOptions = function() {
+        var resetSelectOptions = function(textUnavailable) {
             var $optionToReset = $("select[id$='--cloudservice'] option,#global-cloud-service option");
             $optionToReset.each(function(){
                 var newTextWithoutPrice;
-                var pricingUnavailableText = " (pricing unavailable)";
+                textUnavailable = textUnavailable===undefined ? " (pricing unavailable)" : textUnavailable;
                 var patternPrice = / \(.*\)/;
                 if(this.text.match(patternPrice)){
-                    newTextWithoutPrice = this.text.replace(patternPrice, pricingUnavailableText);
+                    newTextWithoutPrice = this.text.replace(patternPrice, textUnavailable);
                 } else {
-                    newTextWithoutPrice = this.text + pricingUnavailableText;
+                    newTextWithoutPrice = this.text + textUnavailable;
                 }
                 $(this).text(newTextWithoutPrice);
             });
@@ -109,8 +109,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if(price < 0) {
                 return " (unknown price)";
             } else {
-                return " (" + (currency !== undefined ? currency : "") + " " +
-                    Math.round(price * 100) / 100 + ")";
+                return " (" + (currency !== undefined ? "$" : "") + " " +
+                    price.toFixed(2) + ")";
             }
         };
 
@@ -132,7 +132,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
             });
         };
 
+        var isPrsEnabled = true;
+
         var updateSelectOptions = function(prsResponse) {
+
+            isPrsEnabled = prsResponse.hasOwnProperty("components");
+            if(!isPrsEnabled) {
+                resetSelectOptions("");
+                return;
+            }
+
             var infoPerNode = groupByNodes(prsResponse);
             $.each(infoPerNode, function(node, element) {
                 infoPerNode[node] = groupByConnectors(element);
@@ -150,20 +159,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     $nodeOptionsToDecorate.each(function() {
                         var connector     = this.value,
-                            price         = info[connector].price,
+                            multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                            multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
+                            price         = info[connector].price * multiplicity,
                             currency      = info[connector].currency,
                             priceInfo     = priceToString(price, currency),
                             defaultCloud  = this.text.match(/ \*/) ? " *" : "",
 
-                            multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
-                            multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
 
                         appPricePerConnector[connector]         = appPricePerConnector[connector] ||
                                                                   { price: 0,
                                                                     index: 0,
                                                                     name: connector,
                                                                     currency: currency};
-                        appPricePerConnector[connector].price  += (price * multiplicity);
+                        appPricePerConnector[connector].price  += price;
 
                         $(this).text(connector + defaultCloud + priceInfo);
                     });
@@ -232,13 +241,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return requestUiPlacement;
             };
 
-        $('#ss-run-module-dialog').on("show.bs.modal", function (e) {
-                                           buildRequestUIPlacement().send();
-                                       });
+        var callRequestPlacementIfEnabled = function () {
+            if(isPrsEnabled) {
+                buildRequestUIPlacement().send();
+            }
+        };
+
+        $('#ss-run-module-dialog').on("show.bs.modal", function (e) { callRequestPlacementIfEnabled();});
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
-            console.log("MULT changed");
-            buildRequestUIPlacement().send();
+            callRequestPlacementIfEnabled();
         });
     }
 
