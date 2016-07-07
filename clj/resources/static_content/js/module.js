@@ -114,10 +114,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         var reorderSelectOptions = function(options, info) {
-
-            console.log("reorderSelectOptions, info");
-            console.dir(info);
-
             var arr = $.map(options, function(o) {
                     return {
                         i: info[o.value] !== undefined ? info[o.value].index : 1000,
@@ -126,16 +122,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         v: o.value
                     };
                 });
-
             arr.sort(function(o1, o2) {
                 return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
             });
-
             options.each(function(i, o) {
                 o.value = arr[i].v;
                 $(o).text(arr[i].t);
             });
-
         };
 
         var updateSelectOptions = function(prsResponse) {
@@ -148,34 +141,45 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $.each(infoPerNode, function(node, info) {
                 var isApplication           = node !== "null",
                     nodeSelector            = isApplication ? "--node--" + node : "",
-                    $nodeOptionsToDecorate  = $("#parameter" + nodeSelector + "--cloudservice option");
-                $nodeOptionsToDecorate.each(function() {
-                    var connector     = this.value,
-                        price         = info[connector].price,
-                        currency      = info[connector].currency,
-                        priceInfo     = priceToString(price, currency),
-                        defaultCloud  = this.text.match(/ \*/) ? " *" : "";
-                    appPricePerConnector[connector]         = appPricePerConnector[connector] || {price: 0, index: 0};
-                    appPricePerConnector[connector].price  += price;
-                    $(this).text(connector + defaultCloud + priceInfo);
+                    $selectDropDowns        = $("[id=parameter" + nodeSelector + "--cloudservice]");
+
+                $selectDropDowns.each(function() {
+                    var $selectDropDown         = $(this),
+                        $nodeOptionsToDecorate  = $selectDropDown.find("option");
+
+                    $nodeOptionsToDecorate.each(function() {
+                        var connector     = this.value,
+                            price         = info[connector].price,
+                            currency      = info[connector].currency,
+                            priceInfo     = priceToString(price, currency),
+                            defaultCloud  = this.text.match(/ \*/) ? " *" : "";
+                        appPricePerConnector[connector]         = appPricePerConnector[connector] ||
+                                                                  { price: 0,
+                                                                    index: 0,
+                                                                    name: connector,
+                                                                    currency: currency};
+                        appPricePerConnector[connector].price  += price;
+                        $(this).text(connector + defaultCloud + priceInfo);
+                    });
+
+                    var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
+                    arrayPricePerConnector.sort(function(p1, p2) {
+                        return p1.price < 0 ? 1 : (p2.price < 0 ? -1 : (p1.price - p2.price));
+                    });
+
+                    // Add indexes
+                    $.map(arrayPricePerConnector, function(e, i) {e.index=i; return e;});
+
+                    reorderSelectOptions($nodeOptionsToDecorate, info);
                 });
-
-                var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
-                arrayPricePerConnector.sort(function(p1, p2) {
-                    return p1.price === -1 ? 1 : (p2.price === -1 ? -1 : (p1.price - p2.price));
-                });
-                console.log("arrayPricePerConnector = " + arrayPricePerConnector);
-
-                // appPricePerConnector.sort(function(a,b) {return a-b;});
-
-                reorderSelectOptions($nodeOptionsToDecorate, info);
             });
 
             $("#global-cloud-service option").each(function() {
                 if(appPricePerConnector[this.value] !== undefined) {
                     var connector     = this.value,
                         price         = appPricePerConnector[connector].price,
-                        priceInfo     = priceToString(price),
+                        currency      =  appPricePerConnector[connector].currency,
+                        priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
                      $(this).text(connector + defaultCloud + priceInfo);
                 }
