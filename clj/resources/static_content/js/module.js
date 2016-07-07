@@ -109,7 +109,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if(price < 0) {
                 return " (unknown price)";
             } else {
-                return " (" + (currency !== undefined ? currency : "") + " " + price + ")";
+                return " (" + (currency !== undefined ? currency : "") + " " +
+                    Math.round(price * 100) / 100 + ")";
             }
         };
 
@@ -152,13 +153,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             price         = info[connector].price,
                             currency      = info[connector].currency,
                             priceInfo     = priceToString(price, currency),
-                            defaultCloud  = this.text.match(/ \*/) ? " *" : "";
+                            defaultCloud  = this.text.match(/ \*/) ? " *" : "",
+
+                            multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                            multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
+
                         appPricePerConnector[connector]         = appPricePerConnector[connector] ||
                                                                   { price: 0,
                                                                     index: 0,
                                                                     name: connector,
                                                                     currency: currency};
-                        appPricePerConnector[connector].price  += price;
+                        appPricePerConnector[connector].price  += (price * multiplicity);
+
                         $(this).text(connector + defaultCloud + priceInfo);
                     });
 
@@ -187,44 +193,53 @@ jQuery( function() { ( function( $$, $, undefined ) {
             reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
         },
 
+            buildRequestUIPlacement = function() {
+                userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
+                components      = $(".ss-run-module-dialog .ss-deployment-node-row")
+                                            .map(function(){
+                                                var $node = $(this),
+                                                    nodeName = $node.find(".ss-node-shortname").text(),
+                                                    connector = $node.find("[name$=--cloudservice]").val();
+                                                    multiplicity = $node.find("[name$=--multiplicity]").val();
+                                                console.log("nodename = " + nodeName+" , # = " + multiplicity);
+                                                return {
+                                                    nodeName: nodeName,
+                                                    multiplicity: multiplicity,
+                                                    connector: connector,
+                                                    placementPolicy: undefined // TODO
+                                                };
+                                            })
+                                            .toArray(),
+                moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
+                requestUiPlacement = $$.request
+                                                .put("/ui/placement")
+                                                .data({
+                                                    moduleUri: moduleUri,
+                                                    userConnectors: userConnectors,
+                                                    components: components
+                                                })
+                                                .serialization("json")
+                                                .dataType("json")
+                                                .onSuccess( function (prsResponse){
+                                                    console.log("PRS-lib response: ", prsResponse);
+                                                    updateSelectOptions(prsResponse);
+                                                })
+                                                .preventDefaultErrorHandling()
+                                                .onError( function (jqXHR, textStatus, errorThrown) {
+                                                    console.error("PRS-lib error : ", jqXHR.responseJSON.error);
+                                                    resetSelectOptions();
+                                                });
+                return requestUiPlacement;
+            };
 
-        userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
-        components      = $(".ss-run-module-dialog .ss-deployment-node-row")
-                                .map(function(){
-                                    var $node = $(this),
-                                        nodeName = $node.find(".ss-node-shortname").text(),
-                                        connector = $node.find("[name$=--cloudservice]").val();
-                                        multiplicity = $node.find("[name$=--multiplicity]").val();
-                                    return {
-                                        nodeName: nodeName,
-                                        multiplicity: multiplicity,
-                                        connector: connector,
-                                        placementPolicy: undefined // TODO
-                                    };
-                                })
-                                .toArray(),
-            moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
-            requestUiPlacement = $$.request
-                                    .put("/ui/placement")
-                                    .data({
-                                        moduleUri: moduleUri,
-                                        userConnectors: userConnectors,
-                                        components: components
-                                    })
-                                    .serialization("json")
-                                    .dataType("json")
-                                    .onSuccess( function (prsResponse){
-                                        console.log("PRS-lib response: ", prsResponse);
-                                        updateSelectOptions(prsResponse);
-                                    })
-                                    .preventDefaultErrorHandling()
-                                    .onError( function (jqXHR, textStatus, errorThrown) {
-                                        console.error("PRS-lib error : ", jqXHR.responseJSON.error);
-                                        resetSelectOptions();
-                                    });
         $('#ss-run-module-dialog').on("show.bs.modal", function (e) {
-                                           requestUiPlacement.send();
+                                           buildRequestUIPlacement().send();
                                        });
+
+        $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
+            console.log("MULT changed");
+            buildRequestUIPlacement().send();
+        });
     }
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
