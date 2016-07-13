@@ -110,7 +110,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return " (unknown price)";
             } else {
                 return " (" + (currency !== undefined ? "$" : "") + " " +
-                    price.toFixed(2) + ")";
+                    price.toFixed(8) + ")";
             }
         };
 
