@@ -109,8 +109,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if(price < 0) {
                 return " (unknown price)";
             } else {
-                return " (" + (currency !== undefined ? "$" : "") + " " +
-                    price.toFixed(8) + ")";
+                return " (" + (currency !== undefined ? "$ " : "") +
+                    price.toFixed(4) + "/h)";
             }
         };
 
