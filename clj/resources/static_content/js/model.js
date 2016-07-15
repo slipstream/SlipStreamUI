@@ -20,8 +20,9 @@ jQuery( function() { ( function( $$, model, $, undefined ) {
 
             function processImageXML(data, textStatus, jqXHR) {
                     imageXML = data;
+
                     // Extract Output Parameters
-                    $(imageXML).find("parameter[category=Output][type!=Dummy]").each(function(index, outputParamElem) {
+                    $(imageXML).find("outputParametersExpanded parameter[type!=Dummy]").each(function(index, outputParamElem) {
                         outputParameters.push(param(outputParamElem));
                         outputParameterNames.push($(outputParamElem).attr("name"));
                     });
