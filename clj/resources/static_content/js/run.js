@@ -34,7 +34,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         runModel.commitTags(reenableTagsInput.bind($tagsInput));
     }
 
-    $("#ss-section-summary")
+    $("#ss-section-1-summary")
         .on("enterkeypress", "#tags", saveTags);
 
     $("#tags")
