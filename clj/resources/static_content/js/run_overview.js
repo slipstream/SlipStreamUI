@@ -70,7 +70,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var addNode = function(nodeName, orchestrator) {
         nodeName = nodeName.trim();
         var node = {name: nodeName, id: "id_" + nodeName, data: {type: "node"}, children: []};
-        addVm($("[id*='" + nodeName + "\\:ids']").text().split(','), node);
+        addVm($("[id*='parameter-" + nodeName + "\\:ids']").text().split(','), node);
         orchestrator.children.push(node);
     };
 
