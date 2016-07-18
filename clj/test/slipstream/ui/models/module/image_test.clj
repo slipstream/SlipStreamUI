@@ -325,7 +325,8 @@
                 :last-modified "2015-03-13 19:35:03.652 CET"
                 :parent-uri "module/neutral_projects_for_mockup_metadata"
                 :description "Apache Web Server on CentOS 6"
-                :category "Image"}
+                :category "Image"
+                :placement-policy "location='de'"}
       :authorization {:access-rights {:delete {:public-access? true
                                                :owner-access? true
                                                :group-access? true}

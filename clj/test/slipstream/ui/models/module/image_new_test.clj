@@ -175,6 +175,7 @@
              :short-name "new"
              :published? false
              :publication nil
+             :placement-policy "location='uk'"
              :owner "sixsq"
              :version 4
              :uri "module/Public/BaseImages/Ubuntu/new"
@@ -189,6 +190,5 @@
   (page-type/with-page-type "new"
     (localization/with-lang :en
       (-> raw-metadata-str u/clojurify-raw-metadata-str model/parse))))
-
 
 

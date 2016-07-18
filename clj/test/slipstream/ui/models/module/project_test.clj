@@ -40,6 +40,7 @@
            :logo-url "http://ww1.prweb.com/prfiles/2014/11/04/12300280/sixsq-high.jpg"
            :last-modified "2015-03-13 19:36:31.339 CET"
            :parent-uri "module/"
+           :placement-policy nil
            :description "The projects here shouldn't contain any personal or private information, since they are intended to be used as mockup metadata in the SlipStreamUI project."
            :category "Project"}
  :authorization {:access-rights {:delete {:public-access? true
