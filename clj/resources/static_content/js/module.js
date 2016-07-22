@@ -155,26 +155,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 $selectDropDowns.each(function() {
                     var $selectDropDown         = $(this),
-                        $nodeOptionsToDecorate  = $selectDropDown.find("option");
+                        $nodeOptionsToDecorate  = $selectDropDown.find("option"),
+                        isFirstOptionSelected;
 
                     $nodeOptionsToDecorate.each(function() {
-                        var connector     = this.value,
-                            multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
-                            multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
-                            price         = info[connector].price * multiplicity,
-                            currency      = info[connector].currency,
-                            priceInfo     = priceToString(price, currency),
-                            defaultCloud  = this.text.match(/ \*/) ? " *" : "",
+                        if(info[this.value] === undefined) {
+                            $(this).attr("disabled", true);
+                        } else {
+                            var connector     = this.value,
+                                multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                                multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
+                                price         = info[connector].price * multiplicity,
+                                currency      = info[connector].currency,
+                                priceInfo     = priceToString(price, currency),
+                                defaultCloud  = this.text.match(/ \*/) ? " *" : "",
 
-
-                        appPricePerConnector[connector]         = appPricePerConnector[connector] ||
-                                                                  { price: 0,
-                                                                    index: 0,
-                                                                    name: connector,
-                                                                    currency: currency};
-                        appPricePerConnector[connector].price  += price;
-
-                        $(this).text(connector + defaultCloud + priceInfo);
+                                appPricePerConnector[connector]         = appPricePerConnector[connector] ||
+                                                                            { price: 0,
+                                                                              index: 0,
+                                                                              name: connector,
+                                                                              currency: currency};
+                                appPricePerConnector[connector].price  += price;
+                                $(this).attr("disabled", false);
+                                $(this).text(connector + defaultCloud + priceInfo);
+                                if(isFirstOptionSelected === undefined) {
+                                    isFirstOptionSelected = true;
+                                    $(this).attr("selected", true);
+                                }
+                        }
                     });
 
                     var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
@@ -193,13 +201,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 if(appPricePerConnector[this.value] !== undefined) {
                     var connector     = this.value,
                         price         = appPricePerConnector[connector].price,
-                        currency      =  appPricePerConnector[connector].currency,
+                        currency      = appPricePerConnector[connector].currency,
                         priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.match(/\*$/) ? " *" : "";
                      $(this).text(connector + defaultCloud + priceInfo);
+                     $(this).attr("disabled", false);
+                } else {
+                    $(this).attr("disabled", true);
                 }
             });
             reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
+            $("#global-cloud-service option").last().attr("disabled", false);
         },
 
             buildRequestUIPlacement = function() {
@@ -243,7 +255,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var callRequestPlacementIfEnabled = function () {
             if(isPrsEnabled) {
-                buildRequestUIPlacement().send();
+                var request = buildRequestUIPlacement();
+                console.log("sending request placement with data");
+                console.dir(request.settings.originalData);
+                request.send();
             }
         };
 
