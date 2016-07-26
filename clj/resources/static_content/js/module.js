@@ -156,8 +156,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 infoPerNode[node] = groupByConnectors(element);
             });
 
-            var appPricePerConnector    = {},
-                noConnectorsAvailable   = false;
+            var appPricePerConnector        = {},
+                connectorsForEveryComponent;
             $.each(infoPerNode, function(node, info) {
                 var isApplication           = node !== "null",
                     nodeSelector            = isApplication ? "--node--" + node : "",
@@ -166,9 +166,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $selectDropDowns.each(function() {
                     var $selectDropDown         = $(this),
                         $nodeOptionsToDecorate  = $selectDropDown.find("option"),
-                        isFirstOptionSelected;
+                        isFirstOptionSelected,
+                        connectorNames          = $.map(info, function(v, k) {return k;});
 
-                    noConnectorsAvailable = noConnectorsAvailable || $.isEmptyObject(info);
+                    if(connectorsForEveryComponent === undefined) {
+                        connectorsForEveryComponent = connectorNames;
+                    } else {
+                        connectorsForEveryComponent = $.grep(connectorsForEveryComponent,
+                                                                function(e, i){
+                                                                    return ($.inArray(e, connectorNames)) > -1;});
+                    }
 
                     $nodeOptionsToDecorate.each(function() {
                         var connector     = this.value;
@@ -207,15 +214,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     reorderSelectOptions($nodeOptionsToDecorate, info);
                 });
-                warnWhenNoConnectorsAvailable(noConnectorsAvailable);
+                warnWhenNoConnectorsAvailable(connectorsForEveryComponent.length === 0);
             });
 
-            if(noConnectorsAvailable) {
+            if(connectorsForEveryComponent.length === 0) {
                $("#global-cloud-service option").attr("disabled", true);
             } else {
                 $("#global-cloud-service option").attr("disabled", false);
                 $("#global-cloud-service option").each(function() {
-                    if(appPricePerConnector[this.value] !== undefined) {
+                    if($.inArray(this.value, connectorsForEveryComponent) === -1){
+                        $(this).attr("disabled", true);
+                    } else if(appPricePerConnector[this.value] !== undefined) {
                         var connector     = this.value,
                             price         = appPricePerConnector[connector].price,
                             currency      = appPricePerConnector[connector].currency,
@@ -224,13 +233,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                          $(this).text(connector + defaultCloud + priceInfo);
                          $(this).attr("disabled", false);
                     } else {
-                        $(this).attr("disabled", true);
+                       $(this).attr("disabled", true);
                     }
                 });
                 reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
-                $("#global-cloud-service option").last().attr("disabled", false);
-
             }
+            $("#global-cloud-service option").last().attr("disabled", false);
         },
 
             buildRequestUIPlacement = function() {
