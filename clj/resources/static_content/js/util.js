@@ -1351,11 +1351,13 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 callbackOnStateChange.call($this, undefined, undefined);
             }
             // Do the same with the submit button, if no .has-error in form
-            var hasErrors = $this.closest("form").find(".has-error").foundAny();
+            var hasErrors = $this.closest("form").find(".has-error").foundAny(),
+                alreadyDisabled = $this.closest("form").find("button[type=submit]")[0] !== undefined
+                                    && $this.closest("form").find("button[type=submit]")[0].disabled;
             $this
                 .closest("form")
                 .find("button[type=submit]")
-                .disable(hasErrors);
+                .disable(alreadyDisabled || hasErrors);
             return this;
         },
 

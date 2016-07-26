@@ -90,6 +90,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return groupByAttribute(component.connectors, "name");
         };
 
+        var warnWhenNoConnectorsAvailable = function (noConnectors) {
+            console.log(noConnectors ? "no connectors available to deploy" : "connectors available");
+            $(".ss-ok-btn.ss-run-btn").attr("disabled", noConnectors);
+            $(".ss-ok-btn.ss-build-btn").attr("disabled", noConnectors);
+        };
+
         var resetSelectOptions = function(textUnavailable) {
             var $optionToReset = $("select[id$='--cloudservice'] option,#global-cloud-service option");
             $optionToReset.each(function(){
@@ -103,6 +109,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
                 $(this).text(newTextWithoutPrice);
             });
+            warnWhenNoConnectorsAvailable(false);
         };
 
         var priceToString = function(price, currency) {
@@ -142,12 +149,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return;
             }
 
+            warnWhenNoConnectorsAvailable(false);
+
             var infoPerNode = groupByNodes(prsResponse);
             $.each(infoPerNode, function(node, element) {
                 infoPerNode[node] = groupByConnectors(element);
             });
 
-            var appPricePerConnector = {};
+            var appPricePerConnector    = {},
+                noConnectorsAvailable   = false;
             $.each(infoPerNode, function(node, info) {
                 var isApplication           = node !== "null",
                     nodeSelector            = isApplication ? "--node--" + node : "",
@@ -158,12 +168,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         $nodeOptionsToDecorate  = $selectDropDown.find("option"),
                         isFirstOptionSelected;
 
+                    noConnectorsAvailable = noConnectorsAvailable || $.isEmptyObject(info);
+
                     $nodeOptionsToDecorate.each(function() {
-                        if(info[this.value] === undefined) {
+                        var connector     = this.value;
+                        if(info[connector] === undefined) {
                             $(this).attr("disabled", true);
                         } else {
-                            var connector     = this.value,
-                                multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                            var multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
                                 multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
                                 price         = info[connector].price * multiplicity,
                                 currency      = info[connector].currency,
@@ -195,23 +207,30 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     reorderSelectOptions($nodeOptionsToDecorate, info);
                 });
+                warnWhenNoConnectorsAvailable(noConnectorsAvailable);
             });
 
-            $("#global-cloud-service option").each(function() {
-                if(appPricePerConnector[this.value] !== undefined) {
-                    var connector     = this.value,
-                        price         = appPricePerConnector[connector].price,
-                        currency      = appPricePerConnector[connector].currency,
-                        priceInfo     = priceToString(price, currency),
-                        defaultCloud  = this.text.match(/\*$/) ? " *" : "";
-                     $(this).text(connector + defaultCloud + priceInfo);
-                     $(this).attr("disabled", false);
-                } else {
-                    $(this).attr("disabled", true);
-                }
-            });
-            reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
-            $("#global-cloud-service option").last().attr("disabled", false);
+            if(noConnectorsAvailable) {
+               $("#global-cloud-service option").attr("disabled", true);
+            } else {
+                $("#global-cloud-service option").attr("disabled", false);
+                $("#global-cloud-service option").each(function() {
+                    if(appPricePerConnector[this.value] !== undefined) {
+                        var connector     = this.value,
+                            price         = appPricePerConnector[connector].price,
+                            currency      = appPricePerConnector[connector].currency,
+                            priceInfo     = priceToString(price, currency),
+                            defaultCloud  = this.text.match(/\*$/) ? " *" : "";
+                         $(this).text(connector + defaultCloud + priceInfo);
+                         $(this).attr("disabled", false);
+                    } else {
+                        $(this).attr("disabled", true);
+                    }
+                });
+                reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
+                $("#global-cloud-service option").last().attr("disabled", false);
+
+            }
         },
 
             buildRequestUIPlacement = function() {
