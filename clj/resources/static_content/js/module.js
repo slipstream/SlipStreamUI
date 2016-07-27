@@ -258,7 +258,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                 };
                                             })
                                             .toArray(),
-                moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
+                moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),
                 requestUiPlacement = $$.request
                                                 .put("/ui/placement")
                                                 .data({
