@@ -130,7 +130,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
                         v: o.value
                     };
-                });
+                }),
+                isFirstOptionSelected;
             arr.sort(function(o1, o2) {
                 return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
             });
@@ -138,6 +139,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 o.value = arr[i].v;
                 $(o).text(arr[i].t);
                 $(o).attr("disabled", arr[i].d);
+
+                if(isFirstOptionSelected === undefined) {
+                    isFirstOptionSelected = true;
+                    $(o).attr("selected", true);
+                }
             });
         };
 
@@ -168,7 +174,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $selectDropDowns.each(function() {
                     var $selectDropDown         = $(this),
                         $nodeOptionsToDecorate  = $selectDropDown.find("option"),
-                        isFirstOptionSelected,
                         connectorNames          = $.map(info, function(v, k) {return k;});
 
                     if(connectorsForEveryComponent === undefined) {
@@ -201,10 +206,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 $(this).attr("disabled", false);
                                 console.log("enabling " + connector);
                                 $(this).text(connector + defaultCloud + priceInfo);
-                                if(isFirstOptionSelected === undefined) {
-                                    isFirstOptionSelected = true;
-                                    $(this).attr("selected", true);
-                                }
                         }
                     });
 
