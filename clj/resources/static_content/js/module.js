@@ -189,20 +189,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         if(info[connector] === undefined) {
                             $(this).attr("disabled", true);
                             console.log("disabling " + connector);
+                            appPricePerConnector[connector] = {notPriceable: true};
                         } else {
                             var multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
                                 multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
                                 price         = info[connector].price * multiplicity,
                                 currency      = info[connector].currency,
                                 priceInfo     = priceToString(price, currency),
-                                defaultCloud  = this.text.match(/ \*/) ? " *" : "",
+                                defaultCloud  = this.text.match(/ \*/) ? " *" : "";
 
-                                appPricePerConnector[connector]         = appPricePerConnector[connector] ||
-                                                                            { price: 0,
-                                                                              index: 0,
-                                                                              name: connector,
-                                                                              currency: currency};
-                                appPricePerConnector[connector].price  += price;
+                                if (appPricePerConnector[connector] !== {notPriceable: true}) {
+                                    appPricePerConnector[connector] = appPricePerConnector[connector] ||
+                                                                                { price: 0,
+                                                                                  index: 0,
+                                                                                  name: connector,
+                                                                                  currency: currency};
+                                    appPricePerConnector[connector].price  += price;
+                                }
+                                
                                 $(this).attr("disabled", false);
                                 console.log("enabling " + connector);
                                 $(this).text(connector + defaultCloud + priceInfo);
