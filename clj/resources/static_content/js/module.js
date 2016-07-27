@@ -127,6 +127,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         i: info[o.value] !== undefined ? info[o.value].index : 1000,
                         // 1000 so that it ends up at the end of the selection
                         t: $(o).text(),
+                        d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
                         v: o.value
                     };
                 });
@@ -136,6 +137,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             options.each(function(i, o) {
                 o.value = arr[i].v;
                 $(o).text(arr[i].t);
+                $(o).attr("disabled", arr[i].d);
             });
         };
 
@@ -181,6 +183,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         var connector     = this.value;
                         if(info[connector] === undefined) {
                             $(this).attr("disabled", true);
+                            console.log("disabling " + connector);
                         } else {
                             var multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
                                 multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
@@ -196,6 +199,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                                               currency: currency};
                                 appPricePerConnector[connector].price  += price;
                                 $(this).attr("disabled", false);
+                                console.log("enabling " + connector);
                                 $(this).text(connector + defaultCloud + priceInfo);
                                 if(isFirstOptionSelected === undefined) {
                                     isFirstOptionSelected = true;
