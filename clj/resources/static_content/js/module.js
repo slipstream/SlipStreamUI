@@ -140,7 +140,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(o).text(arr[i].t);
                 $(o).attr("disabled", arr[i].d);
 
+
                 if(!arr[i].d && isFirstOptionSelected === undefined) {
+
                     isFirstOptionSelected = true;
                     $(o).attr("selected", true);
                 }
@@ -159,6 +161,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             globalDisabled = false;
 
+
             var infoPerNode = groupByNodes(prsResponse);
             $.each(infoPerNode, function(node, element) {
                 infoPerNode[node] = groupByConnectors(element);
@@ -167,6 +170,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var appPricePerConnector    = {},
                 connectorsForEveryComponent,
                 globalDisabled          = false;
+
             $.each(infoPerNode, function(node, info) {
                 var isApplication           = node !== "null",
                     nodeSelector            = isApplication ? "--node--" + node : "",
@@ -186,6 +190,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     }
 
                     var nodeEnabled = false;
+
                     $nodeOptionsToDecorate.each(function() {
                         var connector     = this.value;
                         if(info[connector] === undefined) {
@@ -193,6 +198,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             console.log("disabling " + connector);
                             appPricePerConnector[connector] = {notPriceable: true};
                         } else {
+
                             nodeEnabled = true;
                             var multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
                                 multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
@@ -229,8 +235,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     reorderSelectOptions($nodeOptionsToDecorate, info);
                 });
+                warnWhenNoConnectorsAvailable(connectorsForEveryComponent.length === 0);
             });
-
 
             $("#global-cloud-service option").attr("disabled", false);
             $("#global-cloud-service option").each(function() {
@@ -253,6 +259,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $("#global-cloud-service option").last().attr("disabled", false);
 
             warnWhenNoConnectorsAvailable(globalDisabled);
+
         },
 
             buildRequestUIPlacement = function() {

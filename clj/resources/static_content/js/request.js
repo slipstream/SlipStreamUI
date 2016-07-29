@@ -100,6 +100,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 url: url,
                 async: true,            // See .async(enable) fn below
                 data: undefined,
+                originalData: undefined,
                 dataType: undefined,    // See .dataType() fn below
                 contentType: undefined, // See .serialization() fn below
                 success: undefined,     // See .onSuccess() fn below
@@ -245,7 +246,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return this;
             },
             preventDefaultErrorHandling: function () {
-                console.log("preventing DefaultErrorHandling");
                 this.intern.preventDefaultErrorHandling = true;
                 return this;
             },
@@ -285,6 +285,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                             this.settings.data = $.param(this.settings.originalData);
                             break;
                         case "string":
+                            this.settings.data = this.settings.originalData.toString();
                         case "undefined":
                             break;
                         default:
