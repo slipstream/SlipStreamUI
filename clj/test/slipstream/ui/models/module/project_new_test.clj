@@ -53,6 +53,7 @@
              :latest-version? nil
              :last-modified "2013-05-16 17:04:39.113 CEST"
              :parent-uri "module/Public"
+             :placement-policy nil
              :description "A description..."
              :logo-url ""
              :category "Project"}})

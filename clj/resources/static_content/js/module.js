@@ -90,6 +90,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return groupByAttribute(component.connectors, "name");
         };
 
+        var warnWhenNoConnectorsAvailable = function (noConnectors) {
+            console.log(noConnectors ? "no connectors available to deploy" : "connectors available");
+            $(".ss-ok-btn.ss-run-btn").attr("disabled", noConnectors);
+            $(".ss-ok-btn.ss-build-btn").attr("disabled", noConnectors);
+        };
+
         var resetSelectOptions = function(textUnavailable) {
             var $optionToReset = $("select[id$='--cloudservice'] option,#global-cloud-service option");
             $optionToReset.each(function(){
@@ -103,6 +109,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
                 $(this).text(newTextWithoutPrice);
             });
+            warnWhenNoConnectorsAvailable(false);
         };
 
         var priceToString = function(price, currency) {
@@ -120,15 +127,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         i: info[o.value] !== undefined ? info[o.value].index : 1000,
                         // 1000 so that it ends up at the end of the selection
                         t: $(o).text(),
+                        d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
                         v: o.value
                     };
-                });
+                }),
+                isFirstOptionSelected;
             arr.sort(function(o1, o2) {
                 return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
             });
             options.each(function(i, o) {
                 o.value = arr[i].v;
                 $(o).text(arr[i].t);
+                $(o).attr("disabled", arr[i].d);
+
+                if(isFirstOptionSelected === undefined) {
+                    isFirstOptionSelected = true;
+                    $(o).attr("selected", true);
+                }
             });
         };
 
@@ -142,12 +157,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return;
             }
 
+            warnWhenNoConnectorsAvailable(false);
+
             var infoPerNode = groupByNodes(prsResponse);
             $.each(infoPerNode, function(node, element) {
                 infoPerNode[node] = groupByConnectors(element);
             });
 
-            var appPricePerConnector = {};
+            var appPricePerConnector        = {},
+                connectorsForEveryComponent;
             $.each(infoPerNode, function(node, info) {
                 var isApplication           = node !== "null",
                     nodeSelector            = isApplication ? "--node--" + node : "",
@@ -155,26 +173,44 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 $selectDropDowns.each(function() {
                     var $selectDropDown         = $(this),
-                        $nodeOptionsToDecorate  = $selectDropDown.find("option");
+                        $nodeOptionsToDecorate  = $selectDropDown.find("option"),
+                        connectorNames          = $.map(info, function(v, k) {return k;});
+
+                    if(connectorsForEveryComponent === undefined) {
+                        connectorsForEveryComponent = connectorNames;
+                    } else {
+                        connectorsForEveryComponent = $.grep(connectorsForEveryComponent,
+                                                                function(e, i){
+                                                                    return ($.inArray(e, connectorNames)) > -1;});
+                    }
 
                     $nodeOptionsToDecorate.each(function() {
-                        var connector     = this.value,
-                            multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
-                            multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
-                            price         = info[connector].price * multiplicity,
-                            currency      = info[connector].currency,
-                            priceInfo     = priceToString(price, currency),
-                            defaultCloud  = this.text.match(/ \*/) ? " *" : "",
+                        var connector     = this.value;
+                        if(info[connector] === undefined) {
+                            $(this).attr("disabled", true);
+                            console.log("disabling " + connector);
+                            appPricePerConnector[connector] = {notPriceable: true};
+                        } else {
+                            var multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                                multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
+                                price         = info[connector].price * multiplicity,
+                                currency      = info[connector].currency,
+                                priceInfo     = priceToString(price, currency),
+                                defaultCloud  = this.text.match(/ \*/) ? " *" : "";
 
-
-                        appPricePerConnector[connector]         = appPricePerConnector[connector] ||
-                                                                  { price: 0,
-                                                                    index: 0,
-                                                                    name: connector,
-                                                                    currency: currency};
-                        appPricePerConnector[connector].price  += price;
-
-                        $(this).text(connector + defaultCloud + priceInfo);
+                                if (appPricePerConnector[connector] !== {notPriceable: true}) {
+                                    appPricePerConnector[connector] = appPricePerConnector[connector] ||
+                                                                                { price: 0,
+                                                                                  index: 0,
+                                                                                  name: connector,
+                                                                                  currency: currency};
+                                    appPricePerConnector[connector].price  += price;
+                                }
+                                
+                                $(this).attr("disabled", false);
+                                console.log("enabling " + connector);
+                                $(this).text(connector + defaultCloud + priceInfo);
+                        }
                     });
 
                     var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
@@ -187,19 +223,31 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     reorderSelectOptions($nodeOptionsToDecorate, info);
                 });
+                warnWhenNoConnectorsAvailable(connectorsForEveryComponent.length === 0);
             });
 
-            $("#global-cloud-service option").each(function() {
-                if(appPricePerConnector[this.value] !== undefined) {
-                    var connector     = this.value,
-                        price         = appPricePerConnector[connector].price,
-                        currency      =  appPricePerConnector[connector].currency,
-                        priceInfo     = priceToString(price, currency),
-                        defaultCloud  = this.text.match(/\*$/) ? " *" : "";
-                     $(this).text(connector + defaultCloud + priceInfo);
-                }
-            });
-            reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
+            if(connectorsForEveryComponent.length === 0) {
+               $("#global-cloud-service option").attr("disabled", true);
+            } else {
+                $("#global-cloud-service option").attr("disabled", false);
+                $("#global-cloud-service option").each(function() {
+                    if($.inArray(this.value, connectorsForEveryComponent) === -1){
+                        $(this).attr("disabled", true);
+                    } else if(appPricePerConnector[this.value] !== undefined) {
+                        var connector     = this.value,
+                            price         = appPricePerConnector[connector].price,
+                            currency      = appPricePerConnector[connector].currency,
+                            priceInfo     = priceToString(price, currency),
+                            defaultCloud  = this.text.match(/\*$/) ? " *" : "";
+                         $(this).text(connector + defaultCloud + priceInfo);
+                         $(this).attr("disabled", false);
+                    } else {
+                       $(this).attr("disabled", true);
+                    }
+                });
+                reorderSelectOptions($("#global-cloud-service option"), appPricePerConnector);
+            }
+            $("#global-cloud-service option").last().attr("disabled", false);
         },
 
             buildRequestUIPlacement = function() {
@@ -219,7 +267,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                 };
                                             })
                                             .toArray(),
-                moduleUri       = $('body').getSlipStreamModel().module.getURI().removeLeadingSlash(),
+                moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),
                 requestUiPlacement = $$.request
                                                 .put("/ui/placement")
                                                 .data({
@@ -243,7 +291,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var callRequestPlacementIfEnabled = function () {
             if(isPrsEnabled) {
-                buildRequestUIPlacement().send();
+                var request = buildRequestUIPlacement();
+                console.log("sending request placement with data");
+                console.dir(request.settings.originalData);
+                request.send();
             }
         };
 

@@ -492,6 +492,10 @@
    :slipstream.ui.models.parameters.owner.description                           :global.nouns.owner
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
+   :slipstream.ui.models.parameters.placement-policy.description                "Placement policy"
+   :slipstream.ui.models.parameters.placement-policy.help-hint                  "Placement policy (e.g location='fr')"
+
+
    :slipstream.ui.models.parameters.module-owner.description                    "Application / Component owner"
    :slipstream.ui.models.parameters.module-owner.help-hint                      "The owner of the deployed Application / Component."
 
@@ -582,6 +586,10 @@
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
    :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) do not appear here. Visit your user profile if you want to configure additional clouds. The option `Specify for each node` will reveal this menu for each of the nodes below."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
+
+   :slipstream.ui.models.parameters.deployment-price-duration.description         "Price estimation period"
+   :slipstream.ui.models.parameters.deployment-price-duration.help-hint           "Select the desired period for which you want a price estimation. This is an **estimation** and does not contain any cost related to network."
+
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolerate deployment failures"
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Enabling this option reveals a field in each node to specify how many instances (i.e. the `multiplicity` value) you tolerate to fail to properly start without SlipStream flagging the whole deployment as failed. This makes specially sense for _scalable_ deployments with a _big_ initial multiplicity."

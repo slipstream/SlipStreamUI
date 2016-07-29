@@ -79,6 +79,7 @@
              :logo-url "https://newevolutiondesigns.com/images/freebies/vibrant-wallpaper-preview-16.jpg"
              :last-modified "2015-03-16 17:23:00.901 CET"
              :parent-uri "module/neutral_projects_for_mockup_metadata"
+             :placement-policy nil
              :description "Multinode deployment with input and output params."
              :category "Deployment"}
    :authorization {:access-rights {:delete {:public-access? true
