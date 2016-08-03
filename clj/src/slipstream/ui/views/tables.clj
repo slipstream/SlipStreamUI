@@ -272,8 +272,7 @@
       :publication    {:type :cell/timestamp-long,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
       :last-modified  {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
       :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?), :id-format-fn (constantly "username")}
-      :placement-policy
-                      {:type :cell/text}
+      :placement-policy {:type :cell/text :remove? (not= "Image" (:category module))}
 
       :logo-url       {:type :cell/text
                        :remove? (page-type/view?)
@@ -742,7 +741,7 @@
                                          :editable? (-> parameters :ssh-key-available? not)
                                          :id-format-fn (constantly "ssh-access-enabled")
                                          :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
-                             
+
         :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service"), :when-nil-value-hints {:value      (t :no-configured-clouds-hint (current-user/uri))
                                                                                                                                                          :type       :cell/html
                                                                                                                                                          :editable?  false}}
