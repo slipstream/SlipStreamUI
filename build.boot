@@ -83,6 +83,7 @@
                             #".*/metadata*\.json"
                             #".*/metrics*\.json"}
                  :invert true)
+           (aot :all true)
            (jar)))
 
 (deftask mvn-test
