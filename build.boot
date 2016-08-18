@@ -51,7 +51,7 @@
                                 with-bikeshed]])
 
 (set-env!
-  :source-paths #{"clj/test" "clj/dev-resources"}
+  :source-paths #{"clj/test"}
   :resource-paths #{"clj/src" "clj/resources"})
 
 (task-options!
