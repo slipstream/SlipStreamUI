@@ -19,7 +19,7 @@
   the default theme."
   ; nil
   ; :helixnebula
-  (let [theme-property  (-> "slipstream.ui.util.theme.current-theme" System/getProperty)
+  (let [theme-property  (System/getProperty"slipstream.ui.util.theme.current-theme")
         theme           (-> theme-property keyword available-themes)]
     (when (not-empty theme-property)
       (print "INFO: The system property 'slipstream.ui.util.theme.current-theme' has the value: ")

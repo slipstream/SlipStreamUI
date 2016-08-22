@@ -93,7 +93,7 @@
           :ram nil
           :disk nil
           :instance-type nil}]}
-  (let [metadata (-> raw-metadata-str u/clojurify-raw-metadata-str)]
+  (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
     (current-user/with-current-user
       (freeze-time (t/date-time 2014 12 8 12 29)
         (model/parse metadata)))))

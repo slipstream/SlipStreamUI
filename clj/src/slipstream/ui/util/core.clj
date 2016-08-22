@@ -143,11 +143,11 @@
   [original-selected-option enum]
   (if (-> enum enum-selection :value (= original-selected-option))
     enum
-    (into []
-          (for [option enum]
-            (if (:selected? option)
-              (assoc option :original-selection original-selected-option)
-              option)))))
+    (vec
+     (for [option enum]
+       (if (:selected? option)
+         (assoc option :original-selection original-selected-option)
+         option)))))
 
 (defn enum-select
   "If the 'selected-option is not available, the first one will be selected."

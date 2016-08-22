@@ -45,8 +45,7 @@
    :run-owner "super"
    :category "Application"
    :tags ""}
-  (-> parsed-metadata
-      :summary))
+  (:summary parsed-metadata))
 
 (expect
   [:global :orchestrator :node :node]

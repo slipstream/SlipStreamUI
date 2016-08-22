@@ -45,8 +45,7 @@
    :category "Application"
    :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/rob'> user account</a>"
    :tags ""}
-  (-> parsed-metadata
-      :summary))
+  (:summary parsed-metadata))
 
 (expect
   [:global :orchestrator :node]

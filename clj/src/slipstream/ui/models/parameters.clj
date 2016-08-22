@@ -77,8 +77,9 @@
 
 (defn parse-input-parameters
   [metadata]
-  (->> (html/select metadata input-parameter-expanded-sel)
-       (map parse-parameter)))
+  (map
+   parse-parameter
+   (html/select metadata input-parameter-expanded-sel)))
 
 ;; Parameter util methods
 

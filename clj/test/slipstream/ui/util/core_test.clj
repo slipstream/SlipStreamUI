@@ -124,8 +124,7 @@
 (expect
   expected-enum-with-custom-selection
   (localization/with-lang :en
-    (-> platforms
-        (enum :cloud-platforms "fedora"))))
+    (enum platforms :cloud-platforms "fedora")))
 
 (expect
   [{:value  "centos",   :text   "CentOS", :selected? true, :original-selection "value-not-available"}

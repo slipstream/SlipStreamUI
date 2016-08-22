@@ -1482,16 +1482,14 @@
                     {:a :foo, :b :bar}]}
    {:name "bar" :b [{:a :foo, :b :bar}
                     {:a :foo, :b :bar}]}]
-  (->> some-sequence
-       (mapv-in [:b] #(assoc % :a :foo :b :bar))))
+  (mapv-in [:b] #(assoc % :a :foo :b :bar) some-sequence))
 
 (expect
   [{:name "foo" :b [{:a :foo, :aa [0 1 2]}
                     {:a :foo, :aa [0 1 2]}]}
    {:name "bar" :b [{:a :foo, :aa [0 1 2]}
                     {:a :foo, :aa [0 1 2]}]}]
-  (->> some-sequence
-       (mapv-in [:b] #(assoc % :a :foo :aa (range 3)))))
+  (mapv-in [:b] #(assoc % :a :foo :aa (range 3)) some-sequence))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

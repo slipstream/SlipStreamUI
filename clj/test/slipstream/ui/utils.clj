@@ -16,10 +16,10 @@
   (config/value :webdir "src/slipstream/ui/views/"))
 
 (defn render [t]
-  (apply str t))
+  (s/join t))
 
 (defn render-snippet [s]
-  (apply str (html/emit* s)))
+  (s/join (html/emit* s)))
 
 (def render-to-response
   (comp response render))
@@ -80,8 +80,7 @@
 (defn- settify-unsorted-attributes
   [enlive-nodes]
   (w/postwalk #(if (map? %)
-                 (-> %
-                     (update-in [:class] as-set-of-words))
+                 (update-in % [:class] as-set-of-words)
                  %)
               enlive-nodes))
 

@@ -71,8 +71,8 @@
   (let [attrs (:attrs metadata)
         alternative-uri (str (:parentUri attrs) "/" (:shortName attrs))
         publication-date (-> metadata (html/select [html/root :> :published]) first :attrs :publicationDate)]
-    {:description       (-> attrs :description)
-     :category          (-> attrs :category)
+    {:description       (:description attrs)
+     :category          (:category attrs)
      :comment           (-> metadata (html/select [html/root :> :commit :comment html/text]) first)
      :publication       publication-date
      :published?        (boolean publication-date)
@@ -80,10 +80,10 @@
                             :name
                             (or (u/module-name alternative-uri))
                             u/not-default-new-name)
-     :creation          (-> attrs :creation)
+     :creation          (:creation attrs)
      :version           (-> attrs :version uc/parse-pos-int)
-     :short-name        (-> attrs :shortName)
-     :last-modified     (-> attrs :lastModified)
+     :short-name        (:shortName attrs)
+     :last-modified     (:lastModified attrs)
      :latest-version?   (or
                           (page-type/new?)
                           (-> attrs :isLatestVersion uc/parse-boolean))
@@ -91,10 +91,10 @@
      :uri               (or
                           (-> attrs :resourceUri)
                           alternative-uri)
-     :parent-uri        (-> attrs :parentUri)
+     :parent-uri        (:parentUri attrs)
      :logo-url          (-> metadata :attrs :logoLink (or ""))
      :owner             (-> metadata (html/select [:authz]) first :attrs :owner)
-     :placement-policy  (-> attrs :placementPolicy)}))
+     :placement-policy  (:placementPolicy attrs)}))
 
 (defn parse
   "See tests for structure of the expected parsed metadata."
