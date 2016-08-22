@@ -1,6 +1,7 @@
 (ns slipstream.ui.util.clojure-test
-  (:use [expectations]
-        [slipstream.ui.util.clojure]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.clojure :refer :all]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

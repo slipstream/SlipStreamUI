@@ -1,9 +1,10 @@
 (ns slipstream.ui.models.vms-regular-user-test
-  (:use [expectations])
-  (:require [clj-time.core :as t]
-            [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.vms :as model]
-            [slipstream.ui.util.current-user :as current-user]))
+  (:require
+   [expectations :refer :all]
+   [clj-time.core :as t]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.vms :as model]
+   [slipstream.ui.util.current-user :as current-user]))
 
 ;; NOTE: For request /vms?media=xml&offset=10&limit=5&cloud=CloudA
 (def raw-metadata-str

@@ -1,10 +1,11 @@
 (ns slipstream.ui.util.time-test
   (:refer-clojure :exclude [format])
-  (:use [expectations]
-        [slipstream.ui.util.time])
-  (:require [clj-time.core :as t]
-            [clj-time.format :as f]
-            [slipstream.ui.util.localization :as localization])
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.time :refer :all]
+   [clj-time.core :as t]
+   [clj-time.format :as f]
+   [slipstream.ui.util.localization :as localization])
   (:import [org.joda.time DateTime DateTimeZone]))
 
 

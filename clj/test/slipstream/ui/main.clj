@@ -1,14 +1,15 @@
 (ns slipstream.ui.main
-(:use slipstream.ui.util.dev-traces)
-(:require [superstring.core :as s]
+  (:require
+   [slipstream.ui.util.dev-traces :refer :all]
+   [net.cgrand.moustache :refer [app]]
+   [superstring.core :as s]
             [ring.util.response :as resp]
             [ring.middleware.resource :as resource]
             [slipstream.ui.localization-test-helper :as lth]
             [slipstream.ui.util.mode :as mode]
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.utils :as utils]
-            [slipstream.ui.views.representation :as representation])
-  (:use [net.cgrand.moustache :only [app]]))
+            [slipstream.ui.views.representation :as representation]))        
 
 ;; =============================================================================
 ;; Local test routes

@@ -1,6 +1,6 @@
 ; (ns slipstream.ui.models.welcome-regular-user-test
-;   (:use [expectations])
-;   (:require [slipstream.ui.util.core :as u]
+;   (:require [expectations :refer :all]
+;             [slipstream.ui.util.core :as u]
 ;             [slipstream.ui.models.welcome :as model]))
 
 ; (def raw-metadata-str

@@ -1,8 +1,9 @@
 (ns slipstream.ui.models.usage-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.usages :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.clojure :as uc]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.usages :as model]))
 
 (def raw-metadata-str
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_usage.json"))

@@ -1,8 +1,9 @@
 (ns slipstream.ui.util.core-test
-  (:use [expectations]
-        [slipstream.ui.util.core])
-  (:require [superstring.core :as s]
-            [slipstream.ui.util.localization :as localization]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :refer :all]
+   [superstring.core :as s]
+   [slipstream.ui.util.localization :as localization]))
 
 (expect
   [{:selected? true} {}]

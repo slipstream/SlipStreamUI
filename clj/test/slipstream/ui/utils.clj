@@ -1,13 +1,14 @@
 (ns slipstream.ui.utils
-  (:use [ring.adapter.jetty :only [run-jetty]]
-        [ring.util.response :only [response file-response]]
-        [ring.middleware.reload :only [wrap-reload]]
-        [ring.middleware.file :only [wrap-file]]
-        [ring.middleware.stacktrace :only [wrap-stacktrace]]
-        [slipstream.ui.test-config :as config])
-  (:require [superstring.core :as s]
-            [clojure.walk :as w]
-            [net.cgrand.enlive-html :as html]))
+  (:require
+   [ring.adapter.jetty :refer [run-jetty]]
+   [ring.util.response :refer [response file-response]]
+   [ring.middleware.reload :refer [wrap-reload]]
+   [ring.middleware.file :refer [wrap-file]]
+   [ring.middleware.stacktrace :refer [wrap-stacktrace]]
+   [slipstream.ui.test-config :refer :all :as config]
+   [superstring.core :as s]
+   [clojure.walk :as w]
+   [net.cgrand.enlive-html :as html]))
 
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 

@@ -1,10 +1,11 @@
 (ns slipstream.ui.util.current-user-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.current-user :as current-user :refer [with-current-user]]
-            [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.dashboard-test :as dashboard]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.current-user :as current-user :refer [with-current-user]]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.util.clojure :as uc]
+   [slipstream.ui.util.localization :as localization]
+   [slipstream.ui.models.dashboard-test :as dashboard]))
 
 (def user-metadata
   (-> "slipstream/ui/mockup_data/metadata_user.xml"

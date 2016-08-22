@@ -3,11 +3,12 @@
   be accessed on the route http://localhost:8082/deployment-view-super. No unit
   tests are made here, since the corresponding metadata transformation is already
   tested in slipstream.ui.models.module.deployment-test."
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.module :as model]
-            [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.util.localization :as localization]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.module :as model]
+   [slipstream.ui.util.page-type :as page-type]
+   [slipstream.ui.util.localization :as localization]))
 
 (def raw-metadata-str
   "<deploymentModule category=\"Deployment\" creation=\"2014-11-21 15:59:48.282 UTC\" deleted=\"false\" description=\"Testing how to create a deployment\" isLatestVersion=\"true\" lastModified=\"2014-11-24 15:57:48.882 UTC\" logoLink=\"\" parentUri=\"module/EBU_TTF/test-ui\" shortName=\"deployment-test\" version=\"612\">
