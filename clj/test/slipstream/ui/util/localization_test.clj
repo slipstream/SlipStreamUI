@@ -1,6 +1,7 @@
 (ns slipstream.ui.util.localization-test
-  (:use [expectations]
-        [slipstream.ui.util.localization]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.localization :refer :all])
 
 (expect
   nil

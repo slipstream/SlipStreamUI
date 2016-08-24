@@ -47,22 +47,23 @@
                       :status
                       :uuid
                       :username])
-        (assoc        :start-time     (-> attrs :startTime))
+        (assoc        :start-time     (:startTime attrs))
         (assoc        :abort-msg      abort-msg)
         (assoc        :abort-flag?    abort-flag?)
         (assoc        :display-status (display-status (:status attrs) abort-flag?))
         (assoc        :type           (-> attrs :type run/run-type-mapping))
         (assoc        :terminable?    (-> attrs :status terminated-states not))
-        (assoc        :module-uri     (-> attrs :moduleResourceUri))
-        (assoc        :uri            (-> attrs :resourceUri))
+        (assoc        :module-uri     (:moduleResourceUri attrs))
+        (assoc        :uri            (:resourceUri attrs))
         (assoc        :service-url    (-> attrs :serviceUrl (or "") s/trim not-empty))
-        (assoc        :cloud-names    (-> attrs :cloudServiceNames))
-        (assoc        :active-vm      (-> attrs :activeVm)))))
+        (assoc        :cloud-names    (:cloudServiceNames attrs))
+        (assoc        :active-vm      (:activeVm attrs)))))
 
 (defn- parse-run-items
   [metadata]
-  (->> (html/select metadata [:runs :item])
-       (map parse-run-item)))
+  (map
+   parse-run-item
+   (html/select metadata [:runs :item])))
 
 (defn parse
   [metadata]

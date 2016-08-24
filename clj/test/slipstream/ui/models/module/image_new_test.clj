@@ -1,10 +1,11 @@
 (ns slipstream.ui.models.module.image-new-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.module :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.util.clojure :as uc]
+   [slipstream.ui.util.page-type :as page-type]
+   [slipstream.ui.util.localization :as localization]
+   [slipstream.ui.models.module :as model]))
 
 (def raw-metadata-str
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_new_image.xml"))

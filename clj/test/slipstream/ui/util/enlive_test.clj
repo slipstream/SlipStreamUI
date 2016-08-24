@@ -1,9 +1,10 @@
 (ns slipstream.ui.util.enlive-test
-  (:use [expectations]
-        [slipstream.ui.util.enlive])
-  (:require [superstring.core :as s]
-            [net.cgrand.enlive-html :as html]
-            [slipstream.ui.utils :as u :refer [expect-html]]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.enlive :refer :all]
+   [superstring.core :as s]
+   [net.cgrand.enlive-html :as html]
+   [slipstream.ui.utils :as u :refer [expect-html]]))
 
 (defn- replace-quotes
   "For readability only."

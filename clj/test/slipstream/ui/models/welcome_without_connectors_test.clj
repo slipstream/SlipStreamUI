@@ -1,6 +1,6 @@
 ; (ns slipstream.ui.models.welcome-without-connectors-test
-;   (:use [expectations])
-;   (:require [slipstream.ui.util.core :as u]
+;   (:require [expectations :refer :all]
+;             [slipstream.ui.util.core :as u]
 ;             [slipstream.ui.util.clojure :as uc]
 ;             [slipstream.ui.util.localization :as localization]
 ;             [slipstream.ui.util.current-user :as current-user :refer [with-current-user]]

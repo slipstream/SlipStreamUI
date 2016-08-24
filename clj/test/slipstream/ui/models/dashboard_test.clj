@@ -1,8 +1,9 @@
 (ns slipstream.ui.models.dashboard-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.dashboard :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.util.localization :as localization]
+   [slipstream.ui.models.dashboard :as model]))
 
 (def raw-metadata-str
   "<dashboard>

@@ -1,8 +1,9 @@
 (ns slipstream.ui.models.runs-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.models.runs :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.util.clojure :as uc]
+   [slipstream.ui.models.runs :as model]))
 
 (def raw-metadata-str
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_runs.xml"))

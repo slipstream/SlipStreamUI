@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.users-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.users :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.users :as model]))
 
 (def raw-metadata-str
   "<list>

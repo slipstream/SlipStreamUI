@@ -34,8 +34,8 @@
 
 (defn- runtime-parameter-node-section
   [parameter-group]
-  (let [subsection-metadata (-> parameter-group :node-instances)
-        section-type        (-> parameter-group :node-type)
+  (let [subsection-metadata (:node-instances parameter-group)
+        section-type        (:node-type parameter-group)
         global?             (= section-type :global)]
     {:icon    (when-not global? (icons/icon-for section-type))
      :title   (if global? (t :section.global.title) (-> parameter-group :node name))

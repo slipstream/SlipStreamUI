@@ -1,8 +1,9 @@
 (ns slipstream.ui.views.base-test
-  (:use [expectations]
-        [slipstream.ui.views.base])
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.utils :as u :refer [expect-html]]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.views.base :refer :all]
+   [net.cgrand.enlive-html :as html]
+   [slipstream.ui.utils :as u :refer [expect-html]]))
 
 ;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:
 ;;

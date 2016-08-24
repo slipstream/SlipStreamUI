@@ -1,9 +1,10 @@
 (ns slipstream.ui.models.vms-regular-user-test
-  (:use [expectations])
-  (:require [clj-time.core :as t]
-            [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.vms :as model]
-            [slipstream.ui.util.current-user :as current-user]))
+  (:require
+   [expectations :refer :all]
+   [clj-time.core :as t]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.vms :as model]
+   [slipstream.ui.util.current-user :as current-user]))
 
 ;; NOTE: For request /vms?media=xml&offset=10&limit=5&cloud=CloudA
 (def raw-metadata-str
@@ -92,7 +93,7 @@
           :ram nil
           :disk nil
           :instance-type nil}]}
-    (let [metadata (-> raw-metadata-str u/clojurify-raw-metadata-str)]
+    (let [metadata (u/clojurify-raw-metadata-str raw-metadata-str)]
       (current-user/with-current-user
         (freeze-time (t/date-time 2014 12 8 12 29)
           (model/parse metadata)))))

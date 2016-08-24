@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.versions-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.versions :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.versions :as model]))
 
 (def raw-metadata-str
   "<versionList>

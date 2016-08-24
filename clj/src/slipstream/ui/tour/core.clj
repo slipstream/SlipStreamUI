@@ -30,7 +30,7 @@
 
 (defn- set-bootstro
   [bootstro-data-key step-info]
-  {:pre (keyword? bootstro-data-key)}
+  {:pre [(keyword? bootstro-data-key)]}
   (ue/when-set-data (->> bootstro-data-key
                          name
                          (str "bootstro-"))

@@ -1,15 +1,16 @@
 (ns slipstream.ui.views.table-test
-  (:use [expectations]
-        [slipstream.ui.views.table])
-  (:require [superstring.core :as s]
-            [slipstream.ui.utils :as u :refer [expect-html]]
-            [net.cgrand.enlive-html :as html]
-            [clj-time.core :as t]
-            [clj-time.format :as f]
-            [slipstream.ui.util.icons :as icons]
-            [slipstream.ui.util.time :as time]
-            [slipstream.ui.util.current-user :as current-user]
-            [slipstream.ui.util.localization :as localization])
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.views.table :refer :all]
+   [superstring.core :as s]
+   [slipstream.ui.utils :as u :refer [expect-html]]
+   [net.cgrand.enlive-html :as html]
+   [clj-time.core :as t]
+   [clj-time.format :as f]
+   [slipstream.ui.util.icons :as icons]
+   [slipstream.ui.util.time :as time]
+   [slipstream.ui.util.current-user :as current-user]
+   [slipstream.ui.util.localization :as localization])
   (:import  [org.joda.time DateTime]))
 
 ;; NOTE: To access the private symbol 'x' in the namespace 'foo.bar',  we use following notation:

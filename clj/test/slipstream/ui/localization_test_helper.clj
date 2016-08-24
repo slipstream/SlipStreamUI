@@ -1,9 +1,10 @@
 (ns slipstream.ui.localization-test-helper
   "Test helper functions to navigate and compare localization files."
-  (:require [clojure.java.io :as io]
-            [superstring.core :as s]
-            [taoensso.tower :as tower]
-            [slipstream.ui.util.clojure :as uc]))
+  (:require
+   [clojure.java.io :as io]
+   [superstring.core :as s]
+   [taoensso.tower :as tower]
+   [slipstream.ui.util.clojure :as uc]))
 
 (def ^:private base-locale :en)
 
