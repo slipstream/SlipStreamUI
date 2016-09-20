@@ -537,17 +537,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 // Like (predicates.isNodeWithOnlyText AND predicates.isNodeWithOverflow)
                 // but tries to guess it even for not visible elements.
                 var $elem = $(this);
-                if ( ! $elem.predicates.isNodeWithOnlyText.call(this, index, element) ) {
-                    return false;
-                }
-                if ( $elem.is(":visible") ) {
-                    return $elem.predicates.isNodeWithOverflow.call(this, index, element);
-                }
-                // If the element is NOT visible, try to foresee the
-                // overflow if a fix width is specified in CSS.
-                var elemWidthStr = $elem.css("width") || $elem.css("max-width") || "",
-                    elemWidth    = elemWidthStr.asInt(/^(\d+)px$/);
-                return elemWidth && elemWidth < $elem.renderedTextWidth();
+
+                return  $elem.predicates.isNodeWithOnlyText.call(this, index, element) &&
+                        $elem.is(":visible")  &&
+                        $elem.predicates.isNodeWithOverflow.call(this, index, element);
             }
         },
 
