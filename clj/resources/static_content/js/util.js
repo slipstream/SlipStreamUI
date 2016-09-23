@@ -535,7 +535,6 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
             isNodeWithOverflowText: function( index, element ) {
                 // Like (predicates.isNodeWithOnlyText AND predicates.isNodeWithOverflow)
-                // but tries to guess it even for not visible elements.
                 var $elem = $(this);
 
                 return  $elem.predicates.isNodeWithOnlyText.call(this, index, element) &&
