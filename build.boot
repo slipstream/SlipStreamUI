@@ -30,7 +30,8 @@
                    [org.clojure/data.json]
                    [org.clojure/data.xml]
                    [superstring]
-
+                   [com.taoensso/timbre]
+                   
                    ;; test dependencies
                    [expectations]
                    [javax.servlet/javax.servlet-api nil :scope "test"]
