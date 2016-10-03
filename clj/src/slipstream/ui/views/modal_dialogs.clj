@@ -61,6 +61,14 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.delete resource-name))))
 
+(localization/with-prefixed-t :delete-all-dialog
+  (html/defsnippet ^:private delete-all-dialog template-filename [:#ss-delete-all-dialog]
+    [resource-name resource-id]
+    title-sel                 (html/content       (t :title resource-name))
+    body-sel                  (html/html-content  (t :question resource-name resource-id))
+    first-button-sel          (html/content       (t :button.cancel))
+    last-button-sel           (html/content       (t :button.delete resource-name))))
+
 (localization/with-prefixed-t :image-chooser-dialog
   (html/defsnippet ^:private image-chooser-dialog template-filename [:#ss-image-chooser-dialog]
     [reference-image]
@@ -275,8 +283,10 @@
         (current-user/not-logged-in?)       (conj (reset-password-dialog))
         (start-tour-required? context)      (conj (start-tour-dialog))
         (page-type/edit?)                   (conj (save-dialog resource-name)
-                                                  (delete-dialog resource-name resource-id))
-        (page-type/view?)                   (conj (delete-dialog resource-name resource-id))
+                                                  (delete-dialog resource-name resource-id)
+                                                  (delete-all-dialog resource-name resource-id))
+        (page-type/view?)                   (conj (delete-dialog resource-name resource-id)
+                                                  (delete-all-dialog resource-name resource-id))
         (chooser-required? context)         (conj (image-chooser-dialog
                                                     (or
                                                       (-> context :parsed-metadata :cloud-image-details :reference-image)

@@ -864,6 +864,7 @@
    :slipstream.ui.util.icons.description.action-copy               :global.verbs.copy
    :slipstream.ui.util.icons.description.action-create             :global.verbs.create
    :slipstream.ui.util.icons.description.action-delete             :global.verbs.delete
+   :slipstream.ui.util.icons.description.action-delete-all         "Delete all versions"
    :slipstream.ui.util.icons.description.action-edit               :global.verbs.edit
    :slipstream.ui.util.icons.description.action-edit-user          "Edit user"
    :slipstream.ui.util.icons.description.action-export-users       "Export users as CSV"
@@ -910,6 +911,7 @@
    :slipstream.ui.views.secondary-menu-actions.copy            :global.verbs.copy
    :slipstream.ui.views.secondary-menu-actions.create          :global.verbs.create
    :slipstream.ui.views.secondary-menu-actions.delete          :global.verbs.delete
+   :slipstream.ui.views.secondary-menu-actions.delete-all      "Delete all versions"
    :slipstream.ui.views.secondary-menu-actions.edit            :global.verbs.edit
    :slipstream.ui.views.secondary-menu-actions.edit-user       "Edit user"
    :slipstream.ui.views.secondary-menu-actions.export-users    "Export users as CSV"
@@ -1131,6 +1133,11 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.delete-dialog.question                    "Are you sure you want to delete the %1$s `%2$s`?"  ;  %1$s: module category ;  %2$s: module name
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               "Delete %1$s" ;  %1$s: module category
+
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.title                   "Delete all versions of this %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.question                "Are you sure you want to delete all versions of the %1$s `%2$s`?"  ;  %1$s: module category ;  %2$s: module name
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.cancel           :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.delete           "Delete all %1$s versions" ;  %1$s: module category
 
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.title                "Choose a parent component"
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.cancel        :global.verbs.cancel

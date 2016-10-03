@@ -5,6 +5,7 @@
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.tables :as t]
+            [slipstream.ui.views.secondary-menu-actions :as action]
             [slipstream.ui.models.versions :as mv]))
 
 (localization/def-scoped-t)
@@ -17,6 +18,10 @@
       (t :header.subtitle.one-version category-label)
       (t :header.subtitle.multiple-versions num-of-versions category-label))))
 
+(defn- actions
+  []
+  [action/delete-all])
+
 (defn page
   [metadata]
   (let [{:keys [versions resource-uri module-name category]} (mv/parse metadata)
@@ -26,5 +31,7 @@
                 :title (t :header.title module-name)
                 :subtitle (subtitle category versions)}
        :resource-uri resource-uri
+       :secondary-menu-actions (actions)
+       :num-of-main-secondary-menu-actions 1
        :content [{:title (t :content.title)
                   :content (t/versions-table icon versions)}]})))
