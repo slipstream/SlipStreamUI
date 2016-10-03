@@ -24,11 +24,12 @@
 
 (defn page
   [metadata]
-  (let [{:keys [versions resource-uri module-name category]} (mv/parse metadata)
+    (let [{:keys [versions resource-uri module-short-name category] :as parsed-metadata} (mv/parse metadata)
         icon (icons/icon-for category)]
     (base/generate
-      {:header {:icon icon
-                :title (t :header.title module-name)
+      {:parsed-metadata parsed-metadata
+       :header {:icon icon
+                :title (t :header.title module-short-name)
                 :subtitle (subtitle category versions)}
        :resource-uri resource-uri
        :secondary-menu-actions (actions)

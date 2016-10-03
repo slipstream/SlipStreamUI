@@ -62,8 +62,10 @@
     last-button-sel           (html/content       (t :button.delete resource-name))))
 
 (localization/with-prefixed-t :delete-all-dialog
+
   (html/defsnippet ^:private delete-all-dialog template-filename [:#ss-delete-all-dialog]
     [resource-name resource-id]
+
     title-sel                 (html/content       (t :title resource-name))
     body-sel                  (html/html-content  (t :question resource-name resource-id))
     first-button-sel          (html/content       (t :button.cancel))
@@ -213,8 +215,9 @@
   (defn- resource-name
     [{:keys [view-name parsed-metadata]}]
     (case view-name
-      "user"    (-> :user t s/lower-case)
-      "module"  (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
+      "user"      (-> :user t s/lower-case)
+      "module"    (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
+      "versions"  (-> parsed-metadata :category u/t-module-category s/lower-case)
       nil)))
 
 (defn- module-version
@@ -224,8 +227,9 @@
 (defn- resource-id
   [{:keys [view-name parsed-metadata]}]
   (case view-name
-    "user"    (-> parsed-metadata :username)
-    "module"  (-> parsed-metadata :summary :name)
+    "user"      (-> parsed-metadata :username)
+    "module"    (-> parsed-metadata :summary :name)
+    "versions"  (-> parsed-metadata :module-name)
     ""))
 
 (defn- module-category?
@@ -275,6 +279,7 @@
 
 (defn required
   [context]
+
   (when (page-type/not-chooser?)
     (let [resource-name (resource-name context)
           resource-id (resource-id context)
