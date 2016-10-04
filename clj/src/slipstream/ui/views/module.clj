@@ -144,7 +144,9 @@
                                       action/new-image
                                       action/new-deployment}}
    :delete          {:access-right  :delete
-                     :menu-actions  #{action/delete}}})
+                     :menu-actions  #{action/delete}}
+   :delete-all      {:access-right  :delete
+                     :menu-actions  #{action/delete-all}}})
 
 (defn- disable-actions
   [menu-actions action]
