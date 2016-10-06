@@ -22,6 +22,9 @@
 (def ^:private first-button-sel [:.modal-footer [:button html/first-of-type]])
 (def ^:private second-button-sel [:.modal-footer [:button (html/nth-of-type 2)]])
 (def ^:private last-button-sel [:.modal-footer [:button html/last-of-type]])
+(def ^:private info-sel [(html/attr= :name "dialog-info")])
+(def ^:private verification-sel [(html/attr= :name "dialog-verification")])
+(def ^:private message-sel [(html/attr= :name "dialog-message")])
 
 
 (localization/with-prefixed-t :start-tour-dialog
@@ -62,14 +65,20 @@
     last-button-sel           (html/content       (t :button.delete resource-name))))
 
 (localization/with-prefixed-t :delete-all-dialog
-
   (html/defsnippet ^:private delete-all-dialog template-filename [:#ss-delete-all-dialog]
     [resource-name resource-id]
 
     title-sel                 (html/content       (t :title resource-name))
-    body-sel                  (html/html-content  (t :question resource-name resource-id))
+    info-sel                  (html/html-content  (t :info resource-name))
+    message-sel               (html/html-content  (t :question resource-name resource-id))
+    verification-sel          (ue/set-placeholder (t :placeholder resource-name))
     first-button-sel          (html/content       (t :button.cancel))
-    last-button-sel           (html/content       (t :button.delete resource-name))))
+    last-button-sel           (html/content       (t :button.delete resource-name))
+    verification-sel          (ue/add-requirements {:required? true
+                                                    :validation {:requirements [{:pattern-name "validation-pattern"
+                                                                                 :pattern (str "^/?" resource-id "$")
+                                                                                 :help-hint {}
+                                                                                 :status {:when-true  "success", :when-false "error"}}]}})))
 
 (localization/with-prefixed-t :image-chooser-dialog
   (html/defsnippet ^:private image-chooser-dialog template-filename [:#ss-image-chooser-dialog]

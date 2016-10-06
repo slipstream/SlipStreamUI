@@ -1135,7 +1135,9 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               "Delete %1$s" ;  %1$s: module category
 
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.title                   "Delete all versions of this %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.info                    "This will delete all versions of this %1$s for which you have the delete permission."  ;  %1$s: module category ;
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.question                "Are you sure you want to delete all versions of the %1$s `%2$s`?"  ;  %1$s: module category ;  %2$s: module name
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.placeholder             "Copy the full name of the %1$s and paste it here"  ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.cancel           :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.delete           "Delete all %1$s versions" ;  %1$s: module category
 

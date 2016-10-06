@@ -33,5 +33,4 @@
    action/new-deployment
    action/edit
    action/import
-   action/delete
-   action/delete-all])
+   action/delete])

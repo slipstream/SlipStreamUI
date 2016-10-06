@@ -91,5 +91,4 @@
    action/copy
    (action/publish    :hidden? (-> module :summary :published?))
    (action/unpublish  :hidden? (-> module :summary :published? not))
-   action/delete
-   action/delete-all])
+   action/delete])
