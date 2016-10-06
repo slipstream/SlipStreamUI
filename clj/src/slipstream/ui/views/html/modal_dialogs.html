@@ -149,6 +149,46 @@
     <p>
 
     <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-delete-all-dialog">
+      Launch demo <code>#ss-delete-all-dialog</code> modal
+    </button>
+
+      <!-- Modal -->
+    <div class="modal fade" id="ss-delete-all-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-delete-all-dialog-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="ss-delete-all-dialog-label">Delete all versions of this module</h4>
+          </div>
+          <form class="form ss-form-has-errors" role="form" action="#">
+            <div class="modal-body">
+              <div role="alert" class="panel panel-info">
+                <div name="dialog-info" class="panel-heading">
+                  This will delete all versions of this module for which you have the delete permission.
+                </div>
+              </div>
+              <div name="dialog-message">
+                Are you sure you want to delete all versions of the module
+                <code>example/some/module/name</code>?
+              </div>
+              <br>
+              <div class="form-group has-feedback ss-form-group-with-validation">
+                <input type="text" id="ss-delete-all-dialog-verification" name="dialog-verification" placeholder="Copy the full name of the module and paste it here" class="form-control" autocomplete="off" >
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-danger ss-ok-btn ss-delete-all-btn" data-dismiss="modal" disabled="disabled">Delete all module versions</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <p>
+
+    <!-- Button trigger modal -->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-image-chooser-dialog">
       Launch demo <code>#ss-image-chooser-dialog</code> modal
     </button>

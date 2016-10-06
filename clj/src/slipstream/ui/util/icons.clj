@@ -91,6 +91,7 @@
 (deficon action-create          action-save)
 (deficon action-cancel          "stop")
 (deficon action-delete          "trash")
+(deficon action-delete-all      "trash")
 (deficon action-ok              "ok")
 (deficon action-export-users    "download")
 

@@ -219,6 +219,37 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     });
 
+    // Delete all action
+
+    $("#ss-secondary-menu-action-delete-all").clickWhenEnabled( function() {
+        var $verification = $('#ss-delete-all-dialog-verification');
+        $verification.enableLiveInputValidation();
+        $verification.focusout(function() {$verification.validateFormInput();});
+        $verification.val('');
+
+        $('#ss-delete-all-dialog').askConfirmation(function () {
+            var request = $$.request.delete($$.util.url.getParentResourceURL()+"/");
+            if ($$.model.getModule().isRootModule()){
+                // There is a (known but untracked) bug on the server which returns
+                // a wrong redirect header when deleting root projects.
+                request.onSuccessRedirectTo("/");
+            } else if ($$.util.meta.isViewName("user")) {
+                // There is a (known but untracked) bug on the server which returns
+                // a wrong redirect header when deleting users.
+                request.onSuccessRedirectTo("/user");
+            } else {
+                request.onSuccessFollowRedirectInResponseHeader();
+            }
+            $$.util.leavingConfirmation.reset();
+            request
+                .onErrorAlert("Unable to delete",
+                    "Something wrong happened when trying to delete this resource." +
+                    " Maybe the server is unreachable, or the connection is down." +
+                    "Please try later again.")
+                .send();
+        });
+    });
+
     // Check if URL asks to trigger an action on pageload
     var actionNameToTrigger = $$.util.urlQueryParams.getValue("action");
     $("#ss-secondary-menu-action-" + actionNameToTrigger).first().click();
