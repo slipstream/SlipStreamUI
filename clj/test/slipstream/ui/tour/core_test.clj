@@ -1,9 +1,10 @@
 (ns slipstream.ui.tour.core-test
-  (:use [expectations]
-        [slipstream.ui.tour.core])
-  (:require [net.cgrand.enlive-html :as html]
-            [slipstream.ui.utils :as u :refer [expect-html]]
-            [slipstream.ui.util.localization :as localization]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.tour.core :refer :all]
+   [net.cgrand.enlive-html :as html]
+   [slipstream.ui.utils :as u :refer [expect-html]]
+   [slipstream.ui.util.localization :as localization]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

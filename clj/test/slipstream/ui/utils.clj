@@ -1,13 +1,14 @@
 (ns slipstream.ui.utils
-  (:use [ring.adapter.jetty :only [run-jetty]]
-        [ring.util.response :only [response file-response]]
-        [ring.middleware.reload :only [wrap-reload]]
-        [ring.middleware.file :only [wrap-file]]
-        [ring.middleware.stacktrace :only [wrap-stacktrace]]
-        [slipstream.ui.test-config :as config])
-  (:require [superstring.core :as s]
-            [clojure.walk :as w]
-            [net.cgrand.enlive-html :as html]))
+  (:require
+   [ring.adapter.jetty :refer [run-jetty]]
+   [ring.util.response :refer [response file-response]]
+   [ring.middleware.reload :refer [wrap-reload]]
+   [ring.middleware.file :refer [wrap-file]]
+   [ring.middleware.stacktrace :refer [wrap-stacktrace]]
+   [slipstream.ui.test-config :refer :all :as config]
+   [superstring.core :as s]
+   [clojure.walk :as w]
+   [net.cgrand.enlive-html :as html]))
 
 ;; Taken from https://github.com/swannodette/enlive-tutorial/
 
@@ -15,10 +16,10 @@
   (config/value :webdir "src/slipstream/ui/views/"))
 
 (defn render [t]
-  (apply str t))
+  (s/join t))
 
 (defn render-snippet [s]
-  (apply str (html/emit* s)))
+  (s/join (html/emit* s)))
 
 (def render-to-response
   (comp response render))
@@ -79,8 +80,7 @@
 (defn- settify-unsorted-attributes
   [enlive-nodes]
   (w/postwalk #(if (map? %)
-                 (-> %
-                     (update-in [:class] as-set-of-words))
+                 (update-in % [:class] as-set-of-words)
                  %)
               enlive-nodes))
 

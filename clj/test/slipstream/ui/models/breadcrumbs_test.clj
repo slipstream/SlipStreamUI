@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.breadcrumbs-test
-  (:use [expectations]
-        [slipstream.ui.models.breadcrumbs])
-  (:require [slipstream.ui.util.current-user :as current-user]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.models.breadcrumbs :refer :all]
+   [slipstream.ui.util.current-user :as current-user]))
 
 (expect
   nil

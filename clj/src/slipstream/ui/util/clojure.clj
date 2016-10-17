@@ -75,9 +75,9 @@
       not-found)))
 
 (defn first-not-nil
-  [& args]
   "Returns the first args which is not nil. Useful to deal with boolean vars,
   to differenciate nil from a defined 'false'."
+  [& args]
   (first (drop-while nil? args)))
 
 (defn parse-pos-int
@@ -180,7 +180,7 @@
   (if-not ((set s) c)
     s
     (->> s
-         (take-while #(not (= c %)))
+         (take-while #(not= c %))
          (apply str))))
 
 (defn trim-from-last
@@ -192,7 +192,7 @@
     s
     (->> s
          reverse
-         (drop-while #(not (= c %)))
+         (drop-while #(not= c %))
          rest
          reverse
          (apply str))))
@@ -206,7 +206,7 @@
     s
     (->> s
          reverse
-         (take-while #(not (= c %)))
+         (take-while #(not= c %))
          reverse
          (apply str))))
 

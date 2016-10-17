@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.action-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.action :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.action :as model]))
 
 (def raw-metadata-str
   "<?xml version='1.0' encoding='UTF-8' standalone='no'?><string>

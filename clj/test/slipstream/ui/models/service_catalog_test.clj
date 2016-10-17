@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.service-catalog-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.service-catalog :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.service-catalog :as model]))
 
 (def raw-metadata-str
   "<serviceCatalogs>

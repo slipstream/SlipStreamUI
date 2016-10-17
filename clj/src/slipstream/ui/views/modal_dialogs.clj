@@ -22,6 +22,9 @@
 (def ^:private first-button-sel [:.modal-footer [:button html/first-of-type]])
 (def ^:private second-button-sel [:.modal-footer [:button (html/nth-of-type 2)]])
 (def ^:private last-button-sel [:.modal-footer [:button html/last-of-type]])
+(def ^:private info-sel [(html/attr= :name "dialog-info")])
+(def ^:private verification-sel [(html/attr= :name "dialog-verification")])
+(def ^:private message-sel [(html/attr= :name "dialog-message")])
 
 
 (localization/with-prefixed-t :start-tour-dialog
@@ -60,6 +63,22 @@
     body-sel                  (html/html-content  (t :question resource-name resource-id))
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.delete resource-name))))
+
+(localization/with-prefixed-t :delete-all-dialog
+  (html/defsnippet ^:private delete-all-dialog template-filename [:#ss-delete-all-dialog]
+    [resource-name resource-id]
+
+    title-sel                 (html/content       (t :title resource-name))
+    info-sel                  (html/html-content  (t :info resource-name))
+    message-sel               (html/html-content  (t :question resource-name resource-id))
+    verification-sel          (ue/set-placeholder (t :placeholder resource-name))
+    first-button-sel          (html/content       (t :button.cancel))
+    last-button-sel           (html/content       (t :button.delete resource-name))
+    verification-sel          (ue/add-requirements {:required? true
+                                                    :validation {:requirements [{:pattern-name "validation-pattern"
+                                                                                 :pattern (str "^/?" resource-id "$")
+                                                                                 :help-hint {}
+                                                                                 :status {:when-true  "success", :when-false "error"}}]}})))
 
 (localization/with-prefixed-t :image-chooser-dialog
   (html/defsnippet ^:private image-chooser-dialog template-filename [:#ss-image-chooser-dialog]
@@ -205,8 +224,9 @@
   (defn- resource-name
     [{:keys [view-name parsed-metadata]}]
     (case view-name
-      "user"    (-> :user t s/lower-case)
-      "module"  (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
+      "user"      (-> :user t s/lower-case)
+      "module"    (-> parsed-metadata :summary :category u/t-module-category s/lower-case)
+      "versions"  (-> parsed-metadata :category u/t-module-category s/lower-case)
       nil)))
 
 (defn- module-version
@@ -216,8 +236,9 @@
 (defn- resource-id
   [{:keys [view-name parsed-metadata]}]
   (case view-name
-    "user"    (-> parsed-metadata :username)
-    "module"  (-> parsed-metadata :summary :name)
+    "user"      (-> parsed-metadata :username)
+    "module"    (-> parsed-metadata :summary :name)
+    "versions"  (-> parsed-metadata :module-name)
     ""))
 
 (defn- module-category?
@@ -267,6 +288,7 @@
 
 (defn required
   [context]
+
   (when (page-type/not-chooser?)
     (let [resource-name (resource-name context)
           resource-id (resource-id context)
@@ -275,8 +297,10 @@
         (current-user/not-logged-in?)       (conj (reset-password-dialog))
         (start-tour-required? context)      (conj (start-tour-dialog))
         (page-type/edit?)                   (conj (save-dialog resource-name)
-                                                  (delete-dialog resource-name resource-id))
-        (page-type/view?)                   (conj (delete-dialog resource-name resource-id))
+                                                  (delete-dialog resource-name resource-id)
+                                                  (delete-all-dialog resource-name resource-id))
+        (page-type/view?)                   (conj (delete-dialog resource-name resource-id)
+                                                  (delete-all-dialog resource-name resource-id))
         (chooser-required? context)         (conj (image-chooser-dialog
                                                     (or
                                                       (-> context :parsed-metadata :cloud-image-details :reference-image)

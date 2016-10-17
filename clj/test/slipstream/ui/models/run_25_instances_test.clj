@@ -1,9 +1,10 @@
 (ns slipstream.ui.models.run-25-instances-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.util.clojure :as uc]
-            [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.run :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.util.clojure :as uc]
+   [slipstream.ui.util.localization :as localization]
+   [slipstream.ui.models.run :as model]))
 
 (def raw-metadata-str
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_run_25_instances.xml"))
@@ -44,8 +45,7 @@
    :category "Application"
    :abort-msg "Cloud Username cannot be empty, please edit your <a href='/user/rob'> user account</a>"
    :tags ""}
-  (-> parsed-metadata
-      :summary))
+  (:summary parsed-metadata))
 
 (expect
   [:global :orchestrator :node]

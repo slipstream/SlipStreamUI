@@ -60,7 +60,7 @@
                     :mapping          "Liaison"
                     :metering         "Mesures"
                     :module           "Module"
-                    :mutable-deployment "Déploiement scalable _(beta)_"
+                    :mutable-deployment "Déploiement scalable"
                     :name             "Nom"
                     :node             "Noeud"
                     :nodes            "Noeuds"
@@ -540,7 +540,7 @@
    ;; Parameters for the global section of the 'Run deployment' dialog
 
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
-   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _scalable_, qui permettra de modifier la `multiplicité` après le lancement. **Attention!** Ceci est une fonctionnalité en _BETA_!"
+   :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _scalable_, qui permettra de modifier la `multiplicité` après le lancement."
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
    :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés."
@@ -800,6 +800,7 @@
    :slipstream.ui.util.icons.description.action-copy               :global.verbs.copy
    :slipstream.ui.util.icons.description.action-create             :global.verbs.create
    :slipstream.ui.util.icons.description.action-delete             :global.verbs.delete
+   :slipstream.ui.util.icons.description.action-delete-all         "Supprimer toutes les versions"
    :slipstream.ui.util.icons.description.action-edit               :global.verbs.edit
    :slipstream.ui.util.icons.description.action-edit-user          "Editer l'utilisateur"
    :slipstream.ui.util.icons.description.action-export-users       "Exporter les utilisateurs au format CSV"
@@ -853,6 +854,7 @@
    :slipstream.ui.views.secondary-menu-actions.create          :global.verbs.create
    :slipstream.ui.views.secondary-menu-actions.cancel          :global.verbs.cancel
    :slipstream.ui.views.secondary-menu-actions.delete          :global.verbs.delete
+   :slipstream.ui.views.secondary-menu-actions.delete-all      "Supprimer toutes les versions"
 
    :slipstream.ui.views.secondary-menu.disabled-reason.super-only-action  "Vous devez être administrateur pour pouvoir effectuer cette action."
    :slipstream.ui.views.module.action-disabled-reason.wrong-acls          "Vous n'avez pas l'autorisation d'effectuer cette action. Vous pouvez contacter le propriétaire de ce module pour la lui demander."
@@ -979,6 +981,13 @@
    :slipstream.ui.views.modal-dialogs.delete-dialog.question                    "Etes-vous sur de vouloir supprimer cette version de ce module ?"
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.cancel               :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               :global.verbs.delete
+
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.title                   "Supprimer toutes les versions du module"
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.info                    "Toutes les versions de ce module dont vous avez le droit de suppression vont être supprimées."  ;  %1$s: module category ;
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.question                "Etes-vous sur de vouloir supprimer toutes les versions du module `%2$s` ?"
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.placeholder             "Copiez le nom complet du module et collez le ici"  ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.cancel           :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.delete           :global.verbs.delete
 
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.title                "Choisir une image"
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.cancel        :global.verbs.cancel

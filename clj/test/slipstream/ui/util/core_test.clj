@@ -1,8 +1,9 @@
 (ns slipstream.ui.util.core-test
-  (:use [expectations]
-        [slipstream.ui.util.core])
-  (:require [superstring.core :as s]
-            [slipstream.ui.util.localization :as localization]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :refer :all]
+   [superstring.core :as s]
+   [slipstream.ui.util.localization :as localization]))
 
 (expect
   [{:selected? true} {}]
@@ -123,8 +124,7 @@
 (expect
   expected-enum-with-custom-selection
   (localization/with-lang :en
-    (-> platforms
-        (enum :cloud-platforms "fedora"))))
+    (enum platforms :cloud-platforms "fedora")))
 
 (expect
   [{:value  "centos",   :text   "CentOS", :selected? true, :original-selection "value-not-available"}

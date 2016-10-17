@@ -48,10 +48,8 @@
 
 (defn- targets
   [metadata]
-  (-> []
-      ; Deployment recipes
-      (mu/conj-script-target "execute" metadata :orchestrator)
-      ))
+  ; Deployment recipes
+  (mu/conj-script-target [] "execute" metadata :orchestrator))
 
 (defn sections
   [metadata]

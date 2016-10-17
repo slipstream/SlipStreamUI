@@ -41,33 +41,32 @@
                                  (remove nil?)
                                  (reduce +))]
     {:category      (-> attrs :category u/t-module-category)
-     :creation      (-> attrs :creation)
-     :start-time    (-> attrs :startTime)
-     :end-time      (-> attrs :endTime)
+     :creation      (:creation attrs)
+     :start-time    (:startTime attrs)
+     :end-time      (:endTime attrs)
      :deleted?      (-> attrs :deleted uc/parse-boolean)
      :mutable?      (-> attrs :mutable uc/parse-boolean)
-     :run-owner     (-> attrs :user) ;; NOTE: User who started the build (for module owner, see below)
-     :state         (-> attrs :state)
-     :status        (-> attrs :status)
+     :run-owner     (:user attrs) ;; NOTE: User who started the build (for module owner, see below)
+     :state         (:state attrs)
+     :status        (:status attrs)
      :counts        {:total-orchestrators total-orchestrators
                      :total-nodes         total-nodes
                      :total-instances     total-instances}
      :large-run?    (> total-instances large-run-threshold)
-     :uuid          (-> attrs :uuid)
+     :uuid          (:uuid attrs)
      :original-type (-> attrs :type s/lower-case)
      :localized-type(-> attrs :type run-type-localization-mapping)
      :type          (-> attrs :type run-type-mapping)
-     :uri           (-> attrs :resourceUri)
+     :uri           (:resourceUri attrs)
      :module-owner  (-> metadata (html/select [:module :authz]) first :attrs :owner)
-     :module-uri    (-> attrs :moduleResourceUri)
-     :last-state-change (-> attrs :lastStateChangeTime)}))
+     :module-uri    (:moduleResourceUri attrs)
+     :last-state-change (:lastStateChangeTime attrs)}))
 
 
 (defn parse
   "See tests for structure of the expected parsed metadata."
   [metadata]
-  (let [runtime-parameters (->> metadata
-                                runtime-parameters/parse)]
+  (let [runtime-parameters (runtime-parameters/parse metadata)]
     (-> {}
         (assoc :summary (summary metadata runtime-parameters))
         (assoc :runtime-parameters runtime-parameters)

@@ -1,6 +1,6 @@
 ; (ns slipstream.ui.models.welcome-test
-;   (:use [expectations])
-;   (:require [slipstream.ui.util.core :as u]
+;   (:require [expectations :refer :all]
+;             [slipstream.ui.util.core :as u]
 ;             [slipstream.ui.util.clojure :as uc]
 ;             [slipstream.ui.models.welcome :as model]))
 

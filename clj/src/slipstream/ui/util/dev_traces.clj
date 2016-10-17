@@ -66,7 +66,7 @@
                                      (println  ~reset-color))
                                  `(do
                                    (print ~prefix-space ~(space-str 3) ~baby-blue)
-                                   (pr (clojure.walk/prewalk-replace ~(into {} (for [sbl (keys &env)] [`(quote ~sbl) sbl])) (quote ~(-> %2 last))))
+                                   (pr (clojure.walk/prewalk-replace ~(into {} (for [sbl (keys &env)] [`(quote ~sbl) sbl])) (quote ~(last %2))))
                                    (when ~(last-step? %1)
                                      (print ")"))
                                    (print " ")

@@ -98,8 +98,7 @@
 
 (defn- input-parameters
   [metadata]
-  (->> (parameters/parse-input-parameters metadata)
-       transform-reorder))
+  (transform-reorder (parameters/parse-input-parameters metadata)))
 
 ;; Metadata section build
 

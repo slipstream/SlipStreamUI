@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.module.project-new-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.module :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.module :as model]))
 
 (def raw-metadata-str
   "<projectModule description='A description...' lastModified='2013-05-16 17:04:39.113 CEST' category='Project' deleted='false' resourceUri='module/Public/new' parentUri='module/Public' name='Public/new' version='-1' creation='2013-05-16 17:04:39.113 CEST' shortName='new'>

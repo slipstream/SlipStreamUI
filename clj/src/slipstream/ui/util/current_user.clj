@@ -39,9 +39,8 @@
   (check-symbol-present &env 'metadata)
   `(with-user (or
                 (~parse-current-user-from-metadata ~(symbol "metadata"))
-                (:user ~(if (symbol-present? &env 'options)
-                          (symbol "options")
-                          nil)))
+                (:user ~(when (symbol-present? &env 'options)
+                          (symbol "options"))))
     ~@body))
 
 (defn username

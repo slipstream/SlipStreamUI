@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.runs-paginated-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.runs :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.runs :as model]))
 
 ;; NOTE: For request /run?offset=5&limit=4&cloud=CloudA
 (def raw-metadata-str

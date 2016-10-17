@@ -22,7 +22,7 @@
 
 (defn- match-not-forbidden
   [matches? s]
-  (let [expected  (if matches? s nil)
+  (let [expected  (when matches? s)
         actual    (re-matches not-forbidden-user-roles-regex s)]
     (is (= expected actual))))
 

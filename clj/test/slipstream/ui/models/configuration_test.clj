@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.configuration-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.core :as u]
-            [slipstream.ui.models.configuration :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.core :as u]
+   [slipstream.ui.models.configuration :as model]))
 
 (def raw-metadata-str
    "<serviceConfiguration deleted='false' creation='2013-03-06 14:31:01.390 CET'>

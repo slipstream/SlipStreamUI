@@ -1,7 +1,8 @@
 (ns slipstream.ui.models.pagination-test
-  (:use [expectations])
-  (:require [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.models.pagination :as model]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.localization :as localization]
+   [slipstream.ui.models.pagination :as model]))
 
 (expect
   {:msg "91 − 100 of 430" ;; NOTE: the dash char is not a plain dash, but a "minus-dash" char

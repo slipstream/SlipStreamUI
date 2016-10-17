@@ -1,7 +1,8 @@
 (ns slipstream.ui.util.interop-test
-  (:require [clojure.set :refer [union]])
-  (:use [expectations]
-        [slipstream.ui.util.interop]))
+  (:require
+   [expectations :refer :all]
+   [slipstream.ui.util.interop :refer :all]
+   [clojure.set :refer [union]]))
 
 (defn get-class [^String s]
   (try 
