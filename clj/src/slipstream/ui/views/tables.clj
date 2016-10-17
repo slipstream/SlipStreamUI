@@ -259,28 +259,28 @@
   [module]
   (parameters-table
     (p/map->parameter-list module
-      :name           {:type :cell/text
-                       :editable? (page-type/new?)
-                       :id-format-fn (constantly "ss-module-name")
-                       :required? true
-                       :validation {:requirements (pattern/requirements :module-name)}}
-      :description    {:type :cell/text}
-      :uri            {:type :cell/module-version, :as-parameter :module-version, :editable? false, :remove? (page-type/new?)}
-      :comment        {:type :cell/text,       :remove?  (page-type/edit-or-new?)}
-      :category       {:type :cell/text,       :editable? false, :remove? (page-type/new?)}
-      :creation       {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
-      :publication    {:type :cell/timestamp-long,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
-      :last-modified  {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
-      :owner          {:type :cell/username,   :editable? false, :remove? (page-type/new?), :id-format-fn (constantly "username")}
-      :placement-policy {:type :cell/text :remove? (not= "Image" (:category module))}
+      :name               {:type :cell/text
+                           :editable? (page-type/new?)
+                           :id-format-fn (constantly "ss-module-name")
+                           :required? true
+                           :validation {:requirements (pattern/requirements :module-name)}}
+      :description        {:type :cell/text}
+      :uri                {:type :cell/module-version,  :as-parameter :module-version, :editable? false, :remove? (page-type/new?)}
+      :comment            {:type :cell/text,            :remove?  (page-type/edit-or-new?)}
+      :category           {:type :cell/text,            :editable? false, :remove? (page-type/new?)}
+      :creation           {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
+      :publication        {:type :cell/timestamp-long,  :editable? false, :remove? (->  module :publication not-empty not), :id-format-fn (constantly "ss-publication-date")}
+      :last-modified      {:type :cell/timestamp-long,  :editable? false, :remove? (page-type/new?)}
+      :owner              {:type :cell/username,        :editable? false, :remove? (page-type/new?), :id-format-fn (constantly "username")}
+      :placement-policy   {:type :cell/text             :remove?   (-> module :category (.equals "Image") not)}
 
-      :logo-url       {:type :cell/text
-                       :remove? (page-type/view?)
-                       :id-format-fn (constantly "logoLink")
-                       :required? false
-                       :validation {:requirements (pattern/requirements :picture-url)
-                                    :generic-help-hints {:success  (t :logo-url.success-help-hint)
-                                                         :warning  (t :logo-url.warning-help-hint)}}})))
+      :logo-url           {:type :cell/text
+                           :remove? (page-type/view?)
+                           :id-format-fn (constantly "logoLink")
+                           :required? false
+                           :validation {:requirements (pattern/requirements :picture-url)
+                                        :generic-help-hints {:success  (t :logo-url.success-help-hint)
+                                                             :warning  (t :logo-url.warning-help-hint)}}})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
