@@ -310,7 +310,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
-        $('#ss-run-module-dialog').on("show.bs.modal", function (e) { callRequestPlacementIfEnabled();});
+        $('#ss-run-module-dialog').on("shown.bs.modal", function (e) { callRequestPlacementIfEnabled();});
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
             callRequestPlacementIfEnabled();
