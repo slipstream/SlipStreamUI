@@ -112,11 +112,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             warnWhenNoConnectorsAvailable(false);
         };
 
+        // prices are in EUR / h
         var priceToString = function(price, currency) {
             if(price < 0) {
                 return " (unknown price)";
             } else {
-                return " (" + (currency !== undefined ? "$ " : "") +
+                return " (" + (currency !== undefined ? "€ " : "") +
                     price.toFixed(4) + "/h)";
             }
         };
