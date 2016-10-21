@@ -142,10 +142,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         // 1000 so that it ends up at the end of the selection
                         t: $(o).text(),
                         d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
+                        s: $(o).prop("selected"),
                         v: o.value
                     };
-                }),
-                isFirstOptionSelected;
+                });            
             arr.sort(function(o1, o2) {
                 return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
             });
@@ -153,13 +153,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 o.value = arr[i].v;
                 $(o).text(arr[i].t);
                 $(o).attr("disabled", arr[i].d);
-
-
-                if(!arr[i].d && isFirstOptionSelected === undefined) {
-
-                    isFirstOptionSelected = true;
-                    $(o).attr("selected", true);
-                }
+                $(o).prop("selected", arr[i].s);
             });
         };
 
@@ -219,7 +213,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 price         = info[connector].price * multiplicity,
                                 currency      = info[connector].currency,
                                 priceInfo     = priceToString(price, currency),
-                                defaultCloud  = this.text.match(/ \*/) ? " *" : "";
+                                defaultCloud  = this.text.includes("*") ? " *" : "";
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
@@ -233,6 +227,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 $(this).attr("disabled", false);
                                 console.log("enabling " + connector);
                                 $(this).text(connector + defaultCloud + priceInfo);
+
+                                $(this).prop('selected', defaultCloud !== "");
+                                
                         }
                     });
                     if(!nodeEnabled) {
@@ -255,14 +252,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $("#global-cloud-service option").each(function() {
                 if($.inArray(this.value, connectorsForEveryComponent) === -1){
                     $(this).attr("disabled", true);
-                } else if(appPricePerConnector[this.value] !== undefined) {
+                } else if(appPricePerConnector[this.value] !== undefined) {                    
                     var connector     = this.value,
                         price         = appPricePerConnector[connector].price,
                         currency      = appPricePerConnector[connector].currency,
                         priceInfo     = priceToString(price, currency),
-                        defaultCloud  = this.text.match(/\*$/) ? " *" : "";
-                     $(this).text(connector + defaultCloud + priceInfo);
-                     $(this).attr("disabled", false);
+                        defaultCloud  = this.text.includes("*") ? " *" : "";
+                    $(this).text(connector + defaultCloud + priceInfo);
+                    $(this).attr("disabled", false);
+                    $(this).prop('selected', defaultCloud !== "");
+
+                    if(defaultCloud !== "") {
+                        $(this).change();
+                    }
+
                 } else {
                    $(this).attr("disabled", true);
                 }
@@ -275,44 +278,44 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         },
 
-            buildRequestUIPlacement = function() {
-                userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
-                components      = $(".ss-run-module-dialog .ss-deployment-node-row")
-                                            .map(function(){
-                                                var $node = $(this),
-                                                    nodeName = $node.find(".ss-node-shortname").text(),
-                                                    connector = $node.find("[name$=--cloudservice]").val();
-                                                    multiplicity = $node.find("[name$=--multiplicity]").val();
-                                                console.log("nodename = " + nodeName+" , # = " + multiplicity);
-                                                return {
-                                                    nodeName: nodeName,
-                                                    multiplicity: multiplicity,
-                                                    connector: connector,
-                                                    placementPolicy: undefined // TODO
-                                                };
+        buildRequestUIPlacement = function() {
+            userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
+            components      = $(".ss-run-module-dialog .ss-deployment-node-row")
+                                        .map(function(){
+                                            var $node = $(this),
+                                                nodeName = $node.find(".ss-node-shortname").text(),
+                                                connector = $node.find("[name$=--cloudservice]").val();
+                                                multiplicity = $node.find("[name$=--multiplicity]").val();
+                                            console.log("nodename = " + nodeName+" , # = " + multiplicity);
+                                            return {
+                                                nodeName: nodeName,
+                                                multiplicity: multiplicity,
+                                                connector: connector,
+                                                placementPolicy: undefined // TODO
+                                            };
+                                        })
+                                        .toArray(),
+            moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),
+            requestUiPlacement = $$.request
+                                            .put("/ui/placement")
+                                            .data({
+                                                moduleUri: moduleUri,
+                                                userConnectors: userConnectors,
+                                                components: components
                                             })
-                                            .toArray(),
-                moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),
-                requestUiPlacement = $$.request
-                                                .put("/ui/placement")
-                                                .data({
-                                                    moduleUri: moduleUri,
-                                                    userConnectors: userConnectors,
-                                                    components: components
-                                                })
-                                                .serialization("json")
-                                                .dataType("json")
-                                                .onSuccess( function (prsResponse){
-                                                    console.log("PRS-lib response: ", prsResponse);
-                                                    updateSelectOptions(prsResponse);
-                                                })
-                                                .preventDefaultErrorHandling()
-                                                .onError( function (jqXHR, textStatus, errorThrown) {
-                                                    console.error("PRS-lib error : ", jqXHR.responseJSON.error);
-                                                    resetSelectOptions();
-                                                });
-                return requestUiPlacement;
-            };
+                                            .serialization("json")
+                                            .dataType("json")
+                                            .onSuccess( function (prsResponse){
+                                                console.log("PRS-lib response: ", prsResponse);
+                                                updateSelectOptions(prsResponse);
+                                            })
+                                            .preventDefaultErrorHandling()
+                                            .onError( function (jqXHR, textStatus, errorThrown) {
+                                                console.error("PRS-lib error : ", jqXHR.responseJSON.error);
+                                                resetSelectOptions();
+                                            });
+            return requestUiPlacement;
+        };
 
         var callRequestPlacementIfEnabled = function () {
             if(isPrsEnabled) {
