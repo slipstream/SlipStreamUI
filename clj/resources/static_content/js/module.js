@@ -92,8 +92,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var warnWhenNoConnectorsAvailable = function (noConnectors) {
             console.log(noConnectors ? "no connectors available to deploy for at least one component" : "connectors available");
+
             $(".ss-ok-btn.ss-run-btn").attr("disabled", noConnectors);
             $(".ss-ok-btn.ss-build-btn").attr("disabled", noConnectors);
+
+            if(noConnectors) {
+                $("#global-cloud-service, #parameter--cloudservice")
+                    .append($('<option>', { value:      "",
+                                            text:       "No cloud available due to chosen policy",
+                                            selected:   true}));
+            } else {
+                // TODO remove potential option "No cloud available due to chosen policy"
+            }
+
+            $("#global-cloud-service, #parameter--cloudservice").attr("disabled", noConnectors);
+
         };
 
         var resetSelectOptions = function(textUnavailable) {
@@ -236,7 +249,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     reorderSelectOptions($nodeOptionsToDecorate, info);
                 });
-                warnWhenNoConnectorsAvailable(connectorsForEveryComponent.length === 0);
             });
 
             $("#global-cloud-service option").attr("disabled", false);

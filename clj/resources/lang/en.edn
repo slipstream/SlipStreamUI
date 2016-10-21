@@ -493,7 +493,7 @@
    :slipstream.ui.models.parameters.owner.help-hint                             ""
 
    :slipstream.ui.models.parameters.placement-policy.description                "Placement policy"
-   :slipstream.ui.models.parameters.placement-policy.help-hint                  "Placement policy (e.g location='fr')"
+   :slipstream.ui.models.parameters.placement-policy.help-hint                  "Placement policy (e.g schema-org:location='fr')"
 
 
    :slipstream.ui.models.parameters.module-owner.description                    "Application / Component owner"
