@@ -49,7 +49,18 @@
               :target-machine-type :application-component
               :context      #{:scaling :ss-client-access}
               :target-name  "onvmremove"
-              :script       nil}]
+              :script       nil}
+             {:target-type  :script
+              :target-machine-type :application-component
+              :context      #{:scaling :ss-client-access}
+              :target-name  "prescale"
+              :script       nil}
+             {:target-type  :script
+              :target-machine-type :application-component
+              :context      #{:scaling :ss-client-access}
+              :target-name  "postscale"
+              :script       nil}
+             ]
    :deployment-parameters   [{:help-hint nil
                               :mandatory? false
                               :read-only? false
