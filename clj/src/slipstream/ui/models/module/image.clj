@@ -58,9 +58,8 @@
       (mu/conj-script-target   "report"      metadata)
       (mu/conj-script-target   "onvmadd"     metadata)
       (mu/conj-script-target   "onvmremove"  metadata)
-      ; NOTE: To display the prescale and postscale scripts, just decomment these 2 lines:
-      ; (mu/conj-script-target   "prescale"    metadata)
-      ; (mu/conj-script-target   "postscale"   metadata)
+      (mu/conj-script-target   "prescale"    metadata)
+      (mu/conj-script-target   "postscale"   metadata)
       ))
 
 
