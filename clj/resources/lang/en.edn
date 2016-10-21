@@ -1055,9 +1055,9 @@
    :slipstream.ui.views.module.util.section.targets.subsection.onvmremove.application-component.title!         "7. On VM Remove"; "On VM Remove"
    :slipstream.ui.views.module.util.section.targets.subsection.onvmremove.application-component.description    "This script runs when VM(s) are removed from the deployment. In this script you can use the application parameters defined in the **Application Parameters** section above using the SlipStream client (see below for details)."
    :slipstream.ui.views.module.util.section.targets.subsection.prescale.application-component.title!           "8. Pre-Scale"; "Pre-Scale"
-   :slipstream.ui.views.module.util.section.targets.subsection.prescale.application-component.description      "Runs on the node instance before scale IaaS action (any vertical and only horizontal down scaling)."
+   :slipstream.ui.views.module.util.section.targets.subsection.prescale.application-component.description      "Runs on the node instance before scale IaaS action (any vertical (subject to implementation by connector) and only horizontal down scaling)."
    :slipstream.ui.views.module.util.section.targets.subsection.postscale.application-component.title!          "9. Post-Scale"; "Post-Scale"
-   :slipstream.ui.views.module.util.section.targets.subsection.postscale.application-component.description     "Runs on the node instance after scale IaaS action (only after vertical scaling)."
+   :slipstream.ui.views.module.util.section.targets.subsection.postscale.application-component.description     "Runs on the node instance after scale IaaS action (only after vertical scaling (subject to implementation by connector))."
 
 :slipstream.ui.views.module.util.section.targets.subsection.ss-commands-documentation!
 "Following are the SlipStream client commands that can be used in this script:
