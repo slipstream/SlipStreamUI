@@ -156,12 +156,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                 $(o).attr("disabled", arr[i].d);
 
-                var selected = (arr[i].s && !arr[i].d) || !isSelected;
+                var specifySelected = (!isSelected && $(o).val() ==='specify-for-each-node'),
+                    selected        = specifySelected || !arr[i].d && (arr[i].s || !isSelected);
                 if(selected) {
                     isSelected = true;
                 }
+
+                if(specifySelected) {
+                    $("select[id$='--cloudservice']")
+                        .closest("tr")
+                        .slideDownRow();
+                }
+
                 $(o).prop("selected", selected);
             });
+
         };
 
         var isPrsEnabled = true;
