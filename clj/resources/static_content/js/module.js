@@ -149,11 +149,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
             arr.sort(function(o1, o2) {
                 return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
             });
+            var isSelected = false;
             options.each(function(i, o) {
                 o.value = arr[i].v;
                 $(o).text(arr[i].t);
+
                 $(o).attr("disabled", arr[i].d);
-                $(o).prop("selected", arr[i].s);
+
+                var selected = (arr[i].s && !arr[i].d) || !isSelected;
+                if(selected) {
+                    isSelected = true;
+                }
+                $(o).prop("selected", selected);
             });
         };
 
