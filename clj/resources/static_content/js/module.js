@@ -224,11 +224,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         } else {
 
                             nodeEnabled = true;
-                            var multiplicity  = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
-                                multiplicity  = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
-                                price         = info[connector].price * multiplicity,
-                                currency      = info[connector].currency,
-                                priceInfo     = priceToString(price, currency),
+                            var multiplicity    = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                                multiplicity    = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
+                                price           = info[connector].price * multiplicity,
+                                currency        = info[connector].currency,
+                                priceInfo       = priceToString(price, currency),
+                                connectorInfo   = " " +  info[connector].instance_type + " " +
+                                                    info[connector].cpu + "/" + info[connector].ram + "/" +
+                                                    info[connector].disk + " ",
                                 defaultCloud  = this.text.includes("*") ? " *" : "";
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
@@ -242,7 +245,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                                 $(this).attr("disabled", false);
                                 console.log("enabling " + connector);
-                                $(this).text(connector + defaultCloud + priceInfo);
+                                $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
 
                                 $(this).prop('selected', defaultCloud !== "");
                                 
