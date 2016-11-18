@@ -135,6 +135,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
+        var displayValueWhenPresent = function(v) {
+            return v ? v : "?";
+        };
+
+        var connectorInfoToString = function(connectorInfo) {
+            return " " + displayValueWhenPresent(connectorInfo.instance_type) + " " +
+                         displayValueWhenPresent(connectorInfo.cpu) + "/" + 
+                         displayValueWhenPresent(connectorInfo.ram) + "/" +
+                         displayValueWhenPresent(connectorInfo.disk) + " ";
+        };
+
         var reorderSelectOptions = function(options, info) {
             var arr = $.map(options, function(o) {
                     return {
@@ -229,9 +240,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 price           = info[connector].price * multiplicity,
                                 currency        = info[connector].currency,
                                 priceInfo       = priceToString(price, currency),
-                                connectorInfo   = " " +  info[connector].instance_type + " " +
-                                                    info[connector].cpu + "/" + info[connector].ram + "/" +
-                                                    info[connector].disk + " ",
+                                connectorInfo   = connectorInfoToString(info[connector]),
                                 defaultCloud  = this.text.includes("*") ? " *" : "";
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
