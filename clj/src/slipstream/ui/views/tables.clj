@@ -445,7 +445,7 @@
     [row-index {:keys [disabled? placeholder category blank-row?] :as param} field]
     {:type      :cell/enum
      :editable? blank-row?
-     :content {:disabled? disabled?
+     :content {:disabled? (page-type/edit-or-new?)
                :include-hidden-input? (not blank-row?)
                :id (when-not disabled? (deployment-parameter-cell-id row-index field))
                :enum (u/enum ["Output" "Input"] :deployment-parameter-category category)}})
