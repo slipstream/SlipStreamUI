@@ -338,9 +338,9 @@
    :slipstream.ui.views.tables.deployment-nodes-table.parameter-mappings.label                    "Liaisons de paramètres"
 
    :slipstream.ui.views.tables.deployment-nodes-table.parameter.input                  "Le paramètre `%1$s`"          ; %1$s = input parameter name
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output        "est lié à `%1$s`." ; %1$s = input parameter value
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value         "vaut, par défaut, `%1$s`."  ; %1$s = input parameter value
-   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty   "n'a pas de valeur par défaut."
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-output        "est lié à `%1$s`" ; %1$s = input parameter value
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value         "vaut, par défaut, `%1$s`"  ; %1$s = input parameter value
+   :slipstream.ui.views.tables.deployment-nodes-table.parameter.bound-to-value.empty   "n'a pas de valeur par défaut"
    :slipstream.ui.views.tables.deployment-nodes-table.node-name-unique.error-help-hint "Entrer un nom de noeud unique."
    :slipstream.ui.views.tables.deployment-nodes-table.button-label.choose-reference    "Choisir une image de référence pour ce noeud"
    :slipstream.ui.util.core.enum.option.text.mapping-options.parameter.bind-to-output  "Lié à un paramètre de sortie d'un autre noeud"
