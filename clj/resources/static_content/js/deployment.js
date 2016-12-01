@@ -334,7 +334,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function isUniqueNodeShortname(nodeName, $nodeNameInputBeingEdited) {
         var isUnique = true;
-        $(nodeShortnameInputSel)
+        if ($nodeNameInputBeingEdited.is(':enabled')) {
+            $(nodeShortnameInputSel + ":not(:disabled)")
             .not($nodeNameInputBeingEdited)
                 .each(function() {
                     var $this = $(this);
@@ -343,6 +344,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         return false; // break 'each' loop
                     }
                 });
+        }
         return isUnique;
     }
 
