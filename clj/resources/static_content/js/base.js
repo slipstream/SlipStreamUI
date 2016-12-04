@@ -181,7 +181,22 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(".ss-deployment-node-unfinished-row").not(".ss-disabled-row").foundAny()) {
                 $$.alert.showError("Unfinished deployment configuration",
                     "There are still some nodes without a reference image. Setup them correctly or remove them before saving.");
+                $(".ss-params-output-bindings").filter(":visible").filter(function() {return !this.value;}).foundAny();
                 return false;
+            }
+            if (module.isOfCategory("deployment")) {
+                if ($(".ss-deployment-node-unfinished-row").not(".ss-disabled-row").foundAny()) {
+                    $$.alert.showError("Unfinished deployment configuration",
+                                        "There are still some nodes without a reference image. "
+                                        + "Setup them correctly or remove them before saving.");
+                    return false;
+                }
+                if ($(".ss-params-output-bindings").filter(":visible")
+                .filter(function() {return !this.value;}).foundAny()) {
+                    $$.alert.showError("Unfinished mapping(s) configuration.",
+                    "There are still some empty mapping(s).");
+                    return false
+                }
             }
         }
         return true;

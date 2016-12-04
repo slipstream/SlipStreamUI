@@ -87,7 +87,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             newNodeOutputParameters = this.getOutputParameterNames(),
             $outputParamsSelectElemsOfNewNode = $editedNodeRow.find("." + paramsOutputBindingsCls),
             $outputParamsSelectElemsOfOtherNodes = $("." + paramsOutputBindingsCls).not($outputParamsSelectElemsOfNewNode);
-        updateSelectsWithNewNodeParams($outputParamsSelectElemsOfOtherNodes, newNodeName, newNodeOutputParameters);
+        updateSelectsWithNewNodeParams($outputParamsSelectElemsOfOtherNodes, newNodeName, newNodeOutputParameters, $editedNodeRow.find(nodeShortnameInputSel).id());
 
         $editedNodeRow
             .removeClass(unfinishedNodeRowCls)
@@ -121,8 +121,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .addClass(formFieldToValidateCls);
         });
 
-    function injectHTMLForOptGroup(selectHTMLArray, nodeName, nodeOutputParams) {
-        selectHTMLArray.push("<optgroup label=\""+ nodeName +"\">");
+    function injectHTMLForOptGroup(selectHTMLArray, nodeName, nodeOutputParams, nodeIndex) {
+        selectHTMLArray.push("<optgroup label=\""+ nodeName +"\" class=\"" + "optgroup_" + nodeIndex + "\">");
         $.each(nodeOutputParams, function(paramIndex) {
             var paramName = nodeOutputParams[paramIndex],
             qualifiedParamName = nodeName + ":" + paramName;
@@ -132,11 +132,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return;
     }
 
-    function updateSelectsWithNewNodeParams($selectElems, nodeName, nodeOutputParams) {
+    function updateSelectsWithNewNodeParams($selectElems, nodeName, nodeOutputParams, nodeIndex) {
         // Used to inject the output params of a new node into the existent outputParamsSelect elems
         var newOptGroupHTML = [],
             $newOptGroup;
-        injectHTMLForOptGroup(newOptGroupHTML, nodeName, nodeOutputParams);
+        injectHTMLForOptGroup(newOptGroupHTML, nodeName, nodeOutputParams, nodeIndex);
         $newOptGroup = $(newOptGroupHTML.join(''));
         $selectElems.append($newOptGroup);
     }
@@ -166,7 +166,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var selectHTML = [];
         selectHTML.push("<div class='form-group'>");
         selectHTML.push("<select class=\"form-control " + paramsOutputBindingsCls + "\">");
-        $.each(outputParams, injectHTMLForOptGroup.partial(selectHTML));
+        $.each(outputParams, function(nodename, outputParam){
+            injectHTMLForOptGroup(selectHTML, nodename, outputParam, getNodeRow(nodename).find(nodeShortnameInputSel).id());
+        });
         selectHTML.push("</select>");
         selectHTML.push("<span class='ss-error-help-hint help-block hidden'>Output not available.</span>");
         selectHTML.push("</div>");
@@ -298,21 +300,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .filter(":focus")
         .focusin();
 
-    function updateNodeNameInBindings(previousNodeName, newNodeName){
+    function updateNodeNameInBindings(previousNodeName, newNodeName, nodeIndex){
         if(!previousNodeName || !newNodeName) {
             // do nothing
             return;
         }
-        $("select." + paramsOutputBindingsCls + " optgroup[label='" + previousNodeName + "']")
-            .attr("label", newNodeName)
-            .find("option")
-                .each(function() {
-                    var $option = $(this),
-                        newValue = $option.attr("value").replace(previousNodeName, newNodeName);
-                    $option
-                        .attr("value", newValue)
-                        .text(newValue);
-                });
+        $(".optgroup_" + nodeIndex)
+                    .attr("label", newNodeName)
+                    .find("option")
+                        .each(function() {
+                            var $option = $(this),
+                                newValue = $option.attr("value").replace(previousNodeName, newNodeName);
+                            $option
+                                .attr("value", newValue)
+                                .text(newValue);
+                        });
     }
 
 
@@ -322,7 +324,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             originalNodeName = $this.data("originalNodeName");
         if ( curentNodeName !== originalNodeName ) {
             if ($this.isValidFormInput()) {
-                updateNodeNameInBindings(originalNodeName, curentNodeName);
+                updateNodeNameInBindings(originalNodeName, curentNodeName, this.id);
             } else {
                 $this
                     .val(originalNodeName)
@@ -366,12 +368,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $initialNodeRows.onRowStateChange(function(state) {
         var nodeName = getNodeShortname(this),
             $paramsOutputBindings = $("select." + paramsOutputBindingsCls);
-        $paramsOutputBindings
-            .find("optgroup[label='" + nodeName + "']")
-                .enable(state)
-                .end()
-            .filter(":visible")
-                .change(); // Trigger selection validation
+
+        $(".optgroup_" + this.find(nodeShortnameInputSel).id()).enable(state);
+
+        $("." + paramsOutputBindingsCls).filter(":visible").each(function() {
+            if(this.selectedOptions.length > 0 && this.selectedOptions[0].parentNode.disabled){
+                $(this).val("");
+                $(this).change();
+            }
+        });
+
+        $(nodeShortnameInputSel).validateFormInput();  //Trigger input unique shortname validation
     });
 
     // Coordination of the 'mutability', 'multiplicity' and 'max provisioning failures' fields
