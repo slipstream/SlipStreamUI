@@ -444,7 +444,7 @@
   (defmethod deployment-parameter-cell :category
     [row-index {:keys [disabled? placeholder category blank-row?] :as param} field]
     {:type      :cell/enum
-     :editable? blank-row?
+     :editable? (page-type/edit-or-new?)
      :content {:disabled? disabled?
                :include-hidden-input? (not blank-row?)
                :id (when-not disabled? (deployment-parameter-cell-id row-index field))
