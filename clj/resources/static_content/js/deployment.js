@@ -94,7 +94,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .find(".ss-table-cell-multi")
                 .toggleClass("hidden");
 
-        checkMappingOptionsComboBoxesState();
     }
 
     $("." + deploymentTemplateRowCls + " ." + chooseNodeReferenceImageBtnCls)
@@ -229,14 +228,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                     .closest("tr." + nodeRowCls);
     }
 
-    function checkMappingOptionsComboBoxesState() {
-        // Disable mapping option comboboxes if there is only one node.
-        var shouldEnable = $(nodeRowSel)
-                                .not("." + deploymentTemplateRowCls)
-                                .foundMany();
-        $(mappingOptionsComboBoxesSel).enable(shouldEnable);
-    }
-
     function isMappedValue($inputElem) {
         return $inputElem.closest("tr").find(".ss-mapping-options").val() === parameterBindToOutput;
     }
@@ -359,8 +350,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         .findOfClass(chooseNodeReferenceImageBtnCls)
                             .enable(state);
             });
-
-    checkMappingOptionsComboBoxesState();
 
     // Add event handler when flagging or unflagging a node to be removed (i.e.
     // with the button 'Remove node') to highlight in red the mapping bindings
