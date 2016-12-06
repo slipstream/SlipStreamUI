@@ -184,7 +184,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                         + "Setup them correctly or remove them before saving.");
                     return false;
                 }
-                if ($(".ss-params-output-bindings").filter(":visible")
+                if ($(".ss-params-output-bindings").filter(":visible").filter(":enabled")
                 .filter(function() {return !this.value;}).foundAny()) {
                     $$.alert.showError("Unfinished mapping(s) configuration.",
                     "There are still some empty mapping(s).");
