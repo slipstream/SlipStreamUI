@@ -161,7 +161,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         t: $(o).text(),
                         d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
                         s: $(o).prop("selected"),
-                        v: o.value
+                        v: o.value,
+                        it: $(o).attr("instancetype")
                     };
                 });            
             arr.sort(function(o1, o2) {
@@ -170,6 +171,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var isSelected = false;
             options.each(function(i, o) {
                 o.value = arr[i].v;
+                $(o).attr("instancetype", arr[i].it);
+
                 $(o).text(arr[i].t);
 
                 $(o).attr("disabled", arr[i].d);
