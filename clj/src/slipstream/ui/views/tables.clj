@@ -7,7 +7,6 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.pattern :as pattern]
             [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.time :as time]
@@ -444,8 +443,8 @@
   (defmethod deployment-parameter-cell :category
     [row-index {:keys [disabled? placeholder category blank-row?] :as param} field]
     {:type      :cell/enum
-     :editable? blank-row?
-     :content {:disabled? (page-type/edit-or-new?)
+     :editable? (page-type/edit-or-new?)
+     :content {:disabled? disabled?
                :include-hidden-input? (not blank-row?)
                :id (when-not disabled? (deployment-parameter-cell-id row-index field))
                :enum (u/enum ["Output" "Input"] :deployment-parameter-category category)}})
