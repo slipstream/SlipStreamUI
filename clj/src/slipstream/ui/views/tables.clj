@@ -7,7 +7,6 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.pattern :as pattern]
             [slipstream.ui.util.page-type :as page-type]
-            [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.icons :as icons]
             [slipstream.ui.util.time :as time]
