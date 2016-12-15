@@ -139,6 +139,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return v ? v : "?";
         };
 
+        var $scalableCheckBox = $("#mutable"),
+            isScalableDeployment = function() {
+                return $scalableCheckBox && $scalableCheckBox.prop("checked");
+            };
+        
         var connectorInfoToString = function(connectorInfo) {
             return " " + displayValueWhenPresent(connectorInfo.instance_type) + " " +
                          displayValueWhenPresent(connectorInfo.cpu) + "/" + 
@@ -323,13 +328,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                             };
                                         })
                                         .toArray(),
-            moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),
+            moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),            
             requestUiPlacement = $$.request
                                             .put("/ui/placement")
                                             .data({
-                                                moduleUri: moduleUri,
+                                                moduleUri:      moduleUri,
                                                 userConnectors: userConnectors,
-                                                components: components
+                                                components:     components,
+                                                isScalable:     isScalableDeployment() 
                                             })
                                             .serialization("json")
                                             .dataType("json")
@@ -342,6 +348,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                 console.error("PRS-lib error : ", jqXHR.responseJSON.error);
                                                 resetSelectOptions();
                                             });
+
             return requestUiPlacement;
         };
 
@@ -359,6 +366,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
             callRequestPlacementIfEnabled();
         });
+
+        $scalableCheckBox.on("change", function(){
+            callRequestPlacementIfEnabled();
+        });       
     }
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
