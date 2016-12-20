@@ -128,7 +128,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // prices are in EUR / h
         var priceToString = function(price, currency) {
             if(price < 0) {
-                return " (unknown price)";
+                return " (no price)";
             } else {
                 return " (" + (currency !== undefined ? "€ " : "") +
                     price.toFixed(4) + "/h)";
@@ -145,10 +145,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
             };
         
         var connectorInfoToString = function(connectorInfo) {
-            return " " + displayValueWhenPresent(connectorInfo.instance_type) + " " +
-                         displayValueWhenPresent(connectorInfo.cpu) + "/" + 
-                         displayValueWhenPresent(connectorInfo.ram) + "/" +
-                         displayValueWhenPresent(connectorInfo.disk) + " ";
+            if (
+                !connectorInfo.cpu &&
+                !connectorInfo.ram &&
+                !connectorInfo.disk){
+                return "";
+            } else {
+                return " " + displayValueWhenPresent(connectorInfo.instance_type) + " " +
+                             displayValueWhenPresent(connectorInfo.cpu) + "/" +
+                             displayValueWhenPresent(connectorInfo.ram) + "/" +
+                             displayValueWhenPresent(connectorInfo.disk) + " ";
+            }
         };
 
         var reorderSelectOptions = function(options, info) {
@@ -159,7 +166,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         t: $(o).text(),
                         d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
                         s: $(o).prop("selected"),
-                        v: o.value
+                        v: o.value,
+                        it: $(o).attr("instancetype")
                     };
                 });            
             arr.sort(function(o1, o2) {
@@ -168,6 +176,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var isSelected = false;
             options.each(function(i, o) {
                 o.value = arr[i].v;
+                $(o).attr("instancetype", arr[i].it);
+
                 $(o).text(arr[i].t);
 
                 $(o).attr("disabled", arr[i].d);
@@ -253,13 +263,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                                                                 { price: 0,
                                                                                   index: 0,
                                                                                   name: connector,
-                                                                                  currency: currency};
+                                                                                  currency: currency,
+                                                                                  instance_type: info[connector].instance_type,
+                                                                                  cpu: info[connector].cpu,
+                                                                                  ram: info[connector].ram,
+                                                                                  disk: info[connector].disk};
                                     appPricePerConnector[connector].price  += price;
                                 }
 
                                 $(this).attr("disabled", false);
                                 console.log("enabling " + connector);
                                 $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
+                                $(this).attr("instancetype", info[connector].instance_type);
 
                                 $(this).prop('selected', defaultCloud !== "");
                                 
@@ -289,11 +304,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     var connector     = this.value,
                         price         = appPricePerConnector[connector].price,
                         currency      = appPricePerConnector[connector].currency,
+                        connectorInfo = connectorInfoToString(appPricePerConnector[connector]),
                         priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.includes("*") ? " *" : "";
-                    $(this).text(connector + defaultCloud + priceInfo);
+                    $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
                     $(this).attr("disabled", false);
                     $(this).prop('selected', defaultCloud !== "");
+                    $(this).attr("instancetype", appPricePerConnector[connector].instance_type);
 
                     if(defaultCloud !== "") {
                         $(this).change();
