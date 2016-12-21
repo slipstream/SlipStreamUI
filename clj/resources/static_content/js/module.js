@@ -203,12 +203,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var priceOrchestrator = function (prsResponse, connector) {
             if(isScalable()) {
-                var res =  prsResponse.components.filter(function(e) {
+                return  prsResponse.components.filter(function(e) {
                                                         return e.node=="node-orchestrator-"+connector;
-                                                    }).first().connectors.first().price;                
-                return res;
+                                                      }).first().connectors.first().price;
             } else {
                 return 0;
+            }
+        };
+
+        var extractPrice = function(priceInfo) {
+                var space = priceInfo.lastIndexOf(' ') + 1,
+                    slash = priceInfo.lastIndexOf('/');
+                return parseFloat(priceInfo.substr(space, slash - space), 10);
+            },
+            totalPriceCompositeApp = function() {
+                var pricesInfo = $("select[id$='--cloudservice'] option:selected").map(function(i,e) {return e.text;}),
+                    totalPrice = 0;
+
+                $.each(pricesInfo, function(index, val) {
+                    totalPrice += extractPrice(val);
+                });
+                return totalPrice;
+        };
+
+        var updateSpecifyText = function() {
+            var compositePrice = totalPriceCompositeApp(),
+                specifyWithCompositePrice = "Specify for each node "+ priceToString(compositePrice, "EUR");
+            if(!isNaN(compositePrice)) {
+                $("#global-cloud-service option[value='specify-for-each-node']").text(specifyWithCompositePrice);    
             }
         };
 
@@ -383,12 +405,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) { callRequestPlacementIfEnabled();});
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
-            updateSelectOptions(cachedPRSResponse, true);            
+            updateSelectOptions(cachedPRSResponse, true); 
+            updateSpecifyText();            
         });
 
-        $scalableCheckBox.on("change", function(){
-            console.log("will add och prices");
+        $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
+            updateSpecifyText();            
+        });
+
+        $scalableCheckBox.on("change", function(){            
             updateSelectOptions(cachedPRSResponse, true);
+            updateSpecifyText();            
         });       
 
     }
