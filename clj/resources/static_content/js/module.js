@@ -205,18 +205,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if(isScalable()) {
                 var res =  prsResponse.components.filter(function(e) {
                                                         return e.node=="node-orchestrator-"+connector;
-                                                    }).first().connectors.first().price;
-                console.log("price " + connector + " = " + res);
+                                                    }).first().connectors.first().price;                
                 return res;
             } else {
                 return 0;
             }
         };
 
-        var updateSelectOptions = function(prsResponse) {
-
-            console.log("updating selections, scalable checked ? " + isScalable());
-
+        var updateSelectOptions = function(prsResponse, avoidSelect) {
             isPrsEnabled = prsResponse.hasOwnProperty("components");
             if(!isPrsEnabled) {
                 resetSelectOptions("");
@@ -288,7 +284,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
                                 $(this).attr("instancetype", info[connector].instance_type);
 
-                                if(!isCompositeDeployment()) {
+                                if(!avoidSelect || !isCompositeDeployment()) {
                                     $(this).prop('selected', defaultCloud !== "");
                                 }
                                 
@@ -324,7 +320,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         defaultCloud  = this.text.includes("*") ? " *" : "";
                     $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
                     $(this).attr("disabled", false);
-                    $(this).prop('selected', defaultCloud !== "");
+                    
+                    if(!avoidSelect){
+                        $(this).prop('selected', defaultCloud !== "");
+                    }                    
+
                     $(this).attr("instancetype", appPricePerConnector[connector].instance_type);
 
                     if(defaultCloud !== "") {
@@ -383,12 +383,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) { callRequestPlacementIfEnabled();});
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
-            updateSelectOptions(cachedPRSResponse);            
+            updateSelectOptions(cachedPRSResponse, true);            
         });
 
         $scalableCheckBox.on("change", function(){
             console.log("will add och prices");
-            updateSelectOptions(cachedPRSResponse);
+            updateSelectOptions(cachedPRSResponse, true);
         });       
 
     }
