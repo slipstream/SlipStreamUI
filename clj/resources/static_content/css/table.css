@@ -95,7 +95,7 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
 
 .ss-run-module-dialog .ss-inner-table tr td:last-of-type,
 .ss-run-module-dialog tr.ss-run-deployment-mutable-checkbox-row td:last-of-type {
-  width: 250px;
+  width: 360px;
 }
 
 .ss-run-module-dialog .ss-inner-table tr td:first-of-type,
