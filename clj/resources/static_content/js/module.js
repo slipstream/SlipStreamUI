@@ -145,8 +145,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isScalable = function() {
                 return $scalableCheckBox.is(":checked");
             },
+            selectedGlobalConnector = function() {
+                return $("#global-cloud-service").find(":selected").map(function(i,e) {return $(e).val();});
+            }, 
+            selectedCompositeConnectors = function() {
+               return $.unique($("select[id$='--cloudservice'] option:selected").map(function(i,e) {return $(e).val();})); 
+            },
             isCompositeDeployment = function() {
-                return $("#global-cloud-service").find(":selected").val() ==='specify-for-each-node';
+                return selectedGlobalConnector()[0] === 'specify-for-each-node';
             };
         
         var connectorInfoToString = function(connectorInfo) {
@@ -201,15 +207,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var cachedPRSResponse;
 
-        var priceOrchestrator = function (prsResponse, connector) {
-            if(isScalable()) {
-                return  prsResponse.components.filter(function(e) {
-                                                        return e.node=="node-orchestrator-"+connector;
-                                                      }).first().connectors.first().price;
-            } else {
-                return 0;
-            }
-        };
+        var selectedConnectors = function() {
+                if(isCompositeDeployment()) {
+                    return selectedCompositeConnectors();
+                    
+                } else {
+                    return selectedGlobalConnector();
+                }
+            },  
+            priceOrchestratorForConnector = function(prsResponse, connector) {
+                if(isScalable()) {                   
+                    var orchestrator = prsResponse.components.filter(function(e) {
+                                                                        return e.node.startsWith("node-orchestrator-"+connector);
+                                                                    }).first();  
+                    return orchestrator.connectors.first().price;
+                } else {
+                    return 0;
+                }
+            },
+            priceOrchestratorsForConnectors = function (prsResponse, connectors) {
+                totalPrice = 0;
+                connectors.map(function(index, connector) {
+                    totalPrice += priceOrchestratorForConnector(prsResponse, connector);
+                })        
+                return totalPrice;          
+            },
+            priceOrchestratorsForSelection = function (prsResponse) {                
+                return priceOrchestratorsForConnectors(prsResponse, selectedConnectors());
+            };
 
         var extractPrice = function(priceInfo) {
                 var space = priceInfo.lastIndexOf(' ') + 1,
@@ -223,6 +248,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $.each(pricesInfo, function(index, val) {
                     totalPrice += extractPrice(val);
                 });
+                
+                totalPrice += priceOrchestratorsForConnectors(cachedPRSResponse, selectedCompositeConnectors());
+
                 return totalPrice;
         };
 
@@ -232,6 +260,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if(!isNaN(compositePrice)) {
                 $("#global-cloud-service option[value='specify-for-each-node']").text(specifyWithCompositePrice);    
             }
+            $("#orchestratorcost").text(priceToString(priceOrchestratorsForSelection(cachedPRSResponse), "EUR"));
         };
 
         var updateSelectOptions = function(prsResponse, avoidSelect) {
@@ -280,18 +309,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         } else {
 
                             nodeEnabled = true;
-                            var multiplicity        = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
-                                multiplicity        = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
-                                price               = info[connector].price * multiplicity,
-                                orchestratorPrice   = priceOrchestrator(prsResponse, connector),
-                                currency            = info[connector].currency,
-                                priceInfo           = priceToString(price + orchestratorPrice, currency),
-                                connectorInfo       = connectorInfoToString(info[connector]),
-                                defaultCloud        = this.text.includes("*") ? " *" : "";                                
+                            var multiplicity            = $("[id*='parameter--node--"+node+"--multiplicity']")[0];
+                                multiplicity            = multiplicity === undefined ? 1 : parseInt(multiplicity.value, 10);
+                                price                   = info[connector].price * multiplicity,                                
+                                currency                = info[connector].currency,
+                                priceInfo               = priceToString(price, currency),
+                                connectorInfo           = connectorInfoToString(info[connector]),
+                                defaultCloud            = this.text.includes("*") ? " *" : "";                                
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
-                                                                                { price: orchestratorPrice,
+                                                                                { price: priceOrchestratorForConnector(prsResponse, connector),
                                                                                   index: 0,
                                                                                   name: connector,
                                                                                   currency: currency,
