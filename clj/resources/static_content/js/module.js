@@ -243,8 +243,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var toggleShowAdditionalCost = function () {
             if (isScalable()) {
                 $("#orchestratorcost").closest("tr").slideDownRow(400, function(){
-                    $("#orchestratorcost").parent().show();    
-                });
+                    $("#orchestratorcost").parent().show(); 
+                },
+                 function(){
+                     updateOrchestratorPrice();                    
+                 });
                 
             } else {
                 $("#orchestratorcost").closest("tr").slideUpRow(400, function(){
@@ -464,8 +467,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
             updateSelectOptions(cachedPRSResponse, true); 
-            updateSpecifyText();
-            updateOrchestratorPrice();            
+            updateSpecifyText();                    
         });
 
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
@@ -476,8 +478,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $scalableCheckBox.on("change", function(){
             toggleShowAdditionalCost();
             updateSelectOptions(cachedPRSResponse, true);
-            updateSpecifyText();      
-            updateOrchestratorPrice();      
+            updateSpecifyText();                  
         });       
 
     }

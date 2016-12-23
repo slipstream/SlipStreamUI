@@ -720,7 +720,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
             return this;
         },
 
-        slideDownRow: function(duration, f) {            
+        slideDownRow: function(duration, f1, f2) { 
+            if(f1) {
+              f1();
+            }                        
             this
                 .filter("tr." + this.slidedUpRowCls)
                 .removeClass(this.slidedUpRowCls)
@@ -728,8 +731,8 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .slideDown(duration, function(){
                     var $tmpInnerDiv = $(this);
                     $tmpInnerDiv.replaceWith($tmpInnerDiv.contents());
-                    if(f) {
-                      f();
+                    if(f2) {
+                      f2();
                     }
                 });
             return this;
