@@ -128,13 +128,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         // prices are in EUR / h
-        var priceToString = function(price, currency) {
-            if(price < 0) {
-                return " (no price)";
-            } else {
-                return " (" + (currency !== undefined ? "€ " : "") +
-                    price.toFixed(4) + "/h)";
-            }
+        var 
+            formatPrice = function(price, currency) {
+                if(price < 0) {
+                    return "no price";
+                } else {
+                    return (currency !== undefined ? "€ " : "") + price.toFixed(4) + "/h";
+                }
+            }, 
+
+            priceToString = function(price, currency) {
+                return " (" + formatPrice(price, currency) + ")";
         };
 
         var displayValueWhenPresent = function(v) {
@@ -226,7 +230,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
             },
             priceOrchestratorsForConnectors = function (prsResponse, connectors) {
-                totalPrice = 0;
+                var totalPrice = 0;
                 connectors.map(function(index, connector) {
                     totalPrice += priceOrchestratorForConnector(prsResponse, connector);
                 })        
@@ -235,6 +239,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
             priceOrchestratorsForSelection = function (prsResponse) {                
                 return priceOrchestratorsForConnectors(prsResponse, selectedConnectors());
             };
+
+        var toggleShowAdditionalCost = function () {
+            if (isScalable()) {
+                $("#orchestratorcost").closest("tr").slideDownRow(400, function(){
+                    $("#orchestratorcost").parent().show();    
+                });
+                
+            } else {
+                $("#orchestratorcost").closest("tr").slideUpRow(400, function(){
+                    $("#orchestratorcost").parent().hide();    
+                });                
+            }
+        };
 
         var extractPrice = function(priceInfo) {
                 var space = priceInfo.lastIndexOf(' ') + 1,
@@ -255,12 +272,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         var updateSpecifyText = function() {
-            var compositePrice = totalPriceCompositeApp(),
-                specifyWithCompositePrice = "Specify for each node "+ priceToString(compositePrice, "EUR");
-            if(!isNaN(compositePrice)) {
-                $("#global-cloud-service option[value='specify-for-each-node']").text(specifyWithCompositePrice);    
+                var compositePrice = totalPriceCompositeApp(),
+                    specifyWithCompositePrice = "Specify for each node "+ priceToString(compositePrice, "EUR");
+                if(!isNaN(compositePrice)) {
+                    $("#global-cloud-service option[value='specify-for-each-node']").text(specifyWithCompositePrice);    
+                }            
+            },
+            updateOrchestratorPrice = function() {
+                if(isScalable()) {
+                    var orchestratorsToPrice = selectedConnectors().toArray().join(", "),
+                        price = formatPrice(priceOrchestratorsForSelection(cachedPRSResponse), "EUR"),
+                        text = orchestratorsToPrice + ": " + price;
+                    $("#orchestratorcost").text(text);
             }
-            $("#orchestratorcost").text(priceToString(priceOrchestratorsForSelection(cachedPRSResponse), "EUR"));
         };
 
         var updateSelectOptions = function(prsResponse, avoidSelect) {
@@ -430,20 +454,30 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
-        $('#ss-run-module-dialog').on("shown.bs.modal", function (e) { callRequestPlacementIfEnabled();});
+        $('#ss-run-module-dialog').on("show.bs.modal", function (e) { 
+            toggleShowAdditionalCost();
+        });
+
+        $('#ss-run-module-dialog').on("shown.bs.modal", function (e) {             
+            callRequestPlacementIfEnabled();
+        });
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
             updateSelectOptions(cachedPRSResponse, true); 
-            updateSpecifyText();            
+            updateSpecifyText();
+            updateOrchestratorPrice();            
         });
 
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
             updateSpecifyText();            
+            updateOrchestratorPrice();
         });
 
-        $scalableCheckBox.on("change", function(){            
+        $scalableCheckBox.on("change", function(){
+            toggleShowAdditionalCost();
             updateSelectOptions(cachedPRSResponse, true);
-            updateSpecifyText();            
+            updateSpecifyText();      
+            updateOrchestratorPrice();      
         });       
 
     }

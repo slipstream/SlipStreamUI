@@ -577,7 +577,7 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.description             :global.nouns.mutable-deployment
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Enabling this option will launch a _scalable_ deployment, which will allow the `multiplicity` for each node to be changed after launch."
 
-   :slipstream.ui.models.parameters.orchestrator-cost.description             "Estimated additional cost for orchestrator(s)"
+   :slipstream.ui.models.parameters.orchestrator-cost.description             "Additional cost for orchestrator(s)"
    :slipstream.ui.models.parameters.orchestrator-cost.help-hint               "A _scalable_ deployment prevents the orchestrator(s) from being disposed after it is complete. Hence the need to include these in estimation."
 
  :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
