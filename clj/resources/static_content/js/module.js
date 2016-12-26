@@ -241,7 +241,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             };
 
         var toggleShowAdditionalCost = function () {
-            if (isScalable()) {
+            if (cachedPRSResponse && cachedPRSResponse.hasOwnProperty("components") && isScalable()) {
                 $("#orchestratorcost").closest("tr").slideDownRow(400, function(){
                     $("#orchestratorcost").parent().show(); 
                 },
