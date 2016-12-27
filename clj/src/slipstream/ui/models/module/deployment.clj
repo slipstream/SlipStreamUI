@@ -28,7 +28,7 @@
      :template-node?        template-node?
      :reference-image       (-> attrs :imageUri (or "new") u/module-name)
      :default-multiplicity  (-> attrs :multiplicity uc/parse-pos-int (or 1))
-     :default-cloud         (->> attrs :cloudService (or "default") (u/enum cloud-names :cloud-names))
+     :default-cloud         (->> (-> attrs :cloudService (or "default")) (u/enum cloud-names :cloud-names))
      :output-parameters     (->> (html/select node-metadata [:image :parameters :entry [:parameter (html/attr-has :category "Output")]])
                                  (map (comp :name :attrs))
                                  sort)
