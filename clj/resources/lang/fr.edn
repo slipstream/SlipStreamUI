@@ -545,8 +545,11 @@
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
    :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés."
 
+   :slipstream.ui.models.parameters.hybrid-deployment.description               "Déploiement hybride"
+   :slipstream.ui.models.parameters.hybrid-deployment.help-hint                 "Cette option permet de spécifier un cloud pour chaque noeud."
+
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ce dessous."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ci-dessous."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Spécifier pour chaque noeud."
 
    :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"

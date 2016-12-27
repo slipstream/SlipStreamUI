@@ -2,7 +2,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers"),
         $logoURLInput = $("input#logoLink"),
-        $logoHeaderImg = $(".ss-header-image-container img");
+        $logoHeaderImg = $(".ss-header-image-container img"),
+        savedcloud;
 
     function toggleGroupMembersRow(areGroupMembersInherited) {
         $("#groupmembers")
@@ -355,6 +356,19 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) { callRequestPlacementIfEnabled();});
+
+        $('#hybrid-deployment').change(function() {
+            if(this.checked) {
+                savedcloud = $('#global-cloud-service').val()
+                $('#global-cloud-service')
+                    .val('specify-for-each-node')
+                    .disable()
+            } else {
+                $('#global-cloud-service')
+                    .val(savedcloud)
+                    .enable()
+            }
+        })
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
             callRequestPlacementIfEnabled();
