@@ -223,8 +223,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 if(isScalable()) {                   
                     var orchestrator = prsResponse.components.filter(function(e) {
                                                                         return e.node.startsWith("node-orchestrator-"+connector);
-                                                                    }).first();  
-                    return orchestrator.connectors.first().price;
+                                                                    }).first(),  
+                        orchestratorConnectorPrice = orchestrator.connectors.first() ? orchestrator.connectors.first().price : 0;
+                    return orchestratorConnectorPrice;
                 } else {
                     return 0;
                 }
@@ -242,17 +243,21 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var toggleShowAdditionalCost = function () {
             if (cachedPRSResponse && cachedPRSResponse.hasOwnProperty("components") && isScalable()) {
-                $("#orchestratorcost").closest("tr").slideDownRow(400, function(){
-                    $("#orchestratorcost").parent().show(); 
-                },
-                 function(){
-                     updateOrchestratorPrice();                    
-                 });
+                console.log("showing additional cost");
+                $("#orchestratorcost").closest("tr").slideDownRow(400, 
+                    function(){
+                        $("#orchestratorcost").parent().show(); 
+                    },
+                    function(){
+                        updateOrchestratorPrice();                    
+                    });
                 
             } else {
-                $("#orchestratorcost").closest("tr").slideUpRow(400, function(){
-                    $("#orchestratorcost").parent().hide();    
-                });                
+                console.log("hidding additional cost");
+                $("#orchestratorcost").closest("tr").slideUpRow(400, 
+                    function(){
+                        $("#orchestratorcost").parent().hide();    
+                    });                
             }
         };
 
