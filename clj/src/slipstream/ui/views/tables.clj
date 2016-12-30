@@ -743,6 +743,7 @@
                                          :id-format-fn (constantly "ssh-access-enabled")
                                          :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}}
 
+        :hybrid-deployment              {:type :cell/boolean, :editable? true, :id-format-fn (constantly "hybrid-deployment")}
         :deployment-target-cloud        {:type :cell/enum,    :editable? true, :id-format-fn (constantly "global-cloud-service"), :when-nil-value-hints {:value      (t :no-configured-clouds-hint (current-user/uri))
                                                                                                                                                          :type       :cell/html
                                                                                                                                                          :editable?  false}}
