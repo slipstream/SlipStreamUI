@@ -699,7 +699,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
         //       functions on that.
         //       Inspired from: http://stackoverflow.com/a/3410943
 
-        slideUpRow: function(duration) {
+        slideUpRow: function(duration, f) {
             var $row = this;
             $row
                 .filter("tr")
@@ -712,12 +712,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     var $tmpInnerDiv = $(this);
                     $tmpInnerDiv
                         .closest("tr")
-                            .addClass($row.slidedUpRowCls);
-                });
+                            .addClass($row.slidedUpRowCls);  
+                    if(f) {
+                      f();
+                    }
+                });            
             return this;
         },
 
-        slideDownRow: function(duration) {
+        slideDownRow: function(duration, f1, f2) { 
+            if(f1) {
+              f1();
+            }                        
             this
                 .filter("tr." + this.slidedUpRowCls)
                 .removeClass(this.slidedUpRowCls)
@@ -725,6 +731,9 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 .slideDown(duration, function(){
                     var $tmpInnerDiv = $(this);
                     $tmpInnerDiv.replaceWith($tmpInnerDiv.contents());
+                    if(f2) {
+                      f2();
+                    }
                 });
             return this;
         },
