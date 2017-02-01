@@ -78,22 +78,12 @@
               <goal>exec</goal>
             </goals>
             <configuration>
+              <environmentVariables>
+                <BOOT_PUSH>${boot.push}</BOOT_PUSH>
+              </environmentVariables>
               <executable>boot</executable>
               <arguments>
                 <argument>mvn-build</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>boot-deploy</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>boot</executable>
-              <arguments>
-                <argument>mvn-deploy</argument>
               </arguments>
             </configuration>
           </execution>
