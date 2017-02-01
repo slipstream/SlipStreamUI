@@ -78,10 +78,10 @@
               <goal>exec</goal>
             </goals>
             <configuration>
+              <executable>boot</executable>
               <environmentVariables>
                 <BOOT_PUSH>${boot.push}</BOOT_PUSH>
               </environmentVariables>
-              <executable>boot</executable>
               <arguments>
                 <argument>mvn-build</argument>
               </arguments>
