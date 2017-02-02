@@ -64,6 +64,23 @@
     first-button-sel          (html/content       (t :button.cancel))
     last-button-sel           (html/content       (t :button.delete resource-name))))
 
+
+(localization/with-prefixed-t :soft-reset-dialog
+                              (html/defsnippet ^:private soft-reset-dialog template-filename [:#ss-soft-reset-dialog]
+                                               []
+                                               title-sel (html/content (t :title))
+                                               body-sel (html/html-content (t :question))
+                                               first-button-sel (html/content (t :button.cancel))
+                                               last-button-sel (html/content (t :button.reset))))
+
+(localization/with-prefixed-t :confirmation-dialog
+                              (html/defsnippet ^:private confirmation-dialog template-filename [:#ss-confirmation-dialog]
+                                               []
+                                               title-sel (html/content (t :title))
+                                               body-sel (html/html-content (t :question))
+                                               first-button-sel (html/content (t :button.cancel))
+                                               last-button-sel (html/content (t :button.apply))))
+
 (localization/with-prefixed-t :delete-all-dialog
   (html/defsnippet ^:private delete-all-dialog template-filename [:#ss-delete-all-dialog]
     [resource-name resource-id]
@@ -286,6 +303,10 @@
   [{:keys [view-name tour]}]
   (#{"appstore" "dashboard" "modules"} view-name))
 
+(defn- nuvlabox-modal-dialogs-required?
+       [{:keys [view-name]}]
+       (= "nuvlabox-admin" view-name))
+
 (defn required
   [context]
 
@@ -312,4 +333,5 @@
         (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
         (run-image-required? context)       (conj (run-image-dialog   (:parsed-metadata context) resource-id module-version)
                                                   (build-image-dialog resource-id module-version))
-        (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))))))
+        (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))
+        (nuvlabox-modal-dialogs-required? context) (conj (soft-reset-dialog) (confirmation-dialog))))))

@@ -24,6 +24,8 @@
             :nouns {
                     :action           "Action"
                     :appstore         "App Store"
+                    :attribute        "Attribute"
+                    :attributes       "Attributes"
                     :author           "Author"
                     :authorization    "Authorization"
                     :authorizations   "Authorizations"
@@ -67,6 +69,7 @@
                     :name             "Name"
                     :node             "Component"
                     :nodes            "Application Components"
+                    :nuvlabox-admin   "Nuvlabox Administration"
                     :orchestrator     "Orchestrator"
                     :organization     "Organization"
                     :output           "Output"
@@ -348,6 +351,7 @@
    :slipstream.ui.views.table.header.severity                 :global.nouns.severity
    :slipstream.ui.views.table.header.service-url              "Service URL"
    :slipstream.ui.views.table.header.type                     :global.nouns.type
+   :slipstream.ui.views.table.header.categories               "Categories"
    :slipstream.ui.views.table.header.roles                    :global.nouns.user-roles
 
    :slipstream.ui.views.tables.deployment-nodes-table.reference-image.label                       "Component"
@@ -817,6 +821,7 @@
    :slipstream.ui.util.icons.description.user                      :global.nouns.user
    :slipstream.ui.util.icons.description.super-user                :global.nouns.super-user
    :slipstream.ui.util.icons.description.users                     :global.nouns.users
+   :slipstream.ui.util.icons.description.config-nuvlabox           :global.nouns.nuvlabox-admin
    :slipstream.ui.util.icons.description.dashboard                 :global.nouns.dashboard
    :slipstream.ui.util.icons.description.vms                       :global.nouns.vms
    :slipstream.ui.util.icons.description.runs                      :global.nouns.runs
@@ -952,6 +957,12 @@
    :slipstream.ui.views.usages.content.subsection.monthly.title "Monthly"
    :slipstream.ui.views.usages.no-usages                        "There are no usage items to show."
 
+   :slipstream.ui.views.service-info.header.title                :global.nouns.service-catalog
+   :slipstream.ui.views.service-info.header.subtitle             "Provides detailed capability information for each available cloud"
+
+   :slipstream.ui.views.attributes.header.title                  :global.nouns.attributes
+   :slipstream.ui.views.attributes.header.subtitle               "Attributes used by Service Info to provide meta-information when displaying Service Info values"
+
    :slipstream.ui.views.cloud-usages.header.title                     :global.nouns.cloud-usages
    :slipstream.ui.views.cloud-usages.header.subtitle                  "Usage for all users of this cloud."
    :slipstream.ui.views.cloud-usages.content.title                    "Usage list"
@@ -959,6 +970,7 @@
    :slipstream.ui.views.cloud-usages.content.subsection.weekly.title  "Weekly"
    :slipstream.ui.views.cloud-usages.content.subsection.monthly.title "Monthly"
    :slipstream.ui.views.cloud-usages.no-usages                        "There are no cloud usage items to show."
+
 
    :slipstream.ui.models.dashboard.all-clouds.title               "All Clouds"
 
@@ -1147,6 +1159,16 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.cancel           :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.delete           "Delete all %1$s versions" ;  %1$s: module category
 
+   :slipstream.ui.views.modal-dialogs.soft-reset-dialog.title                   "Factory reset"
+   :slipstream.ui.views.modal-dialogs.soft-reset-dialog.question                "Are you sure you want to reset this Nuvlabox?"
+   :slipstream.ui.views.modal-dialogs.soft-reset-dialog.button.cancel           :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.soft-reset-dialog.button.reset            "Reset system"
+
+   :slipstream.ui.views.modal-dialogs.confirmation-dialog.title                 "Apply changes"
+   :slipstream.ui.views.modal-dialogs.confirmation-dialog.question              "Are you sure ?"
+   :slipstream.ui.views.modal-dialogs.confirmation-dialog.button.cancel          :global.verbs.cancel
+   :slipstream.ui.views.modal-dialogs.confirmation-dialog.button.apply          "Yes"
+
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.title                "Choose a parent component"
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.cancel        :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.image-chooser-dialog.button.select        :global.verbs.select
@@ -1258,4 +1280,15 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.base.flash.auth-failed.message      "SlipStream was unable to obtain information
                                                             to create a corresponding user.
                                                             Please check that a login and an email are returned by your authentication provider."
-}
+
+   :slipstream.ui.views.nuvlabox-admin.header.title         :global.nouns.nuvlabox-admin
+   :slipstream.ui.views.nuvlabox-admin.header.subtitle      "Configure the Nuvlabox system"
+   :slipstream.ui.views.nuvlabox-admin.section.perf.title   "System activity"
+   :slipstream.ui.views.nuvlabox-admin.section.srvs.title   "Services status"
+   :slipstream.ui.views.nuvlabox-admin.section.usb.title    "USB status"
+   :slipstream.ui.views.nuvlabox-admin.section.net.title    "Network configuration"
+   :slipstream.ui.views.nuvlabox-admin.section.ssh.title    "Remote SSH tunnel configuration"
+   :slipstream.ui.views.nuvlabox-admin.section.system.title "System action"
+   :slipstream.ui.views.nuvlabox-admin.btn.reset            "Reset"
+   :slipstream.ui.views.table.header.port                   "Port"
+ }

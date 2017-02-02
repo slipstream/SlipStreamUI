@@ -5,6 +5,7 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
+            [slipstream.ui.views.attributes :as attributes]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
@@ -24,8 +25,10 @@
             [slipstream.ui.views.events :as events]
             [slipstream.ui.views.usages :as usages]
             [slipstream.ui.views.usage :as usage]
+            [slipstream.ui.views.service-info :as service-info]
             [slipstream.ui.views.cloud-usages :as cloud-usages]
             [slipstream.ui.views.error :as error]
+            [slipstream.ui.views.nuvlabox-admin :as nuvlabox-admin]
             [slipstream.ui.models.version :as version-model])
   (:gen-class
     :name slipstream.ui.views.Representation
@@ -43,27 +46,30 @@
                 [setReleaseVersion [String] void]]))
 
 (def pages
-  {"login"            login/page
-   "logout"           byebye/page
-   "service_catalog"  service-catalog/page
-   "appstore"         module-list/appstore-page
-   "modules"          module-list/modules-page
-   "chooser"          module-list/chooser-page
-   "module"           module/page
-   "versions"         versions/page
-   "dashboard"        dashboard/page
-   "vms"              vms/page
-   "runs"             runs/page ;; NOTE: Not to be mixed with '/run'
-   "user"             user/page
-   "users"            users/page
-   "run"              run/page
-   "reports"          reports/page
-   "configuration"    configuration/page
-   "action"           action/page
-   "events"           events/page
-   "usages"           usages/page
-   "usage"            usage/page
-   "cloud-usages"     cloud-usages/page})
+  {"login"              login/page
+   "logout"             byebye/page
+   "service_catalog"    service-catalog/page
+   "appstore"           module-list/appstore-page
+   "modules"            module-list/modules-page
+   "chooser"            module-list/chooser-page
+   "module"             module/page
+   "versions"           versions/page
+   "dashboard"          dashboard/page
+   "vms"                vms/page
+   "runs"               runs/page ;; NOTE: Not to be mixed with '/run'
+   "user"               user/page
+   "users"              users/page
+   "run"                run/page
+   "reports"            reports/page
+   "configuration"      configuration/page
+   "action"             action/page
+   "events"             events/page
+   "usages"             usages/page
+   "usage"              usage/page
+   "service-offers"     service-info/page
+   "service-attributes" attributes/page
+   "cloud-usages"       cloud-usages/page
+   "nuvlabox-admin"     nuvlabox-admin/page})
 
 (defn page-types
   [pagename]

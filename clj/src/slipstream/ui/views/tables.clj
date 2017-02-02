@@ -1081,3 +1081,33 @@
      :rows        (map cloud-usage-row (:usages metadata))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- service-info-cells
+  [meta-valued-value]
+  (when-not (= "connector" (-> meta-valued-value :name :en))
+               {:style (when (:nested meta-valued-value) :warning)
+                :cells [{:type :cell/text, :content {:text (-> meta-valued-value :name :en) :tooltip (:uri meta-valued-value)}}
+                        {:type :cell/text, :content (-> meta-valued-value :description :en)}
+                        {:type :cell/text, :content (s/join ", " (-> meta-valued-value :categories :en))}
+                        {:type :cell/text, :content (:value meta-valued-value)}]}))
+
+(defn service-info-table
+  [service-info]
+  (table/build
+    {:headers    [:name :description :categories :value]
+                 :rows       (map service-info-cells (sort-by #(-> % :name :en) service-info))}))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn- attribute-cells
+  [[composante-name composante-value]]
+  {:cells
+   [{:type :cell/text :content (name composante-name)}
+    {:type :cell/text :content composante-value}]})
+
+(defn attributes-table
+  [attribute]
+  (table/build
+    {:headers    [:attribute-composante-name :attribute-composante-value]
+     :rows       (map attribute-cells attribute)}))
+

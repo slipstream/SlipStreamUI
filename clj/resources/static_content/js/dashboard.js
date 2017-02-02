@@ -1,7 +1,8 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    var gaugeContainerCls   = "ss-usage-gauge-container",
-        selectedGaugeCls    = "ss-selected-gauge-container";
+    var gaugeContainerCls     = "ss-usage-gauge-container",
+        selectedGaugeCls      = "ss-selected-gauge-container",
+        serviceOfferNamespace = "schema-org";
 
     $(".ss-usage-gauge").click(function(){
         var $gauge          = $(this),
@@ -157,6 +158,76 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     }
 
+    // ************************** Connector status update **********************
+
+    var $allNuvlaboxGaugeContainers = $('[data-quota-title^=nuvlabox]').closest('.ss-usage-gauge-container'),
+        stateIconPlaceholderHtml    = '<span class="glyphicon ss-usage-gauge-container-icon-state" aria-hidden="true"></span>',
+        serviceOfferRequest         = $$.request
+                                            .get("/api/service-offer")
+                                            .dataType("json")
+                                            .withLoadingScreen(false)
+                                            // NOTE: Uncomment to show the loading icon on every update.
+                                            // .validation(setAllNuvlaboxGaugesAsChecking)
+                                            .onSuccess(processNuvlaboxStates);
+
+    function $findGaugeContainer(connectorName) {
+        return $('#ss-usage-gauge-' + connectorName).closest('.ss-usage-gauge-container');
+    }
+
+    function stateTitle(stateLastOnline) {
+      if(stateLastOnline[0]=='nok') {
+        return 'Offline' + (stateLastOnline[1] ? ', last seen online : ' + stateLastOnline[1] : '');
+      } else if(stateLastOnline[0]=='ok') {
+        return 'Online';
+      } else {
+        return stateLastOnline[0];
+      }
+    }
+
+    function setStateClass($gaugeContainer, newState) {
+        if ( $gaugeContainer.foundNothing() ) { return; }
+        var newStateClass       = newState[0] ? 'ss-usage-gauge-container-state-' + newState[0] : '',
+            currentstateClass   = $gaugeContainer.data('stateClass');
+        $gaugeContainer
+            .removeClass(currentstateClass)
+            .addClass(newStateClass)
+            .data('stateClass', newStateClass)
+            .find('.ss-usage-gauge-container-icon-state')
+                .attr('title', stateTitle(newState))
+                .data('toggle', 'tooltip')
+                .data('placement', 'left')
+                .data('container', 'body')
+                .tooltip('fixTitle');
+    }
+
+    function setAllNuvlaboxGaugesAsChecking() {
+        $allNuvlaboxGaugeContainers.each( function() {
+            setStateClass($(this), ['checking', '']);
+        });
+    }
+
+    function connectorStates(response) {
+        var states = {};
+        $.each(response.serviceOffers, function() {
+            states[this.connector.href] = [ this[serviceOfferNamespace + ":state"],
+                                            this[serviceOfferNamespace + ":last-online"] ];
+        });
+        console.debug(states);
+        return states;
+    }
+
+    function processNuvlaboxStates(response) {
+        $.each(connectorStates(response), function(connectorName, newState) {
+            setStateClass($findGaugeContainer(connectorName), newState);
+        });
+    }
+
+    $('.ss-usage-gauge-container').prepend(stateIconPlaceholderHtml);
+    serviceOfferRequest.send();
+
+    // *************************************************************************
+
+
     var autoUpdateJobName       = "updateDashboard",
         secsBetweenUpdates      = 10,
         updateDashboardRequest  = $$.request
@@ -175,6 +246,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         // Update dynamic content
         $(".ss-dynamic-content").trigger("ss-dynamic-content-reload",
                                          {withLoadingScreen: withLoadingScreen});
+        // Update connection state of Nuvlabox connectors
+        serviceOfferRequest.send();
     }
 
     $$.util.recurrentJob.start(autoUpdateJobName,

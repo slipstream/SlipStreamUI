@@ -200,6 +200,8 @@
 
     ["usages"]                (render :pagename "usages"          :raw-metadata-ns "usages" :user {:username "bob" :super? false})
 
+    ["nuvlabox-admin"]        (render :pagename "nuvlabox-admin"  :user {:username "dave" :super? true})
+
     ["action"]                (render :pagename "action"          :raw-metadata-ns "action")
 
     ["localizations" & comparison-parameters]         (render-localizations comparison-parameters)

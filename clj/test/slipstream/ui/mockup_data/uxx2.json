@@ -1,0 +1,34 @@
+{
+  "connector": {"href": "uxx-cz1-2"},
+  "http://schema.example.org/connector": "uxx-cz1-2",
+  "http://schema.example.org/supplierUrl": "https://uxx.com",
+  "http://schema.example.org/country": "FR",
+  "http://schema.example.org/location": "FR, Paris",
+  "http://schema.example.org/cpuCapacity": 1536,
+  "http://schema.example.org/ramCapacityGiB": "6000",
+  "http://schema.example.org/storageCapacityTB": 216,
+  "http://schema.example.org/minCpu": 2,
+  "http://schema.example.org/maxCpu": 16,
+  "http://schema.example.org/cpuPriceModel": {
+    "http://schema.example.org/price": 0.028,
+    "http://schema.example.org/priceCurrency": "EUR",
+    "http://schema.example.org/unitCode": "C62",
+    "http://schema.example.org/timeCode": "HUR"
+  },
+  "http://schema.example.org/minRamMiB": 1000000,
+  "http://schema.example.org/maxRamMiB": 128000000,
+  "http://schema.example.org/ramPriceModel": {
+    "http://schema.example.org/price": 0.0035,
+    "http://schema.example.org/priceCurrency": "EUR",
+    "http://schema.example.org/unitCode": "E34",
+    "http://schema.example.org/timeCode": "HUR"
+  },
+  "http://schema.example.org/maxStorageKB": 2000000000000,
+  "http://schema.example.org/ramPriceModel": {
+    "http://schema.example.org/price": 0.047,
+    "http://schema.example.org/priceCurrency": "EUR",
+    "http://schema.example.org/unitCode": "E35",
+    "http://schema.example.org/timeCode": "HUR"
+  },
+  "http://schema.example.org/maxPersistentStorageKB": 108000000000000
+}

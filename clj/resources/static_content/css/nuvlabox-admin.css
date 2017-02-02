@@ -1,0 +1,18 @@
+.ss-usage-gauge {
+    margin: 10px;
+    background-color: white;
+    display: inline-block;
+    overflow: hidden;
+    width: 184px;
+    height: 148px;
+    opacity: 0.8;
+}
+.ss-usage-gauge-container {
+    margin: 10px;
+    background-color: transparent;
+    display: inline-block;
+    overflow: hidden;
+    width: 184px;
+    height: 200px;
+    opacity: 0.8;
+}
