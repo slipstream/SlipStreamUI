@@ -1,0 +1,197 @@
+{
+  "acl" : {
+    "owner" : {
+      "principal" : "ADMIN",
+      "type" : "ROLE"
+    },
+    "rules" : [ {
+      "principal" : "USER",
+      "type" : "ROLE",
+      "right" : "MODIFY"
+    } ]
+  },
+  "resourceURI" : "http://sixsq.com/slipstream/1/AttributeCollection",
+  "id" : "attribute",
+  "operations" : [ {
+    "rel" : "http://sixsq.com/slipstream/1/Action/add",
+    "href" : "attribute"
+  } ],
+  "count" : 7,
+  "serviceAttributes" : [ {
+    "minor-version" : 1,
+    "updated" : "2015-12-16T10:37:53.839Z",
+    "major-version" : 2,
+    "authority" : "http://helix-nebula.eu",
+    "type" : "number",
+    "created" : "2015-12-16T10:37:53.839Z",
+    "en" : {
+      "name" : "price",
+      "description" : "The price per unit of the VM or VM component."
+    },
+    "id" : "attribute/234eea40-5de3-4a80-848a-8e94bd9b3f9f",
+    "acl" : {
+      "owner" : {
+        "principal" : "ADMIN",
+        "type" : "ROLE"
+      }
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/edit",
+      "href" : "attribute/234eea40-5de3-4a80-848a-8e94bd9b3f9f"
+    }, {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "attribute/234eea40-5de3-4a80-848a-8e94bd9b3f9f"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Attribute",
+    "uri" : "http://schema.example.org/price",
+    "patch-version" : 0,
+    "normative" : true
+  }, {
+    "minor-version" : 1,
+    "updated" : "2015-12-16T10:34:45.406Z",
+    "major-version" : 2,
+    "authority" : "http://helix-nebula.eu",
+    "type" : "string",
+    "created" : "2015-12-16T10:34:45.406Z",
+    "en" : {
+      "name" : "country",
+      "description" : "The ISO 3166-1 alpha-2 country code.",
+      "categories" : [ "location" ]
+    },
+    "id" : "attribute/4d1bd051-ce04-4fcc-860c-24b7879ae141",
+    "acl" : {
+      "owner" : {
+        "principal" : "ADMIN",
+        "type" : "ROLE"
+      }
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/edit",
+      "href" : "attribute/4d1bd051-ce04-4fcc-860c-24b7879ae141"
+    }, {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "attribute/4d1bd051-ce04-4fcc-860c-24b7879ae141"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Attribute",
+    "uri" : "http://schema.example.org/country",
+    "patch-version" : 0,
+    "normative" : true
+  }, {
+    "minor-version" : 1,
+    "updated" : "2015-12-16T10:38:04.598Z",
+    "major-version" : 2,
+    "authority" : "http://helix-nebula.eu",
+    "type" : "string",
+    "created" : "2015-12-16T10:38:04.598Z",
+    "en" : {
+      "name" : "priceCurrency",
+      "description" : "The currency for the price."
+    },
+    "id" : "attribute/4dafe6cf-7acf-4ef3-adb7-cba00764d772",
+    "acl" : {
+      "owner" : {
+        "principal" : "ADMIN",
+        "type" : "ROLE"
+      }
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/edit",
+      "href" : "attribute/4dafe6cf-7acf-4ef3-adb7-cba00764d772"
+    }, {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "attribute/4dafe6cf-7acf-4ef3-adb7-cba00764d772"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Attribute",
+    "uri" : "http://schema.example.org/priceCurrency",
+    "patch-version" : 0,
+    "normative" : true
+  }, {
+    "minor-version" : 1,
+    "updated" : "2015-12-16T10:35:29.197Z",
+    "major-version" : 2,
+    "authority" : "http://helix-nebula.eu",
+    "type" : [ "http://schema.example.org/price", "http://schema.example.org/priceCurrency" ],
+    "created" : "2015-12-16T10:35:29.197Z",
+    "en" : {
+      "name" : "ramCapacityGiB",
+      "description" : "Note that these attributes can be used directly at the \"offer\" level."
+    },
+    "id" : "attribute/981600f5-17a5-4a4a-b7b6-239ce22e9b8b",
+    "acl" : {
+      "owner" : {
+        "principal" : "ADMIN",
+        "type" : "ROLE"
+      }
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/edit",
+      "href" : "attribute/981600f5-17a5-4a4a-b7b6-239ce22e9b8b"
+    }, {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "attribute/981600f5-17a5-4a4a-b7b6-239ce22e9b8b"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Attribute",
+    "uri" : "http://schema.example.org/priceModel",
+    "patch-version" : 0,
+    "normative" : true
+  }, {
+    "minor-version" : 1,
+    "updated" : "2015-12-15T15:46:23.409Z",
+    "major-version" : 2,
+    "authority" : "http://helix-nebula.eu",
+    "type" : "int",
+    "created" : "2015-12-15T15:46:23.409Z",
+    "en" : {
+      "name" : "ramCapacityGiB",
+      "description" : "Maximum amount of RAM that is available on the supplier's infrastructure in Gibibytes (GiB).",
+      "categories" : [ "service", "location" ]
+    },
+    "id" : "attribute/9be2f8c4-c24c-4e12-8a81-4c4f3d315389",
+    "acl" : {
+      "owner" : {
+        "principal" : "ADMIN",
+        "type" : "ROLE"
+      }
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/edit",
+      "href" : "attribute/9be2f8c4-c24c-4e12-8a81-4c4f3d315389"
+    }, {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "attribute/9be2f8c4-c24c-4e12-8a81-4c4f3d315389"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Attribute",
+    "uri" : "http://schema.example.org/ramCapacityGiB",
+    "patch-version" : 0,
+    "normative" : true
+  }, {
+    "minor-version" : 1,
+    "updated" : "2015-12-16T11:08:49.442Z",
+    "major-version" : 2,
+    "authority" : "http://helix-nebula.eu",
+    "type" : "http://schema.example.org/priceModel",
+    "created" : "2015-12-16T11:08:49.442Z",
+    "en" : {
+      "name" : "cpuPriceModel",
+      "description" : "Alias to Composite type."
+    },
+    "id" : "attribute/e387fc6e-ad00-410d-8136-ce41dd911645",
+    "acl" : {
+      "owner" : {
+        "principal" : "ADMIN",
+        "type" : "ROLE"
+      }
+    },
+    "operations" : [ {
+      "rel" : "http://sixsq.com/slipstream/1/Action/edit",
+      "href" : "attribute/e387fc6e-ad00-410d-8136-ce41dd911645"
+    }, {
+      "rel" : "http://sixsq.com/slipstream/1/Action/delete",
+      "href" : "attribute/e387fc6e-ad00-410d-8136-ce41dd911645"
+    } ],
+    "resourceURI" : "http://sixsq.com/slipstream/1/Attribute",
+    "uri" : "http://schema.example.org/cpuPriceModel",
+    "patch-version" : 0,
+    "normative" : true
+  } ]
+}

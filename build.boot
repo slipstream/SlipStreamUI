@@ -25,6 +25,7 @@
                  '[[org.clojure/clojure]
 
                    [com.taoensso/tower]
+                   [clj-http]
                    [clj-time]
                    [enlive]
                    [org.clojure/data.json]
