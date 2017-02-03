@@ -27,6 +27,7 @@
       <groupId>sixsq</groupId>
       <artifactId>default-deps</artifactId>
       <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   
