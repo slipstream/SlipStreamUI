@@ -117,16 +117,16 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $form.addFormHiddenField("redirect_to_dashboard", "");
         }
         // inject as hidden field in form the instance type (taken from attribute)
-        $("#ss-run-module-dialog :selected")
-            .each(function() {
-                var $this   = $(this),
-                    value   = $this.attr("instancetype"),
-                    name    = $this.parent().id().replace(/(.*)-(.*)/, "$1-instance.type");
-                if(value) {
-                    console.log("updateRequestForRunDeployment " + name + " : " + value);
-                    $form.addFormHiddenField(name, value);
-                }
-            });
+        // $("#ss-run-module-dialog :selected")
+        //     .each(function() {
+        //         var $this   = $(this),
+        //             value   = $this.attr("instancetype"),
+        //             name    = $this.parent().id().replace(/(.*)-(.*)/, "$1-instance.type");
+        //         if(value) {
+        //             console.log("updateRequestForRunDeployment " + name + " : " + value);
+        //             $form.addFormHiddenField(name, value);
+        //         }
+        //     });
 
         $("#ss-run-module-dialog input[type=text]")
             .each(function (){
