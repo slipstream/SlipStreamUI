@@ -3,7 +3,7 @@
 
   <artifactId>SlipStreamUI-dep</artifactId>
   <packaging>pom</packaging>
-  <version>3.21</version>
+  <version>3.21-SNAPSHOT</version>
   <name>SlipStreamUI-dep</name>
   <description>SlipStream Web UI</description>
   <url>http://sixsq.com/</url>
@@ -11,7 +11,7 @@
   <parent>
     <groupId>com.sixsq.slipstream</groupId>
     <artifactId>SlipStreamCommunity</artifactId>
-    <version>3.21</version>
+    <version>3.21-SNAPSHOT</version>
     <relativePath>../SlipStream/community</relativePath>
   </parent>
   
