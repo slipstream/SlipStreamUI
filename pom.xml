@@ -4,8 +4,7 @@
   <artifactId>SlipStreamUI-dep</artifactId>
   <packaging>pom</packaging>
   <version>3.22-SNAPSHOT</version>
-  <name>SlipStreamUI-dep</name>
-  <description>SlipStream Web UI</description>
+  <name>SlipStreamUI</name>
   <url>http://sixsq.com/</url>
 
   <parent>
