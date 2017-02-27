@@ -470,6 +470,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) {   
             callRequestPlacementIfEnabled();
+            $('#hybrid-deployment').attr('checked', false);
         });          
 
         $('#hybrid-deployment').change(function() {
@@ -483,6 +484,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .val(savedcloud)
                     .enable()
             }
+            $('#global-cloud-service').change();
         })
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
