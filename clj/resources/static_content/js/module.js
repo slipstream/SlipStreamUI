@@ -427,29 +427,45 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             warnWhenNoConnectorsAvailable(globalDisabled);
 
-        },        
+        },
+        
+        prsRequest = function(uiPlacementData) {
+                    return  $$.request
+                                      .put("/filter-rank")
+                                      .data(uiPlacementData)
+                                      .serialization("json")
+                                      .dataType("json")
+                                      .onSuccess( function (prsResponse){
+                                          cachedPRSResponse = prsResponse;
+                                          console.log("/filter-rank response: ", prsResponse);
+                                          updateSelectOptions(prsResponse);
+                                      })
+                                      .preventDefaultErrorHandling()
+                                      .onError( function (jqXHR, textStatus, errorThrown) {
+                                          console.error("Error during the call to /filter-rank: ", jqXHR.responseJSON.error);
+                                          resetSelectOptions();
+                                      });
+        },
 
         buildRequestUIPlacement = function() {
-            userConnectors  = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),            
-            moduleUri       = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),                     
+            userConnectors     = $.map($("[id$=--cloudservice]").first().find("option"), function(uc) {return uc.value;}),
+            moduleUri          = $('body').getSlipStreamModel().module.getURIWithVersion().removeLeadingSlash(),
             requestUiPlacement = $$.request
-                                            .put("/ui/placement")
-                                            .data({
-                                                moduleUri:              moduleUri,
-                                                userConnectors:         userConnectors
-                                            })
-                                            .serialization("json")
-                                            .dataType("json")
-                                            .onSuccess( function (prsResponse){
-                                                cachedPRSResponse = prsResponse;
-                                                console.log("PRS-lib response: ", prsResponse);
-                                                updateSelectOptions(prsResponse);
-                                            })
-                                            .preventDefaultErrorHandling()
-                                            .onError( function (jqXHR, textStatus, errorThrown) {
-                                                console.error("PRS-lib error : ", jqXHR.responseJSON.error);
-                                                resetSelectOptions();
-                                            });
+                                           .put("/ui/placement")
+                                           .data({
+                                               moduleUri:              moduleUri,
+                                               userConnectors:         userConnectors
+                                           })
+                                           .serialization("json")
+                                           .dataType("json")
+                                           .onSuccess( function (uiPlacementResponse){
+                                               console.log("/ui/placement response: ", uiPlacementResponse);
+                                               prsRequest(uiPlacementResponse).send();
+                                           })
+                                           .preventDefaultErrorHandling()
+                                           .onError( function (jqXHR, textStatus, errorThrown) {
+                                               console.error("Error during the call to /ui/placement: ", jqXHR.responseJSON.error);
+                                           });
 
             return requestUiPlacement;
         };
