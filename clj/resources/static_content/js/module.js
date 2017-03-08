@@ -435,6 +435,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                       .data(uiPlacementData)
                                       .serialization("json")
                                       .dataType("json")
+                                      .async(false)
                                       .onSuccess( function (prsResponse){
                                           cachedPRSResponse = prsResponse;
                                           console.log("/filter-rank response: ", prsResponse);
