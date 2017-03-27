@@ -11,7 +11,7 @@
   {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/index.html"
    :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/index.html"
    :ec2/using-network-security                "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"
-   :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/tutorial/introduction-to-security-groups/"})
+   :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/documentation/compute/security-groups/"})
 
 (defn- link-to-external-url
   [link-name displayed-text]
