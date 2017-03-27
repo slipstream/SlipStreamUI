@@ -266,7 +266,7 @@
    :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "Cet utilisateur ne pourra pas effectuer aucun déploiement jusqu'à ce qu'au moins un compte Cloud soit configuré dans ce profil. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/documentation/advanced_tutorial/accounts.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
 
    :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.title       "Le cloud par défaut n'est pas configuré"
-   :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.msg         "Le cloud `%1$s` est selectionné comme le cloud par défaut mais vous n'avez pas fourni ses identifiants. Veuillez [changer le cloud par défaut](/user/%2$s?edit=true#general) ou bien [configurer ses identifiants](/user/%2$s?edit=true#%3$s)." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.msg         "Le cloud `%1$s` est selectionné comme le cloud par défaut mais vous n'avez pas fourni ses identifiants. Veuillez [changer le cloud par défaut](/user/%2$s?edit=true#1-general) ou bien [configurer ses identifiants](/user/%2$s?edit=true#%3$s)." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
    :slipstream.ui.views.user.alert.cloud-default-not-configured.others-profile.title    "Le cloud par défaut n'est pas configuré pour cet utilisateur"
    :slipstream.ui.views.user.alert.cloud-default-not-configured.others-profile.msg      "Le cloud `%1$s` est selectionné comme le cloud par défaut mais ses identifiants ne sont pas fournis. Veuillez indiquer à l'utilisateur de changer le cloud par défaut ou bien de configurer ses identifiants." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
 
@@ -565,7 +565,7 @@
    :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "Des clés SSH sont configurées dans votre profile. SlipStream va les installer sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder."
    :slipstream.ui.models.parameters.ssh-key-not-available.description           "Accès SSH"
    :slipstream.ui.models.parameters.ssh-key-not-available.help-hint             "Actuellement il n'y pas de clés SSH configurées dans votre profile. S'il y en avait, SlipStream les installerait sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder. Si vous n'êtes pas sûr(e) de cette option, vous pouvez probablement la laisser désactivée."
-   :slipstream.ui.views.tables.run-deployment-global-parameters-table.missing-ssh-key.error-help-hint! "Pour activer l'accès SSH, veuillez fournir au moins une clé SSH dans <a href='%1$s?edit=true#general' target='_blank'>votre profile</a> et rechargez cette page." ; %1$s = user profile URL
+   :slipstream.ui.views.tables.run-deployment-global-parameters-table.missing-ssh-key.error-help-hint! "Pour activer l'accès SSH, veuillez fournir au moins une clé SSH dans <a href='%1$s?edit=true#1-general' target='_blank'>votre profile</a> et rechargez cette page." ; %1$s = user profile URL
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Adresse IP ou nom d'hôte de l'image."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "Ce paramètre est un paramètre par défaut des déploiements. Il est remplis par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get hostname'."
@@ -573,7 +573,7 @@
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "ID de l'instance dans le Cloud"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "Ce paramètre est un paramètre par défaut des déploiements. Il est remplis par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get instanceid'."
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Fournis par SlipStream à l'exécution"
-   :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "Pour activer l'accès SSH, veuillez fournir au moins une clé SSH dans <a href='%1$s?edit=true#general' target='_blank'>votre profile</a> et rechargez cette page." ; %1$s = user profile URL
+   :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "Pour activer l'accès SSH, veuillez fournir au moins une clé SSH dans <a href='%1$s?edit=true#1-general' target='_blank'>votre profile</a> et rechargez cette page." ; %1$s = user profile URL
 
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "Ajouter un paramètre (nom)"
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.description.placeholder   :global.nouns.description
