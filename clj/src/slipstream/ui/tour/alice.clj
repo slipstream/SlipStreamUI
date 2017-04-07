@@ -8,8 +8,8 @@
   "<button class='btn btn-primary btn-xs bootstro-next-btn' style='float:none;font-weight:bold;'>Next&nbsp;&raquo;</button>")
 
 (def ^:private external-links
-  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/index.html"
-   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/en/latest/advanced_tutorial/index.html"
+  {:ssdocs/standalone-images                  "http://ssdocs.sixsq.com/en/latest/tutorials/ss/index.html"
+   :ssdocs/cloud-infrastructure-accounts      "http://ssdocs.sixsq.com/en/latest/tutorials/ss/index.html"
    :ec2/using-network-security                "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html"
    :exoscale/introduction-to-security-groups  "https://community.exoscale.ch/documentation/compute/security-groups/"})
 
