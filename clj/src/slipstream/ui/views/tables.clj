@@ -648,6 +648,21 @@
                                                        :validation {:generic-help-hints {:error   (t :multiplicity.non-mutable-deployment.error-help-hint)}
                                                                     :requirements (pattern/requirements :multiplicity)}
                                                        :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
+     {:cells [{:type :cell/text,             :content "Number of CPUs"}
+              {:type :cell/positive-number,  :content {:value nil
+                                                       :min-value 1
+                                                       :required? false
+                                                       :id (format "parameter--node--%s--cpu.nb" (:name deployment-node))}, :editable? true}]}
+     {:cells [{:type :cell/text,             :content "Ram in GB"}
+              {:type :cell/positive-number,  :content {:value nil
+                                                       :min-value 1
+                                                       :required? false
+                                                       :id (format "parameter--node--%s--ram.GB" (:name deployment-node))}, :editable? true}]}
+     {:cells [{:type :cell/text,             :content "Disk in GB"}
+              {:type :cell/positive-number,  :content {:value nil
+                                                       :min-value 1
+                                                       :required? false
+                                                       :id (format "parameter--node--%s--disk.GB" (:name deployment-node))}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
               {:type :cell/positive-number,  :content {:value 0
                                                        :min-value 0
@@ -658,7 +673,8 @@
                                                                     :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
      {:cells [{:type :cell/text,             :content (t :cloud.label)}
               {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
-                                                       :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
+                                                       :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}
+     ])
 
   (defn- deployment-node-cell-inner-table-mapping-header
     [deployment-node node-index]
@@ -812,12 +828,29 @@
              {:type :cell/help-hint,  :content {:title    name
                                                 :content  description}}]})
 
-  (defn run-image-input-parameters-table
-    [input-parameters]
-    (table/build
-      {:rows (map run-image-input-parameter-row input-parameters)}))
 
-) ;; End of prefixed t scope
+  (defn- get-generic-cloud-param [{cloud-generic-parameters :parameters}]
+    (->> cloud-generic-parameters
+        (map (fn [cgp] [(keyword (:name cgp))
+                        {:description (:description cgp) :value (:value cgp)}]))
+        (into {})))
+
+  (defn- row-generic-cloud-params [k generic-cloud-params]
+    (let [cloud-param (k generic-cloud-params)]
+      {:cells [{:type :cell/text, :content (:description cloud-param)}
+               {:type :cell/positive-number, :content {:value     (:value cloud-param)
+                                                       :min-value 1
+                                                       :required? false
+                                                       :id        (str "parameter--" k)}, :editable? true}]}))
+
+  (defn run-image-input-parameters-table
+    [input-parameters generic-cloud]
+    (let [generic-cloud-params (get-generic-cloud-param generic-cloud)]
+      (table/build
+              {:rows
+               (concat
+                 (map (partial row-generic-cloud-params generic-cloud-params) [:cpu.nb :ram.GB :disk.GB])
+                 (map run-image-input-parameter-row input-parameters))})))) ;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
