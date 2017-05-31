@@ -614,6 +614,21 @@
          (map #(assoc % :target (:target deployment-node)))
          (map-indexed (partial deployment-node-cell-inner-table-mapping-row node-index (:name deployment-node)))))
 
+  (defn- row-generic-cloud-params
+    ([generic-cloud-params nodename name]
+     (let [cloud-param (-> generic-cloud-params
+                           :parameters
+                           (slipstream.ui.models.parameters/parameters-of-name name)
+                           first)]
+       {:cells [{:type :cell/text, :content (:description cloud-param)}
+                {:type :cell/positive-number, :content {:value     (:value cloud-param)
+                                                        :min-value 1
+                                                        :required? false
+                                                        :id        (str "parameter--" (when nodename nodename) name)}, :editable? true}]}))
+    ([generic-cloud-params name]
+     (row-generic-cloud-params generic-cloud-params nil name))
+    )
+
   (defmulti deployment-node-cell-inner-table-first-rows (comp :target first vector))
 
   (defmethod deployment-node-cell-inner-table-first-rows :page-type/any
@@ -821,21 +836,6 @@
         (map (fn [cgp] [(keyword (:name cgp))
                         {:description (:description cgp) :value (:value cgp)}]))
         (into {})))
-
-  (defn- row-generic-cloud-params
-    ([generic-cloud-params name]
-     (row-generic-cloud-params generic-cloud-params nil name))
-    ([generic-cloud-params nodename name]
-     (let [cloud-param (-> generic-cloud-params
-                           :parameters
-                           (slipstream.ui.models.parameters/parameters-of-name name)
-                           first)]
-       {:cells [{:type :cell/text, :content (:description cloud-param)}
-                {:type :cell/positive-number, :content {:value     (:value cloud-param)
-                                                        :min-value 1
-                                                        :required? false
-                                                        :id        (str "parameter--" (when nodename nodename) name)}, :editable? true}]}))
-   )
 
   (defn run-image-input-parameters-table
     [input-parameters generic-cloud-params]
