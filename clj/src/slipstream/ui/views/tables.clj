@@ -639,42 +639,29 @@
 
   (defmethod deployment-node-cell-inner-table-first-rows :deployment-run-dialog
     [deployment-node _]
-    [{:cells [{:type :cell/text,             :content (t :multiplicity.non-mutable-deployment.label)}
-              {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
-                                                       :min-value 1
-                                                       :input-config-data {:mutable-deployment      {:min-value 0, :label (t :multiplicity.mutable-deployment.label)}
-                                                                           :non-mutable-deployment  {:min-value 1, :label (t :multiplicity.non-mutable-deployment.label)}}
-                                                       :required? true
-                                                       :validation {:generic-help-hints {:error   (t :multiplicity.non-mutable-deployment.error-help-hint)}
-                                                                    :requirements (pattern/requirements :multiplicity)}
-                                                       :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content "Number of CPUs"}
-              {:type :cell/positive-number,  :content {:value nil
-                                                       :min-value 1
-                                                       :required? false
-                                                       :id (format "parameter--node--%s--cpu.nb" (:name deployment-node))}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content "Ram in GB"}
-              {:type :cell/positive-number,  :content {:value nil
-                                                       :min-value 1
-                                                       :required? false
-                                                       :id (format "parameter--node--%s--ram.GB" (:name deployment-node))}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content "Disk in GB"}
-              {:type :cell/positive-number,  :content {:value nil
-                                                       :min-value 1
-                                                       :required? false
-                                                       :id (format "parameter--node--%s--disk.GB" (:name deployment-node))}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
-              {:type :cell/positive-number,  :content {:value 0
-                                                       :min-value 0
-                                                       :id (format "parameter--node--%s--max-provisioning-failures" (:name deployment-node))
-                                                       :required? true
-                                                       :validation {:generic-help-hints {:error   (t :max-provisioning-failures.error-help-hint)
-                                                                                         :warning (t :max-provisioning-failures.warning-help-hint)}
-                                                                    :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content (t :cloud.label)}
-              {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
-                                                       :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}
-     ])
+    (concat {:cells [{:type :cell/text, :content (t :multiplicity.non-mutable-deployment.label)}
+                     {:type :cell/positive-number, :content {:value             (:default-multiplicity deployment-node)
+                                                             :min-value         1
+                                                             :input-config-data {:mutable-deployment     {:min-value 0, :label (t :multiplicity.mutable-deployment.label)}
+                                                                                 :non-mutable-deployment {:min-value 1, :label (t :multiplicity.non-mutable-deployment.label)}}
+                                                             :required?         true
+                                                             :validation        {:generic-help-hints {:error (t :multiplicity.non-mutable-deployment.error-help-hint)}
+                                                                                 :requirements       (pattern/requirements :multiplicity)}
+                                                             :id                (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
+            (map (partial row-generic-cloud-params (:generic-cloud-params deployment-node
+                                                     ) (:name deployment-node)) ["cpu.nb" "ram.GB" "disk.GB"])
+            {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
+                     {:type :cell/positive-number,  :content {:value 0
+                                                              :min-value 0
+                                                              :id (format "parameter--node--%s--max-provisioning-failures" (:name deployment-node))
+                                                              :required? true
+                                                              :validation {:generic-help-hints {:error   (t :max-provisioning-failures.error-help-hint)
+                                                                                                :warning (t :max-provisioning-failures.warning-help-hint)}
+                                                                           :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
+            {:cells [{:type :cell/text,             :content (t :cloud.label)}
+                     {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
+                                                              :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}
+            ))
 
   (defn- deployment-node-cell-inner-table-mapping-header
     [deployment-node node-index]
@@ -835,22 +822,28 @@
                         {:description (:description cgp) :value (:value cgp)}]))
         (into {})))
 
-  (defn- row-generic-cloud-params [k generic-cloud-params]
-    (let [cloud-param (k generic-cloud-params)]
-      {:cells [{:type :cell/text, :content (:description cloud-param)}
-               {:type :cell/positive-number, :content {:value     (:value cloud-param)
-                                                       :min-value 1
-                                                       :required? false
-                                                       :id        (str "parameter--" k)}, :editable? true}]}))
+  (defn- row-generic-cloud-params
+    ([generic-cloud-params name]
+     (row-generic-cloud-params generic-cloud-params nil name))
+    ([generic-cloud-params nodename name]
+     (let [cloud-param (-> generic-cloud-params
+                           :parameters
+                           (slipstream.ui.models.parameters/parameters-of-name name)
+                           first)]
+       {:cells [{:type :cell/text, :content (:description cloud-param)}
+                {:type :cell/positive-number, :content {:value     (:value cloud-param)
+                                                        :min-value 1
+                                                        :required? false
+                                                        :id        (str "parameter--" (when nodename nodename) name)}, :editable? true}]}))
+   )
 
   (defn run-image-input-parameters-table
-    [input-parameters generic-cloud]
-    (let [generic-cloud-params (get-generic-cloud-param generic-cloud)]
-      (table/build
-              {:rows
-               (concat
-                 (map (partial row-generic-cloud-params generic-cloud-params) [:cpu.nb :ram.GB :disk.GB])
-                 (map run-image-input-parameter-row input-parameters))})))) ;; End of prefixed t scope
+    [input-parameters generic-cloud-params]
+    (table/build
+      {:rows
+       (concat
+         (map (partial row-generic-cloud-params generic-cloud-params) ["cpu.nb" "ram.GB" "disk.GB"])
+         (map run-image-input-parameter-row input-parameters))}))) ;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -9,7 +9,8 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.parameters :as p]
-            [slipstream.ui.views.tables :as t]))
+            [slipstream.ui.views.tables :as t]
+            [slipstream.ui.models.parameters :as parameters]))
 
 (localization/def-scoped-t)
 
@@ -203,13 +204,16 @@
     [:#ss-run-image-cloud-label]  (html/content       (t :cloud-service.label))
     [:.ss-run-image-global-section-title]              (html/content       (t :global-section.title))
     [:.ss-run-image-global-section-content]            (html/content       (-> [image-metadata :image] run-module-global-parameters t/run-image-global-section-table))
-    [:.ss-run-image-input-parameters-section]          (let [cc (-> image-metadata :cloud-configuration)
+    [:.ss-run-image-input-parameters-section]          (let [generic-cloud-params (-> image-metadata
+                                                                                      :cloud-configuration
+                                                                                      (parameters/parameters-of-category "Cloud")
+                                                                                      first)
                                                              input-parameters (-> image-metadata :input-parameters not-empty)]
                                                          (ue/at-match
                                                           [:.ss-run-image-input-parameters-section-title]    (html/html-content  (t :input-parameters-section.title))
                                                           [:.ss-run-image-input-parameters-section-content]  (html/content       (t/run-image-input-parameters-table
                                                                                                                                    input-parameters
-                                                                                                                                   (first (filterv (fn [sc] (= (:category sc) "Cloud")) cc))))))
+                                                                                                                                   generic-cloud-params))))
     footnote-sel                  (html/html-content  (t :footnote resource-id module-version))
     [:#ss-run-image-id]           (ue/set-value       (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
     first-button-sel              (html/content       (t :button.cancel))
