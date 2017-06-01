@@ -624,7 +624,7 @@
                 {:type :cell/positive-number, :content {:value     (:value cloud-param)
                                                         :min-value 1
                                                         :required? false
-                                                        :id        (str "parameter--" (when nodename nodename) name)}, :editable? true}]}))
+                                                        :id        (str "parameter--" (when nodename (str nodename "--")) name)}, :editable? true}]}))
     ([generic-cloud-params name]
      (row-generic-cloud-params generic-cloud-params nil name))
     )
