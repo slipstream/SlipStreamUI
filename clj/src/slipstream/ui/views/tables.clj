@@ -618,13 +618,13 @@
     ([generic-cloud-params nodename name]
      (let [cloud-param (-> generic-cloud-params
                            :parameters
-                           (slipstream.ui.models.parameters/parameters-of-name name)
+                           (p/parameters-of-name name)
                            first)]
        {:cells [{:type :cell/text, :content (:description cloud-param)}
                 {:type :cell/positive-number, :content {:value     (:value cloud-param)
                                                         :min-value 1
                                                         :required? false
-                                                        :id        (str "parameter--" (when nodename (str nodename "--")) name)}, :editable? true}]}))
+                                                        :id        (str "parameter--" (when nodename (str nodename "--")) name)}, :editable? true}] :class "input-generic-cloud-params"}))
     ([generic-cloud-params name]
      (row-generic-cloud-params generic-cloud-params nil name))
     )
@@ -839,11 +839,13 @@
 
   (defn run-image-input-parameters-table
     [input-parameters generic-cloud-params]
-    (table/build
-      {:rows
-       (concat
-         (map (partial row-generic-cloud-params generic-cloud-params) ["cpu.nb" "ram.GB" "disk.GB"])
-         (map run-image-input-parameter-row input-parameters))}))) ;; End of prefixed t scope
+    [(table/build
+       {:rows (map run-image-input-parameter-row input-parameters)})
+     (table/build
+       {:class "table-generic-cloud-params"
+        :rows (map (partial row-generic-cloud-params generic-cloud-params) ["cpu.nb" "ram.GB" "disk.GB"])})]))
+
+;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

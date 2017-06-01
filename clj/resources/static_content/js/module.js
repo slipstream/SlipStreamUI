@@ -1,5 +1,25 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    var $btnGenericCloudParams = $("#btn-generic-cloud-params"),
+        $genericCloudParamsInput = $(".input-generic-cloud-params"),
+        $genericCloudParamsTable = $(".table-generic-cloud-params");
+
+    $genericCloudParamsTable.hide();
+    $genericCloudParamsInput.closest("tr").slideUpRow();
+
+    $btnGenericCloudParams.click(function() {
+        if (this.getElementsByClassName('glyphicon-triangle-top').length == 0) {
+            $("#btn-generic-cloud-params").html('Less <span class="glyphicon glyphicon-triangle-top"></span>');
+            $genericCloudParamsTable.show();
+            $genericCloudParamsInput.closest("tr").slideDownRow();
+
+        } else {
+            $("#btn-generic-cloud-params").html('More <span class="glyphicon glyphicon-triangle-bottom"></span>');
+            $genericCloudParamsInput.closest("tr").slideUpRow();
+            $genericCloudParamsTable.hide();
+        }
+    });
+
     var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers"),
         $logoURLInput = $("input#logoLink"),
         $logoHeaderImg = $(".ss-header-image-container img"),
