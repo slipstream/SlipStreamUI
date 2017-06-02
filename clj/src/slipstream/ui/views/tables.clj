@@ -620,11 +620,13 @@
                            :parameters
                            (p/parameters-of-name name)
                            first)]
-       {:cells [{:type :cell/text, :content (:description cloud-param)}
-                {:type :cell/positive-number, :content {:value     (:value cloud-param)
-                                                        :min-value 1
-                                                        :required? false
-                                                        :id        (str "parameter--" (when nodename (str nodename "--")) name)}, :editable? true}] :class "input-generic-cloud-params"}))
+       (when cloud-param
+         {:cells [{:type :cell/text, :content (:description cloud-param)}
+                  {:type :cell/positive-number, :content {:value     (:value cloud-param)
+                                                          :min-value 0
+                                                          :required? false
+                                                          :id        (str "parameter--" (when nodename (str nodename "--")) name)}, :editable? true}] :class "input-generic-cloud-params"}
+         )))
     ([generic-cloud-params name]
      (row-generic-cloud-params generic-cloud-params nil name))
     )
