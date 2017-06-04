@@ -675,7 +675,9 @@
                                                                             :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
              {:cells [{:type :cell/text,             :content (t :cloud.label)}
                       {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
-                                                               :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}]
+                                                               :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}
+             {:cells [{:type    :cell/hidden-input
+                       :content {:id    (format "parameter--%s--service-offer" (:name deployment-node))}}]}]
             (map (partial row-generic-cloud-params (:generic-cloud-params deployment-node
                                                      ) (:name deployment-node)) ["cpu.nb" "ram.GB" "disk.GB"])
             ))
@@ -845,7 +847,10 @@
        {:rows (map run-image-input-parameter-row input-parameters)})
      (table/build
        {:class "table-generic-cloud-params"
-        :rows (map (partial row-generic-cloud-params generic-cloud-params) ["cpu.nb" "ram.GB" "disk.GB"])})]))
+        :rows (map (partial row-generic-cloud-params generic-cloud-params) ["cpu.nb" "ram.GB" "disk.GB"])})
+     (table/build
+        {:rows [{:cells [{:type    :cell/hidden-input
+                            :content {:id    "parameter--service-offer"}}]}]})]))
 
 ;; End of prefixed t scope
 
