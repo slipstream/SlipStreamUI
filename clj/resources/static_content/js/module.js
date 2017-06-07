@@ -529,6 +529,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
 
         $btnRefreshPRS.click(function() {
+            cachedPRSResponse = null;
             callRequestPlacementIfEnabled();
         });
 
