@@ -2,7 +2,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var $btnGenericCloudParams = $("#btn-generic-cloud-params"),
         $genericCloudParamsInput = $(".input-generic-cloud-params"),
-        $genericCloudParamsTable = $(".table-generic-cloud-params");
+        $genericCloudParamsTable = $(".table-generic-cloud-params"),
+        $btnRefreshPRS = $("#btn-refresh-prs");
 
     $genericCloudParamsTable.hide();
     $genericCloudParamsInput.closest("tr").slideUpRow();
@@ -12,7 +13,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $("#btn-generic-cloud-params").html('Less <span class="glyphicon glyphicon-triangle-top"></span>');
             $genericCloudParamsTable.show();
             $genericCloudParamsInput.closest("tr").slideDownRow();
-
         } else {
             $("#btn-generic-cloud-params").html('More <span class="glyphicon glyphicon-triangle-bottom"></span>');
             $genericCloudParamsInput.closest("tr").slideUpRow();
@@ -450,22 +450,38 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         
         prsRequest = function(uiPlacementData) {
-                    return  $$.request
-                                      .put("/filter-rank")
-                                      .data(uiPlacementData)
-                                      .serialization("json")
-                                      .dataType("json")
-                                      .async(false)
-                                      .onSuccess( function (prsResponse){
-                                          cachedPRSResponse = prsResponse;
-                                          console.log("/filter-rank response: ", prsResponse);
-                                          updateSelectOptions(prsResponse);
-                                      })
-                                      .preventDefaultErrorHandling()
-                                      .onError( function (jqXHR, textStatus, errorThrown) {
-                                          console.error("Error during the call to /filter-rank: ", jqXHR.response);
-                                          resetSelectOptions();
-                                      });
+            uiPlacementData.components.forEach (function (comp)
+            {
+             if (comp['connector-instance-types'] != undefined) {
+                comp['connector-instance-types']['exoscale-ch-gva'] = null
+             }
+             if (comp.node == undefined) { //Simple run
+                  comp['cpu.nb'] = parseInt($('#parameter--cpu\\.nb').val()) || 0;
+                  comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) * 1024 || 0;
+                  comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || 0;
+                }
+              else { //Application
+                  comp['cpu.nb'] = parseInt($('#parameter--' + comp.node + '--cpu\\.nb').val()) || 0;
+                  comp['ram.GB'] = parseInt($('#parameter--' + comp.node + '--ram\\.GB').val()) * 1024|| 0;
+                  comp['disk.GB'] = parseInt($('#parameter--' + comp.node + '--disk\\.GB').val()) || 0;
+                }
+            });
+            return  $$.request
+                              .put("/filter-rank")
+                              .data(uiPlacementData)
+                              .serialization("json")
+                              .dataType("json")
+                              .async(false)
+                              .onSuccess( function (prsResponse){
+                                  cachedPRSResponse = prsResponse;
+                                  console.log("/filter-rank response: ", prsResponse);
+                                  updateSelectOptions(prsResponse);
+                              })
+                              .preventDefaultErrorHandling()
+                              .onError( function (jqXHR, textStatus, errorThrown) {
+                                  console.error("Error during the call to /filter-rank: ", jqXHR.response);
+                                  resetSelectOptions();
+                              });
         },
 
         buildRequestUIPlacement = function() {
@@ -510,6 +526,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $('#hybrid-deployment')
                 .attr('checked', false)
                 .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
+        });
+
+        $btnRefreshPRS.click(function() {
+            callRequestPlacementIfEnabled();
         });
 
         $('#hybrid-deployment').change(function() {
