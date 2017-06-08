@@ -368,7 +368,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 currency                = info[connector].currency,
                                 priceInfo               = priceToString(price, currency),
                                 connectorInfo           = connectorInfoToString(info[connector]),
-                                defaultCloud            = this.text.includes("*") ? " *" : "";                                
+                                defaultCloud            = this.text.includes("*") ? " *" : "";
+
+                                $("[id=parameter" + nodeSelector + "--service-offer]").val(info[connector]['service-offer'].id);
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
