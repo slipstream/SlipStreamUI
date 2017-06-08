@@ -447,6 +447,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             $("#global-cloud-service option").last().attr("disabled", false);
 
+            updateSpecifyText();
+
             warnWhenNoConnectorsAvailable(globalDisabled);
 
         },
@@ -463,9 +465,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                   comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || 0;
                 }
               else { //Application
-                  comp['cpu.nb'] = parseInt($('#parameter--' + comp.node + '--cpu\\.nb').val()) || 0;
-                  comp['ram.GB'] = parseInt($('#parameter--' + comp.node + '--ram\\.GB').val()) * 1024|| 0;
-                  comp['disk.GB'] = parseInt($('#parameter--' + comp.node + '--disk\\.GB').val()) || 0;
+                  comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || 0;
+                  comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val()) * 1024|| 0;
+                  comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || 0;
                 }
             });
             return  $$.request
@@ -533,8 +535,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $btnRefreshPRS.click(function() {
             cachedPRSResponse = null;
             callRequestPlacementIfEnabled();
-            updateSpecifyText();
-            updateSelectOptions(cachedPRSResponse, true);
         });
 
         $('#hybrid-deployment').change(function() {
@@ -552,8 +552,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         })
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
-            updateSelectOptions(cachedPRSResponse, true); 
-            updateSpecifyText();                    
+            updateSelectOptions(cachedPRSResponse, true);
         });
 
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
@@ -564,7 +563,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $scalableCheckBox.on("change", function(){
             toggleShowAdditionalCost();
             updateSelectOptions(cachedPRSResponse, true);
-            updateSpecifyText();                  
         });       
 
     }
