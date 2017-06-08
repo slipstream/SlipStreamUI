@@ -531,6 +531,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $btnRefreshPRS.click(function() {
             cachedPRSResponse = null;
             callRequestPlacementIfEnabled();
+            updateSpecifyText();
+            updateSelectOptions(cachedPRSResponse, true);
         });
 
         $('#hybrid-deployment').change(function() {
