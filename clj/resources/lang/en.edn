@@ -1225,11 +1225,12 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    :slipstream.ui.views.modal-dialogs.build-image-dialog.button.cancel                        :global.verbs.cancel
 
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.title                             "Deploy Application"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote                          "Choose the cloud where each application component will be deployed, how many of each (parameter `Multiplicity`) and parameters for each node."
+
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.footnote                          "Prices are given for information only. The underlying Clouds can charge you more (e.g: network usage) or less (e.g: volume discount)."
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.run                        "Deploy Application"
    :slipstream.ui.views.modal-dialogs.run-deployment-dialog.button.cancel                     :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Global parameters"
-   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Component parameters"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.global-section.title              "Deployment options"
+   :slipstream.ui.views.modal-dialogs.run-deployment-dialog.nodes-section.title               "Cloud resources"
 
    :slipstream.ui.views.run.page-title                      "Run %1$s" ;; %1$s = [run id]
    :slipstream.ui.views.run.header.title!                   "Deployment %1$s is <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"

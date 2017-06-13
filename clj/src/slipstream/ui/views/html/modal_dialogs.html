@@ -8,6 +8,8 @@
   <!-- External CSS Stylesheets -->
   <link rel="stylesheet" type="text/css" href="external/bootstrap/css/bootstrap.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/modal_dialogs.css"/>
+  <link rel="stylesheet" type="text/css" href="css/table.css"/>
+  <link rel="stylesheet" type="text/css" href="css/content.css"/>
 </head>
 <body>
 
@@ -617,6 +619,374 @@
         </form>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ss-run-new-deployment-dialog">
+      Launch demo <code>#ss-run-new-deployment-dialog</code> modal
+    </button>
+
+    <!-- Modal -->
+      <div class="modal fade ss-run-module-dialog in" id="ss-run-new-deployment-dialog" tabindex="-1" role="dialog" aria-labelledby="ss-run-deployment-dialog-label" aria-hidden="true" >
+        <div class="modal-dialog modal-lg">
+          <form class="ss-run-module-form" role="form">
+            <!-- The UI always bypasses the SSH check, i.e. launching a deployment without SSH keys won't fail -->
+            <input type="hidden" class="form-control" autocomplete="off" id="bypass-ssh-check" name="bypass-ssh-check" value="true">
+            <input type="hidden" class="form-control" autocomplete="off" id="ss-run-deployment-id" name="refqname" value="module/test/a/88">
+            <div class="modal-content panel-primary">
+              <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">×</span>
+                  <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="ss-run-deployment-dialog-label">
+                  XX Deploy Application
+                </h4>
+              </div>
+              <div class="modal-body">
+                <h4 class="ss-run-deployment-global-section-title">Deployment options</h4>
+                <div class="ss-run-deployment-global-section-content">
+                  <div class="table-responsive ss-table">
+                    <table class="table table-hover ss-table-without-headers table-condensed" style="margin-bottom: 0px;">
+                      <colgroup>
+                        <col style="width: 33%;" span="1">
+                        <col style="width: 33%;" span="1">
+                        <col style="width: 33%;" span="1">
+                      </colgroup>
+                      <tbody class="ss-table-body">
+                        <tr>
+                          <td class="ss-table-cell-text">
+                            <input id="mutable" name="mutable" autocomplete="off" type="checkbox">
+                            <span>Scalable</span>
+                            <span class="glyphicon glyphicon-question-sign ss-table-cell-help-hint" data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Enabling this option will launch a <i>scalable</i> deployment, which will allow the <code>multiplicity</code> for each node to be changed after launch." title="Scalable deployment"></span>
+                          </td>
+                          <td class="ss-table-cell-text">
+                            <input id="ss-run-deployment-fail-tolerance-allowed-checkbox" autocomplete="off" type="checkbox">
+                            <span>Tolerate failures</span>
+                            <span class="glyphicon glyphicon-question-sign ss-table-cell-help-hint" data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip" title="Tooltip"></span>
+                          </td>
+                          <td class="ss-table-cell-text">
+                            <div class="form-group has-feedback ss-form-group-with-validation">
+                              <input id="ssh-access-enabled" autocomplete="off" type="checkbox">
+                              <span>SSH access</span>
+                              <span class="glyphicon glyphicon-question-sign ss-table-cell-help-hint" data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip" title="Tooltip"></span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="ss-table-cell-text" style="padding-top: 11px;">
+                            <input id="hybrid-deployment" autocomplete="off" type="checkbox">
+                            <span>Multi-Cloud</span>
+                            <span data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip" title="Tooltip" class="glyphicon glyphicon-question-sign ss-table-cell-help-hint"></span>
+                          </td>
+                          <td id="global-cloud-service-cell" class="ss-table-cell-enum-editable" colspan="1">
+                            <select id="global-cloud-service" class="form-control">
+                              <option value="azure-west-europe">azure-west-europe</option>
+                              <option value="specify-for-each-node" disabled="disabled">exoscale-ch-dk</option>
+                              <option value="specify-for-each-node">exoscale-ch-gva</option>
+                            </select>
+                          </td>
+                          <td class="ss-table-cell-text" colspan="1">
+                            <span class="glyphicon glyphicon-question-sign ss-table-cell-help-hint" data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip" title="Tooltip"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="ss-table-cell-text">
+                            Keep running when Ready
+                          </td>
+                          <td class="ss-table-cell-enum-editable">
+                            <select class="form-control" id="keep-running" name="keep-running">
+                              <option value="always">Always</option>
+                              <option value="on-success">On Success</option>
+                              <option value="on-error">On Error</option>
+                              <option value="never" selected="">Never *</option>
+                            </select>
+                          </td>
+                          <td class="ss-table-cell-text">
+                            <span class="glyphicon glyphicon-question-sign ss-table-cell-help-hint" data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Here you can define if and when SlipStream should leave the application running after performing the deployment. <code>On success</code> is useful for production deployments or long tests. <code>On Error</code> might be useful so that resources are consumed only when debugging is needed. <code>Never</code> ensures that SlipStream automatically terminates the application after performing the deployment. The option flagged with a <code>&amp;#42;</code> is the default configured in your user profile.  Note: This parameter doesn't apply to <code>scalable deployment</code> Runs and to <code>build image</code> Runs." title="Keep running after deployment"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="ss-table-cell-text">Tags</td><td class="ss-table-cell-text-editable">
+                          <div class="form-group has-feedback ss-form-group-with-validation">
+                            <input class="ss-input-needs-validation ss-input-has-requirements form-control" value="" id="tags" name="tags" data-validation="" autocomplete="off" type="text">
+                            <span class="ss-validation-help-hint help-block hidden"></span>
+                            <span class="glyphicon form-control-feedback glyphicon-ok hidden"></span>
+                          </div>
+                        </td>
+                          <td class="ss-table-cell-text">
+                            <span class="glyphicon glyphicon-question-sign ss-table-cell-help-hint" data-container="body" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip" title="Tags"></span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <hr style="margin-top: 0px;">
+
+                <h4 class="ss-run-deployment-nodes-section-title">
+                  XX Cloud resources
+                </h4>
+                <div class="ss-run-deployment-nodes-section-content">
+                  <div class="table-responsive ss-table">
+                    <table class="table table-hover ss-table-without-headers table-condensed">
+                      <colgroup>
+                        <col style="min-width: 15px;" span="1">
+                        <col style="min-width: 150px;" span="1">
+                        <col style="width: 100%;" span="1">
+                        <col style="min-width: 90px;" span="1">
+                        <col style="min-width: 70px;" span="1">
+                        <col style="min-width: 100px; font-weight:bold;" span="1">
+                      </colgroup>
+                      <thead class="ss-table-head">
+                      <tr>
+                        <th></th>
+                        <th>Nodes</th>
+                        <th>Service offer &amp; Parameters</th>
+                        <th>Unit price</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                      </tr>
+                      </thead>
+                      <tbody class="ss-table-body">
+                      <tr class="ss-deployment-node-row">
+                        <td></td>
+                        <td class="ss-table-cell-icon">
+                          <span class="glyphicon-modal-window ss-icon-tooltip glyphicon" title="" data-toggle="tooltip" data-placement="left" data-original-title="Component"></span>
+                          
+                          <span>orchestrator</span>
+                        </td>
+                        <td style="padding-left: 11px;">
+                          exoscale-ch-gva Micro 10G disk (1/512/10)
+                        </td>
+                        <td>
+                          0.015 $/h
+                        </td>
+                        <td class="ss-table-cell-inner-table" style="padding-left: 17px;">
+                          1
+                        </td>
+                        <td style="font-weight: bold;">
+                          0.015 $/h
+                        </td>
+                      </tr>
+                      <tr class="ss-deployment-node-row">
+                        <td><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        <td class="ss-table-cell-icon">
+                          <span class="glyphicon-modal-window ss-icon-tooltip glyphicon" title="" data-toggle="tooltip" data-placement="left" data-original-title="Component"></span>
+                          
+                          <span>database</span>
+                        </td>
+                        <td style="padding-top: 0px;padding-bottom: 0px;">
+                          <select id="global-cloud-service" class="form-control" style="displayinline;display: inline-block;height: 34px;padding-left: 2px;padding-top: 0px;padding-bottom: 0px;width: calc;">
+                            <option value="atos-es1" disabled="disabled">atos-es1</option>
+                            <option value="azure-west-europe" disabled="disabled">azure-west-europe</option>
+                            <option value="exoscale-ch-dk" disabled="disabled">exoscale-ch-dk</option>
+                            <option value="exoscale-ch-gva" selected="" instancetype="Medium">exoscale-ch-gva Small 50G disk (2/4096/50)</option>
+                          </select>
+                        </td>
+                        <td>
+                          0.125 $/h
+                        </td>
+                        <td class="ss-table-cell-inner-table" style="padding-top: 0px;padding-bottom: 0px;">
+                          <input class="ss-input-needs-validation ss-input-has-requirements ss-required-input form-control" value="2" min="1" id="parameter--node--a--multiplicity" name="parameter--node--a--multiplicity" autocomplete="off" style="height: 34px;" type="number">
+                        </td>
+                        <td style="font-weight: bold;">
+                          0.250 $/h
+                        </td>
+                      </tr>
+                      <tr class="ss-deployment-node-row"><td><span class="glyphicon glyphicon-chevron-down"></span></td>
+                        <td class="ss-table-cell-icon" style="vertical-align: top;">
+                          <span class="glyphicon-modal-window ss-icon-tooltip glyphicon" title="" data-toggle="tooltip" data-placement="left" data-original-title="Component"></span>
+                          
+                          <span>webserver</span>
+                        </td>
+                        <td class="ss-table-cell-inner-table" style="padding-top: 0px;padding-bottom: 0px;">
+                          <select id="global-cloud-service" class="form-control" style="displayinline;display: inline-block;height: 34px;padding-left: 2px;padding-top: 0px;padding-bottom: 0px;width: calc;">
+                            <option value="atos-es1" disabled="disabled">atos-es1</option>
+                            <option value="azure-west-europe" disabled="disabled">azure-west-europe</option>
+                            <option value="exoscale-ch-dk" disabled="disabled">exoscale-ch-dk</option>
+                            <option value="exoscale-ch-gva" instancetype="Medium" selected="selected">exoscale-ch-gva Small 50G disk (2/4096/50)</option>
+                          </select>
+                          <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 5px;margin-bottom: 5px;">
+                            <div style="padding-left: 5px;padding-right: 5px;" class="col-sm-6 form-group">
+                              <div class="input-group">
+                                <div class="input-group-addon">CPU</div>
+                                <input id="exampleInputAmount" class="input-sm form-control" type="text">
+                                <div class="input-group-addon">core</div>
+                              </div>
+                            </div>
+                            <div style="padding-left: 5px;padding-right: 5px;" class="col-sm-6 form-group">
+                              <div class="input-group">
+                                <div class="input-group-addon">RAM</div>
+                                <input id="exampleInputAmount" class="input-sm form-control" type="text">
+                                <div class="input-group-addon">GB</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 5px;margin-bottom: 5px;">
+                            <div style="padding-left: 5px;padding-right: 5px;" class="col-md-6 form-group">
+                              <div class="input-group">
+                                <div class="input-group-addon">Root Disk</div>
+                                <input id="exampleInputAmount" class="input-sm form-control" type="text">
+                                <div class="input-group-addon">GB</div>
+                              </div>
+                            </div>
+                            <div style="padding-left: 5px;padding-right: 5px;" class="col-md-6 form-group">
+                              <div class="input-group">
+                                <div class="input-group-addon">Extra Disk</div>
+                                <input id="exampleInputAmount" class="input-sm form-control" type="text">
+                                <div class="input-group-addon">GB</div>
+                              </div>
+                            </div>
+                          </div>
+                          <table class="table table-responsive table-condensed ss-inner-table" style="margin-bottom: 5px;">
+                            <colgroup>
+                              <col style="min-width: 200px;" span="1">
+                              <col style="min-width: 80px;" span="1">
+                            </colgroup>
+                            <tbody class="ss-table-body" style="">
+                            <tr>
+                              <td class="ss-table-cell-text" style="padding: 0;">
+                                Network type
+                              </td>
+                              <td class="ss-table-cell-text-editable ss-value-must-be-single-quoted" style="padding: 0;">
+                                <select id="global-cloud-service" class="form-control" style="displayinline;display: inline-block;height: 34px;padding-left: 2px;padding-top: 0px;padding-bottom: 0px;width: calc;">
+                                  <option value="Public">Public</option>
+                                  <option value="Private">Private</option>
+                                </select>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                          <table class="table table-responsive table-condensed ss-inner-table" style="margin-bottom: 5px;">
+                            <colgroup>
+                              <col style="min-width: 200px;" span="1">
+                              <col style="min-width: 80px;" span="1">
+                            </colgroup>
+                            <tbody class="ss-table-body" style="">
+                            <tr>
+                              <td class="ss-table-cell-text" style="padding: 0;">
+                                Input <code>couchbase-user</code>
+                              </td>
+                              <td class="ss-table-cell-text-editable ss-value-must-be-single-quoted" style="padding: 0;">
+                                <input class="form-control" placeholder="No value" value="Administrator" id="parameter--node--b--couchbase-user" name="parameter--node--b--couchbase-user" autocomplete="off" type="text">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="ss-table-cell-text" style="padding: 0;">
+                                Input <code>couchbase-password</code>
+                              </td>
+                              <td class="ss-table-cell-text-editable ss-value-must-be-single-quoted" style="padding: 0;">
+                                <input class="form-control" placeholder="No value" value="password" id="parameter--node--b--couchbase-password" name="parameter--node--b--couchbase-password" autocomplete="off" type="text">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="ss-table-cell-text" style="padding: 0;">
+                                Input <code>couchbase-bucket</code>
+                              </td>
+                              <td class="ss-table-cell-text-editable ss-value-must-be-single-quoted" style="padding: 0;">
+                                <input class="form-control" placeholder="No value" value="slipstream_bucket" id="parameter--node--b--couchbase-bucket" name="parameter--node--b--couchbase-bucket" autocomplete="off" type="text">
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>
+                          0.125 $/h
+                        </td>
+                        <td class="ss-table-cell-inner-table" style="padding-top: 0px;padding-bottom: 0px;">
+                          <input class="ss-input-needs-validation ss-input-has-requirements ss-required-input form-control" min="1" id="parameter--node--a--multiplicity" name="parameter--node--a--multiplicity" autocomplete="off" style="height: 34px;" value="3" type="number">
+                        </td>
+                        <td style="font-weight: bold;">
+                          0.375 $/h
+                        </td>
+                      </tr>
+                      <tr class="ss-deployment-node-row">
+                        <td>
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                        </td>
+                        <td class="ss-table-cell-icon">
+                          <span class="glyphicon-modal-window ss-icon-tooltip glyphicon" title="" data-toggle="tooltip" data-placement="left" data-original-title="Component"></span>
+                          
+                          <span>load-balancer</span>
+                        </td>
+                        <td style="padding-top: 0px;padding-bottom: 0px;">
+                          <select id="global-cloud-service" class="form-control" style="displayinline;display: inline-block;height: 34px;padding-left: 2px;padding-top: 0px;padding-bottom: 0px;width: calc;">
+                            <option value="azure-west-europe" disabled="disabled">azure-west-europe</option>
+                            <option value="exoscale-ch-dk" disabled="disabled">exoscale-ch-dk</option>
+                            <option value="exoscale-ch-gva" selected="" instancetype="Medium">exoscale-ch-gva Mini 10G disk (2/1024/10)</option>
+                            <option value="ultimum-cz1">ultimum-cz1</option>
+                          </select>
+                        </td>
+                        <td>
+                          0.050 $/h
+                        </td>
+                        <td class="ss-table-cell-inner-table" style="padding-top: 0px;padding-bottom: 0px;">
+                          <input class="ss-input-needs-validation ss-input-has-requirements ss-required-input form-control" value="2" min="1" id="parameter--node--a--multiplicity" name="parameter--node--a--multiplicity" autocomplete="off" style="height: 34px;" type="number">
+                        </td>
+                        <td style="font-weight: bold;">
+                          0.100 $/h
+                        </td>
+                      </tr>
+                      <tr class="ss-deployment-node-row">
+                        <td class="ss-table-cell-icon" colspan="3">
+                          <a id="btn-refresh-prs" type="button" class="btn btn-xs">
+                            Expand all
+                          </a>
+                          /
+                          <a id="btn-refresh-prs" type="button" class="btn btn-xs">
+                            Collapse all
+                          </a>
+                        </td>
+                        <td style="text-align: right;">
+                          <a id="btn-refresh-prs" class="pull-right btn btn-xs" type="button">
+                            Update
+                            <span class="glyphicon glyphicon-repeat"></span>
+                          </a>
+                        </td>
+                        <td class="ss-table-cell-inner-table">
+                          <b>Total<exp>*</exp></b>
+                        </td>
+                        <td style="font-weight: bold;">
+                          0.740 $/h
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="ss-dialog-footnote text-muted">
+                  * Prices are given for information only. The underlying Clouds can charge you more (e.g: network usage) or less (e.g: volume discount).
+                </div> <!-- /.ss-save-dialog-footnote -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default ss-cancel-btn" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary ss-ok-btn ss-build-btn">Deploy Application</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
   </div> <!-- /.container -->

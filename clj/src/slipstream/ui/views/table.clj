@@ -194,7 +194,7 @@
   [:input]  (ue/set-id id)
   [:input]  (ue/set-name id))
 
-(html/defsnippet ^:private cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
+(html/defsnippet cell-enum-snip-edit template-filename (sel-for-cell :enum :editable)
   [{:keys [enum id read-only? disabled? class] :as cell-content}]
   [:select] (ue/set-id id)
   [:select] (ue/set-name id)

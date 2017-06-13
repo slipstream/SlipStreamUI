@@ -443,7 +443,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                       })
                                       .preventDefaultErrorHandling()
                                       .onError( function (jqXHR, textStatus, errorThrown) {
-                                          console.error("Error during the call to /filter-rank: ", jqXHR.responseJSON.error);
+                                          console.error("Error during the call to /filter-rank: ", jqXHR.response);
                                           resetSelectOptions();
                                       });
         },
@@ -465,7 +465,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                            })
                                            .preventDefaultErrorHandling()
                                            .onError( function (jqXHR, textStatus, errorThrown) {
-                                               console.error("Error during the call to /ui/placement: ", jqXHR.responseJSON.error);
+                                               console.error("Error during the call to /ui/placement: ", jqXHR.response);
                                            });
 
             return requestUiPlacement;

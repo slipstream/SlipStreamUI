@@ -9,7 +9,8 @@
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.models.parameters :as p]
-            [slipstream.ui.views.tables :as t]))
+            [slipstream.ui.views.tables :as t]
+            [slipstream.ui.views.table :as table]))
 
 (localization/def-scoped-t)
 
@@ -195,6 +196,36 @@
   {:run   "ss-run-module-dialog"
    :build "ss-build-module-dialog"})
 
+
+(localization/with-prefixed-t :run-deployment-dialog
+
+     (defn run-deployment-global-section []
+        (html/transformation
+          [:#ssh-access-enabled] (if (boolean (current-user/configuration :ssh-keys))
+                                   (html/do-> (ue/set-checked "checked") (ue/set-disabled "disabled"))
+                                   (ue/set-data :validation {:generic-help-hints {:error (t :missing-ssh-key.error-help-hint (current-user/uri))}}))
+          [:#global-cloud-service-cell] (html/substitute
+                                      (table/cell-enum-snip-edit (let [k :deployment-target-cloud]
+                                         {:id "global-cloud-service"
+                                          :enum (current-user/configuration :available-clouds)
+                                          :read-only? false
+                                          :disabled? false})))))
+
+     (html/defsnippet ^:private run-new-deployment-dialog template-filename [:#ss-run-new-deployment-dialog]
+     [deployment-metadata resource-id module-version]
+     ue/this (-> :run dialog-id ue/set-id)
+     title-sel (html/content (t :title))
+     [:#ss-run-deployment-id] (ue/set-value (-> resource-id u/module-uri (uc/trim-prefix "/") (str "/" module-version)))
+     [:.ss-run-deployment-global-section-title] (html/html-content (t :global-section.title))
+     [:.ss-run-deployment-global-section-content]  (run-deployment-global-section)
+     ;[:.ss-run-deployment-global-section-content]  (html/content       (-> [deployment-metadata :deployment] run-module-global-parameters run-deployment-global-section))
+     [:.ss-run-deployment-nodes-section-title]     (html/html-content  (t :nodes-section.title))
+                   ;[:.ss-run-deployment-nodes-section-content]   (html/content       (-> deployment-metadata :nodes t/run-deployment-node-parameters-table))
+     footnote-sel                                  (html/html-content  (t :footnote))
+     first-button-sel                              (html/content       (t :button.cancel))
+     last-button-sel                               (html/content       (t :button.run))))
+
+
 (localization/with-prefixed-t :run-image-dialog
   (html/defsnippet ^:private run-image-dialog template-filename [:#ss-run-image-dialog]
     [image-metadata resource-id module-version]
@@ -333,5 +364,5 @@
         (copy-required? context)            (conj (copy-module-dialog resource-name resource-id module-version))
         (run-image-required? context)       (conj (run-image-dialog   (:parsed-metadata context) resource-id module-version)
                                                   (build-image-dialog resource-id module-version))
-        (run-deployment-required? context)   (conj (run-deployment-dialog (:parsed-metadata context) resource-id module-version ))
+        (run-deployment-required? context)   (conj (run-new-deployment-dialog (:parsed-metadata context) resource-id module-version ))
         (nuvlabox-modal-dialogs-required? context) (conj (soft-reset-dialog) (confirmation-dialog))))))
