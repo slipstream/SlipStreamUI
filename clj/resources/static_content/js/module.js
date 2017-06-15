@@ -463,9 +463,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || null;
             }
             else { //Application
-                comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || null;
-                comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val()) * 1024|| null;
-                comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || null;
+                if(!comp.node.startsWith("node-orchestrator-")) {
+                    comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || null;
+                    comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val()) * 1024|| null;
+                    comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || null;
+                }
             }
             if (comp['cpu.nb'] && comp['ram.GB'] && comp['disk.GB']) {
                 comp['connector-instance-types'] = null; // force to retrieve instance type without preference
