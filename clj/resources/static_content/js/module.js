@@ -125,7 +125,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                             text:       "No cloud available due to chosen policy",
                                             selected:   true}));
             } else {
-                // TODO remove potential option "No cloud available due to chosen policy"
+                $('#global-cloud-service option[value="no-cloud-available"],'
+                  + ' #parameter--cloudservice option[value="no-cloud-available"]').remove();
             }
 
             $("#global-cloud-service, #parameter--cloudservice").attr("disabled", noConnectors);
@@ -454,22 +455,22 @@ jQuery( function() { ( function( $$, $, undefined ) {
         },
         
         prsRequest = function(uiPlacementData) {
-            uiPlacementData.components.forEach (function (comp)
-            {
-             if (comp['connector-instance-types'] != undefined) {
-                comp['connector-instance-types']['exoscale-ch-gva'] = null
-             }
-             if (comp.node == undefined) { //Simple run
-                  comp['cpu.nb'] = parseInt($('#parameter--cpu\\.nb').val()) || 0;
-                  comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) * 1024 || 0;
-                  comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || 0;
-                }
-              else { //Application
-                  comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || 0;
-                  comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val()) * 1024|| 0;
-                  comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || 0;
-                }
-            });
+        uiPlacementData.components.forEach (function (comp)
+        {
+            if (comp.node == undefined) { //Simple run
+                comp['cpu.nb'] = parseInt($('#parameter--cpu\\.nb').val()) || null;
+                comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) * 1024 || null;
+                comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || null;
+            }
+            else { //Application
+                comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || null;
+                comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val()) * 1024|| null;
+                comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || null;
+            }
+            if (comp['cpu.nb'] && comp['ram.GB'] && comp['disk.GB']) {
+                comp['connector-instance-types'] = null; // force to retrieve instance type without preference
+            }
+        });
             return  $$.request
                               .put("/filter-rank")
                               .data(uiPlacementData)
@@ -528,7 +529,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) {   
             callRequestPlacementIfEnabled();
             $('#hybrid-deployment')
-                .attr('checked', false)
                 .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
         });
 
@@ -542,14 +542,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 savedcloud = $('#global-cloud-service').val()
                 $('#global-cloud-service')
                     .val('specify-for-each-node')
-                    .disable()
             } else {
                 $('#global-cloud-service')
                     .val(savedcloud)
-                    .enable()
             }
             $('#global-cloud-service').change();
         })
+
+        $('#global-cloud-service').change(function() {
+            if ($(this).val() === 'specify-for-each-node') {
+                $('#hybrid-deployment')[0].checked = true;
+            } else {
+                $('#hybrid-deployment')[0].checked = false;
+            }
+        });
 
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
             updateSelectOptions(cachedPRSResponse, true);
