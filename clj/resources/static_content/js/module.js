@@ -449,6 +449,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $("#global-cloud-service option").last().attr("disabled", false);
 
             updateSpecifyText();
+            updateOrchestratorPrice();
 
             warnWhenNoConnectorsAvailable(globalDisabled);
 
@@ -459,13 +460,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         {
             if (comp.node == undefined) { //Simple run
                 comp['cpu.nb'] = parseInt($('#parameter--cpu\\.nb').val()) || null;
-                comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) * 1024 || null;
+                comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) || null;
                 comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || null;
             }
             else { //Application
                 if(!comp.node.startsWith("node-orchestrator-")) {
                     comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || null;
-                    comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val()) * 1024|| null;
+                    comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val())|| null;
                     comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || null;
                 }
             }
