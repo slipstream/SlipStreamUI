@@ -147,6 +147,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(this).text(newTextWithoutPrice);
             });
             warnWhenNoConnectorsAvailable(false);
+
+            $( "input[id$='--cpu\\.nb'],[id$='--ram\\.GB'],[id$='--disk\\.GB']" ).disable();
         };
 
         // prices are in EUR / h
@@ -318,11 +320,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         var updateSelectOptions = function(prsResponse, avoidSelect) {
-            isPrsEnabled = prsResponse.hasOwnProperty("components");
+            isPrsEnabled = (prsResponse != undefined);
             if(!isPrsEnabled) {
                 resetSelectOptions("");
                 return;
             }
+
+            $( "input[id$='--cpu\\.nb'],[id$='--ram\\.GB'],[id$='--disk\\.GB']" ).enable();
 
             globalDisabled = false;
 
