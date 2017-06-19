@@ -30,9 +30,8 @@
 (def ^:dynamic *lang*
   "The lang is configured with a local thread-bound binding with the macro
   'localization/with-lang' or 'localization/with-lang-from-metadata'. The default
-  value of this dynamic var *lang* is nil to indicate that the is no locale binding
-  setup for the current thread."
-  nil)
+  value of this dynamic var *lang* is lang-default."
+  lang-default)
 
 (defn locale
   "Returns valid Locale matching given the current *lang*"

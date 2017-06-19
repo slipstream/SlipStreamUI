@@ -11,94 +11,192 @@
   (uc/slurp-resource "slipstream/ui/mockup_data/metadata_deployment.xml"))
 
 (def parsed-metadata
-  {:runs {:pagination {:offset 0
-                     :limit 20
-                     :count-shown 0
-                     :count-total 0
-                     :cloud-name nil}
-        :runs []}
-   :targets [{:target-name "execute"
-              :target-type :script
-              :target-machine-type :orchestrator
-              :context #{:deployment :ss-client-access}
-              :script "execute recipe for orchestrator"}]
-   :nodes [{:name "node1"
-            :template-node? nil
-            :reference-image "neutral_projects_for_mockup_metadata/apache_web_server"
-            :default-multiplicity 1
-            :default-cloud [{:value "Cloud3"
-                             :text "Cloud3"}
-                            {:value "Cloud4"
-                             :text "Cloud4"}
-                            {:value "Cloud1"
-                             :text "Cloud1"}
-                            {:value "Cloud2"
-                             :text "Cloud2"}
-                            {:selected? true
-                             :value "default"
-                             :text "default"}]
-            :output-parameters ["hostname" "instanceid" "output_param_1" "output_param_2"]
-            :mappings [{:name "input_param_1"
-                        :mapped-value? true
-                        :value "node_snake_cased:output_param_1"}
-                      {:name "input_param_2"
-                       :mapped-value? false
-                       :value "'default:value_for_input_param_2_with_colon_in_the_name'"}]}
-            {:name "node_snake_cased"
-               :template-node? nil
-               :reference-image "neutral_projects_for_mockup_metadata/apache_web_server"
-               :default-multiplicity 1
-               :default-cloud [{:value "Cloud3"
-                                :text "Cloud3"}
-                               {:value "Cloud4"
-                                :text "Cloud4"}
-                               {:value "Cloud1"
-                                :text "Cloud1"}
-                               {:value "Cloud2"
-                                :text "Cloud2"}
-                               {:selected? true
-                                :value "default"
-                                :text "default"}]
-               :output-parameters ["hostname" "instanceid" "output_param_1" "output_param_2"]
-               :mappings [{:name "input_param_1"
-                           :mapped-value? false
-                           :value "'default_value_for_input_param_1'"}
-                         {:name "input_param_2"
-                          :mapped-value? true
-                          :value "node1:output_param_2"}]}]
-   :summary {:publication "2015-03-16 17:23:00.901 CET"
-             :deleted? false
-             :published? true
-             :comment "Initial version of this deployment."
-             :creation "2015-03-16 17:23:00.876 CET"
-             :name "neutral_projects_for_mockup_metadata/deployment_01"
-             :short-name "deployment_01"
-             :owner "alice"
-             :version 136
-             :uri "module/neutral_projects_for_mockup_metadata/deployment_01/136"
-             :latest-version? true
-             :logo-url "https://newevolutiondesigns.com/images/freebies/vibrant-wallpaper-preview-16.jpg"
-             :last-modified "2015-03-16 17:23:00.901 CET"
-             :parent-uri "module/neutral_projects_for_mockup_metadata"
-             :placement-policy nil
-             :description "Multinode deployment with input and output params."
-             :category "Deployment"}
-   :authorization {:access-rights {:delete {:public-access? true
-                                            :owner-access? true
-                                            :group-access? true}
-                                   :put {:public-access? true
-                                         :group-access? true
-                                         :owner-access? true}
-                                   :post {:owner-access? true
-                                          :group-access? true
-                                          :public-access? true}
-                                   :create-children {:public-access? false
-                                                     :group-access? false
-                                                     :owner-access? true}
-                                   :get {:owner-access? true
-                                         :group-access? true
-                                         :public-access? true}}
-                   :group-members #{}
+  {:runs          {:pagination {:offset      0
+                                :limit       20
+                                :count-shown 0
+                                :count-total 0
+                                :cloud-name  nil}
+                   :runs       []}
+   :targets       [{:target-name         "execute"
+                    :target-type         :script
+                    :target-machine-type :orchestrator
+                    :context             #{:deployment :ss-client-access}
+                    :script              "execute recipe for orchestrator"}]
+   :nodes         [{:name                 "node1"
+                    :template-node?       nil
+                    :reference-image      "neutral_projects_for_mockup_metadata/apache_web_server"
+                    :default-multiplicity 1
+                    :default-cloud        [{:value "Cloud3"
+                                            :text  "Cloud3"}
+                                           {:value "Cloud4"
+                                            :text  "Cloud4"}
+                                           {:value "Cloud1"
+                                            :text  "Cloud1"}
+                                           {:value "Cloud2"
+                                            :text  "Cloud2"}
+                                           {:selected? true
+                                            :value     "default"
+                                            :text      "default"}]
+                    :output-parameters    ["hostname" "instanceid" "output_param_1" "output_param_2"]
+                    :generic-cloud-params {:category "Cloud"
+                                           :category-type :global
+                                           :parameters [
+                                                        {:name "cpu.nb"
+                                                         :type "String"
+                                                         :description "Number of CPUs"
+                                                         :category "Cloud"
+                                                         :value "2"
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "disk.GB"
+                                                         :type "String"
+                                                         :description "Disk in GB"
+                                                         :category "Cloud"
+                                                         :value "10"
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "extra.disk.volatile"
+                                                         :type "String"
+                                                         :description "Volatile extra disk in GB"
+                                                         :category "Cloud"
+                                                         :value nil
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "network"
+                                                         :type "Enum"
+                                                         :description "Network type"
+                                                         :category "Cloud"
+                                                         :value [{:value "Public", :text "Public", :selected? true}
+                                                                 {:value "Private", :text "Private"}]
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "ram.GB"
+                                                         :type "String"
+                                                         :description "RAM in GB"
+                                                         :category "Cloud"
+                                                         :value "2"
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}]}
+                    :mappings [{:name          "input_param_1"
+                                :mapped-value? true
+                                :value         "node_snake_cased:output_param_1"}
+                               {:name          "input_param_2"
+                                :mapped-value? false
+                                :value         "'default:value_for_input_param_2_with_colon_in_the_name'"}]}
+                   {:name                 "node_snake_cased"
+                    :template-node?       nil
+                    :reference-image      "neutral_projects_for_mockup_metadata/apache_web_server"
+                    :default-multiplicity 1
+                    :default-cloud        [{:value "Cloud3"
+                                            :text  "Cloud3"}
+                                           {:value "Cloud4"
+                                            :text  "Cloud4"}
+                                           {:value "Cloud1"
+                                            :text  "Cloud1"}
+                                           {:value "Cloud2"
+                                            :text  "Cloud2"}
+                                           {:selected? true
+                                            :value     "default"
+                                            :text      "default"}]
+                    :output-parameters    ["hostname" "instanceid" "output_param_1" "output_param_2"]
+                    :generic-cloud-params {:category "Cloud"
+                                           :category-type :global
+                                           :parameters [
+                                                        {:name "cpu.nb"
+                                                         :type "String"
+                                                         :description "Number of CPUs"
+                                                         :category "Cloud"
+                                                         :value "1"
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "disk.GB"
+                                                         :type "String"
+                                                         :description "Disk in GB"
+                                                         :category "Cloud"
+                                                         :value "10"
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "extra.disk.volatile"
+                                                         :type "String"
+                                                         :description "Volatile extra disk in GB"
+                                                         :category "Cloud"
+                                                         :value nil
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "network"
+                                                         :type "Enum"
+                                                         :description "Network type"
+                                                         :category "Cloud"
+                                                         :value [{:value "Public", :text "Public", :selected? true}
+                                                                 {:value "Private", :text "Private"}]
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}
+                                                        {:name "ram.GB"
+                                                         :type "String"
+                                                         :description "RAM in GB"
+                                                         :category "Cloud"
+                                                         :value "2"
+                                                         :order 0
+                                                         :read-only? false
+                                                         :mandatory? true
+                                                         :help-hint nil}]}
+                    :mappings             [{:name          "input_param_1"
+                                            :mapped-value? false
+                                            :value         "'default_value_for_input_param_1'"}
+                                           {:name          "input_param_2"
+                                            :mapped-value? true
+                                            :value         "node1:output_param_2"}]}]
+   :summary       {:publication      "2015-03-16 17:23:00.901 CET"
+                   :deleted?         false
+                   :published?       true
+                   :comment          "Initial version of this deployment."
+                   :creation         "2015-03-16 17:23:00.876 CET"
+                   :name             "neutral_projects_for_mockup_metadata/deployment_01"
+                   :short-name       "deployment_01"
+                   :owner            "alice"
+                   :version          136
+                   :uri              "module/neutral_projects_for_mockup_metadata/deployment_01/136"
+                   :latest-version?  true
+                   :logo-url         "https://newevolutiondesigns.com/images/freebies/vibrant-wallpaper-preview-16.jpg"
+                   :last-modified    "2015-03-16 17:23:00.901 CET"
+                   :parent-uri       "module/neutral_projects_for_mockup_metadata"
+                   :placement-policy nil
+                   :description      "Multinode deployment with input and output params."
+                   :category         "Deployment"}
+   :authorization {:access-rights            {:delete          {:public-access? true
+                                                                :owner-access?  true
+                                                                :group-access?  true}
+                                              :put             {:public-access? true
+                                                                :group-access?  true
+                                                                :owner-access?  true}
+                                              :post            {:owner-access?  true
+                                                                :group-access?  true
+                                                                :public-access? true}
+                                              :create-children {:public-access? false
+                                                                :group-access?  false
+                                                                :owner-access?  true}
+                                              :get             {:owner-access?  true
+                                                                :group-access?  true
+                                                                :public-access? true}}
+                   :group-members            #{}
                    :inherited-group-members? true}})
 
 (expect
@@ -128,6 +226,7 @@
                    {:selected? true
                     :value "default"
                     :text "default"}]
+   :generic-cloud-params nil
    :output-parameters ()
    :mappings [{:name nil
                :mapped-value? nil

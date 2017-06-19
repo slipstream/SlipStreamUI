@@ -25,6 +25,7 @@
   [cloud-names node-metadata]
   (let [attrs (:attrs node-metadata)
         template-node? (:template-node? node-metadata)]
+    (println )
     {:name                 (-> attrs :name)
      :template-node?       template-node?
      :reference-image      (-> attrs :imageUri (or "new") u/module-name)
