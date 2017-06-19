@@ -614,6 +614,27 @@
          (map #(assoc % :target (:target deployment-node)))
          (map-indexed (partial deployment-node-cell-inner-table-mapping-row node-index (:name deployment-node)))))
 
+  (defn- row-generic-cloud-params
+    ([generic-cloud-params nodename name]
+     (let [cloud-param (-> generic-cloud-params
+                           :parameters
+                           (p/parameters-of-name name)
+                           first)]
+       (when cloud-param
+         {:class "input-generic-cloud-params"
+          :cells (remove nil? [{:type :cell/text, :content (:description cloud-param)}
+                               {:type :cell/positive-number, :content {:value     (:value cloud-param)
+                                                                       :min-value 0
+                                                                       :required? false
+                                                                       :id        (str "parameter--" (when nodename (str "node--" nodename "--")) name)}, :editable? true}
+                               (when-not nodename
+                                 {:type :cell/help-hint,  :content {:title (:name cloud-param)
+                                                                    :content  (:description cloud-param)}})])}
+         )))
+    ([generic-cloud-params name]
+     (row-generic-cloud-params generic-cloud-params nil name))
+    )
+
   (defmulti deployment-node-cell-inner-table-first-rows (comp :target first vector))
 
   (defmethod deployment-node-cell-inner-table-first-rows :page-type/any
@@ -639,26 +660,31 @@
 
   (defmethod deployment-node-cell-inner-table-first-rows :deployment-run-dialog
     [deployment-node _]
-    [{:cells [{:type :cell/text,             :content (t :multiplicity.non-mutable-deployment.label)}
-              {:type :cell/positive-number,  :content {:value (:default-multiplicity deployment-node)
-                                                       :min-value 1
-                                                       :input-config-data {:mutable-deployment      {:min-value 0, :label (t :multiplicity.mutable-deployment.label)}
-                                                                           :non-mutable-deployment  {:min-value 1, :label (t :multiplicity.non-mutable-deployment.label)}}
-                                                       :required? true
-                                                       :validation {:generic-help-hints {:error   (t :multiplicity.non-mutable-deployment.error-help-hint)}
-                                                                    :requirements (pattern/requirements :multiplicity)}
-                                                       :id (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
-              {:type :cell/positive-number,  :content {:value 0
-                                                       :min-value 0
-                                                       :id (format "parameter--node--%s--max-provisioning-failures" (:name deployment-node))
-                                                       :required? true
-                                                       :validation {:generic-help-hints {:error   (t :max-provisioning-failures.error-help-hint)
-                                                                                         :warning (t :max-provisioning-failures.warning-help-hint)}
-                                                                    :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
-     {:cells [{:type :cell/text,             :content (t :cloud.label)}
-              {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
-                                                       :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}])
+    (concat [{:cells [{:type :cell/text, :content (t :multiplicity.non-mutable-deployment.label)}
+                      {:type :cell/positive-number, :content {:value             (:default-multiplicity deployment-node)
+                                                              :min-value         1
+                                                              :input-config-data {:mutable-deployment     {:min-value 0, :label (t :multiplicity.mutable-deployment.label)}
+                                                                                  :non-mutable-deployment {:min-value 1, :label (t :multiplicity.non-mutable-deployment.label)}}
+                                                              :required?         true
+                                                              :validation        {:generic-help-hints {:error (t :multiplicity.non-mutable-deployment.error-help-hint)}
+                                                                                  :requirements       (pattern/requirements :multiplicity)}
+                                                              :id                (format "parameter--node--%s--multiplicity" (:name deployment-node))}, :editable? true}]}
+             {:cells [{:type :cell/text,             :content (t :max-provisioning-failures.label)}
+                      {:type :cell/positive-number,  :content {:value 0
+                                                               :min-value 0
+                                                               :id (format "parameter--node--%s--max-provisioning-failures" (:name deployment-node))
+                                                               :required? true
+                                                               :validation {:generic-help-hints {:error   (t :max-provisioning-failures.error-help-hint)
+                                                                                                 :warning (t :max-provisioning-failures.warning-help-hint)}
+                                                                            :requirements (pattern/requirements :max-provisioning-failures)}}, :editable? true}]}
+             {:cells [{:type :cell/text,             :content (t :cloud.label)}
+                      {:type :cell/enum,             :content {:enum (not-empty (current-user/configuration :available-clouds))
+                                                               :id (format "parameter--node--%s--cloudservice" (:name deployment-node))}, :editable? true}]}
+             {:cells [{:type    :cell/hidden-input
+                       :content {:id    (format "parameter--node--%s--service-offer" (:name deployment-node))}}]}]
+            (map (partial row-generic-cloud-params (:generic-cloud-params deployment-node
+                                                     ) (:name deployment-node)) ["cpu.nb" "ram.GB" "disk.GB"])
+            ))
 
   (defn- deployment-node-cell-inner-table-mapping-header
     [deployment-node node-index]
@@ -812,12 +838,25 @@
              {:type :cell/help-hint,  :content {:title    name
                                                 :content  description}}]})
 
-  (defn run-image-input-parameters-table
-    [input-parameters]
-    (table/build
-      {:rows (map run-image-input-parameter-row input-parameters)}))
 
-) ;; End of prefixed t scope
+  (defn- get-generic-cloud-param [{cloud-generic-parameters :parameters}]
+    (->> cloud-generic-parameters
+        (map (fn [cgp] [(keyword (:name cgp))
+                        {:description (:description cgp) :value (:value cgp)}]))
+        (into {})))
+
+  (defn run-image-input-parameters-table
+    [input-parameters generic-cloud-params]
+    [(table/build
+       {:rows (map run-image-input-parameter-row input-parameters)})
+     (table/build
+       {:class "table-generic-cloud-params"
+        :rows (map (partial row-generic-cloud-params generic-cloud-params) ["cpu.nb" "ram.GB" "disk.GB"])})
+     (table/build
+        {:rows [{:cells [{:type    :cell/hidden-input
+                            :content {:id    "parameter--service-offer"}}]}]})]))
+
+;; End of prefixed t scope
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

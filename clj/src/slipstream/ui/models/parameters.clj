@@ -114,6 +114,11 @@
   [parameters category]
   (filter #(-> % :category (= category)) parameters))
 
+(defn parameters-of-name
+  "It must be a flattened list of parameters"
+  [parameters name]
+  (filter #(-> % :name (= name)) parameters))
+
 (defn flatten
   "The parse function returns the parameters grouped by category.
   This flattens this list. The category is still in each parameters."

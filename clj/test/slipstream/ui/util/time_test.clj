@@ -101,10 +101,6 @@
 ;; test format localization
 
 (expect
-  IllegalStateException ;; Missing lang environment
-  (format :human-readable-long "2013-07-05 00:27:12.471 CEST"))
-
-(expect
   "Friday, 5 July 2013, 02:27:12 CEST"
   (localization/with-lang :en
     (format :human-readable-long "2013-07-05 02:27:12.471 CEST")))

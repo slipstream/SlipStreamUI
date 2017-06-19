@@ -4,7 +4,8 @@
             [slipstream.ui.util.clojure :as uc]
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.models.module.util :as mu]
-            [slipstream.ui.models.runs :as runs]))
+            [slipstream.ui.models.runs :as runs]
+            [slipstream.ui.models.parameters :as parameters]))
 
 (defn- parse-parameter-mapping
   [parameter-mapping-metadata]
@@ -24,18 +25,23 @@
   [cloud-names node-metadata]
   (let [attrs (:attrs node-metadata)
         template-node? (:template-node? node-metadata)]
-    {:name                  (-> attrs :name)
-     :template-node?        template-node?
-     :reference-image       (-> attrs :imageUri (or "new") u/module-name)
-     :default-multiplicity  (-> attrs :multiplicity uc/parse-pos-int (or 1))
-     :default-cloud         (->> (-> attrs :cloudService (or "default")) (u/enum cloud-names :cloud-names))
-     :output-parameters     (->> (html/select node-metadata [:image :parameters :entry [:parameter (html/attr-has :category "Output")]])
-                                 (map (comp :name :attrs))
-                                 sort)
-     :mappings              (cond->> (html/select node-metadata [:parameterMappings :entry :parameter])
-                              template-node?  append-template-mapping
-                              :always         (mapv parse-parameter-mapping)
-                              :always         (sort-by :name))}))
+    {:name                 (-> attrs :name)
+     :template-node?       template-node?
+     :reference-image      (-> attrs :imageUri (or "new") u/module-name)
+     :default-multiplicity (-> attrs :multiplicity uc/parse-pos-int (or 1))
+     :default-cloud        (->> (-> attrs :cloudService (or "default")) (u/enum cloud-names :cloud-names))
+     :output-parameters    (->> (html/select node-metadata [:image :parameters :entry [:parameter (html/attr-has :category "Output")]])
+                                (map (comp :name :attrs))
+                                sort)
+     :generic-cloud-params (-> node-metadata
+                               (html/select [:image])
+                               (parameters/parse)
+                               (parameters/parameters-of-category "Cloud")
+                               first)
+     :mappings             (cond->> (html/select node-metadata [:parameterMappings :entry :parameter])
+                                    template-node? append-template-mapping
+                                    :always (mapv parse-parameter-mapping)
+                                    :always (sort-by :name))}))
 
 (defn- append-template-node-in-edit-mode
   "To serve as template for new nodes. See tests for expectations."

@@ -1,5 +1,25 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    var $btnGenericCloudParams = $("#btn-generic-cloud-params"),
+        $genericCloudParamsInput = $(".input-generic-cloud-params"),
+        $genericCloudParamsTable = $(".table-generic-cloud-params"),
+        $btnRefreshPRS = $("#btn-refresh-prs");
+
+    $genericCloudParamsTable.hide();
+    $genericCloudParamsInput.closest("tr").slideUpRow();
+
+    $btnGenericCloudParams.click(function() {
+        if (this.getElementsByClassName('glyphicon-triangle-top').length == 0) {
+            $("#btn-generic-cloud-params").html('Less <span class="glyphicon glyphicon-triangle-top"></span>');
+            $genericCloudParamsTable.show();
+            $genericCloudParamsInput.closest("tr").slideDownRow();
+        } else {
+            $("#btn-generic-cloud-params").html('More <span class="glyphicon glyphicon-triangle-bottom"></span>');
+            $genericCloudParamsInput.closest("tr").slideUpRow();
+            $genericCloudParamsTable.hide();
+        }
+    });
+
     var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers"),
         $logoURLInput = $("input#logoLink"),
         $logoHeaderImg = $(".ss-header-image-container img"),
@@ -105,7 +125,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                             text:       "No cloud available due to chosen policy",
                                             selected:   true}));
             } else {
-                // TODO remove potential option "No cloud available due to chosen policy"
+                $('#global-cloud-service option[value="no-cloud-available"],'
+                  + ' #parameter--cloudservice option[value="no-cloud-available"]').remove();
             }
 
             $("#global-cloud-service, #parameter--cloudservice").attr("disabled", noConnectors);
@@ -126,6 +147,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(this).text(newTextWithoutPrice);
             });
             warnWhenNoConnectorsAvailable(false);
+
+            $( "input[id$='--cpu\\.nb'],[id$='--ram\\.GB'],[id$='--disk\\.GB']" ).disable();
         };
 
         // prices are in EUR / h
@@ -297,11 +320,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         var updateSelectOptions = function(prsResponse, avoidSelect) {
-            isPrsEnabled = prsResponse.hasOwnProperty("components");
+            isPrsEnabled = (prsResponse != undefined);
             if(!isPrsEnabled) {
                 resetSelectOptions("");
                 return;
             }
+
+            $( "input[id$='--cpu\\.nb'],[id$='--ram\\.GB'],[id$='--disk\\.GB']" ).enable();
 
             globalDisabled = false;
 
@@ -348,7 +373,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 currency                = info[connector].currency,
                                 priceInfo               = priceToString(price, currency),
                                 connectorInfo           = connectorInfoToString(info[connector]),
-                                defaultCloud            = this.text.includes("*") ? " *" : "";                                
+                                defaultCloud            = this.text.includes("*") ? " *" : "";
+
+                                $("[id=parameter" + nodeSelector + "--service-offer]").val(info[connector]['service-offer'].id);
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
@@ -425,27 +452,48 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             $("#global-cloud-service option").last().attr("disabled", false);
 
+            updateSpecifyText();
+            updateOrchestratorPrice();
+
             warnWhenNoConnectorsAvailable(globalDisabled);
 
         },
         
         prsRequest = function(uiPlacementData) {
-                    return  $$.request
-                                      .put("/filter-rank")
-                                      .data(uiPlacementData)
-                                      .serialization("json")
-                                      .dataType("json")
-                                      .async(false)
-                                      .onSuccess( function (prsResponse){
-                                          cachedPRSResponse = prsResponse;
-                                          console.log("/filter-rank response: ", prsResponse);
-                                          updateSelectOptions(prsResponse);
-                                      })
-                                      .preventDefaultErrorHandling()
-                                      .onError( function (jqXHR, textStatus, errorThrown) {
-                                          console.error("Error during the call to /filter-rank: ", jqXHR.responseJSON.error);
-                                          resetSelectOptions();
-                                      });
+        uiPlacementData.components.forEach (function (comp)
+        {
+            if (comp.node == undefined) { //Simple run
+                comp['cpu.nb'] = parseInt($('#parameter--cpu\\.nb').val()) || null;
+                comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) || null;
+                comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || null;
+            }
+            else { //Application
+                if(!comp.node.startsWith("node-orchestrator-")) {
+                    comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || null;
+                    comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val())|| null;
+                    comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || null;
+                }
+            }
+            if (comp['cpu.nb'] && comp['ram.GB'] && comp['disk.GB']) {
+                comp['connector-instance-types'] = null; // force to retrieve instance type without preference
+            }
+        });
+            return  $$.request
+                              .put("/filter-rank")
+                              .data(uiPlacementData)
+                              .serialization("json")
+                              .dataType("json")
+                              .async(false)
+                              .onSuccess( function (prsResponse){
+                                  cachedPRSResponse = prsResponse;
+                                  console.log("/filter-rank response: ", prsResponse);
+                                  updateSelectOptions(prsResponse);
+                              })
+                              .preventDefaultErrorHandling()
+                              .onError( function (jqXHR, textStatus, errorThrown) {
+                                  console.error("Error during the call to /filter-rank: ", jqXHR.response);
+                                  resetSelectOptions();
+                              });
         },
 
         buildRequestUIPlacement = function() {
@@ -465,7 +513,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                            })
                                            .preventDefaultErrorHandling()
                                            .onError( function (jqXHR, textStatus, errorThrown) {
-                                               console.error("Error during the call to /ui/placement: ", jqXHR.responseJSON.error);
+                                               console.error("Error during the call to /ui/placement: ", jqXHR.response);
                                            });
 
             return requestUiPlacement;
@@ -488,8 +536,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) {   
             callRequestPlacementIfEnabled();
             $('#hybrid-deployment')
-                .attr('checked', false)
                 .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
+        });
+
+        $btnRefreshPRS.click(function() {
+            cachedPRSResponse = null;
+            callRequestPlacementIfEnabled();
         });
 
         $('#hybrid-deployment').change(function() {
@@ -497,18 +549,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 savedcloud = $('#global-cloud-service').val()
                 $('#global-cloud-service')
                     .val('specify-for-each-node')
-                    .disable()
             } else {
                 $('#global-cloud-service')
                     .val(savedcloud)
-                    .enable()
             }
             $('#global-cloud-service').change();
         })
 
+        $('#global-cloud-service').change(function() {
+            if ($(this).val() === 'specify-for-each-node') {
+                $('#hybrid-deployment')[0].checked = true;
+            } else {
+                $('#hybrid-deployment')[0].checked = false;
+            }
+        });
+
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
-            updateSelectOptions(cachedPRSResponse, true); 
-            updateSpecifyText();                    
+            updateSelectOptions(cachedPRSResponse, true);
         });
 
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
@@ -519,7 +576,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $scalableCheckBox.on("change", function(){
             toggleShowAdditionalCost();
             updateSelectOptions(cachedPRSResponse, true);
-            updateSpecifyText();                  
         });       
 
     }

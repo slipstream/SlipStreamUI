@@ -63,6 +63,27 @@
 
    <parameters class="org.hibernate.collection.internal.PersistentMap">
       <entry>
+         <string>cpu.nb</string>
+         <parameter category="Cloud" description="Number of CPUs" isSet="true" mandatory="true" name="cpu.nb" order="0" order_="0" readonly="false" type="String">
+            <value>1</value>
+            <defaultValue>1</defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>ram.GB</string>
+         <parameter category="Cloud" description="RAM in GB" isSet="true" mandatory="true" name="ram.GB" order="0" order_="0" readonly="false" type="String">
+            <value>2</value>
+            <defaultValue>2</defaultValue>
+         </parameter>
+      </entry>
+      <entry>
+         <string>disk.GB</string>
+         <parameter category="Cloud" description="Disk in GB" isSet="true" mandatory="true" name="disk.GB" order="0" order_="0" readonly="false" type="String">
+            <value>10</value>
+            <defaultValue>10</defaultValue>
+         </parameter>
+      </entry>
+      <entry>
          <string>Cloud1.cpu</string>
          <parameter category="Cloud1" description="Number of CPUs (i.e. virtual cores)" isSet="false" mandatory="true" name="Cloud1.cpu" order="0" order_="0" readonly="false" type="String"/>
       </entry>

@@ -47,7 +47,17 @@
               :target-name  "onvmremove"
               :target-machine-type :application-component
               :context      #{:scaling :ss-client-access}
-              :script       nil}]
+              :script       nil}
+             {:target-type :script
+              :target-name "prescale"
+              :target-machine-type :application-component
+              :context #{:scaling :ss-client-access}
+              :script nil}
+             {:target-type :script
+              :target-name "postscale"
+              :target-machine-type :application-component
+              :context #{:scaling :ss-client-access}
+              :script nil}]
    :deployment-parameters [{:name "instanceid"
                             :category "Output"
                             :type "String"
