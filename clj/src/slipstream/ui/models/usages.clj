@@ -7,5 +7,5 @@
 
 (defn parse
   [metadata]
-  {:pagination (pagination/parse-json :usages metadata (-> metadata meta :request :query-parameters))
-   :usages     (map parse-usage (:usages metadata))})
+  {:pagination (pagination/parse-json :usageSummaries metadata (-> metadata meta :request :query-parameters))
+   :usages     (map parse-usage (:usageSummaries metadata))})

@@ -12,7 +12,7 @@
   [parsed-metadata include-content? cloud frequency]
   (let [subsection-id (str "ss-cloud-usages-table-" (name frequency))]
     {:title   (t (keyword (format "content.subsection.%s.title" (name frequency))))
-     :content (if (-> parsed-metadata :usages empty?)
+     :content (if (-> parsed-metadata :usageSummaries empty?)
                 (ue/text-div-snip (t :no-usages) :id subsection-id)
                 (ue/dynamic-content-snip
                   :content-load-url (format "/cloud-usage/%s?offset=0&filter=frequency='%s'" cloud (name frequency))
@@ -24,7 +24,7 @@
 (defn- section
   [metadata]
   (let [parsed-metadata (usages/parse metadata)
-        cloud (some->> parsed-metadata :usages first :cloud)
+        cloud (some->> parsed-metadata :usageSummaries first :cloud)
         frequency (some->> metadata meta :request :query-parameters :filter (re-find #"frequency='(daily|weekly|monthly)'") second keyword)]
     (if frequency
       [(frequency-subsection parsed-metadata true cloud frequency)]

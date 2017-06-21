@@ -12,7 +12,7 @@
   [parsed-metadata include-content? frequency]
   (let [subsection-id (str "ss-usages-table-" (name frequency))]
     {:title   (t (keyword (format "content.subsection.%s.title" (name frequency))))
-     :content (if (-> parsed-metadata :usages empty?)
+     :content (if (-> parsed-metadata :usageSummaries empty?)
                 (ue/text-div-snip (t :no-usages) :id subsection-id)
                 (ue/dynamic-content-snip
                   :content-load-url (format "/usage?offset=0&filter=frequency='%s'" (name frequency))
