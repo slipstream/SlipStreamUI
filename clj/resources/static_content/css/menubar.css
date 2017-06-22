@@ -151,3 +151,17 @@ button.btn.ss-login-error-on-mobile-alert {
   z-index: 1;
   position: relative;
 }
+
+/* With external authentication, usernames can be very long. 
+   Limit the size of the field and show an ellipsis when the
+   value is too long. */
+
+#ss-menubar-username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10ex;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: inherit;  /* avoid ss-showing-full-text-on-hover transparency */
+}
