@@ -505,7 +505,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .closest("tr")
                         .slideUpRow()
                         .end()
-                    .val($globalCloudServiceCombobox.val());
+                    .val($globalCloudServiceCombobox.val())
+                    .change();
             }
         })
         .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required

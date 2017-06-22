@@ -133,6 +133,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         };
 
+        var updateServiceOffersId = function(selectNode) {
+            if (cachedInfoPerNode != undefined) {
+                console.log('update offer id ' + selectNode.id);
+                console.log('service offer id ' + selectNode.id.replace(/cloudservice$/,"service-offer"));
+                serviceOfferSelector = '#' + selectNode.id.replace(/cloudservice$/,"service-offer");
+                nodeName = $(selectNode).parents().siblings('.ss-node-shortname').text() || "null";
+                serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'].id;
+                $(serviceOfferSelector).val(serviceOfferId);
+            }
+        };
+
         var resetSelectOptions = function(textUnavailable) {
             var $optionToReset = $("select[id$='--cloudservice'] option,#global-cloud-service option");
             $optionToReset.each(function(){
@@ -220,7 +231,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(o).attr("disabled", arr[i].d);
 
                 var specifySelected = (!isSelected && $(o).val() ==='specify-for-each-node'),
-                    selected        = specifySelected || !arr[i].d && (arr[i].s || !isSelected);
+                    defaultCloud    = this.text.includes("*"),
+                    selected        = specifySelected || !arr[i].d && (defaultCloud || !isSelected);
 
                 if(selected) {
                     isSelected = true;
@@ -233,7 +245,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var isPrsEnabled = true;
 
-        var cachedPRSResponse;
+        var cachedPRSResponse,
+            cachedInfoPerNode;
 
         var selectedConnectors = function() {
                 if(isCompositeDeployment()) {
@@ -319,6 +332,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
+        var getInfoPerNode = function(prsResponse) {
+            var infoPerNode = groupByNodes(cachedPRSResponse);
+            $.each(infoPerNode, function(node, element) {
+                infoPerNode[node] = groupByConnectors(element);
+            });
+            cachedInfoPerNode = infoPerNode;
+            return infoPerNode;
+        }
+
         var updateSelectOptions = function(prsResponse, avoidSelect) {
             isPrsEnabled = (prsResponse != undefined);
             if(!isPrsEnabled) {
@@ -330,10 +352,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             globalDisabled = false;
 
-            var infoPerNode = groupByNodes(prsResponse);
-            $.each(infoPerNode, function(node, element) {
-                infoPerNode[node] = groupByConnectors(element);
-            });
+            var infoPerNode = getInfoPerNode(prsResponse);
 
             var appPricePerConnector    = {},
                 connectorsForEveryComponent,
@@ -375,8 +394,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 connectorInfo           = connectorInfoToString(info[connector]),
                                 defaultCloud            = this.text.includes("*") ? " *" : "";
 
-                                $("[id=parameter" + nodeSelector + "--service-offer]").val(info[connector]['service-offer'].id);
-
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
                                                                                 { price: priceOrchestratorForConnector(prsResponse, connector),
@@ -413,6 +430,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     $.map(arrayPricePerConnector, function(e, i) {e.index=i; return e;});
                     
                     reorderSelectOptions($nodeOptionsToDecorate, info);
+
+                    $(this).change();
                     
                 });
             });
@@ -425,10 +444,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     var connector     = this.value,
                         price         = appPricePerConnector[connector].price,
                         currency      = appPricePerConnector[connector].currency,
-                        connectorInfo = connectorInfoToString(appPricePerConnector[connector]),
                         priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.includes("*") ? " *" : "";
-                    $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
+                    $(this).text(connector + defaultCloud + priceInfo);
                     $(this).attr("disabled", false);
                     
                     if(!avoidSelect){
@@ -571,6 +589,11 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
             updateSpecifyText();            
             updateOrchestratorPrice();
+        });
+
+
+        $("[id^='parameter--'][id$='--cloudservice']").on("change", function(){
+            updateServiceOffersId(this);
         });
 
         $scalableCheckBox.on("change", function(){
