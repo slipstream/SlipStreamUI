@@ -163,4 +163,5 @@ button.btn.ss-login-error-on-mobile-alert {
   display: inline-block;
   vertical-align: middle;
   white-space: nowrap;
+  color: inherit;  /* avoid ss-showing-full-text-on-hover transparency */
 }
