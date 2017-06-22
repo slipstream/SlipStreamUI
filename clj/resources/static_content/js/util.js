@@ -540,6 +540,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
 
                 return  $elem.predicates.isNodeWithOnlyText.call(this, index, element) &&
                         $elem.is(":visible")  &&
+                        (! $elem.is(".ss-header-title")) &&
                         $elem.predicates.isNodeWithOverflow.call(this, index, element);
             }
         },
