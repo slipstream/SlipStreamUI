@@ -94,6 +94,13 @@
   padding-right: 0;
 }
 
+.ss-header-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30ex;
+  white-space: nowrap;
+}
+
 /* Big computer screen (lg) */
 /*
 @media (min-width: 1200px) {
