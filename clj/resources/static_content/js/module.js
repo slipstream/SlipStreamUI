@@ -135,8 +135,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var updateServiceOffersId = function(selectNode) {
             if (cachedInfoPerNode != undefined) {
-                console.log('update offer id ' + selectNode.id);
-                console.log('service offer id ' + selectNode.id.replace(/cloudservice$/,"service-offer"));
                 serviceOfferSelector = '#' + selectNode.id.replace(/cloudservice$/,"service-offer");
                 nodeName = $(selectNode).parents().siblings('.ss-node-shortname').text() || "null";
                 serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'].id;
