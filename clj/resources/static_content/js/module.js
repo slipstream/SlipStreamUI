@@ -137,7 +137,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             if (cachedInfoPerNode != undefined) {
                 serviceOfferSelector = '#' + selectNode.id.replace(/cloudservice$/,"service-offer");
                 nodeName = $(selectNode).parents().siblings('.ss-node-shortname').text() || "null";
-                serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'].id;
+                serviceOfferId = null;
+                try {
+                    serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'].id || null;
+                } catch (e) {
+                    console.warn("Failed to set the service offer id for "+ nodeName +".");
+                }
                 $(serviceOfferSelector).val(serviceOfferId);
             }
         };
