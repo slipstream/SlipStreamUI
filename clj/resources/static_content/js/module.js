@@ -426,7 +426,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
                     arrayPricePerConnector.sort(function(p1, p2) {
-                        return p1.price < 0 ? 1 : (p2.price < 0 ? -1 : (p1.price - p2.price));
+                        return (typeof p1.price == 'undefined' || p1.price < 0) ? 1 : ((typeof p2.price == 'undefined' || p2.price < 0) ? -1 : (p1.price - p2.price));
                     });
 
                     // Add indexes
