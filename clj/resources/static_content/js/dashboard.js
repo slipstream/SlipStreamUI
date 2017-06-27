@@ -162,13 +162,25 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var $allNuvlaboxGaugeContainers = $('[data-quota-title^=nuvlabox]').closest('.ss-usage-gauge-container'),
         stateIconPlaceholderHtml    = '<span class="glyphicon ss-usage-gauge-container-icon-state" aria-hidden="true"></span>',
-        serviceOfferRequest         = $$.request
-                                            .get("/api/service-offer")
-                                            .dataType("json")
-                                            .withLoadingScreen(false)
-                                            // NOTE: Uncomment to show the loading icon on every update.
-                                            // .validation(setAllNuvlaboxGaugesAsChecking)
-                                            .onSuccess(processNuvlaboxStates);
+        nuvlaboxes                  = [];
+
+    $('[id^=ss-usage-gauge-nuvlabox-]')
+        .each( function() { nuvlaboxes.push( "connector/href='".concat( $(this).attr('data-quota-title'), "'" ) ) });
+
+    var serviceOfferRequest = $$.request
+                                .put("/api/service-offer")
+                                .dataType("json")
+                                .data({'$filter': nuvlaboxes.join(' or ')})
+                                .withLoadingScreen(false)
+                                // NOTE: Uncomment to show the loading icon on every update.
+                                // .validation(setAllNuvlaboxGaugesAsChecking)
+                                .onSuccess(processNuvlaboxStates);
+
+    function refreshNuvlaBoxesGauge () {
+        if (nuvlaboxes.length > 0) {
+            serviceOfferRequest.send();
+        }
+    }
 
     function $findGaugeContainer(connectorName) {
         return $('#ss-usage-gauge-' + connectorName).closest('.ss-usage-gauge-container');
@@ -223,7 +235,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     $('.ss-usage-gauge-container').prepend(stateIconPlaceholderHtml);
-    serviceOfferRequest.send();
+    refreshNuvlaBoxesGauge();
 
     // *************************************************************************
 
@@ -247,7 +259,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $(".ss-dynamic-content").trigger("ss-dynamic-content-reload",
                                          {withLoadingScreen: withLoadingScreen});
         // Update connection state of Nuvlabox connectors
-        serviceOfferRequest.send();
+        refreshNuvlaBoxesGauge();
     }
 
     $$.util.recurrentJob.start(autoUpdateJobName,
