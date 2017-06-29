@@ -139,7 +139,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 nodeName = $(selectNode).parents().siblings('.ss-node-shortname').text() || "null";
                 serviceOfferId = null;
                 try {
-                    serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'].id || null;
+                    serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'] || null;
                 } catch (e) {
                     console.warn("Failed to set the service offer id for "+ nodeName +".");
                 }
