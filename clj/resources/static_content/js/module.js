@@ -260,11 +260,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
             },  
             priceOrchestratorForConnector = function(prsResponse, connector) {
-                if(isScalable()) {                   
+                if(isScalable()) {
                     var orchestrator = prsResponse.components.filter(function(e) {
-                                                                        return e.node.startsWith("node-orchestrator-"+connector);
-                                                                    }).first(),  
-                        orchestratorConnectorPrice = orchestrator.connectors.first() ? orchestrator.connectors.first().price : 0;
+                                                                        return e.node === "node-orchestrator";
+                                                                    }).first(),
+                        orchestratorPrices = groupByConnectors(orchestrator),
+                        orchestratorConnectorPrice = orchestratorPrices[connector] ? orchestratorPrices[connector].price : 0;
                     return orchestratorConnectorPrice;
                 } else {
                     return 0;
