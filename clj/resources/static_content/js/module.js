@@ -107,7 +107,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 return groupByAttribute(o.components, "node");
             },
             groupByConnectors = function(component){
-                return groupByAttribute(component.connectors, "name");
+                return groupByAttribute(component.connectors, "connector");
             };
 
         var warnWhenNoConnectorsAvailable = function (noConnectors) {
@@ -165,17 +165,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         };
 
         // prices are in EUR / h
-        var 
-            formatPrice = function(price, currency) {
-                if(price < 0) {
-                    return "no price";
-                } else {
-                    return (currency !== undefined ? "€ " : "") + price.toFixed(4) + "/h";
-                }
-            }, 
-
-            priceToString = function(price, currency) {
-                return " (" + formatPrice(price, currency) + ")";
+        var priceToString = function(price, currency) {
+            if (price < 0) {
+                return "no price";
+            } else {
+                return (currency !== undefined ? "€ " : "") + price.toFixed(4) + "/h";
+            }
         };
 
         var displayValueWhenPresent = function(v) {
@@ -195,52 +190,40 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isCompositeDeployment = function() {
                 return selectedGlobalConnector()[0] === 'specify-for-each-node';
             };
-        
-        var connectorInfoToString = function(connectorInfo) {
-            if (
-                !connectorInfo.cpu &&
-                !connectorInfo.ram &&
-                !connectorInfo.disk){
-                return "";
-            } else {
-                return " " + displayValueWhenPresent(connectorInfo.instance_type) + " " +
-                             displayValueWhenPresent(connectorInfo.cpu) + "/" +
-                             displayValueWhenPresent(connectorInfo.ram) + "/" +
-                             displayValueWhenPresent(connectorInfo.disk) + " ";
-            }
-        };
 
         var reorderSelectOptions = function(options, info) {
-            var arr = $.map(options, function(o) {
+            var arr = $.map(options, function(option) {
                     return {
-                        i: info[o.value] !== undefined ? info[o.value].index : 1000,
-                        // 1000 so that it ends up at the end of the selection
-                        t: $(o).text(),
-                        d: ($(o).attr("disabled") !== undefined) && $(o).attr("disabled"),
-                        s: $(o).prop("selected"),
-                        v: o.value,
-                        it: $(o).attr("instancetype")
+                        index: info[option.value] !== undefined ? info[option.value].index : 10000,
+                        // 10000 so that it ends up at the end of the selection
+                        text: $(option).text(),
+                        disabled: ($(option).attr("disabled") !== undefined) && $(option).attr("disabled"),
+                        selected: $(option).prop("selected"),
+                        value: option.value,
+                        name: $(option).attr("service-offer-name"),
+                        price: $(option).attr("price")
                     };
                 });            
             arr.sort(function(o1, o2) {
-                return o1.i > o2.i ? 1 : o1.i < o2.i ? -1 : 0;
+                return o1.index > o2.index ? 1 : o1.index < o2.index ? -1 : 0;
             });
             var isSelected = false;
-            options.each(function(i, o) {
-                o.value = arr[i].v;
-                $(o).attr("instancetype", arr[i].it);
-                $(o).text(arr[i].t);
-                $(o).attr("disabled", arr[i].d);
+            options.each(function(index, option) {
+                option.value = arr[index].value;
+                $(option).attr("service-offer-name", arr[index].name);
+                $(option).text(arr[index].text);
+                $(option).attr("disabled", arr[index].disabled);
+                $(option).attr("price", arr[index].price);
 
-                var specifySelected = (!isSelected && $(o).val() ==='specify-for-each-node'),
+                var specifySelected = (!isSelected && $(option).val() ==='specify-for-each-node'),
                     defaultCloud    = this.text.includes("*"),
-                    selected        = specifySelected || !arr[i].d && (defaultCloud || !isSelected);
+                    selected        = specifySelected || !arr[index].disabled && (defaultCloud || !isSelected);
 
                 if(selected) {
                     isSelected = true;
                 }
 
-                $(o).prop("selected", selected);
+                $(option).prop("selected", selected);
             });
 
         };
@@ -301,27 +284,20 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
-        var extractPrice = function(priceInfo) {
-                var space = priceInfo.lastIndexOf(' ') + 1,
-                    slash = priceInfo.lastIndexOf('/');
-                return parseFloat(priceInfo.substr(space, slash - space), 10);
-            },
-            totalPriceCompositeApp = function() {
-                var pricesInfo = $("select[id$='--cloudservice'] option:selected").map(function(i,e) {return e.text;}),
-                    totalPrice = 0;
-
-                $.each(pricesInfo, function(index, val) {
-                    totalPrice += extractPrice(val);
+        var totalPriceCompositeApp = function() {
+                var totalPrice = 0;
+                $("select[id$='--cloudservice'] option:selected").each(function() {
+                    totalPrice += parseFloat($(this).attr("price"));
                 });
-                
+
                 totalPrice += priceOrchestratorsForConnectors(cachedPRSResponse, selectedCompositeConnectors());
 
                 return totalPrice;
         };
 
-        var updateSpecifyText = function() {
+        var updateSpecifyForEachNodeText = function() {
                 var compositePrice = totalPriceCompositeApp(),
-                    specifyWithCompositePrice = "Specify for each node "+ priceToString(compositePrice, "EUR");
+                    specifyWithCompositePrice = "Specify for each node - " + priceToString(compositePrice, "EUR");
                 if(!isNaN(compositePrice)) {
                     $("#global-cloud-service option[value='specify-for-each-node']").text(specifyWithCompositePrice);    
                 }            
@@ -329,7 +305,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             updateOrchestratorPrice = function() {
                 if(isScalable()) {
                     var orchestratorsToPrice = selectedConnectors().toArray().join(", "),
-                        price = formatPrice(priceOrchestratorsForSelection(cachedPRSResponse), "EUR"),
+                        price = priceToString(priceOrchestratorsForSelection(cachedPRSResponse), "EUR"),
                         text = orchestratorsToPrice + ": " + price;
                     $("#orchestratorcost").text(text);
             }
@@ -385,7 +361,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         var connector     = this.value;                        
                         if(info[connector] === undefined) {
                             $(this).attr("disabled", true);
-                            appPricePerConnector[connector] = {notPriceable: true};
+                            appPricePerConnector[connector] = {notPriceable: true,
+                                                               connector: connector,
+                                                               disable: true};
                         } else {
 
                             nodeEnabled = true;
@@ -394,25 +372,24 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 price                   = info[connector].price * multiplicity,                                
                                 currency                = info[connector].currency,
                                 priceInfo               = priceToString(price, currency),
-                                connectorInfo           = connectorInfoToString(info[connector]),
-                                defaultCloud            = this.text.includes("*") ? " *" : "";
+                                connectorInfo           = info[connector].name,
+                                defaultCloud            = this.text.includes("*") ? "*" : "";
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
                                                                                 { price: priceOrchestratorForConnector(prsResponse, connector),
                                                                                   index: 0,
-                                                                                  name: connector,
+                                                                                  connector: connector,
                                                                                   currency: currency,
-                                                                                  instance_type: info[connector].instance_type,
-                                                                                  cpu: info[connector].cpu,
-                                                                                  ram: info[connector].ram,
-                                                                                  disk: info[connector].disk};
+                                                                                  name: info[connector].name};
                                     appPricePerConnector[connector].price  += price;
                                 }
+                                appPricePerConnector[connector].disable = false;
 
                                 $(this).attr("disabled", false);                                
-                                $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
-                                $(this).attr("instancetype", info[connector].instance_type);
+                                $(this).text([connector, defaultCloud, " - ", priceInfo, " ", connectorInfo].join(""));
+                                $(this).attr("service-offer-name", info[connector].name);
+                                $(this).attr("price", price);
 
                                 if(!avoidSelect || !isCompositeDeployment()) {
                                     $(this).prop('selected', defaultCloud !== "");
@@ -424,9 +401,25 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         globalDisabled = true;
                     }
 
+                    var hasOffer = function(connectorPrice) {
+                        return typeof connectorPrice.price != 'undefined';
+                    }
+
+                    var hasPrice = function(connectorPrice) {
+                        return hasOffer(connectorPrice) && connectorPrice.price >= 0;
+                    }
+
                     var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
                     arrayPricePerConnector.sort(function(p1, p2) {
-                        return (typeof p1.price == 'undefined' || p1.price < 0) ? 1 : ((typeof p2.price == 'undefined' || p2.price < 0) ? -1 : (p1.price - p2.price));
+                        if ((hasOffer(p1) && !hasOffer(p2)) || (hasPrice(p1) && !hasPrice(p2))) {
+                            return -1;
+                        } else if ((!hasOffer(p1) && hasOffer(p2)) || (!hasPrice(p1) && hasPrice(p2))) {
+                            return 1;
+                        } else if ((!hasPrice(p1) && !hasPrice(p2)) || p1.price == p2.price) {
+                            return p1.connector.localeCompare(p2.connector);
+                        } else {
+                            return p1.price - p2.price;
+                        }
                     });
 
                     // Add indexes
@@ -448,8 +441,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         price         = appPricePerConnector[connector].price,
                         currency      = appPricePerConnector[connector].currency,
                         priceInfo     = priceToString(price, currency),
-                        defaultCloud  = this.text.includes("*") ? " *" : "";
-                    $(this).text(connector + defaultCloud + priceInfo);
+                        defaultCloud  = this.text.includes("*") ? "*" : "";
+                    $(this).text([connector, defaultCloud, " - ", priceInfo].join(""));
                     $(this).attr("disabled", false);
                     
                     if(!avoidSelect){
@@ -473,7 +466,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             $("#global-cloud-service option").last().attr("disabled", false);
 
-            updateSpecifyText();
+            updateSpecifyForEachNodeText();
             updateOrchestratorPrice();
 
             warnWhenNoConnectorsAvailable(globalDisabled);
@@ -590,7 +583,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
 
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
-            updateSpecifyText();            
+            updateSpecifyForEachNodeText();
             updateOrchestratorPrice();
         });
 
