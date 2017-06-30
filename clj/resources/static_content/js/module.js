@@ -1,5 +1,25 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
+    var $btnGenericCloudParams = $("#btn-generic-cloud-params"),
+        $genericCloudParamsInput = $(".input-generic-cloud-params"),
+        $genericCloudParamsTable = $(".table-generic-cloud-params"),
+        $btnRefreshPRS = $("#btn-refresh-prs");
+
+    $genericCloudParamsTable.hide();
+    $genericCloudParamsInput.closest("tr").slideUpRow();
+
+    $btnGenericCloudParams.click(function() {
+        if (this.getElementsByClassName('glyphicon-triangle-top').length == 0) {
+            $("#btn-generic-cloud-params").html('Less <span class="glyphicon glyphicon-triangle-top"></span>');
+            $genericCloudParamsTable.show();
+            $genericCloudParamsInput.closest("tr").slideDownRow();
+        } else {
+            $("#btn-generic-cloud-params").html('More <span class="glyphicon glyphicon-triangle-bottom"></span>');
+            $genericCloudParamsInput.closest("tr").slideUpRow();
+            $genericCloudParamsTable.hide();
+        }
+    });
+
     var $inheritedGroupMembersCheckbox = $("input#inheritedGroupMembers"),
         $logoURLInput = $("input#logoLink"),
         $logoHeaderImg = $(".ss-header-image-container img"),
@@ -105,11 +125,26 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                             text:       "No cloud available due to chosen policy",
                                             selected:   true}));
             } else {
-                // TODO remove potential option "No cloud available due to chosen policy"
+                $('#global-cloud-service option[value="no-cloud-available"],'
+                  + ' #parameter--cloudservice option[value="no-cloud-available"]').remove();
             }
 
             $("#global-cloud-service, #parameter--cloudservice").attr("disabled", noConnectors);
 
+        };
+
+        var updateServiceOffersId = function(selectNode) {
+            if (cachedInfoPerNode != undefined) {
+                serviceOfferSelector = '#' + selectNode.id.replace(/cloudservice$/,"service-offer");
+                nodeName = $(selectNode).parents().siblings('.ss-node-shortname').text() || "null";
+                serviceOfferId = null;
+                try {
+                    serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['service-offer'] || null;
+                } catch (e) {
+                    console.warn("Failed to set the service offer id for "+ nodeName +".");
+                }
+                $(serviceOfferSelector).val(serviceOfferId);
+            }
         };
 
         var resetSelectOptions = function(textUnavailable) {
@@ -126,6 +161,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(this).text(newTextWithoutPrice);
             });
             warnWhenNoConnectorsAvailable(false);
+
+            $( "input[id$='--cpu\\.nb'],[id$='--ram\\.GB'],[id$='--disk\\.GB']" ).disable();
         };
 
         // prices are in EUR / h
@@ -197,7 +234,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $(o).attr("disabled", arr[i].d);
 
                 var specifySelected = (!isSelected && $(o).val() ==='specify-for-each-node'),
-                    selected        = specifySelected || !arr[i].d && (arr[i].s || !isSelected);
+                    defaultCloud    = this.text.includes("*"),
+                    selected        = specifySelected || !arr[i].d && (defaultCloud || !isSelected);
 
                 if(selected) {
                     isSelected = true;
@@ -210,7 +248,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
         var isPrsEnabled = true;
 
-        var cachedPRSResponse;
+        var cachedPRSResponse,
+            cachedInfoPerNode;
 
         var selectedConnectors = function() {
                 if(isCompositeDeployment()) {
@@ -221,11 +260,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 }
             },  
             priceOrchestratorForConnector = function(prsResponse, connector) {
-                if(isScalable()) {                   
+                if(isScalable()) {
                     var orchestrator = prsResponse.components.filter(function(e) {
-                                                                        return e.node.startsWith("node-orchestrator-"+connector);
-                                                                    }).first(),  
-                        orchestratorConnectorPrice = orchestrator.connectors.first() ? orchestrator.connectors.first().price : 0;
+                                                                        return e.node === "node-orchestrator";
+                                                                    }).first(),
+                        orchestratorPrices = groupByConnectors(orchestrator),
+                        orchestratorConnectorPrice = orchestratorPrices[connector] ? orchestratorPrices[connector].price : 0;
                     return orchestratorConnectorPrice;
                 } else {
                     return 0;
@@ -296,19 +336,27 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         };
 
+        var getInfoPerNode = function(prsResponse) {
+            var infoPerNode = groupByNodes(cachedPRSResponse);
+            $.each(infoPerNode, function(node, element) {
+                infoPerNode[node] = groupByConnectors(element);
+            });
+            cachedInfoPerNode = infoPerNode;
+            return infoPerNode;
+        }
+
         var updateSelectOptions = function(prsResponse, avoidSelect) {
-            isPrsEnabled = prsResponse.hasOwnProperty("components");
+            isPrsEnabled = (prsResponse != undefined);
             if(!isPrsEnabled) {
                 resetSelectOptions("");
                 return;
             }
 
+            $( "input[id$='--cpu\\.nb'],[id$='--ram\\.GB'],[id$='--disk\\.GB']" ).enable();
+
             globalDisabled = false;
 
-            var infoPerNode = groupByNodes(prsResponse);
-            $.each(infoPerNode, function(node, element) {
-                infoPerNode[node] = groupByConnectors(element);
-            });
+            var infoPerNode = getInfoPerNode(prsResponse);
 
             var appPricePerConnector    = {},
                 connectorsForEveryComponent,
@@ -348,7 +396,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 currency                = info[connector].currency,
                                 priceInfo               = priceToString(price, currency),
                                 connectorInfo           = connectorInfoToString(info[connector]),
-                                defaultCloud            = this.text.includes("*") ? " *" : "";                                
+                                defaultCloud            = this.text.includes("*") ? " *" : "";
 
                                 if (appPricePerConnector[connector] !== {notPriceable: true}) {
                                     appPricePerConnector[connector] = appPricePerConnector[connector] ||
@@ -379,13 +427,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
                     var arrayPricePerConnector = $.map(appPricePerConnector, function(v, i) {return [v]});
                     arrayPricePerConnector.sort(function(p1, p2) {
-                        return p1.price < 0 ? 1 : (p2.price < 0 ? -1 : (p1.price - p2.price));
+                        return (typeof p1.price == 'undefined' || p1.price < 0) ? 1 : ((typeof p2.price == 'undefined' || p2.price < 0) ? -1 : (p1.price - p2.price));
                     });
 
                     // Add indexes
                     $.map(arrayPricePerConnector, function(e, i) {e.index=i; return e;});
                     
                     reorderSelectOptions($nodeOptionsToDecorate, info);
+
+                    $(this).change();
                     
                 });
             });
@@ -398,10 +448,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     var connector     = this.value,
                         price         = appPricePerConnector[connector].price,
                         currency      = appPricePerConnector[connector].currency,
-                        connectorInfo = connectorInfoToString(appPricePerConnector[connector]),
                         priceInfo     = priceToString(price, currency),
                         defaultCloud  = this.text.includes("*") ? " *" : "";
-                    $(this).text(connector + connectorInfo + defaultCloud + priceInfo);
+                    $(this).text(connector + defaultCloud + priceInfo);
                     $(this).attr("disabled", false);
                     
                     if(!avoidSelect){
@@ -425,27 +474,48 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
             $("#global-cloud-service option").last().attr("disabled", false);
 
+            updateSpecifyText();
+            updateOrchestratorPrice();
+
             warnWhenNoConnectorsAvailable(globalDisabled);
 
         },
         
         prsRequest = function(uiPlacementData) {
-                    return  $$.request
-                                      .put("/filter-rank")
-                                      .data(uiPlacementData)
-                                      .serialization("json")
-                                      .dataType("json")
-                                      .async(false)
-                                      .onSuccess( function (prsResponse){
-                                          cachedPRSResponse = prsResponse;
-                                          console.log("/filter-rank response: ", prsResponse);
-                                          updateSelectOptions(prsResponse);
-                                      })
-                                      .preventDefaultErrorHandling()
-                                      .onError( function (jqXHR, textStatus, errorThrown) {
-                                          console.error("Error during the call to /filter-rank: ", jqXHR.responseJSON.error);
-                                          resetSelectOptions();
-                                      });
+        uiPlacementData.components.forEach (function (comp)
+        {
+            if (comp.node == undefined) { //Simple run
+                comp['cpu.nb'] = parseInt($('#parameter--cpu\\.nb').val()) || null;
+                comp['ram.GB'] = parseInt($('#parameter--ram\\.GB').val()) || null;
+                comp['disk.GB'] = parseInt($('#parameter--disk\\.GB').val())  || null;
+            }
+            else { //Application
+                if(!comp.node.startsWith("node-orchestrator-")) {
+                    comp['cpu.nb'] = parseInt($('#parameter--node--' + comp.node + '--cpu\\.nb').val()) || null;
+                    comp['ram.GB'] = parseInt($('#parameter--node--' + comp.node + '--ram\\.GB').val())|| null;
+                    comp['disk.GB'] = parseInt($('#parameter--node--' + comp.node + '--disk\\.GB').val()) || null;
+                }
+            }
+            if (comp['cpu.nb'] && comp['ram.GB'] && comp['disk.GB']) {
+                comp['connector-instance-types'] = null; // force to retrieve instance type without preference
+            }
+        });
+            return  $$.request
+                              .put("/filter-rank")
+                              .data(uiPlacementData)
+                              .serialization("json")
+                              .dataType("json")
+                              .async(false)
+                              .onSuccess( function (prsResponse){
+                                  cachedPRSResponse = prsResponse;
+                                  console.log("/filter-rank response: ", prsResponse);
+                                  updateSelectOptions(prsResponse);
+                              })
+                              .preventDefaultErrorHandling()
+                              .onError( function (jqXHR, textStatus, errorThrown) {
+                                  console.error("Error during the call to /filter-rank: ", jqXHR.response);
+                                  resetSelectOptions();
+                              });
         },
 
         buildRequestUIPlacement = function() {
@@ -465,7 +535,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                            })
                                            .preventDefaultErrorHandling()
                                            .onError( function (jqXHR, textStatus, errorThrown) {
-                                               console.error("Error during the call to /ui/placement: ", jqXHR.responseJSON.error);
+                                               console.error("Error during the call to /ui/placement: ", jqXHR.response);
                                            });
 
             return requestUiPlacement;
@@ -488,8 +558,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
         $('#ss-run-module-dialog').on("shown.bs.modal", function (e) {   
             callRequestPlacementIfEnabled();
             $('#hybrid-deployment')
-                .attr('checked', false)
                 .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
+        });
+
+        $btnRefreshPRS.click(function() {
+            cachedPRSResponse = null;
+            callRequestPlacementIfEnabled();
         });
 
         $('#hybrid-deployment').change(function() {
@@ -497,18 +571,23 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 savedcloud = $('#global-cloud-service').val()
                 $('#global-cloud-service')
                     .val('specify-for-each-node')
-                    .disable()
             } else {
                 $('#global-cloud-service')
                     .val(savedcloud)
-                    .enable()
             }
             $('#global-cloud-service').change();
         })
 
+        $('#global-cloud-service').change(function() {
+            if ($(this).val() === 'specify-for-each-node') {
+                $('#hybrid-deployment')[0].checked = true;
+            } else {
+                $('#hybrid-deployment')[0].checked = false;
+            }
+        });
+
         $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
-            updateSelectOptions(cachedPRSResponse, true); 
-            updateSpecifyText();                    
+            updateSelectOptions(cachedPRSResponse, true);
         });
 
         $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){           
@@ -516,10 +595,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
             updateOrchestratorPrice();
         });
 
+
+        $("[id^='parameter--'][id$='--cloudservice']").on("change", function(){
+            updateServiceOffersId(this);
+        });
+
         $scalableCheckBox.on("change", function(){
             toggleShowAdditionalCost();
             updateSelectOptions(cachedPRSResponse, true);
-            updateSpecifyText();                  
         });       
 
     }

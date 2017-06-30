@@ -75,7 +75,7 @@
                     :parameters       "Paramètres"
                     :password         "Mot de passe"
                     :pdf              "PDF"
-                    :platform         "Platforme"
+                    :platform         "Plateforme"
                     :pre-recipe       "Pré-recette"
                     :profile          "Profil"
                     :project          "Projet"
@@ -85,7 +85,7 @@
                     :recipe           "Recette"
                     :regular-user     "Utilisateur standard"
                     :report           "Rapport"
-                    :reports          "Reports"
+                    :reports          "Rapports"
                     :repository       "Dépôt"
                     :run              "Exécution"
                     :runs             "Exécutions"
@@ -165,12 +165,12 @@
                     :terminate       "Terminer"
                     :save            "Sauver"
                     :select          "Sélectionner"
-                    :unpublish       "Dépublier"
+                    :unpublish       "Annuler la publication"
                     :view            "Voir"
                     }
             }
 
-   :slipstream.ui.views.base.navigate-away-confirmation-msg          "Vous avez effectué des changement sur cette page. Ils seront perdu si vous quiter la page sans sauvegarder."
+   :slipstream.ui.views.base.navigate-away-confirmation-msg          "Vous avez effectués des changement sur cette page. Ils seront perdus si vous quittez la page sans sauvegarder."
 
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
@@ -206,34 +206,34 @@
    :slipstream.ui.views.error.header.title.status-code-404     "Non trouvé"
    :slipstream.ui.views.error.header.title.status-code-405     "Méthode pas autorisée"
    :slipstream.ui.views.error.header.title.status-code-406     "Format pas acceptable"
-   :slipstream.ui.views.error.header.title.status-code-407     "Proxy authentication required"
-   :slipstream.ui.views.error.header.title.status-code-408     "Request timeout"
+   :slipstream.ui.views.error.header.title.status-code-407     "Authentification Proxy requise"
+   :slipstream.ui.views.error.header.title.status-code-408     "Délai de demande depassé"
    :slipstream.ui.views.error.header.title.status-code-409     "Conflit"
-   :slipstream.ui.views.error.header.title.status-code-410     "Gone"
-   :slipstream.ui.views.error.header.title.status-code-411     "Length required"
-   :slipstream.ui.views.error.header.title.status-code-412     "Precondition failed"
-   :slipstream.ui.views.error.header.title.status-code-413     "Request entity too large"
-   :slipstream.ui.views.error.header.title.status-code-414     "Request-URI too long"
-   :slipstream.ui.views.error.header.title.status-code-415     "Unsupported media type"
-   :slipstream.ui.views.error.header.title.status-code-416     "Requested range not satisfiable"
-   :slipstream.ui.views.error.header.title.status-code-417     "Expectation failed"
+   :slipstream.ui.views.error.header.title.status-code-410     "Ressource indisponible"
+   :slipstream.ui.views.error.header.title.status-code-411     "Longueur manquante"
+   :slipstream.ui.views.error.header.title.status-code-412     "Preconditions non verifieés"
+   :slipstream.ui.views.error.header.title.status-code-413     "Requête trop importante"
+   :slipstream.ui.views.error.header.title.status-code-414     "URI trop longue"
+   :slipstream.ui.views.error.header.title.status-code-415     "Format de requête non supporté"
+   :slipstream.ui.views.error.header.title.status-code-416     "En-tête de requête incorrect"
+   :slipstream.ui.views.error.header.title.status-code-417     "Comportement attendu non conforme"
    :slipstream.ui.views.error.header.title.status-code-418     "Je suis une théière"
    :slipstream.ui.views.error.header.title.status-code-422     "Unprocessable entity"
-   :slipstream.ui.views.error.header.title.status-code-423     "Locked"
+   :slipstream.ui.views.error.header.title.status-code-423     "Ressource verrouillée"
    :slipstream.ui.views.error.header.title.status-code-424     "Failed dependency"
    :slipstream.ui.views.error.header.title.status-code-426     "Upgrade required"
 
    :slipstream.ui.views.error.header.title.status-code-500     "Erreur interne au serveur"
-   :slipstream.ui.views.error.header.title.status-code-501     "Not implemented"
+   :slipstream.ui.views.error.header.title.status-code-501     "Fonctionnalité réclamée non supportée"
    :slipstream.ui.views.error.header.title.status-code-502     "Bad gateway"
    :slipstream.ui.views.error.header.title.status-code-503     "Service non disponible"
    :slipstream.ui.views.error.header.title.status-code-504     "Gateway timeout"
-   :slipstream.ui.views.error.header.title.status-code-505     "HTTP version not supported"
-   :slipstream.ui.views.error.header.title.status-code-506     "Variant also negotiates"
-   :slipstream.ui.views.error.header.title.status-code-507     "Insufficient storage"
-   :slipstream.ui.views.error.header.title.status-code-508     "Loop detected"
+   :slipstream.ui.views.error.header.title.status-code-505     "Version HTTP non supportée"
+   :slipstream.ui.views.error.header.title.status-code-506     "Erreur de négociation"
+   :slipstream.ui.views.error.header.title.status-code-507     "Espace insuffisant"
+   :slipstream.ui.views.error.header.title.status-code-508     "Boucle detectée"
    :slipstream.ui.views.error.header.title.status-code-510     "Not extended"
-   :slipstream.ui.views.error.header.title.status-code-511     "Network authentication required"
+   :slipstream.ui.views.error.header.title.status-code-511     "Authentification réseau requise"
 
    :slipstream.ui.views.alerts.success.title                   :global.nouns.success
    :slipstream.ui.views.alerts.info.title                      :global.nouns.info
@@ -247,12 +247,12 @@
                                                                Voir les cas d'utilisation ci-dessous pour plus d'informations."
    :slipstream.ui.views.login.header.last-line                 "**Essayez-le gratuitement!** Pas de carte de crédit nécessaire."
    :slipstream.ui.views.login.input.pick-username.placeholder  "Sélectionner un nom d'utilisateur"
-   :slipstream.ui.views.login.input.email.placeholder          "Enter votre adresse de courriel"
+   :slipstream.ui.views.login.input.email.placeholder          "Entrer votre adresse de courriel"
    :slipstream.ui.views.login.signup.button.label              "Créer un compte sur SlipStream"
    :slipstream.ui.views.login.signup.terms-hint                "En cliquant sur 'Créer un compte sur SlipStream', vous acceptez nos
                                                                [conditions d'utilisation](http://ssdocs.sixsq.com/documentation/terms_and_conditions.html)."
 
-   :slipstream.ui.views.user.header.title.loggedin             "Votre profile"
+   :slipstream.ui.views.user.header.title.loggedin             "Votre profil"
    :slipstream.ui.views.user.header.title.not-loggedin         "Profil utilisateur de %s"
    :slipstream.ui.views.user.header.title.new-user             "Nouvel utilisateur"
    :slipstream.ui.views.user.header.subtitle.super             :global.nouns.super-user
@@ -261,17 +261,17 @@
    :slipstream.ui.views.user.summary                           :global.nouns.summary
 
    :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.title       "Aucun Cloud configuré!"
-   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.msg!        "Vous ne pourrez pas effectuer aucun déploiement jusqu'à ce que vous aurez configuré au moins un compte Cloud dans les sections <span class='glyphicon glyphicon-cloud'></span>ci dessous. Par exemple, vous pouvez <a href='/user/%2$s?edit=true#%3$s'>configurer le cloud <code>%1$s</code></a>, lequel est actuellement selectionné comme le cloud par défaut dans votre profil. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/tutorials/ss/prerequisites.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.no-clouds-configured.own-profile.msg!        "Vous ne pourrez pas effectuer de déploiement tant que vous n'aurez pas configuré au moins un compte Cloud dans les sections <span class='glyphicon glyphicon-cloud'></span>ci dessous. Par exemple, vous pouvez <a href='/user/%2$s?edit=true#%3$s'>configurer le cloud <code>%1$s</code></a>, lequel est actuellement selectionné comme le cloud par défaut dans votre profil. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/tutorials/ss/prerequisites.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
    :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.title    "Aucun Cloud configuré pour cet utilisateur!"
-   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "Cet utilisateur ne pourra pas effectuer aucun déploiement jusqu'à ce qu'au moins un compte Cloud soit configuré dans ce profil. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/tutorials/ss/prerequisites.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
+   :slipstream.ui.views.user.alert.no-clouds-configured.others-profile.msg!     "Cet utilisateur ne pourra effectuer de déploiement que lorsqu'au moins un compte Cloud sera configuré dans ce profil. Pour plus de détails sur comment solutionner cela, veuillez consulter la <a target='_blank' href='http://ssdocs.sixsq.com/en/latest/tutorials/ss/prerequisites.html#cloud-infrastructure-accounts'>documentation</a>." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
 
    :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.title       "Le cloud par défaut n'est pas configuré"
    :slipstream.ui.views.user.alert.cloud-default-not-configured.own-profile.msg         "Le cloud `%1$s` est selectionné comme le cloud par défaut mais vous n'avez pas fourni ses identifiants. Veuillez [changer le cloud par défaut](/user/%2$s?edit=true#1-general) ou bien [configurer ses identifiants](/user/%2$s?edit=true#%3$s)." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
    :slipstream.ui.views.user.alert.cloud-default-not-configured.others-profile.title    "Le cloud par défaut n'est pas configuré pour cet utilisateur"
    :slipstream.ui.views.user.alert.cloud-default-not-configured.others-profile.msg      "Le cloud `%1$s` est selectionné comme le cloud par défaut mais ses identifiants ne sont pas fournis. Veuillez indiquer à l'utilisateur de changer le cloud par défaut ou bien de configurer ses identifiants." ; %1$s = default cloud name, %2$s = username, %3$s = default cloud hash
 
-   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title  "Acune clef SSH configuré pour cet utilisateur!"
-   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg    "Cet utilisateur ne pourra pas acceder par SSH aux machines déployées jusqu'à ce qu'au moins une clef SSH soit configurée dans ce profil."
+   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.title  "Acune clef SSH configurée pour cet utilisateur!"
+   :slipstream.ui.views.user.alert.no-ssh-keys-configured.others-profile.msg    "Cet utilisateur ne pourra pas acceder par SSH aux machines déployées sans qu'au moins une clef SSH soit configurée dans ce profil."
 
 
    :slipstream.ui.views.table.header.access-right             "Autorisations d'accès"
@@ -295,7 +295,7 @@
    :slipstream.ui.views.table.header.ip-address               "Adresse IP"
    :slipstream.ui.views.table.header.key                      :global.nouns.key
    :slipstream.ui.views.table.header.last-name                :global.nouns.last-name
-   :slipstream.ui.views.table.header.last-online              "Dernière fois conncté"
+   :slipstream.ui.views.table.header.last-online              "Dernière connection"
    :slipstream.ui.views.table.header.module                   :global.nouns.module
    :slipstream.ui.views.table.header.name                     :global.nouns.name
    :slipstream.ui.views.table.header.organization             :global.nouns.organization
@@ -330,7 +330,7 @@
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.label   "Multiplicité"
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.non-mutable-deployment.error-help-hint "La multiplicité doit être supérieure à 0 pour les déploiements non scalables."
    :slipstream.ui.views.tables.deployment-nodes-table.multiplicity.mutable-deployment.label       "Multiplicité initiale"
-   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Nombre maximal d'erreurs accepté"
+   :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.label             "Nombre maximal d'erreurs acceptées"
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.error-help-hint   "Ceci doit être une valeur inférieure à la multiplicité ci-dessus."
    :slipstream.ui.views.tables.deployment-nodes-table.max-provisioning-failures.warning-help-hint "Cela semble une grande tolérance. Assurez-vous que cela a du sense pour ce déploiement."
    :slipstream.ui.views.tables.deployment-nodes-table.default-cloud.label                         "Cloud par défaut"
@@ -366,18 +366,18 @@
                                                                           ;;       %1$s: count-shown, %2$s: first-item, %3$s: last-item, %4$s: count-total
    :slipstream.ui.models.pagination.msg.showing-one                       "%2$s − %3$s de %4$s"
    :slipstream.ui.models.pagination.tooltip.showing-one                   "Il y a seulement un item."
-   :slipstream.ui.models.pagination.tooltip.showing-first-from-many       "Premier item parmis un total de %4$s."
-   :slipstream.ui.models.pagination.tooltip.showing-last-from-many        "Dernier item parmis un total de %4$s."
-   :slipstream.ui.models.pagination.tooltip.showing-one-from-many         "Item %2$s parmis un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-first-from-many       "Premier item parmi un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-last-from-many        "Dernier item parmi un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-one-from-many         "Item %2$s parmi un total de %4$s."
    :slipstream.ui.models.pagination.tooltip.showing-all                   "La totalité des %4$s items."
-   :slipstream.ui.models.pagination.tooltip.showing-almost-all            "%1$s items parmis un total de %4$s."
-   :slipstream.ui.models.pagination.tooltip.showing-first-n-from-many     "Premiers %1$s items parmis un total de %4$s."
-   :slipstream.ui.models.pagination.tooltip.showing-last-n-from-many      "Derniers %1$s items parmis un total de %4$s."
-   :slipstream.ui.models.pagination.tooltip.showing-two-from-many         "Items %2$s et %3$s parmis un total de %4$s."
-   :slipstream.ui.models.pagination.tooltip.showing-range                 "%1$s items (du %2$s au %3$s) parmis un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-almost-all            "%1$s items parmi un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-first-n-from-many     "Premiers %1$s items parmi un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-last-n-from-many      "Derniers %1$s items parmi un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-two-from-many         "Items %2$s et %3$s parmi un total de %4$s."
+   :slipstream.ui.models.pagination.tooltip.showing-range                 "%1$s items (du %2$s au %3$s) parmi un total de %4$s."
 
    :slipstream.ui.views.table.pagination.action.tooltip.first-page        "Première page"
-   :slipstream.ui.views.table.pagination.action.tooltip.previous-page     "Page précendente"
+   :slipstream.ui.views.table.pagination.action.tooltip.previous-page     "Page précédente"
    :slipstream.ui.views.table.pagination.action.msg.show-all              "(tous)"
    :slipstream.ui.views.table.pagination.action.tooltip.next-page         "Page suivante"
    :slipstream.ui.views.table.pagination.action.tooltip.last-page         "Dernière page"
@@ -390,7 +390,7 @@
    :slipstream.ui.views.tables.vms-table.state.terminated             :global.vm-states.terminated
 
    :slipstream.ui.views.tables.vms-table.run-uuid.unknown.reason      "SlipStream n'a pas encore connaissance de l'association de cette VM à un Run ou cette machine virtuelle n'a pas été créée par SlipStream. Dans ce cas elle a été créée soit directement sur le Cloud, soit par une application tièrce avec vos identifiants Cloud."
-   :slipstream.ui.views.tables.vms-table.run-uuid.no-link.reason      "Cette machine virtuelle a été créée par un autre utilisateur. Elle s'affiche dans cette liste soit parce que un autre utilisateur utilise le mêmes identifiants Cloud que vous, soit parceque un autre utilisateur partage des resources Cloud avec vous."
+   :slipstream.ui.views.tables.vms-table.run-uuid.no-link.reason      "Cette machine virtuelle a été créée par un autre utilisateur. Elle s'affiche dans cette liste soit parce que un autre utilisateur utilise les mêmes identifiants Cloud que vous, soit parce qu'un autre utilisateur partage des resources Cloud avec vous."
 
    :slipstream.ui.views.tables.vms-table.ip.unknown.reason            "L'adresse IP n'est pas encore disponible."
 
@@ -411,7 +411,7 @@
    :slipstream.ui.views.tables.access.build-or-run-image.description      "Construire ou exécuter une image"
    :slipstream.ui.views.tables.access.build-or-run-image.help-hint        "Cette permission autorise les utilisateurs à construire/lancer cette image."
 
-   :slipstream.ui.views.tables.action.delete                  "Supprimmer..."
+   :slipstream.ui.views.tables.action.delete                  "Supprimer..."
 
    :slipstream.ui.views.table.timestamp.unknown               :global.adjectives.unknown
 
@@ -543,36 +543,36 @@
    :slipstream.ui.models.parameters.launch-mutable-run?.help-hint               "Activez cette option pour lancer un déploiement _scalable_, qui permettra de modifier la `multiplicité` après le lancement."
 
    :slipstream.ui.models.parameters.image-target-cloud.description              :global.nouns.cloud
-   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés."
+   :slipstream.ui.models.parameters.image-target-cloud.help-hint                "Choisissez le cloud où déployer cette image. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profil. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profil) sont désactivés."
 
    :slipstream.ui.models.parameters.hybrid-deployment.description               "Déploiement hybride"
    :slipstream.ui.models.parameters.hybrid-deployment.help-hint                 "Cette option permet de spécifier un cloud pour chaque noeud."
 
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
-   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profile. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ci-dessous."
+   :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choisissez le cloud où déployer. Le cloud marqué avec `*` est la valeur par défaut configurée dans votre profil. Les clouds qui ne sont pas configurés (c'est-à-dire, pour lesquels vous n'avez pas fourni d'identifiants dans votre profile) sont désactivés. L'option `Spécifier pour chaque noeud` dévoile un champ pour chaque noeud ci-dessous."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Spécifier pour chaque noeud."
 
-   :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer erreurs de déploiement"
-   :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour devoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _scalables_ avec une _grande mutliplicité initiale."
+   :slipstream.ui.models.parameters.tolerate-deployment-failures?.description   "Tolérer les erreurs de déploiement"
+ :slipstream.ui.models.parameters.tolerate-deployment-failures?.help-hint     "Activez cette option pour dévoiler un champ pour chaque noeud pour spécifier combien d'instances (c'est à dire, la valeur `multiplicité`) peuvent avoir des erreurs de déploiement sans que SlipStream doive marquer le déploiement au complet comme erroné. Ceci est spécialement utile pour des déploiements _scalables_ avec une _grande mutliplicité initiale."
 
-   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Mantenir actif après le déploiement"
-   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder active l'application après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des long tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consomer des resources Cloud que dans le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. L'option marquée avec `*` est la valeur par défaut configurée dans votre profile. Note: Ce paramètre ne s'applique pas aux `déploiements scalables` et aux `constructions d'images`."
+   :slipstream.ui.models.parameters.keep-running-behaviour.description          "Maintenir actif après le déploiement"
+   :slipstream.ui.models.parameters.keep-running-behaviour.help-hint            "Ici vous pouvez définir si (et dans quel cas) SlipStream doit garder l'application active après l'avoir déployée. `En cas de success` est adaptée pour des déploiements de production ou pour des longs tests. `En cas d'erreur` peut s'avérer utile lorsque l'on souhaite consommer des ressources Cloud pour le cas où un déverminage est nécessaire. `Jamais` s'assure que SlipStream arrête l'application après l'avoir déployée. L'option marquée avec `*` est la valeur par défaut configurée dans votre profil. Note: Ce paramètre ne s'applique pas aux `déploiements scalables` et aux `constructions d'images`."
 
    :slipstream.ui.models.parameters.mail-usage.description                      "Recevoir un courriel des consommations sur vos clouds"
    :slipstream.ui.models.parameters.mail-usage.help-hint                        "Choisissez la fréquence à laquelle vous recevrez un courriel détaillant la consommation de vos resources sur vos clouds."
 
    :slipstream.ui.models.parameters.ssh-key-available.description               "Accès SSH"
-   :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "Des clés SSH sont configurées dans votre profile. SlipStream va les installer sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder."
+   :slipstream.ui.models.parameters.ssh-key-available.help-hint                 "Des clés SSH sont configurées dans votre profil. SlipStream va les installer sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder."
    :slipstream.ui.models.parameters.ssh-key-not-available.description           "Accès SSH"
-   :slipstream.ui.models.parameters.ssh-key-not-available.help-hint             "Actuellement il n'y pas de clés SSH configurées dans votre profile. S'il y en avait, SlipStream les installerait sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder. Si vous n'êtes pas sûr(e) de cette option, vous pouvez probablement la laisser désactivée."
+   :slipstream.ui.models.parameters.ssh-key-not-available.help-hint             "Actuellement il n'y pas de clés SSH configurées dans votre profil. S'il y en avait, SlipStream les installerait sur les machines deployées de façon à vous permettre utiliser SSH pour y accéder. Si vous n'êtes pas sûr(e) de cette option, vous pouvez probablement la laisser désactivée."
    :slipstream.ui.views.tables.run-deployment-global-parameters-table.missing-ssh-key.error-help-hint! "Pour activer l'accès SSH, veuillez fournir au moins une clé SSH dans <a href='%1$s?edit=true#1-general' target='_blank'>votre profile</a> et rechargez cette page." ; %1$s = user profile URL
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Adresse IP ou nom d'hôte de l'image."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "Ce paramètre est un paramètre par défaut des déploiements. Il est remplis par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Fournis par SlipStream à l'exécution"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "ID de l'instance dans le Cloud"
-   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "Ce paramètre est un paramètre par défaut des déploiements. Il est remplis par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get instanceid'."
-   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Fournis par SlipStream à l'exécution"
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "Ce paramètre est un paramètre par défaut des déploiements. Il est rempli par SlipStream pendant l'exécution du déploiement. Vous pouvez récupérer sa valeur dans la recette de déploiement avec 'ss-get instanceid'."
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Fourni par SlipStream à l'exécution"
    :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "Pour activer l'accès SSH, veuillez fournir au moins une clé SSH dans <a href='%1$s?edit=true#1-general' target='_blank'>votre profile</a> et rechargez cette page." ; %1$s = user profile URL
 
    :slipstream.ui.views.tables.deployment-parameters-table.blank-parameter.name.placeholder          "Ajouter un paramètre (nom)"
@@ -583,7 +583,7 @@
    :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.repository.placeholder   :global.nouns.repository
    :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.key.placeholder          :global.nouns.key
 
-   :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.name.placeholder          "New parameter"
+   :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.name.placeholder          "Nouveau paramètre"
    :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.description.placeholder   :global.nouns.description
    :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.value.placeholder         :global.nouns.value
 
@@ -827,7 +827,7 @@
 
    :slipstream.ui.views.welcome.page-title                     "Bienvenue"
    :slipstream.ui.views.welcome.header.title                   "Bienvenue sur SlipStream"
-   :slipstream.ui.views.welcome.header.subtitle                "La page d'accueil contient tous les modules publiés et tous les modules racines dont vous avez accès."
+   :slipstream.ui.views.welcome.header.subtitle                "La page d'accueil contient tous les modules publiés et tous les modules racines auxquels vous avez accès."
    :slipstream.ui.views.welcome.app.label.description          :global.nouns.description
    :slipstream.ui.views.welcome.app.label.publisher            :global.nouns.publisher
    :slipstream.ui.views.welcome.app.label.publication-date     :global.nouns.date
@@ -953,7 +953,7 @@
    :slipstream.ui.views.module.image.section.image-creation.subsection.packages.empty-content-hint "Il n'y a pas encore de paquet configuré. Vous pouvez [en ajouter](%1$s) en éditant cette image avec le bouton `Editer` du menu." ; %1$s href to edit module
 
    :slipstream.ui.views.reports.no-reports-yet                                   "Il n'y a pas encore de rapports disponibles."
-   :slipstream.ui.views.reports.no-need-to-refresh                               "Cette section sera mise à jour automatiquement quand les rpports arriveront. Pas besoin de refraîchir la page."
+   :slipstream.ui.views.reports.no-need-to-refresh                               "Cette section sera mise à jour automatiquement quand les rapports arriveront. Pas besoin de rafraîchir la page."
 
    ;; Modal dialogs
 
@@ -961,14 +961,14 @@
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Salut, `%1$s`! Nous aimerions montrer comment on peut déployer une application avec SlipStream avec un tour guidé de 5min." ;  %1$s: username
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour                     "Oui, j'aimerais suivre le tour!"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again  "Pas maintenant, merci"
-   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "J'ai pas besoin du tour, merci"
-   :slipstream.ui.views.modal-dialogs.start-tour-dialog.footnote                              "No stress : vous pouvez toujours le démarrer depuis le menu `Aide` en haut de la page." ;; NOTE: Shortened text to fit within one line in the dialog.
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "Je n'ai pas besoin du tour, merci"
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.footnote                              "Pas de stress : vous pouvez toujours le démarrer depuis le menu `Aide` en haut de la page." ;; NOTE: Shortened text to fit within one line in the dialog.
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
 
    :slipstream.ui.views.modal-dialogs.reset-password-dialog.title                 "Réinitialiser le mot de passe"
    :slipstream.ui.views.modal-dialogs.reset-password-dialog.label.username        :global.nouns.username
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.footnote              "Entrer votre nom d'utilisateur. Si il correspond à un utilisateur existant, nous vous enverrons un courriel à l'adresse renseignée dans votre profil avec un lien de réinitialisation."
+   :slipstream.ui.views.modal-dialogs.reset-password-dialog.footnote              "Entrer votre nom d'utilisateur. S'il correspond à un utilisateur existant, nous vous enverrons un courriel à l'adresse renseignée dans votre profil avec un lien de réinitialisation."
    :slipstream.ui.views.modal-dialogs.reset-password-dialog.button.cancel         :global.verbs.cancel
    :slipstream.ui.views.modal-dialogs.reset-password-dialog.button.reset-password "Demander un lien de réinitialisation du mot de passe"
    :slipstream.ui.views.modal-dialogs.reset-password-dialog.form.success.message  "Un courriel de validation a été envoyé à l'adresse associée à votre compte utilisateur.
@@ -986,7 +986,7 @@
    :slipstream.ui.views.modal-dialogs.delete-dialog.button.delete               :global.verbs.delete
 
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.title                   "Supprimer toutes les versions du module"
-   :slipstream.ui.views.modal-dialogs.delete-all-dialog.info                    "Toutes les versions de ce module dont vous avez le droit de suppression vont être supprimées."  ;  %1$s: module category ;
+   :slipstream.ui.views.modal-dialogs.delete-all-dialog.info                    "Toutes les versions de ce module pour lesquels vous avez le droit de suppression vont être supprimées."  ;  %1$s: module category ;
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.question                "Etes-vous sur de vouloir supprimer toutes les versions du module `%2$s` ?"
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.placeholder             "Copiez le nom complet du module et collez le ici"  ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.delete-all-dialog.button.cancel           :global.verbs.cancel
@@ -1012,7 +1012,7 @@
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.question           "Voulez-vous supprimer le/l' %1$s `%2$s` (v %3$s) de la [boutique d'applications](/)?"  ;  %1$s: module category ;  %2$s: module name ;  %3$s: module version
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.footnote           "Le %1$s n'apparaitera plus dans la [boutique d'applications](/), mais il/elle sera toujours accessible via la hierarchie de projets."  ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.cancel      :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.unpublish   "Dépublier %1$s" ;  %1$s: module category
+   :slipstream.ui.views.modal-dialogs.unpublish-module-confirmation-dialog.button.unpublish   "Annuler la publication %1$s" ;  %1$s: module category
 
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.title                                "Copier %1$s" ;  %1$s: module category
    :slipstream.ui.views.modal-dialogs.copy-module-dialog.button.cancel                        :global.verbs.cancel
@@ -1048,7 +1048,7 @@
    :slipstream.ui.views.run.header.title!                   "L'exécution %1$s est <span class='ss-run-state'>%2$s</span>" ;; "[run id] is [run status]"
 
    :slipstream.ui.views.run.large-run-alert.title           "Exécution avec un grand nombre d'instances"
-   :slipstream.ui.views.run.large-run-alert.message         "Cette exécution contient un total de %1$s instances de noeuds. L'aperçu ainsi que le rafraîshissement automatique des paramètres des noeuds sont donc désactivés." ;; %1$s is total number of node instances.
+   :slipstream.ui.views.run.large-run-alert.message         "Cette exécution contient un total de %1$s instances de noeuds. L'aperçu ainsi que le rafraîchissement automatique des paramètres des noeuds sont donc désactivés." ;; %1$s is total number of node instances.
 
    :slipstream.ui.views.run.machine.not-mutable             "Image build lancé par '%1$s' %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
    :slipstream.ui.views.run.machine.not-mutable.own-run     "Image build lancé par vous (en tant que '%1$s') %2$s" ;; %1$s is owner's username; %2$s is relative timestamp
@@ -1065,13 +1065,13 @@
    :slipstream.ui.views.run.section.reports.title           :global.nouns.reports
 
    :slipstream.ui.views.vms.header.title                    "Vos machines virtuelles"
-   :slipstream.ui.views.vms.header.subtitle                 "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les VMs s'exécutants sur votre compte Cloud."
+   :slipstream.ui.views.vms.header.subtitle                 "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les VMs s'exécutant sur votre compte Cloud."
    :slipstream.ui.views.vms.header.second-subtitle          "Veuillez noter que cette page peut être limitée à un seul Cloud en fonction de l'URL demandée."
    :slipstream.ui.views.vms.section.vms.title               "Machines Virtuelles"
    :slipstream.ui.views.vms.section.vms.empty-content-hint  "Vous n'avez pas de machines virtuelles sur ce Cloud."
 
    :slipstream.ui.views.runs.header.title                   "Vos exécutions"
-   :slipstream.ui.views.runs.header.subtitle                "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les exécutions s'exécutants sur votre compte Cloud."
+   :slipstream.ui.views.runs.header.subtitle                "Ceci est une sous-vue (disponible directement dans le dashboard) affichant toutes les exécutions s'exécutant sur votre compte Cloud."
    :slipstream.ui.views.runs.header.second-subtitle         "Veuillez noter que cette page peut être limitée à un seul Cloud en fonction de l'URL demandée."
    :slipstream.ui.views.runs.section.vms.title              :global.nouns.runs
    :slipstream.ui.views.runs.section.runs.empty-content-hint "Aucun déploiement n'a été trouvé avec les filtres actuels."

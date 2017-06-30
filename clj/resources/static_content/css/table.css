@@ -261,3 +261,17 @@ td[id*=':abort']:empty::before {
   padding-right: 25px;
   margin-bottom: 10px;
 }
+
+/* Usernames can be quite long when external authentication is used. 
+   Provide a maximum size for the links in the user table.  For now,
+   this is scoped to the user table, but may be useful to apply this
+   generally. */
+
+#ss-section-0-users div div table tbody tr td.ss-table-cell-link a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40ex;
+  vertical-align: middle;
+  white-space: nowrap;
+  display: inline-block;
+}

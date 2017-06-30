@@ -618,10 +618,10 @@
    :slipstream.ui.views.tables.run-deployment-global-parameters-table.no-configured-clouds-hint!       "<i>You have no configured clouds. Please configure at least one cloud connector adding the corresponding credentials in your <a href='%1$s?edit=true#1-general' target='_blank'>user profile</a> and reload this page.</i>" ; %1$s = user profile URL
 
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.description     "Hostname or IP address of the image"
-   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+   :slipstream.ui.models.module.image.deployment.default-parameter.hostname.help-hint       "The hostname is a default deployment parameter populated by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
    :slipstream.ui.models.module.image.deployment.default-parameter.hostname.placeholder     "Provided at runtime by SlipStream"
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.description   "Cloud instance ID"
-   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+   :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.help-hint     "The instanceid is a default deployment parameter populated by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
    :slipstream.ui.models.module.image.deployment.default-parameter.instanceid.placeholder   "Provided at runtime by SlipStream"
    :slipstream.ui.views.tables.run-image-global-parameters-table.missing-ssh-key.error-help-hint! "To enable SSH access, provide at least one SSH key in your <a href='%1$s?edit=true#1-general' target='_blank'>user profile</a> and reload this page." ; %1$s = user profile URL
    :slipstream.ui.views.tables.run-image-global-parameters-table.no-configured-clouds-hint!       "<i>You have no configured clouds. Please configure at least one cloud connector adding the corresponding credentials in your <a href='%1$s?edit=true#1-general' target='_blank'>user profile</a> and reload this page.</i>" ; %1$s = user profile URL
