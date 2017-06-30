@@ -958,7 +958,7 @@
    ;; Modal dialogs
 
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.title                                "Bienvenue sur SlipStream!"
-   :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Salut, `%1$s`! Nous aimerions montrer comment on peut déployer une application avec SlipStream avec un tour guidé de 5min." ;  %1$s: username
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Salut! Nous aimerions montrer comment on peut déployer une application avec SlipStream avec un tour guidé de 5min."
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour                     "Oui, j'aimerais suivre le tour!"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again  "Pas maintenant, merci"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "Je n'ai pas besoin du tour, merci"

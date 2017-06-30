@@ -1123,7 +1123,7 @@ For more details refer to the SlipStream client <a target='_blank' href='http://
    ;; Modal dialogs
 
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.title                                "Fancy a tour?"
-   :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Hi, `%1$s` and welcome to SlipStream! We would like to guide you through the main workflow of SlipStream in a 5min tour. We will show you how to deploy a Wordpress machine." ;  %1$s: username
+   :slipstream.ui.views.modal-dialogs.start-tour-dialog.text-body                            "Hi. Welcome to SlipStream! We would like to guide you through the main workflow of SlipStream in a 5min tour. We will show you how to deploy a Wordpress machine."
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.take-tour                     "Yes, go for the tour!"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-but-ask-again  "Not now, but please ask me next time"
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.button.dont-take-tour-dont-ask-again "I don't need to take the tour, thanks"
