@@ -713,18 +713,18 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                     var $tmpInnerDiv = $(this);
                     $tmpInnerDiv
                         .closest("tr")
-                            .addClass($row.slidedUpRowCls);  
+                            .addClass($row.slidedUpRowCls);
                     if(f) {
                       f();
                     }
-                });            
+                });
             return this;
         },
 
-        slideDownRow: function(duration, f1, f2) { 
+        slideDownRow: function(duration, f1, f2) {
             if(f1) {
               f1();
-            }                        
+            }
             this
                 .filter("tr." + this.slidedUpRowCls)
                 .removeClass(this.slidedUpRowCls)
@@ -2723,8 +2723,10 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
     util.cookie = {
         // Inspired from: http://www.w3schools.com/js/js_cookies.asp
 
-        // cookies are scoped to the looged user
-        scopePrefix: ($$.util.meta.getUsername() || "unlogged") + ".",
+        // Cookies are scoped to the logged in user. As usernames may be
+        // extremely long and contain non-word characters, create a 'slug'
+        // from the username consisting of the first 15 word characters.
+        scopePrefix: ($$.util.meta.getUsername() || "unlogged").replace(/\W/g, "").slice(0, 15) + ".",
 
         setShortLived: function (cname, cvalue, ttl_in_secs) {
             // ttl_in_secs defaults to 5 min
