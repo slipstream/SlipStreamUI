@@ -2,8 +2,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var $btnGenericCloudParams = $("#btn-generic-cloud-params"),
         $genericCloudParamsInput = $(".input-generic-cloud-params"),
-        $genericCloudParamsTable = $(".table-generic-cloud-params"),
-        $btnRefreshPRS = $("#btn-refresh-prs");
+        $genericCloudParamsTable = $(".table-generic-cloud-params");
 
     $genericCloudParamsTable.hide();
     $genericCloudParamsInput.closest("tr").slideUpRow();
@@ -561,7 +560,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 .removeAttr("name"); // To prevent sending this value with the 'run' request, since it's not required
         });
 
-        $btnRefreshPRS.click(function() {
+        $genericCloudParamsInput.change(function() {
             cachedPRSResponse = null;
             callRequestPlacementIfEnabled();
         });
