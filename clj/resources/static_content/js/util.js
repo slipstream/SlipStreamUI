@@ -1686,7 +1686,7 @@ jQuery( function() { ( function( $$, util, $, undefined ) {
                 paddingLeftRightPx = 6,
                 borderPx  = 1;
             this
-                .find("*:not(.sr-only)")
+                .find("*:not(.sr-only,.ss-no-full-text)")
                     .filters(
                         this.predicates.isNodeWithOverflowText
                     )
