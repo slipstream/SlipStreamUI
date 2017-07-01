@@ -94,7 +94,7 @@
   padding-right: 0;
 }
 
-/* These styles would clip not allow the title to wrap and 
+/* These styles would not allow the title to wrap and 
    would clip (with an ellipsis) anything that was too long.
    This was intended for fixing a problem on the administrator's
    user edit page, but causes all titles to be clipped. 
