@@ -32,7 +32,7 @@
   (html/defsnippet ^:private start-tour-dialog template-filename [:#ss-start-tour-dialog]
     []
     [:.ss-start-tour-dialog-title]      (html/content       (t :title))
-    [:.ss-start-tour-dialog-text-body]  (html/html-content  (t :text-body (current-user/username)))
+    [:.ss-start-tour-dialog-text-body]  (html/html-content  (t :text-body))
     [:.ss-take-tour-btn]                (html/content       (t :button.take-tour))
     [:.ss-no-tour-btn]                  (html/content       (t :button.dont-take-tour-dont-ask-again))
     [:.ss-ask-next-time-btn]            (html/content       (t :button.dont-take-tour-but-ask-again))
