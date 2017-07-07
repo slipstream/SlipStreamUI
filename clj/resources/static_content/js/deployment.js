@@ -1,7 +1,5 @@
 jQuery( function() { ( function( $$, $, undefined ) {
 
-    // local updated deployment.js file
-
     var outputParams = {},
         mappingOptionsComboBoxesSel = "select.ss-mapping-options",
         formFieldToValidateCls = $().formFieldToValidateCls,
