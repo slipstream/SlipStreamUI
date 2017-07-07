@@ -590,9 +590,6 @@
    :slipstream.ui.models.parameters.build-image-target-cloud.description        :global.nouns.cloud
    :slipstream.ui.models.parameters.build-image-target-cloud.help-hint          "Choose the cloud where the image will be build. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) do not appear here. Visit your user profile if you want to configure additional clouds."
 
-   :slipstream.ui.models.parameters.hybrid-deployment.description               "Hybrid deployment"
-   :slipstream.ui.models.parameters.hybrid-deployment.help-hint                 "This option allow to specify a cloud for each node."
-
    :slipstream.ui.models.parameters.deployment-target-cloud.description         :global.nouns.cloud
    :slipstream.ui.models.parameters.deployment-target-cloud.help-hint           "Choose the cloud to use for the deployment. The cloud flagged with a `*` is the default configured in your user profile. The clouds not configured (i.e. for which there are no credentials in your user profile) do not appear here. Visit your user profile if you want to configure additional clouds. The option `Specify for each node` will reveal this menu for each of the nodes below."
    :slipstream.ui.util.core.enum.option.text.available-clouds.specify-for-each-node "Specify for each node"
