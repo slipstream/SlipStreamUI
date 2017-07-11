@@ -496,22 +496,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     $globalCloudServiceCombobox
         .change(function() {
-            if ( $globalCloudServiceCombobox.val() === specifyForEachNodeOption ) {
+            if ( $globalCloudServiceCombobox.val() != specifyForEachNodeOption ) {
                 $nodeCloudServiceComboboxes
-                    .closest("tr")
-                        .slideDownRow();
-            } else {
-                $nodeCloudServiceComboboxes
-                    .closest("tr")
-                        .slideUpRow()
-                        .end()
                     .val($globalCloudServiceCombobox.val())
                     .change();
             }
         })
         .removeAttr("name") // To prevent sending this value with the 'run' request, since it's not required
         .change();          // Sync $nodeCloudServiceComboboxes initial state with the checkbox
-
 
     // SSH option
     var $needSSHAccessElem = $("#ssh-access-enabled");
