@@ -623,10 +623,9 @@
        (when cloud-param
          {:class "input-generic-cloud-params"
           :cells (remove nil? [{:type :cell/text, :content (:description cloud-param)}
-                               {:type :cell/positive-number, :content {:value     (:value cloud-param)
-                                                                       :min-value 0
-                                                                       :required? false
-                                                                       :id        (str "parameter--" (when nodename (str "node--" nodename "--")) name)}, :editable? true}
+                               {:type :cell/text, :content {:text      (:value cloud-param)
+                                                            :required? false
+                                                            :id        (str "parameter--" (when nodename (str "node--" nodename "--")) name)}, :editable? true}
                                (when-not nodename
                                  {:type :cell/help-hint,  :content {:title (:name cloud-param)
                                                                     :content  (:description cloud-param)}})])}
