@@ -67,10 +67,10 @@
                             :placeholder "Provided at runtime by SlipStream"
                             :read-only? false
                             :mandatory? true
-                            :help-hint "The instanceid is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
+                            :help-hint "The instanceid is a default deployment parameter populated by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get instanceid'."
                             :disabled? true}
                            {:disabled? true
-                            :help-hint "The hostname is a default deployment parameter popupaled by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
+                            :help-hint "The hostname is a default deployment parameter populated by SlipStream on deployment. You can access the live value in the deployment recipe with 'ss-get hostname'."
                             :read-only? false
                             :mandatory? true
                             :order 2
