@@ -1073,7 +1073,7 @@
 (defn- format-usage-values
   [usage]
   (->> usage
-       (map (fn[[k v]] [k (-> v :unit-minutes (uc/format-metric-value k))]))
+       (map (fn[[k v]] [(name k) (-> v :unit-minutes (uc/format-metric-value k))]))
        (into {})))
 
 (defn format-period

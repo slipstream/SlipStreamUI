@@ -275,3 +275,7 @@ td[id*=':abort']:empty::before {
   white-space: nowrap;
   display: inline-block;
 }
+
+.ss-view-name-usages .ss-table-cell-map {
+    min-width: 300px;
+}
