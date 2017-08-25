@@ -19,7 +19,7 @@
                   :content-id       subsection-id
                   :content          (when include-content? (t/usages-table parsed-metadata))))}))
 
-(def displayed-frequencies [:daily :weekly :monthly])
+(def displayed-frequencies [:daily])
 
 (defn- section
   [metadata]
