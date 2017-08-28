@@ -12,9 +12,9 @@
      :username "admin",
      :password "siXsQ2013"}]]
   :dependencies
-  [[org.clojure/clojure "1.9.0-alpha19"]
+  [[org.clojure/clojure "1.9.0-alpha17"]
    [sixsq/build-utils "0.1.4" :scope "test"]
-   [org.clojure/clojure "1.9.0-alpha19"]
+   [org.clojure/clojure "1.9.0-alpha17"]
    [com.taoensso/tower "3.1.0-beta5"]
    [clj-http "3.3.0"]
    [clj-time "0.12.1"]
