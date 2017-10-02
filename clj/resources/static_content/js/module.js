@@ -137,8 +137,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 serviceOfferSelector = '#' + selectNode.id.replace(/cloudservice$/,"service-offer");
                 nodeName = $(selectNode).parents().siblings('.ss-node-shortname').text() || "null";
                 serviceOfferId = null;
+                selectedConnector = $(selectNode).find(':selected').val();
                 try {
-                    serviceOfferId = cachedInfoPerNode[nodeName][selectNode.value]['id'] || null;
+                    serviceOfferId = cachedInfoPerNode[nodeName][selectedConnector]['id'] || null;
                 } catch (e) {
                     console.warn("Failed to set the service offer id for "+ nodeName +".");
                 }
@@ -335,7 +336,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             $.each(infoPerNode, function(node, info) {
                 var isApplication           = node !== "null",
                     nodeSelector            = isApplication ? "--node--" + node : "",
-                    $selectDropDowns        = $("[id=parameter" + nodeSelector + "--cloudservice]");
+                    $selectDropDowns        = $("[id=parameter" + nodeSelector + "--cloudservice]").filter(':visible');
 
                 $selectDropDowns.each(function() {
                     var $selectDropDown         = $(this),
@@ -540,17 +541,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
             callRequestPlacementIfEnabled();
         });
 
-        $("[id^='parameter--node'][id$='multiplicity']").on("change", function(){
+        $("[id^='parameter--node'][id$='multiplicity']").change(function(){
             updateSelectOptions(cachedPRSResponse, true);
         });
 
-        $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").on("change", function(){
+        $("[id^='parameter--node'][id$='--cloudservice'], [id='global-cloud-service']").change(function(){
             updateSpecifyForEachNodeText();
             updateOrchestratorPrice();
         });
 
 
-        $("[id^='parameter--'][id$='--cloudservice']").on("change", function(){
+        $("[id^='parameter--'][id$='--cloudservice']").change(function(){
             updateServiceOffersId(this);
             if (isCompositeDeployment()) {
                 $('#global-cloud-service').val('specify-for-each-node');
@@ -559,7 +560,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }
         });
 
-        $scalableCheckBox.on("change", function(){
+        $scalableCheckBox.change(function(){
             toggleShowAdditionalCost();
             updateSelectOptions(cachedPRSResponse, true);
         });       
