@@ -2,7 +2,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var gaugeContainerCls     = "ss-usage-gauge-container",
         selectedGaugeCls      = "ss-selected-gauge-container",
-        serviceOfferNamespace = "schema-org";
+        serviceOfferNamespace = "schema-org",
+        cachedDashboardResponse  = {};
 
     $(".ss-usage-gauge").click(function(){
         var $gauge          = $(this),
@@ -120,12 +121,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
                     .html(updatedUsageValue);
     }
 
-    function updateCloudUsageGauge(id, updatedUsage) {
-        var $gauge          = $("[id='" + id + "']"),
+    function updateCloudUsageGauge(connector, updatedUsage) {
+        var $gauge          = $("[id='ss-usage-gauge-" + connector + "']"),
             $gaugeContainer = $gauge.closest(gaugeContainerCls.asSel());
 
         if ( $gauge.foundNothing() ) {
-            console.debug("Gauge for id '" + id + "' not visible. Nothing to update.");
+            console.debug("Gauge for id '" + connector + "' not visible. Nothing to update.");
             return;
         }
 
@@ -146,15 +147,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
             var $gauge        = $(this),
                 gaugeId       = "ss-usage-gauge-" + $gauge.attr("cloud"),
                 updatedUsage  = {
-                    vmQuota:             $gauge.attr('vmQuota')             || 0,
-                    userVmUsage:         $gauge.attr('userVmUsage')         || 0,
-                    userRunUsage:        $gauge.attr('userRunUsage')        || 0,
-                    userInactiveVmUsage: $gauge.attr('userInactiveVmUsage') || 0,
-                    othersVmUsage:       $gauge.attr('othersVmUsage')       || 0,
-                    pendingVmUsage:      $gauge.attr('pendingVmUsage')      || 0,
-                    unknownVmUsage:      $gauge.attr('unknownVmUsage')      || 0
+                    vmQuota            : parseInt($gauge.attr('vmQuota'))      || 0,
+                    userRunUsage       : parseInt($gauge.attr('userRunUsage')) || 0,
+                    userVmUsage        : 0,
+                    unknownVmUsage     : 0,
+                    pendingVmUsage     : 0,
+                    othersVmUsage      : 0,
+                    userInactiveVmUsage: 0,
                 };
-            updateCloudUsageGauge(gaugeId, updatedUsage);
+            cachedDashboardResponse[$gauge.attr("cloud")] = updatedUsage;
         });
     }
 
@@ -170,11 +171,17 @@ jQuery( function() { ( function( $$, $, undefined ) {
     var serviceOfferRequest = $$.request
                                 .put("/api/service-offer")
                                 .dataType("json")
-                                .data({'$filter': nuvlaboxes.join(' or ')})
+                                .data({'$filter': nuvlaboxes.join(' or '),
+                                       '$select': 'id,connector,schema-org:state,schema-org:last-online'})
                                 .withLoadingScreen(false)
                                 // NOTE: Uncomment to show the loading icon on every update.
                                 // .validation(setAllNuvlaboxGaugesAsChecking)
                                 .onSuccess(processNuvlaboxStates);
+
+    var virtualMachinesRequest = $$.request.put("/api/virtual-machine")
+                                   .dataType("json")
+                                   .withLoadingScreen(false)
+                                   .onSuccess(processVirtualMachines);
 
     function refreshNuvlaBoxesGauge () {
         if (nuvlaboxes.length > 0) {
@@ -234,8 +241,95 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     }
 
+    function deepCopy(obj) {
+        return $.extend(true, {}, obj);
+    }
+
+    function isVmInactive(cimiVM) {
+        return ['terminated', 'stopped', 'error', 'failed'].indexOf(cimiVM.toLowerCase()) >= 0;
+    }
+
+    function isVmPending(cimiVM) {
+        return ['pending', 'provisioning'].indexOf(cimiVM.state.toLowerCase()) >= 0;
+    }
+
+    function classifyVM(cimiVM, user) {
+        if (typeof cimiVM.deployment === "undefined") {
+            return "unknownVM";
+        } else {
+            if (cimiVM.deployment.user != user) {
+                return "othersVM";
+            } else {
+                if (isVmInactive(cimiVM)) {
+                    return "userInactiveVM";
+                } else if (isVmPending(cimiVM)) {
+                    return "pendingVM";
+                } else {
+                    return "userVM";
+                }
+            }
+        }
+        return undefined;
+    }
+
+    function connectorVMs(vms) {
+        var emptyUsageRecord = {  userVmUsage        : 0,
+                                  unknownVmUsage     : 0,
+                                  pendingVmUsage     : 0,
+                                  othersVmUsage      : 0,
+                                  userInactiveVmUsage: 0,
+                                },
+            allClouds         = 'All Clouds',
+            connectors        = {};
+
+        connectors[allClouds] = deepCopy(emptyUsageRecord);
+
+        $.each(vms.virtualMachines, function() {
+            var connector_name = this.connector.href.replace(/^connector\//, '');
+            if (typeof connectors[connector_name] === "undefined") {
+                connectors[connector_name] = deepCopy(emptyUsageRecord);
+            }
+
+            typeVm = classifyVM(this, $$.util.meta.getUsername())
+
+            switch(typeVm) {
+                case 'userVM':
+                    connectors[allClouds].userVmUsage++;
+                    connectors[connector_name].userVmUsage++;
+                    break;
+                case 'userInactiveVM':
+                    connectors[allClouds].userInactiveVmUsage++;
+                    connectors[connector_name].userInactiveVmUsage++;
+                    break;
+                case 'pendingVM':
+                    connectors[allClouds].pendingVmUsage++;
+                    connectors[connector_name].pendingVmUsage++;
+                    break;
+                case 'othersVM':
+                    connectors[allClouds].othersVmUsage++;
+                    connectors[connector_name].othersVmUsage++;
+                    break;
+                case 'unknownVM':
+                    connectors[allClouds].unknownVmUsage++;
+                    connectors[connector_name].unknownVmUsage++;
+                    break;
+                default:
+                    console.error('Unable to classify following vm: ' + JSON.stringify(this));
+                    break;
+            }
+
+        });
+        return connectors;
+    }
+
+    function processVirtualMachines(response) {
+        result = $.extend(true, cachedDashboardResponse, connectorVMs(response));
+        $.each(result, function(connector, updatedUsage) {
+            updateCloudUsageGauge(connector, updatedUsage);
+        });
+    }
+
     $('.ss-usage-gauge-container').prepend(stateIconPlaceholderHtml);
-    refreshNuvlaBoxesGauge();
 
     // *************************************************************************
 
@@ -260,6 +354,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                          {withLoadingScreen: withLoadingScreen});
         // Update connection state of Nuvlabox connectors
         refreshNuvlaBoxesGauge();
+        virtualMachinesRequest.send();
     }
 
     $$.util.recurrentJob.start(autoUpdateJobName,
@@ -302,5 +397,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $('#managedUserCount').html(managedUserCount);
             }).send();
     }
+
+    //simpleexample.core.run();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

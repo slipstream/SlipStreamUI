@@ -34,11 +34,10 @@
                                     (-> cloud-usage usage-key str)
                                     (name usage-key)))
   ue/this     (let [usage       (usage-key cloud-usage)
-                    one-or-more (if (= 1 usage) "one" "more")
                     keyname     (name usage-key)
-                    title       (t (format "detailed-counter.%s.%s.popover.title" one-or-more keyname) usage)
+                    title       (t (format "detailed-counter.%s.popover.title" keyname) usage)
                     content     (t (format "detailed-counter.%s.popover.content" keyname))]
-                (ue/add-popover title :content content :when (pos? usage)))
+                (ue/add-popover title :content content))
   ue/this     (html/append (icons/icon-snip usage-key))
   ue/this     (html/append (ue/text-div-snip (-> cloud-usage usage-key str) :css-class "counter")))
 
@@ -85,7 +84,7 @@
 
 (defmethod section ::cloud-detailed-info
   [{:keys [clouds]} metadata-key]
-  {:content (map  cloud-detailed-info-subsection [:runs :vms])
+  {:content "<div id=\"app\"></div>"#_(map  cloud-detailed-info-subsection [:runs :vms])
    :type    :flat-section})
 
 ;; Metering section
@@ -146,13 +145,13 @@
     (-> dashboard :metering :enabled?)  (conj ::metering)))
 
 (def ^:private html-dependencies
-  {:css-filenames ["dashboard.css"]
+  {:css-filenames ["dashboard.css" "semantic.min.css"]
    :external-js-filenames (concat
                             (map (partial format "jquery-flot/js/jquery.flot%s.min.js")
                                  ["" ".pie" ".time" ".stack" ".tooltip" ".resize"])
                             (map (partial format "justgage/js/%s.min.js")
                                  ["raphael.2.1.4" "justgage.1.1.0"]))
-   :internal-js-filenames ["metering.js" "dashboard.js"]})
+   :internal-js-filenames ["metering.js" "dashboard.js" "vms.js"]})
 
 (defn page
   [metadata]
