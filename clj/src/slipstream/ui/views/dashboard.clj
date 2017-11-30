@@ -84,7 +84,7 @@
 
 (defmethod section ::cloud-detailed-info
   [{:keys [clouds]} metadata-key]
-  {:content "<div id=\"app\"></div>"#_(map  cloud-detailed-info-subsection [:runs :vms])
+  {:content "<div id=\"dashboard-tabs-container\"></div>"
    :type    :flat-section})
 
 ;; Metering section
@@ -151,7 +151,7 @@
                                  ["" ".pie" ".time" ".stack" ".tooltip" ".resize"])
                             (map (partial format "justgage/js/%s.min.js")
                                  ["raphael.2.1.4" "justgage.1.1.0"]))
-   :internal-js-filenames ["metering.js" "dashboard.js" "vms.js"]})
+   :internal-js-filenames ["metering.js" "dashboard.js" "dashboard_tabs.js"]})
 
 (defn page
   [metadata]
