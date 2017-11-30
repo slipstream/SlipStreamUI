@@ -1,9 +1,4 @@
-﻿html,
-body {
-  height: auto !important;
-}
-
-.ss-usage-gauge-container,
+﻿.ss-usage-gauge-container,
 .ss-add-new-cloud-btn-container {
     position: relative;
     margin: 10px;

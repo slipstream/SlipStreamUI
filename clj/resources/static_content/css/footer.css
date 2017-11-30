@@ -10,7 +10,7 @@ body {
 
 .footer {
   position: absolute;
-  bottom: 0;
+  bottom: auto;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 75px;

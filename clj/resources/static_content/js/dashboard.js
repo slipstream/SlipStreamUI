@@ -11,6 +11,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isGlobalGauge   = ($gaugeContainer.index() === 0),
             isSelected      = $gaugeContainer.is(selectedGaugeCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
+        vms.deployments.setCloudFilter(targetCloud);
+        vms.vms.setCloudFilter(targetCloud);
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
                     return s
