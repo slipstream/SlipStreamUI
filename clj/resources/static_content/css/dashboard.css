@@ -125,3 +125,7 @@ body {
 .footer {
     position: fixed !important;
 }
+
+.ui.modal {
+    padding-top: 50px !important;
+}
