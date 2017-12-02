@@ -115,3 +115,17 @@
     color: #5cb85c; /* .btn-success { background-color } */
     content: "\e013"; /* .glyphicon-ok */
 }
+
+/*
+Resolve conflicts with semantic-ui
+*/
+body {
+    padding-top: 50px !important;
+}
+.footer {
+    position: fixed !important;
+}
+
+.ui.modal {
+    padding-top: 50px !important;
+}
