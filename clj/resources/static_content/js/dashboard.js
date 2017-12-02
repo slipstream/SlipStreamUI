@@ -248,7 +248,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function isVmInactive(cimiVM) {
-        return ['terminated', 'stopped', 'error', 'failed'].indexOf(cimiVM.toLowerCase()) >= 0;
+        return ['terminated', 'stopped', 'error', 'failed'].indexOf(cimiVM.state.toLowerCase()) >= 0;
     }
 
     function isVmPending(cimiVM) {
@@ -259,7 +259,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if (typeof cimiVM.deployment === "undefined") {
             return "unknownVM";
         } else {
-            if (cimiVM.deployment.user != user) {
+            if (cimiVM.deployment.user != "undefined" && cimiVM.deployment.user.href != 'user/' + user) {
                 return "othersVM";
             } else {
                 if (isVmInactive(cimiVM)) {
