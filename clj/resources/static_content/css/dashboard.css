@@ -123,9 +123,9 @@ body {
     padding-top: 50px !important;
 }
 .footer {
-    position: fixed !important;
+    position: unset !important;
 }
 
 .ui.modal {
-    padding-top: 50px !important;
+    padding-top: 100px !important;
 }
