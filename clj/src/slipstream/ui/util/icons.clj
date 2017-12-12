@@ -66,7 +66,6 @@
 (deficon node                   "modal-window")
 (deficon config                 "cog") ; or "wrench"
 (deficon config-nuvlabox        "wrench")
-(deficon service-catalog        "th-list")
 (deficon event                  "flash")
 (deficon usage                  "time")
 

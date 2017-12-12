@@ -33,8 +33,6 @@
 (def action-appstore-sel        [:.ss-action-appstore])
 (def action-modules-sel         [:.ss-action-modules])
 (def action-configuration-sel   [:.ss-action-configuration])
-(def action-service-catalog-menu-item-sel [:.ss-action-service-catalog-menu-item])
-(def action-service-catalog-sel [:.ss-action-service-catalog])
 (def action-system-sel          [:.ss-action-system])
 (def action-users-sel           [:.ss-action-users])
 (def action-nuvlabox-sel        [:.ss-action-nuvlabox-admin])
@@ -115,11 +113,6 @@
               action-modules-sel          (html/content (t :logged-in.action.modules))
               action-configuration-sel    (html/content (t :logged-in.action.configuration))
               action-system-sel           (html/content (t :logged-in.action.system))
-              action-service-catalog-menu-item-sel (ue/remove-if-not
-                                                     (or
-                                                       (-> context :view-name #{"service-offer"})
-                                                       (-> context :configuration configuration/service-catalog-enabled?)))
-              action-service-catalog-sel  (html/content (t :logged-in.action.service-catalog))
               action-users-sel            (html/content (t :logged-in.action.users))
               action-nuvlabox-sel         (ue/remove-if-not (= (System/getProperty "slipstream.ui.util.ss-nuvlabox") "ss-nuvlabox"))
               action-help-sel             (html/content (t :logged-in.action.help))

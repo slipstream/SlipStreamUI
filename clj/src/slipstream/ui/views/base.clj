@@ -73,7 +73,7 @@
   [context]
   (-> context
       :view-name
-      #{"configuration" "service-catalog"}
+      #{"configuration"}
       (and (current-user/super?))))
 
 (def ^:private save-page-actions
@@ -305,7 +305,6 @@
       (println ";;   - Request options:     " (-> context :metadata meta str))
       (println ";;   - Theme:               " (theme/current))
       (println ";;   - Metadata available?  " (-> context :metadata boolean))
-      (println ";;   - Service Catalogue?   " (-> context :configuration configuration/service-catalog-enabled? boolean))
       (println ";;   - Tour:                " (-> context :tour :name))
       (println ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
       (println))

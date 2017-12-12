@@ -125,10 +125,6 @@ td.ss-table-cell-boolean > input[type="checkbox"][disabled] {
   content: ">";
 }
 
-.ss-view-name-service-catalog table > tbody > tr > td:nth-child(1) {
-  width: 1px;
-}
-
 td[id*=':abort'] {
   color: #a94442;
 }
@@ -262,7 +258,7 @@ td[id*=':abort']:empty::before {
   margin-bottom: 10px;
 }
 
-/* Usernames can be quite long when external authentication is used. 
+/* Usernames can be quite long when external authentication is used.
    Provide a maximum size for the links in the user table.  For now,
    this is scoped to the user table, but may be useful to apply this
    generally. */
