@@ -5,11 +5,9 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.current-user :as current-user]
             [slipstream.ui.util.localization :as localization]
-            [slipstream.ui.views.attributes :as attributes]
             [slipstream.ui.views.base :as base]
             [slipstream.ui.views.login :as login]
             [slipstream.ui.views.byebye :as byebye]
-            [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.module-list :as module-list]
             [slipstream.ui.views.module :as module]
             [slipstream.ui.views.versions :as versions]
@@ -24,7 +22,6 @@
             [slipstream.ui.views.action :as action]
             [slipstream.ui.views.events :as events]
             [slipstream.ui.views.usages :as usages]
-            [slipstream.ui.views.service-info :as service-info]
             [slipstream.ui.views.cloud-usages :as cloud-usages]
             [slipstream.ui.views.error :as error]
             [slipstream.ui.views.nuvlabox-admin :as nuvlabox-admin]
@@ -47,7 +44,6 @@
 (def pages
   {"login"              login/page
    "logout"             byebye/page
-   "service_catalog"    service-catalog/page
    "appstore"           module-list/appstore-page
    "modules"            module-list/modules-page
    "chooser"            module-list/chooser-page
@@ -64,8 +60,6 @@
    "action"             action/page
    "events"             events/page
    "usages"             usages/page
-   "service-offers"     service-info/page
-   "service-attributes" attributes/page
    "cloud-usages"       cloud-usages/page
    "nuvlabox-admin"     nuvlabox-admin/page})
 

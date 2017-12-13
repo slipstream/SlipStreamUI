@@ -29,12 +29,6 @@
       :parameters
       (parameters/value-for "slipstream.quota.enable")))
 
-(defn service-catalog-enabled?
-  [configuration]
-  (-> configuration
-      :parameters
-      (parameters/value-for "slipstream.service.catalog.enable")))
-
 (defn self-registration-enabled?
   [configuration]
   (-> configuration

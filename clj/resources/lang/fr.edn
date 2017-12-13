@@ -89,7 +89,6 @@
                     :repository       "Dépôt"
                     :run              "Exécution"
                     :runs             "Exécutions"
-                    :service-catalog  "Catalogue de services"
                     :severity         "Sévérité"
                     :start            "Départ"
                     :state            "Etat"
@@ -182,7 +181,6 @@
 
    :slipstream.ui.views.menubar.logged-in.action.dashboard           :global.nouns.dashboard
    :slipstream.ui.views.menubar.logged-in.action.configuration       :global.nouns.configuration
-   :slipstream.ui.views.menubar.logged-in.action.service-catalog     :global.nouns.service-catalog
    :slipstream.ui.views.menubar.logged-in.action.system              :global.nouns.system
    :slipstream.ui.views.menubar.logged-in.action.users               :global.nouns.users
    :slipstream.ui.views.menubar.logged-in.action.profile             :global.nouns.profile
@@ -580,10 +578,6 @@
    :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.repository.placeholder   :global.nouns.repository
    :slipstream.ui.views.tables.image-creation-packages-table.blank-parameter.key.placeholder          :global.nouns.key
 
-   :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.name.placeholder          "Nouveau paramètre"
-   :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.description.placeholder   :global.nouns.description
-   :slipstream.ui.views.tables.service-catalog-parameters-table.blank-service-catalog-parameter.value.placeholder         :global.nouns.value
-
    :slipstream.ui.views.tables.deployment-nodes-table.node.name.placeholder                 "Nom du noeud"
    :slipstream.ui.views.tables.deployment-nodes-table.template-node.name.placeholder        "Nouveau noeud (nom)"
 
@@ -701,14 +695,6 @@
    :slipstream.ui.util.core.enum.option.text.deployment-parameter-category.output :global.nouns.output
    :slipstream.ui.util.core.enum.option.text.deployment-parameter-category.input  :global.nouns.input
 
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.general             "Général"
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.locations           "Emplacement"
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.overall-capacity    "Capacité globale"
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.single-v-m-capacity "Capacité d'une machine virtuelle"
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.price               "Prix"
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.suppliers-catalogue "Fournisseurs catalogue"
-   :slipstream.ui.util.core.enum.option.text.service-catalog-parameters.other               "Autre"
-
    ; Values for default behaviour defined in user profile
    :slipstream.ui.util.core.enum.option.text.general-keep-running.always                        "Toujours"
    :slipstream.ui.util.core.enum.option.text.general-keep-running.on-success                    "En cas de succès"
@@ -769,7 +755,6 @@
    :slipstream.ui.util.icons.description.node                      :global.nouns.node
    :slipstream.ui.util.icons.description.orchestrator              :global.nouns.orchestrator
    :slipstream.ui.util.icons.description.config                    :global.nouns.config
-   :slipstream.ui.util.icons.description.service-catalog           :global.nouns.service-catalog
    :slipstream.ui.util.icons.description.documentation             :global.nouns.documentation
    :slipstream.ui.util.icons.description.knowledge-base            :global.nouns.knowledge-base
    :slipstream.ui.util.icons.description.event                     :global.nouns.event
@@ -831,8 +816,6 @@
    :slipstream.ui.views.welcome.app.label.deploy               :global.verbs.deploy
    :slipstream.ui.views.welcome.section.app-store.title        "Boutique d'applications"
    :slipstream.ui.views.welcome.section.projects.title         :global.nouns.projects
-
-   :slipstream.ui.views.welcome.section.service-catalog.title  :global.nouns.service-catalog
 
    :slipstream.ui.views.secondary-menu-actions.suffix.ellipsis :global.punctuation.ellipsis
 
@@ -1077,9 +1060,6 @@
    :slipstream.ui.views.configuration.header.subtitle       "Configure le service SlipStream et ses connecteurs."
 
    :slipstream.ui.views.action.header.title                 "Confirmation de l'action"
-
-   :slipstream.ui.views.service-catalog.header.title        :global.nouns.service-catalog
-   :slipstream.ui.views.service-catalog.header.subtitle     "Fournit des informations détaillées sur les capacités de chaque Cloud disponible"
 
    :slipstream.ui.views.base.footer.notice                  ""
 }

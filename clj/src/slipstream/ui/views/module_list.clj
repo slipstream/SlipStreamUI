@@ -4,7 +4,6 @@
             [slipstream.ui.util.page-type :as page-type]
             [slipstream.ui.util.localization :as localization]
             [slipstream.ui.util.core :as u]
-            [slipstream.ui.views.service-catalog :as service-catalog]
             [slipstream.ui.views.tables :as t]
             [slipstream.ui.util.enlive :as ue]
             [slipstream.ui.util.icons :as icons]
