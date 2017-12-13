@@ -22,7 +22,6 @@
             [slipstream.ui.views.action :as action]
             [slipstream.ui.views.events :as events]
             [slipstream.ui.views.usages :as usages]
-            [slipstream.ui.views.usage :as usage]
             [slipstream.ui.views.cloud-usages :as cloud-usages]
             [slipstream.ui.views.error :as error]
             [slipstream.ui.views.nuvlabox-admin :as nuvlabox-admin]
@@ -61,7 +60,6 @@
    "action"             action/page
    "events"             events/page
    "usages"             usages/page
-   "usage"              usage/page
    "cloud-usages"       cloud-usages/page
    "nuvlabox-admin"     nuvlabox-admin/page})
 
