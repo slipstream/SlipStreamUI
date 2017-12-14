@@ -145,13 +145,13 @@
     (-> dashboard :metering :enabled?)  (conj ::metering)))
 
 (def ^:private html-dependencies
-  {:css-filenames ["dashboard.css" "semantic.min.css"]
+  {:css-filenames ["semantic-fix-conflicts.css" "dashboard.css" "semantic.min.css"]
    :external-js-filenames (concat
                             (map (partial format "jquery-flot/js/jquery.flot%s.min.js")
                                  ["" ".pie" ".time" ".stack" ".tooltip" ".resize"])
                             (map (partial format "justgage/js/%s.min.js")
                                  ["raphael.2.1.4" "justgage.1.1.0"]))
-   :internal-js-filenames ["metering.js" "dashboard.js" "dashboard_tabs.js"]})
+   :internal-js-filenames ["metering.js" "dashboard.js" "legacy.js"]})
 
 (defn page
   [metadata]

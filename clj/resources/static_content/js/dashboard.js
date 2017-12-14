@@ -11,8 +11,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isGlobalGauge   = ($gaugeContainer.index() === 0),
             isSelected      = $gaugeContainer.is(selectedGaugeCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
-        sixsq.slipstream.dashboard_tabs.deployments.setCloudFilter(targetCloud);
-        sixsq.slipstream.dashboard_tabs.vms.setCloudFilter(targetCloud);
+        sixsq.slipstream.legacy.components.dashboard_tabs.deployments.setCloudFilter(targetCloud);
+        sixsq.slipstream.legacy.components.dashboard_tabs.vms.setCloudFilter(targetCloud);
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
                     return s
@@ -399,7 +399,5 @@ jQuery( function() { ( function( $$, $, undefined ) {
                 $('#managedUserCount').html(managedUserCount);
             }).send();
     }
-
-    sixsq.slipstream.dashboard_tabs.init();
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
