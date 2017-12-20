@@ -30,6 +30,7 @@
                    [org.clojure/data.json]
                    [org.clojure/data.xml]
                    [superstring]
+                   [org.clojure/tools.reader]
                    [com.taoensso/timbre]
                    
                    ;; test dependencies
