@@ -11,3 +11,6 @@ body {
 .ui.modal {
     padding-top: 100px !important;
 }
+.modal {
+    bottom:unset !important;
+}
