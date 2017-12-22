@@ -213,7 +213,7 @@
                                             :message "I'm afraid you are not allowed to do this."
                                             :code 401)
     ["template" &]  (fn [req] (resp/file-response (-> req :uri (uc/trim-up-to-last \/)) {:root "src/slipstream/ui/views/html"}))
-    [&] (fn [req] (resp/file-response (-> req :uri (uc/trim-prefix "/") (uc/trim-prefix "resources/static_content")) {:root "resources/static_content"}))
+    [&] (fn [req] (resp/file-response (-> req :uri (uc/trim-prefix "/") (uc/trim-prefix "clj/resources/static_content")) {:root "clj/resources/static_content"}))
     )
 
 ;; =============================================================================

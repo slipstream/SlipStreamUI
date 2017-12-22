@@ -1,37 +1,76 @@
+(def +version+ "3.42-SNAPSHOT")
+
+;; FIXME: Provide HTTPS access to Nexus.
+(require 'cemerick.pomegranate.aether)
+(cemerick.pomegranate.aether/register-wagon-factory!
+  "http" #(org.apache.maven.wagon.providers.http.HttpWagon.))
+
 (defproject
   com.sixsq.slipstream/SlipStreamUI
-  "3.29-SNAPSHOT"
+  "3.42-SNAPSHOT"
   :license
   {"Apache 2.0" "http://www.apache.org/licenses/LICENSE-2.0.txt"}
-  :repositories
-  [["clojars" {:url "https://repo.clojars.org/"}]
-   ["maven-central" {:url "https://repo1.maven.org/maven2"}]
-   ["sixsq"
-    {:url
-     "http://nexus.sixsq.com/content/repositories/snapshots-community-rhel7",
-     :username "admin",
-     :password "siXsQ2013"}]]
+
+  :plugins [[lein-parent "0.3.2"]
+            [lein-expectations "0.0.8"]]
+
+  :parent-project {:coords  [com.sixsq.slipstream/parent "3.42-SNAPSHOT"]
+                   :inherit [:min-lein-version :managed-dependencies :repositories]}
+
+  :source-paths ["clj/src"]
+
+  :resource-paths ["clj/resources"]
+
+  :pom-location "target/"
+
+  :aot :all
+
   :dependencies
-  [[org.clojure/clojure "1.9.0-alpha17"]
-   [sixsq/build-utils "0.1.4" :scope "test"]
-   [org.clojure/clojure "1.9.0-alpha17"]
-   [com.taoensso/tower "3.1.0-beta5"]
-   [clj-http "3.3.0"]
-   [clj-time "0.12.1"]
-   [enlive "1.1.6"]
-   [org.clojure/data.json "0.2.6"]
-   [org.clojure/data.xml "0.0.8"]
-   [superstring "2.1.0"]
-   [com.taoensso/timbre "4.7.4"]
-   [expectations "2.1.9" :scope "test"]
-   [javax.servlet/javax.servlet-api "3.1.0" :scope "test"]
-   [net.cgrand/moustache "1.1.0" :scope "test"]
-   [ring "1.5.1" :scope "test"]
-   [adzerk/boot-test "1.2.0" :scope "test"]
-   [adzerk/boot-reload "0.5.1" :scope "test"]
-   [onetom/boot-lein-generate "0.1.3" :scope "test"]
-   [tolitius/boot-check "0.1.4" :scope "test"]]
-  :source-paths
-  ["clj/test"]
-  :resource-paths
-  ["clj/src" "clj/resources"])
+  [[org.clojure/clojure]
+
+   [com.taoensso/tower]
+   [clj-http]
+   [clj-time]
+   [enlive]
+   [org.clojure/data.json]
+   [org.clojure/data.xml]
+   [superstring]
+   [org.clojure/tools.reader]
+   [com.taoensso/timbre]]
+
+  :profiles
+  {:test
+   {:dependencies [[expectations]
+                   [javax.servlet/javax.servlet-api]
+                   [net.cgrand/moustache]
+                   [ring]]
+    :source-paths ["clj/test" "src/test"]}
+   :dev
+   {:dependencies [[expectations]
+                   [javax.servlet/javax.servlet-api]
+                   [net.cgrand/moustache]
+                   [ring]]
+    :source-paths ["clj/src" "clj/test"]
+    :repl-options {;; What to print when the repl session starts.
+                   :welcome
+                         (println (str
+                                    ;; These first lines are the default ones:
+                                    "\n"
+                                    "      Docs: (doc function-name-here)\n"
+                                    "            (find-doc \"part-of-name-here\")\n"
+                                    "    Source: (source function-name-here)\n"
+                                    "   Javadoc: (javadoc java-object-or-class-here)\n"
+                                    "      Exit: Control+D or (exit) or (quit)\n"
+                                    "   Results: Stored in vars *1, *2, *3, an exception in *e\n"
+                                    "\n"
+                                    ;; This line is related to the SlipStream project:
+                                    "SlipStream: (reload-headless-app) to start the headless test server.\n"))
+                   ;; This expression will run when first opening a REPL
+                   :init (defmacro reload-headless-app
+                           [& {:keys [port]}]
+                           `(do
+                              (require '[slipstream.ui.main :as s] :reload-all)
+                              (slipstream.ui.main/reload-headless-app ~@(when port `(:port ~port)))))
+                   }}
+   }
+  )
