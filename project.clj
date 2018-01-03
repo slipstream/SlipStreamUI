@@ -15,7 +15,7 @@
             [lein-expectations "0.0.8"]]
 
   :parent-project {:coords  [com.sixsq.slipstream/parent "3.42-SNAPSHOT"]
-                   :inherit [:min-lein-version :managed-dependencies :repositories]}
+                   :inherit [:min-lein-version :managed-dependencies :repositories :deploy-repositories]}
 
   :source-paths ["clj/src"]
 
@@ -72,5 +72,4 @@
                               (require '[slipstream.ui.main :as s] :reload-all)
                               (slipstream.ui.main/reload-headless-app ~@(when port `(:port ~port)))))
                    }}
-   }
-  )
+   })
