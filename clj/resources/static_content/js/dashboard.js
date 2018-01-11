@@ -36,7 +36,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
                         $elem.addClass(alreadyDrawnCls);
                         $elem.data("gauge-controller", new JustGage({
                               id: elem.id,
-                              value: $elem.data('userVmUsage'),
+                              value: $elem.data('userVmUsage') || 0,
                               min: 0,
                               max: $elem.data('vmQuota') || 20,
                               title: $elem.data('quotaTitle'),
