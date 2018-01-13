@@ -16,7 +16,7 @@
       [metadata]
       (base/generate
         {:html-dependencies {:css-filenames         ["semantic-fix-conflicts.css" "semantic.min.css"]
-                             :internal-js-filenames ["legacy.js"]}
+                             :internal-js-filenames ["legacy.js" "legacy_init.js"]}
          :header            {:icon     icons/usage
                              :title    (t :header.title)
                              :subtitle (t :header.subtitle)}
