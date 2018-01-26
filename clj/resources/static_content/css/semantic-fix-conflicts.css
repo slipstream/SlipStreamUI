@@ -2,9 +2,11 @@
 Resolve conflicts with semantic-ui
 */
 body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
     padding-top: 50px !important;
 }
 .footer {
+    z-index: 2;
     position: unset !important;
 }
 
@@ -13,4 +15,12 @@ body {
 }
 .modal {
     bottom:unset !important;
+}
+
+#modal-login-id {
+    padding-top: 0px !important;
+    z-index: 9999 !important;
+}
+.ui {
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }

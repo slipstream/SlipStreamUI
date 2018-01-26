@@ -1,0 +1,1 @@
+sixsq.slipstream.webui.core.init();
