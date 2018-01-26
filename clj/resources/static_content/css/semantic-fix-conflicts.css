@@ -7,7 +7,7 @@ body {
 }
 .footer {
     z-index: 2;
-    /*position: unset !important;*/
+    position: unset !important;
 }
 
 .ui.modal {
