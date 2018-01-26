@@ -399,6 +399,4 @@ jQuery( function() { ( function( $$, $, undefined ) {
             }).send();
     }
 
-    sixsq.slipstream.webui.core.init();
-
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

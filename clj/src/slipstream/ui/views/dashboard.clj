@@ -151,7 +151,7 @@
                                  ["" ".pie" ".time" ".stack" ".tooltip" ".resize"])
                             (map (partial format "justgage/js/%s.min.js")
                                  ["raphael.2.1.4" "justgage.1.1.0"]))
-   :internal-js-filenames ["metering.js" "dashboard.js" "webui.js"]})
+   :internal-js-filenames ["metering.js" "dashboard.js" "webui.js" "webui_init.js"]})
 
 (defn page
   [metadata]
