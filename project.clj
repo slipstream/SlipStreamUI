@@ -3,9 +3,12 @@
 (defproject com.sixsq.slipstream/SlipStreamUI "3.45-SNAPSHOT"
 
   :description "Legacy Web Browser Interface"
+
   :url "https://github.com/slipstream/SlipStreamUI"
 
-  :license {"Apache 2.0" "http://www.apache.org/licenses/LICENSE-2.0.txt"}
+  :license {:name "Apache 2.0"
+            :url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            :distribution :repo}
 
   :plugins [[lein-parent "0.3.2"]
             [lein-expectations "0.0.8"]]
