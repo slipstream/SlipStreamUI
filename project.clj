@@ -1,6 +1,6 @@
-(def +version+ "3.45-SNAPSHOT")
+(def +version+ "3.45")
 
-(defproject com.sixsq.slipstream/SlipStreamUI "3.45-SNAPSHOT"
+(defproject com.sixsq.slipstream/SlipStreamUI "3.45"
 
   :description "Legacy Web Browser Interface"
 
@@ -13,7 +13,7 @@
   :plugins [[lein-parent "0.3.2"]
             [lein-expectations "0.0.8"]]
 
-  :parent-project {:coords  [com.sixsq.slipstream/parent "3.45-SNAPSHOT"]
+  :parent-project {:coords  [com.sixsq.slipstream/parent "3.45"]
                    :inherit [:min-lein-version
                              :managed-dependencies
                              :repositories
