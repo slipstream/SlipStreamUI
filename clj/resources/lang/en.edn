@@ -563,7 +563,7 @@
    :slipstream.ui.models.parameters.run-id.help-hint                            ""
 
    :slipstream.ui.models.parameters.roles.description                           :global.nouns.user-roles
-   :slipstream.ui.models.parameters.roles.help-hint                             "User roles can only be modified by SlipStream administrator."
+   :slipstream.ui.models.parameters.roles.help-hint                             "Current roles of the user."
 
    :slipstream.ui.models.parameters.tags.description                            :global.nouns.tags
    :slipstream.ui.models.parameters.tags.help-hint                              "You can label this deployment with a comma-separated list of tags. This can be useful to identify the purpose of a specific deployment later on. You can modify the tags any time."
