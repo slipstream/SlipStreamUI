@@ -42,6 +42,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         .enableEnterKeyPressEvent()
         .enableLiveInputValidation();
 
-    sixsq.slipstream.webui.deployment_details.views.set_runUUID(runUUID);
+    sixsq.slipstream.webui.deployment_detail.views.set_runUUID(runUUID);
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});
