@@ -108,11 +108,3 @@ therefore they are not within a .ss-run-overview class.*/
     font-size: 0.84em;
 }
 
-
-.ss-reports-iframe {
-    width: 100%;
-    background-color: transparent;
-    border: 0 none transparent;
-    padding: 0;
-    overflow: hidden;
-}

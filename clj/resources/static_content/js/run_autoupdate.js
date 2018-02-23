@@ -235,20 +235,12 @@ jQuery( function() { ( function( $$, $, undefined ) {
             return params;
         },
 
-        updateReports: function() {
-            // force reload, since reports might have updated since last time
-            var iframe = $(".ss-reports-iframe");
-            var url = iframe.attr('src');
-            iframe.attr('src',url);
-        },
-
         updateEvents: function() {
             $("#events").trigger("ss-dynamic-content-reload", {withLoadingScreen: false});
         },
 
         autoupdateRunPage: function() {
             console.log("Updating run page...");
-            run.updateReports();
             run.updateEvents();
             return ! runModel
                         .refresh()

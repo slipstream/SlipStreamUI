@@ -4,7 +4,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         runModel = $body.getSlipStreamModel().run,
         tagsAreBeingSavedDataName = "ssAreRunTagsBeingSaved",
         tagsSaveStartEventName = "ssRunTagsSaveStart",
-        tagsSaveEndEventName = "ssRunTagsSaveEnd";
+        tagsSaveEndEventName = "ssRunTagsSaveEnd",
+        runUUID = window.location.pathname.split('/').slice(-1)[0];
 
     function reenableTagsInput(wasCommitSuccessful) {
         this
@@ -40,5 +41,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
     $("#tags")
         .enableEnterKeyPressEvent()
         .enableLiveInputValidation();
+
+    sixsq.slipstream.webui.deployment_details.views.set_runUUID(runUUID);
 
 }( window.SlipStream = window.SlipStream || {}, jQuery ));});

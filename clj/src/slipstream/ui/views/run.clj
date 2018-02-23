@@ -60,16 +60,11 @@
               :id      "events"
               :content-load-url (url-events run))})
 
-(ue/def-blank-snippet reports-iframe-snip :iframe
-  [run]
-  ue/this (ue/set-class "ss-reports-iframe")
-  ue/this (ue/set-src (->> run :summary :uuid (format "/reports/%s/"))))
-
 (defmethod section :reports
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
     {:title   (localization/section-title metadata-key)
-     :content (reports-iframe-snip run)}))
+     :content  "<div id=\"deployment-detail-reports\"></div>"}))
 
 (defn- sections
   [large-run?]
@@ -82,9 +77,9 @@
 
 (defn- html-dependencies
   [large-run?]
-  {:css-filenames         ["run.css"]
+  {:css-filenames         ["run.css" "semantic-fix-conflicts.css" "semantic.min.css"]
    :external-js-filenames (when-not large-run? ["jit/js/jit.js"])
-   :internal-js-filenames (cond-> ["run.js"]
+   :internal-js-filenames (cond-> ["run.js" "webui.js" "webui_init.js"]
                             (not large-run?) (into ["run_autoupdate.js"
                                                     "run_overview.js"]))})
 
