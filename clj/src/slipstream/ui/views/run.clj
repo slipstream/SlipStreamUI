@@ -60,11 +60,6 @@
               :id      "events"
               :content-load-url (url-events run))})
 
-;(ue/def-blank-snippet reports-iframe-snip :iframe
-;  [run]
-;  ue/this (ue/set-class "ss-reports-iframe")
-;  ue/this (ue/set-src (->> run :summary :uuid (format "/reports/%s/"))))
-
 (defmethod section :reports
   [run metadata-key]
   (let [section-metadata (get run metadata-key)]
