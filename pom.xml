@@ -23,6 +23,34 @@
     </license>
   </licenses>
 
+  <repositories>
+
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>slipstream.releases</id>
+      <name>SlipStream Releases</name>
+      <url>https://nexus.sixsq.com/content/repositories/releases-community-rhel7</url>
+    </repository>
+
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>slipstream.snapshots</id>
+      <name>SlipStream Snapshots</name>
+      <url>https://nexus.sixsq.com/content/repositories/snapshots-community-rhel7</url>
+    </repository>
+
+  </repositories>
+
   <profiles>
     <profile>
       <id>run-tests</id>
