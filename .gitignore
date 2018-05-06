@@ -15,6 +15,7 @@ README.html
 *.classpath
 *.settings/
 .lein-deps-sum
+.lein-env
 .lein-failures
 .lein-plugins
 test_config.edn
