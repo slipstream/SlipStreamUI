@@ -6,12 +6,13 @@
 
   :url "https://github.com/slipstream/SlipStreamUI"
 
-  :license {:name "Apache 2.0"
-            :url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+  :license {:name         "Apache 2.0"
+            :url          "http://www.apache.org/licenses/LICENSE-2.0.txt"
             :distribution :repo}
 
   :plugins [[lein-parent "0.3.2"]
-            [lein-expectations "0.0.8"]]
+            [lein-expectations "0.0.8"]
+            [lein-resource "16.9.1"]]
 
   :parent-project {:coords  [sixsq/slipstream-parent "5.3.3"]
                    :inherit [:plugins
@@ -47,13 +48,13 @@
                    [javax.servlet/javax.servlet-api]
                    [net.cgrand/moustache]
                    [ring]]
-    :source-paths ["clj/test" "src/test"]}
+    :source-paths ["clj/test" "src/test" "target/generated"]}
    :dev
    {:dependencies [[expectations]
                    [javax.servlet/javax.servlet-api]
                    [net.cgrand/moustache]
                    [ring]]
-    :source-paths ["clj/src" "clj/test"]
+    :source-paths ["clj/src" "clj/test" "target/generated"]
     :repl-options {;; What to print when the repl session starts.
                    :welcome
                          (println (str
@@ -74,5 +75,11 @@
                            `(do
                               (require '[slipstream.ui.main :as s] :reload-all)
                               (slipstream.ui.main/reload-headless-app ~@(when port `(:port ~port)))))
-                   }}
-   })
+                   }}}
+
+  :hooks [leiningen.resource]
+
+  :resource {:resource-paths [["clj/resources"
+                               {:includes [#".*slipstream_version\.clj"]}]]
+             :target-path    "target/generated"
+             :update         true})
