@@ -36,10 +36,7 @@
                 [toHtmlError [String String String java.util.Map] String]
               #^{:static true
                  :doc "Set alternative namespace for HTML template. Must be slash separated."}
-                [setHtmlTemplateNamespace [String] String]
-              #^{:static true
-                 :doc "Takes: version"}
-                [setReleaseVersion [String] void]]))
+                [setHtmlTemplateNamespace [String] String]]))
 
 (def pages
   {"login"              login/page
@@ -143,8 +140,3 @@
     (localization/with-lang lang
       (current-user/with-current-user
         (render-html error/page metadata message code)))))
-
-(defn -setReleaseVersion
-  "Set the application version"
-  [version]
-  (version-model/set-release-version version))

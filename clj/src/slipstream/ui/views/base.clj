@@ -224,7 +224,7 @@
                                                                              num-of-main-secondary-menu-actions
                                                                              num-of-main-secondary-menu-actions-default)))
   secondary-menubar-sel (ue/remove-if-not (or resource-uri secondary-menu-actions))
-  [:#release-version]   (html/content @version/slipstream-release-version)
+  [:#release-version]   (html/content version/slipstream-release-version)
   footer-sel            (ue/remove-if (page-type/chooser?))
   css-container-sel     (html/append (additional-html css-sel involved-templates))
   css-container-sel     (html/append (css-links-snip css-filenames))

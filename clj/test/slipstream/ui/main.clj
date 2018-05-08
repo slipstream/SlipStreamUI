@@ -1,5 +1,6 @@
 (ns slipstream.ui.main
   (:require
+    [clojure.java.shell :as shell]
     [slipstream.ui.util.dev-traces :refer :all]
     [net.cgrand.moustache :refer [app]]
     [superstring.core :as s]
@@ -80,7 +81,7 @@
 
 (defmacro app-routes
   [& routes]
-  (let [path-base             (-> "pwd" clojure.java.shell/sh :out  s/trim-newline)
+  (let [path-base             (-> "pwd" shell/sh :out  s/trim-newline)
         static-templates-path (str path-base "/src/slipstream/ui/views/html/")
         html-templates-title  (str "<div><h2>HTML Templates</h2></div><div>From <code>" static-templates-path "</code></div><br>")
         html-templates-links  (->> static-templates-path
