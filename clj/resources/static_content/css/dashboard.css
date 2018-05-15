@@ -95,6 +95,10 @@
     opacity: 0.5 !important;
 }
 
+.ss-usage-gauge-container-state-quarantined {
+    opacity: 0.5 !important;
+}
+
 .ss-usage-gauge-container[class*='ss-usage-gauge-container-state-'] .ss-usage-gauge-container-icon-state {
     /*
         Show the state icon when any state is set, i.e. the div.ss-usage-gauge-container
@@ -122,6 +126,11 @@
 }
 
 .ss-usage-gauge-container-state-new .ss-usage-gauge-container-icon-state:before {
-    color: #ffa500;
+    color: #f0ad4e; /* .btn-warning { background-color } */
     content: "\e023"; /* .glyphicon-time */
+}
+
+.ss-usage-gauge-container-state-quarantined .ss-usage-gauge-container-icon-state:before {
+    color: #d9534f; /* .btn-danger { background-color } */
+    content:"\e209"; /* .glyphicon-alert */
 }

@@ -208,16 +208,18 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function stateTitle(nuvlaboxInfo) {
-      if(nuvlaboxInfo['state']=='nok') {
-        return 'Offline' + (nuvlaboxInfo['lastOnline'] ? ', last seen online : ' + nuvlaboxInfo['lastOnline'] : '');
-      } else if(nuvlaboxInfo['state']=='ok') {
-        return 'Online';
-      } else if (nuvlaboxInfo['state']=='new') {
-        return 'Not activated yet!';
-      }
-      else {
-        return nuvlaboxInfo['lastOnline'];
-      }
+        switch(nuvlaboxInfo['state']) {
+            case 'nok':
+                return 'Offline' + (nuvlaboxInfo['lastOnline'] ? ', last seen online : ' + nuvlaboxInfo['lastOnline'] : '');
+            case 'ok':
+                return 'Online';
+            case 'new':
+                return 'Not activated yet';
+            case 'quarantined':
+                return 'Box is in quarantine';
+            default:
+                return nuvlaboxInfo['lastOnline'];
+        }
     }
 
     function setStateClass($gaugeContainer, nuvlaboxInfo) {
@@ -244,8 +246,13 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function applyNuvlaboxesInfo() {
         $.each(nuvlaboxes, function(nuvlaboxName, nuvlaboxInfo) {
-            if (nuvlaboxInfo.activated == 'new') {
-                nuvlaboxInfo.state = 'new';
+            switch(nuvlaboxInfo.activated) {
+                case 'new':
+                    nuvlaboxInfo.state = 'new';
+                    break;
+                case 'quarantined':
+                    nuvlaboxInfo.state = 'quarantined';
+                break;
             }
             setStateClass($findGaugeContainer(nuvlaboxName), nuvlaboxInfo);
         });
