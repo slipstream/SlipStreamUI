@@ -216,7 +216,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             case 'new':
                 return 'Not activated yet';
             case 'quarantined':
-                return 'Box is in quarantine';
+                return 'Box in quarantine';
             default:
                 return nuvlaboxInfo['lastOnline'];
         }
