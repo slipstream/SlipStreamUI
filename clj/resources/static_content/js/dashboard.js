@@ -164,20 +164,31 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     var $allNuvlaboxGaugeContainers = $('[data-quota-title^=nuvlabox]').closest('.ss-usage-gauge-container'),
         stateIconPlaceholderHtml    = '<span class="glyphicon ss-usage-gauge-container-icon-state" aria-hidden="true"></span>',
-        nuvlaboxes                  = [];
+        nuvlaboxes                  = {};
 
     $('[id^=ss-usage-gauge-nuvlabox-]')
-        .each( function() { nuvlaboxes.push( "connector/href='".concat( $(this).attr('data-quota-title'), "'" ) ) });
+        .each( function() { nuvlaboxes[$(this).attr('data-quota-title')] = {} });
 
     var serviceOfferRequest = $$.request
                                 .put("/api/service-offer")
                                 .dataType("json")
-                                .data({'$filter': nuvlaboxes.join(' or '),
+                                .data({'$filter': Object.keys(nuvlaboxes).map(function(nb) { return "connector/href='" + nb + "'" }).join(' or '),
                                        '$select': 'id,connector,schema-org:state,schema-org:last-online'})
                                 .withLoadingScreen(false)
                                 // NOTE: Uncomment to show the loading icon on every update.
                                 // .validation(setAllNuvlaboxGaugesAsChecking)
                                 .onSuccess(processNuvlaboxStates);
+
+
+    var nuvlaboxConnectorsRequest = $$.request
+                                      .put("/api/connector")
+                                      .dataType("json")
+                                      .data({'$filter': Object.keys(nuvlaboxes).map(function(nb) {return "id='connector/" + nb + "'"}).join(' or '),
+                                      '$select': 'id,nuvlaboxState'})
+                                      .withLoadingScreen(false)
+                                      // NOTE: Uncomment to show the loading icon on every update.
+                                      // .validation(setAllNuvlaboxGaugesAsChecking)
+                                      .onSuccess(processNuvlaboxActivations);
 
     var virtualMachinesRequest = $$.request.put("/api/virtual-machine")
                                    .dataType("json")
@@ -185,8 +196,10 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                    .onSuccess(processVirtualMachines);
 
     function refreshNuvlaBoxesGauge () {
-        if (nuvlaboxes.length > 0) {
+        if (Object.keys(nuvlaboxes).length > 0) {
+            nuvlaboxConnectorsRequest.send();
             serviceOfferRequest.send();
+            console.log(nuvlaboxes);
         }
     }
 
@@ -194,26 +207,31 @@ jQuery( function() { ( function( $$, $, undefined ) {
         return $('#ss-usage-gauge-' + connectorName).closest('.ss-usage-gauge-container');
     }
 
-    function stateTitle(stateLastOnline) {
-      if(stateLastOnline[0]=='nok') {
-        return 'Offline' + (stateLastOnline[1] ? ', last seen online : ' + stateLastOnline[1] : '');
-      } else if(stateLastOnline[0]=='ok') {
-        return 'Online';
-      } else {
-        return stateLastOnline[0];
-      }
+    function stateTitle(nuvlaboxInfo) {
+        switch(nuvlaboxInfo['state']) {
+            case 'nok':
+                return 'Offline' + (nuvlaboxInfo['lastOnline'] ? ', last seen online : ' + nuvlaboxInfo['lastOnline'] : '');
+            case 'ok':
+                return 'Online';
+            case 'new':
+                return 'Not activated yet';
+            case 'quarantined':
+                return 'Box is in quarantine';
+            default:
+                return nuvlaboxInfo['lastOnline'];
+        }
     }
 
-    function setStateClass($gaugeContainer, newState) {
+    function setStateClass($gaugeContainer, nuvlaboxInfo) {
         if ( $gaugeContainer.foundNothing() ) { return; }
-        var newStateClass       = newState[0] ? 'ss-usage-gauge-container-state-' + newState[0] : '',
+        var newStateClass       = nuvlaboxInfo['state'] ? 'ss-usage-gauge-container-state-' + nuvlaboxInfo['state'] : '',
             currentstateClass   = $gaugeContainer.data('stateClass');
         $gaugeContainer
             .removeClass(currentstateClass)
             .addClass(newStateClass)
             .data('stateClass', newStateClass)
             .find('.ss-usage-gauge-container-icon-state')
-                .attr('title', stateTitle(newState))
+                .attr('title', stateTitle(nuvlaboxInfo))
                 .data('toggle', 'tooltip')
                 .data('placement', 'left')
                 .data('container', 'body')
@@ -226,20 +244,34 @@ jQuery( function() { ( function( $$, $, undefined ) {
         });
     }
 
-    function connectorStates(response) {
-        var states = {};
-        $.each(response.serviceOffers, function() {
-            states[this.connector.href] = [ this[serviceOfferNamespace + ":state"],
-                                            this[serviceOfferNamespace + ":last-online"] ];
+    function applyNuvlaboxesInfo() {
+        $.each(nuvlaboxes, function(nuvlaboxName, nuvlaboxInfo) {
+            switch(nuvlaboxInfo.activated) {
+                case 'new':
+                    nuvlaboxInfo.state = 'new';
+                    break;
+                case 'quarantined':
+                    nuvlaboxInfo.state = 'quarantined';
+                break;
+            }
+            setStateClass($findGaugeContainer(nuvlaboxName), nuvlaboxInfo);
         });
-        console.debug(states);
-        return states;
     }
 
     function processNuvlaboxStates(response) {
-        $.each(connectorStates(response), function(connectorName, newState) {
-            setStateClass($findGaugeContainer(connectorName), newState);
+        $.each(response.serviceOffers, function() {
+            nuvlaboxes[this.connector.href].state = this[serviceOfferNamespace + ":state"];
+            nuvlaboxes[this.connector.href].lastOnline = this[serviceOfferNamespace + ":last-online"];
         });
+        applyNuvlaboxesInfo();
+    }
+
+    function processNuvlaboxActivations(response) {
+        $.each(response.connectors, function() {
+            nuvlaboxName = this.id.replace(/^connector\//, "")
+            nuvlaboxes[nuvlaboxName].activated = this.nuvlaboxState || 'activated';
+        });
+        applyNuvlaboxesInfo();
     }
 
     function deepCopy(obj) {
@@ -357,6 +389,8 @@ jQuery( function() { ( function( $$, $, undefined ) {
         refreshNuvlaBoxesGauge();
         virtualMachinesRequest.send();
     }
+
+    refreshNuvlaBoxesGauge()
 
     $$.util.recurrentJob.start(autoUpdateJobName,
                                updateDashboard,
