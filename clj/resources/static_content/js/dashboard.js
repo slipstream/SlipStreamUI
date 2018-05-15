@@ -180,11 +180,15 @@ jQuery( function() { ( function( $$, $, undefined ) {
                                 .onSuccess(processNuvlaboxStates);
 
 
+    function filterConnectorRequest(nb) {
+        return  "(instanceName='" + nb + "' and id!='connector/" + nb + "')";
+    }
+
     var nuvlaboxConnectorsRequest = $$.request
                                       .put("/api/connector")
                                       .dataType("json")
-                                      .data({'$filter': Object.keys(nuvlaboxes).map(function(nb) {return "id='connector/" + nb + "'"}).join(' or '),
-                                      '$select': 'id,nuvlaboxState'})
+                                      .data({'$filter': Object.keys(nuvlaboxes).map(filterConnectorRequest).join(' or '),
+                                      '$select': 'id, nuvlaboxState, instanceName'})
                                       .withLoadingScreen(false)
                                       // NOTE: Uncomment to show the loading icon on every update.
                                       // .validation(setAllNuvlaboxGaugesAsChecking)
@@ -199,7 +203,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         if (Object.keys(nuvlaboxes).length > 0) {
             nuvlaboxConnectorsRequest.send();
             serviceOfferRequest.send();
-            console.log(nuvlaboxes);
         }
     }
 
@@ -216,7 +219,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             case 'new':
                 return 'Not activated yet';
             case 'quarantined':
-                return 'Box in quarantine';
+                return 'NuvlaBox in quarantine';
             default:
                 return nuvlaboxInfo['lastOnline'];
         }
@@ -268,8 +271,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
     function processNuvlaboxActivations(response) {
         $.each(response.connectors, function() {
-            nuvlaboxName = this.id.replace(/^connector\//, "")
-            nuvlaboxes[nuvlaboxName].activated = this.nuvlaboxState || 'activated';
+            nuvlaboxes[this.instanceName].activated = this.nuvlaboxState || 'activated';
         });
         applyNuvlaboxesInfo();
     }
