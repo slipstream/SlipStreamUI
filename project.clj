@@ -21,7 +21,7 @@
                              :repositories
                              :deploy-repositories]}
 
-  :source-paths ["clj/src"]
+  :source-paths ["clj/src" "target/src"]
 
   :resource-paths ["clj/resources"]
 
@@ -79,7 +79,7 @@
 
   :hooks [leiningen.resource]
 
-  :resource {:resource-paths [["clj/resources"
+  :resource {:resource-paths [["clj/src-templates"
                                {:includes [#".*slipstream_version\.clj"]}]]
-             :target-path    "target/generated"
+             :target-path    "target/src"
              :update         true})
