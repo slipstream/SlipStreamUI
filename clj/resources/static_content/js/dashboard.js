@@ -181,14 +181,14 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     function filterConnectorRequest(nb) {
-        return  "(instanceName='" + nb + "' and id!='connector/" + nb + "')";
+        return  "(connector/href='connector/" + nb + "')";
     }
 
     var nuvlaboxConnectorsRequest = $$.request
-                                      .put("/api/connector")
+                                      .put("/api/nuvlabox-record")
                                       .dataType("json")
                                       .data({'$filter': Object.keys(nuvlaboxes).map(filterConnectorRequest).join(' or '),
-                                      '$select': 'id, nuvlaboxState, instanceName'})
+                                      '$select': 'id, state, connector'})
                                       .withLoadingScreen(false)
                                       // NOTE: Uncomment to show the loading icon on every update.
                                       // .validation(setAllNuvlaboxGaugesAsChecking)
@@ -270,8 +270,9 @@ jQuery( function() { ( function( $$, $, undefined ) {
     }
 
     function processNuvlaboxActivations(response) {
-        $.each(response.connectors, function() {
-            nuvlaboxes[this.instanceName].activated = this.nuvlaboxState || 'activated';
+        $.each(response.nuvlaboxRecords, function() {
+            var connector_name = this.connector.href.replace(/^connector\//, '');
+            nuvlaboxes[connector_name].activated = this.state || 'activated';
         });
         applyNuvlaboxesInfo();
     }
