@@ -14,7 +14,7 @@
             [lein-expectations "0.0.8"]
             [lein-resource "16.9.1"]]
 
-  :parent-project {:coords  [sixsq/slipstream-parent "5.3.8"]
+  :parent-project {:coords  [sixsq/slipstream-parent "5.3.9"]
                    :inherit [:plugins
                              :min-lein-version
                              :managed-dependencies
