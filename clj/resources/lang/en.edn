@@ -178,6 +178,7 @@
                     :run              "Deploy"
                     :save             "Save"
                     :select           "Select"
+                    :signup           "Sign up"
                     :terminate        "Terminate"
                     :unpublish        "Un-publish"
                     :view             "View"
@@ -189,6 +190,7 @@
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
    :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
+   :slipstream.ui.views.menubar.unlogged.action.signup               :global.verbs.signup
    :slipstream.ui.views.menubar.unlogged.action.reset-password       "Reset password"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
    :slipstream.ui.views.menubar.unlogged.action.knowledge-base       :global.nouns.knowledge-base
@@ -266,6 +268,7 @@
    :slipstream.ui.views.login.header.last-line                 "**Try it for free!** No credit card needed."
    :slipstream.ui.views.login.input.pick-username.placeholder  "Pick a username"
    :slipstream.ui.views.login.input.email.placeholder          "Enter your email"
+   :slipstream.ui.views.login.login.button.label               "Login to SlipStream"
    :slipstream.ui.views.login.signup.button.label              "Sign up for SlipStream"
    :slipstream.ui.views.login.signup.terms-hint                "By clicking 'Sign up for SlipStream', you agree to our
                                                                [terms of service](https://sixsq.com/terms/general-terms-and-conditions)."

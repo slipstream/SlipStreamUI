@@ -21,6 +21,12 @@ body {
     padding-top: 0px !important;
     z-index: 9999 !important;
 }
+
+#modal-signup-id {
+    padding-top: 0px !important;
+    z-index: 9999 !important;
+}
+
 .ui {
     font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }

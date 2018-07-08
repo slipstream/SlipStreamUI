@@ -4,6 +4,7 @@
                                                  **Sign up for free** and explore nuv.la today."
    :slipstream.ui.views.login.header.last-line! "For more info visit <a target='_blank' href='http://sixsq.com/nuvla'>http://sixsq.com/nuvla</a>"
 
+   :slipstream.ui.views.login.login.button.label    "Login to nuv.la"
    :slipstream.ui.views.login.signup.button.label   "Sign up for nuv.la"
    :slipstream.ui.views.login.signup.terms-hint     "By clicking 'Sign up for nuv.la', you agree to our
                                                             [terms of service](https://sixsq.com/terms/general-terms-and-conditions)."

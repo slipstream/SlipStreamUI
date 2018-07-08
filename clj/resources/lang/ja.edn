@@ -56,6 +56,7 @@
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
    :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
+   :slipstream.ui.views.menubar.unlogged.action.signup               :global.verbs.signup
    :slipstream.ui.views.menubar.unlogged.action.reset-password       "リセットパスワード"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
    :slipstream.ui.views.menubar.unlogged.action.contact-us           "お問い合わせ"
