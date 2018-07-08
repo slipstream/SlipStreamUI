@@ -164,6 +164,7 @@
                     :terminate       "Terminer"
                     :save            "Sauver"
                     :select          "Sélectionner"
+                    :signup          "S'inscrire"
                     :unpublish       "Annuler la publication"
                     :view            "Voir"
                     }
@@ -174,6 +175,7 @@
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
    :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
+   :slipstream.ui.views.menubar.unlogged.action.signup               :global.verbs.signup
    :slipstream.ui.views.menubar.unlogged.action.reset-password       "Réinitialiser le mot de passe"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
    :slipstream.ui.views.menubar.unlogged.action.knowledge-base       :global.nouns.knowledge-base

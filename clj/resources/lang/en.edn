@@ -178,6 +178,7 @@
                     :run              "Deploy"
                     :save             "Save"
                     :select           "Select"
+                    :signup           "Sign up"
                     :terminate        "Terminate"
                     :unpublish        "Un-publish"
                     :view             "View"
@@ -189,6 +190,7 @@
    :slipstream.ui.views.menubar.unlogged.input.username.placeholder  :global.nouns.username
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
    :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
+   :slipstream.ui.views.menubar.unlogged.action.signup               :global.verbs.signup
    :slipstream.ui.views.menubar.unlogged.action.reset-password       "Reset password"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
    :slipstream.ui.views.menubar.unlogged.action.knowledge-base       :global.nouns.knowledge-base
