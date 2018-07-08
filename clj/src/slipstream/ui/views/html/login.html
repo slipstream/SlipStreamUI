@@ -28,71 +28,19 @@
             </p>
           </div>
           <div class="col-sm-4 col-lg-3 col-lg-offset-1" id="create-account-form" >
-            <!-- method="post" enctype="application/x-www-form-urlencoded"-->
-            <form id="register"
-            action="/register"
-            autocomplete="off"
-            data-bv-live="enabled"
-            class="form-horizontal"
-            data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-            data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-            data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
-            >
+            <form id="register" autocomplete="off" class="form-horizontal">
 
             <div class="form-group">
-              <label class="sr-only" for="username">Username</label>
-              <input type="text" class="form-control ss-input-pick-username" name="username"
-              placeholder="Pick a username"
-
-              autocomplete="off"
-              readonly
-              onfocus="this.removeAttribute('readonly');"
-
-              data-bv-message="The username is not valid"
-
-              data-bv-notempty="true"
-              data-bv-notempty-message="Please choose a username."
-
-
-              data-bv-stringlength="true"
-              data-bv-stringlength-max="20"
-              data-bv-stringlength-message="Oups... thats too looooong!"
-
-              data-bv-regexp="true"
-              data-bv-regexp-regexp="^[a-z][a-z0-9]{2,}$"
-              data-bv-regexp-message= "Please use three or more lower-case letters and digits, starting with a letter."
-
-              data-bv-remote="false"
-              data-bv-remote-url="http://localhost:8085/username/available"
-              data-bv-remote-message="The username is not available."
-
-              data-bv-container="#user-help-block"
-              />
-              <span class="help-block" id="user-help-block" style="min-height:10px"></span>
-            </div>
-
-            <div class="form-group">
-              <label class="sr-only" for="email">Email</label>
-              <input class="form-control ss-input-email" name="email" type="email"
-              placeholder="Enter your email"
-
-              data-bv-notempty="true"
-              data-bv-notempty-message="Please enter an email to validate your account."
-
-              data-bv-emailaddress="true"
-              data-bv-emailaddress-message="Please enter an email to validate your account."
-
-              data-bv-container="#email-help-block"
-              />
-              <span class="help-block" id="email-help-block" style="min-height:10px"></span>
-            </div>
-            <div class="form-group" style="display:none">
-              <input type="hidden" name="firstname" value="Your first name"/>
-              <input type="hidden" name="lastname" value="Your second name"/>
-              <input type="hidden" name="agreement" value="true"/>
+              <button class="btn btn-default btn-block ss-btn-login"
+                      type="button"
+                      onclick="document.querySelector('.navbar-toggle').click();sixsq.slipstream.webui.authn.views.open_authn_modal()">
+                Login to SlipStream
+              </button>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-success btn-block ss-btn-signup">
+              <button class="btn btn-success btn-block ss-btn-signup"
+                      type="button"
+                      onclick="document.querySelector('.navbar-toggle').click();sixsq.slipstream.webui.authn.views.open_sign_up_modal()">
                 Sign up for SlipStream
               </button>
               <small class="help-block ss-terms-hint">

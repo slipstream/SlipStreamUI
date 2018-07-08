@@ -17,6 +17,7 @@
 (def ^:private create-account-form-sel  [:#create-account-form])
 (def ^:private input-pick-username-sel  [:.ss-input-pick-username])
 (def ^:private input-email-sel          [:.ss-input-email])
+(def ^:private bnt-login-sel            [:.ss-btn-login])
 (def ^:private bnt-signup-sel           [:.ss-btn-signup])
 (def ^:private terms-hint-sel           [:.ss-terms-hint])
 
@@ -25,9 +26,10 @@
   header-title-sel          (html/content       (t :header.title))
   header-subtitle-sel       (html/html-content  (t :header.subtitle))
   header-last-line-sel      (html/html-content  (t :header.last-line))
-  create-account-form-sel   (ue/remove-if-not   self-registration-enabled?)
+  create-account-form-sel   (ue/remove-if-not   true)
   input-pick-username-sel   (ue/set-placeholder (t :input.pick-username.placeholder))
   input-email-sel           (ue/set-placeholder (t :input.email.placeholder))
+  bnt-login-sel             (html/content       (t :login.button.label))
   bnt-signup-sel            (html/content       (t :signup.button.label))
   terms-hint-sel            (html/html-content  (t :signup.terms-hint)))
 
