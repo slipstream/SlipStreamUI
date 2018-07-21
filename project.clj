@@ -1,6 +1,6 @@
-(def +version+ "3.55-SNAPSHOT")
+(def +version+ "3.55")
 
-(defproject com.sixsq.slipstream/SlipStreamUI "3.55-SNAPSHOT"
+(defproject com.sixsq.slipstream/SlipStreamUI "3.55"
 
   :description "Legacy Web Browser Interface"
 
