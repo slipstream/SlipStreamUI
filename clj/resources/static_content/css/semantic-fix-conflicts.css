@@ -15,6 +15,7 @@ body {
 }
 .modal {
     bottom:unset !important;
+    position: unset !important;
 }
 
 #modal-login-id {
