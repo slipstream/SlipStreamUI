@@ -12,6 +12,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
             isSelected      = $gaugeContainer.is(selectedGaugeCls.asSel()),
             targetCloud     = $gauge.data("quota-title");
         sixsq.slipstream.webui.dashboard.views.set_cloud_filter(targetCloud);
+        sixsq.slipstream.webui.dashboard.views.fetch_tab_records();
         $("#runs, #vms")
             .updateAttr("content-load-url", function(s) {
                     return s
@@ -371,7 +372,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
 
 
     var autoUpdateJobName       = "updateDashboard",
-        secsBetweenUpdates      = 10,
+        secsBetweenUpdates      = 15,
         updateDashboardRequest  = $$.request
                                     .get("/dashboard")
                                     .dataType("xml")
@@ -383,6 +384,7 @@ jQuery( function() { ( function( $$, $, undefined ) {
         var withLoadingScreen = false;
         console.info("Updating the dashboard...");
         updateDashboardRequest.send();
+        sixsq.slipstream.webui.dashboard.views.fetch_tab_records();
         // Update metering
         drawHistograms(withLoadingScreen);
         // Update dynamic content
