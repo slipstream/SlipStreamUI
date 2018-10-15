@@ -38,16 +38,6 @@
     [:.ss-ask-next-time-btn]            (html/content       (t :button.dont-take-tour-but-ask-again))
     footnote-sel                        (html/html-content  (t :footnote))))
 
-(localization/with-prefixed-t :reset-password-dialog
-  (html/defsnippet ^:private reset-password-dialog template-filename [:#ss-reset-password-dialog]
-    []
-    title-sel                   (html/content           (t :title))
-    [:#ss-reset-password-username-label] (html/content  (t :label.username))
-    [:#ss-reset-password-form]  (ue/set-data :success-message (t :form.success.message))
-    footnote-sel                (html/html-content      (t :footnote))
-    first-button-sel            (html/content           (t :button.cancel))
-    last-button-sel             (html/content           (t :button.reset-password))))
-
 (localization/with-prefixed-t :save-dialog
   (html/defsnippet ^:private save-dialog template-filename [:#ss-save-dialog]
     [resource-name]
@@ -322,7 +312,6 @@
           resource-id (resource-id context)
           module-version (module-version context)]
       (cond-> []
-        (current-user/not-logged-in?)       (conj (reset-password-dialog))
         (start-tour-required? context)      (conj (start-tour-dialog))
         (page-type/edit?)                   (conj (save-dialog resource-name)
                                                   (delete-dialog resource-name resource-id)

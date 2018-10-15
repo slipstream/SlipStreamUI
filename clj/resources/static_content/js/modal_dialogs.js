@@ -24,17 +24,6 @@ jQuery( function() { ( function( $$, $, undefined ) {
         }
     });
 
-    // Configure reset password dialog
-
-    $$.request
-        .post("reset")
-        .onSuccessAlert($("#ss-reset-password-form").data("success-message"))
-        .validation(function (){
-            $("#ss-reset-password-dialog").modal("hide");
-        })
-        .useToSubmitForm("#ss-reset-password-form");
-
-
     // Configure chooser dialog
 
     var $imageChooserDialog = $("#ss-image-chooser-dialog");
