@@ -21,7 +21,6 @@
 
 (def action-login-sel           [:.ss-action-login])
 (def action-signup-sel          [:.ss-action-signup])
-(def action-reset-password-sel  [:.ss-action-reset-password])
 (def action-start-tour-sel      [:.ss-action-start-tour])
 (def action-start-tour-action-sel [:.ss-action-start-tour :a])
 (def action-label-sel           [:.ss-action-label])
@@ -89,7 +88,6 @@
             input-password-sel        (ue/set-placeholder (t :unlogged.input.password.placeholder))
             action-login-sel          (html/content (t :unlogged.action.login))
             action-signup-sel         (html/content (t :unlogged.action.signup))
-            action-reset-password-sel (html/content (t :unlogged.action.reset-password))
             action-documentation-sel  (html/content (t :unlogged.action.documentation))
             action-knowledge-base-sel (html/content (t :unlogged.action.knowledge-base))
             menu-item-support-sel     (configure-support-menu-item context :unlogged)))

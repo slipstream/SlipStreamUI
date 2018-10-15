@@ -176,7 +176,6 @@
    :slipstream.ui.views.menubar.unlogged.input.password.placeholder  :global.nouns.password
    :slipstream.ui.views.menubar.unlogged.action.login                :global.verbs.login
    :slipstream.ui.views.menubar.unlogged.action.signup               :global.verbs.signup
-   :slipstream.ui.views.menubar.unlogged.action.reset-password       "Réinitialiser le mot de passe"
    :slipstream.ui.views.menubar.unlogged.action.documentation        :global.nouns.documentation
    :slipstream.ui.views.menubar.unlogged.action.knowledge-base       :global.nouns.knowledge-base
    :slipstream.ui.views.menubar.unlogged.action.contact-us           "Contactez-nous"
@@ -948,14 +947,6 @@
    :slipstream.ui.views.modal-dialogs.start-tour-dialog.footnote                              "Pas de stress : vous pouvez toujours le démarrer depuis le menu `Aide` en haut de la page." ;; NOTE: Shortened text to fit within one line in the dialog.
 
    :slipstream.ui.views.modal-dialogs.resource-name.user                        :global.nouns.user
-
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.title                 "Réinitialiser le mot de passe"
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.label.username        :global.nouns.username
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.footnote              "Entrer votre nom d'utilisateur. S'il correspond à un utilisateur existant, nous vous enverrons un courriel à l'adresse renseignée dans votre profil avec un lien de réinitialisation."
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.button.cancel         :global.verbs.cancel
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.button.reset-password "Demander un lien de réinitialisation du mot de passe"
-   :slipstream.ui.views.modal-dialogs.reset-password-dialog.form.success.message  "Un courriel de validation a été envoyé à l'adresse associée à votre compte utilisateur.
-                                                                                   Ouvrez le lien qu'il contient dans un navigateur pour confirmer la requête."
 
    :slipstream.ui.views.modal-dialogs.save-dialog.title                         "Sauvegarder les changements"
    :slipstream.ui.views.modal-dialogs.save-dialog.footnote                      "Maintenez `ALT` enfoncé lors du clic sur le bouton `Sauver` pour sauter cette fenêtre de confirmation ainsi que le message de commit." ; Note that strings are parsed as markdown :)
