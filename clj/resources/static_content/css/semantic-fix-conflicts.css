@@ -18,13 +18,7 @@ body {
     position: unset !important;
 }
 
-#modal-login-id {
-    padding-top: 0px !important;
-    z-index: 9999 !important;
-    position: unset !important;
-}
-
-#modal-signup-id {
+#modal-login-id, #modal-signup-id, #modal-reset-password-id {
     padding-top: 0px !important;
     z-index: 9999 !important;
     position: unset !important;
