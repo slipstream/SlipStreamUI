@@ -15,7 +15,7 @@
 (defn page
       [metadata]
       (base/generate
-        {:html-dependencies {:css-filenames         ["semantic-fix-conflicts.css" "semantic.min.css"]
+        {:html-dependencies {:css-filenames         ["semantic-fix-conflicts.css" "semantic.min.css" "react-datepicker.min.css"]
                              :internal-js-filenames ["webui.js" "webui_init.js"]}
          :header            {:icon     icons/usage
                              :title    (t :header.title)
