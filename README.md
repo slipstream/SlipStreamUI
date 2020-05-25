@@ -1,3 +1,5 @@
+# SlipStream is now deprecated -> replaced by https://github.com/nuvla
+
 # SlipStreamUI
 
 This is a sub-repo of [SlipStream](https://github.com/slipstream/SlipStream). Go to the main repo for general
